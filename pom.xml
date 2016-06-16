@@ -12,6 +12,13 @@
   </properties>
 
   <build>
+    <extensions>
+      <extension>
+        <groupId>org.springframework.build</groupId>
+        <artifactId>aws-maven</artifactId>
+        <version>5.0.0.RELEASE</version>
+      </extension>
+    </extensions>
     <pluginManagement>
       <plugins>
         <plugin>
@@ -95,6 +102,34 @@
             </configuration>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>wagon-maven-plugin</artifactId>
+        <version>1.0</version>
+        <executions>
+          <execution>
+            <id>upload-s3</id>
+            <phase>deploy</phase>
+            <goals>
+              <goal>upload</goal>
+            </goals>
+            <configuration>
+              <fromDir>${basedir}/target-grunt/dist</fromDir>
+              <includes>**</includes>
+              <url>s3://tipo-ui/snapshot</url>
+              <serverId>tipoui.snapshot</serverId>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-deploy-plugin</artifactId>
+        <version>2.7</version>
+        <configuration>
+          <skip>true</skip>
+        </configuration>
       </plugin>
     </plugins>
   </build>
