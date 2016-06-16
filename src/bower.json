@@ -1,0 +1,38 @@
+{
+  "name": "${project.artifactId}",
+  "version": "${parsedVersion.majorVersion}.${parsedVersion.minorVersion}.${parsedVersion.incrementalVersion}",
+  "description": "${project.description}",
+  "dependencies": {
+    "components-font-awesome": "4.6.3",
+    "jquery": "3.0.0",
+    "es5-shim": "4.5.9",
+    "lodash": "4.13.1",
+    "string": "3.3.0",
+    "angular": "1.4.11",
+    "angular-resource": "1.4.11",
+    "angular-cookies": "1.4.11",
+    "angular-sanitize": "1.4.11",
+    "angular-animate": "1.4.11",
+    "angular-route": "1.4.11",
+    "angular-aria": "1.4.11",
+    "angular-ui-router": "0.3.1",
+    "angular-material": "1.0.9",
+    "angular-wizard": "0.6.1",
+    "angular-busy": "4.1.3",
+    "restangular": "1.5.1",
+    "trNgGrid": "3.1.7",
+    "angular-xeditable": "0.1.12",
+    "dotjem-angular-tree": "0.2.1",
+    "angular-local-storage": "0.2.7",
+    "angular-ui-select": "0.18.0",
+    "ngclipboard": "1.1.1",
+    "angular-truncate": "git://github.com/sparkalow/angular-truncate.git#master",
+    "JSONPath": "git://github.com/clementlamoureux/JSONPath.git#master"
+  },
+  "appPath": "app",
+  "resolutions": {
+    "jquery": "3.0.0",
+    "angular": "1.4.11",
+    "angular-animate": "1.4.11"
+  }
+}
