@@ -16,19 +16,7 @@ var pathMappings = [
   },
   {
     path: '/api/v1',
-    //url:'http://192.168.146.132:8085'
     url: 'http://localhost:8082'
-
-  },
-  {
-    path: '/user-guide',
-    url: 'http://localhost:8082'
-
-  },
-  {
-    path:'/fc/oauth',
-    url: 'http://localhost:8082'
-    //url:'http://192.168.146.132:8085'
   }
 ];
 

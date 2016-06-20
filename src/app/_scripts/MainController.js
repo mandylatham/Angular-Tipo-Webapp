@@ -2,10 +2,7 @@
 
   'use strict';
 
-  function MainController(
-    tipoDictionary
-  ) {
-
+  function MainController() {
     var _instance = this;
   }
 
