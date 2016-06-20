@@ -13,11 +13,6 @@ var pathMappings = [
   {
     path: '/api/v1',
     url: 'http://localhost:8082'
-    //url: 'http://localhost:9999'
-  },
-  {
-    path:'/fc/oauth',
-    url: 'http://localhost:8082'
   }
 ];
 
