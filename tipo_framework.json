@@ -3,7 +3,7 @@
     "info": {
         "version": "2016-05-07T09:08:29Z",
         "title": "tipo-framework-api",
-        "description": "## Summary ##\n##### Tipo framewok goals are to develop web applications rapidly without compromising flexibility to evolve both UI layer and the middleware layer. Tipo framework offers a generic create/update handler for any tipo object based on metadata.#####\n\n  ##### Framework takes advantage of no_sql database and at the same time have the ability to be able to translate to relational at a later stage for complex reporting #####\n  \n  \nSome of the API calls here are dedicated to fetch tipo meta data and other APIs deal with the actual tipo data. Lets explore what makes up a tipo.\n  \n![TIpo Structure](http://127.0.0.1:8080/TipoStructure.v0.png \"Tipo Structure\")\n\nA general note about services capabilities:\n\n  * Capable of handling array of data for either a single tipo or differnt types of tipos. Depending on the tipo_meta in each tipo the service will workout what type of data and act accordingly.\n  \n  * These APIs can be used in web UI, and also for large data uploads. (Initial implementations might not be fully tuned for large batch uploads.)\n  \n  * Each tipo consists of **meta data in tipo_meta ** and array of actual data in an array for that tipo. In a situation where multiple tipo types are to be handled within the same API call, multiple tipo arrays to be populated with each tipo containing its meta data and actual data.\n    \n  * Operation has tipo name and version derived from the parameters in each operation, used in the tipo gateway to decide which function to execute. Hence it is mandatory for the client to send the parameters. This is important to support functionality where a tipo is registered purely to execute a custom function without any need for normal CRUD.\n  \n### Tipo Metadata - Explained ###\nTipo metadata is very similar to Swagger definitions with a lot of extensions. However the framework doesn't complete take Swagger as the bassis in order to grow without any direct dependecies on other frameworks. Nevertheless it is quite easy to generate a swagger defintion using tipo metadata. Swagger goals are for documentation, Tipo goals are rapid web application development. Hence introducing a direct dependency will result in unforeseen complexities at a later stage. \n\n### Tipo_Definition Key Fields ###\n\n  | Field Name  | Description | \n  | ----------  | ----------- | \n  | **`tipo_name*`** | Tipo name ** E.g. PurchaseOrder, Person **|\n  | **`tipo_version*`** | Tipo version, only major versions to be included here. Any minor versions should be backward compatible and should not require a separate definition **E.g. 1** |\n  | **`tipo_type`**  | Defines a high level behaviour for the tipo. Currently supported types are `Cached` -  Server will cache the tipo in AWS elastic cache **Default: ** *`Empty`* | \n  | **`tipo_list_view`** | AngularJS directive that controls how a list of tipos are displayed. By default this will show small table for each element with fields where ShortDisplay is true. None of the child tipos are shown in this view. E.g Purchase Order details without line-items is shown. ** Default: ** *`DefaultTipoListView`*|\n  | **`tipo_detail_view`**  | Controls how a complete Tipo is displayed. All the child tiops is displayed. Respect group field to group some of the fields into a separate section. ** Default: ** *`DefaultTipoDetailView`* |\n  | **`tipo_edit_view`**  | High level form layout to capture data. ** Default: ** *`DefaultTipoEditView`*|\n  | **`main_menu`** | Should this tipo be included in the main menu? Boolean Yes/No. ** Default: ** `No`\n  | ** `*` ** | Denotes mandatory |\n  \n  \n  #### Tipo_Field_Definition ####\n  | Name  | Description | \n  | ----------  | ----------- | \n  | **`tipo_name*`** | Tipo name ** E.g. PurchaseOrder, Person **|\n  | **`field_name*`** | Tipo field name ** E.g. FirstName, LastName **|\n  | **`field_type*`** | Can be a primitive or another tipo. Primitives: integer, float, double, string, boolean, date(ISO3339), date_time(ISO3339). In case of another tipo type, it can be simply reference to a field in another tipo or a whole tipo itself. This is explained further below. |\n  |**`tipo_array`**  | Takes a boolean value. Represents if this field repeats. In case of relationship to another tipo, this will indicate if the relationship is one-2-many or one-2-one.|\n  |**`meaningful_key`** | This is a boolean to indicate if the field is a meaningful key that system user will be able to understand. For example, in a PurchaseOrder detail view sowing customer ID is not helpful to the user, instead it makes sense to show customer name. In such case, when defining Customer tipo, set this field to `true` for the CustomerName field. |\n  |**\n  \n  \n  ##### FieldType #####\n  \n  Apart from taking the primitive types, a relationship to another tipo is represented here. When it comes to relationship, first decision is if it is aggregation or composition. \n    \n  * If it is `composition`, then this field will point to the object. A perfect example is **PurchaseOrder** and **POLineItem**. When defining PurchaseOrder metadata, a field POLineItem with field type `Tipo.POLineItem.v1` indidates that POLineItem will be embedded in PurchaseOrder tipo and if the `TipoArray` is true, the line item will repeat.\n  * If the relationship is `aggregation`, the FieldType will point to the ID of the target tipo. For example, thePurchaseOrder relationship with Customer. This relationship is captured by storing CustomerID in the PurchaseOrder. However UI will render the meaningful_key value instead of the ID in the detail views.\n  \n  Both relationship types are demonstrated in the example below.\n  \n        \"tipo_def\":\n          {\n            \"tipo_meta\": {\n              \"tipo_name\": \"PurchaseOrder\",\n              \"tipo_version\": \"1\",\n              \"tipo_type\": \"cached\",\n              \"main_menu\": true\n            },\n            \"tipo_fields\": [\n              {\n                \"field_name\": \"OrderID\",\n                \"field_type\": \"integer\",\n                \"field_description\": \"Unique order number\",\n                \"primary_key\": true,\n                \"display_name\": \"Order Number\",\n                \"display_type\": \"KeyHighlight\",\n                \"desplay_type\": \"ngKeyField\",\n                \"short_display\": true,\n                \"sample_value\": \"1001\",\n                \"input_type\": \"AutoGenerated\",\n                \"mandatory\": true\n              },\n              {\n                \"field_name\": \"OrderAmount\",\n                \"field_type\": \"double\",\n                \"field_description\": \"Total order amount\",\n                \"display_name\": \"Order Total\",\n                \"display_type\": \"ngCurrency\",\n                \"short_display\": true,\n                \"input_type\": \"AutoGenerated\",\n                \"input_validator\": \"some_javaScript?\",\n                \"mandatory\": true\n              },\n              {\n                \"field_name\": \"RequiredByDate\",\n                \"field_type\": \"date_time\",\n                \"field_description\": \"When this order must be full-filled by \",\n                \"display_name\": \"Required by date\",\n                \"display_type\": \"ngDate\",\n                \"short_display\": true,\n                \"input_type\": \"ngDate\",\n                \"input_validator\": \"some_javaScript?\"\n              },\n              {\n                \"field_name\": \"Customer\",\n                \"field_type\": \"Tipo.Customer.v1.CustomerID\",\n                \"field_description\": \"Customer who placed the purchase order\",\n                \"secondary_index\": true,\n                \"field_validator\": \"some_javaScript?\",\n                \"display_name\": \"Customer Name\",\n                \"short_display\": true,\n                \"sample_value\": \"Colins Foods\",\n                \"input_type\": \"ngIDName - A means to select Name and store both ID and Name\",\n                \"input_validator\": \"some_javaScript?\",\n                \"mandatory\": true\n              },\n              {\n                \"field_name\": \"LineItem\",\n                \"field_description\": \"An array of line items included in the purchase order. In this case the field type will refer to LineItem object, not a single field - unlike in the customer case.\",\n                \"tipo_array\": true,\n                \"display_name\": \"LineItem\",\n                \"field_type\": \"POLineItem\"\n              }\n              {\n                \"field_name\": \"ShipToAddress\",\n                \"field_description\": \"ShipTo address\",\n                \"tipo_array\": false,\n                \"display_name\": \"ShipTo Address\",\n                \"display_type\": \"ngAddress\",\n                \"field_type\": \"Address\"\n              }\n              {\n                \"field_name\": \"BillToAddress\",\n                \"field_description\": \"BillTo address\",\n                \"tipo_array\": false,\n                \"display_name\": \"BillTo Address\",\n                \"display_type\": \"ngAddress\",\n                \"field_type\": \"Address\"\n              }\n            ],\n              \"tipo_field_groups\": [\n                {\n                  \"tipo_group_name\": \"POLineItem\",\n                  \"tipo_fields\": [\n                    {\n                      \"field_name\": \"ItemQuantity\",\n                      \"field_description\": \"item quantity\",\n                      \"display_name\": \"Item Quantity\",\n                      \"display_type\": \"ngNumber\",\n                      \"field_group\": \"POLineItem\",\n                      \"input_type\": \"ngNumber\"\n                    },\n                    {\n                      \"field_name\": \"UnitPrice\",\n                      \"field_type\": \"double\",\n                      \"field_description\": \"each unity price\",\n                      \"display_name\": \"Unit Price\",\n                      \"display_type\": \"ngDollar\"\n                    }\n                  ]\n                },\n                {\n                  \"tipo_group_name\": \"Address\",\n                  \"tipo_fields\": [\n                    {\n                      \"field_name\": \"Street No\",\n                      \"field_type\": \"string\",\n                      \"field_description\": \"Street number\",\n                    },\n                    {\n                      \"field_name\": \"Street Name\",\n                      \"field_type\": \"string\",\n                      \"field_description\": \"Street name\",\n                      \"display_name\": \"Street Name\",\n                    },\n                    {\n                      \"field_name\": \"Suburb\",\n                      \"field_type\": \"string\",\n                      \"field_description\": \"suburb\",\n                      \"display_name\": \"Suburb\"\n                    },\n                    {\n                      \"field_name\": \"Postcode\",\n                      \"field_type\": \"integer\",\n                      \"field_description\": \"Postal code, PIN code or zip code\",\n                      \"display_name\": \"Postcode\"\n                    }\n                  ]\n                }\n              ]            \n          }\n\n\n  "
+        "description": "## Summary ##\n##### Tipo framewok goals are to develop web applications rapidly without compromising flexibility to evolve both UI layer and the middleware layer. Tipo framework offers a generic create/update handler for any tipo object based on metadata.#####\n\n  ##### Framework takes advantage of no_sql database and at the same time have the ability to be able to translate to relational at a later stage for complex reporting #####\n  \n  \nSome of the API calls here are dedicated to fetch tipo meta data and other APIs deal with the actual tipo data. Lets explore what makes up a tipo.\n  \n![TIpo Structure](http://127.0.0.1:8080/TipoStructure.v0.png \"Tipo Structure\")\n\nA general note about services capabilities:\n\n  * Capable of handling array of data for either a single tipo or differnt types of tipos. Depending on the tipo_meta in each tipo the service will workout what type of data and act accordingly.\n  \n  * These APIs can be used in web UI, and also for large data uploads. (Initial implementations might not be fully tuned for large batch uploads.)\n  \n  * Each tipo consists of **meta data in tipo_meta ** and array of actual data in an array for that tipo. In a situation where multiple tipo types are to be handled within the same API call, multiple tipo arrays to be populated with each tipo containing its meta data and actual data.\n    \n  * Operation has tipo name and version derived from the parameters in each operation, used in the tipo gateway to decide which function to execute. Hence it is mandatory for the client to send the parameters. This is important to support functionality where a tipo is registered purely to execute a custom function without any need for normal CRUD.\n  \n### Tipo Metadata - Explained ###\nTipo metadata is very similar to Swagger definitions with a lot of extensions. However the framework doesn't complete take Swagger as the bassis in order to grow without any direct dependecies on other frameworks. Nevertheless it is quite easy to generate a swagger defintion using tipo metadata. Swagger goals are for documentation, Tipo goals are rapid web application development. Hence introducing a direct dependency will result in unforeseen complexities at a later stage. \n\n### Tipo_Definition Key Fields ###\n\n  | Field Name  | Description | \n  | ----------  | ----------- | \n  | **`tipo_name*`** | Tipo name ** E.g. PurchaseOrder, Person **|\n  | **`tipo_version*`** | Tipo version, only major versions to be included here. Any minor versions should be backward compatible and should not require a separate definition **E.g. 1** |\n  | **`tipo_type`**  | Defines a high level behaviour for the tipo. Currently supported types are `Cached` -  Server will cache the tipo in AWS elastic cache **Default: ** *`Empty`* | \n  | **`tipo_list_view`** | AngularJS directive that controls how a list of tipos are displayed. By default this will show small table for each element with fields where ShortDisplay is true. None of the child tipos are shown in this view. E.g Purchase Order details without line-items is shown. ** Default: ** *`DefaultTipoListView`*|\n  | **`tipo_detail_view`**  | Controls how a complete Tipo is displayed. All the child tiops is displayed. Respect group field to group some of the fields into a separate section. ** Default: ** *`DefaultTipoDetailView`* |\n  | **`tipo_edit_view`**  | High level form layout to capture data. ** Default: ** *`DefaultTipoEditView`*|\n  | **`main_menu`** | Should this tipo be included in the main menu? Boolean Yes/No. ** Default: ** `No`\n  | **`default_version`** | Boolean to indicate if this is the default version for a given tipo. |\n  | ** `*` ** | Denotes mandatory |\n  \n  \n  #### Tipo_Field_Definition ####\n  | Name  | Description | \n  | ----------  | ----------- | \n  | **`tipo_name*`** | Tipo name ** E.g. PurchaseOrder, Person **|\n  | **`field_name*`** | Tipo field name ** E.g. FirstName, LastName **|\n  | **`field_type*`** | Can be a primitive or another tipo. Primitives: integer, float, double, string, boolean, date(ISO3339), date_time(ISO3339). In case of another tipo type, it can be simply reference to a field in another tipo or a whole tipo itself. This is explained further below. |\n  |**`tipo_array`**  | Takes a boolean value. Represents if this field repeats. In case of relationship to another tipo, this will indicate if the relationship is one-2-many or one-2-one.|\n  |**`meaningful_key`** | This is a boolean to indicate if the field is a meaningful key that system user will be able to understand. For example, in a PurchaseOrder detail view sowing customer ID is not helpful to the user, instead it makes sense to show customer name. In such case, when defining Customer tipo, set this field to `true` for the CustomerName field. |\n  |**\n  \n  \n  ##### FieldType #####\n  \n  Apart from taking the primitive types, a relationship to another tipo is represented here. When it comes to relationship, first decision is if it is aggregation or composition. \n    \n  * If it is `composition`, then this field will point to a tipo_field_group object. A perfect example is **PurchaseOrder** and **POLineItem**. When defining PurchaseOrder metadata, a field POLineItem with field type `Tipo.FieldGroup.POLineItem.` indidates that POLineItem will be embedded in PurchaseOrder tipo and if the `TipoArray` is true, the line item will repeat.\n  * If the relationship is `aggregation`, the FieldType will point to another tipo. For example, thePurchaseOrder relationship with Customer. This relationship is captured by storing Customer object with its primary key and meaningful keys in the PurchaseOrder. However UI will render the meaningful_key value instead of the ID in the detail views.\n  \n  Both relationship types are demonstrated in the example below.\n  \n        \"tipo_def\":\n          {\n            \"tipo_meta\": {\n              \"tipo_name\": \"PurchaseOrder\",\n              \"tipo_version\": \"1\",\n              \"tipo_type\": \"cached\",\n              \"main_menu\": true\n            },\n            \"tipo_fields\": [\n              {\n                \"field_name\": \"OrderID\",\n                \"field_type\": \"integer\",\n                \"field_description\": \"Unique order number\",\n                \"primary_key\": true,\n                \"display_name\": \"Order Number\",\n                \"display_type\": \"ngKeyField\",\n                \"short_display\": true,\n                \"sample_value\": \"1001\",\n                \"input_type\": \"AutoGenerated\",\n                \"mandatory\": true\n              },\n              {\n                \"field_name\": \"OrderAmount\",\n                \"field_type\": \"double\",\n                \"field_description\": \"Total order amount\",\n                \"display_name\": \"Order Total\",\n                \"display_type\": \"ngCurrency\",\n                \"short_display\": true,\n                \"input_type\": \"AutoGenerated\",\n                \"input_validator\": \"some_javaScript?\",\n                \"mandatory\": true\n              },\n              {\n                \"field_name\": \"RequiredByDate\",\n                \"field_type\": \"date_time\",\n                \"field_description\": \"When this order must be full-filled by \",\n                \"display_name\": \"Required by date\",\n                \"display_type\": \"ngDate\",\n                \"short_display\": true,\n                \"input_type\": \"ngDate\",\n                \"input_validator\": \"some_javaScript?\"\n              },\n              {\n                \"field_name\": \"Customer\",\n                \"field_type\": \"Tipo.Customer\",\n                \"field_description\": \"Customer who placed the purchase order\",\n                \"secondary_index\": true,\n                \"field_validator\": \"some_javaScript?\",\n                \"display_name\": \"Customer Name\",\n                \"short_display\": true,\n                \"sample_value\": \"Colins Foods\",\n                \"input_type\": \"ngIDName - A means to select Name and store both ID and Name\",\n                \"input_validator\": \"some_javaScript?\",\n                \"mandatory\": true\n              },\n              {\n                \"field_name\": \"LineItem\",\n                \"field_description\": \"An array of line items included in the purchase order. In this case the field type will refer to LineItem object, not a single field - unlike in the customer case.\",\n                \"tipo_array\": true,\n                \"display_name\": \"LineItem\",\n                \"field_type\": \"Tipo.FieldGroup.POLineItem\"\n              }\n              {\n                \"field_name\": \"ShipToAddress\",\n                \"field_description\": \"ShipTo address\",\n                \"tipo_array\": false,\n                \"display_name\": \"ShipTo Address\",\n                \"display_type\": \"ngAddress\",\n                \"field_type\": \"Tipo.FieldGroup.Address\"\n              }\n              {\n                \"field_name\": \"BillToAddress\",\n                \"field_description\": \"BillTo address\",\n                \"tipo_array\": false,\n                \"display_name\": \"BillTo Address\",\n                \"display_type\": \"ngAddress\",\n                \"field_type\": \"Tipo.FieldGroup.Address\"\n              }\n            ],\n              \"tipo_field_groups\": [\n                {\n                  \"tipo_group_name\": \"POLineItem\",\n                  \"tipo_fields\": [\n                    {\n                      \"field_name\": \"ItemQuantity\",\n                      \"field_description\": \"item quantity\",\n                      \"display_name\": \"Item Quantity\",\n                      \"display_type\": \"ngNumber\",\n                      \"field_group\": \"POLineItem\",\n                      \"input_type\": \"ngNumber\"\n                    },\n                    {\n                      \"field_name\": \"UnitPrice\",\n                      \"field_type\": \"double\",\n                      \"field_description\": \"each unity price\",\n                      \"display_name\": \"Unit Price\",\n                      \"display_type\": \"ngDollar\"\n                    }\n                  ]\n                },\n                {\n                  \"tipo_group_name\": \"Address\",\n                  \"tipo_fields\": [\n                    {\n                      \"field_name\": \"Street No\",\n                      \"field_type\": \"string\",\n                      \"field_description\": \"Street number\",\n                    },\n                    {\n                      \"field_name\": \"Street Name\",\n                      \"field_type\": \"string\",\n                      \"field_description\": \"Street name\",\n                      \"display_name\": \"Street Name\",\n                    },\n                    {\n                      \"field_name\": \"Suburb\",\n                      \"field_type\": \"string\",\n                      \"field_description\": \"suburb\",\n                      \"display_name\": \"Suburb\"\n                    },\n                    {\n                      \"field_name\": \"Postcode\",\n                      \"field_type\": \"integer\",\n                      \"field_description\": \"Postal code, PIN code or zip code\",\n                      \"display_name\": \"Postcode\"\n                    }\n                  ]\n                }\n              ],\n              \"tipo_actions\": [\n                {\n                  \"tipo_action\": \"GET\"\n                },\n                {\n                  \"tipo_action\": \"PUT\"\n                },\n                {\n                  \"tipo_action\": \"Fulfill\"\n                }\n              ]\n          }\n\n\n  "
     },
     "host": "yourhost.execute-api.us-east-1.amazonaws.com",
     "basePath": "/dev",
@@ -13,7 +13,7 @@
     "paths": {
         "/tipo/{tipo_name}/": {
             "put": {
-                "description": "\n* Create, update or patch given tipos and return all the generated IDs.\n  \n* If a field is supplied with no value, clear the value from the database\n  \n* Fields not supplied will not be altered.\n\n  *For example, when a person **middle name** is supplied and is **different** to the database value, then **middle name** is updated. If the **last name** has changed and **no middle name** field is supplied, **simply do not change the contents of middle name**.*\n\n## Request ##\n  Tipo request, takes an array of **tipos** . However in most cases,\n  only **one** is expected. \n    \n  The **tipo_name** in\n  the parameters will be same as **tipos/tipo_name**. *[Except,\n  if there is a tipo that processes multiple tipos of different type,\n  the tipo name that in the parameters will be different from the one\n  in the body.]*\n\n    \n  ## Response ##\n  \n  abc\n  \n  ",
+                "description": "\n* Create, update or patch given tipos and return all the generated IDs.\n  \n* If a field is supplied with no value, clear the value from the database\n  \n* Fields not supplied will not be altered.\n\n  *For example, when a person **middle name** is supplied and is **different** to the database value, then **middle name** is updated. If the **last name** has changed and **no middle name** field is supplied, **simply do not change the contents of middle name**.*\n\n## Request ##\n  Tipo request, takes an array of **tipos** . However in most cases,\n  only **one** is expected. \n    \n  The **tipo_name** in\n  the parameters will be same as **tipos/tipo_name**. *[Except,\n  if there is a tipo that processes multiple tipos of different type,\n  the tipo name that in the parameters will be different from the one\n  in the body.]*\n\n    \n  ## Response ##\n  \n  Response contains an array of tipos with name and version for each tipo.\n  \n  ",
                 "consumes": [
                     "application/json"
                 ],
@@ -47,7 +47,10 @@
                         "description": "--",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/tipos_request"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/tipo_meta_detail"
+                            }
                         }
                     }
                 ],
@@ -55,7 +58,10 @@
                     "200": {
                         "description": "200 response.",
                         "schema": {
-                            "$ref": "#/definitions/tipos_response"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/tipo_response"
+                            }
                         },
                         "headers": {
                             "Access-Control-Allow-Origin": {
@@ -167,7 +173,10 @@
                     "200": {
                         "description": "200 response",
                         "schema": {
-                            "$ref": "#/definitions/tipos_response"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/tipo_response"
+                            }
                         },
                         "headers": {
                             "Access-Control-Allow-Origin": {
@@ -309,32 +318,11 @@
                         "type": "string"
                     },
                     {
-                        "name": "page",
-                        "description": "page number, for pagenation support",
-                        "in": "query",
-                        "required": false,
-                        "type": "integer"
-                    },
-                    {
-                        "name": "per_page",
-                        "description": "Number of records in a page",
-                        "in": "query",
-                        "required": false,
-                        "type": "integer"
-                    },
-                    {
                         "name": "compression",
                         "description": "Compression E.g. gzip",
                         "in": "header",
                         "required": false,
                         "type": "string"
-                    },
-                    {
-                        "name": "tipo_filter",
-                        "in": "query",
-                        "required": false,
-                        "type": "string",
-                        "description": "where clause to apply filter"
                     },
                     {
                         "name": "tipo_fields",
@@ -385,7 +373,7 @@
                 }
             }
         },
-        "/tipo_meta/{tipo_name}/": {
+        "/tipo_def/{tipo_name}/": {
             "get": {
                 "tags": [
                     "meta"
@@ -460,35 +448,13 @@
                             "items": {
                                 "$ref": "#/definitions/_tipo_field_group"
                             }
+                        },
+                        "tipo_actions": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/_tipo_action_def"
+                            }
                         }
-                    }
-                }
-            }
-        },
-        "tipos_request": {
-            "type": "object",
-            "properties": {
-                "tipos": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/_tipo_data_def"
-                    }
-                }
-            }
-        },
-        "tipos_response": {
-            "type": "object",
-            "properties": {
-                "status_code": {
-                    "type": "string"
-                },
-                "message": {
-                    "type": "string"
-                },
-                "tipos": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/_tipo_data_def"
                     }
                 }
             }
@@ -642,6 +608,32 @@
                     "type": "string"
                 },
                 "data": {
+                    "type": "string"
+                }
+            }
+        },
+        "_tipo_action_def": {
+            "type": "object",
+            "properties": {
+                "tipo_name": {
+                    "type": "string"
+                },
+                "tipo_version": {
+                    "type": "string"
+                },
+                "tipo_action": {
+                    "type": "string"
+                },
+                "tipo_pre_action_fn": {
+                    "type": "string"
+                },
+                "tipo_pre_action_fn_version": {
+                    "type": "string"
+                },
+                "tipo_post_action_fn": {
+                    "type": "string"
+                },
+                "tipo_post_action_fn_version": {
                     "type": "string"
                 }
             }
