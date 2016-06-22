@@ -2,8 +2,13 @@
 
   'use strict';
 
-  function MainController() {
+  function MainController($mdSidenav) {
+    
     var _instance = this;
+
+    this.showNavigation = function(){
+      $mdSidenav('left').open();
+    };
   }
 
   angular.module('tipo.main')

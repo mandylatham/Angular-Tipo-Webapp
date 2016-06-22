@@ -9,7 +9,7 @@
       abstract: true,
       controller: 'MainController',
       controllerAs: 'mainController',
-      template: '<div data-ui-view data-autoscroll="false"></div>'
+      template: '<div data-ui-view class="wrapper"></div>'
     };
 
     stateProvider

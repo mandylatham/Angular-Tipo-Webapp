@@ -1,9 +1,31 @@
 @image-base-path: '../_assets/images';
 
 #body {
-  background: url('@{image-base-path}/background/default.png');
-  display: table;
-  background-size: cover;
-  width: 100%;
-  height: 100vh;
+  overflow: hidden;
+  max-width: 100%;
+  max-height: 100%;
+  #layout {
+    width: 100%;
+    height: 100%;
+  }
+  div.wrapper {
+    display: flex;
+    width: 100%;
+    height: 100%;
+  }
+  #logo {
+    padding: 20px;
+    img {
+      width: 85%;
+    }
+  }
+  #footer{
+    align-self: flex-end;
+    padding: 16px 32px;
+    width: 100%;
+    text-align: center;
+    font-size: 0.9em;
+    border-top: 1px solid #ddd;
+    font-weight: 500;
+  }
 }

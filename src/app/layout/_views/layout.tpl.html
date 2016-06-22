@@ -1,15 +1,8 @@
-<div tipo-include="layout/_views/header.tpl.html" class="placeholder-header"></div>
-
-<div tipo-include="layout/_views/navigation.tpl.html" class="placeholder-left-panel"></div>
-
-<div id="main" role="main">
-
-  <div id="ribbon" tipo-include="layout/_views/ribbon.tpl.html"></div>
-
-  <div id="content">
-    <div ui-view="content"></div>
-  </div>
-  
+<div tipo-include="layout/_views/navigation.tpl.html"></div>
+<div layout="column" id="layout" flex role="main">
+  <div tipo-include="layout/_views/header.tpl.html"></div>
+  <md-content md-scroll-y layout="column" flex>
+    <div ui-view layout-padding flex="noshrink"></div>
+    <div tipo-include="layout/_views/footer.tpl.html"></div>
+  </md-content>
 </div>
-
-<div tipo-include="layout/_views/footer.tpl.html"></div>
