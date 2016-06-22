@@ -26,7 +26,7 @@
           <artifactId>grunt-maven-plugin</artifactId>
           <version>${grunt.plugin.version}</version>
           <configuration>
-            <sourceDirectory>${basedir}</sourceDirectory>
+            <sourceDirectory>.</sourceDirectory>
             <jsSourceDirectory>src</jsSourceDirectory>
             <gruntOptions>
               <gruntOption>--verbose</gruntOption>
@@ -76,8 +76,8 @@
           <execution>
             <goals>
               <goal>create-resources</goal>
-              <goal>npm</goal>
-              <goal>bower</goal>
+              <!--<goal>npm</goal>
+              <goal>bower</goal>-->
               <goal>grunt</goal>
             </goals>
           </execution>

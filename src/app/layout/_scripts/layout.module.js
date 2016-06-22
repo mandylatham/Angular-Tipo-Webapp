@@ -4,9 +4,12 @@
 
   function registerUrlRedirects(urlRouterProvider) {
     // Blank or Invalid URL redirect to /login
-    var loginUrl = '/login';
-    urlRouterProvider.when('', loginUrl);
-    urlRouterProvider.otherwise(loginUrl);
+    //var loginUrl = '/login';
+    //urlRouterProvider.when('', loginUrl);
+    //urlRouterProvider.otherwise(loginUrl);
+
+    urlRouterProvider.when('', '/home');
+    urlRouterProvider.otherwise('/home');
   }
 
   function registerStates(stateProvider) {

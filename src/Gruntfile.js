@@ -178,7 +178,7 @@ module.exports = function (grunt) {
     html2js:{
       options:{
         base: '<%= config.directories.source %>',
-        module: 'fusioncloud.partials',
+        module: 'tipo.partials',
         singleModule: true,
         useStrict: true
       },

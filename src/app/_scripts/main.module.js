@@ -2,13 +2,6 @@
 
   'use strict';
 
-  // Declaration for the Tipo UI main module. This will be used as the 'ng-app' for the entire application
-  var app = angular.module('tipo.main', [
-    'tipo.common',
-    'tipo.layout',
-    'tipo.partials'
-  ]);
-
   function registerStates(stateProvider) {
     // Root State
     var rootState = {
@@ -27,7 +20,15 @@
     registerStates(stateProvider);
   }
 
-  app.config(function($stateProvider) {
+  // Declaration for the Tipo UI main module. This will be used as the 'ng-app' for the entire application
+  var module = angular.module('tipo.main', [
+    'tipo.partials',
+    'tipo.common',
+    'tipo.layout',
+    'tipo.home'
+  ]);
+
+  module.config(function($stateProvider) {
     configureModule($stateProvider);
   });
 
