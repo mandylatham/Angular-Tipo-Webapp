@@ -5,7 +5,7 @@
   function registerStates(stateProvider) {
     var homeState = {
       name: 'dashboard',
-      url: '/home',
+      url: '/dashboard',
       parent: 'layout',
       views: {
         'content@layout': {

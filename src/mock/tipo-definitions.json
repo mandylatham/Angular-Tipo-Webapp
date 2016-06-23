@@ -5,7 +5,8 @@
       "default_version": "1.0",
       "display_name": "Purchase Orders",
       "tipo_type": "cached",
-      "main_menu": true
+      "main_menu": true,
+      "icon": "bookmark_border"
     },
     "tipo_fields": [
       {
@@ -146,7 +147,8 @@
       "default_version": "1.0",
       "display_name": "Customers",
       "tipo_type": "cached",
-      "main_menu": true
+      "main_menu": true,
+      "icon": "person"
     },
     "tipo_fields": [
       {

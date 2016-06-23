@@ -8,8 +8,8 @@
     //urlRouterProvider.when('', loginUrl);
     //urlRouterProvider.otherwise(loginUrl);
 
-    urlRouterProvider.when('', '/home');
-    urlRouterProvider.otherwise('/home');
+    urlRouterProvider.when('', '/dashboard');
+    urlRouterProvider.otherwise('/dashboard');
   }
 
   function registerStates(stateProvider) {

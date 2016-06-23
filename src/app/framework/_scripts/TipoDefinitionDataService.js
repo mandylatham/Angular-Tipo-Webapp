@@ -38,15 +38,34 @@
     }
 
     function getOne(id){
-      return cache[id];
+      var promise;
+      var definition = cache[id];
+      if(definition && definition.detailsLoaded){
+        promise = $q.when(definition);
+      }else{
+        console.info('Loading detailed metadata for the tipo - ' + id);
+        promise = tipoDataService.getOne.call(this, id);
+        promise = promise.then(mapOne).then(function(definition){
+          console.info('Caching the detailed definition for network optimization');
+          definition.detailsLoaded = true;
+          cache[id] = definition;
+        });
+      }
+      return promise;
     }
 
     function mapList(definitions){
-      return definitions;
+      var mappedDefinitions = {};
+      _.each(definitions, function(definition){
+        mappedDefinitions[definition.tipo_name] = {
+          tipo_meta: definition
+        };
+      });
+      return mappedDefinitions;
     }
 
     function mapOne(definition){
-
+      return definition;
     }
 
     return _.create(tipoDataService, {
