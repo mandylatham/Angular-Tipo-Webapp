@@ -8,7 +8,7 @@
       name: 'root',
       abstract: true,
       controller: 'MainController',
-      controllerAs: 'mainController',
+      controllerAs: 'main',
       template: '<div data-ui-view class="wrapper"></div>'
     };
 
@@ -24,8 +24,9 @@
   var module = angular.module('tipo.main', [
     'tipo.partials',
     'tipo.common',
+    'tipo.framework.data',
     'tipo.layout',
-    'tipo.home'
+    'tipo.dashboard'
   ]);
 
   module.config(function($stateProvider) {

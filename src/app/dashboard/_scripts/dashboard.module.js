@@ -4,12 +4,12 @@
 
   function registerStates(stateProvider) {
     var homeState = {
-      name: 'home',
+      name: 'dashboard',
       url: '/home',
       parent: 'layout',
       views: {
         'content@layout': {
-          templateUrl: 'home/_views/home.tpl.html'
+          templateUrl: 'dashboard/_views/dashboard.tpl.html'
         }
       }
     };
@@ -22,7 +22,7 @@
     registerStates(stateProvider);
   }
 
-  var module = angular.module('tipo.home', [
+  var module = angular.module('tipo.dashboard', [
   ]);
 
   module.config(function ($stateProvider) {

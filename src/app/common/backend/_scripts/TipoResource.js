@@ -3,9 +3,7 @@
   'use strict';
 
   var TIPO_API_URLS = {
-    BASE: '/api/v1',
-    METADATA: 'metadata',
-    DATA: 'data'
+    BASE: '/api/v1'
   };
 
   function getAllInterceptors(securityContextService) {
@@ -35,13 +33,16 @@
       response: {
         // Extracts the payload from the wrapped API response
         extractData: function(rawData) {
-          var extractedData = rawData.data || {};
-          return extractedData;
+          //var extractedData = rawData.data || {};
+          //return extractedData;
+          return rawData;
         }
       },
       errors: {
         handleError: function(response, deferred) {
+          console.log('error handling');
           console.error(response);
+          return false;
         }
       }
     };
@@ -56,7 +57,7 @@
     
     RestangularConfigurer.setBaseUrl(TIPO_API_URLS.BASE);
     RestangularConfigurer.addRequestInterceptor(interceptors.request.sanitize);
-    RestangularConfigurer.addFullRequestInterceptor(interceptors.request.security);
+    //RestangularConfigurer.addFullRequestInterceptor(interceptors.request.security);
     RestangularConfigurer.addResponseInterceptor(interceptors.response.extractData);
     RestangularConfigurer.setErrorInterceptor(interceptors.errors.handleError);
   }
@@ -64,15 +65,6 @@
   // Tipo Resource. This shall be used for invoking the Tipo REST APIs
   function TipoResource(Restangular, securityContextService) {
     var factory = Restangular.withConfig(_.partialRight(configureRestangular, securityContextService));
-
-    factory.getMetadataSubDomain = function() {
-      return factory.all(TIPO_API_URLS.METADATA);
-    };
-
-    factory.getDataSubDomain = function() {
-      return factory.all(TIPO_API_URLS.DATA);
-    };
-
     return factory;
   }
 

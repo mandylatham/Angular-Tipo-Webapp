@@ -7,7 +7,8 @@
     'ui.router',
     'restangular',
     'LocalStorageModule',
-    'ngMaterial'
+    'ngMaterial',
+    'md.data.table'
   ]);
 
   module.config(function ($mdThemingProvider) {

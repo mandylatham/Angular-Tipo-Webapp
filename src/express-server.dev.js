@@ -16,7 +16,7 @@ var pathMappings = [
   },
   {
     path: '/api/v1',
-    url: 'http://localhost:8082'
+    url: 'http://localhost:9001'
   }
 ];
 

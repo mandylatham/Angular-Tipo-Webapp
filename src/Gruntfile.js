@@ -110,10 +110,11 @@ module.exports = function (grunt) {
           open: true
         }
       },
-      ittest: {
+      mock: {
         options: {
           bases: [],
-          server: path.resolve(__dirname, 'express-server.dist.js'),
+          server: path.resolve(__dirname, 'mock/express-server.mock.js'),
+          port: 9001,
           open: false
         }
       }
@@ -262,6 +263,11 @@ module.exports = function (grunt) {
   grunt.registerTask('serve-dist', [
     'express:dist',
     'watch'
+  ]);
+
+  grunt.registerTask('serve-mock', [
+    'express:mock',
+    'express-keepalive'
   ]);
 
   grunt.registerTask('test', [

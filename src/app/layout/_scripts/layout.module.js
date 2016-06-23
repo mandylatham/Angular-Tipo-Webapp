@@ -19,11 +19,11 @@
       parent: 'root',
       resolve: /*@ngInject*/
       {
-        tipoDictionary: function() {
-          return {};
+        tipoDefinitions: function(tipoDefinitionDataService) {
+          return tipoDefinitionDataService.getAll();
         }
       },
-      controller: /*@ngInject*/ function(tipoDictionary, $scope){
+      controller: /*@ngInject*/ function(tipoDefinitions, $scope){
         $scope.$emit('userLoggedInEvent');
       },
       templateUrl: 'layout/_views/layout.tpl.html'
