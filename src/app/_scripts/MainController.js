@@ -31,7 +31,6 @@
     });
 
     _instance.routing = {
-      xx: 'XXXXX',
       isStateChanging: tipoRouter.isStateChanging,
       reloadCurrent: tipoRouter.reloadCurrent
     };

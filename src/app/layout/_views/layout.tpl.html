@@ -1,11 +1,15 @@
-<div tipo-include="layout/_views/navigation.tpl.html"></div>
-<div layout="column" id="layout" flex role="main">
-  <div tipo-include="layout/_views/header.tpl.html"></div>
-  <md-content md-scroll-y layout="column" flex>
-    <state-change-indicator show="main.routing.isStateChanging()" />
-    <div id="content" ng-if="!main.routing.isStateChanging()">
-      <div ui-view="content" flex="noshrink"></div>
-    </div>
-    <div tipo-include="layout/_views/footer.tpl.html"></div>
-  </md-content>
+<div id="layout" layout="row">
+  <div tipo-include="layout/_views/navigation.tpl.html"></div>
+  <div flex layout="column">
+    <div tipo-include="layout/_views/header.tpl.html"></div>
+    <md-content md-scroll-y flex layout="column">
+      <div flex="grow">
+        <state-change-indicator show="main.routing.isStateChanging()" />
+        <div ng-if="!main.routing.isStateChanging()">
+          <div id="content" ui-view="content"></div>
+        </div>
+      </div>
+      <div tipo-include="layout/_views/footer.tpl.html"></div>
+    </md-content>
+  </div>
 </div>

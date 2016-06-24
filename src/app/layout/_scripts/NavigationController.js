@@ -45,7 +45,9 @@
 
   function NavigationController(
     tipoRouter,
-    tipoDefinitionDataService) {
+    tipoDefinitionDataService,
+    $mdSidenav,
+    $mdMedia) {
     
     var _instance = this;
 
@@ -54,6 +56,8 @@
     });
 
     _instance.navigate = function(menuItem){
+      $mdSidenav('left').close();
+
       if(menuItem.state){
         tipoRouter.to(menuItem.state, menuItem.state);
       }else if(menuItem.tipo_name){
