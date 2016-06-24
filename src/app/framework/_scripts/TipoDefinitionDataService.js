@@ -49,6 +49,7 @@
           console.info('Caching the detailed definition for network optimization');
           definition.detailsLoaded = true;
           cache[id] = definition;
+          return definition;
         });
       }
       return promise;
@@ -77,7 +78,7 @@
 
   }
 
-  angular.module('tipo.framework.data')
+  angular.module('tipo.framework')
     .factory('tipoDefinitionDataService', TipoDefinitionDataService);
 
 })();

@@ -8,7 +8,25 @@
     $state,
     $stateParams) {
 
-    function reloadCurrentState(){
+    var _stateChanging = false;
+
+    function isStateChanging(){
+      return _stateChanging;
+    }
+
+    function startStateChange(){
+      _stateChanging = true;
+    }
+
+    function endStateChange(){
+      _stateChanging = false;
+    }
+
+    function getCurrent(){
+      return $state.current;
+    }
+
+    function reloadCurrent(){
       var currentStateParameters = $stateParams;
       var reloadFlagParameters = _.keys(_.pick(currentStateParameters, function(value, key){
         return _.startsWith(key, 'reload');
@@ -17,26 +35,34 @@
       return $state.go($state.current, reloadFlagParameters, {reload: true});
     }
 
-    function transitionToState(state, reload, queryParameters){
+    function to(state, reload, parameters){
       var stateOptions = angular.isDefined(reload) ? {reload: reload} : {};
       stateOptions.inherit = false;
-      return $state.go(state, queryParameters, stateOptions);
+      return $state.go(state, parameters, stateOptions);
     }
 
-    function transitionToParent(reload){
+    function toParent(reload){
       var stateOptions = angular.isDefined(reload) ? {reload: reload} : {};
       return $state.go('^', undefined, stateOptions);
     }
 
-    function getCurrentState(){
-      return $state.current;
+    function toTipoList(tipoName, parameters){
+      var stateOptions = {reload: 'tipoList'};
+      parameters = parameters || {};
+      parameters.tipo_name = tipoName;
+      stateOptions.inherit = false;
+      return $state.go('tipoList', parameters, stateOptions);
     }
 
     return {
-      reloadCurrentState: reloadCurrentState,
-      transitionToState: transitionToState,
-      transitionToParent: transitionToParent,
-      getCurrentState: getCurrentState
+      isStateChanging: isStateChanging,
+      startStateChange: startStateChange,
+      endStateChange: endStateChange,
+      getCurrent: getCurrent,
+      reloadCurrent: reloadCurrent,
+      to: to,
+      toParent: toParent,
+      toTipoList: toTipoList
     };
 
   }

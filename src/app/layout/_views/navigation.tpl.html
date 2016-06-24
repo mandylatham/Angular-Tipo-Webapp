@@ -5,7 +5,7 @@
   <div ng-controller="NavigationController as navigation">
     <md-list>
       <md-list-item layout-padding ng-repeat="item in navigation.menu">
-        <md-button class="md-raised md-primary md-hue-1" flex layout="row" layout-align="start center">
+        <md-button class="md-raised md-primary md-hue-1" flex layout="row" layout-align="start center" ng-click="navigation.navigate(item)">
           <div class="md-list-item-inner md-title">
             <md-icon ng-if="item.icon">{{item.icon}}</md-icon>
             <span>{{item.label}}</span>

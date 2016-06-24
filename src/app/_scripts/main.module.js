@@ -24,8 +24,8 @@
   var module = angular.module('tipo.main', [
     'tipo.partials',
     'tipo.common',
-    'tipo.framework.data',
     'tipo.layout',
+    'tipo.framework',
     'tipo.dashboard'
   ]);
 

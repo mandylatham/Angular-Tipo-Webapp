@@ -43,13 +43,23 @@
     return fullMenu;
   }
 
-  function NavigationController(tipoDefinitionDataService) {
+  function NavigationController(
+    tipoRouter,
+    tipoDefinitionDataService) {
     
     var _instance = this;
 
     tipoDefinitionDataService.getAll().then(function(definitions){
       _instance.menu = prepareMenu(definitions);
     });
+
+    _instance.navigate = function(menuItem){
+      if(menuItem.state){
+        tipoRouter.to(menuItem.state, menuItem.state);
+      }else if(menuItem.tipo_name){
+        tipoRouter.toTipoList(menuItem.tipo_name);
+      }
+    };
 
   }
 

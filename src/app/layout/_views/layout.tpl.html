@@ -2,7 +2,10 @@
 <div layout="column" id="layout" flex role="main">
   <div tipo-include="layout/_views/header.tpl.html"></div>
   <md-content md-scroll-y layout="column" flex>
-    <div ui-view="content" layout-padding flex="noshrink"></div>
+    <state-change-indicator show="main.routing.isStateChanging()" />
+    <div id="content" ng-if="!main.routing.isStateChanging()">
+      <div ui-view="content" flex="noshrink"></div>
+    </div>
     <div tipo-include="layout/_views/footer.tpl.html"></div>
   </md-content>
 </div>

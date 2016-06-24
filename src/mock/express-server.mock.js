@@ -15,6 +15,7 @@ var router = express.Router();
 app.use('/api/v1', router);
 
 var tipoDefinitions = require('./tipo-definitions.json');
+var tipoData = require('./tipo-seed-data.json');
 
 router.get('/tipo_def', function(request, response) {
   var data = [];
@@ -28,6 +29,21 @@ router.get('/tipo_def', function(request, response) {
 router.get('/tipo_def/:name', function(request, response) {
   var tipoName = request.params.name;
   var data = tipoDefinitions[tipoName];
+  response.json(data);
+});
+
+router.get('/tipo/:name', function(request, response) {
+  var tipoName = request.params.name;
+  var dataMap = tipoData[tipoName] || {};
+  var data = _.values(dataMap);
+  response.json(data);
+});
+
+router.get('/tipo/:name/:id', function(request, response) {
+  var tipoName = request.params.name;
+  var tipoId = request.params.id;
+  var dataMap = tipoData[tipoName] || {};
+  var data = dataMap[tipoId];
   response.json(data);
 });
 

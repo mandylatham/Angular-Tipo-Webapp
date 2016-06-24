@@ -36,28 +36,35 @@
       });
 
       $mdThemingProvider.definePalette('tipoaccent', {
-        '50': '#ffffff',
-        '100': '#fde3d2',
-        '200': '#fbc19c',
-        '300': '#f89658',
-        '400': '#f6833a',
-        '500': '#f5711d',
-        '600': '#e9610a',
-        '700': '#cc5509',
-        '800': '#ae4908',
-        '900': '#913c06',
-        'A100': '#ffffff',
-        'A200': '#fde3d2',
-        'A400': '#f6833a',
-        'A700': '#cc5509',
+        '50': '#fde9dc',
+        '100': '#faba93',
+        '200': '#f8985d',
+        '300': '#f56d19',
+        '400': '#e45e0a',
+        '500': '#c75209',
+        '600': '#aa4608',
+        '700': '#8c3a06',
+        '800': '#6f2e05',
+        '900': '#522204',
+        'A100': '#fde9dc',
+        'A200': '#faba93',
+        'A400': '#e45e0a',
+        'A700': '#8c3a06',
         'contrastDefaultColor': 'light',
-        'contrastDarkColors': '50 100 200 300 400 500 A100 A200 A400'
+        'contrastDarkColors': '50 100 200 300 A100 A200'
       });
 
       $mdThemingProvider
       .theme('default')
       .primaryPalette('tipoprimary')
       .accentPalette('tipoaccent')
+      .warnPalette('red')
+      .backgroundPalette('blue-grey');
+
+      $mdThemingProvider
+      .theme('reverse')
+      .primaryPalette('tipoaccent')
+      .accentPalette('tipoprimary')
       .warnPalette('red')
       .backgroundPalette('blue-grey');
     }

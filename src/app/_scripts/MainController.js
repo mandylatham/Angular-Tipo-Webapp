@@ -2,12 +2,38 @@
 
   'use strict';
 
-  function MainController($mdSidenav) {
-    
+  function MainController(
+    tipoRouter,
+    $mdSidenav,
+    $state,
+    $rootScope
+    ) {
+
     var _instance = this;
+    console.warn('Bootstrapping the main controller. This should happen only once');
 
     this.showNavigation = function(){
       $mdSidenav('left').open();
+    };
+
+    // Register state change interactions for visual transition cues
+    $rootScope.$on('$stateChangeStart', function() {
+      tipoRouter.startStateChange();
+    });
+ 
+    $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState) {
+      tipoRouter.endStateChange();
+      $state.previous = fromState;
+    });
+    
+    $rootScope.$on('$stateChangeError', function() {
+      tipoRouter.endStateChange();
+    });
+
+    _instance.routing = {
+      xx: 'XXXXX',
+      isStateChanging: tipoRouter.isStateChanging,
+      reloadCurrent: tipoRouter.reloadCurrent
     };
   }
 
