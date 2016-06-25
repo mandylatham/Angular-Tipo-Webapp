@@ -9,7 +9,7 @@
       abstract: true,
       controller: 'MainController',
       controllerAs: 'main',
-      template: '<div data-ui-view class="wrapper"></div>'
+      template: '<div data-ui-view></div>'
     };
 
     stateProvider
