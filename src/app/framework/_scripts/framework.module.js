@@ -11,6 +11,9 @@
       {
         tipoDefinition: function(tipoDefinitions, tipoDefinitionDataService, $stateParams) {
           return tipoDefinitionDataService.getOne($stateParams.tipo_name);
+        },
+        tipos: function(tipoDefinition, tipoInstanceDataService, $stateParams){
+          return tipoInstanceDataService.getAll($stateParams.tipo_name);
         }
       },
       views: {

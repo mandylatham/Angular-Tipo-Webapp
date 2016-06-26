@@ -7,11 +7,12 @@
   return module.directive('tpNoContent', function () {
       return {
         scope: {
+          message: '@'
         },
         restrict: 'EA',
         templateUrl: 'common/ui/_views/no-content.tpl.html',
         link: function(scope, element, attrs){
-          scope.message = attrs.message;
+          //scope.message = attrs.message;
         }
       };
     }

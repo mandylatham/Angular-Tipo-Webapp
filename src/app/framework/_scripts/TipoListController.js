@@ -3,10 +3,14 @@
   'use strict';
 
   function TipoListController(
-    tipoDefinition) {
+    tipoDefinition,
+    tipos) {
     
     var _instance = this;
     _instance.tipoDefinition = tipoDefinition;
+
+    _instance.tipos = tipos;
+    _instance.hasTipos = tipos.length > 0;
 
   }
 

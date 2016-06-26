@@ -5,7 +5,8 @@
   <md-button md-theme="reverse" class="md-fab md-primary main" aria-label="Create new" ng-click="xxx">
     <md-icon>create</md-icon>
   </md-button>
-  <div flex layout="column" layout-align="center center">
-    <pre>{{tipoListController.tipoDefinition | json}}</pre>
+  <div ng-if="!tipoListController.hasTipos" flex layout="row" layout-align="center center">
+    <tp-no-content message="No records found" />
   </div>
+  <ng-include src="tipoListController.tipoDefinition._ui.listTemplateUrl" ng-if="tipoListController.hasTipos" tp-include-replace/>
 </div>

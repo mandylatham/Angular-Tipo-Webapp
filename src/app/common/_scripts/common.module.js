@@ -59,14 +59,14 @@
       .primaryPalette('tipoprimary')
       .accentPalette('tipoaccent')
       .warnPalette('red')
-      .backgroundPalette('blue-grey');
+      .backgroundPalette('grey');
 
       $mdThemingProvider
       .theme('reverse')
       .primaryPalette('tipoaccent')
       .accentPalette('tipoprimary')
       .warnPalette('red')
-      .backgroundPalette('blue-grey');
+      .backgroundPalette('grey');
     }
 
 })();

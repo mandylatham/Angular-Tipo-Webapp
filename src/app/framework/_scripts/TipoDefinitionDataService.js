@@ -9,6 +9,7 @@
   function TipoDefinitionDataService(
     tipoResource,
     tipoDataService,
+    tipoManipulationService,
     $q) {
 
     var cache = {};
@@ -45,7 +46,7 @@
       }else{
         console.info('Loading detailed metadata for the tipo - ' + id);
         promise = tipoDataService.getOne.call(this, id);
-        promise = promise.then(mapOne).then(function(definition){
+        promise = promise.then(tipoManipulationService.mapDefinitionToUI).then(function(definition){
           console.info('Caching the detailed definition for network optimization');
           definition.detailsLoaded = true;
           cache[id] = definition;
@@ -58,15 +59,9 @@
     function mapList(definitions){
       var mappedDefinitions = {};
       _.each(definitions, function(definition){
-        mappedDefinitions[definition.tipo_name] = {
-          tipo_meta: definition
-        };
+        mappedDefinitions[definition.tipo_name] = tipoManipulationService.mapDefinitionToUI(definition);
       });
       return mappedDefinitions;
-    }
-
-    function mapOne(definition){
-      return definition;
     }
 
     return _.create(tipoDataService, {
