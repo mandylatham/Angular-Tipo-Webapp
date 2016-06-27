@@ -1,6 +1,6 @@
 {
   "PurchaseOrder": {
-    "100":{
+    "100": {
       "OrderID": "100",
       "OrderAmount": "5500",
       "RequiredByDate": "1466770948955",
@@ -9,16 +9,20 @@
         "Name": "John Doe"
       }
     },
-    "200":{
+    "200": {
       "OrderID": "200",
       "OrderAmount": "3000",
       "RequiredByDate": "1466770948955",
       "Customer": {
         "CustomerID": "200",
         "Name": "Jane Smith"
+      },
+      "BillToAddress": {
+        "StreetNo": "121",
+        "StreetName": "Some street",
+        "Suburb": "Footscray"
       }
     }
   },
-  "Customer": {
-  }
+  "Customer": {}
 }

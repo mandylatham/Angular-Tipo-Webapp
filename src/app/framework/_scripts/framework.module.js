@@ -9,8 +9,11 @@
       parent: 'layout',
       resolve: /*@ngInject*/
       {
-        tipoDefinition: function(tipoDefinitions, tipoDefinitionDataService, $stateParams) {
-          return tipoDefinitionDataService.getOne($stateParams.tipo_name);
+        tipoDefinition: function(tipoDefinitions, tipoRegistry, tipoManipulationService, $stateParams) {
+          var tipoDefinition = tipoRegistry.get($stateParams.tipo_name);
+          // expand the field hierarchy for the tipo
+          var expandedDefinition = tipoManipulationService.expandFieldHierarchy(tipoDefinition);
+          return expandedDefinition;
         },
         tipos: function(tipoDefinition, tipoInstanceDataService, $stateParams){
           return tipoInstanceDataService.getAll($stateParams.tipo_name);
@@ -19,8 +22,8 @@
       views: {
         'content@layout': {
           templateUrl: 'framework/_views/tipo-list.tpl.html',
-          controller: 'TipoListController',
-          controllerAs: 'tipoListController'
+          controller: 'TipoListRootController',
+          controllerAs: 'tipoRootController'
         }
       }
     };

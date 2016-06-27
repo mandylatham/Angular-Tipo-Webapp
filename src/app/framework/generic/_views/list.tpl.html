@@ -1,33 +1,24 @@
-<div flex layout="row" layout-align="center center">
-  <tp-no-content message="{{tipoListController.tipos.length}} records found. Will render the data grid soon." />
+<!--<div ng-controller="TipoGenericListController as tipoController">
+  <pre>{{tipoController.tipoData | json}}</pre>
 </div>
-<!--<md-card class="md-primary">
+<div flex layout="row" layout-align="center center" ng-controller="TipoGenericListController as tipoController">
+  <tp-no-content message="{{tipoController.tipos.length}} records found. Will render the data grid soon." />
+</div>-->
+<md-card ng-controller="TipoGenericListController as tipoController">
   <md-table-container>
     <table md-table ng-model="selected" md-progress="promise">
       <thead md-head>
         <tr md-row>
-          <th md-column><span>Dessert (100g serving)</span></th>
-          <th md-column md-numeric><span>Calories</span></th>
-          <th md-column md-numeric>Fat (g)</th>
-          <th md-column md-numeric>Carbs (g)</th>
-          <th md-column md-numeric>Protein (g)</th>
-          <th md-column md-numeric>Sodium (mg)</th>
-          <th md-column md-numeric>Calcium (%)</th>
-          <th md-column md-numeric>Iron (%)</th>
+          <th md-column ng-repeat="field in tipoController.tipoFields">
+            <span>{{field.display_name}}</span>
+          </th>
         </tr>
       </thead>
       <tbody md-body>
-        <tr md-row>
-          <td md-cell>XX</td>
-          <td md-cell>1000</td>
-          <td md-cell>45</td>
-          <td md-cell>50</td>
-          <td md-cell>30</td>
-          <td md-cell>12</td>
-          <td md-cell>6%</td>
-          <td md-cell>10%</td>
+        <tr md-row ng-repeat="row in tipoController.tipoData">
+          <td md-cell ng-repeat="cell in row">{{cell.value || '-'}}</td>
         </tr>
       </tbody>
     </table>
   </md-table-container>
-</md-card>-->
+</md-card>

@@ -1,12 +1,12 @@
 <div flex layout="column">
   <md-subheader class="md-primary">
-    <h2>{{tipoListController.tipoDefinition.tipo_meta.display_name}}</h2>
+    <h2>{{tipoRootController.tipoDefinition.tipo_meta.display_name}}</h2>
   </md-subheader>
   <md-button md-theme="reverse" class="md-fab md-primary main" aria-label="Create new" ng-click="xxx">
     <md-icon>create</md-icon>
   </md-button>
-  <div ng-if="!tipoListController.hasTipos" flex layout="row" layout-align="center center">
+  <div ng-if="!tipoRootController.hasTipos" flex layout="row" layout-align="center center">
     <tp-no-content message="No records found" />
   </div>
-  <ng-include src="tipoListController.tipoDefinition._ui.listTemplateUrl" ng-if="tipoListController.hasTipos" tp-include-replace/>
+  <ng-include src="tipoRootController.tipoDefinition._ui.listTemplateUrl" ng-if="tipoRootController.hasTipos" tp-include-replace/>
 </div>

@@ -2,7 +2,7 @@
 
   'use strict';
 
-  function TipoListController(
+  function TipoListRootController(
     tipoDefinition,
     tipos) {
     
@@ -12,9 +12,11 @@
     _instance.tipos = tipos;
     _instance.hasTipos = tipos.length > 0;
 
+    _instance.accessor = 'Customer';
+
   }
 
   angular.module('tipo.framework')
-  .controller('TipoListController', TipoListController);
+  .controller('TipoListRootController', TipoListRootController);
 
 })();

@@ -10,9 +10,16 @@
     tipoResource,
     tipoDataService,
     tipoManipulationService,
+    tipoRegistry,
     $q) {
 
-    var cache = {};
+    /*jshint latedef: nofunc */
+    var _instance = _.create(tipoDataService, {
+      getCollectionResource: getCollectionResource,
+      getDocumentResource: getDocumentResource,
+      getAll: getAll,
+      getOne: getOne
+    });
 
     function getCollectionResource(){
       return tipoResource.all(TIPO_DEFINITION_RESOURCE);
@@ -24,14 +31,22 @@
 
     function getAll(){
       var promise;
+      var cache = tipoRegistry.get();
       if(_.isEmpty(cache)){
         console.info('Loading the tipo definitions');
-        promise = tipoDataService.getAll.call(this);
-        promise = promise.then(mapList).then(function(definitions){
-          console.info('Caching the tipo definitions for network optimization');
-          cache = definitions;
-          return cache;
+        promise = tipoDataService.getAll.call(_instance);
+        promise = promise.then(function(definitions){
+          var childPromises = [];
+          _.each(definitions, function(definition){
+            childPromises.push(getOne(definition.tipo_name));
+          });
+          return childPromises;
         });
+
+        promise = promise.then(function(childPromises){
+          return $q.all(childPromises);
+        });
+
       }else{
         promise = $q.when(cache);
       }
@@ -40,16 +55,16 @@
 
     function getOne(id){
       var promise;
-      var definition = cache[id];
+      var definition = tipoRegistry.get(id);
       if(definition && definition.detailsLoaded){
         promise = $q.when(definition);
       }else{
         console.info('Loading detailed metadata for the tipo - ' + id);
-        promise = tipoDataService.getOne.call(this, id);
+        promise = tipoDataService.getOne.call(_instance, id);
         promise = promise.then(tipoManipulationService.mapDefinitionToUI).then(function(definition){
           console.info('Caching the detailed definition for network optimization');
           definition.detailsLoaded = true;
-          cache[id] = definition;
+          tipoRegistry.push(definition);
           return definition;
         });
       }
@@ -64,12 +79,7 @@
       return mappedDefinitions;
     }
 
-    return _.create(tipoDataService, {
-      getCollectionResource: getCollectionResource,
-      getDocumentResource: getDocumentResource,
-      getAll: getAll,
-      getOne: getOne
-    });
+    return _instance;
 
   }
 

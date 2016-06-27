@@ -109,7 +109,7 @@
         "field_description": "Line items for the order",
         "tipo_array": true,
         "display_name": "LineItem",
-        "field_type": "Tipo.FieldGroup.POLineItem"
+        "field_type": "FieldGroup.POLineItem"
       },
       {
         "field_name": "ShipToAddress",
@@ -117,7 +117,7 @@
         "tipo_array": false,
         "display_name": "ShipTo Address",
         "display_type": "ngAddress",
-        "field_type": "Tipo.FieldGroup.Address"
+        "field_type": "FieldGroup.Address"
       },
       {
         "field_name": "BillToAddress",
@@ -125,7 +125,8 @@
         "tipo_array": false,
         "display_name": "BillTo Address",
         "display_type": "ngAddress",
-        "field_type": "Tipo.FieldGroup.Address"
+        "field_type": "FieldGroup.Address",
+        "short_display": true
       }
     ],
     "tipo_field_groups": [
@@ -133,17 +134,24 @@
         "tipo_group_name": "POLineItem",
         "tipo_fields": [
           {
+            "field_name": "ItemID",
+            "field_type": "string",
+            "primary_key": true,
+            "field_description": "Item identifier",
+            "display_name": "Item ID"
+          },
+          {
             "field_name": "ItemQuantity",
+            "field_type": "double",
             "field_description": "item quantity",
             "display_name": "Item Quantity",
             "display_type": "ngNumber",
-            "field_group": "POLineItem",
             "input_type": "ngNumber"
           },
           {
             "field_name": "UnitPrice",
             "field_type": "double",
-            "field_description": "each unity price",
+            "field_description": "each unit price",
             "display_name": "Unit Price",
             "display_type": "ngDollar"
           }
@@ -153,12 +161,12 @@
         "tipo_group_name": "Address",
         "tipo_fields": [
           {
-            "field_name": "Street No",
+            "field_name": "StreetNo",
             "field_type": "string",
             "field_description": "Street number"
           },
           {
-            "field_name": "Street Name",
+            "field_name": "StreetName",
             "field_type": "string",
             "field_description": "Street name",
             "display_name": "Street Name"
@@ -167,7 +175,8 @@
             "field_name": "Suburb",
             "field_type": "string",
             "field_description": "suburb",
-            "display_name": "Suburb"
+            "display_name": "Suburb",
+            "short_display": true
           },
           {
             "field_name": "Postcode",
