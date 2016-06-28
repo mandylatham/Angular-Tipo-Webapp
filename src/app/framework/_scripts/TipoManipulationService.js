@@ -91,13 +91,6 @@
               tipo_field.tipo_fields = fieldGroup.tipo_fields;
               if(isArray){
                 nextAccessor += '[$index]';
-                // find the property which represents the primary identifier for the group
-                /*keyField = _.find(fieldGroup.tipo_fields, {primary_key: true});
-                if(_.isUndefined(keyField)){
-                  nextAccessor += '[$index]';
-                }else{
-                  nextAccessor += '[' + keyField.field_name + ']';
-                }*/
               }
               prepareFieldHierarchyRecursive(definition, tipo_field, nextAccessor);
             }else if(parts[0] === 'Tipo'){
@@ -109,9 +102,7 @@
               });
               if(isArray){
                 // find the property which represents the primary identifier for the group
-                /*keyField = _.find(relatedTipoDefinition.tipo_fields, {primary_key: true});
-                nextAccessor += '[' + keyField.field_name + ']';
-                nextAccessor += '[ID]';*/
+                // nextAccessor += '[TipoID]';
                 nextAccessor += '[$index]';
               }
               prepareFieldHierarchyRecursive(relatedTipoDefinition, tipo_field, nextAccessor);
@@ -135,7 +126,7 @@
         if(!_.isUndefined(value)){
           var indexPart = expression.substring(expression.indexOf('[') + 1, expression.indexOf(']'));
           // need to standardize the index, else quite impossible to derive the value
-          // value = _.find(value, {ID: indexPart});
+          // value = _.find(value, {TipoID: indexPart});
           value = value[parseInt(indexPart, 10)];
           if(!_.isUndefined(value)){
             var remainingPart = expression.substring(expression.indexOf(']') + 2);
