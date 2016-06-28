@@ -32,9 +32,20 @@
       name: 'tipoCreate',
       url: '/tipo/{tipo_name}/new',
       parent: 'layout',
+      resolve: /*@ngInject*/
+      {
+        tipoDefinition: function(tipoDefinitions, tipoRegistry, tipoManipulationService, $stateParams) {
+          var tipoDefinition = tipoRegistry.get($stateParams.tipo_name);
+          // expand the field hierarchy for the tipo
+          var expandedDefinition = tipoManipulationService.expandFieldHierarchy(tipoDefinition);
+          return expandedDefinition;
+        }
+      },
       views: {
         'content@layout': {
-          templateUrl: 'framework/_views/tipo-new.tpl.html'
+          templateUrl: 'framework/_views/tipo-new.tpl.html',
+          controller: 'TipoCreateRootController',
+          controllerAs: 'tipoRootController'
         }
       }
     };

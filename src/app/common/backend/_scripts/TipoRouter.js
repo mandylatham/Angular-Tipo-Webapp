@@ -54,6 +54,14 @@
       return $state.go('tipoList', parameters, stateOptions);
     }
 
+    function toTipoCreate(tipoName, parameters){
+      var stateOptions = {reload: 'tipoCreate'};
+      parameters = parameters || {};
+      parameters.tipo_name = tipoName;
+      stateOptions.inherit = false;
+      return $state.go('tipoCreate', parameters, stateOptions);
+    }
+
     return {
       isStateChanging: isStateChanging,
       startStateChange: startStateChange,
@@ -62,7 +70,8 @@
       reloadCurrent: reloadCurrent,
       to: to,
       toParent: toParent,
-      toTipoList: toTipoList
+      toTipoList: toTipoList,
+      toTipoCreate: toTipoCreate
     };
 
   }

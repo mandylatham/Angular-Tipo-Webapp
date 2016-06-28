@@ -4,7 +4,8 @@
 
   function TipoListRootController(
     tipoDefinition,
-    tipos) {
+    tipos,
+    tipoRouter) {
     
     var _instance = this;
     _instance.tipoDefinition = tipoDefinition;
@@ -12,7 +13,10 @@
     _instance.tipos = tipos;
     _instance.hasTipos = tipos.length > 0;
 
-    _instance.accessor = 'Customer';
+    _instance.createNew = function(){
+      var tipo_name = tipoDefinition.tipo_meta.tipo_name;
+      tipoRouter.toTipoCreate(tipo_name);
+    };
 
   }
 
