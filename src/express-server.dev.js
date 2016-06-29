@@ -14,9 +14,9 @@ var pathMappings = [
     path: '/bower_components',
     dir: 'bower_components'
   },
-  {
-    path: '/api/v1',
-    url: 'http://localhost:9001'
+  {    
+    path: '/dev',
+    url: 'http://pb94akgzqh.execute-api.us-east-1.amazonaws.com'
   }
 ];
 

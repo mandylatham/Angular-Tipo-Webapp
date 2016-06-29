@@ -3,7 +3,7 @@
   'use strict';
 
   var TIPO_API_URLS = {
-    BASE: '/api/v1'
+    BASE: '/dev'
   };
 
   function getAllInterceptors(securityContextService) {
