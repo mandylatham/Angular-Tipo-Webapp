@@ -38,7 +38,8 @@
     "lodash": "4.13.1",
     "script-tags": "0.1.1",
     "string": "3.3.1",
-    "time-grunt": "1.1.1"
+    "time-grunt": "1.1.1",
+    "body-parser": "1.15.2 "
   },
   "engines": {
     "node": ">=0.10.0"
