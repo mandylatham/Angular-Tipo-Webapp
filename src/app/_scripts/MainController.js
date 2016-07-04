@@ -4,6 +4,7 @@
 
   function MainController(
     tipoRouter,
+    cognitoService,
     $mdSidenav,
     $state,
     $rootScope
@@ -14,6 +15,11 @@
 
     this.showNavigation = function(){
       $mdSidenav('left').open();
+    };
+
+    this.signUp = function(){
+      tipoRouter.toRegisterUser();
+      //cognitoService.signUp('user1', 'password1', 'user1@mail.com', '111111111');
     };
 
     // Register state change interactions for visual transition cues

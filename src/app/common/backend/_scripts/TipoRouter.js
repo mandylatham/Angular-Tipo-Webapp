@@ -62,6 +62,13 @@
       return $state.go('tipoCreate', parameters, stateOptions);
     }
 
+    function toRegisterUser(parameters){
+      var stateOptions = {reload: 'registerUser'};
+      parameters = parameters || {};
+      stateOptions.inherit = false;
+      return $state.go('registerUser', parameters, stateOptions);
+    }
+
     return {
       isStateChanging: isStateChanging,
       startStateChange: startStateChange,
@@ -71,7 +78,8 @@
       to: to,
       toParent: toParent,
       toTipoList: toTipoList,
-      toTipoCreate: toTipoCreate
+      toTipoCreate: toTipoCreate,
+      toRegisterUser: toRegisterUser
     };
 
   }

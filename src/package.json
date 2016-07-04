@@ -39,7 +39,8 @@
     "script-tags": "0.1.1",
     "string": "3.3.1",
     "time-grunt": "1.1.1",
-    "body-parser": "1.15.2 "
+    "body-parser": "1.15.2 ",
+    "aws-sdk": "2.4.4"
   },
   "engines": {
     "node": ">=0.10.0"

@@ -43,7 +43,8 @@ module.exports = function (grunt) {
       all: {
         src: [
           'Gruntfile.js',
-          '<%= config.directories.source %>/{,*/}*.js'
+          '<%= config.directories.source %>/{,*/}*.js',
+          '!<%= config.directories.source %>/libs/*.js'
         ]
       }
     },

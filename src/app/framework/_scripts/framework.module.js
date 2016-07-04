@@ -72,11 +72,23 @@
       }
     };
 
+    var registerUserState = {
+      name: 'registerUser',
+      url: '/register',
+      parent: viewState,
+      views: {
+        'content@layout': {
+          templateUrl: 'user/_views/registration.tpl.html'
+        }
+      }
+    };
+
     stateProvider
       .state(listState)
       .state(createState)
       .state(viewState)
-      .state(editState);
+      .state(editState)
+      .state(registerUserState);
   }
 
   function configureModule(stateProvider) {
