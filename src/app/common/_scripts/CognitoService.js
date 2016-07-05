@@ -48,8 +48,27 @@
             }); 
         }
 
+        function confirmRegistration(verificationCode) {
+            
+            //var cognitoUser = userPool.getCurrentUser();
+            //console.log('Retrieve current user from local storage: ' + cognitoUser.getUsername());
+            var userData = {
+                Username : null,
+                Pool : userPool
+            };
+            var cognitoUser = new AWSCognito.CognitoIdentityServiceProvider.CognitoUser(userData);
+            cognitoUser.confirmRegistration(verificationCode, true, function(err, result) {
+                if (err) {
+                    alert(err);
+                    return;
+                }
+                console.log('call result: ' + result);
+            });
+        }
+
         return {
-            signUp: signUp
+            signUp: signUp,
+            confirmRegistration: confirmRegistration
         };
   }
 
