@@ -21,15 +21,19 @@
     this.showLoginForm = function($event) {
        var parentEl = angular.element(document.body);
        $mdDialog.show({
-         parent: parentEl,
-         targetEvent: $event,
-         templateUrl: 'user/_views/login.tpl.html',
-         controller: function DialogController($scope, $mdDialog) {
+          parent: parentEl,
+          targetEvent: $event,
+          templateUrl: 'user/_views/login.tpl.html',
+          controller: function DialogController($scope, $mdDialog) {
           $scope.submit = function() {
             cognitoService.authenticate($scope.username, $scope.password, {
               onSuccess: function (result) {
                 $mdDialog.hide();
-                console.log(result);
+                var alertDlg = $mdDialog.alert()
+                  .title('Login')
+                  .content('User ' + $scope.username + ' login successfully')
+                  .ok('Close');
+                $mdDialog.show(alertDlg);
               },
               onFailure: function(err) {
                 $mdDialog.hide();
@@ -37,11 +41,11 @@
               }  
             });
           };
-          
+
           $scope.cancel = function() {
-            $mdDialog.hide();
+          $mdDialog.hide();
           };
-        }
+          }
       });      
     };      
 
