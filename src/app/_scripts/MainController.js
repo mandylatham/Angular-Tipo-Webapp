@@ -7,7 +7,8 @@
     cognitoService,
     $mdSidenav,
     $state,
-    $rootScope
+    $rootScope,
+    $mdDialog
     ) {
 
     var _instance = this;
@@ -17,8 +18,35 @@
       $mdSidenav('left').open();
     };
 
+    this.showLoginForm = function($event) {
+       var parentEl = angular.element(document.body);
+       $mdDialog.show({
+         parent: parentEl,
+         targetEvent: $event,
+         templateUrl: 'user/_views/login.tpl.html',
+         controller: function DialogController($scope, $mdDialog) {
+          $scope.submit = function() {
+            cognitoService.authenticate($scope.username, $scope.password, {
+              onSuccess: function (result) {
+                $mdDialog.hide();
+                console.log(result);
+              },
+              onFailure: function(err) {
+                $mdDialog.hide();
+                alert(err);
+              }  
+            });
+          };
+          
+          $scope.cancel = function() {
+            $mdDialog.hide();
+          };
+        }
+      });      
+    };      
+
     this.signUp = function(){
-      tipoRouter.toRegisterUser();      
+      $state.go('registerUser');      
     };
 
     // Register state change interactions for visual transition cues

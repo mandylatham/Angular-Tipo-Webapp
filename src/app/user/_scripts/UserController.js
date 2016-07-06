@@ -35,7 +35,7 @@
     }
 
     function confirmRegistration(userDetails) {        
-        console.log(userDetails);
+        console.log(userDetails);   
         
         userDetails = userDetails || { username: '', confirmationCode: '' };      
 
@@ -51,7 +51,7 @@
                 .ok('Close');
             $mdDialog.show( alertDlg );
         });
-    }
+    }    
 
     return {
         signUp: signUp,

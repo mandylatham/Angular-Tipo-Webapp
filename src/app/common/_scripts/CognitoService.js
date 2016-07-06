@@ -2,19 +2,19 @@
 
     'use strict';
 
-    AWS.config.region = 'us-east-1';
+    AWS.config.region = cognito.region;
     AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-        IdentityPoolId: 'us-east-1:d7d7c388-ea87-4ed4-90c1-e5170acf76be'
+        IdentityPoolId: cognito.IdentityPoolId
     });
 
-    AWSCognito.config.region = 'us-east-1';
+    AWSCognito.config.region = cognito.region;
     AWSCognito.config.credentials = new AWS.CognitoIdentityCredentials({
-        IdentityPoolId: 'us-east-1:d7d7c388-ea87-4ed4-90c1-e5170acf76be'
+        IdentityPoolId: cognito.IdentityPoolId
     });
      
     var poolData = {
-        UserPoolId : 'us-east-1_LtLxvXI3z',
-        ClientId : '1nu8rqghmj2ov1rsbt3e776do'
+        UserPoolId : cognito.UserPoolId,
+        ClientId : cognito.ClientId
     };
     var userPool = new AWSCognito.CognitoIdentityServiceProvider.CognitoUserPool(poolData);
   
@@ -49,9 +49,47 @@
             cognitoUser.confirmRegistration(verificationCode, true, callback);            
         }
 
+        function authenticate(username, password, callback) {
+            var authenticationData = {
+                Username : username,
+                Password : password,
+            };
+            var authenticationDetails = new AWSCognito.CognitoIdentityServiceProvider.AuthenticationDetails(authenticationData);
+                        
+            var userData = {
+                Username : username,
+                Pool : userPool
+            };
+            var cognitoUser = new AWSCognito.CognitoIdentityServiceProvider.CognitoUser(userData);
+            cognitoUser.authenticateUser(authenticationDetails, {
+                onSuccess: function (result) {
+                    console.log('access token + ' + result.getAccessToken().getJwtToken());
+
+                    var loginsKey = 'cognito-idp.us-east-1.amazonaws.com/' + cognito.UserPoolId;
+                    AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+                        IdentityPoolId : cognito.IdentityPoolId,
+                        Logins : {
+                            loginsKey: result.getIdToken().getJwtToken()
+                        }
+                    });
+                    if (callback) {
+                        callback.onSuccess(result);
+                    }
+                },
+
+                onFailure: function(err) {
+                    if (callback) {
+                        callback.onFailure(err);
+                    }                    
+                },
+
+            });     
+        }
+
         return {
             signUp: signUp,
-            confirmRegistration: confirmRegistration
+            confirmRegistration: confirmRegistration,
+            authenticate: authenticate
         };
   }
 
