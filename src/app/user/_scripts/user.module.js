@@ -18,11 +18,11 @@
 
     var confirmRegistrationState = {
       name: 'confirmRegistration',
-      url: '/verification/{verificationCode}',
+      url: '/confirmation/{confirmationCode}',
       parent: 'layout',
       views: {
         'content@layout': {
-          templateUrl: 'user/_views/verification.tpl.html',
+          templateUrl: 'user/_views/confirmation.tpl.html',
           controller: 'UserController',
           controllerAs: 'userController'
         }

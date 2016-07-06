@@ -6,12 +6,12 @@
       <input ng-model="userDetails.username">
     </md-input-container>
     <md-input-container class="md-block" md-no-float>
-      <label>Verification code</label>
-      <input ng-model="userDetails.verificationCode">
+      <label>Confirmation code</label>
+      <input ng-model="userDetails.confirmationCode">
     </md-input-container>    
   </form>
    <md-content md-theme="docs-dark" layout-gt-sm="row" layout-padding>
-    <div data-ng-init="userController.initRegistration()">
+    <div data-ng-init="userController.initConfirmation()">
       <md-button class="md-raised md-primary" ng-click="userController.confirmRegistration(userDetails)">Confirm</md-button>
     </div>
   </md-content>

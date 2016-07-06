@@ -20,7 +20,7 @@
   
     function CognitoService() {
         
-        function signUp(username, password, email, phoneNumber) {
+        function signUp(username, password, email, phoneNumber, callback) {
             var attributeList = [];
     
             var dataEmail = {
@@ -37,15 +37,7 @@
             attributeList.push(attributeEmail);
             // attributeList.push(attributePhoneNumber);
             
-            var cognitoUser;
-            userPool.signUp(username, password, attributeList, null, function(err, result){
-                if (err) {
-                    alert(err);
-                    return;
-                }
-                cognitoUser = result.user;
-                console.log('user ' + cognitoUser.getUsername() + ' made a request for registration');
-            }); 
+            userPool.signUp(username, password, attributeList, null, callback);
         }
 
         function confirmRegistration(username, verificationCode, callback) {

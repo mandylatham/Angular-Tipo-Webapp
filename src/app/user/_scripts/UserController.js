@@ -10,30 +10,43 @@
         
     function signUp(user) {
         console.log(user);
-        cognitoService.signUp(user.username, user.password, user.email, user.phone);
+        cognitoService.signUp(user.username, user.password, user.email, user.phone, function(err, result){
+            if (err) {
+                alert(err);
+                return;
+            }
+            var cognitoUser = result.user;
+            console.log('user ' + cognitoUser.getUsername() + ' has requested for registration');
+            var alertDlg = $mdDialog.alert()
+                .title('Registration')
+                .content('User ' + cognitoUser.getUsername() + ' successfully submitted request')
+                .ok('Close');
+            $mdDialog.show(alertDlg);
+        }); 
     }
 
-    function initRegistration() {
+    function initConfirmation() {
         // Path will be /verification/1234, and array looks like: ["","verification","1234"]
-        var verificationCode = $location.path().split("/")[2] || "Unknown";
-        console.log('Verification code: ' + verificationCode);
+        var confirmationCode = $location.path().split("/")[2] || "Unknown";
+        console.log('Confirmation code: ' + confirmationCode);
         $scope.userDetails = {};
-        $scope.userDetails.verificationCode = verificationCode;
+        
+        $scope.userDetails.confirmationCode = confirmationCode;                
     }
 
     function confirmRegistration(userDetails) {        
         console.log(userDetails);
         
-        userDetails = userDetails || { username: '', verificationCode: '' };      
+        userDetails = userDetails || { username: '', confirmationCode: '' };      
 
-        cognitoService.confirmRegistration(userDetails.username, userDetails.verificationCode, function(err, result) {
+        cognitoService.confirmRegistration(userDetails.username, userDetails.confirmationCode, function(err, result) {
             if (err) {
                 alert(err);
                 return;
             }
             console.log('call result: ' + result);
             var alertDlg = $mdDialog.alert()
-                .title('Confirmation Dialog')
+                .title('Confirmation')
                 .content('User ' + userDetails.username + ' registration confirmed')
                 .ok('Close');
             $mdDialog.show( alertDlg );
@@ -42,7 +55,7 @@
 
     return {
         signUp: signUp,
-        initRegistration: initRegistration,
+        initConfirmation: initConfirmation,
         confirmRegistration: confirmRegistration
     };
   }
