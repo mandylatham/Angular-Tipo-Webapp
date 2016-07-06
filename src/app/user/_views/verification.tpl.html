@@ -1,7 +1,18 @@
-<md-card flex="initial" layout="column">  
+<md-card flex="initial" layout="column">
+  <form flex layout="column" layout-wrap layout-padding layout-align="space-between start" class="md-inline-form" ng-cloak>
+    
+    <md-input-container class="md-block">
+      <label>Username</label>
+      <input ng-model="userDetails.username">
+    </md-input-container>
+    <md-input-container class="md-block" md-no-float>
+      <label>Verification code</label>
+      <input ng-model="userDetails.verificationCode">
+    </md-input-container>    
+  </form>
    <md-content md-theme="docs-dark" layout-gt-sm="row" layout-padding>
-    <div data-ng-init="userController.confirmRegistration()">
-      Registration confirmed
+    <div data-ng-init="userController.initRegistration()">
+      <md-button class="md-raised md-primary" ng-click="userController.confirmRegistration(userDetails)">Confirm</md-button>
     </div>
   </md-content>
 </md-card>
