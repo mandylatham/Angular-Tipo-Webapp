@@ -100,38 +100,24 @@
             return deferred.promise;   
         }
 
-        function getCurrentUser() {
-            var deferred = $q.defer();
-
+        function signOut() {
             var cognitoUser = userPool.getCurrentUser();
-            if (cognitoUser != null) {
-                cognitoUser.getSession(function(err, session) {
-                    if (err) {
-                        deferred.reject(err);
-                        return;
-                    }
-                    console.log('session validity: ' + session.isValid());
+            if(cognitoUser !== null) {
+                cognitoUser.signOut();
+            }                
+        }
 
-                    var loginsKey = 'cognito-idp.us-east-1.amazonaws.com/' + cognito.UserPoolId;
-                    AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-                        IdentityPoolId : cogito.IdentityPoolId,
-                        Logins : {
-                            loginsKey : session.getIdToken().getJwtToken()
-                        }
-                    });
-                    deferred.resolve(session);
-                });
-            } else {
-                deferred.reject('Current user is not present');
-            }
-            return deferred.promise;
+        function isCurrentUserSigned() {
+            var cognitoUser = userPool.getCurrentUser();
+            return cognitoUser !== null;                
         }
 
         return {
             signUp: signUp,
             confirmRegistration: confirmRegistration,
             authenticate: authenticate,
-            getCurrentUser: getCurrentUser
+            signOut: signOut,
+            isCurrentUserSigned: isCurrentUserSigned
         };
   }
 

@@ -52,6 +52,14 @@
       $state.go('registerUser');      
     };
 
+    this.signOut = function(){
+      cognitoService.signOut();      
+    };
+
+    this.isSignedIn = function(){
+       return cognitoService.isCurrentUserSigned();     
+    };
+
     // Register state change interactions for visual transition cues
     $rootScope.$on('$stateChangeStart', function() {
       tipoRouter.startStateChange();
