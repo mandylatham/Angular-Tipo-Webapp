@@ -6,23 +6,23 @@
       $scope, 
       $location, 
       $mdDialog, 
+      $window,
       cognitoService) {
         
     function signUp(user) {
         console.log(user);
-        cognitoService.signUp(user.username, user.password, user.email, user.phone, function(err, result){
-            if (err) {
-                alert(err);
-                return;
-            }
+        var promise = cognitoService.signUp(user.username, user.password, user.email, user.phone);
+        promise.then(function (result) {
             var cognitoUser = result.user;
             console.log('user ' + cognitoUser.getUsername() + ' has requested for registration');
             var alertDlg = $mdDialog.alert()
                 .title('Registration')
                 .content('User ' + cognitoUser.getUsername() + ' successfully submitted request')
                 .ok('Close');
-            $mdDialog.show(alertDlg);
-        }); 
+            $mdDialog.show(alertDlg);    
+        }, function (err) {
+            $window.alert(err);    
+        });           
     }
 
     function initConfirmation() {
@@ -39,19 +39,22 @@
         
         userDetails = userDetails || { username: '', confirmationCode: '' };      
 
-        cognitoService.confirmRegistration(userDetails.username, userDetails.confirmationCode, function(err, result) {
-            if (err) {
-                alert(err);
-                return;
-            }
+        var promise = cognitoService.confirmRegistration(userDetails.username, userDetails.confirmationCode);
+        promise.then(function (result) {
             console.log('call result: ' + result);
             var alertDlg = $mdDialog.alert()
                 .title('Confirmation')
                 .content('User ' + userDetails.username + ' registration confirmed')
                 .ok('Close');
             $mdDialog.show( alertDlg );
-        });
-    }    
+        }, function (err) {
+            $window.alert(err);    
+        });         
+    }  
+
+    function getCurrentUser() {
+        
+    }  
 
     return {
         signUp: signUp,

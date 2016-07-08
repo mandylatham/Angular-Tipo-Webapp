@@ -8,7 +8,8 @@
     $mdSidenav,
     $state,
     $rootScope,
-    $mdDialog
+    $mdDialog,
+    $window
     ) {
 
     var _instance = this;
@@ -25,26 +26,24 @@
           targetEvent: $event,
           templateUrl: 'user/_views/login.tpl.html',
           controller: function DialogController($scope, $mdDialog) {
-          $scope.submit = function() {
-            cognitoService.authenticate($scope.username, $scope.password, {
-              onSuccess: function (result) {
-                $mdDialog.hide();
-                var alertDlg = $mdDialog.alert()
-                  .title('Login')
-                  .content('User ' + $scope.username + ' login successfully')
-                  .ok('Close');
-                $mdDialog.show(alertDlg);
-              },
-              onFailure: function(err) {
-                $mdDialog.hide();
-                alert(err);
-              }  
-            });
-          };
+            $scope.submit = function() {
+              var promise = cognitoService.authenticate($scope.username, $scope.password); 
+              promise.then(function(result) {
+                  $mdDialog.hide();
+                  var alertDlg = $mdDialog.alert()
+                    .title('Login')
+                    .content('User ' + $scope.username + ' login successfully')
+                    .ok('Close');
+                  $mdDialog.show(alertDlg);  
+              }, function (err) {
+                  $mdDialog.hide();
+                  $window.alert(err);   
+              });               
+            };
 
-          $scope.cancel = function() {
-          $mdDialog.hide();
-          };
+            $scope.cancel = function() {
+              $mdDialog.hide();
+            };
           }
       });      
     };      
