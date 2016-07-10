@@ -1,26 +1,30 @@
-<md-card flex="initial" layout="column">
-  <form flex layout="column" layout-wrap layout-padding layout-align="space-between start" class="md-inline-form" ng-cloak>
-    
-    <md-input-container class="md-block">
-      <label>Username</label>
-      <input ng-model="user.username">
-    </md-input-container>
-    <md-input-container class="md-block" md-no-float>
-      <label>Password</label>
-      <input ng-model="user.password">
-    </md-input-container>
-    <md-input-container class="md-block" md-no-float>
-      <label>Email</label>
-      <input ng-model="user.email" type="email">
-    </md-input-container>
-    <md-input-container class="md-block" md-no-float>
-      <label>Phone number</label>
-      <input ng-model="user.phone">
-    </md-input-container>
-  </form>
-   <md-content md-theme="docs-dark" layout-gt-sm="row" layout-padding>
-    <div>
-      <md-button class="md-raised md-primary" ng-click="userController.signUp(user)">Submit</md-button>
-    </div>
-  </md-content>
-</md-card>
+<div flex layout="column">
+  <md-subheader class="md-primary">
+    <h2>Registration</h2>
+  </md-subheader>
+  <md-card flex="initial" layout="column">
+    <form flex layout="column" layout-wrap layout-padding layout-align="space-between start" class="md-inline-form" ng-cloak>
+      <md-input-container class="md-block">
+        <label>Username</label>
+        <input ng-model="user.username">
+      </md-input-container>
+      <md-input-container class="md-block" md-no-float>
+        <label>Password</label>
+        <input ng-model="user.password">
+      </md-input-container>
+      <md-input-container class="md-block" md-no-float>
+        <label>Email</label>
+        <input ng-model="user.email" type="email">
+      </md-input-container>
+      <md-input-container class="md-block" md-no-float>
+        <label>Phone number</label>
+        <input ng-model="user.phone">
+      </md-input-container>
+    </form>
+     <md-content layout-gt-sm="row" layout-padding>
+      <div>
+        <md-button class="md-raised md-primary" ng-click="userController.signUp(user)">Submit</md-button>
+      </div>
+    </md-content>
+  </md-card>
+</div>

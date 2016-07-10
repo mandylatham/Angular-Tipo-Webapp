@@ -9,6 +9,7 @@
         scope: {
           show: '&'
         },
+        replace: true,
         restrict: 'E',
         templateUrl: 'common/ui/_views/state-change-indicator.tpl.html'
       };

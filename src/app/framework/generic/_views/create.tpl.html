@@ -1,6 +1,9 @@
 <md-card flex="initial" layout="row">
   <form flex layout="row" layout-wrap layout-padding layout-align="space-between start" class="md-inline-form" ng-cloak>
-    <md-input-container class="md-block" flex-xs="100" flex-sm="45" flex-gt-sm="30">
+    <dummy style="display: none" ng-repeat-start="field in tipoRootController.tipoDefinition.tipo_fields" />
+    <tp:input definition="tipoRootController.tipoDefinition" field="field" flex-xs="100" flex-sm="45" flex-gt-sm="30"/>
+    <dummy style="display: none" ng-repeat-end />
+    <!--<md-input-container class="md-block" flex-xs="100" flex-sm="45" flex-gt-sm="30">
       <label>Company</label>
       <input ng-model="user.company">
     </md-input-container>
@@ -50,6 +53,6 @@
     <md-input-container class="md-block" flex-xs="100" flex-sm="45" flex-gt-sm="30">
       <label>Biography</label>
       <textarea ng-model="user.biography" md-maxlength="150" rows="5" md-select-on-focus></textarea>
-    </md-input-container>
+    </md-input-container>-->
   </form>
 </md-card>

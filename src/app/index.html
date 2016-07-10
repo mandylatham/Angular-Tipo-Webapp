@@ -15,14 +15,6 @@
     
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    
-    <script src="libs/jsbn.js"></script>
-    <script src="libs/jsbn2.js"></script>
-    <script src="libs/sjcl.js"></script>
-    <script src="libs/moment.min.js"></script>
-    <script src="libs/aws-cognito-sdk.min.js"></script>
-    <script src="libs/amazon-cognito-identity.min.js"></script>
-    <script src="common/_scripts/config.js"></script>
 
   </head>
 
@@ -34,6 +26,16 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
+    <!-- build:js(app) _scripts/non-bower-managed-pre.js -->
+    <script src="_scripts/non-bower-managed/jsbn.js"></script>
+    <script src="_scripts/non-bower-managed/jsbn2.js"></script>
+    <script src="_scripts/non-bower-managed/sjcl.js"></script>
+    <script src="_scripts/non-bower-managed/moment.min.js"></script>
+    <script src="_scripts/non-bower-managed/aws-cognito-sdk.js"></script>
+    <script src="_scripts/non-bower-managed/amazon-cognito-identity.js"></script>
+    <script src="_scripts/non-bower-managed/jsbn2.js"></script>
+    <!-- endbuild -->
+
     <!-- build:js(.) _scripts/bower-managed.js -->
     <!-- bower:js -->
     <!-- endbower -->
@@ -44,11 +46,13 @@
     <!-- endbuild -->
 
     <!-- build:js(app) _scripts/main.js -->
-    
+
+    <script src="common/_scripts/config.js"></script>
+
     <script src="common/_scripts/common.module.js"></script>
     <script src="common/_scripts/SecurityContextService.js"></script>
     
-    <script src="common/_scripts/CognitoService.js"></script>    
+    <script src="common/_scripts/CognitoService.js"></script>
     
     <script src="common/backend/_scripts/TipoRouter.js"></script>
     <script src="common/backend/_scripts/TipoResource.js"></script>
@@ -67,6 +71,8 @@
     <script src="framework/_scripts/TipoListRootController.js"></script>
     <script src="framework/_scripts/TipoCreateRootController.js"></script>
 
+    <script src="framework/_scripts/tpInput.js"></script>
+
     <script src="framework/generic/_scripts/TipoGenericListController.js"></script>
 
     <script src="dashboard/_scripts/dashboard.module.js"></script>
@@ -80,10 +86,8 @@
     <script src="_scripts/main.module.js"></script>
     <script src="_scripts/MainController.js"></script>
 
-    
-
     <!-- endbuild -->
 
   </body>
-  
+
 </html>

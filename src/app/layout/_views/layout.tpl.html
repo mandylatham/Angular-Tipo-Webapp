@@ -3,7 +3,7 @@
   <div flex layout="column">
     <div tp-include="layout/_views/header.tpl.html"></div>
     <md-content md-scroll-y flex layout="column">
-      <state-change-indicator show="main.routing.isStateChanging()" />
+      <tp:state-change-indicator show="main.routing.isStateChanging()"/>
       <div ng-if="!main.routing.isStateChanging()" id="content" flex="noshrink" layout="column" ui-view="content"></div>
       <div tp-include="layout/_views/footer.tpl.html"></div>
     </md-content>
