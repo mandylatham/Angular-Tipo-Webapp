@@ -18,15 +18,17 @@
             return element;
           }
         },
-        security: function(element, operation, route, url, headers) {
+        security: function(element, operation, route, url, headers, params, httpConfig) {
           var accessToken = securityContextService.getCurrentAccessToken();
           if(!_.isUndefined(accessToken)){
-            headers = _.extend(headers, {Authorization: 'Bearer ' +  accessToken});
+            headers = _.extend(headers, {'Authorization': accessToken});
           }
  
           return {
-            headers: headers,
-            element: element
+              element: element,
+              headers: headers,
+              params: params,
+              httpConfig: httpConfig
           };
         }
       },
@@ -48,16 +50,14 @@
     };
   }
 
-
-
   // Configures Restangular for API interactions
   function configureRestangular(RestangularConfigurer, securityContextService) {
  
     var interceptors = getAllInterceptors(securityContextService);
     
     RestangularConfigurer.setBaseUrl(TIPO_API_URLS.BASE);
-    RestangularConfigurer.addRequestInterceptor(interceptors.request.sanitize);
-    //RestangularConfigurer.addFullRequestInterceptor(interceptors.request.security);
+    //RestangularConfigurer.addRequestInterceptor(interceptors.request.sanitize);
+    RestangularConfigurer.addFullRequestInterceptor(interceptors.request.security);
     RestangularConfigurer.addResponseInterceptor(interceptors.response.extractData);
     RestangularConfigurer.setErrorInterceptor(interceptors.errors.handleError);
   }

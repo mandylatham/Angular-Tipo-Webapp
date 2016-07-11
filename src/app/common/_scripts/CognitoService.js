@@ -18,7 +18,7 @@
   };
   var userPool = new AWSCognito.CognitoIdentityServiceProvider.CognitoUserPool(poolData);
 
-  function CognitoService($q) {
+  function CognitoService($q, securityContextService) {
         
     function signUp(username, password, email, phoneNumber) {
       var attributeList = [];
@@ -81,6 +81,11 @@
       cognitoUser.authenticateUser(authenticationDetails, {
         onSuccess: function (result) {
           console.log('access token + ' + result.getAccessToken().getJwtToken());
+          var securityContext = {
+              'tokenDetails.access_token': result.getAccessToken().getJwtToken(),
+              'loggedInUser': username
+          };
+          securityContextService.saveContext(securityContext);
 
           var loginsKey = 'cognito-idp.us-east-1.amazonaws.com/' + cognito.UserPoolId;
           AWS.config.credentials = new AWS.CognitoIdentityCredentials({
