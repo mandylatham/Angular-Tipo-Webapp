@@ -3,7 +3,7 @@
   'use strict';
 
   var TIPO_API_URLS = {
-    BASE: '/dev'
+    BASE: 'https://74oj0xr2l2.execute-api.us-east-1.amazonaws.com/dev'
   };
 
   function getAllInterceptors(securityContextService) {
