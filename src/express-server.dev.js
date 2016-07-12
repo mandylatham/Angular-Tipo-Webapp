@@ -16,7 +16,7 @@ var pathMappings = [
   },
   {    
     path: '/dev',
-    url: 'https://pb94akgzqh.execute-api.us-east-1.amazonaws.com'
+    url: 'http://pb94akgzqh.execute-api.us-east-1.amazonaws.com'
   }
 ];
 
