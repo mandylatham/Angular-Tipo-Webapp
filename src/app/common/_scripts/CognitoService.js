@@ -110,6 +110,7 @@
       if(cognitoUser !== null) {
         cognitoUser.signOut();
       }
+      securityContextService.clearContext();
     }
 
     function isCurrentUserSigned() {
