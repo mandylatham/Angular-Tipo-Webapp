@@ -3,16 +3,16 @@
   'use strict';
 
   var TIPO_API_URLS = {
-    BASE: 'https://74oj0xr2l2.execute-api.us-east-1.amazonaws.com/dev'
+    BASE: TIPO_CONSTANTS.API_URL
   };
 
   function getAllInterceptors($q, securityContextService) {
 
     function refreshAccesstoken() {
-        var deferred = $q.defer();
-        // Refresh access-token logic
+      var deferred = $q.defer();
+      // Refresh access-token logic
 
-        return deferred.promise;
+      return deferred.promise;
     }
     
     return {
@@ -57,10 +57,10 @@
             // Repe at the request and then call the handlers the usual way.
             $http(response.config).then(responseHandler, deferred.reject);
             // Be aware that no request interceptors are called this way.
-          });              
-          //}          
+          });
+          //}
           return false;
-        }        
+        }
       }
     };
   }

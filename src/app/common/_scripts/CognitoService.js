@@ -40,12 +40,12 @@
       var deferred = $q.defer();
       userPool.signUp(username, password, attributeList, null, function(err, result){
         if (err) {
-          deferred.reject(err); 
+          deferred.reject(err);
           return;
         }
         deferred.resolve(result);
       });
-      return deferred.promise; 
+      return deferred.promise;
     }
 
     function confirmRegistration(username, verificationCode) {
@@ -82,8 +82,8 @@
         onSuccess: function (result) {
           console.log('access token + ' + result.getAccessToken().getJwtToken());
           var securityContext = {
-              'tokenDetails.access_token': result.getAccessToken().getJwtToken(),
-              'loggedInUser': username
+            'tokenDetails.access_token': result.getAccessToken().getJwtToken(),
+            'loggedInUser': username
           };
           securityContextService.saveContext(securityContext);
 

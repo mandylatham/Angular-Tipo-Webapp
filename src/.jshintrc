@@ -24,6 +24,9 @@
     "_": false,
     "Promise": false,
     "jsonPath": false,
-    "S": false
+    "S": false,
+    "TIPO_CONSTANTS": false,
+    "AWS": false,
+    "AWSCognito": false
   }
 }

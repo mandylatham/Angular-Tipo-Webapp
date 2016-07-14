@@ -3,7 +3,7 @@
 var path = require('path');
 var express = require('express');
 var lodash = require('lodash');
-var proxy = require('json-proxy');
+var proxy = require('http-proxy-middleware');
 
 var pathMappings = [
   {
@@ -16,7 +16,7 @@ var pathMappings = [
   },
   {
     path: '/dev',
-    url: 'http://localhost:9001'
+    url: 'https://74oj0xr2l2.execute-api.us-east-1.amazonaws.com'
   }
 ];
 
@@ -30,12 +30,8 @@ lodash.each(pathMappings, function(mapping){
   if(mapping.dir){
     app.use(mapping.path, express.static(path.resolve(__dirname, mapping.dir)));
   }else if(mapping.url){
-    proxyConfig.forward[mapping.path] = mapping.url;
+    app.use(mapping.path, proxy({target: mapping.url, changeOrigin: true}));
   }
 });
-
-app.use(proxy.initialize({
-  proxy: proxyConfig
-}));
 
 module.exports = app;

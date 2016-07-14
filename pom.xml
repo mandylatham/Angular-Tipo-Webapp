@@ -9,6 +9,7 @@
 
   <properties>
     <grunt.plugin.version>1.5.1</grunt.plugin.version>
+    <tipo.api.url>/dev</tipo.api.url>
   </properties>
 
   <build>
@@ -35,6 +36,7 @@
               <filteredResource>maven-properties.json</filteredResource>
               <filteredResource>package.json</filteredResource>
               <filteredResource>bower.json</filteredResource>
+              <filteredResource>app/common/_scripts/config.js</filteredResource>
             </filteredResources>
           </configuration>
         </plugin>
