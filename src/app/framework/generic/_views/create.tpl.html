@@ -1,8 +1,12 @@
 <md-card flex="initial" layout="row">
   <form flex layout="row" layout-wrap layout-padding layout-align="space-between start" class="md-inline-form" ng-cloak>
     <dummy style="display: none" ng-repeat-start="field in tipoRootController.tipoDefinition.tipo_fields" />
-    <tp:input definition="tipoRootController.tipoDefinition" field="field" flex-xs="100" flex-sm="45" flex-gt-sm="30"/>
+    <tp:input definition="tipoRootController.tipoDefinition" field="field" />
     <dummy style="display: none" ng-repeat-end />
+    <div flex="100">
+      <h3>Billing Address</h3>
+      <md-divider></md-divider>
+    </div>
     <!--<md-input-container class="md-block" flex-xs="100" flex-sm="45" flex-gt-sm="30">
       <label>Company</label>
       <input ng-model="user.company">

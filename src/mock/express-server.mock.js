@@ -13,6 +13,7 @@ app.set('json spaces', 2);
 
 var router = express.Router();
 app.use('/api/v1', router);
+app.use('/dev', router);
 
 var tipoDefinitions = require('./tipo-definitions.json');
 var tipoData = require('./tipo-seed-data.json');

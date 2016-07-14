@@ -2,19 +2,19 @@
 
   'use strict';
 
-  AWS.config.region = cognito.region;
+  AWS.config.region = TIPO_CONSTANTS.COGNITO.REGION;
   AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-    IdentityPoolId: cognito.IdentityPoolId
+    IdentityPoolId: TIPO_CONSTANTS.COGNITO.IDENTITY_POOL_ID
   });
 
-  AWSCognito.config.region = cognito.region;
+  AWSCognito.config.region = TIPO_CONSTANTS.COGNITO.REGION;
   AWSCognito.config.credentials = new AWS.CognitoIdentityCredentials({
-    IdentityPoolId: cognito.IdentityPoolId
+    IdentityPoolId: TIPO_CONSTANTS.COGNITO.IDENTITY_POOL_ID
   });
 
   var poolData = {
-    UserPoolId : cognito.UserPoolId,
-    ClientId : cognito.ClientId
+    UserPoolId : TIPO_CONSTANTS.COGNITO.USER_POOL_ID,
+    ClientId : TIPO_CONSTANTS.COGNITO.CLIENT_ID
   };
   var userPool = new AWSCognito.CognitoIdentityServiceProvider.CognitoUserPool(poolData);
 
@@ -87,9 +87,9 @@
           };
           securityContextService.saveContext(securityContext);
 
-          var loginsKey = 'cognito-idp.us-east-1.amazonaws.com/' + cognito.UserPoolId;
+          var loginsKey = 'cognito-idp.us-east-1.amazonaws.com/' + TIPO_CONSTANTS.COGNITO.USER_POOL_ID;
           AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-            IdentityPoolId : cognito.IdentityPoolId,
+            IdentityPoolId : TIPO_CONSTANTS.COGNITO.IDENTITY_POOL_ID,
             Logins : {
               loginsKey: result.getIdToken().getJwtToken()
             }
