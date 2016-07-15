@@ -40,12 +40,13 @@
       return getCurrentContext('tokenDetails.access_token');
     };
 
-    this.logout = function(){
+    this.relogin = function(deferred){
       _instance.clearContext();
-      var currentUrl = $location.path();
-      if(!currentUrl.endsWith('login')){
-        routingUtilityFactory.transitionToState('login', 'login');
-      }
+      tipoRouter.to('login', false, {retry: deferred});
+      // var currentUrl = $location.path();
+      // if(!currentUrl.endsWith('login')){
+      //   routingUtilityFactory.transitionToState('login', 'login');
+      // }
     };
   }
 

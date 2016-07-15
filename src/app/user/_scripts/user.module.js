@@ -29,8 +29,49 @@
       }
     };
 
+    var loginState = {
+      name: 'login',
+      url: '/login',
+      parent: 'layout',
+      onEnter: function($stateParams, $mdDialog) {
+        console.log($stateParams);
+        
+        var ev = null; // this should be the $event 
+        var parentEl = angular.element(document.body);
+        $mdDialog.show({
+            parent: parentEl,
+            targetEvent: ev,
+            templateUrl: 'user/_views/login.tpl.html',
+            controller: function DialogController($rootScope, $scope, $state, $mdDialog, cognitoService) {
+              $scope.submit = function() {
+                var promise = cognitoService.authenticate($scope.username, $scope.password); 
+                promise.then(function(result) {
+                    $mdDialog.hide();
+                    var alertDlg = $mdDialog.alert()
+                      .title('Login')
+                      .content('User ' + $scope.username + ' login successfully')
+                      .ok('Close');
+                    $mdDialog.show(alertDlg);  
+                    $state.go($rootScope.$previousState);
+                }, function (err) {
+                    $mdDialog.hide();
+                    $window.alert(err);  
+                    $state.go($rootScope.$previousState);
+                });                                          
+              };
+
+              $scope.cancel = function() {
+                $mdDialog.hide();
+                $state.go($rootScope.$previousState); 
+              };
+            }
+        });
+      }
+    };
+
     $stateProvider
       .state(registerUserState)
+      .state(loginState)
       .state(confirmRegistrationState);  
   }
 
@@ -38,8 +79,12 @@
     registerStates($stateProvider);
   }
 
-  var module = angular.module('tipo.user', [
-  ]);
+  var module = angular.module('tipo.user', []);
+  module.run(function ($rootScope) {
+    $rootScope.$on('$stateChangeSuccess', function(event, to, toParams, from, fromParams) {
+        $rootScope.$previousState = from;
+    });
+  });
 
   module.config(function ($stateProvider) {
     configureModule($stateProvider);
