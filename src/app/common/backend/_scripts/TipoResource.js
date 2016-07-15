@@ -6,12 +6,12 @@
     BASE: TIPO_CONSTANTS.API_URL
   };
 
-  function getAllInterceptors($q, securityContextService) {
+  function getAllInterceptors($http, $q, securityContextService) {
 
     function refreshAccesstoken() {
       var deferred = $q.defer();
       // Refresh access-token logic
-
+      securityContextService.relogin(deferred);      
       return deferred.promise;
     }
     
@@ -48,17 +48,17 @@
         }
       },
       errors: {
-        handleError: function(response, deferred) {
+        handleError: function(response, deferred, responseHandler) {
           console.log('error handling');
           console.error(response);
 
-          //if(response.status === 401) {
-          refreshAccesstoken().then(function() {
-            // Repe at the request and then call the handlers the usual way.
-            $http(response.config).then(responseHandler, deferred.reject);
-            // Be aware that no request interceptors are called this way.
-          });
-          //}
+          if(response.status === 403) {
+            refreshAccesstoken().then(function() {
+              // Repeat the request and then call the handlers the usual way.
+              $http(response.config).then(responseHandler, deferred.reject);
+              // Be aware that no request interceptors are called this way.
+            });
+          }
           return false;
         }
       }
@@ -66,9 +66,9 @@
   }
 
   // Configures Restangular for API interactions
-  function configureRestangular(RestangularConfigurer, $q, securityContextService) {
+  function configureRestangular(RestangularConfigurer, $http, $q, securityContextService) {
  
-    var interceptors = getAllInterceptors($q, securityContextService);
+    var interceptors = getAllInterceptors($http, $q, securityContextService);
     
     RestangularConfigurer.setBaseUrl(TIPO_API_URLS.BASE);
     //RestangularConfigurer.addRequestInterceptor(interceptors.request.sanitize);
@@ -78,8 +78,8 @@
   }
 
   // Tipo Resource. This shall be used for invoking the Tipo REST APIs
-  function TipoResource($q, Restangular, securityContextService) {
-    var factory = Restangular.withConfig(_.partialRight(configureRestangular, $q, securityContextService));
+  function TipoResource($http, $q, Restangular, securityContextService) {
+    var factory = Restangular.withConfig(_.partialRight(configureRestangular, $http, $q, securityContextService));
     return factory;
   }
 
