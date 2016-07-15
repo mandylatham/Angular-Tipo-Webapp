@@ -14,7 +14,7 @@
       var meta = definition.tipo_meta;
 
       if(_.isUndefined(definition._ui)){
-        var listTemplate = meta.tipo_list_view || 'framework.generic.list';
+        var listTemplate = meta.tipo_list_view || 'framework.generic.list-fluid';
         var viewTemplate = meta.tipo_detail_view || 'framework.generic.view';
         var createTemplate = meta.tipo_create_view || 'framework.generic.create';
         var editTemplate = meta.tipo_edit_view || 'framework.generic.edit';
