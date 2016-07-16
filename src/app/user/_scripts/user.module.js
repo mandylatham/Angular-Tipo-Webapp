@@ -33,6 +33,9 @@
       name: 'login',
       url: '/login',
       parent: 'layout',
+      params: {
+        'retry': null
+      },
       onEnter: function($rootScope, $state, $stateParams, $mdDialog) {
         console.log($stateParams);
         
@@ -53,21 +56,27 @@
                       .ok('Close');
                     $mdDialog.show(alertDlg);                   
                 }, function (err) {
-                    $mdDialog.hide();
+                    $mdDialog.cancel();
                     $window.alert(err);
                 });                                          
               };
 
               $scope.cancel = function() {
-                $mdDialog.hide(); 
+                $mdDialog.cancel(); 
               };
             }
         }).then(function(answer) {
+          if ($stateParams.retry) {
+            $stateParams.retry.resolve();
+          }
           $state.go($rootScope.$previousState);
         }, function() {
+          if ($stateParams.retry) {
+            $stateParams.retry.reject();
+          }
           $state.go($rootScope.$previousState);
         });
-      }
+      }      
     };
 
     $stateProvider
