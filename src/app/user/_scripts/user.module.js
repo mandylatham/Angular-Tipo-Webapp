@@ -33,7 +33,7 @@
       name: 'login',
       url: '/login',
       parent: 'layout',
-      onEnter: function($stateParams, $mdDialog) {
+      onEnter: function($rootScope, $state, $stateParams, $mdDialog) {
         console.log($stateParams);
         
         var ev = null; // this should be the $event 
@@ -42,7 +42,7 @@
             parent: parentEl,
             targetEvent: ev,
             templateUrl: 'user/_views/login.tpl.html',
-            controller: function DialogController($rootScope, $scope, $state, $mdDialog, cognitoService) {
+            controller: function DialogController($rootScope, $scope, $mdDialog, cognitoService) {
               $scope.submit = function() {
                 var promise = cognitoService.authenticate($scope.username, $scope.password); 
                 promise.then(function(result) {
@@ -51,20 +51,21 @@
                       .title('Login')
                       .content('User ' + $scope.username + ' login successfully')
                       .ok('Close');
-                    $mdDialog.show(alertDlg);  
-                    $state.go($rootScope.$previousState);
+                    $mdDialog.show(alertDlg);                   
                 }, function (err) {
                     $mdDialog.hide();
-                    $window.alert(err);  
-                    $state.go($rootScope.$previousState);
+                    $window.alert(err);
                 });                                          
               };
 
               $scope.cancel = function() {
-                $mdDialog.hide();
-                $state.go($rootScope.$previousState); 
+                $mdDialog.hide(); 
               };
             }
+        }).then(function(answer) {
+          $state.go($rootScope.$previousState);
+        }, function() {
+          $state.go($rootScope.$previousState);
         });
       }
     };

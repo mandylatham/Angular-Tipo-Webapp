@@ -52,7 +52,7 @@
           console.log('error handling');
           console.error(response);
 
-          if(response.status === 403) {
+          if(response.status === 401 || response.status === 403) {
             refreshAccesstoken().then(function() {
               // Repeat the request and then call the handlers the usual way.
               $http(response.config).then(responseHandler, deferred.reject);
