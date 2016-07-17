@@ -69,12 +69,12 @@
           if ($stateParams.retry) {
             $stateParams.retry.resolve();
           }
-          $state.go($rootScope.$previousState);
+          $state.go($rootScope.$previousState, $rootScope.$previousParams);
         }, function() {
           if ($stateParams.retry) {
             $stateParams.retry.reject();
           }
-          $state.go($rootScope.$previousState);
+          $state.go($rootScope.$previousState, $rootScope.$previousParams);
         });
       }      
     };
@@ -93,6 +93,7 @@
   module.run(function ($rootScope) {
     $rootScope.$on('$stateChangeSuccess', function(event, to, toParams, from, fromParams) {
         $rootScope.$previousState = from;
+        $rootScope.$previousParams = fromParams;
     });
   });
 
