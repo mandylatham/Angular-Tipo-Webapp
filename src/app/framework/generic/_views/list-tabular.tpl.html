@@ -10,7 +10,7 @@
       </thead>
       <tbody md-body>
         <tr md-row ng-repeat="row in tipoController.tipoData">
-          <td md-cell ng-repeat="cell in row">{{cell.value || '-'}}</td>
+          <td md-cell ng-repeat="cell in row.value">{{cell.value || '-'}}</td>
         </tr>
       </tbody>
     </table>

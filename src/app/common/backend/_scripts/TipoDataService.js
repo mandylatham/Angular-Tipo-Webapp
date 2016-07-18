@@ -21,7 +21,7 @@
     }
     
     // Retrieves a list of all resources
-    function getAll(collectionResourceFunction, queryParameters, headers){
+    function getAll(queryParameters, headers, collectionResourceFunction){
       if(_.isUndefined(collectionResourceFunction)){
         collectionResourceFunction = this.getCollectionResource;
       }

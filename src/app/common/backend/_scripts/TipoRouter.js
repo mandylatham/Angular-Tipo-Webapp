@@ -62,6 +62,15 @@
       return $state.go('tipoCreate', parameters, stateOptions);
     }
 
+    function toTipoView(tipoName, tipoId, parameters){
+      var stateOptions = {reload: 'tipoView'};
+      parameters = parameters || {};
+      parameters.tipo_name = tipoName;
+      parameters.tipo_id = tipoId;
+      stateOptions.inherit = false;
+      return $state.go('tipoView', parameters, stateOptions);
+    }
+
     function toRegisterUser(parameters){
       var stateOptions = {reload: 'registerUser'};
       parameters = parameters || {};
@@ -79,6 +88,7 @@
       toParent: toParent,
       toTipoList: toTipoList,
       toTipoCreate: toTipoCreate,
+      toTipoView: toTipoView,
       toRegisterUser: toRegisterUser
     };
 

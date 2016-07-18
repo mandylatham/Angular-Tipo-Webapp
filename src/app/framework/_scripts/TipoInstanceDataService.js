@@ -28,11 +28,11 @@
     }
 
     function getAll(tipo_name){
-      return tipoDataService.getAll.call(this, collectionResourceFunction(tipo_name));
+      return tipoDataService.getAll.call(this, undefined, undefined, collectionResourceFunction(tipo_name));
     }
 
     function getOne(tipo_name, id){
-      return tipoDataService.getOne.call(this, documentResourceFunction(tipo_name), id);
+      return tipoDataService.getOne.call(this, id, undefined, undefined, documentResourceFunction(tipo_name));
     }
 
     return _.create(tipoDataService, {

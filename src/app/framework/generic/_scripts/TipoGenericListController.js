@@ -15,14 +15,17 @@
     var data = [];
 
     _.each(tipos, function(tipo){
-      var row = [];
+      var row = {
+        key: tipo.TipoID,
+        value: []
+      };
       _.each(fields, function(field){
         var expression = field._ui.accessor;
         var value = {
           field: field,
           value: tipoManipulationService.getFieldValue(tipo, expression)
         };
-        row.push(value);
+        row.value.push(value);
       });
       data.push(row);
     });

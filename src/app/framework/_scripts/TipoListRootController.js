@@ -18,6 +18,11 @@
       tipoRouter.toTipoCreate(tipo_name);
     };
 
+    _instance.toDetail = function(id){
+      var tipo_name = tipoDefinition.tipo_meta.tipo_name;
+      tipoRouter.toTipoView(tipo_name, id);
+    };
+
   }
 
   angular.module('tipo.framework')

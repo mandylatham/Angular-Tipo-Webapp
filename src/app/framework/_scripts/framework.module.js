@@ -54,9 +54,24 @@
       name: 'tipoView',
       url: '/tipo/{tipo_name}/{tipo_id}',
       parent: 'layout',
+      resolve: /*@ngInject*/
+      {
+        tipoDefinition: function(tipoDefinitions, tipoRegistry, tipoManipulationService, $stateParams) {
+          var tipoDefinition = tipoRegistry.get($stateParams.tipo_name);
+          // expand the field hierarchy for the tipo
+          var expandedDefinition = tipoManipulationService.expandFieldHierarchy(tipoDefinition);
+          return expandedDefinition;
+        },
+        tipo: function(tipoInstanceDataService, $stateParams){
+          var tipo = tipoInstanceDataService.getOne($stateParams.tipo_name, $stateParams.tipo_id);
+          return tipo;
+        }
+      },
       views: {
         'content@layout': {
-          templateUrl: 'framework/_views/tipo-view.tpl.html'
+          templateUrl: 'framework/_views/tipo-view.tpl.html',
+          controller: 'TipoViewRootController',
+          controllerAs: 'tipoRootController'
         }
       }
     };

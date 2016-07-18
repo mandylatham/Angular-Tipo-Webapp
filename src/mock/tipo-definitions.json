@@ -85,7 +85,7 @@
         "field_name": "RequiredByDate",
         "field_type": "date_time",
         "field_description": "When this order must be full-filled by ",
-        "display_name": "Required by date",
+        "display_name": "Required by Date",
         "display_type": "ngDate",
         "short_display": true,
         "input_type": "ngDate",
@@ -163,7 +163,7 @@
           {
             "field_name": "StreetNo",
             "field_type": "string",
-            "field_description": "Street number"
+            "field_description": "Street Number"
           },
           {
             "field_name": "StreetName",
@@ -182,7 +182,7 @@
             "field_name": "Postcode",
             "field_type": "integer",
             "field_description": "Postal code, PIN code or zip code",
-            "display_name": "Postcode"
+            "display_name": "Postal Code"
           }
         ]
       }
