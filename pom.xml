@@ -10,6 +10,7 @@
   <properties>
     <grunt.plugin.version>1.5.1</grunt.plugin.version>
     <tipo.api.url>/dev</tipo.api.url>
+    <google.client.id>736797628374-35k6fefv902aq6dcrlg9hdt102ndtp0g.apps.googleusercontent.com</google.client.id>
   </properties>
 
   <build>
@@ -37,6 +38,7 @@
               <filteredResource>package.json</filteredResource>
               <filteredResource>bower.json</filteredResource>
               <filteredResource>app/common/_scripts/config.js</filteredResource>
+              <filteredResource>app/index.html</filteredResource>
             </filteredResources>
           </configuration>
         </plugin>

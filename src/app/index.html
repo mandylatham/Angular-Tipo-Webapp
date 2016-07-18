@@ -15,7 +15,9 @@
     
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-
+    <meta name='google-signin-client_id' content='${google.client.id}'/>  	
+  	<script src='https://apis.google.com/js/platform.js' async defer></script>
+    
   </head>
 
   <body id="body" ng-app="tipo.main" ng-cloak>
@@ -85,6 +87,11 @@
 
     <script src="_scripts/main.module.js"></script>
     <script src="_scripts/MainController.js"></script>
+
+    <!-- Google Login -->
+    <script src="google/_scripts/GoogleService.js"></script>
+    <script src="google/_scripts/google-signin-button.js"></script>
+  	
 
     <!-- endbuild -->
 
