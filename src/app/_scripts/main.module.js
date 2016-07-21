@@ -27,7 +27,8 @@
     'tipo.layout',
     'tipo.framework',
     'tipo.dashboard',
-    'tipo.user'
+    'tipo.user',
+    'tipo.social'
   ]);
 
   module.config(function($stateProvider) {

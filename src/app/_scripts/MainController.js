@@ -5,6 +5,7 @@
   function MainController(
     tipoRouter,
     cognitoService,
+    googleService,
     $mdSidenav,
     $state,
     $rootScope,
@@ -32,7 +33,15 @@
     };
 
     this.isSignedIn = function(){
-       return cognitoService.isCurrentUserSigned();     
+      return cognitoService.isCurrentUserSigned();     
+    };
+
+    this.isGoogleSignedIn = function(){
+      return googleService.isSignedIn();     
+    };
+
+    this.googleSignOut = function () {      
+      googleService.signOut();
     };
 
     // Register state change interactions for visual transition cues
