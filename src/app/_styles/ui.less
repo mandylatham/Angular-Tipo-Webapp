@@ -1,8 +1,14 @@
 @image-base-path: '../_assets/images';
+@fa-font-path:       '../_assets/fonts';
+
+// Utility styles
+.hidden {
+  display: none !important;
+}
 
 #body {
   #layout {
-    height: 100vh;
+    height: 99.5vh;
   }
   #logo {
     padding: 20px;
@@ -33,19 +39,50 @@
     text-align: center;
   }
 
-  #tipo-detail{
-    max-width: 1200px;
-    margin-left: 25px;
-    md-input-container{
-      &.md-input-has-value,&.md-input-focused{
-        label{
-          font-size: 1.2em;
-        }
+  .fluid-row-container{
+    .fluid-row{
+      margin-bottom: 10px;
+      .data{
+        background: white;
       }
     }
+    .data{
+      margin-top: 0;
+      margin-bottom: 0;
+      dl,dt,dd{
+        margin: 0;
+      }
+      dt{
+        padding-right: 15px;
+        margin: 0;
+        color: #757575
+      }
+    }
+    .actions{
+      width: 80px;
+      background: #FAFAFA;
+      .md-button{
+        min-width: initial;
+      }
+    }
+  }
+
+  #tp-list{
+    margin: 15px;
+  }
+
+  #tp-detail{
+    max-width: 1200px;
+    margin-left: 25px;
     h3{
       margin-top: 5px;
       margin-bottom: 5px;
+    }
+    .fieldset{
+      padding: 8px;
+      .header{
+        margin-bottom: 10px;
+      }
     }
   }
 }

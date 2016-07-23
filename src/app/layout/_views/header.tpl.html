@@ -1,6 +1,6 @@
 <md-toolbar id="header" md-whiteframe="2">
   <div class="md-toolbar-tools docs-toolbar-tools" tabIndex="-1">
-    <md-button class="md-icon-button" ng-click="main.showNavigation()" hide-gt-sm aria-label="Menu">
+    <md-button class="md-icon-button" ng-click="main.showNavigation()" hide-gt-md aria-label="Menu">
       <md-icon>menu</md-icon>
     </md-button>
     <span flex> </span>
@@ -17,7 +17,7 @@
         <md-menu-item>
           <md-button ng-click="main.googleSignOut()">
             <div layout="row" flex="">
-              <p flex="">Logout</p>                
+              <p flex="">Logout</p>
             </div>
           </md-button>
         </md-menu-item>
@@ -25,7 +25,7 @@
     </md-menu>
     <div md-position-mode="target-right target" ng-show="!main.isGoogleSignedIn()">
       <google-sign-in-button button-id="google-signin-btn" options="options"></google-sign-in-button>
-    </div>    
+    </div>
     <md-button ng-show="!main.isSignedIn()" ng-click="main.showLoginForm(null)">Login</md-button>
     <md-button ng-show="main.isSignedIn()" ng-click="main.signOut()">Logout</md-button>
     <md-button ng-click="main.signUp()">SignUp</md-button>

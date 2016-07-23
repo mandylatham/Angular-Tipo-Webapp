@@ -1,24 +1,18 @@
-<!--<md-card ng-controller="TipoGenericListController as tipoController">
-  <div ng-repeat="row in tipoController.tipoData" ng-click="null" layout="row" layout-padding layout-wrap layout-align="space-between start" style="border-bottom: 1px solid #F2F2F2;">
-    <div ng-repeat="cell in row" flex-xs="100" flex-sm="45" flex-gt-sm="30" layout="row">
-      <p flex="50" style="text-align: right; padding-right: 15px; margin: 0">{{cell.field.display_name}}</p>
-      <p flex="50" style="margin: 0">{{cell.value || '-Not available-'}}</p>
-    </div>
-  </div>
-</md-card>-->
-<div ng-controller="TipoGenericListController as tipoController" style="margin: 15px;">
-  <div layout="row" ng-repeat="row in tipoController.tipoData" style="border-bottom: 1px solid #F2F2F2; margin-bottom: 0;" md-whiteframe="2">
-    <div flex layout="row" layout-padding layout-wrap layout-align="space-between start" style="margin-top: 0; margin-bottom: 0; background: white;">
-      <dl ng-repeat="cell in row.value" flex-xs="100" flex-sm="45" flex-gt-sm="30" layout="row" style="margin: 0">
-        <dt flex="50" style="text-align: right; padding-right: 15px; margin: 0; color: #757575">{{cell.field.display_name}}</dt>
-        <dd flex="50" style="margin: 0">{{cell.value || '-Not available-'}}</dd>
-      </dl>
-    </div>
-    <div flex="none" style="width: 80px; background: #FAFAFA;" layout="column" layout-align="center center">
-      <md-button ng-click="tipoRootController.toDetail(row.key)" aria-label="View details" style="padding: 0; margin: 0; min-width: auto;">
-        <md-tooltip md-direction="top">View details</md-tooltip>
-       <md-icon>pageview</md-icon>
-     </md-button>
+<div ng-controller="TipoGenericListController as tipoController" id="tp-list">
+  <div class="fluid-row-container">
+    <div layout="row" ng-repeat="row in tipoController.tipoData" class="fluid-row" md-whiteframe="2">
+      <div flex layout="row" layout-padding layout-wrap layout-align="start start" class="data">
+        <dl ng-repeat="cell in row.value" flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row" style="margin: 0">
+          <dt>{{cell.field.display_name}}</dt>
+          <dd flex>{{cell.value || '-Not available-'}}</dd>
+        </dl>
+      </div>
+      <div flex="none" layout="column" layout-align="center center" class="actions">
+        <md-button ng-click="tipoRootController.toDetail(row.key)" aria-label="View details">
+          <md-tooltip md-direction="top">View details</md-tooltip>
+         <md-icon>pageview</md-icon>
+       </md-button>
+      </div>
     </div>
   </div>
 </div>

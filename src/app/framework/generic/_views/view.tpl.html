@@ -1,5 +1,5 @@
-<md-card flex="initial" layout="row" id="tipo-detail">
-  <form flex layout="row" layout-wrap layout-padding layout-align="space-between start" class="md-inline-form" ng-cloak>
+<md-card id="tp-detail">
+  <form ng-cloak>
     <!--<dummy style="display: none" ng-repeat-start="field in tipoRootController.tipoDefinition.tipo_fields" />
     <tp:input definition="tipoRootController.tipoDefinition" field="field" />
     <dummy style="display: none" ng-repeat-end />
@@ -7,103 +7,133 @@
       <h3>Billing Address</h3>
       <md-divider></md-divider>
     </div>-->
-    <md-input-container class="md-block md-input-has-value" flex-xs="100" flex-sm="45" flex-gt-sm="30">
-      <label>Order Number</label>
-      <span>ORD00001</span>
-    </md-input-container>
-    <md-input-container class="md-block md-input-has-value" flex-xs="100" flex-sm="45" flex-gt-sm="30">
-      <label>Order Total</label>
-      <span>AUD$1250.00</span>
-    </md-input-container>
-    <md-input-container class="md-block md-input-has-value" flex-xs="100" flex-sm="45" flex-gt-sm="30">
-      <label>Required by Date</label>
-      <span>6th August, 2016</span>
-    </md-input-container>
-    <md-input-container class="md-block md-input-has-value" flex-xs="100" flex-sm="45" flex-gt-sm="30">
-      <label>Customer Name</label>
-      <span>John Doe</span>
-    </md-input-container>
-    <div flex="100">
-      <h3>BillTo Address</h3>
-      <md-divider></md-divider>
-    </div>
-    <md-input-container class="md-block md-input-has-value" flex-xs="100" flex-sm="45" flex-gt-sm="30">
-      <label>Street Number</label>
-      <span>16/2E</span>
-    </md-input-container>
-    <md-input-container class="md-block md-input-has-value" flex-xs="100" flex-sm="45" flex-gt-sm="30">
-      <label>Street Name</label>
-      <span>Market Street</span>
-    </md-input-container>
-    <md-input-container class="md-block md-input-has-value" flex-xs="100" flex-sm="45" flex-gt-sm="30">
-      <label>Suburb</label>
-      <span>Footscray</span>
-    </md-input-container>
-    <md-input-container class="md-block md-input-has-value" flex-xs="100" flex-sm="45" flex-gt-sm="30">
-      <label>Postal Code</label>
-      <span>3000</span>
-    </md-input-container>
-    <div flex="100">
-      <h3>ShipTo Address</h3>
-      <md-divider></md-divider>
-    </div>
-    <md-input-container class="md-block md-input-has-value" flex-xs="100" flex-sm="45" flex-gt-sm="30">
-      <label>Street Number</label>
-      <span>25/1F</span>
-    </md-input-container>
-    <md-input-container class="md-block md-input-has-value" flex-xs="100" flex-sm="45" flex-gt-sm="30">
-      <label>Street Name</label>
-      <span>Flinders Street</span>
-    </md-input-container>
-    <md-input-container class="md-block md-input-has-value" flex-xs="100" flex-sm="45" flex-gt-sm="30">
-      <label>Suburb</label>
-      <span>South Yarra</span>
-    </md-input-container>
-    <md-input-container class="md-block md-input-has-value" flex-xs="100" flex-sm="45" flex-gt-sm="30">
-      <label>Postal Code</label>
-      <span>3000</span>
-    </md-input-container>
-    <div flex="100">
-      <h3>Line Items</h3>
-      <md-divider></md-divider>
-    </div>
-    <div flex="100" layout="row" style="border-bottom: 1px solid #F2F2F2; margin-bottom: 0;" md-whiteframe="2">
-      <div flex layout="row" layout-padding layout-wrap layout-align="space-between start" style="margin-top: 0; margin-bottom: 0; background: white;">
-        <dl flex-xs="100" flex-sm="45" flex-gt-sm="30" layout="row" style="margin: 0">
-          <dt flex="50" style="text-align: right; padding-right: 15px; margin: 0; color: #757575">Item ID</dt>
-          <dd flex="50" style="margin: 0">ITM0001</dd>
+    <section class="fieldset fluid-row-container">
+      <div class="header">
+        <h3><i class="fa fa-caret-down"></i> General Information</h3>
+        <md-divider></md-divider>
+      </div>
+      <div class="data" layout-padding layout="row" layout-wrap layout-align="start start">
+        <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row">
+          <dt>Order Number</dt>
+          <dd flex>ORD00001</dd>
         </dl>
-        <dl flex-xs="100" flex-sm="45" flex-gt-sm="30" layout="row" style="margin: 0">
-          <dt flex="50" style="text-align: right; padding-right: 15px; margin: 0; color: #757575">Item Quantity</dt>
-          <dd flex="50" style="margin: 0">25</dd>
+        <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row">
+          <dt>Order Total</dt>
+          <dd flex>AUD$1250.00</dd>
         </dl>
-        <dl flex-xs="100" flex-sm="45" flex-gt-sm="30" layout="row" style="margin: 0">
-          <dt flex="50" style="text-align: right; padding-right: 15px; margin: 0; color: #757575">Unit Price</dt>
-          <dd flex="50" style="margin: 0">AUD$35.50</dd>
+        <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row">
+          <dt>Required by Date</dt>
+          <dd flex>6th August, 2016</dd>
+        </dl>
+        <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row">
+          <dt>Customer Name</dt>
+          <dd flex>John Doe</dd>
         </dl>
       </div>
-      <!--<div flex="none" style="width: 80px; background: #FAFAFA;" layout="column" layout-align="center center">
-        <md-button aria-label="View details" style="padding: 0; margin: 0; min-width: auto;">
-          <md-tooltip md-direction="top">View details</md-tooltip>
-         <md-icon>pageview</md-icon>
-       </md-button>
-      </div>-->
-    </div>
-    <div flex="100" layout="row" style="border-bottom: 1px solid #F2F2F2; margin-bottom: 0;" md-whiteframe="2">
-      <div flex layout="row" layout-padding layout-wrap layout-align="space-between start" style="margin-top: 0; margin-bottom: 0; background: white;">
-        <dl flex-xs="100" flex-sm="45" flex-gt-sm="30" layout="row" style="margin: 0">
-          <dt flex="50" style="text-align: right; padding-right: 15px; margin: 0; color: #757575">Item ID</dt>
-          <dd flex="50" style="margin: 0">ITM0002</dd>
+    </section>
+    <section class="fieldset fluid-row-container" flex>
+      <div class="header">
+        <h3><i class="fa fa-caret-down"></i> Billing Address</h3>
+        <md-divider></md-divider>
+      </div>
+      <div class="data" layout-padding layout="row" layout-wrap layout-align="start start">
+        <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row">
+          <dt>Street Number</dt>
+          <dd flex>25/1F</dd>
         </dl>
-        <dl flex-xs="100" flex-sm="45" flex-gt-sm="30" layout="row" style="margin: 0">
-          <dt flex="50" style="text-align: right; padding-right: 15px; margin: 0; color: #757575">Item Quantity</dt>
-          <dd flex="50" style="margin: 0">15</dd>
+        <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row">
+          <dt>Street Name</dt>
+          <dd flex>Flinders Stree</dd>
         </dl>
-        <dl flex-xs="100" flex-sm="45" flex-gt-sm="30" layout="row" style="margin: 0">
-          <dt flex="50" style="text-align: right; padding-right: 15px; margin: 0; color: #757575">Unit Price</dt>
-          <dd flex="50" style="margin: 0">AUD$125.00</dd>
+        <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row">
+          <dt>Suburb</dt>
+          <dd flex>South Yarra</dd>
+        </dl>
+        <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row">
+          <dt>Postal Code</dt>
+          <dd flex>3000</dd>
         </dl>
       </div>
-    </div>
+    </section>
+    <section class="fieldset fluid-row-container" flex>
+      <div class="header">
+        <h3><i class="fa fa-caret-down"></i> Shipping Address</h3>
+        <md-divider></md-divider>
+      </div>
+      <div class="data" layout-padding layout="row" layout-wrap layout-align="start start">
+        <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row">
+          <dt>Street Number</dt>
+          <dd flex>16/2E</dd>
+        </dl>
+        <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row">
+          <dt>Street Name</dt>
+          <dd flex>Market Street</dd>
+        </dl>
+        <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row">
+          <dt>Suburb</dt>
+          <dd flex>Footscray</dd>
+        </dl>
+        <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row">
+          <dt>Postal Code</dt>
+          <dd flex>3000</dd>
+        </dl>
+      </div>
+    </section>
+    <section class="fieldset fluid-row-container" flex>
+      <div class="header">
+        <h3><i class="fa fa-caret-right"></i> Line Items</h3>
+        <md-divider></md-divider>
+      </div>
+      <div class="data">
+        <div md-whiteframe="2" class="fluid-row">
+          <div layout="row" layout-padding layout-wrap layout-align="start start" class="data">
+            <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row">
+              <dt>Item ID:</dt>
+              <dd flex>ITM0001</dd>
+            </dl>
+            <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row">
+              <dt>Item Quantity:</dt>
+              <dd flex>25</dd>
+            </dl>
+            <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row">
+              <dt>Unit Price:</dt>
+              <dd flex>AUD$35.50</dd>
+            </dl>
+            <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row">
+              <dt>SKU:</dt>
+              <dd flex>Random Item picked up</dd>
+            </dl>
+            <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row">
+              <dt>Freight:</dt>
+              <dd flex>AUD$1.50</dd>
+            </dl>
+          </div>
+        </div>
+        <div md-whiteframe="2" class="fluid-row">
+          <div layout="row" layout-padding layout-wrap layout-align="start start" class="data">
+            <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row">
+              <dt>Item ID:</dt>
+              <dd flex>ITM0002</dd>
+            </dl>
+            <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row">
+              <dt>Item Quantity:</dt>
+              <dd flex>15</dd>
+            </dl>
+            <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row">
+              <dt>Unit Price:</dt>
+              <dd flex>AUD$125.00</dd>
+            </dl>
+            <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row">
+              <dt>SKU:</dt>
+              <dd flex>Random Item picked up</dd>
+            </dl>
+            <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row">
+              <dt>Freight:</dt>
+              <dd flex>AUD$1.50</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </section>
   </form>
 </md-card>
