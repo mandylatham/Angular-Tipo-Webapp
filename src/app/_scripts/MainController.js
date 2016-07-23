@@ -29,20 +29,16 @@
     };
 
     this.signOut = function(){
-      cognitoService.signOut();      
+      if (cognitoService.signOut() === true) {
+        $state.go('login');
+        return;
+      }
+      googleService.signOut();      
     };
 
     this.isSignedIn = function(){
-      return cognitoService.isCurrentUserSigned();     
-    };
-
-    this.isGoogleSignedIn = function(){
-      return googleService.isSignedIn();     
-    };
-
-    this.googleSignOut = function () {      
-      googleService.signOut();
-    };
+      return cognitoService.isCurrentUserSigned() === true || googleService.isSignedIn() === true;     
+    };    
 
     // Register state change interactions for visual transition cues
     $rootScope.$on('$stateChangeStart', function() {

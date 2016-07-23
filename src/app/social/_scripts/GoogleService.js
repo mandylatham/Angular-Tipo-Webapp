@@ -2,7 +2,7 @@
 
   'use strict';  
 
-  function GoogleService($q) {        
+  function GoogleService($rootScope, $state, $q, $mdDialog, securityContextService) {        
     
     var identity = $q.defer();
 
@@ -45,21 +45,39 @@
                 'accounts.google.com': id_token
             }
         })
-      });  
+      }); 
+      var securityContext = {
+        'tokenDetails.access_token': id_token,
+        'loggedInUser': googleUser.getBasicProfile().getName()
+      };
+      securityContextService.saveContext(securityContext);       
 
       awsRefresh().then(function(id) {
           identity.resolve({
               id: id,
               email: googleUser.getBasicProfile().getEmail(),
               refresh:refresh
-          }); 
-      });    
+          });          
+
+          if ($rootScope.$previousState.abstract === true) {
+            $state.go('dashboard');                
+          } else {
+            $state.go($rootScope.$previousState, $rootScope.$previousParams);
+          }
+          var alertDlg = $mdDialog.alert()
+              .title('Login')
+              .content('User ' + profile.getName() + ' login successfully')
+              .ok('Close');
+          $mdDialog.show(alertDlg);
+      });              
     }
 
     function signOut() {
       var auth2 = gapi.auth2.getAuthInstance();
       auth2.signOut().then(function () {
+        $state.go('login');
       });
+      return true;
     }
 
     function isSignedIn() {

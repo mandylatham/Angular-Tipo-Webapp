@@ -4,28 +4,6 @@
       <md-icon>menu</md-icon>
     </md-button>
     <span flex> </span>
-    <md-menu md-position-mode="target-right target" ng-show="main.isGoogleSignedIn()">
-      <md-button aria-label="Open demo menu" ng-click="$mdOpenMenu($event)">
-        Google
-      </md-button>
-      <md-menu-content width="4">
-        <md-menu-item>
-          <md-button>
-            Profile
-          </md-button>
-        </md-menu-item>
-        <md-menu-item>
-          <md-button ng-click="main.googleSignOut()">
-            <div layout="row" flex="">
-              <p flex="">Logout</p>
-            </div>
-          </md-button>
-        </md-menu-item>
-      </md-menu-content>
-    </md-menu>
-    <div md-position-mode="target-right target" ng-show="!main.isGoogleSignedIn()">
-      <google-sign-in-button button-id="google-signin-btn" options="options"></google-sign-in-button>
-    </div>
     <md-button ng-show="!main.isSignedIn()" ng-click="main.showLoginForm(null)">Login</md-button>
     <md-button ng-show="main.isSignedIn()" ng-click="main.signOut()">Logout</md-button>
     <md-button ng-click="main.signUp()">SignUp</md-button>

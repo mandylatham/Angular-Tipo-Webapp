@@ -3,10 +3,13 @@
   'use strict';
    
   function UserController(
+      $rootScope,
       $scope, 
       $location, 
       $mdDialog, 
       $window,
+      $state,
+      $stateParams,
       cognitoService) {
         
     function signUp(user) {
@@ -52,14 +55,39 @@
         });         
     }  
 
-    function getCurrentUser() {
+    function submit(username, password) {
         
+        var promise = cognitoService.authenticate(username, password); 
+        promise.then(function(result) {
+            if ($rootScope.$previousState.abstract === true) {
+              $state.go('dashboard');                
+            } else {
+              $state.go($rootScope.$previousState, $rootScope.$previousParams);
+            }
+
+            if ($stateParams.retry) {
+              $stateParams.retry.resolve();
+            }
+
+            var alertDlg = $mdDialog.alert()
+                .title('Login')
+                .content('User ' + username + ' login successfully')
+                .ok('Close');
+            $mdDialog.show(alertDlg);                   
+        }, function (err) {
+            if ($stateParams.retry) {
+              $stateParams.retry.reject();
+            }
+
+            $window.alert(err);
+        });
     }  
 
     return {
         signUp: signUp,
         initConfirmation: initConfirmation,
-        confirmRegistration: confirmRegistration
+        confirmRegistration: confirmRegistration,
+        submit: submit
     };
   }
   angular.module('tipo.user')

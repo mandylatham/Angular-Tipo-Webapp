@@ -36,47 +36,13 @@
       params: {
         'retry': null
       },
-      onEnter: function($rootScope, $state, $stateParams, $mdDialog) {
-        console.log($stateParams);
-        
-        var ev = null; // this should be the $event 
-        var parentEl = angular.element(document.body);
-        $mdDialog.show({
-            parent: parentEl,
-            targetEvent: ev,
-            templateUrl: 'user/_views/login.tpl.html',
-            controller: function DialogController($rootScope, $scope, $mdDialog, cognitoService) {
-              $scope.submit = function() {
-                var promise = cognitoService.authenticate($scope.username, $scope.password); 
-                promise.then(function(result) {
-                    $mdDialog.hide();
-                    var alertDlg = $mdDialog.alert()
-                      .title('Login')
-                      .content('User ' + $scope.username + ' login successfully')
-                      .ok('Close');
-                    $mdDialog.show(alertDlg);                   
-                }, function (err) {
-                    $mdDialog.cancel();
-                    $window.alert(err);
-                });                                          
-              };
-
-              $scope.cancel = function() {
-                $mdDialog.cancel(); 
-              };
-            }
-        }).then(function(answer) {
-          if ($stateParams.retry) {
-            $stateParams.retry.resolve();
-          }
-          $state.go($rootScope.$previousState, $rootScope.$previousParams);
-        }, function() {
-          if ($stateParams.retry) {
-            $stateParams.retry.reject();
-          }
-          $state.go($rootScope.$previousState, $rootScope.$previousParams);
-        });
-      }      
+      views: {
+        'content@layout': {
+          templateUrl: 'user/_views/login2.tpl.html',
+          controller: 'UserController',
+          controllerAs: 'userController'
+        }
+      }
     };
 
     $stateProvider

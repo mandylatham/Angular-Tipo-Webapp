@@ -109,8 +109,10 @@
       var cognitoUser = userPool.getCurrentUser();
       if(cognitoUser !== null) {
         cognitoUser.signOut();
+        securityContextService.clearContext();
+        return true;
       }
-      securityContextService.clearContext();
+      return false;
     }
 
     function isCurrentUserSigned() {
