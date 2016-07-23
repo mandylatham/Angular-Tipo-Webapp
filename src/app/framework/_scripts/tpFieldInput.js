@@ -4,7 +4,7 @@
 
   var module = angular.module('tipo.framework');
 
-  return module.directive('tpInput', function () {
+  return module.directive('tpFieldInput', function () {
       return {
         scope: {
           field: '=',

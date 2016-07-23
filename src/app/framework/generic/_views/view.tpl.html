@@ -1,138 +1,44 @@
 <md-card id="tp-detail">
   <form ng-cloak>
-    <!--<dummy style="display: none" ng-repeat-start="field in tipoRootController.tipoDefinition.tipo_fields" />
-    <tp:input definition="tipoRootController.tipoDefinition" field="field" />
-    <dummy style="display: none" ng-repeat-end />
-    <div flex="100">
-      <h3>Billing Address</h3>
-      <md-divider></md-divider>
-    </div>-->
     <section class="fieldset fluid-row-container">
-      <div class="header">
-        <h3><i class="fa fa-caret-down"></i> General Information</h3>
-        <md-divider></md-divider>
-      </div>
       <div class="data" layout-padding layout="row" layout-wrap layout-align="start start">
-        <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row">
-          <dt>Order Number</dt>
-          <dd flex>ORD00001</dd>
-        </dl>
-        <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row">
-          <dt>Order Total</dt>
-          <dd flex>AUD$1250.00</dd>
-        </dl>
-        <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row">
-          <dt>Required by Date</dt>
-          <dd flex>6th August, 2016</dd>
-        </dl>
-        <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row">
-          <dt>Customer Name</dt>
-          <dd flex>John Doe</dd>
-        </dl>
-      </div>
-    </section>
-    <section class="fieldset fluid-row-container" flex>
-      <div class="header">
-        <h3><i class="fa fa-caret-down"></i> Billing Address</h3>
-        <md-divider></md-divider>
-      </div>
-      <div class="data" layout-padding layout="row" layout-wrap layout-align="start start">
-        <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row">
-          <dt>Street Number</dt>
-          <dd flex>25/1F</dd>
-        </dl>
-        <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row">
-          <dt>Street Name</dt>
-          <dd flex>Flinders Stree</dd>
-        </dl>
-        <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row">
-          <dt>Suburb</dt>
-          <dd flex>South Yarra</dd>
-        </dl>
-        <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row">
-          <dt>Postal Code</dt>
-          <dd flex>3000</dd>
-        </dl>
-      </div>
-    </section>
-    <section class="fieldset fluid-row-container" flex>
-      <div class="header">
-        <h3><i class="fa fa-caret-down"></i> Shipping Address</h3>
-        <md-divider></md-divider>
-      </div>
-      <div class="data" layout-padding layout="row" layout-wrap layout-align="start start">
-        <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row">
-          <dt>Street Number</dt>
-          <dd flex>16/2E</dd>
-        </dl>
-        <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row">
-          <dt>Street Name</dt>
-          <dd flex>Market Street</dd>
-        </dl>
-        <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row">
-          <dt>Suburb</dt>
-          <dd flex>Footscray</dd>
-        </dl>
-        <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row">
-          <dt>Postal Code</dt>
-          <dd flex>3000</dd>
-        </dl>
-      </div>
-    </section>
-    <section class="fieldset fluid-row-container" flex>
-      <div class="header">
-        <h3><i class="fa fa-caret-right"></i> Line Items</h3>
-        <md-divider></md-divider>
-      </div>
-      <div class="data">
-        <div md-whiteframe="2" class="fluid-row">
-          <div layout="row" layout-padding layout-wrap layout-align="start start" class="data">
-            <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row">
-              <dt>Item ID:</dt>
-              <dd flex>ITM0001</dd>
-            </dl>
-            <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row">
-              <dt>Item Quantity:</dt>
-              <dd flex>25</dd>
-            </dl>
-            <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row">
-              <dt>Unit Price:</dt>
-              <dd flex>AUD$35.50</dd>
-            </dl>
-            <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row">
-              <dt>SKU:</dt>
-              <dd flex>Random Item picked up</dd>
-            </dl>
-            <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row">
-              <dt>Freight:</dt>
-              <dd flex>AUD$1.50</dd>
-            </dl>
+        <dummy class="hidden" ng-repeat-start="field in tipoRootController.tipoDefinition.tipo_fields" />
+          <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row" ng-if="!field._ui.isGroup">
+            <dt>{{field.display_name}}:</dt>
+            <dd flex><tp:field-display definition="tipoRootController.tipoDefinition" field="field" /></dd>
+          </dl>
+          <section class="fieldset fluid-row-container" flex="100" ng-if="field._ui.isGroup">
+            <div class="header">
+              <h3><a href="" ng-click="field._ui.collapsed = !field._ui.collapsed"><i class="fa" ng-class="{'fa-caret-down': !field._ui.collapsed , 'fa-caret-right': field._ui.collapsed}"></i></a> {{field.display_name}}</h3>
+              <md-divider></md-divider>
+            </div>
+            <div class="data" layout-padding layout="row" layout-wrap layout-align="start start" ng-hide="field._ui.collapsed" ng-if="!field._ui.isArray">
+              <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row" ng-repeat="groupField in field.tipo_fields">
+                <dt>{{groupField.display_name}}:</dt>
+                <dd flex><tp:field-display definition="tipoRootController.tipoDefinition" field="groupField" /></dd>
+              </dl>
+            </div>
+            <div class="data" style="margin-top: 10px;" ng-hide="field._ui.collapsed" ng-if="field._ui.isArray">
+              <div md-whiteframe="2" class="fluid-row" >
+                <div layout="row" layout-padding layout-wrap layout-align="start start" class="data">
+                  <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row" ng-repeat="itemField in field.tipo_fields">
+                    <dt>{{itemField.display_name}}:</dt>
+                    <dd flex><tp:field-display definition="tipoRootController.tipoDefinition" field="itemField" /></dd>
+                  </dl>
+                </div>
+              </div>
+            </div>
+          </section>
+        <dummy class="hidden" ng-repeat-end />
+        <section class="fieldset fluid-row-container" flex="100">
+          <div class="header">
+            <h3><i class="fa fa-caret-down"></i> JSON</h3>
+            <md-divider></md-divider>
           </div>
-        </div>
-        <div md-whiteframe="2" class="fluid-row">
-          <div layout="row" layout-padding layout-wrap layout-align="start start" class="data">
-            <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row">
-              <dt>Item ID:</dt>
-              <dd flex>ITM0002</dd>
-            </dl>
-            <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row">
-              <dt>Item Quantity:</dt>
-              <dd flex>15</dd>
-            </dl>
-            <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row">
-              <dt>Unit Price:</dt>
-              <dd flex>AUD$125.00</dd>
-            </dl>
-            <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row">
-              <dt>SKU:</dt>
-              <dd flex>Random Item picked up</dd>
-            </dl>
-            <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row">
-              <dt>Freight:</dt>
-              <dd flex>AUD$1.50</dd>
-            </dl>
+          <div class="data" layout-padding layout="row" layout-wrap layout-align="start start">
+            <pre>{{tipoRootController.tipoDefinition | json}}</pre>
           </div>
-        </div>
+        </section>
       </div>
     </section>
   </form>

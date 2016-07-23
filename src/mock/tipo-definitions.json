@@ -105,28 +105,28 @@
         "mandatory": true
       },
       {
-        "field_name": "LineItem",
-        "field_description": "Line items for the order",
-        "tipo_array": true,
-        "display_name": "LineItem",
-        "field_type": "FieldGroup.POLineItem"
+        "field_name": "BillToAddress",
+        "field_description": "BillTo address",
+        "tipo_array": false,
+        "display_name": "Billing Address",
+        "display_type": "ngAddress",
+        "field_type": "FieldGroup.Address",
+        "short_display": true
       },
       {
         "field_name": "ShipToAddress",
         "field_description": "ShipTo address",
         "tipo_array": false,
-        "display_name": "ShipTo Address",
+        "display_name": "Shipping Address",
         "display_type": "ngAddress",
         "field_type": "FieldGroup.Address"
       },
       {
-        "field_name": "BillToAddress",
-        "field_description": "BillTo address",
-        "tipo_array": false,
-        "display_name": "BillTo Address",
-        "display_type": "ngAddress",
-        "field_type": "FieldGroup.Address",
-        "short_display": true
+        "field_name": "LineItem",
+        "field_description": "Line items for the order",
+        "tipo_array": true,
+        "display_name": "Line Item(s)",
+        "field_type": "FieldGroup.POLineItem"
       }
     ],
     "tipo_field_groups": [
@@ -163,7 +163,8 @@
           {
             "field_name": "StreetNo",
             "field_type": "string",
-            "field_description": "Street Number"
+            "field_description": "Street Number",
+            "display_name": "Street Number"
           },
           {
             "field_name": "StreetName",
