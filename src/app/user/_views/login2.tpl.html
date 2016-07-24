@@ -30,9 +30,27 @@
               </form>
             </md-tab>
             <md-tab label="New User">
-              <md-content class="md-padding">
-                <div>Content is coming...</div>
-              </md-content>
+              <form flex layout="column" layout-wrap layout-padding layout-align="space-between start" class="md-inline-form" ng-cloak>
+                <md-input-container class="md-block">
+                  <label>Username</label>
+                  <input ng-model="user.username" required>
+                </md-input-container>
+                <md-input-container class="md-block" md-no-float>
+                  <label>Password</label>
+                  <input ng-model="user.password" type="password" required>
+                </md-input-container>
+                <md-input-container class="md-block" md-no-float>
+                  <label>Email</label>
+                  <input ng-model="user.email" type="email" required>
+                </md-input-container>
+                <md-input-container class="md-block" md-no-float>
+                  <label>Phone number</label>
+                  <input ng-model="user.phone" required>
+                </md-input-container>
+                <md-button class="md-raised md-primary" ng-click="userController.signUp(user)">
+                  Submit
+                </md-button>
+              </form>
             </md-tab>
           </md-tabs> 
         </md-content>

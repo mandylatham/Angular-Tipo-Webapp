@@ -16,6 +16,8 @@
         console.log(user);
         var promise = cognitoService.signUp(user.username, user.password, user.email, user.phone);
         promise.then(function (result) {
+            gotoPreviousView();
+            
             var cognitoUser = result.user;
             console.log('user ' + cognitoUser.getUsername() + ' has requested for registration');
             var alertDlg = $mdDialog.alert()
@@ -59,11 +61,7 @@
         
         var promise = cognitoService.authenticate(username, password); 
         promise.then(function(result) {
-            if ($rootScope.$previousState.abstract === true) {
-              $state.go('dashboard');                
-            } else {
-              $state.go($rootScope.$previousState, $rootScope.$previousParams);
-            }
+            gotoPreviousView();
 
             if ($stateParams.retry) {
               $stateParams.retry.resolve();
@@ -82,6 +80,14 @@
             $window.alert(err);
         });
     }  
+
+    function gotoPreviousView() {
+        if ($rootScope.$previousState.abstract === true) {
+            $state.go('dashboard');                
+        } else {
+            $state.go($rootScope.$previousState, $rootScope.$previousParams);
+        }    
+    }
 
     return {
         signUp: signUp,

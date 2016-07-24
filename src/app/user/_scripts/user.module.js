@@ -2,19 +2,7 @@
 
   'use strict';
 
-  function registerStates($stateProvider) {
-    var registerUserState = {
-      name: 'registerUser',
-      url: '/register',
-      parent: 'layout',
-      views: {
-        'content@layout': {
-          templateUrl: 'user/_views/registration.tpl.html',
-          controller: 'UserController',
-          controllerAs: 'userController'
-        }
-      }
-    };
+  function registerStates($stateProvider) {    
 
     var confirmRegistrationState = {
       name: 'confirmRegistration',
@@ -45,8 +33,7 @@
       }
     };
 
-    $stateProvider
-      .state(registerUserState)
+    $stateProvider      
       .state(loginState)
       .state(confirmRegistrationState);  
   }

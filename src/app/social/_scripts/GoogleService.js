@@ -47,7 +47,7 @@
         })
       }); 
       var securityContext = {
-        'tokenDetails.access_token': id_token,
+        'tokenDetails.access_token': googleUser.getAuthResponse().id_token,
         'loggedInUser': googleUser.getBasicProfile().getName()
       };
       securityContextService.saveContext(securityContext);       
