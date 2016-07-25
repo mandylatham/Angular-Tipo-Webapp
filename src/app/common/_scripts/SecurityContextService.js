@@ -42,11 +42,7 @@
 
     this.relogin = function(deferred){
       _instance.clearContext();
-      tipoRouter.to('login', false, {'retry': deferred});
-      // var currentUrl = $location.path();
-      // if(!currentUrl.endsWith('login')){
-      //   routingUtilityFactory.transitionToState('login', 'login');
-      // }
+      tipoRouter.to('login', false, {'retry': deferred});      
     };
   }
 

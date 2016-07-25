@@ -30,7 +30,7 @@
               </form>
             </md-tab>
             <md-tab label="New User">
-              <form flex layout="column" layout-wrap layout-padding layout-align="space-between start" class="md-inline-form" ng-cloak>
+              <form name="newUserForm" data-ng-submit="userController.signUp(user)">              
                 <md-input-container class="md-block">
                   <label>Username</label>
                   <input ng-model="user.username" required>
@@ -47,7 +47,7 @@
                   <label>Phone number</label>
                   <input ng-model="user.phone" required>
                 </md-input-container>
-                <md-button class="md-raised md-primary" ng-click="userController.signUp(user)">
+                <md-button type="submit" class="md-raised md-primary">
                   Submit
                 </md-button>
               </form>
