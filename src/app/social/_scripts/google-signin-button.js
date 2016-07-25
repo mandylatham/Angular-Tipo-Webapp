@@ -13,12 +13,14 @@
         template: '<div></div>',
         link: function(scope, element, attrs){
           var div = element.find('div')[0];
-	        div.id = attrs.buttonId;
+          if (div) {
+            div.id = attrs.buttonId;
 
-          var defaultOptions = {
-              onsuccess: googleService.onSignIn
-          };
-	        gapi.signin2.render(div.id, defaultOptions);
+            var defaultOptions = {
+                onsuccess: googleService.onSignIn
+            };
+            gapi.signin2.render(div.id, defaultOptions);
+          }
         }
       };
   });

@@ -29,12 +29,26 @@
     <![endif]-->
 
     <!-- build:js(app) _scripts/non-bower-managed-pre.js -->
+    <!-- Cognito Identity js sdk -->
     <script src="_scripts/non-bower-managed/jsbn.js"></script>
     <script src="_scripts/non-bower-managed/jsbn2.js"></script>
     <script src="_scripts/non-bower-managed/sjcl.js"></script>
     <script src="_scripts/non-bower-managed/moment.min.js"></script>
     <script src="_scripts/non-bower-managed/aws-cognito-sdk.min.js"></script>
     <script src="_scripts/non-bower-managed/amazon-cognito-identity.min.js"></script>
+
+    <!-- API Gateway js sdk -->
+    <script type="text/javascript" src="_scripts/non-bower-managed/apiGateway-js-sdk/lib/axios/dist/axios.standalone.js"></script>
+    <script type="text/javascript" src="_scripts/non-bower-managed/apiGateway-js-sdk/lib/CryptoJS/rollups/hmac-sha256.js"></script>
+    <script type="text/javascript" src="_scripts/non-bower-managed/apiGateway-js-sdk/lib/CryptoJS/rollups/sha256.js"></script>
+    <script type="text/javascript" src="_scripts/non-bower-managed/apiGateway-js-sdk/lib/CryptoJS/components/hmac.js"></script>
+    <script type="text/javascript" src="_scripts/non-bower-managed/apiGateway-js-sdk/lib/CryptoJS/components/enc-base64.js"></script>
+    <script type="text/javascript" src="_scripts/non-bower-managed/apiGateway-js-sdk/lib/url-template/url-template.js"></script>
+    <script type="text/javascript" src="_scripts/non-bower-managed/apiGateway-js-sdk/lib/apiGatewayCore/sigV4Client.js"></script>
+    <script type="text/javascript" src="_scripts/non-bower-managed/apiGateway-js-sdk/lib/apiGatewayCore/apiGatewayClient.js"></script>
+    <script type="text/javascript" src="_scripts/non-bower-managed/apiGateway-js-sdk/lib/apiGatewayCore/simpleHttpClient.js"></script>
+    <script type="text/javascript" src="_scripts/non-bower-managed/apiGateway-js-sdk/lib/apiGatewayCore/utils.js"></script>
+    <script type="text/javascript" src="_scripts/non-bower-managed/apiGateway-js-sdk/apigClient.js"></script>
     <!-- endbuild -->
 
     <!-- build:js(.) _scripts/bower-managed.js -->

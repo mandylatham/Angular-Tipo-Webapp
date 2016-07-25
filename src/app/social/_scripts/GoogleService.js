@@ -2,9 +2,7 @@
 
   'use strict';  
 
-  function GoogleService($rootScope, $state, $q, $mdDialog, securityContextService) {        
-    
-    var identity = $q.defer();
+  function GoogleService($rootScope, $state, $q, $mdDialog, securityContextService) {
 
     function awsRefresh() {
         var deferred = $q.defer();
@@ -30,11 +28,7 @@
     }
     
     function onSignIn(googleUser) {
-      var profile = googleUser.getBasicProfile();
-      console.log('ID: ' + profile.getId());
-      console.log('Name: ' + profile.getName());
-      console.log('Image URL: ' + profile.getImageUrl());
-      console.log('Email: ' + profile.getEmail());
+      var profile = googleUser.getBasicProfile();    
 
       var id_token = googleUser.getAuthResponse().id_token;
       AWS.config.update({
@@ -45,19 +39,17 @@
                 'accounts.google.com': id_token
             }
         })
-      }); 
-      var securityContext = {
-        'tokenDetails.access_token': googleUser.getAuthResponse().id_token,
-        'loggedInUser': googleUser.getBasicProfile().getName()
-      };
-      securityContextService.saveContext(securityContext);       
+      });           
 
       awsRefresh().then(function(id) {
-          identity.resolve({
-              id: id,
-              email: googleUser.getBasicProfile().getEmail(),
-              refresh:refresh
-          });          
+          
+          var securityContext = {
+            accessKey: AWS.config.credentials.accessKeyId,
+            secretKey: AWS.config.credentials.secretAccessKey,
+            sessionToken: AWS.config.credentials.sessionToken,
+            region: TIPO_CONSTANTS.COGNITO.REGION 
+          };
+          securityContextService.saveContext(securityContext);            
 
           if ($rootScope.$previousState.abstract === true) {
             $state.go('dashboard');                
@@ -75,7 +67,7 @@
     function signOut() {
       var auth2 = gapi.auth2.getAuthInstance();
       auth2.signOut().then(function () {
-        $state.go('login');
+        // $state.go('login');
       });
       return true;
     }
