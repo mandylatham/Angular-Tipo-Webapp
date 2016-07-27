@@ -4,18 +4,15 @@
 
   var module = angular.module('tipo.framework');
 
-  return module.directive('tpFieldDisplay', function () {
+  return module.directive('tpFieldView', function () {
       return {
         scope: {
-          field: '=',
-          definition: '='
+          field: '='
         },
         restrict: 'EA',
         replace: true,
-        templateUrl: 'framework/_views/field-display.tpl.html',
+        templateUrl: 'framework/_directives/_views/tp-field-view.tpl.html',
         link: function(scope, element, attrs){
-          //scope.message = attrs.message;
-          console.log('Hello World');
         }
       };
     }

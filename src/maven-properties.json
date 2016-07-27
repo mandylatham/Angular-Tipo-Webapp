@@ -3,5 +3,6 @@
   "artifactId": "${project.artifactId}",
   "version": "${project.version}",
   "finalName": "${project.build.finalName}",
-  "description": "${project.description}"
+  "description": "${project.description}",
+  "googleClientId": "${google.client.id}"
 }

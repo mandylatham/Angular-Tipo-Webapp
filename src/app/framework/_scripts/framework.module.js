@@ -10,10 +10,7 @@
       resolve: /*@ngInject*/
       {
         tipoDefinition: function(tipoDefinitions, tipoRegistry, tipoManipulationService, $stateParams) {
-          var tipoDefinition = tipoRegistry.get($stateParams.tipo_name);
-          // expand the field hierarchy for the tipo
-          var expandedDefinition = tipoManipulationService.expandFieldHierarchy(tipoDefinition);
-          return expandedDefinition;
+          return tipoRegistry.get($stateParams.tipo_name);
         },
         tipos: function(tipoDefinition, tipoInstanceDataService, $stateParams){
           return tipoInstanceDataService.getAll($stateParams.tipo_name);
@@ -21,7 +18,7 @@
       },
       views: {
         'content@layout': {
-          templateUrl: 'framework/_views/tipo-list.tpl.html',
+          templateUrl: 'framework/_views/tipo-list-root.tpl.html',
           controller: 'TipoListRootController',
           controllerAs: 'tipoRootController'
         }
@@ -35,15 +32,12 @@
       resolve: /*@ngInject*/
       {
         tipoDefinition: function(tipoDefinitions, tipoRegistry, tipoManipulationService, $stateParams) {
-          var tipoDefinition = tipoRegistry.get($stateParams.tipo_name);
-          // expand the field hierarchy for the tipo
-          var expandedDefinition = tipoManipulationService.expandFieldHierarchy(tipoDefinition);
-          return expandedDefinition;
+          return tipoRegistry.get($stateParams.tipo_name);
         }
       },
       views: {
         'content@layout': {
-          templateUrl: 'framework/_views/tipo-new.tpl.html',
+          templateUrl: 'framework/_views/tipo-new-root.tpl.html',
           controller: 'TipoCreateRootController',
           controllerAs: 'tipoRootController'
         }
@@ -56,20 +50,19 @@
       parent: 'layout',
       resolve: /*@ngInject*/
       {
-        tipoDefinition: function(tipoDefinitions, tipoRegistry, tipoManipulationService, $stateParams) {
-          var tipoDefinition = tipoRegistry.get($stateParams.tipo_name);
-          // expand the field hierarchy for the tipo
-          var expandedDefinition = tipoManipulationService.expandFieldHierarchy(tipoDefinition);
-          return expandedDefinition;
-        },
         tipo: function(tipoInstanceDataService, $stateParams){
           var tipo = tipoInstanceDataService.getOne($stateParams.tipo_name, $stateParams.tipo_id);
           return tipo;
+        },
+        tipoDefinition: function(tipoDefinitions, tipoRegistry, tipoManipulationService, tipo, $stateParams) {
+          var tipoDefinition = tipoRegistry.get($stateParams.tipo_name);
+          tipoManipulationService.mergeDefinitionAndData(tipoDefinition, tipo);
+          return tipoDefinition;
         }
       },
       views: {
         'content@layout': {
-          templateUrl: 'framework/_views/tipo-view.tpl.html',
+          templateUrl: 'framework/_views/tipo-view-root.tpl.html',
           controller: 'TipoViewRootController',
           controllerAs: 'tipoRootController'
         }
@@ -82,7 +75,7 @@
       parent: viewState,
       views: {
         'content@layout': {
-          templateUrl: 'framework/_views/tipo-edit.tpl.html'
+          templateUrl: 'framework/_views/tipo-edit-root.tpl.html'
         }
       }
     };

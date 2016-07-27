@@ -221,6 +221,20 @@ module.exports = function (grunt) {
       }
     },
 
+    'string-replace': {
+      google: {
+        files: {
+          '<%= config.directories.source %>/index.html': '<%= config.directories.source %>/index.html'
+        },
+        options: {
+          replacements: [{
+            pattern: '${googleClientId}',
+            replacement: config.mavenProperties.googleClientId
+          }]
+        }
+      }
+    },
+
     clean: {
       staging: ['staging']
     }
@@ -228,6 +242,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('default', [
     'mavenPrepare',
+    'string-replace',
     'wiredep',
     'jshint',
     //'karma',
@@ -246,6 +261,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('dev', [
     'mavenPrepare',
+    'string-replace',
     'wiredep',
     'jshint',
     //'karma',

@@ -92,6 +92,14 @@
         "input_validator": "some_javaScript?"
       },
       {
+        "field_name": "Tags",
+        "field_type": "string",
+        "field_description": "Optional tags that can be attached to this order",
+        "display_name": "Tag(s)",
+        "short_display": false,
+        "tipo_array": true
+      },
+      {
         "field_name": "Customer",
         "field_type": "Tipo.Customer",
         "field_description": "Customer who placed the purchase order",
@@ -138,7 +146,8 @@
             "field_type": "string",
             "primary_key": true,
             "field_description": "Item identifier",
-            "display_name": "Item ID"
+            "display_name": "Item ID",
+            "short_display": true
           },
           {
             "field_name": "ItemQuantity",
@@ -146,14 +155,23 @@
             "field_description": "item quantity",
             "display_name": "Item Quantity",
             "display_type": "ngNumber",
-            "input_type": "ngNumber"
+            "input_type": "ngNumber",
+            "short_display": true
           },
           {
             "field_name": "UnitPrice",
             "field_type": "double",
             "field_description": "each unit price",
             "display_name": "Unit Price",
-            "display_type": "ngDollar"
+            "display_type": "ngDollar",
+            "short_display": true
+          },
+          {
+            "field_name": "Tags",
+            "field_type": "string",
+            "field_description": "Optional tags that can be attached to this item",
+            "display_name": "Tag(s)",
+            "tipo_array": true
           }
         ]
       },

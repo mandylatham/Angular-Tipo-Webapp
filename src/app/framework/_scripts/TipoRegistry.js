@@ -19,7 +19,7 @@
       if(_.isUndefined(tipo_name)){
         return registry;
       }else{
-        return registry[tipo_name];
+        return _.cloneDeep(registry[tipo_name]);
       }
     };
 

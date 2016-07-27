@@ -14,18 +14,52 @@
       "OrderAmount": "3000",
       "RequiredByDate": "1466770948955",
       "Customer": {
-        "CustomerID": "200",
+        "TipoID": "200",
         "Name": "Jane Smith"
       },
       "BillToAddress": {
-        "TipoID": "121",
-        "StreetName": "Some street",
-        "Suburb": "Footscray"
-      }
+        "StreetNo": "12/1E",
+        "StreetName": "Market Street",
+        "Suburb": "Footscray",
+        "Postcode": "3000"
+      },
+      "ShipToAddress": {
+        "StreetNo": "6/4A",
+        "StreetName": "Flinders Street",
+        "Suburb": "South Yarra",
+        "Postcode": "3000"
+      },
+      "LineItem": [
+        {
+          "ItemID": "001",
+          "ItemQuantity": "25",
+          "UnitPrice": "12.75"
+        },
+        {
+          "ItemID": "002",
+          "ItemQuantity": "5",
+          "UnitPrice": "160.00",
+          "Tags": [
+            "P",
+            "Q",
+            "R"
+          ]
+        },
+        {
+          "ItemID": "003",
+          "ItemQuantity": "10",
+          "UnitPrice": "5.80"
+        }
+      ],
+      "Tags": [
+        "AAA",
+        "BBB",
+        "CCC"
+      ]
     }
   },
   "Customer": {},
-  "Inbox":{
+  "Inbox": {
     "1": {
       "TipoID": "1",
       "Subject": "First message",

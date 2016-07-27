@@ -1,0 +1,42 @@
+<md-card class="tp-detail">
+  <form ng-cloak>
+    <section class="fieldset fluid-row-container">
+      <div class="data" layout-padding layout="row" layout-wrap layout-align="start start">
+        <dummy class="hidden" ng-repeat-start="field in definition.tipo_fields" />
+          <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row" ng-if="!field._ui.isGroup">
+            <dt>{{field.display_name}}:</dt>
+            <dd flex><tp:field-view field="field" /></dd>
+          </dl>
+          <section class="fieldset fluid-row-container" flex="100" ng-if="field._ui.isGroup">
+            <div class="header">
+              <h3><a href="" ng-click="field._ui.collapsed = !field._ui.collapsed"><i class="fa" ng-class="{'fa-caret-down': !field._ui.collapsed , 'fa-caret-right': field._ui.collapsed}"></i></a> {{field.display_name}}</h3>
+              <md-divider></md-divider>
+            </div>
+            <div class="data" layout-padding layout="row" layout-wrap layout-align="start start" ng-hide="field._ui.collapsed" ng-if="!field._ui.isArray">
+              <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row" ng-repeat="groupField in field.tipo_fields">
+                <dt>{{groupField.display_name}}:</dt>
+                <dd flex><tp:field-view field="groupField" /></dd>
+              </dl>
+            </div>
+            <div class="data" style="margin-top: 10px;" ng-hide="field._ui.collapsed" ng-if="field._ui.isArray">
+              <div layout="row" md-whiteframe="2" class="fluid-row" ng-repeat="groupItem in field._items">
+                <div flex layout="row" layout-padding layout-wrap layout-align="start start" class="data">
+                  <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row" ng-repeat="itemField in groupItem.tipo_fields" ng-if="itemField.short_display">
+                    <dt>{{itemField.display_name}}:</dt>
+                    <dd flex><tp:field-view field="itemField" /></dd>
+                  </dl>
+                </div>
+                <div flex="none" layout="column" layout-align="center center" class="actions">
+                  <md-button ng-click="showGroupItem(groupItem)" aria-label="View details">
+                    <md-tooltip md-direction="top">View details</md-tooltip>
+                   <md-icon>pageview</md-icon>
+                 </md-button>
+                </div>
+              </div>
+            </div>
+          </section>
+        <dummy class="hidden" ng-repeat-end />
+      </div>
+    </section>
+  </form>
+</md-card>

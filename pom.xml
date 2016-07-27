@@ -38,7 +38,6 @@
               <filteredResource>package.json</filteredResource>
               <filteredResource>bower.json</filteredResource>
               <filteredResource>app/common/_scripts/config.js</filteredResource>
-              <filteredResource>app/index.html</filteredResource>
             </filteredResources>
           </configuration>
         </plugin>

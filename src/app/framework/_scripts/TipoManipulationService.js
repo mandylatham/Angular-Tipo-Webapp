@@ -31,6 +31,8 @@
         };
       }
 
+      definition = expandFieldHierarchy(definition);
+
       return definition;
     }
 
@@ -54,11 +56,12 @@
     function expandFieldHierarchy(definition){
       definition = _.cloneDeep(definition);
       prepareFieldHierarchyRecursive(definition);
+      delete definition.tipo_field_groups;
       definition._ui.hierarchyPrepared = true;
       return definition;
     }
 
-    function prepareFieldHierarchyRecursive(definition, currentRoot, parentAccessor, isSecondLevelTipo){
+    function prepareFieldHierarchyRecursive(definition, currentRoot, isSecondLevelTipo){
       if(definition._ui.hierarchyPrepared){
         // this method needs to be idempotent, hence returning if the hierarchy is already prepared
         return;
@@ -76,39 +79,98 @@
           var fieldName = tipo_field.field_name;
           var fieldType = tipo_field.field_type;
           var isArray = Boolean(tipo_field.tipo_array);
-          var currentAccessor = parentAccessor ? parentAccessor + '.' + fieldName : fieldName;
 
           tipo_field._ui.isArray = isArray;
-          tipo_field._ui.accessor = currentAccessor;
 
           var parts = fieldType.split('.');
           if(parts.length > 1){
-            var nextAccessor = currentAccessor;
-            var keyField;
             if(parts[0] === 'FieldGroup'){
               tipo_field._ui.isGroup = true;
               var fieldGroup = _.cloneDeep(_.find(definition.tipo_field_groups, {tipo_group_name: parts[1]}));
               tipo_field.tipo_fields = fieldGroup.tipo_fields;
-              if(isArray){
-                nextAccessor += '[$index]';
-              }
-              prepareFieldHierarchyRecursive(definition, tipo_field, nextAccessor);
+              prepareFieldHierarchyRecursive(definition, tipo_field);
             }else if(parts[0] === 'Tipo'){
               tipo_field._ui.isTipoRelationship = true;
               tipo_field._ui.relatedTipo = parts[1];
               var relatedTipoDefinition = _.cloneDeep(tipoRegistry.get(parts[1]));
-              tipo_field.tipo_fields = _.filter(relatedTipoDefinition.tipo_fields, function(each){
-                return each.primary_key || each.meaningful_key;
+              var keyField =  _.find(relatedTipoDefinition.tipo_fields, function(each){
+                return Boolean(each.primary_key);
               });
-              if(isArray){
-                // find the property which represents the primary identifier for the group
-                // nextAccessor += '[TipoID]';
-                nextAccessor += '[$index]';
-              }
-              prepareFieldHierarchyRecursive(relatedTipoDefinition, tipo_field, nextAccessor);
+              var labelField =  _.find(relatedTipoDefinition.tipo_fields, function(each){
+                return Boolean(each.meaningful_key);
+              });
+              tipo_field.key_field = keyField;
+              tipo_field.label_field = labelField;
             }
           }else{
             // Do nothing for now. Eventually we may need to set other UI specific metadata
+          }
+        });
+      }
+    }
+
+    function mergeDefinitionAndData(tipoDefinition, tipoData){
+      if(tipoDefinition.tipo_fields){
+        _.each(tipoDefinition.tipo_fields, function(field){
+          var fieldKey = field.field_name;
+          var fieldValue = tipoData[fieldKey];
+          if(_.isUndefined(fieldValue)){
+            return;
+          }
+          var isArray = Boolean(_.get(field, '_ui.isArray'));
+          var isGroup = Boolean(_.get(field, '_ui.isGroup'));
+          var isRelatedTipo = Boolean(_.get(field, '_ui.isTipoRelationship'));
+          if(isRelatedTipo){
+            if(isArray){
+              field._value = [];
+              _.each(fieldValue, function(each){
+                var keyFieldValue = _.get(each, field.key_field.field_name);
+                var labelFieldValue = _.get(each, field.label_field.field_name);
+                field._value.push({
+                  key: keyFieldValue,
+                  label: labelFieldValue
+                });
+              });
+            }else{
+              var keyFieldValue = _.get(fieldValue, field.key_field.field_name);
+              var labelFieldValue = _.get(fieldValue, field.label_field.field_name);
+              field._value = {
+                key: keyFieldValue,
+                label: labelFieldValue
+              };
+            }
+          }
+          else if(isGroup){
+            if(isArray){
+              field._items = [];
+              _.each(fieldValue, function(item){
+                var itemField = {
+                  tipo_fields: _.cloneDeep(field.tipo_fields),
+                  _ui: {
+                    isGroupItem: true
+                  }
+                };
+                mergeDefinitionAndData(itemField, item);
+                field._items.push(itemField);
+              });
+            }else{
+              mergeDefinitionAndData(field, fieldValue);
+            }
+          }else{
+            if(isArray){
+              field._value = [];
+              _.each(fieldValue, function(each){
+                field._value.push({
+                  key: each,
+                  label: each
+                });
+              });
+            }else{
+              field._value = {
+                key: fieldValue,
+                label: fieldValue
+              };
+            }
           }
         });
       }
@@ -151,6 +213,7 @@
     this.expandFieldHierarchy = expandFieldHierarchy;
     this.extractShortDisplayFields = extractShortDisplayFields;
     this.getFieldValue = getFieldValue;
+    this.mergeDefinitionAndData = mergeDefinitionAndData;
 
   }
 

@@ -1,14 +1,14 @@
-<div ng-controller="TipoGenericListController as tipoController" id="tp-list">
+<div class="tp-list">
   <div class="fluid-row-container">
-    <div layout="row" ng-repeat="row in tipoController.tipoData" class="fluid-row" md-whiteframe="2">
+    <div layout="row" ng-repeat="tipo in tipoRootController.tiposWithDefinition" class="fluid-row" md-whiteframe="2">
       <div flex layout="row" layout-padding layout-wrap layout-align="start start" class="data">
-        <dl ng-repeat="cell in row.value" flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row" style="margin: 0">
-          <dt>{{cell.field.display_name}}</dt>
-          <dd flex>{{cell.value || '-Not available-'}}</dd>
+        <dl ng-repeat="field in tipo.value.tipo_fields" flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row" style="margin: 0">
+          <dt>{{field.display_name}}</dt>
+          <dd flex>{{field._value.label || '-Not available-'}}</dd>
         </dl>
       </div>
       <div flex="none" layout="column" layout-align="center center" class="actions">
-        <md-button ng-click="tipoRootController.toDetail(row.key)" aria-label="View details">
+        <md-button ng-click="tipoRootController.toDetail(tipo.key)" aria-label="View details">
           <md-tooltip md-direction="top">View details</md-tooltip>
          <md-icon>pageview</md-icon>
        </md-button>

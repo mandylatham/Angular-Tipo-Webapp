@@ -4,17 +4,15 @@
 
   var module = angular.module('tipo.framework');
 
-  return module.directive('tpFieldInput', function () {
+  return module.directive('tpFieldEdit', function () {
       return {
         scope: {
-          field: '=',
-          definition: '='
+          field: '='
         },
         restrict: 'EA',
         replace: true,
-        templateUrl: 'framework/_views/field-input.tpl.html',
+        templateUrl: 'framework/_directives/_views/tp-field-edit.tpl.html',
         link: function(scope, element, attrs){
-          //scope.message = attrs.message;
         }
       };
     }

@@ -1,16 +1,16 @@
-<md-card ng-controller="TipoGenericListController as tipoController">
+<md-card>
   <md-table-container>
     <table md-table ng-model="selected" md-progress="promise">
       <thead md-head>
         <tr md-row>
-          <th md-column ng-repeat="field in tipoController.tipoFields">
+          <th md-column ng-repeat="field in tipoRootController.tiposWithDefinition[0].value.tipo_fields">
             <span>{{field.display_name}}</span>
           </th>
         </tr>
       </thead>
       <tbody md-body>
-        <tr md-row ng-repeat="row in tipoController.tipoData">
-          <td md-cell ng-repeat="cell in row.value">{{cell.value || '-'}}</td>
+        <tr md-row ng-repeat="tipo in tipoRootController.tiposWithDefinition">
+          <td md-cell ng-repeat="field in tipo.value.tipo_fields">{{field._value.label || '-Not available-'}}</td>
         </tr>
       </tbody>
     </table>

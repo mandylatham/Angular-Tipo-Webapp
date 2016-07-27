@@ -15,8 +15,8 @@
     
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <meta name='google-signin-client_id' content='${google.client.id}'/>  	
-  	<script src='https://apis.google.com/js/platform.js' async defer></script>
+    <meta name='google-signin-client_id' content='${googleClientId}'/>
+    <script src='https://apis.google.com/js/platform.js' async defer></script>
     
   </head>
 
@@ -38,17 +38,17 @@
     <script src="_scripts/non-bower-managed/amazon-cognito-identity.min.js"></script>
 
     <!-- API Gateway js sdk -->
-    <script type="text/javascript" src="_scripts/non-bower-managed/apiGateway-js-sdk/lib/axios/dist/axios.standalone.js"></script>
-    <script type="text/javascript" src="_scripts/non-bower-managed/apiGateway-js-sdk/lib/CryptoJS/rollups/hmac-sha256.js"></script>
-    <script type="text/javascript" src="_scripts/non-bower-managed/apiGateway-js-sdk/lib/CryptoJS/rollups/sha256.js"></script>
-    <script type="text/javascript" src="_scripts/non-bower-managed/apiGateway-js-sdk/lib/CryptoJS/components/hmac.js"></script>
-    <script type="text/javascript" src="_scripts/non-bower-managed/apiGateway-js-sdk/lib/CryptoJS/components/enc-base64.js"></script>
-    <script type="text/javascript" src="_scripts/non-bower-managed/apiGateway-js-sdk/lib/url-template/url-template.js"></script>
-    <script type="text/javascript" src="_scripts/non-bower-managed/apiGateway-js-sdk/lib/apiGatewayCore/sigV4Client.js"></script>
-    <script type="text/javascript" src="_scripts/non-bower-managed/apiGateway-js-sdk/lib/apiGatewayCore/apiGatewayClient.js"></script>
-    <script type="text/javascript" src="_scripts/non-bower-managed/apiGateway-js-sdk/lib/apiGatewayCore/simpleHttpClient.js"></script>
-    <script type="text/javascript" src="_scripts/non-bower-managed/apiGateway-js-sdk/lib/apiGatewayCore/utils.js"></script>
-    <script type="text/javascript" src="_scripts/non-bower-managed/apiGateway-js-sdk/apigClient.js"></script>
+    <script src="_scripts/non-bower-managed/apiGateway-js-sdk/lib/axios/dist/axios.standalone.js"></script>
+    <script src="_scripts/non-bower-managed/apiGateway-js-sdk/lib/CryptoJS/rollups/hmac-sha256.js"></script>
+    <script src="_scripts/non-bower-managed/apiGateway-js-sdk/lib/CryptoJS/rollups/sha256.js"></script>
+    <script src="_scripts/non-bower-managed/apiGateway-js-sdk/lib/CryptoJS/components/hmac.js"></script>
+    <script src="_scripts/non-bower-managed/apiGateway-js-sdk/lib/CryptoJS/components/enc-base64.js"></script>
+    <script src="_scripts/non-bower-managed/apiGateway-js-sdk/lib/url-template/url-template.js"></script>
+    <script src="_scripts/non-bower-managed/apiGateway-js-sdk/lib/apiGatewayCore/sigV4Client.js"></script>
+    <script src="_scripts/non-bower-managed/apiGateway-js-sdk/lib/apiGatewayCore/apiGatewayClient.js"></script>
+    <script src="_scripts/non-bower-managed/apiGateway-js-sdk/lib/apiGatewayCore/simpleHttpClient.js"></script>
+    <script src="_scripts/non-bower-managed/apiGateway-js-sdk/lib/apiGatewayCore/utils.js"></script>
+    <script src="_scripts/non-bower-managed/apiGateway-js-sdk/apigClient.js"></script>
     <!-- endbuild -->
 
     <!-- build:js(.) _scripts/bower-managed.js -->
@@ -90,8 +90,9 @@
     <script src="framework/_scripts/TipoCreateRootController.js"></script>
     <script src="framework/_scripts/TipoViewRootController.js"></script>
 
-    <script src="framework/_scripts/tpFieldInput.js"></script>
-    <script src="framework/_scripts/tpFieldDisplay.js"></script>
+    <script src="framework/_directives/_scripts/tpView.js"></script>
+    <script src="framework/_directives/_scripts/tpFieldView.js"></script>
+    <script src="framework/_directives/_scripts/tpFieldEdit.js"></script>
 
     <script src="framework/generic/_scripts/TipoGenericListController.js"></script>
 
