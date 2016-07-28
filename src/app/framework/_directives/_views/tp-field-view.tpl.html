@@ -1,1 +1,27 @@
-<span>{{field._value.label}}</span>
+<span>
+  <span ng-if="hasValue">
+    <span ng-if="isSingle && isSelfField">
+    {{field._value.label}}
+    </span>
+    <span ng-if="isSingle && isTipoRef">
+      <a class="explicit" ui-sref="tipoView({tipo_name: field._ui.relatedTipo, tipo_id: field._value.key})">{{field._value.label}}</a>
+    </span>
+    <span ng-if="isArray && isSelfField">
+      <md-chips ng-model="field._value" readonly="'true'" class="tp-chips readonly">
+        <md-chip-template>
+          <span>{{$chip.label}}</span>
+        </md-chip-template>
+      </md-chips>
+    </span>
+    <span ng-if="isArray && isTipoRef">
+      <md-chips ng-model="field._value" readonly="'true'" class="tp-chips readonly">
+        <md-chip-template>
+          <a class="explicit" ui-sref="tipoView({tipo_name: field._ui.relatedTipo, tipo_id: $schip.key})">{{$chip.label}}</a>
+        </md-chip-template>
+      </md-chips>
+    </span>
+  </span>
+  <span ng-if="!hasValue" class="no-value">
+    -Not available-
+  </span>
+</span>

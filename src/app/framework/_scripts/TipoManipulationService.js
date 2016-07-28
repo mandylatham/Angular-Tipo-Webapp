@@ -145,6 +145,7 @@
               field._items = [];
               _.each(fieldValue, function(item){
                 var itemField = {
+                  display_name: field.display_name,
                   tipo_fields: _.cloneDeep(field.tipo_fields),
                   _ui: {
                     isGroupItem: true

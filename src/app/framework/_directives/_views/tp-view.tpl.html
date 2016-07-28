@@ -1,9 +1,9 @@
-<md-card class="tp-detail">
+<div>
   <form ng-cloak>
     <section class="fieldset fluid-row-container">
-      <div class="data" layout-padding layout="row" layout-wrap layout-align="start start">
+      <div class="data" layout-padding layout="row" layout-wrap layout-align="start center">
         <dummy class="hidden" ng-repeat-start="field in definition.tipo_fields" />
-          <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row" ng-if="!field._ui.isGroup">
+          <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row" ng-if="!field._ui.isGroup" layout-align="center center">
             <dt>{{field.display_name}}:</dt>
             <dd flex><tp:field-view field="field" /></dd>
           </dl>
@@ -12,8 +12,8 @@
               <h3><a href="" ng-click="field._ui.collapsed = !field._ui.collapsed"><i class="fa" ng-class="{'fa-caret-down': !field._ui.collapsed , 'fa-caret-right': field._ui.collapsed}"></i></a> {{field.display_name}}</h3>
               <md-divider></md-divider>
             </div>
-            <div class="data" layout-padding layout="row" layout-wrap layout-align="start start" ng-hide="field._ui.collapsed" ng-if="!field._ui.isArray">
-              <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row" ng-repeat="groupField in field.tipo_fields">
+            <div class="data" layout-padding layout="row" layout-wrap layout-align="start center" ng-hide="field._ui.collapsed" ng-if="!field._ui.isArray">
+              <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row" ng-repeat="groupField in field.tipo_fields" layout-align="center center">
                 <dt>{{groupField.display_name}}:</dt>
                 <dd flex><tp:field-view field="groupField" /></dd>
               </dl>
@@ -39,4 +39,4 @@
       </div>
     </section>
   </form>
-</md-card>
+</div>

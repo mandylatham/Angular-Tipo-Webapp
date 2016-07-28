@@ -5,7 +5,7 @@
       "OrderAmount": "5500",
       "RequiredByDate": "1466770948955",
       "Customer": {
-        "CustomerID": "100",
+        "TipoID": "100",
         "Name": "John Doe"
       }
     },
@@ -52,13 +52,24 @@
         }
       ],
       "Tags": [
-        "AAA",
-        "BBB",
-        "CCC"
+        "Order",
+        "Jane.Smith",
+        "High Value"
       ]
     }
   },
-  "Customer": {},
+  "Customer": {
+    "100": {
+      "TipoID": "100",
+      "Name": "John Doe",
+      "Age": "35"
+    },
+    "200": {
+      "TipoID": "200",
+      "Name": "Jane Smith",
+      "Age": "28"
+    }
+  },
   "Inbox": {
     "1": {
       "TipoID": "1",

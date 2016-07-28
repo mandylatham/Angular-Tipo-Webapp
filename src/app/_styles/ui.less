@@ -10,6 +10,12 @@
   a{
     color: initial;
     text-decoration: none;
+    &.explicit{
+      text-decoration: underline;
+    }
+  }
+  .no-value{
+    font-style: italic;
   }
   #layout {
     height: 99.5vh;
@@ -76,8 +82,11 @@
   }
 
   .tp-detail{
-    max-width: 1200px;
-    margin-left: 25px;
+    &.page{
+      max-width: 1400px;
+      margin-left: 25px;
+    }
+
     h3{
       margin-top: 5px;
       margin-bottom: 5px;
@@ -89,7 +98,17 @@
       }
     }
   }
-    
+
+  md-chips.tp-chips{
+    &.readonly{
+      .md-chips{
+        box-shadow: none;
+      }
+      md-chip{
+      }
+    }
+  }
+
 }
 
 .card {
