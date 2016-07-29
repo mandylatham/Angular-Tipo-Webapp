@@ -16,12 +16,12 @@
                      {{field.display_name}}
                   </a>
                 </h3>
-                <div class="actions" layout="column" layout-align="center center">
-                <md-button flex="none" class="m0" ng-if="!field._ui.isArray" ng-click="showFieldDetail(field)" aria-label="View details">
+                <div class="actions" layout="row" layout-align="center center">
+                  <md-button flex="none" class="m0" ng-if="!field._ui.isArray" ng-click="showFieldDetail(field)" aria-label="View details">
                     <md-tooltip md-direction="top">View details</md-tooltip>
-                   <md-icon>visibility</md-icon>
-                 </md-button>
-               </div>
+                    <md-icon>visibility</md-icon>
+                  </md-button>
+                </div>
               </div>
               <md-divider></md-divider>
             </div>
@@ -32,6 +32,9 @@
               </dl>
             </div>
             <div class="data" style="margin-top: 10px;" ng-hide="field._ui.collapsed" ng-if="field._ui.isArray">
+              <h3 class="md-subhead no-value" ng-if="!field._items.length">
+                -No records available-
+              </h3>
               <div layout="row" md-whiteframe="2" class="fluid-row" ng-repeat="groupItem in field._items">
                 <div flex layout="row" layout-padding layout-wrap layout-align="start start" class="data">
                   <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row" ng-repeat="itemField in groupItem.tipo_fields" ng-if="itemField.short_display">
