@@ -31,7 +31,7 @@
               scope: newScope,
               skipHide: true,
               clickOutsideToClose: true,
-              fullscreen: false
+              fullscreen: true
             });
           }
           scope.showFieldDetail = showFieldDetail;

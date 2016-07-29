@@ -13,12 +13,15 @@
                 <h3 flex>
                   <a href="" ng-click="field._ui.collapsed = !field._ui.collapsed">
                     <i class="fa" ng-class="{'fa-caret-down': !field._ui.collapsed , 'fa-caret-right': field._ui.collapsed}"></i>
-                  </a> {{field.display_name}}
+                     {{field.display_name}}
+                  </a>
                 </h3>
+                <div class="actions" layout="column" layout-align="center center">
                 <md-button flex="none" class="m0" ng-if="!field._ui.isArray" ng-click="showFieldDetail(field)" aria-label="View details">
                     <md-tooltip md-direction="top">View details</md-tooltip>
-                   <md-icon>pageview</md-icon>
+                   <md-icon>visibility</md-icon>
                  </md-button>
+               </div>
               </div>
               <md-divider></md-divider>
             </div>
@@ -36,10 +39,10 @@
                     <dd flex><tp:field-view field="itemField" /></dd>
                   </dl>
                 </div>
-                <div flex="none" layout="column" layout-align="center center" class="actions">
+                <div flex="none" layout="column" layout-align="center center" class="actions bg">
                   <md-button ng-click="showFieldDetail(groupItem)" aria-label="View details">
                     <md-tooltip md-direction="top">View details</md-tooltip>
-                   <md-icon>pageview</md-icon>
+                   <md-icon>visibility</md-icon>
                  </md-button>
                 </div>
               </div>

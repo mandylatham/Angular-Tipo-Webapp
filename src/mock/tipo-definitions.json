@@ -158,6 +158,30 @@
             "short_display": false
           },
           {
+            "field_name": "tipo_array",
+            "field_type": "boolean",
+            "primary_key": false,
+            "field_description": "Whether or not this is an array",
+            "display_name": "Multi-valued?",
+            "short_display": true
+          },
+          {
+            "field_name": "primary_key",
+            "field_type": "boolean",
+            "primary_key": false,
+            "field_description": "Whether or not this is the primary key for the record",
+            "display_name": "Primary Key?",
+            "short_display": false
+          },
+          {
+            "field_name": "meaningful_key",
+            "field_type": "boolean",
+            "primary_key": false,
+            "field_description": "Whether or not this is to be used as the value when it is part of a relationship",
+            "display_name": "Meaningful Key?",
+            "short_display": false
+          },
+          {
             "field_name": "mandatory",
             "field_type": "boolean",
             "primary_key": false,
