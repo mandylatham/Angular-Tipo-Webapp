@@ -22,7 +22,7 @@
         replace: true,
         templateUrl: 'framework/_directives/_views/tp-view.tpl.html',
         link: function(scope, element, attrs){
-          function showGroupItem(definition){
+          function showFieldDetail(definition){
             var newScope = scope.$new();
             newScope.definition = definition;
             $mdDialog.show({
@@ -34,7 +34,7 @@
               fullscreen: false
             });
           }
-          scope.showGroupItem = showGroupItem;
+          scope.showFieldDetail = showFieldDetail;
         }
       };
     }

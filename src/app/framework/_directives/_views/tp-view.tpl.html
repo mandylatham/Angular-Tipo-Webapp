@@ -9,7 +9,17 @@
           </dl>
           <section class="fieldset fluid-row-container" flex="100" ng-if="field._ui.isGroup">
             <div class="header">
-              <h3><a href="" ng-click="field._ui.collapsed = !field._ui.collapsed"><i class="fa" ng-class="{'fa-caret-down': !field._ui.collapsed , 'fa-caret-right': field._ui.collapsed}"></i></a> {{field.display_name}}</h3>
+              <div layout="row" layout-align="end center">
+                <h3 flex>
+                  <a href="" ng-click="field._ui.collapsed = !field._ui.collapsed">
+                    <i class="fa" ng-class="{'fa-caret-down': !field._ui.collapsed , 'fa-caret-right': field._ui.collapsed}"></i>
+                  </a> {{field.display_name}}
+                </h3>
+                <md-button flex="none" class="m0" ng-if="!field._ui.isArray" ng-click="showFieldDetail(field)" aria-label="View details">
+                    <md-tooltip md-direction="top">View details</md-tooltip>
+                   <md-icon>pageview</md-icon>
+                 </md-button>
+              </div>
               <md-divider></md-divider>
             </div>
             <div class="data" layout-padding layout="row" layout-wrap layout-align="start center" ng-hide="field._ui.collapsed" ng-if="!field._ui.isArray">
@@ -27,7 +37,7 @@
                   </dl>
                 </div>
                 <div flex="none" layout="column" layout-align="center center" class="actions">
-                  <md-button ng-click="showGroupItem(groupItem)" aria-label="View details">
+                  <md-button ng-click="showFieldDetail(groupItem)" aria-label="View details">
                     <md-tooltip md-direction="top">View details</md-tooltip>
                    <md-icon>pageview</md-icon>
                  </md-button>
