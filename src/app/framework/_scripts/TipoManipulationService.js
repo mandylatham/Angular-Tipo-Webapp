@@ -113,6 +113,7 @@
       if(tipoDefinition.tipo_fields){
         _.each(tipoDefinition.tipo_fields, function(field){
           var fieldKey = field.field_name;
+          var fieldType = field.field_type;
           var fieldValue = tipoData[fieldKey];
           if(_.isUndefined(fieldValue)){
             return;
@@ -167,9 +168,13 @@
                 });
               });
             }else{
+              var label = fieldValue;
+              if(fieldType === 'boolean'){
+                label = fieldValue ? 'Yes' : 'No';
+              }
               field._value = {
                 key: fieldValue,
-                label: fieldValue
+                label: label
               };
             }
           }

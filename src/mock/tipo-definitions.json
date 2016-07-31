@@ -319,7 +319,8 @@
         "field_description": "Optional tags that can be attached to this order",
         "display_name": "Tag(s)",
         "short_display": false,
-        "tipo_array": true
+        "tipo_array": true,
+        "sizing": 2
       },
       {
         "field_name": "Customer",
@@ -393,7 +394,8 @@
             "field_type": "string",
             "field_description": "Optional tags that can be attached to this item",
             "display_name": "Tag(s)",
-            "tipo_array": true
+            "tipo_array": true,
+            "sizing": 2
           }
         ]
       },

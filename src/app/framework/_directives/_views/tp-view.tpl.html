@@ -3,10 +3,7 @@
     <section class="fieldset fluid-row-container">
       <div class="data" layout-padding layout="row" layout-wrap layout-align="start center">
         <dummy class="hidden" ng-repeat-start="field in definition.tipo_fields" />
-          <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row" ng-if="!field._ui.isGroup" layout-align="center center">
-            <dt>{{field.display_name}}:</dt>
-            <dd flex><tp:field-view field="field" /></dd>
-          </dl>
+          <tp:field-container field="field" ng-if="!field._ui.isGroup" />
           <section class="fieldset fluid-row-container" flex="100" ng-if="field._ui.isGroup">
             <div class="header">
               <div layout="row" layout-align="end center">
@@ -26,21 +23,15 @@
               <md-divider></md-divider>
             </div>
             <div class="data" layout-padding layout="row" layout-wrap layout-align="start center" ng-hide="field._ui.collapsed" ng-if="!field._ui.isArray">
-              <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row" ng-repeat="groupField in field.tipo_fields" layout-align="center center">
-                <dt>{{groupField.display_name}}:</dt>
-                <dd flex><tp:field-view field="groupField" /></dd>
-              </dl>
+              <tp:field-container field="groupField" ng-repeat="groupField in field.tipo_fields" />
             </div>
             <div class="data" style="margin-top: 10px;" ng-hide="field._ui.collapsed" ng-if="field._ui.isArray">
               <h3 class="md-subhead no-value" ng-if="!field._items.length">
                 -No records available-
               </h3>
-              <div layout="row" md-whiteframe="2" class="fluid-row" ng-repeat="groupItem in field._items">
+              <div layout="row" ng-repeat="groupItem in field._items" md-whiteframe="2" class="fluid-row">
                 <div flex layout="row" layout-padding layout-wrap layout-align="start start" class="data">
-                  <dl flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row" ng-repeat="itemField in groupItem.tipo_fields" ng-if="itemField.short_display">
-                    <dt>{{itemField.display_name}}:</dt>
-                    <dd flex><tp:field-view field="itemField" /></dd>
-                  </dl>
+                  <tp:field-container field="itemField" ng-repeat="itemField in groupItem.tipo_fields" ng-if="itemField.short_display" />
                 </div>
                 <div flex="none" layout="column" layout-align="center center" class="actions bg">
                   <md-button ng-click="showFieldDetail(groupItem)" aria-label="View details">

@@ -5,6 +5,9 @@
   var module = angular.module('tipo.framework');
 
   function DefinitionDialogController($scope, $mdDialog) {
+
+    this.tipoMode = $scope.tipoMode;
+
     $scope.hide = function() {
       $mdDialog.hide();
     };
@@ -22,6 +25,9 @@
         replace: true,
         templateUrl: 'framework/_directives/_views/tp-view.tpl.html',
         link: function(scope, element, attrs){
+
+          scope.tipoMode = attrs.mode || 'view';
+
           function showFieldDetail(definition){
             var newScope = scope.$new();
             newScope.definition = definition;
