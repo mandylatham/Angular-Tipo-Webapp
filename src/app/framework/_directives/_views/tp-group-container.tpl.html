@@ -1,0 +1,38 @@
+<section class="fieldset fluid-row-container" flex="100">
+  <div class="header">
+    <div layout="row" layout-align="end center">
+      <h3 flex>
+        <a href="" ng-click="group._ui.collapsed = !group._ui.collapsed">
+          <i class="fa" ng-class="{'fa-caret-down': !group._ui.collapsed , 'fa-caret-right': group._ui.collapsed}"></i>
+           {{group.display_name}}
+        </a>
+      </h3>
+      <div class="actions" layout="row" layout-align="center center">
+        <md-button flex="none" class="m0" ng-if="!group._ui.isArray" ng-click="showDetail()" aria-label="View details">
+          <md-tooltip md-direction="top">View details</md-tooltip>
+          <md-icon>visibility</md-icon>
+        </md-button>
+      </div>
+    </div>
+    <md-divider></md-divider>
+  </div>
+  <div class="data" layout-padding layout="row" layout-wrap layout-align="start center" ng-hide="group._ui.collapsed" ng-if="!group._ui.isArray">
+    <tp:field-container field="groupField" ng-repeat="groupField in group.tipo_fields" />
+  </div>
+  <div class="data" style="margin-top: 10px;" ng-hide="group._ui.collapsed" ng-if="group._ui.isArray">
+    <h3 class="md-subhead no-value" ng-if="!group._items.length">
+      -No records available-
+    </h3>
+    <div layout="row" ng-repeat="groupItem in group._items" md-whiteframe="2" class="fluid-row">
+      <div flex layout="row" layout-padding layout-wrap layout-align="start start" class="data">
+        <tp:field-container field="itemField" ng-repeat="itemField in groupItem.tipo_fields" ng-if="itemField.short_display" />
+      </div>
+      <div flex="none" layout="column" layout-align="center center" class="actions bg">
+        <md-button ng-click="showDetail(groupItem)" aria-label="View details">
+          <md-tooltip md-direction="top">View details</md-tooltip>
+         <md-icon>visibility</md-icon>
+       </md-button>
+      </div>
+    </div>
+  </div>
+</section>

@@ -4,7 +4,7 @@
 
   var module = angular.module('tipo.framework');
 
-  function DefinitionDialogController($scope, $mdDialog) {
+  function TipoGroupDialogController($scope, $mdDialog) {
 
     this.tipoMode = $scope.tipoMode;
 
@@ -16,31 +16,34 @@
     };
   }
 
-  return module.directive('tpView', function ($mdDialog) {
+  return module.directive('tpGroupContainer', function ($mdDialog) {
       return {
         scope: {
-          definition: '='
+          group: '='
         },
         restrict: 'EA',
-        replace: false,
-        templateUrl: 'framework/_directives/_views/tp-view.tpl.html',
+        replace: true,
+        templateUrl: 'framework/_directives/_views/tp-group-container.tpl.html',
         link: function(scope, element, attrs){
 
           scope.tipoMode = attrs.mode || 'view';
 
-          function showFieldDetail(definition){
+          function showDetail(definition){
+            if(_.isUndefined(definition)){
+              definition = scope.group;
+            }
             var newScope = scope.$new();
             newScope.definition = definition;
             $mdDialog.show({
               templateUrl: 'framework/generic/_views/view-dialog.tpl.html',
-              controller: DefinitionDialogController,
+              controller: TipoGroupDialogController,
               scope: newScope,
               skipHide: true,
               clickOutsideToClose: true,
               fullscreen: true
             });
           }
-          scope.showFieldDetail = showFieldDetail;
+          scope.showDetail = showDetail;
         }
       };
     }
