@@ -2,10 +2,7 @@
   <div class="fluid-row-container">
     <div layout="row" ng-repeat="tipo in tipoRootController.tiposWithDefinition" class="fluid-row" md-whiteframe="2">
       <div flex layout="row" layout-padding layout-wrap layout-align="start start" class="data">
-        <dl ng-repeat="field in tipo.value.tipo_fields" flex-xs="100" flex-gt-xs="100" flex-gt-sm="45" flex-gt-md="30" layout="row" style="margin: 0">
-          <dt>{{field.display_name}}</dt>
-          <dd flex>{{field._value.label || '-Not available-'}}</dd>
-        </dl>
+        <tp:field-container field="field" ng-if="!field._ui.isGroup" ng-repeat="field in tipo.value.tipo_fields"/>
       </div>
       <div flex="none" layout="column" layout-align="center center" class="actions bg">
         <md-button ng-click="tipoRootController.toDetail(tipo.key)" aria-label="View details">
