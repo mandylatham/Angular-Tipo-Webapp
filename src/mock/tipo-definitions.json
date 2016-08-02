@@ -49,6 +49,14 @@
         "tipo_group_name": "TipoMeta",
         "tipo_fields": [
           {
+            "field_name": "tipo_name",
+            "field_type": "string",
+            "primary_key": false,
+            "field_description": "Name of the Tipo",
+            "display_name": "Version",
+            "short_display": true
+          },
+          {
             "field_name": "tipo_version",
             "field_type": "string",
             "primary_key": false,
