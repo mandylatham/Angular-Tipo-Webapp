@@ -8,17 +8,23 @@
       return {
         restrict: 'AE',
         scope: {
-          field: '='
+          field: '=',
+          mode: '@?'
         },
         replace: true,
-        templateUrl: function(element, attrs){
-          if(attrs.mode === 'edit'){
-            return 'framework/_directives/_views/tp-field-container-edit.tpl.html';
-          }else{
-            return 'framework/_directives/_views/tp-field-container-view.tpl.html';
-          }
-        },
+        template: '<ng-include src="fieldTemplate" tp-include-replace/>',
         link: function(scope, element, attrs){
+          var mode = scope.mode || 'view';
+          scope.mode = mode;
+
+          var fieldTemplate;
+          if(mode === 'edit'){
+            fieldTemplate = 'framework/_directives/_views/tp-field-container-edit.tpl.html';
+          }else{
+            fieldTemplate = 'framework/_directives/_views/tp-field-container-view.tpl.html';
+          }
+          scope.fieldTemplate = fieldTemplate;
+
           var field = scope.field;
           var sizing = _.get(field, 'sizing') || 1;
           if(sizing === 1){

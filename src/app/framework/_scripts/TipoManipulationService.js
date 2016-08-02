@@ -45,7 +45,7 @@
     function extractShortDisplayFieldsRecursive(definition, collection){
       var eligibleFields = _.filter(definition.tipo_fields, {short_display: true});
       _.each(eligibleFields, function(each){
-        if(each._ui.isGroup || each._ui.isTipoRelationship){
+        if(each._ui.isGroup){
           extractShortDisplayFieldsRecursive(each, collection);
         }else{
           collection.push(each);

@@ -10,6 +10,10 @@
     _instance.tipoDefinition = tipoDefinition;
     _instance.tipo = tipo;
 
+    this.printDefinition = function(){
+      console.log(angular.toJson(_instance.tipoDefinition));
+    };
+
   }
 
   angular.module('tipo.framework')

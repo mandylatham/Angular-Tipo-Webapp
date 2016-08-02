@@ -1,12 +1,10 @@
-<div>
+<div class="p-8">
   <form ng-cloak>
-    <section class="fieldset fluid-row-container">
-      <div class="data" layout-padding layout="row" layout-wrap layout-align="start center">
-        <tp:placeholder class="hidden" ng-repeat-start="field in definition.tipo_fields" />
-        <tp:field-container field="field" ng-if="!field._ui.isGroup" />
-        <tp:group-container group="field" ng-if="field._ui.isGroup" />
-        <tp:placeholder class="hidden" ng-repeat-end />
+    <section class="fieldset no-header fluid-row-container">
+      <div class="data" layout-padding layout="row" layout-wrap layout-align="start start">
+        <tp:field-container field="field" ng-repeat="field in definition.tipo_fields" ng-if="!field._ui.isGroup" />
       </div>
     </section>
+    <tp:group-container group="field" ng-repeat="field in definition.tipo_fields" ng-if="field._ui.isGroup"/>
   </form>
 </div>
