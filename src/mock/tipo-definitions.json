@@ -1,6 +1,7 @@
 {
-  "TipoDef": {
+  "TipoDefinition": {
     "tipo_meta": {
+      "tipo_name": "TipoDefinition",
       "tipo_version": "1.0",
       "default_version": "1.0",
       "display_name": "Tipo Definition(s)",
