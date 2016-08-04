@@ -75,7 +75,9 @@
       parent: viewState,
       views: {
         'content@layout': {
-          templateUrl: 'framework/_views/tipo-edit-root.tpl.html'
+          templateUrl: 'framework/_views/tipo-edit-root.tpl.html',
+          controller: 'TipoEditRootController',
+          controllerAs: 'tipoRootController'
         }
       }
     };

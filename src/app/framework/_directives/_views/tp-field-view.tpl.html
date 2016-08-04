@@ -1,7 +1,10 @@
 <span>
   <span ng-if="hasValue">
     <span ng-if="isSingle && isSelfField">
-    {{field._value.label}}
+      <span ng-switch="field.field_type">
+        <span ng-switch-when="date_time">{{field._value.label}}</span>
+        <span ng-switch-default>{{field._value.label}}</span>
+      </span>
     </span>
     <span ng-if="isSingle && isTipoRef">
       <a class="explicit" ui-sref="tipoView({tipo_name: field._ui.relatedTipo, tipo_id: field._value.key})">{{field._value.label}}</a>

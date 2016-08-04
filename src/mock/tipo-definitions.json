@@ -54,7 +54,7 @@
             "field_type": "string",
             "primary_key": false,
             "field_description": "Name of the Tipo",
-            "display_name": "Version",
+            "display_name": "Name",
             "short_display": true
           },
           {
@@ -325,7 +325,7 @@
       {
         "field_name": "Tags",
         "field_type": "string",
-        "field_description": "Optional tags that can be attached to this order",
+        "field_description": "Optional tags",
         "display_name": "Tag(s)",
         "short_display": false,
         "tipo_array": true,

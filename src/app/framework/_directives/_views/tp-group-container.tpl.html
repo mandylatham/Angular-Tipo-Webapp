@@ -7,10 +7,14 @@
            {{group.display_name}}
         </a>
       </h3>
-      <div class="actions" layout="row" layout-align="center center">
-        <md-button flex="none" class="m0" ng-if="!group._ui.isArray" ng-click="showDetail()" aria-label="View details">
+      <div class="actions" layout="row" layout-align="center center" ng-if="!group._ui.isArray">
+        <md-button flex="none" class="m0"  ng-if="!(mode === 'edit')" ng-click="showDetail()" aria-label="View details">
           <md-tooltip md-direction="top">View details</md-tooltip>
           <md-icon>visibility</md-icon>
+        </md-button>
+        <md-button flex="none" class="m0"  ng-if="mode === 'edit'" ng-click="showDetail()" aria-label="Edit details">
+          <md-tooltip md-direction="top">Edit details</md-tooltip>
+          <md-icon>edit</md-icon>
         </md-button>
       </div>
     </div>
@@ -28,9 +32,13 @@
         <tp:field-container mode="{{mode}}" field="itemField" ng-repeat="itemField in groupItem.tipo_fields" ng-if="itemField.short_display" />
       </div>
       <div flex="none" layout="column" layout-align="center center" class="actions bg">
-        <md-button ng-click="showDetail(groupItem)" aria-label="View details">
+        <md-button ng-click="showDetail(groupItem)" ng-if="!(mode === 'edit')" aria-label="View details">
           <md-tooltip md-direction="top">View details</md-tooltip>
          <md-icon>visibility</md-icon>
+       </md-button>
+       <md-button ng-click="showDetail(groupItem)" ng-if="mode === 'edit'" aria-label="Edit details">
+          <md-tooltip md-direction="top">Edit details</md-tooltip>
+         <md-icon>edit</md-icon>
        </md-button>
       </div>
     </div>

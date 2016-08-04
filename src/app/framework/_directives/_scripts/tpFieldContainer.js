@@ -28,11 +28,11 @@
           var field = scope.field;
           var sizing = _.get(field, 'sizing') || 1;
           if(sizing === 1){
-            scope.sizeGtSm = 45;
-            scope.sizeGtMd = 30;
+            scope.sizeGtSm = 50;
+            scope.sizeGtMd = 33;
           } else if(sizing === 2){
             scope.sizeGtSm = 100;
-            scope.sizeGtMd = 60;
+            scope.sizeGtMd = 66;
           }
         }
       };

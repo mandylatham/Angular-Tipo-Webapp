@@ -33,7 +33,7 @@ router.get('/tipo_def/:name', function(request, response) {
   response.json(data);
 });
 
-router.get('/tipo/TipoDef', function(request, response) {
+router.get('/tipo/TipoDefinition', function(request, response) {
   var data = [];
   var definitions = _.cloneDeep(tipoDefinitions);
   _.forOwn(definitions, function(value, key){
@@ -43,7 +43,7 @@ router.get('/tipo/TipoDef', function(request, response) {
   response.json(data);
 });
 
-router.get('/tipo/TipoDef/:id', function(request, response) {
+router.get('/tipo/TipoDefinition/:id', function(request, response) {
   var tipoDefinitionId = request.params.id;
   var data = _.cloneDeep(tipoDefinitions[tipoDefinitionId]);
   data.TipoID = tipoDefinitionId;

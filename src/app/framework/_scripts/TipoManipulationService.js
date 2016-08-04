@@ -21,13 +21,13 @@
 
         definition._ui = {
           listTemplate: listTemplate,
-          listTemplateUrl: getActualTemplateUrl(listTemplate),
+          listTemplateUrl: resolveTemplateUrl(listTemplate),
           viewTemplate: viewTemplate,
-          viewTemplateUrl: getActualTemplateUrl(viewTemplate),
+          viewTemplateUrl: resolveTemplateUrl(viewTemplate),
           createTemplate: createTemplate,
-          createTemplateUrl: getActualTemplateUrl(createTemplate),
+          createTemplateUrl: resolveTemplateUrl(createTemplate),
           editTemplate: editTemplate,
-          editTemplateUrl: getActualTemplateUrl(editTemplate)
+          editTemplateUrl: resolveTemplateUrl(editTemplate)
         };
       }
 
@@ -207,7 +207,7 @@
       }
     }
 
-    function getActualTemplateUrl(templateId){
+    function resolveTemplateUrl(templateId){
       var parts = templateId.split('.');
       var folders = _.initial(parts);
       var file = _.last(parts);
@@ -220,6 +220,7 @@
     this.extractShortDisplayFields = extractShortDisplayFields;
     this.getFieldValue = getFieldValue;
     this.mergeDefinitionAndData = mergeDefinitionAndData;
+    this.resolveTemplateUrl = resolveTemplateUrl;
 
   }
 
