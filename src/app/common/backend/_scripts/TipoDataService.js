@@ -39,6 +39,14 @@
       return collectionResourceFunction().getList(queryParameters).then(stripRestangularFields);
     }
 
+    // Upserts resources
+    function upsertAll(resources, collectionResourceFunction){
+      if(_.isUndefined(collectionResourceFunction)){
+        collectionResourceFunction = this.getCollectionResource;
+      }
+      return collectionResourceFunction().doPUT(resources).then(stripRestangularFields);
+    }
+
     // Creates a new resource
     function createOne(resource, collectionResourceFunction){
       if(_.isUndefined(collectionResourceFunction)){
@@ -48,16 +56,11 @@
     }
 
     // Updates an existing resource. Assumes a field 'id' for the URL path parameter substitution but can accept an id override as well
-    function updateOne(resource, idOverride, documentResourceFunction){
+    function updateOne(resource, id, documentResourceFunction){
       if(_.isUndefined(documentResourceFunction)){
         documentResourceFunction = this.getDocumentResource;
       }
-      if(_.isUndefined(idOverride)){
-        idOverride = resource.id;
-        resource = angular.copy(resource);
-        delete resource.id;
-      }
-      return documentResourceFunction().customPUT(resource, idOverride).then(stripRestangularFields);
+      return documentResourceFunction(id).doPUT(resource).then(stripRestangularFields);
     }
 
     // Patches an existing resource. Assumes a field 'id' for the URL path parameter substitution but can accept an id override as well
@@ -97,6 +100,7 @@
       getOne: getOne,
       getAll: getAll,
       getSome: getSome,
+      upsertAll: upsertAll,
       createOne: createOne,
       updateOne: updateOne,
       patchOne: patchOne,

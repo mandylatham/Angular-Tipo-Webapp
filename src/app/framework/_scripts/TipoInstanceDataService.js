@@ -31,13 +31,23 @@
       return tipoDataService.getAll.call(this, undefined, undefined, collectionResourceFunction(tipo_name));
     }
 
+    function upsertAll(tipo_name, tipos){
+      return tipoDataService.upsertAll.call(this, tipos, collectionResourceFunction(tipo_name));
+    }
+
     function getOne(tipo_name, id){
       return tipoDataService.getOne.call(this, id, undefined, undefined, documentResourceFunction(tipo_name));
     }
 
+    function updateOne(tipo_name, tipo, id){
+      return tipoDataService.updateOne.call(this, tipo, id, documentResourceFunction(tipo_name));
+    }
+
     return _.create(tipoDataService, {
       getAll: getAll,
-      getOne: getOne
+      upsertAll: upsertAll,
+      getOne: getOne,
+      updateOne: updateOne
     });
 
   }

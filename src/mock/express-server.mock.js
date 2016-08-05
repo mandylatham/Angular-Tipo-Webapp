@@ -4,6 +4,7 @@
 var _ = require('lodash');
 var express = require('express');
 var bodyParser = require('body-parser');
+var uuid = require('uuid');
 
 var app = express();
 
@@ -63,6 +64,27 @@ router.get('/tipo/:name/:id', function(request, response) {
   var dataMap = tipoData[tipoName] || {};
   var data = dataMap[tipoId];
   response.json(data);
+});
+
+router.put('/tipo/:name', function(request, response) {
+  var tipoName = request.params.name;
+  tipoData[tipoName] = tipoData[tipoName] || {};
+  var data = request.body[0];
+  data.TipoID = data.TipoID || uuid.v4();
+  var dataMap = tipoData[tipoName];
+  dataMap[data.TipoID] = data;
+  response.json([data]);
+});
+
+router.put('/tipo/:name/:id', function(request, response) {
+  var tipoName = request.params.name;
+  var tipoId = request.params.id;
+  var dataMap = tipoData[tipoName] || {};
+  if(dataMap[tipoId]){
+    var data = request.body;
+    dataMap[tipoId] = data;
+    response.json(data);
+  }
 });
 
 module.exports = app;

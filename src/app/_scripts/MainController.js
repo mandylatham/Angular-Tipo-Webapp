@@ -25,7 +25,7 @@
     };      
 
     this.signUp = function(){
-      $state.go('registerUser');      
+      $state.go('registerUser');
     };
 
     this.signOut = function(){
@@ -33,12 +33,12 @@
         $state.go('login');
         return;
       }
-      googleService.signOut();      
+      googleService.signOut();
     };
 
     this.isSignedIn = function(){
-      return cognitoService.isCurrentUserSigned() === true || googleService.isSignedIn() === true;     
-    };    
+      return cognitoService.isCurrentUserSigned() === true || googleService.isSignedIn() === true;
+    };
 
     // Register state change interactions for visual transition cues
     $rootScope.$on('$stateChangeStart', function() {

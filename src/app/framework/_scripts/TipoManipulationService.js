@@ -171,6 +171,10 @@
               var label = fieldValue;
               if(fieldType === 'boolean'){
                 label = fieldValue ? 'Yes' : 'No';
+              }else if (fieldType === 'date_time'){
+                if(fieldValue){
+                  fieldValue = new Date(fieldValue);
+                }
               }
               field._value = {
                 key: fieldValue,
@@ -180,6 +184,93 @@
           }
         });
       }
+    }
+
+    function extractDataFromMergedDefinition(tipoDefinition, tipoData){
+      if(tipoDefinition.tipo_fields){
+        _.each(tipoDefinition.tipo_fields, function(field){
+          var fieldKey = field.field_name;
+          var fieldType = field.field_type;
+          var fieldValue = field._value;
+          var hasValue = !_.isEmpty(fieldValue);
+          var hasSimpleValue = !_.isEmpty(_.get(fieldValue, 'key'));
+          var isArray = Boolean(_.get(field, '_ui.isArray'));
+          var isGroup = Boolean(_.get(field, '_ui.isGroup'));
+          var isRelatedTipo = Boolean(_.get(field, '_ui.isTipoRelationship'));
+          if(isRelatedTipo){
+            if(hasValue){
+              if(isArray){
+                tipoData[fieldKey] = [];
+                _.each(fieldValue, function(each){
+                  tipoData[fieldKey].push({
+                    TipoID: each.key
+                  });
+                });
+              }else{
+                if(hasSimpleValue){
+                  tipoData[fieldKey] = {
+                    TipoID: fieldValue.key
+                  };
+                }
+              }
+            }
+          }
+          else if(isGroup){
+            var groupData;
+            if(isArray){
+              if(!_.isEmpty(field._items)){
+                groupData = [];
+                _.each(field._items, function(item){
+                  var itemData = {};
+                  extractDataFromMergedDefinition(item, itemData);
+                  if(!_.isEmpty(itemData)){
+                    groupData.push(itemData);
+                  }
+                });
+                if(!_.isEmpty(groupData)){
+                  tipoData[fieldKey] = groupData;
+                }
+              }
+            }else{
+              groupData = {};
+              extractDataFromMergedDefinition(field, groupData);
+              if(!_.isEmpty(groupData)){
+                tipoData[fieldKey] = groupData;
+              }
+            }
+          }else{
+            if(hasValue){
+              var finalValue;
+              if(isArray){
+                tipoData[fieldKey] = [];
+                _.each(fieldValue, function(each){
+                  finalValue = translateSimpleValue(field, each.key);
+                  if(finalValue){
+                    tipoData[fieldKey].push(translateSimpleValue(field, each.key));
+                  }
+                });
+              }else{
+                finalValue = translateSimpleValue(field, fieldValue.key);
+                if(finalValue){
+                  tipoData[fieldKey] = translateSimpleValue(field, fieldValue.key);
+                }
+              }
+            }
+          }
+        });
+      }
+    }
+
+    function translateSimpleValue(field, value){
+      if(!_.isUndefined(value)){
+        var fieldType = field.field_type;
+        if(fieldType === 'date_time'){
+          if(_.isDate(value)){
+            return value;
+          }
+        }
+      }
+      return value;
     }
 
     function getFieldValue(tipo, expression){
@@ -220,6 +311,7 @@
     this.extractShortDisplayFields = extractShortDisplayFields;
     this.getFieldValue = getFieldValue;
     this.mergeDefinitionAndData = mergeDefinitionAndData;
+    this.extractDataFromMergedDefinition = extractDataFromMergedDefinition;
     this.resolveTemplateUrl = resolveTemplateUrl;
 
   }

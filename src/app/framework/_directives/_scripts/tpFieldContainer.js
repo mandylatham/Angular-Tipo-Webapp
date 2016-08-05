@@ -26,6 +26,8 @@
           scope.fieldTemplate = fieldTemplate;
 
           var field = scope.field;
+          scope.isId = field.field_name === 'TipoID';
+
           var sizing = _.get(field, 'sizing') || 1;
           if(sizing === 1){
             scope.sizeGtSm = 50;

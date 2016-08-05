@@ -1,4 +1,4 @@
-<dl class="edit" layout="column" layout-align="center stretch" flex="100" flex-gt-sm="{{sizeGtSm}}" flex-gt-md="{{sizeGtMd}}">
+<dl class="edit" ng-class="{hidden: isId}" layout="column" layout-align="center stretch" flex="100" flex-gt-sm="{{sizeGtSm}}" flex-gt-md="{{sizeGtMd}}">
   <dt>{{field.display_name}}</dt>
   <dd>
     <tp:field-edit field="field" />

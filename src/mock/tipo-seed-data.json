@@ -3,7 +3,7 @@
     "100": {
       "TipoID": "100",
       "OrderAmount": "5500",
-      "RequiredByDate": "1466770948955",
+      "RequiredByDate": "2016-10-05T00:00:00Z",
       "Customer": {
         "TipoID": "100",
         "Name": "John Doe"
@@ -12,7 +12,7 @@
     "200": {
       "TipoID": "200",
       "OrderAmount": "3000",
-      "RequiredByDate": "1466770948955",
+      "RequiredByDate": "2016-11-18T00:00:00Z",
       "Customer": {
         "TipoID": "200",
         "Name": "Jane Smith"
