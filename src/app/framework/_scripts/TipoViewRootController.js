@@ -26,6 +26,10 @@
       });
     };
 
+    _instance.toList = function(){
+      tipoRouter.toTipoList(tipo_name);
+    };
+
   }
 
   angular.module('tipo.framework')

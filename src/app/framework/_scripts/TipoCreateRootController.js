@@ -26,8 +26,12 @@
       });
     };
 
-    _instance.cancel = function(){
+    _instance.toList = function(){
       tipoRouter.toTipoList(tipo_name);
+    };
+
+    _instance.cancel = function(){
+      _instance.toList();
     };
 
   }

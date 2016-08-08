@@ -1,0 +1,17 @@
+<md-autocomplete
+  md-no-cache="true"
+  md-selected-item="selectedItem"
+  md-search-text-change="search(searchText)"
+  md-search-text="searchText"
+  md-items="item in temp"
+  md-item-text="item.value"
+  md-min-length="0"
+  md-delay="500"
+  placeholder="Select your value please">
+  <md-item-template>
+    <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.value}}</span>
+  </md-item-template>
+  <md-not-found>
+    No states matching "{{searchText}}" were found.
+  </md-not-found>
+</md-autocomplete>

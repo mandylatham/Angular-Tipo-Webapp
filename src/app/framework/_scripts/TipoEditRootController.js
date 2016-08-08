@@ -25,9 +25,18 @@
       });
     };
 
-    _instance.cancel = function(){
+    _instance.toList = function(){
+      tipoRouter.toTipoList(tipo_name);
+    };
+
+    _instance.toView = function(){
       tipoRouter.toTipoView(tipo_name, tipo_id);
     };
+
+    _instance.cancel = function(){
+      _instance.toView();
+    };
+
 
   }
 

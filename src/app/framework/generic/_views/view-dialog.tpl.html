@@ -15,8 +15,11 @@
   </md-dialog-content>
   <md-dialog-actions layout="row">
     <span flex></span>
-    <md-button ng-click="hide()">
+    <md-button ng-click="hide()" ng-if="!(mode === 'edit')">
      Close
+    </md-button>
+    <md-button md-theme="reverse" class="md-raised md-primary" ng-click="hide()" ng-if="mode === 'edit'">
+     Done
     </md-button>
   </md-dialog-actions>
 </md-dialog>

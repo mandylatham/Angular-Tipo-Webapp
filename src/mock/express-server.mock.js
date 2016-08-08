@@ -55,6 +55,18 @@ router.get('/tipo/:name', function(request, response) {
   var tipoName = request.params.name;
   var dataMap = tipoData[tipoName] || {};
   var data = _.values(dataMap);
+  var query = request.query;
+  if(!_.isEmpty(query)){
+    data = _.filter(data, function(each){
+      return _.reduce(query, function(matched, queryValue, queryKey){
+        var value = _.get(each, queryKey);
+        if(!_.isUndefined(value)){
+          return _.startsWith(value.toString().toLowerCase(), queryValue.toLowerCase()) && matched;
+        }
+        return false;
+      }, true);
+    });
+  }
   response.json(data);
 });
 

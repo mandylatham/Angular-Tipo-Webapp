@@ -93,14 +93,8 @@
               tipo_field._ui.isTipoRelationship = true;
               tipo_field._ui.relatedTipo = parts[1];
               var relatedTipoDefinition = _.cloneDeep(tipoRegistry.get(parts[1]));
-              var keyField =  _.find(relatedTipoDefinition.tipo_fields, function(each){
-                return Boolean(each.primary_key);
-              });
-              var labelField =  _.find(relatedTipoDefinition.tipo_fields, function(each){
-                return Boolean(each.meaningful_key);
-              });
-              tipo_field.key_field = keyField;
-              tipo_field.label_field = labelField;
+              tipo_field.key_field = getPrimaryKey(relatedTipoDefinition);
+              tipo_field.label_field = getMeaningfulKey(relatedTipoDefinition);
             }
           }else{
             // Do nothing for now. Eventually we may need to set other UI specific metadata
@@ -310,6 +304,18 @@
       return folders.join('/') + '/_views/' + file + '.tpl.html';
     }
 
+    function getPrimaryKey(tipoDefinition){
+      return _.find(tipoDefinition.tipo_fields, function(each){
+        return Boolean(each.primary_key);
+      });
+    }
+
+    function getMeaningfulKey(tipoDefinition){
+      return _.find(tipoDefinition.tipo_fields, function(each){
+        return Boolean(each.meaningful_key);
+      });
+    }
+
     // Expose the functions that need to be consumed from outside
     this.mapDefinitionToUI = mapDefinitionToUI;
     this.expandFieldHierarchy = expandFieldHierarchy;
@@ -318,6 +324,8 @@
     this.mergeDefinitionAndData = mergeDefinitionAndData;
     this.extractDataFromMergedDefinition = extractDataFromMergedDefinition;
     this.generateGroupItem = generateGroupItem;
+    this.getPrimaryKey = getPrimaryKey;
+    this.getMeaningfulKey = getMeaningfulKey;
     this.resolveTemplateUrl = resolveTemplateUrl;
 
   }
