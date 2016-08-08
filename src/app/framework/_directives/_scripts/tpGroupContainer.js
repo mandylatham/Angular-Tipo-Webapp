@@ -16,7 +16,9 @@
     };
   }
 
-  return module.directive('tpGroupContainer', function ($mdDialog) {
+  return module.directive('tpGroupContainer', function (
+    tipoManipulationService,
+    $mdDialog) {
       return {
         scope: {
           group: '=',
@@ -54,7 +56,26 @@
               fullscreen: true
             });
           }
+
+          function generateItem(group){
+            tipoManipulationService.generateGroupItem(group);
+          }
+
+          function deleteItem(groupItem, group){
+            _.remove(group._items, function(each){
+              return each === groupItem;
+            });
+          }
+
+          function cloneItem(groupItem, group){
+            var clonedItem = angular.copy(groupItem);
+            group._items.push(clonedItem);
+          }
+
+          scope.generateItem = generateItem;
           scope.showDetail = showDetail;
+          scope.deleteItem = deleteItem;
+          scope.cloneItem = cloneItem;
         }
       };
     }

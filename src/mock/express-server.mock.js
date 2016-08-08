@@ -87,4 +87,12 @@ router.put('/tipo/:name/:id', function(request, response) {
   }
 });
 
+router.delete('/tipo/:name/:id', function(request, response) {
+  var tipoName = request.params.name;
+  var tipoId = request.params.id;
+  var dataMap = tipoData[tipoName] || {};
+  delete dataMap[tipoId];
+  response.json({});
+});
+
 module.exports = app;

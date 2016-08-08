@@ -323,15 +323,6 @@
         "input_validator": "some_javaScript?"
       },
       {
-        "field_name": "Tags",
-        "field_type": "string",
-        "field_description": "Optional tags",
-        "display_name": "Tag(s)",
-        "short_display": false,
-        "tipo_array": true,
-        "sizing": 2
-      },
-      {
         "field_name": "Customer",
         "field_type": "Tipo.Customer",
         "field_description": "Customer who placed the purchase order",
@@ -367,6 +358,15 @@
         "tipo_array": true,
         "display_name": "Line Item(s)",
         "field_type": "FieldGroup.POLineItem"
+      },
+      {
+        "field_name": "Tags",
+        "field_type": "string",
+        "field_description": "Optional tags",
+        "display_name": "Tag(s)",
+        "short_display": false,
+        "tipo_array": true,
+        "sizing": 2
       }
     ],
     "tipo_field_groups": [

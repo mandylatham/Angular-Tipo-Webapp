@@ -143,17 +143,9 @@
           }
           else if(isGroup){
             if(isArray){
-              field._items = [];
               _.each(fieldValue, function(item){
-                var itemField = {
-                  display_name: field.display_name,
-                  tipo_fields: _.cloneDeep(field.tipo_fields),
-                  _ui: {
-                    isGroupItem: true
-                  }
-                };
+                var itemField = generateGroupItem(field);
                 mergeDefinitionAndData(itemField, item);
-                field._items.push(itemField);
               });
             }else{
               mergeDefinitionAndData(field, fieldValue);
@@ -298,6 +290,19 @@
       }
     }
 
+    function generateGroupItem(groupField){
+      var itemField = {
+        display_name: groupField.display_name,
+        tipo_fields: _.cloneDeep(groupField.tipo_fields),
+        _ui: {
+          isGroupItem: true
+        }
+      };
+      groupField._items = groupField._items || [];
+      groupField._items.push(itemField);
+      return itemField;
+    }
+
     function resolveTemplateUrl(templateId){
       var parts = templateId.split('.');
       var folders = _.initial(parts);
@@ -312,6 +317,7 @@
     this.getFieldValue = getFieldValue;
     this.mergeDefinitionAndData = mergeDefinitionAndData;
     this.extractDataFromMergedDefinition = extractDataFromMergedDefinition;
+    this.generateGroupItem = generateGroupItem;
     this.resolveTemplateUrl = resolveTemplateUrl;
 
   }

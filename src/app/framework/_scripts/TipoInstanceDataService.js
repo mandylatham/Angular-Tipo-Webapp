@@ -43,11 +43,16 @@
       return tipoDataService.updateOne.call(this, tipo, id, documentResourceFunction(tipo_name));
     }
 
+    function deleteOne(tipo_name, tipo, id){
+      return tipoDataService.deleteOne.call(this, tipo, id, documentResourceFunction(tipo_name));
+    }
+
     return _.create(tipoDataService, {
       getAll: getAll,
       upsertAll: upsertAll,
       getOne: getOne,
-      updateOne: updateOne
+      updateOne: updateOne,
+      deleteOne: deleteOne
     });
 
   }

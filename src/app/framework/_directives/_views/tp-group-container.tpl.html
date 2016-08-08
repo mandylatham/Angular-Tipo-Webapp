@@ -7,15 +7,23 @@
            {{group.display_name}}
         </a>
       </h3>
-      <div class="actions" layout="row" layout-align="center center" ng-if="!group._ui.isArray">
-        <md-button flex="none" class="m0"  ng-if="!(mode === 'edit')" ng-click="showDetail()" aria-label="View details">
-          <md-tooltip md-direction="top">View details</md-tooltip>
-          <md-icon>visibility</md-icon>
-        </md-button>
-        <md-button flex="none" class="m0"  ng-if="mode === 'edit'" ng-click="showDetail()" aria-label="Edit details">
-          <md-tooltip md-direction="top">Edit details</md-tooltip>
-          <md-icon>edit</md-icon>
-        </md-button>
+      <div class="actions" layout="row" layout-align="center center">
+        <div ng-if="!group._ui.isArray">
+          <md-button flex="none" class="m0"  ng-if="!(mode === 'edit')" ng-click="showDetail()" aria-label="View details">
+            <md-tooltip md-direction="left">View details</md-tooltip>
+            <md-icon>visibility</md-icon>
+          </md-button>
+          <md-button flex="none" class="m0"  ng-if="mode === 'edit'" ng-click="showDetail()" aria-label="Edit details">
+            <md-tooltip md-direction="left">Edit details</md-tooltip>
+            <md-icon>edit</md-icon>
+          </md-button>
+        </div>
+        <div ng-if="group._ui.isArray">
+          <md-button flex="none" class="m0"  ng-if="mode === 'edit'" ng-click="generateItem(group)" aria-label="Add new">
+            <md-tooltip md-direction="left">Add new</md-tooltip>
+            <md-icon>add</md-icon>
+          </md-button>
+        </div>
       </div>
     </div>
     <md-divider></md-divider>
@@ -31,15 +39,25 @@
       <div flex layout="row" layout-padding layout-wrap layout-align="start start" class="data">
         <tp:field-container mode="{{mode}}" field="itemField" ng-repeat="itemField in groupItem.tipo_fields" ng-if="itemField.short_display" />
       </div>
-      <div flex="none" layout="column" layout-align="center center" class="actions bg">
+      <div flex="none" layout="column" layout-align="center center" class="actions bg" ng-if="!(mode === 'edit')">
         <md-button ng-click="showDetail(groupItem)" ng-if="!(mode === 'edit')" aria-label="View details">
-          <md-tooltip md-direction="top">View details</md-tooltip>
-         <md-icon>visibility</md-icon>
-       </md-button>
-       <md-button ng-click="showDetail(groupItem)" ng-if="mode === 'edit'" aria-label="Edit details">
-          <md-tooltip md-direction="top">Edit details</md-tooltip>
-         <md-icon>edit</md-icon>
-       </md-button>
+          <md-tooltip md-direction="left">View details</md-tooltip>
+          <md-icon>visibility</md-icon>
+        </md-button>
+      </div>
+      <div flex="none" layout="column" layout-align="center center" class="actions bg" ng-if="mode === 'edit'">
+        <md-button ng-click="showDetail(groupItem)" aria-label="Edit details" class="md-icon-button">
+          <md-tooltip md-direction="left">Edit details</md-tooltip>
+          <md-icon>edit</md-icon>
+        </md-button>
+        <md-button ng-click="deleteItem(groupItem, group)" aria-label="Delete" class="md-icon-button">
+          <md-tooltip md-direction="left">Delete</md-tooltip>
+          <md-icon>delete</md-icon>
+        </md-button>
+        <md-button ng-click="cloneItem(groupItem, group)" aria-label="Clone" class="md-icon-button">
+          <md-tooltip md-direction="left">Clone</md-tooltip>
+          <md-icon>content_copy</md-icon>
+        </md-button>
       </div>
     </div>
   </div>
