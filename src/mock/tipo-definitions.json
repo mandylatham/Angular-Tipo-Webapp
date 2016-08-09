@@ -191,6 +191,14 @@
             "short_display": false
           },
           {
+            "field_name": "relationship_type",
+            "field_type": "string",
+            "primary_key": false,
+            "field_description": "This is only applicable when field_type is Tipo.XXXX. This field can have only one of the two values: composition, aggregation.",
+            "display_name": "Relationship Type",
+            "short_display": false
+          },
+          {
             "field_name": "mandatory",
             "field_type": "boolean",
             "primary_key": false,
