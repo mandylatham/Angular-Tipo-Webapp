@@ -27,8 +27,8 @@
       return _.partial(getDocumentResource, tipo_name);
     }
 
-    function getAll(tipo_name){
-      return tipoDataService.getAll.call(this, undefined, undefined, collectionResourceFunction(tipo_name));
+    function search(tipo_name, criteria){
+      return tipoDataService.getAll.call(this, criteria, undefined, collectionResourceFunction(tipo_name));
     }
 
     function upsertAll(tipo_name, tipos){
@@ -48,7 +48,7 @@
     }
 
     return _.create(tipoDataService, {
-      getAll: getAll,
+      search: search,
       upsertAll: upsertAll,
       getOne: getOne,
       updateOne: updateOne,

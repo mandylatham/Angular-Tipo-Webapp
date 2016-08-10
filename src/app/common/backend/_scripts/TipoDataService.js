@@ -20,7 +20,7 @@
       return documentResourceFunction(resourceId).get(queryParameters, headers).then(stripRestangularFields);
     }
     
-    // Retrieves a list of all resources
+    // Retrieves a list of all resources optionally matching some search criteria
     function getAll(queryParameters, headers, collectionResourceFunction){
       if(_.isUndefined(collectionResourceFunction)){
         collectionResourceFunction = this.getCollectionResource;
@@ -29,14 +29,6 @@
         queryParameters = {};
       }
       return collectionResourceFunction().getList(queryParameters, headers).then(stripRestangularFields);
-    }
-    
-    // Retrieves a list of resources based on query parameters
-    function getSome(queryParameters, collectionResourceFunction){
-      if(_.isUndefined(collectionResourceFunction)){
-        collectionResourceFunction = this.getCollectionResource;
-      }
-      return collectionResourceFunction().getList(queryParameters).then(stripRestangularFields);
     }
 
     // Upserts resources
@@ -99,7 +91,6 @@
     return {
       getOne: getOne,
       getAll: getAll,
-      getSome: getSome,
       upsertAll: upsertAll,
       createOne: createOne,
       updateOne: updateOne,

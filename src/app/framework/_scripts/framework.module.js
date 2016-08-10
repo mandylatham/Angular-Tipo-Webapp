@@ -13,7 +13,7 @@
           return tipoRegistry.get($stateParams.tipo_name);
         },
         tipos: function(tipoDefinition, tipoInstanceDataService, $stateParams){
-          return tipoInstanceDataService.getAll($stateParams.tipo_name);
+          return tipoInstanceDataService.search($stateParams.tipo_name);
         }
       },
       views: {

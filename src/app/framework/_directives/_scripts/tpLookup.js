@@ -4,9 +4,7 @@
 
   var module = angular.module('tipo.framework');
 
-  return module.directive('tpLookup', function (
-    $timeout,
-    $q) {
+  return module.directive('tpLookup', function (tipoInstanceDataService) {
       return {
         scope: {
           field: '='
@@ -25,33 +23,32 @@
           }
           scope.fieldTemplate = fieldTemplate;
 
-          scope.master = [
-            {key: 'a', value: 'AA'},
-            {key: 'b', value: 'BB'},
-            {key: 'c', value: 'CC'},
-            {key: 'd', value: 'DD'},
-            {key: 'e', value: 'EE'},
-            {key: 'f', value: 'FF'},
-            {key: 'g', value: 'GG'},
-            {key: 'h', value: 'HH'}
-          ];
+          var tipo_name = field._ui.relatedTipo;
+          var label_field = field.label_field.field_name;
+          var searchCriteria = {};
 
-          scope.temp = [];
+          if(!_.isUndefined(field._value)){
+            scope.selectedTipo = field._value;
+          }
 
-          scope.search = function(text){
-            var eligible;
-            if(_.isEmpty(text)){
-              eligible = scope.master;
+          scope.setValue = function(tipo){
+            if(tipo){
+              field._value = tipo;
             }else{
-              eligible = _.filter(scope.master, function(each){
-                return _.startsWith(each.value, text);
-              });
+              delete field._value;
             }
-            var deferred = $q.defer();
-            $timeout(function () {
-              deferred.resolve(eligible);
-            }, Math.random() * 3000, false);
-            scope.temp = deferred.promise;
+          };
+
+          scope.lookup = function(text){
+            searchCriteria[label_field] = text;
+            return tipoInstanceDataService.search(tipo_name, searchCriteria).then(function(results){
+              return _.map(results, function(each){
+                return {
+                  key: each.TipoID,
+                  label: each[label_field]
+                };
+              });
+            });
           };
         }
       };

@@ -43,7 +43,9 @@
     }
 
     function extractShortDisplayFieldsRecursive(definition, collection){
-      var eligibleFields = _.filter(definition.tipo_fields, {short_display: true});
+      var eligibleFields = _.filter(definition.tipo_fields, function(each){
+        return each.short_display && !each.hidden;
+      });
       _.each(eligibleFields, function(each){
         if(each._ui.isGroup){
           extractShortDisplayFieldsRecursive(each, collection);
@@ -95,6 +97,10 @@
               var relatedTipoDefinition = _.cloneDeep(tipoRegistry.get(parts[1]));
               tipo_field.key_field = getPrimaryKey(relatedTipoDefinition);
               tipo_field.label_field = getMeaningfulKey(relatedTipoDefinition);
+              if(tipo_field.relationship_type === 'composition'){
+                tipo_field._ui.isGroup = true;
+                tipo_field.tipo_fields = relatedTipoDefinition.tipo_fields;
+              }
             }
           }else{
             // Do nothing for now. Eventually we may need to set other UI specific metadata
@@ -197,6 +203,8 @@
                   tipoData[fieldKey] = {
                     TipoID: fieldValue.key
                   };
+                  // TODO: Sushil - Temporary code just for mock
+                  tipoData[fieldKey][field.label_field.field_name] = fieldValue.label;
                 }
               }
             }

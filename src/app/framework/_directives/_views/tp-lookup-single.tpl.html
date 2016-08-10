@@ -1,17 +1,19 @@
-<md-autocomplete
-  md-no-cache="true"
-  md-selected-item="selectedItem"
-  md-search-text-change="search(searchText)"
-  md-search-text="searchText"
-  md-items="item in temp"
-  md-item-text="item.value"
-  md-min-length="0"
-  md-delay="500"
-  placeholder="Select your value please">
-  <md-item-template>
-    <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.value}}</span>
-  </md-item-template>
-  <md-not-found>
-    No states matching "{{searchText}}" were found.
-  </md-not-found>
-</md-autocomplete>
+<md-input-container md-no-float>
+  <md-autocomplete
+    md-no-cache="true"
+    md-selected-item="selectedTipo"
+    md-selected-item-change="setValue(selectedTipo)"
+    md-search-text="searchText"
+    md-items="item in lookup(searchText)"
+    md-item-text="item.label"
+    md-min-length="0"
+    md-delay="500"
+    placeholder="Select your value please">
+    <md-item-template>
+      <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.label}}</span>
+    </md-item-template>
+    <md-not-found>
+      No matches found for <em>'{{searchText}}'</em>
+    </md-not-found>
+  </md-autocomplete>
+</md-input-container>
