@@ -434,7 +434,8 @@
         "tipo_array": false,
         "display_name": "Billing Address",
         "display_type": "ngAddress",
-        "field_type": "FieldGroup.Address",
+        "field_type": "Tipo.Address",
+        "relationship_type": "composition",
         "short_display": true
       },
       {

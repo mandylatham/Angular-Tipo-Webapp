@@ -7,20 +7,24 @@
            {{group.display_name}}
         </a>
       </h3>
-      <div class="actions" layout="row" layout-align="center center">
-        <div ng-if="!group._ui.isArray">
+      <div class="actions horizontal" layout="row" layout-align="center center">
+        <div ng-if="!group._ui.isArray" layout="row">
           <md-button flex="none" class="m0"  ng-if="!(mode === 'edit')" ng-click="showDetail()" aria-label="View details">
-            <md-tooltip md-direction="left">View details</md-tooltip>
-            <md-icon>visibility</md-icon>
+            <md-tooltip md-direction="top">View details</md-tooltip>
+            <md-icon>fullscreen</md-icon>
+          </md-button>
+          <md-button flex="none" class="m0"  ng-if="mode === 'edit' && group._ui.isTipoRelationship" ng-click="lookupTipo()" aria-label="Lookup">
+            <md-tooltip md-direction="top">Copy from existing</md-tooltip>
+            <md-icon>search</md-icon>
           </md-button>
           <md-button flex="none" class="m0"  ng-if="mode === 'edit'" ng-click="showDetail()" aria-label="Edit details">
-            <md-tooltip md-direction="left">Edit details</md-tooltip>
+            <md-tooltip md-direction="top">Edit details</md-tooltip>
             <md-icon>edit</md-icon>
           </md-button>
         </div>
         <div ng-if="group._ui.isArray">
           <md-button flex="none" class="m0"  ng-if="mode === 'edit'" ng-click="generateItem(group)" aria-label="Add new">
-            <md-tooltip md-direction="left">Add new</md-tooltip>
+            <md-tooltip md-direction="top">Add new</md-tooltip>
             <md-icon>add</md-icon>
           </md-button>
         </div>
@@ -42,10 +46,14 @@
       <div flex="none" layout="column" layout-align="center center" class="actions bg" ng-if="!(mode === 'edit')">
         <md-button ng-click="showDetail(groupItem)" ng-if="!(mode === 'edit')" aria-label="View details">
           <md-tooltip md-direction="left">View details</md-tooltip>
-          <md-icon>visibility</md-icon>
+          <md-icon>fullscreen</md-icon>
         </md-button>
       </div>
       <div flex="none" layout="column" layout-align="center center" class="actions bg" ng-if="mode === 'edit'">
+        <md-button flex="none" ng-if="group._ui.isTipoRelationship" ng-click="lookupTipo(groupItem)" aria-label="Lookup">
+          <md-tooltip md-direction="left">Copy from existing</md-tooltip>
+          <md-icon>search</md-icon>
+        </md-button>
         <md-button ng-click="showDetail(groupItem)" aria-label="Edit details" class="md-icon-button">
           <md-tooltip md-direction="left">Edit details</md-tooltip>
           <md-icon>edit</md-icon>

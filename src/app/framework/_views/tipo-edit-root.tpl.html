@@ -1,6 +1,16 @@
 <div flex layout="column">
-  <md-subheader class="md-primary">
-    <h2><a href="" class="explicit" ng-click="tipoRootController.toList()">{{tipoRootController.tipoDefinition.tipo_meta.display_name}}</a> > <a href="" class="explicit" ng-click="tipoRootController.toView()">{{tipoRootController.tipo.TipoID}}</a> > Edit</h2>
+  <md-subheader class="md-primary tp-page-heading">
+    <h2 layout="row" layout-align="start start" layout-wrap>
+      <div>
+        <a href="" class="explicit" ng-click="tipoRootController.toList()">{{tipoRootController.tipoDefinition.tipo_meta.display_name}}</a>
+        <span class="separator">></span>
+      </div>
+      <div>
+        <a href="" class="explicit" ng-click="tipoRootController.toView()">{{tipoRootController.tipo.TipoID}}</a>
+        <span class="separator">></span>
+      </div>
+      <div>Edit</div>
+    </h2>
   </md-subheader>
   <ng-include src="tipoRootController.tipoDefinition._ui.editTemplateUrl" tp-include-replace/>
 </div>

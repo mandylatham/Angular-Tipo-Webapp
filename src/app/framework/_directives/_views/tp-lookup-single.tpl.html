@@ -8,7 +8,8 @@
     md-item-text="item.label"
     md-min-length="0"
     md-delay="500"
-    placeholder="Select your value please">
+    md-require-match="true"
+    placeholder="Type here to start searching">
     <md-item-template>
       <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.label}}</span>
     </md-item-template>

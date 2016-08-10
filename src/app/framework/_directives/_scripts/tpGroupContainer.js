@@ -16,6 +16,28 @@
     };
   }
 
+  function TipoLookupDialogController($scope, $mdDialog, tipoRegistry) {
+
+    var relatedTipoName = $scope.group._ui.relatedTipo;
+
+    var relatedTipo = tipoRegistry.get(relatedTipoName);
+
+    $scope.tipoDisplayName = relatedTipo.tipo_meta.display_name;
+
+    var definition = angular.copy($scope.definition);
+    delete definition._value;
+    $scope.definition = definition;
+
+    $scope.populateData = function() {
+      console.log('Populating data');
+      $mdDialog.hide();
+    };
+
+    $scope.cancel = function() {
+      $mdDialog.cancel();
+    };
+  }
+
   return module.directive('tpGroupContainer', function (
     tipoManipulationService,
     $mdDialog) {
@@ -57,6 +79,23 @@
             });
           }
 
+          function lookupTipo(target){
+            if(_.isUndefined(target)){
+              target = scope.group;
+            }
+            var newScope = scope.$new();
+            newScope.definition = scope.group;
+            newScope.target = target;
+            $mdDialog.show({
+              templateUrl: 'framework/_directives/_views/tp-lookup-dialog.tpl.html',
+              controller: TipoLookupDialogController,
+              scope: newScope,
+              skipHide: false,
+              clickOutsideToClose: true,
+              fullscreen: true
+            });
+          }
+
           function generateItem(group){
             tipoManipulationService.generateGroupItem(group);
           }
@@ -76,6 +115,7 @@
           scope.showDetail = showDetail;
           scope.deleteItem = deleteItem;
           scope.cloneItem = cloneItem;
+          scope.lookupTipo = lookupTipo;
         }
       };
     }

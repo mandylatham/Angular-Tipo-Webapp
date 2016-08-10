@@ -121,7 +121,7 @@
           var isArray = Boolean(_.get(field, '_ui.isArray'));
           var isGroup = Boolean(_.get(field, '_ui.isGroup'));
           var isRelatedTipo = Boolean(_.get(field, '_ui.isTipoRelationship'));
-          if(isRelatedTipo){
+          if(isRelatedTipo && !isGroup){
             if(isArray){
               field._value = [];
               _.each(fieldValue, function(each){

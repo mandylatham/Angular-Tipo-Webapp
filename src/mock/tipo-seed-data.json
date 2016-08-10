@@ -1,4 +1,22 @@
 {
+  "Address": {
+    "100": {
+      "TipoID": "100",
+      "Label": "12/1E Market St",
+      "StreetNo": "12/1E",
+      "StreetName": "Market Street",
+      "Suburb": "Footscray",
+      "Postcode": "3000"
+    },
+    "200": {
+      "TipoID": "200",
+      "Label": "6/4A Flinders St",
+      "StreetNo": "6/4A",
+      "StreetName": "Flinders Street",
+      "Suburb": "South Yarra",
+      "Postcode": "3000"
+    }
+  },
   "PurchaseOrder": {
     "100": {
       "TipoID": "100",
