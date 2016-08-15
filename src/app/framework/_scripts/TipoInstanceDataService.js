@@ -2,14 +2,13 @@
 
   'use strict';
 
-  /* jshint validthis:true */
-
   var TIPO_INSTANCE_RESOURCE = 'tipo';
 
   function TipoInstanceDataService(
     tipoResource,
-    tipoDataService,
     $q) {
+
+    var _instance = this;
 
     function getCollectionResource(tipo_name){
       return tipoResource.one(TIPO_INSTANCE_RESOURCE).all(tipo_name);
@@ -19,45 +18,29 @@
       return getCollectionResource(tipo_name).one(id);
     }
 
-    function collectionResourceFunction(tipo_name){
-      return _.partial(getCollectionResource, tipo_name);
-    }
+    _instance.search = function(tipo_name, criteria){
+      return getCollectionResource(tipo_name).getList(criteria);
+    };
 
-    function documentResourceFunction(tipo_name){
-      return _.partial(getDocumentResource, tipo_name);
-    }
+    _instance.upsertAll = function(tipo_name, tipos){
+      return getCollectionResource(tipo_name).doPUT(tipos);
+    };
 
-    function search(tipo_name, criteria){
-      return tipoDataService.getAll.call(this, criteria, undefined, collectionResourceFunction(tipo_name));
-    }
+    _instance.getOne = function(tipo_name, id){
+      return getDocumentResource(tipo_name, id).get();
+    };
 
-    function upsertAll(tipo_name, tipos){
-      return tipoDataService.upsertAll.call(this, tipos, collectionResourceFunction(tipo_name));
-    }
+    _instance.updateOne = function(tipo_name, tipo, id){
+      return getDocumentResource(tipo_name, id).doPUT(tipo);
+    };
 
-    function getOne(tipo_name, id){
-      return tipoDataService.getOne.call(this, id, undefined, undefined, documentResourceFunction(tipo_name));
-    }
-
-    function updateOne(tipo_name, tipo, id){
-      return tipoDataService.updateOne.call(this, tipo, id, documentResourceFunction(tipo_name));
-    }
-
-    function deleteOne(tipo_name, tipo, id){
-      return tipoDataService.deleteOne.call(this, tipo, id, documentResourceFunction(tipo_name));
-    }
-
-    return _.create(tipoDataService, {
-      search: search,
-      upsertAll: upsertAll,
-      getOne: getOne,
-      updateOne: updateOne,
-      deleteOne: deleteOne
-    });
+    _instance.deleteOne = function(tipo_name, id){
+      return getDocumentResource(tipo_name, id).remove();
+    };
 
   }
 
   angular.module('tipo.framework')
-    .factory('tipoInstanceDataService', TipoInstanceDataService);
+    .service('tipoInstanceDataService', TipoInstanceDataService);
 
 })();
