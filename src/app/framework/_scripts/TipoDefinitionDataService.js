@@ -2,43 +2,34 @@
 
   'use strict';
 
-  /* jshint validthis:true */
-
   var TIPO_DEFINITION_RESOURCE = 'tipo_def';
 
   function TipoDefinitionDataService(
     tipoResource,
-    tipoDataService,
     tipoManipulationService,
     tipoRegistry,
     $q) {
 
-    /*jshint latedef: nofunc */
-    var _instance = _.create(tipoDataService, {
-      getCollectionResource: getCollectionResource,
-      getDocumentResource: getDocumentResource,
-      getAll: getAll,
-      getOne: getOne
-    });
+    var _instance = this;
 
-    function getCollectionResource(){
-      return tipoResource.all(TIPO_DEFINITION_RESOURCE);
+    function mapList(definitions){
+      var mappedDefinitions = {};
+      _.each(definitions, function(definition){
+        mappedDefinitions[definition.tipo_name] = tipoManipulationService.mapDefinitionToUI(definition);
+      });
+      return mappedDefinitions;
     }
 
-    function getDocumentResource(id){
-      return tipoResource.one(TIPO_DEFINITION_RESOURCE, id);
-    }
-
-    function getAll(){
+    _instance.getAll = function(){
       var promise;
       var cache = tipoRegistry.get();
       if(_.isEmpty(cache)){
         console.info('Loading the tipo definitions');
-        promise = tipoDataService.getAll.call(_instance);
+        promise = tipoResource.all(TIPO_DEFINITION_RESOURCE).getList();
         promise = promise.then(function(definitions){
           var childPromises = [];
           _.each(definitions, function(definition){
-            childPromises.push(getOne(definition.tipo_name));
+            childPromises.push(_instance.getOne(definition.tipo_name));
           });
           return childPromises;
         });
@@ -51,16 +42,16 @@
         promise = $q.when(cache);
       }
       return promise;
-    }
+    };
 
-    function getOne(id){
+    _instance.getOne = function(id){
       var promise;
       var definition = tipoRegistry.get(id);
       if(definition && definition.detailsLoaded){
         promise = $q.when(definition);
       }else{
         console.info('Loading detailed metadata for the tipo - ' + id);
-        promise = tipoDataService.getOne.call(_instance, id);
+        promise = tipoResource.one(TIPO_DEFINITION_RESOURCE, id).get();
         promise = promise.then(tipoManipulationService.mapDefinitionToUI).then(function(definition){
           console.info('Caching the detailed definition for network optimization');
           definition.detailsLoaded = true;
@@ -69,21 +60,11 @@
         });
       }
       return promise;
-    }
-
-    function mapList(definitions){
-      var mappedDefinitions = {};
-      _.each(definitions, function(definition){
-        mappedDefinitions[definition.tipo_name] = tipoManipulationService.mapDefinitionToUI(definition);
-      });
-      return mappedDefinitions;
-    }
-
-    return _instance;
+    };
 
   }
 
   angular.module('tipo.framework')
-    .factory('tipoDefinitionDataService', TipoDefinitionDataService);
+    .service('tipoDefinitionDataService', TipoDefinitionDataService);
 
 })();
