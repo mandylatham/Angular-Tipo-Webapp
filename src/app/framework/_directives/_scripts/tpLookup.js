@@ -15,8 +15,9 @@
         link: function(scope, element, attrs){
           var field = scope.field;
           var isArray = Boolean(field._ui.isArray);
+          var isGroup = Boolean(field._ui.isGroup);
           var fieldTemplate;
-          if(isArray){
+          if(isArray && !isGroup){
             fieldTemplate = 'framework/_directives/_views/tp-lookup-multiple.tpl.html';
           }else{
             fieldTemplate = 'framework/_directives/_views/tp-lookup-single.tpl.html';

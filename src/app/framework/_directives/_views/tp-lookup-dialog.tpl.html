@@ -1,4 +1,4 @@
-<md-dialog ng-cloak>
+<md-dialog ng-cloak aria-label="Lookup">
   <md-toolbar>
     <div class="md-toolbar-tools">
       <h2>Lookup - {{tipoDisplayName}}</h2>
@@ -9,7 +9,7 @@
     </div>
   </md-toolbar>
   <md-dialog-content>
-    <div class="md-dialog-content tp-field" layout="center center" layout-padding>
+    <div class="md-dialog-content tp-field tp-lookup-dialog" layout="center center" layout-padding>
       <tp:lookup field="definition" />
     </div>
   </md-dialog-content>

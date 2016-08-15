@@ -16,7 +16,14 @@
     };
   }
 
-  function TipoLookupDialogController($scope, $mdDialog, tipoRegistry) {
+  function TipoLookupDialogController(
+    tipoRegistry,
+    tipoInstanceDataService,
+    tipoManipulationService,
+    $scope,
+    $mdDialog) {
+
+    var target = $scope.target;
 
     var relatedTipoName = $scope.group._ui.relatedTipo;
 
@@ -29,8 +36,13 @@
     $scope.definition = definition;
 
     $scope.populateData = function() {
-      console.log('Populating data');
-      $mdDialog.hide();
+      var tipoId = _.get(definition, '_value.key');
+      if(!_.isUndefined(tipoId)){
+        tipoInstanceDataService.getOne(relatedTipoName, tipoId).then(function(tipo){
+          tipoManipulationService.mergeDefinitionAndData(target, tipo, true);
+          $mdDialog.hide();
+        });
+      }
     };
 
     $scope.cancel = function() {
