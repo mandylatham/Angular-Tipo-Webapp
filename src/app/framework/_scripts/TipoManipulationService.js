@@ -109,12 +109,15 @@
       }
     }
 
-    function mergeDefinitionAndData(tipoDefinition, tipoData){
+    function mergeDefinitionAndData(tipoDefinition, tipoData, resetExistingData){
       if(tipoDefinition.tipo_fields){
         _.each(tipoDefinition.tipo_fields, function(field){
           var fieldKey = field.field_name;
           var fieldType = field.field_type;
           var fieldValue = tipoData[fieldKey];
+          if(resetExistingData){
+            delete field._value;
+          }
           if(_.isUndefined(fieldValue)){
             return;
           }
@@ -189,7 +192,7 @@
           var isArray = Boolean(_.get(field, '_ui.isArray'));
           var isGroup = Boolean(_.get(field, '_ui.isGroup'));
           var isRelatedTipo = Boolean(_.get(field, '_ui.isTipoRelationship'));
-          if(isRelatedTipo){
+          if(isRelatedTipo && !isGroup){
             if(hasValue){
               if(isArray){
                 tipoData[fieldKey] = [];
