@@ -17,8 +17,7 @@
         "display_name": "ID",
         "short_display": true,
         "sample_value": "1001",
-        "mandatory": true,
-        "hidden": "true"
+        "mandatory": true
       },
       {
         "field_name": "tipo_meta",
@@ -166,19 +165,10 @@
             "short_display": true
           },
           {
-            "field_name": "allowed_values",
-            "field_type": "string",
-            "field_description": "Possible values for this field",
-            "display_name": "Allowed values",
-            "tipo_array": true,
-            "sizing": 2
-          },
-          {
             "field_name": "relationship_type",
             "field_type": "string",
             "field_description": "This is only applicable when field_type is Tipo.XXXX. This field can have only one of the two values: composition, aggregation.",
-            "display_name": "Relationship Type",
-            "allowed_values": ["composition", "aggregation"]
+            "display_name": "Relationship Type"
           },
           {
             "field_name": "mandatory",

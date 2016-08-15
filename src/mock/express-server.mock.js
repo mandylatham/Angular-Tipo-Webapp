@@ -5,6 +5,7 @@ var _ = require('lodash');
 var express = require('express');
 var bodyParser = require('body-parser');
 var uuid = require('uuid');
+var json = require('jsonfile');
 
 var app = express();
 
@@ -16,8 +17,39 @@ var router = express.Router();
 app.use('/api/v1', router);
 app.use('/dev', router);
 
-var tipoDefinitions = require('./tipo-definitions.json');
-var tipoData = require('./tipo-seed-data.json');
+var tipoDefinitions, tipoData;
+
+function loadFromDisk(){
+  tipoDefinitions = json.readFileSync('./mock/tipo-definitions.json');
+  tipoData = json.readFileSync('./mock/tipo-seed-data.json');
+}
+
+loadFromDisk();
+
+function flushToDisk(){
+  json.writeFileSync('./mock/tipo-seed-data.json', tipoData, {spaces: 2});
+  //json.writeFileSync('./mock/tipo-definitions.json', tipoDefinitions, {spaces: 2});
+}
+
+function wrap(data){
+  return {
+    tipo: data
+  };
+}
+
+function unwrap(data){
+  return data.tipo;
+}
+
+router.get('/admin/reload', function(request, response){
+  loadFromDisk();
+  response.json({status: 'SUCCESS'});
+});
+
+router.get('/admin/flush', function(request, response){
+  flushToDisk();
+  response.json({status: 'SUCCESS'});
+});
 
 router.get('/tipo_def', function(request, response) {
   var data = [];
@@ -41,6 +73,7 @@ router.get('/tipo/TipoDefinition', function(request, response) {
     value.TipoID = key;
     data.push(value);
   });
+  data = _.map(data, wrap);
   response.json(data);
 });
 
@@ -48,7 +81,33 @@ router.get('/tipo/TipoDefinition/:id', function(request, response) {
   var tipoDefinitionId = request.params.id;
   var data = _.cloneDeep(tipoDefinitions[tipoDefinitionId]);
   data.TipoID = tipoDefinitionId;
+  data = wrap(data);
   response.json(data);
+});
+
+// WIP
+router.put('/tipo/TipoDefinition', function(request, response) {
+  var tipoName = request.params.name;
+  tipoData[tipoName] = tipoData[tipoName] || {};
+  var data = request.body[0];
+  data = unwrap(data);
+  data.TipoID = data.TipoID || uuid.v4();
+  var dataMap = tipoData[tipoName];
+  dataMap[data.TipoID] = data;
+  response.json([data]);
+});
+
+// WIP
+router.put('/tipo/TipoDefinition/:id', function(request, response) {
+  var tipoName = request.params.name;
+  var tipoId = request.params.id;
+  var dataMap = tipoData[tipoName] || {};
+  if(dataMap[tipoId]){
+    var data = request.body;
+    data = unwrap(data);
+    dataMap[tipoId] = data;
+    response.json(data);
+  }
 });
 
 router.get('/tipo/:name', function(request, response) {
@@ -67,6 +126,7 @@ router.get('/tipo/:name', function(request, response) {
       }, true);
     });
   }
+  data = _.map(data, wrap);
   response.json(data);
 });
 
@@ -75,6 +135,7 @@ router.get('/tipo/:name/:id', function(request, response) {
   var tipoId = request.params.id;
   var dataMap = tipoData[tipoName] || {};
   var data = dataMap[tipoId];
+  data = wrap(data);
   response.json(data);
 });
 
@@ -82,6 +143,7 @@ router.put('/tipo/:name', function(request, response) {
   var tipoName = request.params.name;
   tipoData[tipoName] = tipoData[tipoName] || {};
   var data = request.body[0];
+  data = unwrap(data);
   data.TipoID = data.TipoID || uuid.v4();
   var dataMap = tipoData[tipoName];
   dataMap[data.TipoID] = data;
@@ -94,6 +156,7 @@ router.put('/tipo/:name/:id', function(request, response) {
   var dataMap = tipoData[tipoName] || {};
   if(dataMap[tipoId]){
     var data = request.body;
+    data = unwrap(data);
     dataMap[tipoId] = data;
     response.json(data);
   }
