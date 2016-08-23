@@ -1,61 +1,46 @@
 {
   "TipoDefinition": {
-    "tipo_id":"TipoDefinition",
-    "account":"tipo",
     "tipo_meta": {
-      "tipo_name": "TipoDefinition",
       "tipo_version": "1.0",
       "default_version": "1.0",
       "display_name": "Tipo Definition(s)",
       "tipo_type": "cached",
       "main_menu": true,
-      "icon": "note",
-      "tipo_account_separation": "false"
+      "icon": "note"
     },
     "tipo_fields": [
       {
-        "field_name": "tipo_id",
-        "field_type": "string",
+        "field_name": "TipoID",
+        "field_type": "integer",
         "field_description": "Unique tipo identifier",
         "primary_key": true,
         "display_name": "ID",
-        "display_type": "ngKeyField",
         "short_display": true,
         "sample_value": "1001",
         "mandatory": true,
-        "input_type": null,
-        "input_validator": "A javascript function"
-      },
-      {
-        "field_name": "account",
-        "field_type": "string",
-        "primary_key": true,
-        "field_description": "Tenant/Account",
-        "display_name": "Name",
-        "short_display": false
+        "hidden": "true"
       },
       {
         "field_name": "tipo_meta",
-        "field_description": "Holds meta data about the tipo",
-        "tipo_array": false,
-        "display_name": "Meta Data",
-        "display_type": "ngTipoMeta",
         "field_type": "FieldGroup.TipoMeta",
-        "short_display": true
+        "field_description": "Holds meta data about the tipo",
+        "display_name": "Meta Data",
+        "short_display": true,
+        "disable_expansion": true
       },
       {
         "field_name": "tipo_fields",
+        "field_type": "FieldGroup.TipoFields",
         "field_description": "List of fields in tipo",
-        "tipo_array": true,
         "display_name": "Fields",
-        "field_type": "FieldGroup.TipoFields"
+        "tipo_array": true
       },
       {
         "field_name": "tipo_field_groups",
+        "field_type": "FieldGroup.TipoFieldGroups",
         "field_description": "List of fields in tipo",
-        "tipo_array": true,
         "display_name": "Field Groups",
-        "field_type": "FieldGroup.TipoFieldGroups"
+        "tipo_array": true
       }
     ],
     "tipo_field_groups": [
@@ -65,7 +50,6 @@
           {
             "field_name": "tipo_name",
             "field_type": "string",
-            "primary_key": false,
             "field_description": "Name of the Tipo",
             "display_name": "Name",
             "short_display": true
@@ -73,7 +57,6 @@
           {
             "field_name": "tipo_version",
             "field_type": "string",
-            "primary_key": false,
             "field_description": "Version of the Tipo",
             "display_name": "Version",
             "short_display": true
@@ -81,7 +64,6 @@
           {
             "field_name": "display_name",
             "field_type": "string",
-            "primary_key": false,
             "field_description": "Name of the Tipo",
             "display_name": "Display Name",
             "short_display": true
@@ -89,7 +71,6 @@
           {
             "field_name": "icon",
             "field_type": "string",
-            "primary_key": false,
             "field_description": "Icon of the Tipo",
             "display_name": "Icon",
             "short_display": true
@@ -97,50 +78,33 @@
           {
             "field_name": "main_menu",
             "field_type": "boolean",
-            "primary_key": false,
             "field_description": "Whether or not to display on the main menu",
             "display_name": "Main Menu?",
             "short_display": true
           },
           {
-            "field_name": "tipo_tenant_separation",
-            "field_type": "boolean",
-            "primary_key": false,
-            "field_description": "Specify if the data for each tenant to be stored in separate tables.",
-            "display_name": "Tenant Data Separation",
-            "short_display": true
-          },
-          {
             "field_name": "tipo_list_view",
             "field_type": "string",
-            "primary_key": false,
             "field_description": "Template for rendering the List View",
-            "display_name": "List View",
-            "short_display": false
+            "display_name": "List View"
           },
           {
             "field_name": "tipo_detail_view",
             "field_type": "string",
-            "primary_key": false,
             "field_description": "Template for rendering the Detail View",
-            "display_name": "Detail View",
-            "short_display": false
+            "display_name": "Detail View"
           },
           {
             "field_name": "tipo_create_view",
             "field_type": "string",
-            "primary_key": false,
             "field_description": "Template for rendering the Create View",
-            "display_name": "Create View",
-            "short_display": false
+            "display_name": "Create View"
           },
           {
             "field_name": "tipo_edit_view",
             "field_type": "string",
-            "primary_key": false,
             "field_description": "Template for rendering the Edit View",
-            "display_name": "Edit View",
-            "short_display": false
+            "display_name": "Edit View"
           }
         ]
       },
@@ -150,7 +114,6 @@
           {
             "field_name": "field_name",
             "field_type": "string",
-            "primary_key": false,
             "field_description": "Name of the field",
             "display_name": "Name",
             "short_display": true
@@ -158,7 +121,6 @@
           {
             "field_name": "field_type",
             "field_type": "string",
-            "primary_key": false,
             "field_description": "Type of the field",
             "display_name": "Type",
             "short_display": true
@@ -166,7 +128,6 @@
           {
             "field_name": "field_description",
             "field_type": "string",
-            "primary_key": false,
             "field_description": "Description of the field",
             "display_name": "Description",
             "short_display": true
@@ -174,7 +135,6 @@
           {
             "field_name": "display_name",
             "field_type": "string",
-            "primary_key": false,
             "field_description": "Display name of the field",
             "display_name": "Display Name",
             "short_display": true
@@ -182,15 +142,12 @@
           {
             "field_name": "short_display",
             "field_type": "boolean",
-            "primary_key": false,
             "field_description": "Whether or not to display in summary mode",
-            "display_name": "Short Display?",
-            "short_display": false
+            "display_name": "Short Display?"
           },
           {
             "field_name": "tipo_array",
             "field_type": "boolean",
-            "primary_key": false,
             "field_description": "Whether or not this is an array",
             "display_name": "Multi-valued?",
             "short_display": true
@@ -198,58 +155,48 @@
           {
             "field_name": "primary_key",
             "field_type": "boolean",
-            "primary_key": false,
             "field_description": "Whether or not this is the primary key for the record",
-            "display_name": "Primary Key?",
-            "short_display": false
+            "display_name": "Primary Key?"
           },
           {
             "field_name": "meaningful_key",
             "field_type": "boolean",
-            "primary_key": false,
             "field_description": "Whether or not this is to be used as the value when it is part of a relationship",
             "display_name": "Meaningful Key?",
-            "short_display": false
+            "short_display": true
+          },
+          {
+            "field_name": "allowed_values",
+            "field_type": "string",
+            "field_description": "Possible values for this field",
+            "display_name": "Allowed values",
+            "tipo_array": true,
+            "sizing": 2
           },
           {
             "field_name": "relationship_type",
             "field_type": "string",
-            "primary_key": false,
             "field_description": "This is only applicable when field_type is Tipo.XXXX. This field can have only one of the two values: composition, aggregation.",
             "display_name": "Relationship Type",
-            "short_display": false
+            "allowed_values": ["composition", "aggregation"]
           },
           {
             "field_name": "mandatory",
             "field_type": "boolean",
-            "primary_key": false,
             "field_description": "Whether or not the field is mandatory",
-            "display_name": "Mandatory?",
-            "short_display": false
+            "display_name": "Mandatory?"
           },
           {
             "field_name": "hidden",
             "field_type": "boolean",
-            "primary_key": false,
             "field_description": "Whether or not the field should be hidden",
-            "display_name": "Hidden?",
-            "short_display": true
+            "display_name": "Hidden?"
           },
           {
-            "field_name": "input_type",
-            "field_type": "string",
-            "primary_key": false,
-            "field_description": "Input type can be AutoGenerated or some kind of serverside function, TBD",
-            "display_name": "Input Type",
-            "short_display": false
-          },
-          {
-            "field_name": "relationship_type",
-            "field_type": "string",
-            "primary_key": false,
-            "field_description": "'aggregation' or 'composition'",
-            "display_name": "Relationship Type",
-            "short_display": false
+            "field_name": "disable_expansion",
+            "field_type": "boolean",
+            "field_description": "Whether or not the field details should be explicitly shown",
+            "display_name": "Disable Expansion?"
           }
         ]
       },
@@ -259,17 +206,16 @@
           {
             "field_name": "tipo_group_name",
             "field_type": "string",
-            "primary_key": false,
             "field_description": "Name of the group",
             "display_name": "Group Name",
             "short_display": true
           },
           {
             "field_name": "tipo_fields",
+            "field_type": "FieldGroup.TipoFields",
             "field_description": "List of fields in the group",
-            "tipo_array": true,
             "display_name": "Fields",
-            "field_type": "FieldGroup.TipoFields"
+            "tipo_array": true
           }
         ]
       }
@@ -296,13 +242,9 @@
         "field_name": "TipoID",
         "field_type": "integer",
         "field_description": "Unique identifier",
-        "primary_key": true,
         "display_name": "ID",
-        "display_type": "ngKeyField",
+        "primary_key": true,
         "short_display": true,
-        "sample_value": "1001",
-        "input_type": "AutoGenerated",
-        "mandatory": true,
         "hidden": true
       },
       {
@@ -310,7 +252,6 @@
         "field_type": "string",
         "field_description": "Label",
         "display_name": "Label",
-        "short_display": false,
         "meaningful_key": true,
         "mandatory": true,
         "hidden": true
@@ -364,13 +305,8 @@
         "field_name": "TipoID",
         "field_type": "integer",
         "field_description": "Unique customer identifier",
-        "primary_key": true,
         "display_name": "Customer ID",
-        "display_type": "ngKeyField",
-        "short_display": true,
-        "sample_value": "1001",
-        "input_type": "AutoGenerated",
-        "mandatory": true,
+        "primary_key": true,
         "hidden": true
       },
       {
@@ -386,9 +322,15 @@
         "field_name": "Age",
         "field_type": "number",
         "field_description": "Age of the customer ",
-        "display_name": "Customer Age",
-        "display_type": "ngNumber",
-        "input_type": "ngNumber"
+        "display_name": "Customer Age"
+      },
+      {
+        "field_name": "Contacts",
+        "field_type": "Tipo.Address",
+        "field_description": "Contacts",
+        "display_name": "Contact(s)",
+        "tipo_array": true,
+        "relationship_type": "composition"
       }
     ],
     "tipo_actions": [
@@ -414,13 +356,8 @@
         "field_name": "TipoID",
         "field_type": "integer",
         "field_description": "Unique order number",
-        "primary_key": true,
         "display_name": "Order Number",
-        "display_type": "ngKeyField",
-        "short_display": true,
-        "sample_value": "1001",
-        "input_type": "AutoGenerated",
-        "mandatory": true,
+        "primary_key": true,
         "hidden": true
       },
       {
@@ -428,10 +365,7 @@
         "field_type": "double",
         "field_description": "Total order amount",
         "display_name": "Order Total",
-        "display_type": "ngCurrency",
         "short_display": true,
-        "input_type": "AutoGenerated",
-        "input_validator": "some_javaScript?",
         "mandatory": true
       },
       {
@@ -439,55 +373,45 @@
         "field_type": "date_time",
         "field_description": "When this order must be full-filled by ",
         "display_name": "Required by Date",
-        "display_type": "ngDate",
-        "short_display": true,
-        "input_type": "ngDate",
-        "input_validator": "some_javaScript?"
+        "short_display": true
       },
       {
         "field_name": "Customer",
         "field_type": "Tipo.Customer",
         "field_description": "Customer who placed the purchase order",
-        "secondary_index": true,
-        "field_validator": "some_javaScript?",
         "display_name": "Customer",
         "short_display": true,
-        "sample_value": "Colins Foods",
-        "input_validator": "some_javaScript?",
-        "mandatory": true
+        "mandatory": true,
+        "secondary_index": true
       },
       {
         "field_name": "BillToAddress",
-        "field_description": "BillTo address",
-        "tipo_array": false,
-        "display_name": "Billing Address",
-        "display_type": "ngAddress",
         "field_type": "Tipo.Address",
+        "field_description": "BillTo address",
+        "display_name": "Billing Address",
+        "short_display": true,
         "relationship_type": "composition",
-        "short_display": true
+        "disable_expansion": true
       },
       {
         "field_name": "ShipToAddress",
-        "field_description": "ShipTo address",
-        "tipo_array": false,
-        "display_name": "Shipping Address",
-        "display_type": "ngAddress",
         "field_type": "Tipo.Address",
+        "field_description": "ShipTo address",
+        "display_name": "Shipping Address",
         "relationship_type": "composition"
       },
       {
         "field_name": "LineItem",
+        "field_type": "FieldGroup.POLineItem",
         "field_description": "Line items for the order",
-        "tipo_array": true,
         "display_name": "Line Item(s)",
-        "field_type": "FieldGroup.POLineItem"
+        "tipo_array": true
       },
       {
         "field_name": "Tags",
         "field_type": "string",
         "field_description": "Optional tags",
         "display_name": "Tag(s)",
-        "short_display": false,
         "tipo_array": true,
         "sizing": 2
       }
@@ -499,9 +423,9 @@
           {
             "field_name": "ItemID",
             "field_type": "string",
-            "primary_key": true,
             "field_description": "Item identifier",
             "display_name": "Item ID",
+            "primary_key": true,
             "short_display": true
           },
           {
@@ -509,8 +433,6 @@
             "field_type": "double",
             "field_description": "item quantity",
             "display_name": "Item Quantity",
-            "display_type": "ngNumber",
-            "input_type": "ngNumber",
             "short_display": true
           },
           {
@@ -518,7 +440,6 @@
             "field_type": "double",
             "field_description": "each unit price",
             "display_name": "Unit Price",
-            "display_type": "ngDollar",
             "short_display": true
           },
           {
@@ -528,36 +449,6 @@
             "display_name": "Tag(s)",
             "tipo_array": true,
             "sizing": 2
-          }
-        ]
-      },
-      {
-        "tipo_group_name": "Address",
-        "tipo_fields": [
-          {
-            "field_name": "StreetNo",
-            "field_type": "string",
-            "field_description": "Street Number",
-            "display_name": "Street Number"
-          },
-          {
-            "field_name": "StreetName",
-            "field_type": "string",
-            "field_description": "Street name",
-            "display_name": "Street Name"
-          },
-          {
-            "field_name": "Suburb",
-            "field_type": "string",
-            "field_description": "suburb",
-            "display_name": "Suburb",
-            "short_display": true
-          },
-          {
-            "field_name": "Postcode",
-            "field_type": "integer",
-            "field_description": "Postal code, PIN code or zip code",
-            "display_name": "Postal Code"
           }
         ]
       }
@@ -589,14 +480,9 @@
         "field_name": "TipoID",
         "field_type": "integer",
         "field_description": "Unique customer identifier",
-        "primary_key": true,
         "display_name": "#",
-        "display_type": "ngKeyField",
-        "short_display": true,
-        "sample_value": "1001",
-        "input_type": "AutoGenerated",
-        "mandatory": true,
-        "hidden": true
+        "primary_key": true,
+        "short_display": true
       },
       {
         "field_name": "Subject",
