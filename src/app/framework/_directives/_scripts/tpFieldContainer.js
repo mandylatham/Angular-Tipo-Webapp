@@ -36,6 +36,9 @@
           } else if(sizing === 2){
             scope.sizeGtSm = 100;
             scope.sizeGtMd = 66;
+          } else if(sizing === 3){
+            scope.sizeGtSm = 100;
+            scope.sizeGtMd = 100;
           }
         }
       };
