@@ -10,6 +10,16 @@
 
     var _instance = this;
 
+    function unwrapAndSort(collection){
+      collection = _.map(collection, function(each){
+        return each.data;
+      });
+      collection = _.sortBy(collection, function(each){
+        return each.created_dt;
+      });
+      return collection;
+    }
+
     function getCollectionResource(tipo_name){
       return tipoResource.one(TIPO_INSTANCE_RESOURCE).all(tipo_name);
     }
@@ -19,11 +29,17 @@
     }
 
     _instance.search = function(tipo_name, criteria){
-      return getCollectionResource(tipo_name).getList(criteria);
+      return getCollectionResource(tipo_name).getList(criteria).then(unwrapAndSort);
     };
 
     _instance.upsertAll = function(tipo_name, tipos){
-      return getCollectionResource(tipo_name).doPUT(tipos);
+      tipos = _.map(tipos, function(each){
+        return {
+          tipo_name: tipo_name,
+          data: each
+        };
+      });
+      return getCollectionResource(tipo_name).doPUT(tipos).then(unwrapAndSort);
     };
 
     _instance.getOne = function(tipo_name, id){
@@ -31,6 +47,10 @@
     };
 
     _instance.updateOne = function(tipo_name, tipo, id){
+      tipo = {
+        tipo_name: tipo_name,
+        data: tipo
+      };
       return getDocumentResource(tipo_name, id).doPUT(tipo);
     };
 

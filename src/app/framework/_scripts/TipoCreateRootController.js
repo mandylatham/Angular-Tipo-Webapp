@@ -22,7 +22,7 @@
       var data = {};
       tipoManipulationService.extractDataFromMergedDefinition(_instance.tipoDefinition, data);
       tipoInstanceDataService.upsertAll(tipo_name, [data]).then(function(result){
-        tipoRouter.toTipoView(tipo_name, result[0].TipoID);
+        tipoRouter.toTipoView(tipo_name, result[0].tipo_id);
       });
     };
 

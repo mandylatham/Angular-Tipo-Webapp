@@ -1,0 +1,979 @@
+{
+  "TipoDefinition": {
+    "message": "Processed successfully.",
+    "status_code": 200,
+    "response": [
+      {
+        "tipo_name": "TipoDefinition",
+        "message": null,
+        "status_code": 200,
+        "data": {
+          "hash_key": "billionbases.Customer",
+          "created_dt": "1474306955426",
+          "created_date": "2016-09-19T17:42:35.426Z",
+          "tipo_actions": [
+            {
+              "tipo_action": "GET",
+              "_ARRAY_META": {
+                "_HASH": "643550a7-2dac-45f6-918a-5ea30f262bdf"
+              }
+            },
+            {
+              "tipo_action": "PUT",
+              "_ARRAY_META": {
+                "_HASH": "41b54bac-edd3-4605-8a07-2d586e5fecd3"
+              }
+            }
+          ],
+          "tipo_id": "Customer",
+          "tipo_fields": [
+            {
+              "field_description": "Unique id",
+              "hidden": true,
+              "_ARRAY_META": {
+                "_HASH": "e9f91ef8-c48b-4a73-817d-91a4d02c5a07"
+              },
+              "display_name": "Customer ID",
+              "field_type": "integer",
+              "primary_key": true,
+              "field_name": "tipo_id"
+            },
+            {
+              "field_description": "Name of the customer",
+              "short_display": true,
+              "meaningful_key": true,
+              "_ARRAY_META": {
+                "_HASH": "cf27a518-b609-42e9-969d-e2149d5ae85f"
+              },
+              "display_name": "Name",
+              "field_type": "string",
+              "field_name": "Name"
+            }
+          ],
+          "created_by": "prasadsid",
+          "account": "billionbases",
+          "tipo_meta": {
+            "tipo_account_separation": false,
+            "main_menu": true,
+            "tipo_type": [
+              "cached"
+            ],
+            "icon": "person",
+            "tipo_name": "Customer",
+            "display_name": "Customers"
+          }
+        }
+      },
+      {
+        "tipo_name": "TipoDefinition",
+        "message": null,
+        "status_code": 200,
+        "data": {
+          "tipo_field_groups": [
+            {
+              "_ARRAY_META": {
+                "_HASH": "a5bc45b4-b414-4673-aad8-1a998df694c7"
+              },
+              "tipo_fields": [
+                {
+                  "field_description": "Item identifier",
+                  "short_display": true,
+                  "_ARRAY_META": {
+                    "_HASH": "82958519-a5a2-431d-972c-a0ca2bf1d85b"
+                  },
+                  "display_name": "Item ID",
+                  "field_type": "string",
+                  "primary_key": true,
+                  "field_name": "ItemID"
+                },
+                {
+                  "field_description": "item quantity",
+                  "short_display": true,
+                  "_ARRAY_META": {
+                    "_HASH": "e5402520-4a11-45dc-9535-a28717500f3d"
+                  },
+                  "display_name": "Item Quantity",
+                  "field_type": "double",
+                  "field_name": "ItemQuantity"
+                },
+                {
+                  "field_description": "each unit price",
+                  "short_display": true,
+                  "_ARRAY_META": {
+                    "_HASH": "0f8a3320-f66d-4e70-9a09-5af63458268a"
+                  },
+                  "display_name": "Unit Price",
+                  "field_type": "double",
+                  "field_name": "UnitPrice"
+                },
+                {
+                  "sizing": "2",
+                  "field_description": "Optional tags that can be attached to this item",
+                  "tipo_array": true,
+                  "_ARRAY_META": {
+                    "_HASH": "3c6e4e13-4c02-47cc-8dd7-6a02f5ee8a9d"
+                  },
+                  "display_name": "Tag(s)",
+                  "field_type": "string",
+                  "field_name": "Tags"
+                }
+              ],
+              "tipo_group_name": "POLineItem"
+            }
+          ],
+          "hash_key": "billionbases.PurchaseOrder",
+          "created_dt": "1474307056639",
+          "created_date": "2016-09-19T17:44:16.639Z",
+          "tipo_actions": [
+            {
+              "tipo_action": "GET",
+              "_ARRAY_META": {
+                "_HASH": "2da30364-3b40-4349-9b29-c8f38e74577d"
+              }
+            },
+            {
+              "tipo_action": "PUT",
+              "_ARRAY_META": {
+                "_HASH": "b610c125-7808-4f6b-b5e8-b15b22bb6cd1"
+              }
+            },
+            {
+              "tipo_action": "Fulfill",
+              "_ARRAY_META": {
+                "_HASH": "2be706e5-1e85-450c-9938-e917bd08929e"
+              }
+            }
+          ],
+          "tipo_id": "PurchaseOrder",
+          "tipo_fields": [
+            {
+              "field_description": "Unique order number",
+              "hidden": true,
+              "_ARRAY_META": {
+                "_HASH": "cd33eeaa-a1b2-45ab-9bd4-30e3df32dc4f"
+              },
+              "display_name": "Order Number",
+              "field_type": "integer",
+              "primary_key": true,
+              "field_name": "tipo_id"
+            },
+            {
+              "field_description": "Total order amount",
+              "short_display": true,
+              "_ARRAY_META": {
+                "_HASH": "bfcbaf57-5196-4c02-8452-dac2cbb8d507"
+              },
+              "display_name": "Order Total",
+              "field_type": "double",
+              "mandatory": true,
+              "field_name": "OrderAmount"
+            },
+            {
+              "field_description": "When this order must be full-filled by ",
+              "short_display": true,
+              "_ARRAY_META": {
+                "_HASH": "f296e522-cdef-4345-af0f-1477ec09cd3c"
+              },
+              "display_name": "Required by Date",
+              "field_type": "date_time",
+              "field_name": "RequiredByDate"
+            },
+            {
+              "field_description": "Customer who placed the purchase order",
+              "short_display": true,
+              "_ARRAY_META": {
+                "_HASH": "30d43d15-66a1-4860-97df-d75e204f0608"
+              },
+              "display_name": "Customer",
+              "field_type": "Tipo.Customer",
+              "mandatory": true,
+              "field_name": "Customer"
+            },
+            {
+              "field_description": "BillTo address",
+              "short_display": true,
+              "relationship_type": "embed",
+              "disable_expansion": true,
+              "_ARRAY_META": {
+                "_HASH": "f778e1b1-1dbb-4695-89d8-a56bbc9d01db"
+              },
+              "display_name": "Billing Address",
+              "field_type": "Tipo.Address",
+              "field_name": "BillToAddress"
+            },
+            {
+              "field_description": "ShipTo address",
+              "relationship_type": "embed",
+              "_ARRAY_META": {
+                "_HASH": "6844ee88-79bb-4d8b-ae93-8b1c1d7f04f2"
+              },
+              "display_name": "Shipping Address",
+              "field_type": "Tipo.Address",
+              "field_name": "ShipToAddress"
+            },
+            {
+              "field_description": "Line items for the order",
+              "tipo_array": true,
+              "_ARRAY_META": {
+                "_HASH": "7a2547df-dd2b-43db-bd50-768a377b11ae"
+              },
+              "display_name": "Line Item(s)",
+              "field_type": "FieldGroup.POLineItem",
+              "field_name": "LineItem"
+            },
+            {
+              "sizing": "2",
+              "field_description": "Optional tags",
+              "tipo_array": true,
+              "_ARRAY_META": {
+                "_HASH": "63a9aa29-8bbc-401f-83bb-bad615a73df4"
+              },
+              "display_name": "Tag(s)",
+              "field_type": "string",
+              "field_name": "Tags"
+            }
+          ],
+          "created_by": "prasadsid",
+          "account": "billionbases",
+          "tipo_meta": {
+            "tipo_account_separation": false,
+            "main_menu": true,
+            "tipo_type": [
+              "cached"
+            ],
+            "icon": "bookmark_border",
+            "tipo_name": "PurchaseOrder",
+            "display_name": "Purchase Orders"
+          }
+        }
+      },
+      {
+        "tipo_name": "TipoDefinition",
+        "message": null,
+        "status_code": 200,
+        "data": {
+          "tipo_field_groups": [
+            {
+              "_ARRAY_META": {
+                "_HASH": "e3a4ca9a-5a57-44ae-9c58-f941af0c7ba1"
+              },
+              "tipo_fields": [
+                {
+                  "field_description": "Name of the Tipo",
+                  "short_display": true,
+                  "_ARRAY_META": {
+                    "_HASH": "4982c6a3-998d-4c6a-b676-3913a138f10f"
+                  },
+                  "display_name": "Name",
+                  "field_type": "string",
+                  "field_name": "tipo_name"
+                },
+                {
+                  "field_description": "Label of the Tipo",
+                  "short_display": true,
+                  "_ARRAY_META": {
+                    "_HASH": "9dfa4b92-c613-4086-ab29-6f891775c961"
+                  },
+                  "display_name": "Display Name",
+                  "field_type": "string",
+                  "field_name": "display_name"
+                },
+                {
+                  "sizing": "3",
+                  "allowed_values": [
+                    "cached",
+                    "dashboard"
+                  ],
+                  "field_description": "To indicate high level behaviour",
+                  "tipo_array": true,
+                  "_ARRAY_META": {
+                    "_HASH": "accadd12-c60c-4fb6-b93a-515dfeccc107"
+                  },
+                  "display_name": "Tipo type",
+                  "field_type": "string",
+                  "field_name": "tipo_type"
+                },
+                {
+                  "field_description": "Whether or not to display on the main menu",
+                  "short_display": true,
+                  "_ARRAY_META": {
+                    "_HASH": "2dd616af-1505-4c42-abfc-3ee4dd01a56c"
+                  },
+                  "display_name": "Main Menu?",
+                  "field_type": "boolean",
+                  "field_name": "main_menu"
+                },
+                {
+                  "field_description": "Icon of the Tipo",
+                  "short_display": true,
+                  "_ARRAY_META": {
+                    "_HASH": "9821e12e-71f6-4de1-aa67-6320dfb9e4ad"
+                  },
+                  "display_name": "Icon",
+                  "field_type": "string",
+                  "field_name": "icon"
+                },
+                {
+                  "field_description": "Template for rendering the List View",
+                  "_ARRAY_META": {
+                    "_HASH": "248dee52-92b1-4f60-8b43-81050025a0f5"
+                  },
+                  "display_name": "List View",
+                  "field_type": "string",
+                  "field_name": "tipo_list_view"
+                },
+                {
+                  "field_description": "Template for rendering the Detail View",
+                  "_ARRAY_META": {
+                    "_HASH": "e3e37215-638c-47e7-ba5b-b2d694a8fc09"
+                  },
+                  "display_name": "Detail View",
+                  "field_type": "string",
+                  "field_name": "tipo_detail_view"
+                },
+                {
+                  "field_description": "Template for rendering the Create View",
+                  "_ARRAY_META": {
+                    "_HASH": "d30ce58c-96a3-41d3-a409-ec877231f62e"
+                  },
+                  "display_name": "Create View",
+                  "field_type": "string",
+                  "field_name": "tipo_create_view"
+                },
+                {
+                  "field_description": "Template for rendering the Edit View",
+                  "_ARRAY_META": {
+                    "_HASH": "10ac1a83-b320-49b9-8f98-166bff6dae31"
+                  },
+                  "display_name": "Edit View",
+                  "field_type": "string",
+                  "field_name": "tipo_edit_view"
+                },
+                {
+                  "field_description": "Requires seperate tables for each user account/tenant",
+                  "short_display": true,
+                  "_ARRAY_META": {
+                    "_HASH": "be44a23c-bd2f-4e23-b206-872aec6a3141"
+                  },
+                  "display_name": "Seperate tipo tables?",
+                  "field_type": "boolean",
+                  "field_name": "tipo_account_separation"
+                }
+              ],
+              "tipo_group_name": "TipoMeta"
+            },
+            {
+              "_ARRAY_META": {
+                "_HASH": "2eed2283-5a47-4771-80c1-212efe91a1e7"
+              },
+              "tipo_fields": [
+                {
+                  "field_description": "Name of the field",
+                  "short_display": true,
+                  "_ARRAY_META": {
+                    "_HASH": "8c925d4a-0aaa-4f23-97d8-8e2517a9bec8"
+                  },
+                  "display_name": "Name",
+                  "field_type": "string",
+                  "field_name": "field_name"
+                },
+                {
+                  "field_description": "Type of the field",
+                  "short_display": true,
+                  "_ARRAY_META": {
+                    "_HASH": "b38bfc10-b6de-4014-9141-e81dfbc0cc50"
+                  },
+                  "display_name": "Type",
+                  "field_type": "string",
+                  "field_name": "field_type"
+                },
+                {
+                  "field_description": "Description of the field",
+                  "short_display": true,
+                  "_ARRAY_META": {
+                    "_HASH": "43850187-ed4b-4a5b-a83f-db5dc1577f09"
+                  },
+                  "display_name": "Description",
+                  "field_type": "string",
+                  "field_name": "field_description"
+                },
+                {
+                  "field_description": "Whether or not this is the primary key for the record",
+                  "_ARRAY_META": {
+                    "_HASH": "55fd5af4-1d06-4855-89a3-4d9c3b27f24e"
+                  },
+                  "display_name": "Primary Key?",
+                  "field_type": "boolean",
+                  "field_name": "primary_key"
+                },
+                {
+                  "field_description": "Indicates if this field should be indexed",
+                  "_ARRAY_META": {
+                    "_HASH": "3b83ce5b-daf6-4eec-8d18-4914dbc15002"
+                  },
+                  "display_name": "Indexed?",
+                  "field_type": "boolean",
+                  "field_name": "index"
+                },
+                {
+                  "field_description": "Display name of the field",
+                  "short_display": true,
+                  "_ARRAY_META": {
+                    "_HASH": "f247bc58-64af-4c75-86b2-81af7969f09d"
+                  },
+                  "display_name": "Display Name",
+                  "field_type": "string",
+                  "field_name": "display_name"
+                },
+                {
+                  "field_description": "Angular JS directive to control display",
+                  "_ARRAY_META": {
+                    "_HASH": "0c93b567-0b99-435d-9000-b74767e79438"
+                  },
+                  "display_name": "Display Type",
+                  "field_type": "string",
+                  "field_name": "display_type"
+                },
+                {
+                  "field_description": "Whether or not to display in summary mode",
+                  "_ARRAY_META": {
+                    "_HASH": "a650ba33-5901-47d1-b102-e94f3ab31198"
+                  },
+                  "display_name": "Short Display?",
+                  "field_type": "boolean",
+                  "field_name": "short_display"
+                },
+                {
+                  "field_description": "Sample to show when filling form",
+                  "_ARRAY_META": {
+                    "_HASH": "af2af12b-352a-4cf7-b0d9-1e66ef163cb0"
+                  },
+                  "display_name": "Sample value",
+                  "field_type": "string",
+                  "field_name": "sample_value"
+                },
+                {
+                  "field_description": "Whether or not the field is mandatory",
+                  "_ARRAY_META": {
+                    "_HASH": "255f11cc-efac-4179-bca0-bfff94ec5e00"
+                  },
+                  "display_name": "Mandatory?",
+                  "field_type": "boolean",
+                  "field_name": "mandatory"
+                },
+                {
+                  "field_description": "Whether or not the field should be hidden",
+                  "_ARRAY_META": {
+                    "_HASH": "e94a7ec2-f0ab-476b-8548-68ac0b273caf"
+                  },
+                  "display_name": "Hidden?",
+                  "field_type": "boolean",
+                  "field_name": "hidden"
+                },
+                {
+                  "field_description": "Whether or not the field details should be explicitly shown",
+                  "_ARRAY_META": {
+                    "_HASH": "c169fbda-28af-47e4-8add-a9a937280a3d"
+                  },
+                  "display_name": "Disable Expansion?",
+                  "field_type": "boolean",
+                  "field_name": "disable_expansion"
+                },
+                {
+                  "field_description": "Whether or not this is an array",
+                  "short_display": true,
+                  "_ARRAY_META": {
+                    "_HASH": "5c71999b-72e5-409f-9cda-812d56438f65"
+                  },
+                  "display_name": "Multi-valued?",
+                  "field_type": "boolean",
+                  "field_name": "tipo_array"
+                },
+                {
+                  "allowed_values": [
+                    "Server.AutoGenerated"
+                  ],
+                  "field_description": "Can be used to control input behaviour. TBD",
+                  "tipo_array": true,
+                  "_ARRAY_META": {
+                    "_HASH": "5db0b5aa-28eb-446c-8815-c3281b848c7d"
+                  },
+                  "display_name": "Input Type",
+                  "field_type": "string",
+                  "field_name": "input_type"
+                },
+                {
+                  "field_description": "JavaScript function to validate input",
+                  "_ARRAY_META": {
+                    "_HASH": "77e29672-6c22-4b30-bd4d-422597df2d41"
+                  },
+                  "display_name": "Input Validator Code",
+                  "field_type": "string",
+                  "field_name": "input_validator"
+                },
+                {
+                  "field_description": "JavaScript function to validate data on server",
+                  "_ARRAY_META": {
+                    "_HASH": "bb69209b-4150-4340-9fea-8815ac2b0258"
+                  },
+                  "display_name": "data validator Code",
+                  "field_type": "string",
+                  "field_name": "field_validator"
+                },
+                {
+                  "sizing": "2",
+                  "field_description": "Possible values for this field",
+                  "tipo_array": true,
+                  "_ARRAY_META": {
+                    "_HASH": "24cd4ff6-4596-4a0d-8835-fcd9ff3e3482"
+                  },
+                  "display_name": "Allowed values",
+                  "field_type": "string",
+                  "field_name": "allowed_values"
+                },
+                {
+                  "field_description": "Size of the array ? Required? TBD - SV to confirm",
+                  "_ARRAY_META": {
+                    "_HASH": "ec05068d-94b8-4d35-9e28-d98d81d909e0"
+                  },
+                  "display_name": "Array Size",
+                  "field_type": "integer",
+                  "field_name": "sizing"
+                },
+                {
+                  "allowed_values": [
+                    "embed",
+                    "reference"
+                  ],
+                  "field_description": "This is only applicable when field_type is Tipo.XXXX.",
+                  "_ARRAY_META": {
+                    "_HASH": "4a85e542-365f-49a3-86f8-e16006967dfe"
+                  },
+                  "display_name": "Relationship Type",
+                  "field_type": "string",
+                  "field_name": "relationship_type"
+                },
+                {
+                  "field_description": "Whether or not this is to be used as the value when it is part of a relationship",
+                  "short_display": true,
+                  "_ARRAY_META": {
+                    "_HASH": "5845f402-dcb1-47d8-bcce-3299dd3c1a92"
+                  },
+                  "display_name": "Meaningful Key?",
+                  "field_type": "boolean",
+                  "field_name": "meaningful_key"
+                },
+                {
+                  "field_description": "When it was created in the ISO8601 format",
+                  "_ARRAY_META": {
+                    "_HASH": "634163ee-6b0b-49ce-9db5-4b67f0f72599"
+                  },
+                  "display_name": "Create Date",
+                  "field_type": "date_time",
+                  "field_name": "create_date"
+                },
+                {
+                  "field_description": "User who created the field",
+                  "_ARRAY_META": {
+                    "_HASH": "ec2b1e49-c300-42ff-a9f0-15f8d7281fc1"
+                  },
+                  "display_name": "Created By",
+                  "field_type": "string",
+                  "field_name": "created_by"
+                },
+                {
+                  "field_description": "When it was last updated in the ISO8601 format",
+                  "_ARRAY_META": {
+                    "_HASH": "3d87c775-adc4-4ab8-b0a5-bbafecc01d68"
+                  },
+                  "display_name": "Last Update Date",
+                  "field_type": "date_time",
+                  "field_name": "update_date"
+                },
+                {
+                  "field_description": "User who last updated the field",
+                  "_ARRAY_META": {
+                    "_HASH": "856b95b1-2d29-4356-8817-fd1c10917341"
+                  },
+                  "display_name": "Last Updated By",
+                  "field_type": "string",
+                  "field_name": "update_by"
+                }
+              ],
+              "tipo_group_name": "TipoFields"
+            },
+            {
+              "_ARRAY_META": {
+                "_HASH": "a0d27ed5-b5f2-4f34-8e15-108e9bf4ea4e"
+              },
+              "tipo_fields": [
+                {
+                  "field_description": "Name of the group",
+                  "short_display": true,
+                  "_ARRAY_META": {
+                    "_HASH": "9b1aeb42-0060-49f0-9795-caf211720e03"
+                  },
+                  "display_name": "Group Name",
+                  "field_type": "string",
+                  "field_name": "tipo_group_name"
+                },
+                {
+                  "field_description": "List of fields in the group",
+                  "tipo_array": true,
+                  "_ARRAY_META": {
+                    "_HASH": "a2f8e157-0f4e-4aca-ace3-6257fd9e2717"
+                  },
+                  "display_name": "Fields",
+                  "field_type": "FieldGroup.TipoFields",
+                  "field_name": "tipo_fields"
+                }
+              ],
+              "tipo_group_name": "TipoFieldGroups"
+            }
+          ],
+          "hash_key": "billionbases.TipoDefinition",
+          "created_dt": "1474306161766",
+          "created_date": "2016-09-19T17:29:21.766Z",
+          "tipo_actions": [
+            {
+              "tipo_action": "GET",
+              "_ARRAY_META": {
+                "_HASH": "661b4c00-80ad-438c-9439-86d6f17cb1c0"
+              }
+            },
+            {
+              "tipo_action": "PUT",
+              "_ARRAY_META": {
+                "_HASH": "798ad70b-56e4-4bd2-a721-baa6390d53ef"
+              }
+            }
+          ],
+          "tipo_id": "TipoDefinition",
+          "tipo_fields": [
+            {
+              "field_description": "Unique tipo identifier",
+              "hidden": true,
+              "_ARRAY_META": {
+                "_HASH": "d97a79be-6b99-46ea-a5de-06e874f83fa8"
+              },
+              "display_name": "Tipo Definition ID",
+              "field_type": "integer",
+              "primary_key": true,
+              "field_name": "tipo_id"
+            },
+            {
+              "field_description": "User account/organisation who owns this tipo",
+              "short_display": true,
+              "_ARRAY_META": {
+                "_HASH": "cbf67106-eeab-4b39-85ad-6ca338e16fb3"
+              },
+              "display_name": "Account/Organisation",
+              "field_type": "string",
+              "field_name": "account"
+            },
+            {
+              "field_description": "An autogenerated field using user account and the tipo_id. This field is hidden and has all the field elements in order to help with the java bindings generation for TipoDefinition. Hence all the field descriptors are added to this field even if they dont make sense.",
+              "hidden": true,
+              "_ARRAY_META": {
+                "_HASH": "21daadca-11de-4862-a2df-8d49d86d7cd2"
+              },
+              "display_name": "Hash generated on the server",
+              "field_type": "integer",
+              "field_name": "hash_key"
+            },
+            {
+              "field_description": "Holds meta data about the tipo",
+              "short_display": true,
+              "disable_expansion": true,
+              "_ARRAY_META": {
+                "_HASH": "5ffbdefc-93e3-4239-982e-ebd0ba65a000"
+              },
+              "display_name": "Meta Data",
+              "field_type": "FieldGroup.TipoMeta",
+              "field_name": "tipo_meta"
+            },
+            {
+              "field_description": "List of fields in tipo",
+              "tipo_array": true,
+              "_ARRAY_META": {
+                "_HASH": "d7ea9e3c-d0d0-446b-bae9-a2b14aff3e07"
+              },
+              "display_name": "Fields",
+              "field_type": "FieldGroup.TipoFields",
+              "field_name": "tipo_fields"
+            },
+            {
+              "field_description": "List of fields in tipo",
+              "tipo_array": true,
+              "_ARRAY_META": {
+                "_HASH": "e15f9322-bb7a-4cab-abb0-8c73d182394b"
+              },
+              "display_name": "Field Groups",
+              "field_type": "FieldGroup.TipoFieldGroups",
+              "field_name": "tipo_field_groups"
+            }
+          ],
+          "created_by": "prasadsid",
+          "account": "billionbases",
+          "tipo_meta": {
+            "tipo_account_separation": false,
+            "main_menu": true,
+            "tipo_type": [
+              "cached"
+            ],
+            "icon": "note",
+            "tipo_name": "TipoDefinition",
+            "display_name": "Tipo Definition(s)"
+          }
+        }
+      },
+      {
+        "tipo_name": "TipoDefinition",
+        "message": null,
+        "status_code": 200,
+        "data": {
+          "hash_key": "billionbases.Address",
+          "created_dt": "1474306647183",
+          "created_date": "2016-09-19T17:37:27.183Z",
+          "tipo_actions": [
+            {
+              "tipo_action": "GET",
+              "_ARRAY_META": {
+                "_HASH": "13f13ee7-abea-4d1f-9b9d-48bc1c7a1fa3"
+              }
+            },
+            {
+              "tipo_action": "PUT",
+              "_ARRAY_META": {
+                "_HASH": "708d5a4f-fba6-4708-993c-1d4a797993d8"
+              }
+            }
+          ],
+          "tipo_id": "Address",
+          "tipo_fields": [
+            {
+              "field_description": "Unique identifier",
+              "hidden": true,
+              "_ARRAY_META": {
+                "_HASH": "84ca7962-d6da-42d5-9234-550460723345"
+              },
+              "display_name": "ID",
+              "field_type": "integer",
+              "primary_key": true,
+              "field_name": "tipo_id"
+            },
+            {
+              "field_description": "Label",
+              "hidden": true,
+              "meaningful_key": true,
+              "_ARRAY_META": {
+                "_HASH": "b8b71ae3-75ca-4ffb-9f79-f2fc0540966d"
+              },
+              "display_name": "Label",
+              "field_type": "string",
+              "mandatory": true,
+              "field_name": "Label"
+            },
+            {
+              "field_description": "Street Number",
+              "_ARRAY_META": {
+                "_HASH": "c5d694fb-14ef-41e4-9a53-0e22f336890a"
+              },
+              "display_name": "Street Number",
+              "field_type": "string",
+              "field_name": "StreetNo"
+            },
+            {
+              "field_description": "Street name",
+              "_ARRAY_META": {
+                "_HASH": "17f63d47-c229-4862-8059-443b88053308"
+              },
+              "display_name": "Street Name",
+              "field_type": "string",
+              "field_name": "StreetName"
+            },
+            {
+              "field_description": "suburb",
+              "short_display": true,
+              "_ARRAY_META": {
+                "_HASH": "6b65c51e-2742-413a-82bf-299a589755e5"
+              },
+              "display_name": "Suburb",
+              "field_type": "string",
+              "field_name": "Suburb"
+            },
+            {
+              "field_description": "Postal code, PIN code or zip code",
+              "_ARRAY_META": {
+                "_HASH": "ae181c25-b3c8-43e2-addb-4760a17d0cd8"
+              },
+              "display_name": "Postal Code",
+              "field_type": "integer",
+              "field_name": "Postcode"
+            }
+          ],
+          "created_by": "prasadsid",
+          "account": "billionbases",
+          "tipo_meta": {
+            "tipo_account_separation": false,
+            "main_menu": true,
+            "tipo_type": [
+              "cached"
+            ],
+            "tipo_name": "Address",
+            "display_name": "Address"
+          }
+        }
+      }
+    ]
+  },
+  "Address": {
+    "message": "Processed successfully.",
+    "status_code": 200,
+    "response": [
+      {
+        "tipo_name": "Address",
+        "message": null,
+        "status_code": 200,
+        "data": {
+          "StreetName": "Flinders Street",
+          "hash_key": "purdueUni.200",
+          "Suburb": "South Yarra",
+          "created_dt": "1474307408262",
+          "Label": "6/4A Flinders St",
+          "created_date": "2016-09-19T17:50:08.262Z",
+          "tipo_id": "200",
+          "created_by": "prasadsid",
+          "Postcode": "3000",
+          "account": "purdueUni",
+          "StreetNo": "6/4A"
+        }
+      },
+      {
+        "tipo_name": "Address",
+        "message": null,
+        "status_code": 200,
+        "data": {
+          "StreetName": "Market Street",
+          "hash_key": "purdueUni.100",
+          "Suburb": "Footscray",
+          "created_dt": "1474307408139",
+          "Label": "12/1E Market St",
+          "created_date": "2016-09-19T17:50:08.139Z",
+          "tipo_id": "100",
+          "created_by": "prasadsid",
+          "Postcode": "3000",
+          "account": "purdueUni",
+          "StreetNo": "12/1E"
+        }
+      }
+    ]
+  },
+  "Customer": {
+    "message": "Processed successfully.",
+    "status_code": 200,
+    "response": [
+      {
+        "tipo_name": "Customer",
+        "message": null,
+        "status_code": 200,
+        "data": {
+          "created_dt": "1474308761550",
+          "hash_key": "purdueUni.200",
+          "created_date": "2016-09-19T18:12:41.550Z",
+          "tipo_id": "200",
+          "created_by": "prasadsid",
+          "account": "purdueUni",
+          "Name": "Jane Smith"
+        }
+      },
+      {
+        "tipo_name": "Customer",
+        "message": null,
+        "status_code": 200,
+        "data": {
+          "created_dt": "1474308761384",
+          "hash_key": "purdueUni.100",
+          "created_date": "2016-09-19T18:12:41.384Z",
+          "tipo_id": "100",
+          "created_by": "prasadsid",
+          "account": "purdueUni",
+          "Name": "John Doe"
+        }
+      }
+    ]
+  },
+  "PurchaseOrder": {
+    "message": "Processed successfully.",
+    "status_code": 200,
+    "response": [
+      {
+        "tipo_name": "PurchaseOrder",
+        "message": null,
+        "status_code": 200,
+        "data": {
+          "ShipToAddress": {
+            "StreetName": "Flinders Street",
+            "Suburb": "South Yarra",
+            "Postcode": "3000",
+            "StreetNo": "6/4A"
+          },
+          "created_dt": "1474308811673",
+          "Customer": {
+            "tipo_id": "200",
+            "Name": "Jane Smith"
+          },
+          "LineItem": [
+            {
+              "UnitPrice": "12.75",
+              "ItemQuantity": "25",
+              "_ARRAY_META": {
+                "_HASH": "6dc5f67c-a7cc-45aa-ba90-12abffb06745"
+              },
+              "ItemID": "001"
+            },
+            {
+              "UnitPrice": "160.00",
+              "ItemQuantity": "5",
+              "_ARRAY_META": {
+                "_HASH": "e61360e6-1fc2-46e0-bcb5-4ae7e21232d7"
+              },
+              "ItemID": "002",
+              "Tags": [
+                "P",
+                "Q",
+                "R"
+              ]
+            },
+            {
+              "UnitPrice": "5.80",
+              "ItemQuantity": "10",
+              "_ARRAY_META": {
+                "_HASH": "148c9d02-3a30-4ab6-83b9-32899b6d4853"
+              },
+              "ItemID": "003"
+            }
+          ],
+          "created_by": "prasadsid",
+          "BillToAddress": {
+            "StreetName": "Market Street",
+            "Suburb": "Footscray",
+            "Postcode": "3000",
+            "StreetNo": "12/1E"
+          },
+          "hash_key": "purdueUni.4648157156",
+          "RequiredByDate": "2016-11-18T00:00:00Z",
+          "OrderAmount": "3000",
+          "created_date": "2016-09-19T18:13:31.673Z",
+          "tipo_id": "4648157156",
+          "Tags": [
+            "Order",
+            "Jane.Smith",
+            "High Value"
+          ],
+          "account": "purdueUni"
+        }
+      }
+    ]
+  }
+}

@@ -32,19 +32,23 @@
           }
  
           return {
-              element: element,
-              headers: headers,
-              params: params,
-              httpConfig: httpConfig
+            element: element,
+            headers: headers,
+            params: params,
+            httpConfig: httpConfig
           };
         }
       },
       response: {
         // Extracts the payload from the wrapped API response
         extractData: function(rawData) {
-          //var extractedData = rawData.data || {};
-          //return extractedData;
-          return rawData;
+          if(rawData.response){
+            return rawData.response;
+          }else if(rawData.data){
+            return rawData.data;
+          }else{
+            return rawData;
+          }
         }
       },
       errors: {
@@ -74,7 +78,7 @@
     RestangularConfigurer.setBaseUrl(TIPO_API_URLS.BASE);
     //RestangularConfigurer.addRequestInterceptor(interceptors.request.sanitize);
     RestangularConfigurer.addFullRequestInterceptor(interceptors.request.security);
-    //RestangularConfigurer.addResponseInterceptor(interceptors.response.extractData);
+    RestangularConfigurer.addResponseInterceptor(interceptors.response.extractData);
     RestangularConfigurer.setErrorInterceptor(interceptors.errors.handleError);
   }
 

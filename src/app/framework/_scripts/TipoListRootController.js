@@ -21,7 +21,7 @@
       tipoManipulationService.mergeDefinitionAndData(clonedDefinition, tipo);
       clonedDefinition.tipo_fields = tipoManipulationService.extractShortDisplayFields(clonedDefinition);
       tiposWithDefinition.push({
-        key: tipo.TipoID,
+        key: tipo.tipo_id,
         value: clonedDefinition
       });
     });

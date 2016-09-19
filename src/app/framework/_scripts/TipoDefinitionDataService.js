@@ -2,7 +2,7 @@
 
   'use strict';
 
-  var TIPO_DEFINITION_RESOURCE = 'tipo_def';
+  var TIPO_DEFINITION_RESOURCE = 'tipo/TipoDefinition';
 
   function TipoDefinitionDataService(
     tipoResource,
@@ -25,17 +25,23 @@
       var cache = tipoRegistry.get();
       if(_.isEmpty(cache)){
         console.info('Loading the tipo definitions');
-        promise = tipoResource.all(TIPO_DEFINITION_RESOURCE).getList();
+        promise = tipoResource.one(TIPO_DEFINITION_RESOURCE).get();
         promise = promise.then(function(definitions){
-          var childPromises = [];
-          _.each(definitions, function(definition){
-            childPromises.push(_instance.getOne(definition.tipo_name));
+          definitions = _.sortBy(definitions, function(each){
+            return each.data.created_dt;
           });
-          return childPromises;
+          var childPromise = $q.when({});
+          _.each(definitions, function(definition){
+            definition = definition.data;
+            childPromise = childPromise.then(function(){
+              return _instance.getOne(definition.tipo_id);
+            })
+          });
+          return childPromise;
         });
 
-        promise = promise.then(function(childPromises){
-          return $q.all(childPromises);
+        promise = promise.then(function(childPromise){
+          return $q.all(childPromise);
         });
 
       }else{

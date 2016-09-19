@@ -14,7 +14,7 @@
         templateUrl: 'framework/_directives/_views/tp-field-edit.tpl.html',
         link: function(scope, element, attrs){
           var field = scope.field;
-          scope.isId = field.field_name === 'TipoID';
+          scope.isId = field.field_name === 'tipo_id';
           scope.hasValue = !_.isUndefined(field._value);
           scope.isArray = Boolean(field._ui.isArray);
           scope.isSingle = !scope.isArray;

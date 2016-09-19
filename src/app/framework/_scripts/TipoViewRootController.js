@@ -13,7 +13,7 @@
     _instance.tipo = tipo;
 
     var tipo_name = tipoDefinition.tipo_meta.tipo_name;
-    var tipo_id = tipo.TipoID;
+    var tipo_id = tipo.tipo_id;
 
     _instance.edit = function(){
       tipoRouter.toTipoEdit(tipo_name, tipo_id);

@@ -97,7 +97,7 @@
               var relatedTipoDefinition = _.cloneDeep(tipoRegistry.get(parts[1]));
               tipo_field.key_field = getPrimaryKey(relatedTipoDefinition);
               tipo_field.label_field = getMeaningfulKey(relatedTipoDefinition);
-              if(tipo_field.relationship_type === 'composition'){
+              if(tipo_field.relationship_type === 'embed'){
                 tipo_field._ui.isGroup = true;
                 tipo_field.tipo_fields = relatedTipoDefinition.tipo_fields;
               }
@@ -125,23 +125,41 @@
           var isGroup = Boolean(_.get(field, '_ui.isGroup'));
           var isRelatedTipo = Boolean(_.get(field, '_ui.isTipoRelationship'));
           if(isRelatedTipo && !isGroup){
-            if(isArray){
-              field._value = [];
-              _.each(fieldValue, function(each){
-                var keyFieldValue = _.get(each, field.key_field.field_name);
-                var labelFieldValue = _.get(each, field.label_field.field_name);
-                field._value.push({
+            var hasOnlyKey = _.isUndefined(field.label_field);
+            if(hasOnlyKey){
+              if(isArray){
+                field._value = [];
+                _.each(fieldValue, function(each){
+                  field._value.push({
+                    key: fieldValue,
+                    label: fieldValue
+                  });
+                });
+              }else{
+                field._value = {
+                  key: fieldValue,
+                  label: fieldValue
+                };
+              }
+            }else{
+              if(isArray){
+                field._value = [];
+                _.each(fieldValue, function(each){
+                  var keyFieldValue = _.get(each, field.key_field.field_name);
+                  var labelFieldValue = _.get(each, field.label_field.field_name);
+                  field._value.push({
+                    key: keyFieldValue,
+                    label: labelFieldValue
+                  });
+                });
+              }else{
+                var keyFieldValue = _.get(fieldValue, field.key_field.field_name);
+                var labelFieldValue = _.get(fieldValue, field.label_field.field_name);
+                field._value = {
                   key: keyFieldValue,
                   label: labelFieldValue
-                });
-              });
-            }else{
-              var keyFieldValue = _.get(fieldValue, field.key_field.field_name);
-              var labelFieldValue = _.get(fieldValue, field.label_field.field_name);
-              field._value = {
-                key: keyFieldValue,
-                label: labelFieldValue
-              };
+                };
+              }
             }
           }
           else if(isGroup){
@@ -198,16 +216,16 @@
                 tipoData[fieldKey] = [];
                 _.each(fieldValue, function(each){
                   tipoData[fieldKey].push({
-                    TipoID: each.key
+                    tipo_id: each.key
                   });
                 });
               }else{
                 if(hasSimpleValue){
                   tipoData[fieldKey] = {
-                    TipoID: fieldValue.key
+                    tipo_id: fieldValue.key
                   };
                   // TODO: Sushil - Temporary code just for mock
-                  tipoData[fieldKey][field.label_field.field_name] = fieldValue.label;
+                  // tipoData[fieldKey][field.label_field.field_name] = fieldValue.label;
                 }
               }
             }

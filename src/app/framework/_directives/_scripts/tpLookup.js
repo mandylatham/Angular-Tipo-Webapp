@@ -45,7 +45,7 @@
             return tipoInstanceDataService.search(tipo_name, searchCriteria).then(function(results){
               return _.map(results, function(each){
                 return {
-                  key: each.TipoID,
+                  key: each.tipo_id,
                   label: each[label_field]
                 };
               });
