@@ -46,7 +46,7 @@
           };
 
           scope.lookup = function(text){
-            searchCriteria[label_field] = text;
+            searchCriteria.tipo_filter = label_field + ' begins_with(<<' + text + '>>)';
             return tipoInstanceDataService.search(tipo_name, searchCriteria).then(function(results){
               return _.map(results, function(each){
                 return {

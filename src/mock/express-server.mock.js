@@ -84,15 +84,17 @@ router.get('/tipo/:name', function(request, response) {
   var dataMap = tipoData[tipoName] || { response: [] };
   dataMap = _.cloneDeep(dataMap);
   var query = request.query;
-  if(!_.isEmpty(query)){
+  if(_.get(query, 'tipo_filter')){
+    var filterRegex = /^(.*?)\s.*<<(.*?)>>.*/g;
+    var matches = filterRegex.exec(query.tipo_filter);
+    var fieldName = matches[1];
+    var fieldValue = matches[2];
     dataMap.response = _.filter(dataMap.response, function(each){
-      return _.reduce(query, function(matched, queryValue, queryKey){
-        var value = _.get(each.data, queryKey);
-        if(!_.isUndefined(value)){
-          return _.startsWith(value.toString().toLowerCase(), queryValue.toLowerCase()) && matched;
-        }
-        return false;
-      }, true);
+      var value = _.get(each.data, fieldName);
+      if(!_.isUndefined(value)){
+        return _.startsWith(value, fieldValue);
+      }
+      return false;
     });
   }
   response.json(dataMap);
