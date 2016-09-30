@@ -48,22 +48,33 @@ function getOne(tipoName, tipoId){
   return data;
 }
 
-function enrichWithArrayMeta(object){
+function handleArrayMeta(object){
   _.forOwn(object, function(value){
     if(_.isArray(value)){
+      var itemsToDiscard = [];
       _.each(value, function(each){
         if(_.isObject(each)){
           var existingMeta = _.get(each, '_ARRAY_META._HASH');
           if(_.isUndefined(existingMeta)){
-            each.ARRAY_META = {
+            each._ARRAY_META = {
               _HASH: uuid.v4()
             };
+          }else{
+            if(each._ARRAY_META._STATUS === 'DELETED'){
+              itemsToDiscard.push(each._ARRAY_META._HASH);
+              return;
+            }
           }
-          enrichWithArrayMeta(each);
+          handleArrayMeta(each);
         }
       });
+      if(!_.isEmpty(itemsToDiscard)){
+        _.remove(value, function(each){
+          return _.includes(itemsToDiscard, each._ARRAY_META._HASH);
+        });
+      }
     }else if(_.isObject(value)){
-      enrichWithArrayMeta(value);
+      handleArrayMeta(value);
     }
   });
 }
@@ -71,6 +82,7 @@ function enrichWithArrayMeta(object){
 router.get('/tipo/:name', function(request, response) {
   var tipoName = request.params.name;
   var dataMap = tipoData[tipoName] || { response: [] };
+  dataMap = _.cloneDeep(dataMap);
   var query = request.query;
   if(!_.isEmpty(query)){
     dataMap.response = _.filter(dataMap.response, function(each){
@@ -97,7 +109,7 @@ router.put('/tipo/:name', function(request, response) {
   var tipoName = request.params.name;
   var payload = request.body[0];
   var data = payload.data;
-  enrichWithArrayMeta(data);
+  handleArrayMeta(data);
   var tipoId = data.tipo_id;
   if(_.isUndefined(tipoId)){
     if(tipoName === 'TipoDefinition'){
@@ -111,6 +123,7 @@ router.put('/tipo/:name', function(request, response) {
   var tipoList = tipoData[tipoName].response;
   var existingTipo = getOne(tipoName, tipoId);
   if(existingTipo){
+    data.created_dt = existingTipo.data.created_dt;
     existingTipo.data = data;
   }else{
     tipoList.push(payload);
@@ -126,9 +139,10 @@ router.put('/tipo/:name/:id', function(request, response) {
   var tipoName = request.params.name;
   var tipoId = request.params.id;
   var data = request.body.data;
-  enrichWithArrayMeta(data);
+  handleArrayMeta(data);
   tipoData[tipoName] = tipoData[tipoName] || { response: [] };
   var existingTipo = getOne(tipoName, tipoId);
+  data.created_dt = existingTipo.data.created_dt;
   existingTipo.data = data;
   data = getOne(tipoName, tipoId);
   response.json(data);

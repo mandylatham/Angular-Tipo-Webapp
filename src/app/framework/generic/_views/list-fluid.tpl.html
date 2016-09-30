@@ -6,9 +6,13 @@
       </div>
       <div flex="none" layout="column" layout-align="center center" class="actions bg">
         <md-button ng-click="tipoRootController.toDetail(tipo.key)" aria-label="View details">
-          <md-tooltip md-direction="top">View details</md-tooltip>
-         <md-icon>fullscreen</md-icon>
-       </md-button>
+          <md-tooltip md-direction="left">View details</md-tooltip>
+          <md-icon>fullscreen</md-icon>
+        </md-button>
+        <md-button ng-click="tipoRootController.clone(tipo.key)" aria-label="Clone" class="md-icon-button">
+          <md-tooltip md-direction="left">Clone into new</md-tooltip>
+          <md-icon>content_copy</md-icon>
+        </md-button>
       </div>
     </div>
   </div>

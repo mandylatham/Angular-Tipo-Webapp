@@ -27,12 +27,27 @@
 
     var createState = {
       name: 'tipoCreate',
-      url: '/tipo/{tipo_name}/new',
+      url: '/tipo/{tipo_name}/new?copyFrom',
       parent: 'layout',
       resolve: /*@ngInject*/
       {
-        tipoDefinition: function(tipoDefinitions, tipoRegistry, tipoManipulationService, $stateParams) {
-          return tipoRegistry.get($stateParams.tipo_name);
+        tipo: function(tipoInstanceDataService, $stateParams){
+          if($stateParams.copyFrom){
+            return tipoInstanceDataService.getOne($stateParams.tipo_name, $stateParams.copyFrom)
+            .then(function(tipo){
+              delete tipo.tipo_id;
+              return tipo;
+            });
+          }else{
+            return undefined;
+          }
+        },
+        tipoDefinition: function(tipoDefinitions, tipoRegistry, tipoManipulationService, tipo, $stateParams) {
+          var tipoDefinition = tipoRegistry.get($stateParams.tipo_name);
+          if(!_.isUndefined(tipo)){
+            tipoManipulationService.mergeDefinitionAndData(tipoDefinition, tipo);
+          }
+          return tipoDefinition;
         }
       },
       views: {

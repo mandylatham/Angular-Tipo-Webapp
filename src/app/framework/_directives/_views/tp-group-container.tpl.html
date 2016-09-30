@@ -44,10 +44,10 @@
     <tp:field-container mode="{{mode}}" field="groupField" ng-repeat="groupField in group.tipo_fields" ng-if="!groupField.hidden"/>
   </div>
   <div class="data" style="margin-top: 10px;" ng-hide="group._ui.collapsed" ng-if="group._ui.isArray">
-    <h3 class="md-subhead no-value" ng-if="!group._items.length">
+    <h3 class="md-subhead no-value" ng-if="!(group._items | filter: {_ui: {deleted: '!'}}).length">
       -No records available-
     </h3>
-    <div layout="row" ng-repeat="groupItem in group._items" md-whiteframe="2" class="fluid-row">
+    <div layout="row" ng-repeat="groupItem in group._items | filter: {_ui: {deleted: '!'}}" md-whiteframe="2" class="fluid-row">
       <div flex layout="row" layout-padding layout-wrap layout-align="start start" class="data">
         <tp:field-container mode="{{mode}}" field="itemField" ng-repeat="itemField in groupItem.tipo_fields" ng-if="itemField.short_display && !itemField.hidden" />
       </div>

@@ -166,6 +166,9 @@
             if(isArray){
               _.each(fieldValue, function(item){
                 var itemField = generateGroupItem(field);
+                if(item._ARRAY_META){
+                  itemField._ui.hash = item._ARRAY_META._HASH;
+                }
                 mergeDefinitionAndData(itemField, item);
               });
             }else{
@@ -221,11 +224,14 @@
                 });
               }else{
                 if(hasSimpleValue){
-                  tipoData[fieldKey] = {
-                    tipo_id: fieldValue.key
-                  };
-                  // TODO: Sushil - Temporary code just for mock
-                  // tipoData[fieldKey][field.label_field.field_name] = fieldValue.label;
+                  if(!_.isUndefined(field.label_field)){
+                    tipoData[fieldKey] = {
+                      tipo_id: fieldValue.key
+                    };
+                    tipoData[fieldKey][field.label_field.field_name] = fieldValue.label;
+                  }else{
+                    tipoData[fieldKey] = fieldValue.key;
+                  }
                 }
               }
             }
@@ -237,9 +243,23 @@
                 groupData = [];
                 _.each(field._items, function(item){
                   var itemData = {};
-                  extractDataFromMergedDefinition(item, itemData);
-                  if(!_.isEmpty(itemData)){
+                  if(item._ui.hash){
+                    // existing item, so add the hash
+                    itemData._ARRAY_META = {
+                      _HASH: item._ui.hash
+                    };
+                  }
+                  if(item._ui.deleted){
+                    itemData._ARRAY_META._STATUS = 'DELETED';
                     groupData.push(itemData);
+                  }else{
+                    extractDataFromMergedDefinition(item, itemData);
+                    if(!_.isEmpty(itemData)){
+                      groupData.push(itemData);
+                    }else if(item._ui.hash){
+                      itemData._ARRAY_META._STATUS = 'DELETED';
+                      groupData.push(itemData);
+                    }
                   }
                 });
                 if(!_.isEmpty(groupData)){
@@ -345,6 +365,12 @@
       });
     }
 
+    function cloneInstance(tipo){
+      tipo = angular.copy(tipo);
+      delete tipo.tipo_id;
+      return tipo;
+    }
+
     // Expose the functions that need to be consumed from outside
     this.mapDefinitionToUI = mapDefinitionToUI;
     this.expandFieldHierarchy = expandFieldHierarchy;
@@ -356,6 +382,7 @@
     this.getPrimaryKey = getPrimaryKey;
     this.getMeaningfulKey = getMeaningfulKey;
     this.resolveTemplateUrl = resolveTemplateUrl;
+    this.cloneInstance = cloneInstance;
 
   }
 

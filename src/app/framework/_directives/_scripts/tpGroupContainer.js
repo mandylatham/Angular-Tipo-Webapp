@@ -113,9 +113,15 @@
           }
 
           function deleteItem(groupItem, group){
-            _.remove(group._items, function(each){
-              return each === groupItem;
-            });
+            if(_.isUndefined(groupItem._ui.hash)){
+              // indicates that this item was never saved on the backend, hence just delete it
+              _.remove(group._items, function(each){
+                return each === groupItem;
+              });
+            }else{
+              // indicates that this item already exists in the backend, hence flagging it for deletion
+              groupItem._ui.deleted = true;
+            }
           }
 
           function cloneItem(groupItem, group){

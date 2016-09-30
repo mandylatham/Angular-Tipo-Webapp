@@ -6,6 +6,7 @@
     tipoDefinition,
     tipos,
     tipoManipulationService,
+    tipoInstanceDataService,
     tipoRouter) {
     
     var _instance = this;
@@ -35,6 +36,10 @@
 
     _instance.toDetail = function(id){
       tipoRouter.toTipoView(tipo_name, id);
+    };
+
+    _instance.clone = function(id){
+      tipoRouter.toTipoCreate(tipo_name, {copyFrom: id});
     };
 
   }

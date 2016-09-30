@@ -25,7 +25,12 @@
           scope.fieldTemplate = fieldTemplate;
 
           var tipo_name = field._ui.relatedTipo;
-          var label_field = field.label_field.field_name;
+          var label_field;
+          if(_.isUndefined(field.label_field)){
+            label_field = field.key_field.field_name;
+          }else{
+            label_field = field.label_field.field_name;
+          }
           var searchCriteria = {};
 
           if(!_.isUndefined(field._value)){

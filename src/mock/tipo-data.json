@@ -41,7 +41,7 @@
             {
               "field_description": "Name of the customer",
               "short_display": true,
-              "meaningful_key": true,
+              "meaningful_key": false,
               "_ARRAY_META": {
                 "_HASH": "cf27a518-b609-42e9-969d-e2149d5ae85f"
               },
@@ -919,10 +919,7 @@
             "StreetNo": "6/4A"
           },
           "created_dt": "1474308811673",
-          "Customer": {
-            "tipo_id": "200",
-            "Name": "Jane Smith"
-          },
+          "Customer": "200",
           "LineItem": [
             {
               "UnitPrice": "12.75",
