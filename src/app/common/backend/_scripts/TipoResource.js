@@ -11,7 +11,7 @@
     function refreshAccesstoken() {
       var deferred = $q.defer();
       // Refresh access-token logic
-      securityContextService.relogin(deferred);      
+      securityContextService.relogin(deferred);
       return deferred.promise;
     }
     
@@ -80,6 +80,7 @@
     RestangularConfigurer.addFullRequestInterceptor(interceptors.request.security);
     RestangularConfigurer.addResponseInterceptor(interceptors.response.extractData);
     RestangularConfigurer.setErrorInterceptor(interceptors.errors.handleError);
+    RestangularConfigurer.setDefaultHeaders({'Content-Type': 'application/json'});
   }
 
   // Tipo Resource. This shall be used for invoking the Tipo REST APIs
