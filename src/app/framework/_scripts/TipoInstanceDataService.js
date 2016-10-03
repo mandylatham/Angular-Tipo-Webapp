@@ -51,6 +51,10 @@
         tipo_name: tipo_name,
         data: tipo
       };
+      if(_.isUndefined(tipo.tipo_id)){
+        console.log('Tipo ID not defined, setting it');
+        tipo.tipo_id = id;
+      }
       return getDocumentResource(tipo_name, id).doPUT(tipo);
     };
 

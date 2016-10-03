@@ -103,7 +103,12 @@
               }
             }
           }else{
-            // Do nothing for now. Eventually we may need to set other UI specific metadata
+            // Only check for field templates for simple fields as of now
+            var editTemplate = tipo_field.edit_view;
+            if(!_.isUndefined(editTemplate)){
+              editTemplate = resolveTemplateUrl(editTemplate);
+              tipo_field._ui.editTemplate = editTemplate;
+            }
           }
         });
       }
@@ -120,6 +125,8 @@
           }
           if(_.isUndefined(fieldValue)){
             return;
+          }else{
+            field._hadValueOriginally = true;
           }
           var isArray = Boolean(_.get(field, '_ui.isArray'));
           var isGroup = Boolean(_.get(field, '_ui.isGroup'));
@@ -235,6 +242,9 @@
                 }
               }
             }
+            if(isValidValue(tipoData[fieldKey]) && field._hadValueOriginally){
+              tipoData[fieldKey] = null;
+            }
           }
           else if(isGroup){
             var groupData;
@@ -290,9 +300,20 @@
                   tipoData[fieldKey] = translateSimpleValue(field, fieldValue.key);
                 }
               }
+              if(!isValidValue(tipoData[fieldKey]) && field._hadValueOriginally){
+                tipoData[fieldKey] = null;
+              }
             }
           }
         });
+      }
+    }
+
+    function isValidValue(value){
+      if(_.isBoolean(value)){
+        return true;
+      }else{
+        return !_.isEmpty(value);
       }
     }
 

@@ -57,7 +57,7 @@
 
     _instance.navigate = function(menuItem){
       $mdSidenav('left').close();
-
+      _instance.activeItem = menuItem;
       if(menuItem.state){
         tipoRouter.to(menuItem.state, menuItem.state);
       }else if(menuItem.tipo_name){

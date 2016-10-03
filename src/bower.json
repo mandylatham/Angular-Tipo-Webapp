@@ -28,6 +28,7 @@
     "angular-local-storage": "0.2.7",
     "angular-ui-select": "0.18.0",
     "ngclipboard": "1.1.1",
+    "mustache": "2.2.1",
     "angular-truncate": "git://github.com/sparkalow/angular-truncate.git#master",
     "JSONPath": "git://github.com/clementlamoureux/JSONPath.git#master",
     "aws-sdk": "2.4.4"

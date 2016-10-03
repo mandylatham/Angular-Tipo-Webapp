@@ -29,9 +29,7 @@
   }
   #logo {
     padding: 20px;
-    img {
-      width: 85%;
-    }
+    height: 100px;
   }
   #footer{
     padding: 16px 32px;
@@ -67,8 +65,27 @@
   }
 
   .tp-navigation{
+    md-list-item{
+      padding-top: 0;
+      padding-bottom: 0;
+    }
     button{
+      padding-top: 0;
+      padding-bottom: 0;
+      font-size: 1.0em;
+      font-weight: normal;
       width: 100%;
+      text-transform: none;
+      md-icon{
+        margin-right: 15px;
+        font-size: 20pt;
+      }
+      &.active{
+        font-weight: bold;
+        md-icon{
+          color: #aa4608;
+        }
+      }
     }
   }
 

@@ -79,6 +79,30 @@ function handleArrayMeta(object){
   });
 }
 
+function deleteNullFields(object){
+  _.forOwn(object, function(value, key){
+    if(value === null){
+      delete object[key];
+    }else {
+      if(_.isObject(value)){
+        deleteNullFields(value);
+        if(_.isEmpty(value)){
+          delete object[key];
+        }
+      }else if(_.isArray(value)){
+        _.each(value, function(each, index){
+          if(_.isObject(each)){
+            deleteNullFields(each);
+            if(_.isEmpty(each)){
+              delete value[index];
+            }
+          }
+        });
+      }
+    }
+  });
+}
+
 router.get('/tipo/:name', function(request, response) {
   var tipoName = request.params.name;
   var dataMap = tipoData[tipoName] || { response: [] };
@@ -112,6 +136,7 @@ router.put('/tipo/:name', function(request, response) {
   var payload = request.body[0];
   var data = payload.data;
   handleArrayMeta(data);
+  deleteNullFields(data);
   var tipoId = data.tipo_id;
   if(_.isUndefined(tipoId)){
     if(tipoName === 'TipoDefinition'){
@@ -142,6 +167,7 @@ router.put('/tipo/:name/:id', function(request, response) {
   var tipoId = request.params.id;
   var data = request.body.data;
   handleArrayMeta(data);
+  deleteNullFields(data);
   tipoData[tipoName] = tipoData[tipoName] || { response: [] };
   var existingTipo = getOne(tipoName, tipoId);
   data.created_dt = existingTipo.data.created_dt;

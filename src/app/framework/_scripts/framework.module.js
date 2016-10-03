@@ -96,7 +96,7 @@
         }
       }
     };
-   
+
     stateProvider
       .state(listState)
       .state(createState)

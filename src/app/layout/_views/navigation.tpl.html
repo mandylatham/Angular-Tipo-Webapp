@@ -1,12 +1,12 @@
-<md-sidenav layout="column" md-component-id="left" class="md-sidenav-left" md-is-locked-open="$mdMedia('gt-md')" role="navigation" md-whiteframe="4" md-colors="{background: 'primary-hue-1'}">
-  <header id="logo" class="nav-header" layout="row" layout-align="center center" md-colors="{background: 'primary-hue-3'}" md-whiteframe="1">
-    <img src="_assets/images/logo-t-b.png" alt="" />
+<md-sidenav layout="column" md-component-id="left" class="md-sidenav-left" md-is-locked-open="$mdMedia('gt-md')" role="navigation" md-whiteframe="6" md-colors="{background: 'primary-hue-3'}">
+  <header id="logo" class="nav-header" layout="row" layout-align="center center" md-colors="{background: 'primary-600'}" md-whiteframe="1">
+   <span class="md-title">Welcome Guest</span>
   </header>
   <div ng-controller="NavigationController as navigation" class="tp-navigation">
     <md-list>
       <md-list-item layout-padding ng-repeat="item in navigation.menu">
-        <md-button class="md-raised md-primary md-hue-1" layout="row" layout-align="start center" ng-click="navigation.navigate(item)">
-          <div class="md-list-item-inner md-title">
+        <md-button layout="row" layout-align="start center" ng-class="{'active': item === navigation.activeItem}" ng-click="navigation.navigate(item)">
+          <div class="md-list-item-inner">
             <md-icon ng-if="item.icon">{{item.icon}}</md-icon>
             <span>{{item.label}}</span>
           </div>
