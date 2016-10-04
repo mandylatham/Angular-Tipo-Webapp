@@ -126,6 +126,8 @@
 
           function cloneItem(groupItem, group){
             var clonedItem = angular.copy(groupItem);
+            delete clonedItem._ARRAY_META;
+            delete clonedItem._ui.hash;
             group._items.push(clonedItem);
           }
 
