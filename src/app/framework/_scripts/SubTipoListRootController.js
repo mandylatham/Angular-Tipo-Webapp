@@ -2,9 +2,10 @@
 
   'use strict';
 
-  function TipoListRootController(
+  function SubTipoListRootController(
     tipoDefinition,
-    tipos,
+    subTipoDefinition,
+    subTipos,
     tipoManipulationService,
     tipoInstanceDataService,
     tipoRouter,
@@ -12,15 +13,19 @@
 
     var _instance = this;
 
-    _instance.tipoDefinition = tipoDefinition;
-    _instance.tipos = tipos;
+    tipoRouter.recordSticky();
 
-    var tipo_name = tipoDefinition.tipo_meta.tipo_name;
+    var parentTipo = tipoDefinition;
+
+    _instance.tipoDefinition = subTipoDefinition;
+    _instance.tipos = subTipos;
+
+    var tipo_name = subTipoDefinition.tipo_meta.tipo_name;
 
     var tiposWithDefinition = [];
 
-    _.each(tipos, function(tipo){
-      var clonedDefinition = _.cloneDeep(tipoDefinition);
+    _.each(subTipos, function(tipo){
+      var clonedDefinition = _.cloneDeep(subTipoDefinition);
       tipoManipulationService.mergeDefinitionAndData(clonedDefinition, tipo);
       clonedDefinition.tipo_fields = tipoManipulationService.extractShortDisplayFields(clonedDefinition);
       tiposWithDefinition.push({
@@ -30,10 +35,12 @@
     });
     _instance.tiposWithDefinition = tiposWithDefinition;
 
-    _instance.hasTipos = tipos.length > 0;
+    _instance.hasTipos = subTipos.length > 0;
 
     _instance.createNew = function(){
-      tipoRouter.toTipoCreate(tipo_name);
+      var data = tipoManipulationService.extractContextualData(tipoDefinition, subTipoDefinition);
+      data = encodeURIComponent(angular.toJson(data));
+      tipoRouter.toTipoCreate(tipo_name, {data: data});
     };
 
     _instance.toDetail = function(id){
@@ -47,6 +54,6 @@
   }
 
   angular.module('tipo.framework')
-  .controller('TipoListRootController', TipoListRootController);
+  .controller('SubTipoListRootController', SubTipoListRootController);
 
 })();

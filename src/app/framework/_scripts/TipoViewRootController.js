@@ -6,9 +6,11 @@
     tipoDefinition,
     tipo,
     tipoInstanceDataService,
-    tipoRouter) {
-    
+    tipoRouter,
+    $state) {
+
     var _instance = this;
+
     _instance.tipoDefinition = tipoDefinition;
     _instance.tipo = tipo;
 
@@ -22,13 +24,35 @@
     _instance.delete = function(){
       tipoRouter.startStateChange();
       tipoInstanceDataService.deleteOne(tipo_name, tipo_id).then(function(){
-        tipoRouter.toTipoList(tipo_name);
+        if(tipoRouter.stickyExists()){
+          tipoRouter.toStickyAndReset();
+        }else{
+          tipoRouter.toTipoList(tipo_name);
+        }
       });
     };
 
     _instance.toList = function(){
       tipoRouter.toTipoList(tipo_name);
     };
+
+    _instance.toSubTipoList = function(subTipo){
+      tipoRouter.to('subTipoListState', undefined, {sub_tipo_field_name: subTipo.field_name}, true);
+    };
+
+    function setCurrentActiveTab(name){
+      if(_.isUndefined(name)){
+        var currentStateName = tipoRouter.getCurrent().name;
+        if(_.startsWith(currentStateName, 'subTipo')){
+          name = $state.params.sub_tipo_field_name;
+        }else{
+          name = 'main';
+        }
+      }
+      _instance.activeTab = name;
+    }
+
+    setCurrentActiveTab();
 
   }
 

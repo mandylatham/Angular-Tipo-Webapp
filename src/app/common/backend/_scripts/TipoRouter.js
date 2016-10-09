@@ -10,6 +10,8 @@
 
     var _stateChanging = false;
 
+    var _stickyState = {};
+
     function isStateChanging(){
       return _stateChanging;
     }
@@ -35,9 +37,9 @@
       return $state.go($state.current, reloadFlagParameters, {reload: true});
     }
 
-    function to(state, reload, parameters){
-      var stateOptions = angular.isDefined(reload) ? {reload: reload} : {};
-      stateOptions.inherit = false;
+    function to(state, reload, parameters, inherit){
+      var stateOptions = angular.isDefined(reload) ? {reload: reload} : {reload: state};
+      stateOptions.inherit = Boolean(inherit);
       return $state.go(state, parameters, stateOptions);
     }
 
@@ -80,6 +82,20 @@
       return $state.go('tipoEdit', parameters, stateOptions);
     }
 
+    function recordSticky(){
+      _stickyState.name = getCurrent().name;
+      _stickyState.params = angular.copy($state.params);
+    }
+
+    function toStickyAndReset(){
+      to(_stickyState.name, true, _stickyState.params, false);
+      _stickyState = {};
+    }
+
+    function stickyExists(){
+      return !_.isEmpty(_stickyState);
+    }
+
     function toRegisterUser(parameters){
       var stateOptions = {reload: 'registerUser'};
       parameters = parameters || {};
@@ -99,6 +115,9 @@
       toTipoCreate: toTipoCreate,
       toTipoView: toTipoView,
       toTipoEdit: toTipoEdit,
+      recordSticky: recordSticky,
+      toStickyAndReset: toStickyAndReset,
+      stickyExists: stickyExists,
       toRegisterUser: toRegisterUser
     };
 

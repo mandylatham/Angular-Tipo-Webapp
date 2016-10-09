@@ -20,9 +20,12 @@
       tipoRouter.startStateChange();
       var data = {};
       tipoManipulationService.extractDataFromMergedDefinition(_instance.tipoDefinition, data);
-      console.log(angular.toJson(data));
       tipoInstanceDataService.updateOne(tipo_name, data, tipo_id).then(function(result){
-        tipoRouter.toTipoView(tipo_name, tipo_id);
+        if(tipoRouter.stickyExists()){
+          tipoRouter.toStickyAndReset();
+        }else{
+          tipoRouter.toTipoView(tipo_name, tipo_id);
+        }
       });
     };
 

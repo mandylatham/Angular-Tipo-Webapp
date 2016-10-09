@@ -76,6 +76,8 @@
         });
       }
       if(currentRoot.tipo_fields){
+        var subTipos = [];
+        currentRoot._ui = currentRoot._ui || {};
         _.each(currentRoot.tipo_fields, function(tipo_field){
           tipo_field._ui = tipo_field._ui || {};
           var fieldName = tipo_field.field_name;
@@ -94,16 +96,24 @@
             }else if(parts[0] === 'Tipo'){
               tipo_field._ui.isTipoRelationship = true;
               tipo_field._ui.relatedTipo = parts[1];
-              var relatedTipoDefinition = _.cloneDeep(tipoRegistry.get(parts[1]));
-              tipo_field.key_field = getPrimaryKey(relatedTipoDefinition);
-              tipo_field.label_field = getMeaningfulKey(relatedTipoDefinition);
-              if(tipo_field.relationship_type === 'embed'){
-                tipo_field._ui.isGroup = true;
-                tipo_field.tipo_fields = relatedTipoDefinition.tipo_fields;
+              if(tipo_field.show_in_tab){
+                // should be a sub tipo
+                subTipos.push(tipo_field);
+              }else{
+                var relatedTipoDefinition = _.cloneDeep(tipoRegistry.get(parts[1]));
+                tipo_field.key_field = getPrimaryKey(relatedTipoDefinition);
+                tipo_field.label_field = getMeaningfulKey(relatedTipoDefinition);
+                if(tipo_field.relationship_type === 'embed'){
+                  tipo_field._ui.isGroup = true;
+                  tipo_field.tipo_fields = relatedTipoDefinition.tipo_fields;
+                }else{
+                  tipo_field._ui.isSimple = true;
+                }
               }
             }
           }else{
             // Only check for field templates for simple fields as of now
+            tipo_field._ui.isSimple = true;
             var editTemplate = tipo_field.edit_view;
             if(!_.isUndefined(editTemplate)){
               editTemplate = resolveTemplateUrl(editTemplate);
@@ -111,6 +121,10 @@
             }
           }
         });
+        if(!_.isEmpty(subTipos)){
+          _.sortBy(subTipos, 'display_name');
+          currentRoot._ui.subTipos = subTipos;
+        }
       }
     }
 
@@ -242,7 +256,7 @@
                 }
               }
             }
-            if(isValidValue(tipoData[fieldKey]) && field._hadValueOriginally){
+            if(!isValidValue(tipoData[fieldKey]) && field._hadValueOriginally){
               tipoData[fieldKey] = null;
             }
           }
@@ -392,6 +406,24 @@
       return tipo;
     }
 
+    function extractContextualData(tipoDefinition, subTipoDefinition){
+      var parentTipoName = tipoDefinition.tipo_meta.tipo_name;
+      var keyField = getPrimaryKey(tipoDefinition);
+      var labelField = getMeaningfulKey(tipoDefinition);
+      var associationField = _.find(subTipoDefinition.tipo_fields, function(each){
+        return each.field_type === 'Tipo.' + parentTipoName;
+      });
+      var contextualData = {};
+      if(_.isUndefined(labelField)){
+        contextualData[associationField.field_name] = keyField._value.key;
+      }else{
+        contextualData[associationField.field_name] = {};
+        contextualData[associationField.field_name][keyField.field_name] = keyField._value.key;
+        contextualData[associationField.field_name][labelField.field_name] = labelField._value.key;
+      }
+      return contextualData;
+    }
+
     // Expose the functions that need to be consumed from outside
     this.mapDefinitionToUI = mapDefinitionToUI;
     this.expandFieldHierarchy = expandFieldHierarchy;
@@ -404,6 +436,7 @@
     this.getMeaningfulKey = getMeaningfulKey;
     this.resolveTemplateUrl = resolveTemplateUrl;
     this.cloneInstance = cloneInstance;
+    this.extractContextualData = extractContextualData;
 
   }
 

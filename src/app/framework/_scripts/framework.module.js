@@ -27,7 +27,7 @@
 
     var createState = {
       name: 'tipoCreate',
-      url: '/tipo/{tipo_name}/new?copyFrom',
+      url: '/tipo/{tipo_name}/new?copyFrom&data',
       parent: 'layout',
       resolve: /*@ngInject*/
       {
@@ -38,6 +38,9 @@
               delete tipo.tipo_id;
               return tipo;
             });
+          }else if($stateParams.data){
+            var tipo = angular.fromJson(decodeURIComponent($stateParams.data));
+            return tipo;
           }else{
             return undefined;
           }
@@ -97,11 +100,38 @@
       }
     };
 
+    var subTipoListState = {
+      name: 'subTipoListState',
+      url: '/{sub_tipo_field_name}',
+      parent: viewState,
+      resolve: /*@ngInject*/
+      {
+        subTipos: function(tipoDefinition, tipoInstanceDataService, $stateParams){
+          var subTipoFieldName = $stateParams.sub_tipo_field_name;
+          var subTipoField = _.find(tipoDefinition.tipo_fields, {field_name: subTipoFieldName});
+          return tipoInstanceDataService.search(subTipoField._ui.relatedTipo);
+        },
+        subTipoDefinition: function(tipoDefinition, tipoRegistry, tipoManipulationService, $stateParams) {
+          var subTipoFieldName = $stateParams.sub_tipo_field_name;
+          var subTipoField = _.find(tipoDefinition.tipo_fields, {field_name: subTipoFieldName});
+          return tipoRegistry.get(subTipoField._ui.relatedTipo);
+        },
+      },
+      views: {
+        'child': {
+          templateUrl: 'framework/_views/sub-tipo-list-root.tpl.html',
+          controller: 'SubTipoListRootController',
+          controllerAs: 'tipoRootController'
+        }
+      }
+    };
+
     stateProvider
       .state(listState)
       .state(createState)
       .state(viewState)
-      .state(editState);
+      .state(editState)
+      .state(subTipoListState);
   }
 
   function configureModule(stateProvider) {

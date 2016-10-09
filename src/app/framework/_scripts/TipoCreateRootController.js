@@ -22,7 +22,11 @@
       var data = {};
       tipoManipulationService.extractDataFromMergedDefinition(_instance.tipoDefinition, data);
       tipoInstanceDataService.upsertAll(tipo_name, [data]).then(function(result){
-        tipoRouter.toTipoView(tipo_name, result[0].tipo_id);
+        if(tipoRouter.stickyExists()){
+          tipoRouter.toStickyAndReset();
+        }else{
+          tipoRouter.toTipoView(tipo_name, result[0].tipo_id);
+        }
       });
     };
 
@@ -31,7 +35,11 @@
     };
 
     _instance.cancel = function(){
-      _instance.toList();
+      if(tipoRouter.stickyExists()){
+        tipoRouter.toStickyAndReset();
+      }else{
+        _instance.toList();
+      }
     };
 
   }
