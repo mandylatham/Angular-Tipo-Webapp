@@ -78,6 +78,14 @@
       if(currentRoot.tipo_fields){
         var subTipos = [];
         currentRoot._ui = currentRoot._ui || {};
+        // sort the fields by sequence
+        currentRoot.tipo_fields = _.sortBy(currentRoot.tipo_fields, function(each){
+          if(each.sequence){
+            return parseFloat(each.sequence, 10);
+          }else{
+            return 999;
+          }
+        });
         _.each(currentRoot.tipo_fields, function(tipo_field){
           tipo_field._ui = tipo_field._ui || {};
           var fieldName = tipo_field.field_name;
@@ -185,6 +193,17 @@
           }
           else if(isGroup){
             if(isArray){
+              // special sorting of tipo_fields so that the user can easily see how his order affects display
+              if(fieldKey === 'tipo_fields'){
+                fieldValue = _.sortBy(fieldValue, function(each){
+                  if(each.sequence){
+                    return parseFloat(each.sequence, 10);
+                  }else{
+                    return 999;
+                  }
+                });
+                tipoData[fieldKey] = fieldValue;
+              }
               _.each(fieldValue, function(item){
                 var itemField = generateGroupItem(field);
                 if(item._ARRAY_META){
