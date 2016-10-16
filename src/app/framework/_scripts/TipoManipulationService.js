@@ -409,7 +409,7 @@
 
     function getPrimaryKey(tipoDefinition){
       return _.find(tipoDefinition.tipo_fields, function(each){
-        return Boolean(each.primary_key);
+        return each.field_name === 'tipo_id';
       });
     }
 

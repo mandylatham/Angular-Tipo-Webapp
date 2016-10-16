@@ -17,7 +17,7 @@ var pathMappings = [
   {
     path: '/dev',
     //url: 'http://localhost:9001'
-    url: 'https://74oj0xr2l2.execute-api.us-east-1.amazonaws.com'
+    url: 'https://k2lajprh2f.execute-api.us-east-1.amazonaws.com'
   }
 ];
 

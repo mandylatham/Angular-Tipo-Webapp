@@ -41,7 +41,7 @@
     <md-divider></md-divider>
   </div>
   <div class="data" flex layout-padding layout="row" layout-wrap layout-align="start start" ng-hide="group._ui.collapsed" ng-if="!group._ui.isArray">
-    <tp:field-container mode="{{mode}}" field="groupField" ng-repeat="groupField in group.tipo_fields" ng-if="!groupField.hidden && (mode === 'edit' || groupField._value)"/>
+    <tp:field-container mode="{{mode}}" field="groupField" ng-repeat="groupField in group.tipo_fields" ng-if="!groupField.hidden && !groupField._ui.isGroup && (mode === 'edit' || groupField._value)"/>
   </div>
   <div class="data" style="margin-top: 10px;" ng-hide="group._ui.collapsed" ng-if="group._ui.isArray">
     <h3 class="md-subhead no-value" ng-if="!(group._items | filter: {_ui: {deleted: '!'}}).length">
