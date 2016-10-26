@@ -46,7 +46,11 @@
           };
 
           scope.lookup = function(text){
-            searchCriteria.tipo_filter = label_field + ' begins_with(<<' + text + '>>)';
+            if(!_.isEmpty(text)){
+              searchCriteria.tipo_filter = 'begins_with(' + label_field + ', \\"' + text + '\\")';
+            }else{
+              delete searchCriteria.tipo_filter;
+            }
             return tipoInstanceDataService.search(tipo_name, searchCriteria).then(function(results){
               return _.map(results, function(each){
                 return {
