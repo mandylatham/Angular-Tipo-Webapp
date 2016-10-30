@@ -1,7 +1,7 @@
 <div class="tp-list">
   <div class="fluid-row-container">
     <div layout="row" ng-repeat="tipo in tipoRootController.tiposWithDefinition" class="fluid-row" md-whiteframe="2">
-      <div flex layout="row" layout-padding layout-wrap layout-align="start start" class="data">
+      <div flex layout="row" layout-padding layout-wrap layout-align="start start" class="data pointer" ng-class="{'selected': tipo.selected}" ng-click="tipo.selected = !tipo.selected">
         <tp:field-container field="field" ng-if="!field._ui.isGroup && !field.hidden && field._value" ng-repeat="field in tipo.value.tipo_fields"/>
       </div>
       <div flex="none" layout="column" layout-align="center center" class="actions bg">

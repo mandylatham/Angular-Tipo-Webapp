@@ -58,6 +58,35 @@
       return getDocumentResource(tipo_name, id).doPUT(tipo);
     };
 
+    _instance.performSingleAction = function(tipo_name, tipo_id, action, additional_tipo_name, additional_tipo){
+      var tipo = {};
+      if(!_.isUndefined(additional_tipo_name)){
+        tipo = {
+          tipo_name: additional_tipo_name,
+          data: additional_tipo
+        };
+      }
+      return getDocumentResource(tipo_name, tipo_id).doPUT(tipo, undefined, {tipo_action: action});
+    };
+
+    _instance.performBulkAction = function(tipo_name, action, selected_tipo_ids, additional_tipo_name, additional_tipo){
+      var tipos = _.map(selected_tipo_ids, function(each){
+        return {
+          tipo_name: tipo_name,
+          data: {
+            tipo_id: each
+          }
+        };
+      });
+      if(!_.isUndefined(additional_tipo_name)){
+        tipos.push({
+          tipo_name: additional_tipo_name,
+          data: additional_tipo
+        });
+      }
+      return getCollectionResource(tipo_name).doPUT(tipos, undefined, {tipo_action: action});
+    };
+
     _instance.deleteOne = function(tipo_name, id){
       return getDocumentResource(tipo_name, id).remove();
     };

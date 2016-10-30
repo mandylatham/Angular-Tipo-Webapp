@@ -3,6 +3,7 @@
     <span ng-if="isSingle && isSelfField">
       <span ng-switch="field.field_type">
         <span ng-switch-when="date_time">{{field._value.label}}</span>
+        <span ng-switch-when="longstring" class="preformatted-text">{{field._value.label}}</span>
         <span ng-switch-default>{{field._value.label}}</span>
       </span>
     </span>

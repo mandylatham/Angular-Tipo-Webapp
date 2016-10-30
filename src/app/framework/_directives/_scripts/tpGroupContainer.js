@@ -8,6 +8,14 @@
 
     this.mode = $scope.mode;
 
+    $scope.maximize = function(){
+      $scope.fullscreen = true;
+    };
+
+    $scope.restore = function(){
+      $scope.fullscreen = false;
+    };
+
     $scope.hide = function() {
       $mdDialog.hide();
     };
@@ -82,7 +90,7 @@
             newScope.definition = definition;
             newScope.mode = mode;
             $mdDialog.show({
-              templateUrl: 'framework/generic/_views/view-dialog.tpl.html',
+              templateUrl: 'framework/_directives/_views/tp-view-dialog.tpl.html',
               controller: TipoGroupDialogController,
               scope: newScope,
               skipHide: true,

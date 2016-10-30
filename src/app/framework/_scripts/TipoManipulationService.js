@@ -5,25 +5,18 @@
   function TipoManipulationService(tipoRegistry) {
 
     function mapDefinitionToUI(definition){
-      if(_.isUndefined(definition.tipo_meta)){
-        definition = {
-          tipo_meta: definition
-        };
-      }
-      
-      var meta = definition.tipo_meta;
 
       if(_.isUndefined(definition._ui)){
-        var listTemplate = meta.tipo_list_view || 'framework.generic.list-fluid';
-        var viewTemplate = meta.tipo_detail_view || 'framework.generic.view';
-        var createTemplate = meta.tipo_create_view || 'framework.generic.create';
-        var editTemplate = meta.tipo_edit_view || 'framework.generic.edit';
+        var listTemplate = _.get(definition, 'tipo_list.ui_template_url') || 'framework.generic.list-fluid';
+        var detailTemplate = _.get(definition, 'tipo_detail.ui_template_url') || 'framework.generic.view';
+        var createTemplate = _.get(definition, 'tipo_create.ui_template_url') || 'framework.generic.create';
+        var editTemplate = _.get(definition, 'tipo_edit.ui_template_url') || 'framework.generic.edit';
 
         definition._ui = {
           listTemplate: listTemplate,
           listTemplateUrl: resolveTemplateUrl(listTemplate),
-          viewTemplate: viewTemplate,
-          viewTemplateUrl: resolveTemplateUrl(viewTemplate),
+          detailTemplate: detailTemplate,
+          detailTemplateUrl: resolveTemplateUrl(detailTemplate),
           createTemplate: createTemplate,
           createTemplateUrl: resolveTemplateUrl(createTemplate),
           editTemplate: editTemplate,

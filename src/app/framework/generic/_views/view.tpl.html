@@ -1,15 +1,8 @@
-<div flex layout="column" layout-lg="row" layout-gt-lg="row" layout-align="start stretch">
-  <md-card class="tp-detail page" flex flex-order="2" flex-order-lg="1" flex-order-gt-lg="1">
-    <md-nav-bar aria-label="subTipoNavigation" ng-if="tipoRootController.tipoDefinition._ui.subTipos" md-selected-nav-item="tipoRootController.activeTab">
-      <md-nav-item md-nav-click="tipoRootController.toMainView()" name="main">Basic</md-nav-item>
-      <md-nav-item ng-repeat="subTipo in tipoRootController.tipoDefinition._ui.subTipos" md-nav-click="tipoRootController.toSubTipoList(subTipo)" name="{{subTipo.field_name}}">{{subTipo.display_name}}</md-nav-item>
-    </md-nav-bar>
-    <tp:view mode="view" definition="tipoRootController.tipoDefinition" ng-if="tipoRootController.activeTab === 'main'"/>
-    <div ng-if="tipoRootController.activeTab !== 'main'" ui-view="child"></div>
-  </md-card>
-  <div class="tp-actions" flex="none" layout="row" layout-lg="column" layout-gt-lg="column" flex-order="1" flex-order-lg="2" flex-order-gt-lg="2" ng-if="tipoRootController.activeTab === 'main'">
-    <div class="filler" show-lg show-gt-lg></div>
-    <md-button md-theme="reverse" class="md-raised md-primary" ng-click="tipoRootController.edit()">Edit</md-button>
-    <md-button class="md-primary" ng-click="tipoRootController.delete()">Delete</md-button>
-  </div>
+<div>
+  <md-nav-bar aria-label="subTipoNavigation" ng-if="tipoRootController.tipoDefinition._ui.subTipos" md-selected-nav-item="tipoRootController.activeTab">
+    <md-nav-item md-nav-click="tipoRootController.toMainView()" name="main">Basic</md-nav-item>
+    <md-nav-item ng-repeat="subTipo in tipoRootController.tipoDefinition._ui.subTipos" md-nav-click="tipoRootController.toSubTipoList(subTipo)" name="{{subTipo.field_name}}">{{subTipo.display_name}}</md-nav-item>
+  </md-nav-bar>
+  <tp:view mode="view" definition="tipoRootController.tipoDefinition" ng-if="tipoRootController.activeTab === 'main'"/>
+  <div ng-if="tipoRootController.activeTab !== 'main'" ui-view="child"></div>
 </div>

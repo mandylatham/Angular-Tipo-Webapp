@@ -1,10 +1,15 @@
 <div flex layout="column">
   <md-subheader class="md-primary">
-    <h2 layout="row" layout-align="start start" layout-wrap>
+    <div layout="row" layout-align="start start">
+      <h2 layout="row" layout-align="start start" layout-wrap flex>
+        <div>
+          <span>{{tipoRootController.tipoDefinition.tipo_meta.display_name}}</span>
+        </div>
+      </h2>
       <div>
-        <span>{{tipoRootController.tipoDefinition.tipo_meta.display_name}}</span>
+        <tp:actions mode="list" definition="tipoRootController.tipoDefinition" tipos="tipoRootController.tiposWithDefinition"/>
       </div>
-    </h2>
+    </div>
   </md-subheader>
   <md-button md-theme="reverse" class="md-fab md-primary main" aria-label="Create new" ng-click="tipoRootController.createNew()">
     <md-tooltip md-direction="left">Create new</md-tooltip>
@@ -13,5 +18,10 @@
   <div ng-if="!tipoRootController.hasTipos" flex layout="row" layout-align="center center">
     <tp-no-content message="No records found" />
   </div>
-  <ng-include src="tipoRootController.tipoDefinition._ui.listTemplateUrl" ng-if="tipoRootController.hasTipos" tp-include-replace/>
+  <div ng-if="tipoRootController.hasTipos">
+    <div layout-padding>
+      <tp:filters definition="tipoRootController.tipoDefinition" />
+    </div>
+    <ng-include src="tipoRootController.tipoDefinition._ui.listTemplateUrl" ng-if="tipoRootController.hasTipos" tp-include-replace/>
+  </div>
 </div>

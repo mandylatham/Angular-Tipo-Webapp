@@ -1,0 +1,31 @@
+<md-dialog ng-cloak ng-class="{'fullscreen': fullscreen}">
+  <md-toolbar class="tipo-toolbar">
+    <div class="md-toolbar-tools">
+      <h2>{{definition.tipo_meta.display_name}}</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="maximize()" ng-if="!fullscreen">
+        <md-icon aria-label="Maximize">crop_square</md-icon>
+      </md-button>
+      <md-button class="md-icon-button" ng-click="restore()" ng-if="fullscreen">
+        <md-icon aria-label="Restore size">filter_none</md-icon>
+      </md-button>
+      <md-button class="md-icon-button" ng-click="cancel()">
+        <md-icon aria-label="Close dialog">close</md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <div class="tp-detail dialog">
+      <tp:view mode="edit" definition="definition" />
+    </div>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+    <span flex></span>
+    <md-button ng-click="cancel()">
+     Cancel
+    </md-button>
+    <md-button md-theme="reverse" class="md-raised md-primary" ng-click="finish()">
+     Finish
+    </md-button>
+  </md-dialog-actions>
+</md-dialog>

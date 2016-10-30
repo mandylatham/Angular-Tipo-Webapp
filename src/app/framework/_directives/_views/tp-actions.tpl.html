@@ -1,0 +1,13 @@
+<div>
+  <md-menu ng-if="actions.length > 0">
+    <md-button class="md-raised" ng-click="openMenu($mdOpenMenu, $event)" aria-label="Actions">
+      <span ng-if="mode === 'list'">Bulk Actions <md-icon md-menu-origin>expand_more</md-icon></span>
+      <span ng-if="mode === 'view'">Actions <md-icon md-menu-origin>expand_more</md-icon></span>
+    </md-button>
+    <md-menu-content width="4">
+      <md-menu-item ng-repeat="action in actions">
+        <md-button ng-click="performAction(action)">{{action.label}}</md-button>
+      </md-menu-item>
+    </md-menu-content>
+  </md-menu>
+</div>

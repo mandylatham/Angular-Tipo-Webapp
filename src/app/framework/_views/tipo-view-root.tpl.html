@@ -1,14 +1,23 @@
 <div flex layout="column">
   <md-subheader class="md-primary tp-page-heading">
-    <h2 layout="row" layout-align="start start" layout-wrap>
+    <div layout="row" layout-align="start start">
+      <h2 layout="row" layout-align="start start" layout-wrap flex>
+        <div>
+          <a href="" class="explicit" ng-click="tipoRootController.toList()">{{tipoRootController.tipoDefinition.tipo_meta.display_name}}</a>
+          <span class="separator">></span>
+        </div>
+        <div>
+          <a href="" class="explicit" ng-click="tipoRootController.toView()">{{tipoRootController.tipo.tipo_id}}</a>
+        </div>
+      </h2>
       <div>
-        <a href="" class="explicit" ng-click="tipoRootController.toList()">{{tipoRootController.tipoDefinition.tipo_meta.display_name}}</a>
-        <span class="separator">></span>
+        <md-button class="md-primary" ng-click="tipoRootController.delete()">Delete</md-button>
+        <md-button md-theme="reverse" class="md-raised md-primary" ng-click="tipoRootController.edit()">Edit</md-button>
       </div>
-      <div>
-        <a href="" class="explicit" ng-click="tipoRootController.toView()">{{tipoRootController.tipo.tipo_id}}</a>
-      </div>
-    </h2>
+      <tp:actions definition="tipoRootController.tipoDefinition" tipos="tipoRootController.tipo"/>
+    </div>
   </md-subheader>
-  <ng-include src="tipoRootController.tipoDefinition._ui.viewTemplateUrl" tp-include-replace/>
+  <md-card class="tp-detail page">
+    <ng-include src="tipoRootController.tipoDefinition._ui.detailTemplateUrl" tp-include-replace/>
+  </md-card>
 </div>
