@@ -7,6 +7,16 @@
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
+    <!-- build:js(app) _scripts/bootstrap.js -->
+    <script src="_scripts/bootstrap.js"></script>
+    <!-- endbuild -->
+
+    <!-- build:js(app) _scripts/pace.js -->
+    <script src="_scripts/non-bower-managed/pace.js"></script>
+    <!-- endbuild -->
+
+    <link href="_styles/pace.css" rel="stylesheet" />
+
     <!-- build:css(app) _styles/main.css -->
     <link rel="stylesheet" type="text/css" media="screen" href="_styles/main.css">
     <!-- endbuild -->
@@ -17,7 +27,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <meta name='google-signin-client_id' content='${googleClientId}'/>
     <script src='https://apis.google.com/js/platform.js' async defer></script>
-    
+
   </head>
 
   <body id="body" ng-app="tipo.main" ng-cloak>
