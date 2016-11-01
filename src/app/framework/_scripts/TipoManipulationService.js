@@ -20,7 +20,8 @@
           createTemplate: createTemplate,
           createTemplateUrl: resolveTemplateUrl(createTemplate),
           editTemplate: editTemplate,
-          editTemplateUrl: resolveTemplateUrl(editTemplate)
+          editTemplateUrl: resolveTemplateUrl(editTemplate),
+          isDefinition: true
         };
       }
 
@@ -436,6 +437,26 @@
       return contextualData;
     }
 
+    function expandFilterExpression(filterExpression, tipo, context){
+      var tipoData = {};
+      if(!_.isUndefined(tipo)){
+        if(_.get(tipo, '_ui.isDefinition')){
+          extractDataFromMergedDefinition(tipo, tipoData);
+        }else{
+          tipoData = _.cloneDeep(tipo);
+        }
+        if(!_.isUndefined(context)){
+          if(context._ui){
+            var contextData = {};
+            extractDataFromMergedDefinition(context, contextData);
+            tipoData['this'] = contextData;
+          }
+        }
+        filterExpression = Mustache.render(filterExpression, tipoData);
+      }
+      return filterExpression;
+    }
+
     // Expose the functions that need to be consumed from outside
     this.mapDefinitionToUI = mapDefinitionToUI;
     this.expandFieldHierarchy = expandFieldHierarchy;
@@ -449,6 +470,7 @@
     this.resolveTemplateUrl = resolveTemplateUrl;
     this.cloneInstance = cloneInstance;
     this.extractContextualData = extractContextualData;
+    this.expandFilterExpression = expandFilterExpression;
 
   }
 

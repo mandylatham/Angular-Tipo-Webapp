@@ -8,7 +8,7 @@
       </span>
     </span>
     <span ng-if="isSingle && isTipoRef">
-      <a class="explicit" ui-sref="tipoView({tipo_name: field._ui.relatedTipo, tipo_id: field._value.key})">{{field._value.label}}</a>
+      <a class="explicit" ui-sref="tipoView({tipo_name: field._ui.relatedTipo, tipo_id: field._value.key})" ui-sref-opts="{reload: 'tipoView'}">{{field._value.label}}</a>
     </span>
     <span ng-if="isArray && isSelfField">
       <md-chips ng-model="field._value" readonly="'true'" class="tp-chips readonly">

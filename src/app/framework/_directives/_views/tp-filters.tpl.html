@@ -1,1 +1,17 @@
-<div>Filters for {{definition.tipo_meta.tipo_name}} will render here</div>
+<div class="tp-field">
+  <form ng-submit="search()" layout-wrap layout-align="start start" layout="row">
+    <md-input-container ng-if="filters.length > 0" class="auto-width" flex="15">
+      <label>Pre-defined filter</label>
+      <md-select ng-model="filter.selected" placeholder="Select">
+        <md-option ng-value="each" ng-repeat="each in filters">{{ each.name }}</md-option>
+      </md-select>
+    </md-input-container>
+    <md-input-container class="auto-width" flex>
+      <label>Filter expression</label>
+      <input ng-model="currentExpression" aria-label="Expression">
+    </md-input-container>
+    <md-button type="submit" md-theme="reverse" class="md-icon-button md-primary" aria-label="Search">
+      <md-icon>search</md-icon>
+    </md-button>
+  </form>
+</div>

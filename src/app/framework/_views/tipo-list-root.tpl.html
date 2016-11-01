@@ -15,13 +15,13 @@
     <md-tooltip md-direction="left">Create new</md-tooltip>
     <md-icon>create</md-icon>
   </md-button>
+  <div layout-padding>
+    <tp:filters definition="tipoRootController.tipoDefinition" />
+  </div>
   <div ng-if="!tipoRootController.hasTipos" flex layout="row" layout-align="center center">
     <tp-no-content message="No records found" />
   </div>
   <div ng-if="tipoRootController.hasTipos">
-    <div layout-padding>
-      <tp:filters definition="tipoRootController.tipoDefinition" />
-    </div>
     <ng-include src="tipoRootController.tipoDefinition._ui.listTemplateUrl" ng-if="tipoRootController.hasTipos" tp-include-replace/>
   </div>
 </div>

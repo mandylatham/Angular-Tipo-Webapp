@@ -5,15 +5,19 @@
   function registerStates(stateProvider) {
     var listState = {
       name: 'tipoList',
-      url: '/tipo/{tipo_name}',
+      url: '/tipo/{tipo_name}?filter',
       parent: 'layout',
       resolve: /*@ngInject*/
       {
         tipoDefinition: function(tipoDefinitions, tipoRegistry, tipoManipulationService, $stateParams) {
           return tipoRegistry.get($stateParams.tipo_name);
         },
-        tipos: function(tipoDefinition, tipoInstanceDataService, $stateParams){
-          return tipoInstanceDataService.search($stateParams.tipo_name);
+        tipos: function(tipoDefinition, tipoInstanceDataService, tipoManipulationService, $stateParams){
+          var filter = {};
+          if($stateParams.filter){
+            filter.tipo_filter = tipoManipulationService.expandFilterExpression($stateParams.filter);
+          }
+          return tipoInstanceDataService.search($stateParams.tipo_name, filter);
         }
       },
       views: {
@@ -106,10 +110,15 @@
       parent: viewState,
       resolve: /*@ngInject*/
       {
-        subTipos: function(tipoDefinition, tipoInstanceDataService, $stateParams){
+        subTipos: function(tipoDefinition, tipoInstanceDataService, tipoManipulationService, $stateParams){
           var subTipoFieldName = $stateParams.sub_tipo_field_name;
           var subTipoField = _.find(tipoDefinition.tipo_fields, {field_name: subTipoFieldName});
-          return tipoInstanceDataService.search(subTipoField._ui.relatedTipo);
+          var searchCriteria = {};
+          if(subTipoField.relationship_filter){
+            var filter = tipoManipulationService.expandFilterExpression(subTipoField.relationship_filter, tipoDefinition);
+            searchCriteria.tipo_filter = filter;
+          }
+          return tipoInstanceDataService.search(subTipoField._ui.relatedTipo, searchCriteria);
         },
         subTipoDefinition: function(tipoDefinition, tipoRegistry, tipoManipulationService, $stateParams) {
           var subTipoFieldName = $stateParams.sub_tipo_field_name;

@@ -216,6 +216,12 @@ module.exports = function (grunt) {
             cwd: '<%= config.directories.staging %>/_styles',
             src: ['**'],
             dest: '<%= config.directories.dist %>/_styles'
+          },
+          {
+            expand: true,
+            cwd: '<%= config.directories.source %>/_styles',
+            src: ['**/pace.css'],
+            dest: '<%= config.directories.dist %>/_styles'
           }
         ]
       }
