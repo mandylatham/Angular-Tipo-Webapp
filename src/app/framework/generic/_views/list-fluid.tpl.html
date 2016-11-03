@@ -1,16 +1,16 @@
 <div class="tp-list">
   <div class="fluid-row-container">
-    <div layout="row" ng-repeat="tipo in tipoRootController.tiposWithDefinition" class="fluid-row" md-whiteframe="2">
+    <div layout="row" ng-click="tipoRootController.toDetail(tipo.key)" ng-repeat="tipo in tipoRootController.tiposWithDefinition" class="fluid-row" md-whiteframe="2">
       <div flex layout="row" layout-padding layout-wrap layout-align="start start" class="data pointer" ng-class="{'selected': tipo.selected}" ng-click="tipo.selected = !tipo.selected">
         <tp:field-container field="field" ng-if="!field._ui.isGroup && !field.hidden && field._value" ng-repeat="field in tipo.value.tipo_fields"/>
       </div>
       <div flex="none" layout="column" layout-align="center center" class="actions bg">
         <md-button ng-click="tipoRootController.toDetail(tipo.key)" aria-label="View details">
-          <md-tooltip md-direction="left">View details</md-tooltip>
+          <md-tooltip md-direction="left">Details</md-tooltip>
           <md-icon>fullscreen</md-icon>
         </md-button>
-        <md-button ng-click="tipoRootController.clone(tipo.key)" aria-label="Clone" class="md-icon-button">
-          <md-tooltip md-direction="left">Clone into new</md-tooltip>
+        <md-button ng-click="tipoRootController.clone(tipo.key)" aria-label="Copy" class="md-icon-button">
+          <md-tooltip md-direction="left">Copy</md-tooltip>
           <md-icon>content_copy</md-icon>
         </md-button>
       </div>
