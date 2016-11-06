@@ -1,0 +1,30 @@
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-primary">
+
+                <!-- Panel including S3 object table -->
+                <div class="panel-body">
+                    <table class="table table-bordered table-hover table-striped" id="tb-s3objects">
+                        <thead>
+                            <tr>
+                                <th>Object</th>
+                                <th>Folder</th>
+                                <th>Last Modified</th>
+                                <th>Size</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-s3objects">
+                            <tr ng-repeat="rowContent in rows">
+                                <td>{{rowContent.Key}}</td>
+                                <td></td>
+                                <td>{{rowContent.LastModified}}</td>
+                                <td>{{rowContent.Size}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
