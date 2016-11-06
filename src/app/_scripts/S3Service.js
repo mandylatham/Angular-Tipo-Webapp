@@ -34,7 +34,7 @@
         }
     }
 
-    function go(config, completecb = null) {
+    function go(config, completecb) {
       scope.completecb = completecb;
       scope.params = { Bucket: config.Bucket, Prefix: config.Prefix, Delimiter: config.Delimiter };
       //$('#bucket-loader').addClass('fa-spin');

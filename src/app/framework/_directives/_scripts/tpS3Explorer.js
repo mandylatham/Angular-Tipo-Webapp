@@ -17,8 +17,17 @@
         templateUrl: 'framework/_directives/_views/tp-s3-explorer.tpl.html',
         link: function($scope, element, attrs) {
             s3Service.go(s3exp_config, function s3draw(data, complete) {
+                var rows = data.CommonPrefixes.map(function(prefix) {
+                    return {
+                        Key: prefix.Prefix,
+                        LastModified: null,
+                        Size: null
+                    };
+                });
+                rows = rows.concat(data.Contents);
+                
                 $scope.$apply(function () {
-                    $scope.rows = data.Contents;
+                    $scope.rows = rows;
                 });                
                 console.log($scope.rows);
             });
