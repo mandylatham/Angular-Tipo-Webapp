@@ -43,8 +43,7 @@
     "body-parser": "1.15.2 ",
     "uuid": "2.0.2",
     "jsonfile": "2.3.1",
-    "aws-sdk": "2.4.4",
-    "ng-grid": "2.0.1"
+    "aws-sdk": "2.4.4"
   },
   "engines": {
     "node": ">=0.10.0"

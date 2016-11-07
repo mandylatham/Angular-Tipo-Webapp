@@ -8,7 +8,8 @@
     'restangular',
     'LocalStorageModule',
     'ngMaterial',
-    'md.data.table'
+    'md.data.table',
+    'ui.grid'
   ]);
 
   module.config(function ($mdThemingProvider) {
