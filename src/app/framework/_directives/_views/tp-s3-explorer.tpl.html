@@ -4,27 +4,28 @@
             <div class="panel panel-primary">
 
                 <!-- Panel including S3 object table -->
-                <div id="grid1" ui-grid="gridOptions" class="gridStyle"></div>
-                <!--<div class="panel-body">
-                    <table class="table table-bordered table-hover table-striped" id="tb-s3objects">
-                        <thead>
-                            <tr>
-                                <th>Object</th>
-                                <th>Folder</th>
-                                <th>Last Modified</th>
-                                <th>Size</th>
-                            </tr>
+                <!--<div id="grid1" ui-grid="gridOptions" class="gridStyle"></div>-->
+                <md-data-table-container class="gridStyle">
+                    <table md-table md-row-select ng-model="selected" md-progress="promise">
+                        <thead md-head md-order="query.order">
+                        <tr md-row>
+                            <th md-column md-order-by="object">Object</th>
+                            <th md-column md-order-by="folder"><span>Folder</span></th>
+                            <th md-column md-date>Last Modified</th>
+                            <th md-column md-numeric>Size</th>
+                        </tr>
                         </thead>
-                        <tbody id="tbody-s3objects">
-                            <tr ng-repeat="rowContent in rows">
-                                <td>{{rowContent.Key}}</td>
-                                <td></td>
-                                <td>{{rowContent.LastModified}}</td>
-                                <td>{{rowContent.Size}}</td>
-                            </tr>
+                        <tbody md-body>
+                        <tr md-row md-auto-select ng-repeat="rowContent in rows" ng-click="selectObject(rowContent)">
+                            <td md-cell>{{rowContent.Key}}</td>
+                            <td md-cell></td>
+                            <td md-cell>{{rowContent.LastModified}}</td>
+                            <td md-cell>{{rowContent.Size}}</td>
+                        </tr>
                         </tbody>
                     </table>
-                </div>-->
+                </md-data-table-container
+                
             </div>
         </div>
     </div>

@@ -32,45 +32,45 @@
       };
       
       function controller($scope, s3Service) {
-        function renderObject(data) {
-            if (isfolder(data)) {
-                console.log("is folder: " + data);
-                return '<a data-s3="folder" data-prefix="' + data + '" href="' + object2hrefvirt(s3exp_config.Bucket, data) + '">' + prefix2folder(data) + '</a>';
-            } else {
-                console.log("not folder/this document: " + data);
-                return '<a data-s3="object" href="' + object2hrefvirt(s3exp_config.Bucket, data) + '">' + fullpath2filename(data) + '</a>';
-            }
+        function isfolder(path) {
+            return path.endsWith('/');
         }
 
-        $scope.gridOptions = {
-            enableRowSelection: true,
-            columnDefs: [
-                { 
-                    field: 'Key',
-                    cellTemplate: '<div class="ui-grid-cell-contents" >{{grid.getCellValue(row, col)}}</div>'
-                },
-                { 
-                    field: 'LastModified'
-                    //cellTemplate: ''
-                },
-                { 
-                    field: 'Size',
-                    //cellTemplate: ''
-                }
-            ]
+        $scope.selectObject = function(object) {
+            console.log('Selected object ' + object.Key);
+        }
+
+        $scope.selected = [];
+
+        $scope.query = {
+            order: 'name',
+            limit: 5,
+            page: 1
         };
-        $scope.gridOptions.data = [];
+
         s3Service.go(s3exp_config, function s3draw(data, complete) {
-            var rows = data.CommonPrefixes.map(function(prefix) {
+            var prefixes = data.CommonPrefixes.map(function(prefix) {
                 return {
                     Key: prefix.Prefix,
                     LastModified: null,
-                    Size: null
+                    Size: null,
+                    s3: 'folder',
+                    prefix: prefix.Prefix
                 };
             });
-            rows = rows.concat(data.Contents);
+            var objects = data.Contents.map(function(object) {
+                return {
+                    Key: object.Key,
+                    LastModified: object.LastModified,
+                    Size: object.Size,
+                    s3: 'object',
+                    prefix: null
+                };
+            });
+            var rows = prefixes.concat(data.Contents);
             $scope.$apply(function () {
-                $scope.gridOptions.data = rows;    
+                // $scope.gridOptions.data = rows;
+                $scope.rows = rows;    
             });                
             console.log($scope.rows);
         });
