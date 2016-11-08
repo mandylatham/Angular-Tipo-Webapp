@@ -110,7 +110,7 @@
               templateUrl: 'framework/_directives/_views/tp-lookup-dialog.tpl.html',
               controller: TipoLookupDialogController,
               scope: newScope,
-              skipHide: false,
+              skipHide: true,
               clickOutsideToClose: true,
               fullscreen: true
             });
