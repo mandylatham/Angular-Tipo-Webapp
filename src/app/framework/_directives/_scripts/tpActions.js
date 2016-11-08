@@ -97,7 +97,7 @@
           function performSingleAction(action){
             if(action.additionalTipo){
               var additionalTipo = action.additionalTipo;
-              var promise = openAdditionalTipoDialog(additionalTipo);
+              var promise = openAdditionalTipoDialog(additionalTipo, action);
               promise.then(function(tipoData){
                 tipoRouter.startStateChange();
                 tipoInstanceDataService.performSingleAction(tipo_name, tipo_id, action.name, additionalTipo, tipoData)
@@ -118,7 +118,7 @@
             if(!_.isEmpty(selected_tipo_ids)){
               if(action.additionalTipo){
                 var additionalTipo = action.additionalTipo;
-                var promise = openAdditionalTipoDialog(additionalTipo);
+                var promise = openAdditionalTipoDialog(additionalTipo, action);
                 promise.then(function(tipoData){
                   tipoRouter.startStateChange();
                   tipoInstanceDataService.performBulkAction(tipo_name, action.name, selected_tipo_ids, additionalTipo, tipoData)
@@ -133,8 +133,9 @@
             }
           }
 
-          function openAdditionalTipoDialog(tipo_name){
+          function openAdditionalTipoDialog(tipo_name, action){
             var newScope = scope.$new();
+            newScope.tipoAction = action;
             var promise = $mdDialog.show({
               templateUrl: 'framework/_directives/_views/tp-action-dialog.tpl.html',
               controller: TipoActionDialogController,
