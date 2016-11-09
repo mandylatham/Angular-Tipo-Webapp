@@ -4,9 +4,13 @@
 
   var module = angular.module('tipo.framework');
 
-  return module.directive('tpLookup', function (tipoInstanceDataService) {
+  return module.directive('tpLookup', function (
+    tipoInstanceDataService,
+    tipoManipulationService) {
       return {
         scope: {
+          root: '=',
+          context: '=',
           field: '='
         },
         restrict: 'EA',
@@ -23,6 +27,11 @@
             fieldTemplate = 'framework/_directives/_views/tp-lookup-single.tpl.html';
           }
           scope.fieldTemplate = fieldTemplate;
+
+          var baseFilter;
+          if(!_.isUndefined(field.relationship_filter)){
+            baseFilter = tipoManipulationService.expandFilterExpression(field.relationship_filter, scope.root, scope.context);
+          }
 
           var tipo_name = field._ui.relatedTipo;
           var label_field;
@@ -46,10 +55,18 @@
           };
 
           scope.lookup = function(text){
-            if(!_.isEmpty(text)){
-              searchCriteria.tipo_filter = 'begins_with(' + label_field + ', \\"' + text + '\\")';
+            if(_.isUndefined(baseFilter)){
+              if(!_.isEmpty(text)){
+                searchCriteria.tipo_filter = 'begins_with(' + label_field + ', \\"' + text + '\\")';
+              }else{
+                delete searchCriteria.tipo_filter;
+              }
             }else{
-              delete searchCriteria.tipo_filter;
+              if(!_.isEmpty(text)){
+                searchCriteria.tipo_filter = baseFilter + ' and begins_with(' + label_field + ', \\"' + text + '\\")';
+              }else{
+                searchCriteria.tipo_filter = baseFilter;
+              }
             }
             return tipoInstanceDataService.search(tipo_name, searchCriteria).then(function(results){
               return _.map(results, function(each){

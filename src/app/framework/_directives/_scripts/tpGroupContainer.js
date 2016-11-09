@@ -63,7 +63,9 @@
     $mdDialog) {
       return {
         scope: {
+          root: '=',
           group: '=',
+          context: '=',
           mode: '@?'
         },
         require: '?^tpView',
@@ -104,6 +106,8 @@
               target = scope.group;
             }
             var newScope = scope.$new();
+            newScope.root = scope.root;
+            newScope.context = scope.context;
             newScope.definition = scope.group;
             newScope.target = target;
             $mdDialog.show({

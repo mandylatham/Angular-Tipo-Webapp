@@ -49,7 +49,7 @@
     </h3>
     <div layout="row" ng-repeat="groupItem in group._items | filter: {_ui: {deleted: '!'}}" md-whiteframe="2" class="fluid-row">
       <div flex layout="row" ng-click="!(mode === 'edit') && !group.disable_expansion && showDetail(groupItem)" layout-padding layout-wrap layout-align="start start" class="data">
-        <tp:field-container mode="{{mode}}" field="itemField" ng-repeat="itemField in groupItem.tipo_fields" ng-if="itemField.short_display && !itemField.hidden && (mode === 'edit' || itemField._value)" />
+        <tp:field-container mode="{{mode}}" field="itemField" ng-repeat="itemField in groupItem.tipo_fields" ng-if="!itemField._ui.isGroup && itemField.short_display && !itemField.hidden && (mode === 'edit' || itemField._value)" />
       </div>
       <div flex="none" layout="column" layout-align="center center" class="actions bg" ng-if="!(mode === 'edit') && !group.disable_expansion">
         <md-button ng-click="showDetail(groupItem)" ng-if="!(mode === 'edit') && !group.disable_expansion" aria-label="View details">

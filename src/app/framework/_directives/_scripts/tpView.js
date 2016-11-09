@@ -19,6 +19,7 @@
   return module.directive('tpView', function ($mdDialog, tipoManipulationService) {
       return {
         scope: {
+          root: '=',
           definition: '=',
           mode: '@?'
         },
