@@ -5,23 +5,13 @@
 
                 <!-- Panel including S3 object table -->
                 <!--<div id="grid1" ui-grid="gridOptions" class="gridStyle"></div>-->
-                <md-toolbar class="md-table-toolbar md-default">
-                    <div class="md-toolbar-tools">
-                        AWS S3 Explorer&nbsp;
-                    </div>
-                    <!-- Bucket selection -->
-                    <!--<div class="btn pull-left" id="bucket">
-                        <i id="bucket-chooser" style="cursor: pointer;" class="fa fa-bitbucket fa-2x" title="Switch to a different S3 Bucket"></i>
-                    </div>-->
-                    <!-- Bucket breadcrumbs -->
-                    <div>
-                        <ul id="breadcrumb" layout="row" layout-align="center center">
-                            <li ng-repeat="state in $navigationState.currentState.path">>
-                                <a href="#">&lt;bucket&gt;</a>
-                            </li>
-                        </ul>
-                    </div>
-                </md-toolbar>
+                <div>
+                    <ul id="breadcrumb" layout="row" layout-align="center center">
+                        <li ng-repeat="breadcrumb in breadcrumbs" ng-click="selectBreakcrumb(breadcrumb)">
+                            <a>{{breadcrumb.name}}</a>
+                        </li>
+                    </ul>
+                </div>
                 
                 <md-data-table-container class="gridStyle">
                     <table md-table md-row-select ng-model="selected" md-progress="promise">

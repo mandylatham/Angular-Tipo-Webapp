@@ -42,17 +42,33 @@
             console.log('Prefix: ' + data.params.Prefix);
             // The parts array will contain the bucket name followed by all the
             // segments of the prefix, exploded out as separate strings.
-            var parts = [data.params.Bucket];
+            var parts = [];
             if (data.params.Prefix) {
-                parts.push(data.params.Prefix.endsWith('/') ?
+                parts = data.params.Prefix.endsWith('/') ?
                             data.params.Prefix.slice(0, -1).split('/') :
-                            data.params.Prefix.split('/'));
+                            data.params.Prefix.split('/');
             }
 
+            var buildprefix = '';
+            var breadcrumbs = [{
+                name: data.params.Bucket,
+                prefix: buildprefix
+            }];
+           
+            for (var i = 0; i < parts.length; i++) {
+                var part = parts[i];
+                buildprefix += part + '/';
+                breadcrumbs.push({
+                    name: part,
+                    prefix: buildprefix
+                });
+            }
+
+            return breadcrumbs;
         }
         
         function s3draw(data, complete) {
-            folder2breadcrumbs(data);
+            var breadcrumbs = folder2breadcrumbs(data);
             
             var prefixes = data.CommonPrefixes.map(function(prefix) {
                 return {
@@ -77,7 +93,8 @@
             var rows = prefixes.concat(objects);
             console.log(rows);
             $scope.$apply(function () {
-                $scope.rows = rows;    
+                $scope.rows = rows; 
+                $scope.breadcrumbs = breadcrumbs;
             });
         }
         
@@ -94,8 +111,12 @@
             }
         }
 
-        $scope.selected = [];
+        $scope.selectBreakcrumb = function(breakcrumb) {
+            var config = {Bucket: s3exp_config.Bucket, Prefix: breakcrumb.prefix, Delimiter: s3exp_config.Delimiter};
+            s3Service.go(config, s3draw);
+        }
 
+        $scope.selected = [];
         $scope.query = {
             order: 'name',
             limit: 5,

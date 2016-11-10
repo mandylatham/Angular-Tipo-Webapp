@@ -29,7 +29,7 @@
             var cbScope = {
                 Contents: data.Contents.slice(),
                 CommonPrefixes: data.CommonPrefixes.slice(),
-                params: { Bucket: scope.Bucket, Prefix: scope.Prefix, Delimiter: scope.Delimiter }
+                params: { Bucket: scope.params.Bucket, Prefix: scope.params.Prefix, Delimiter: scope.params.Delimiter }
             };
             
             scope.completecb(cbScope, true);
