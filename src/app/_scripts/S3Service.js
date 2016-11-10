@@ -6,7 +6,7 @@
 
     var s3 = new AWS.S3();
     var scope = {
-        Contents: [], CommonPrefixes:[], params: {}, stop: false, completecb: null
+        params: {}, stop: false, completecb: null
     };
 
     function cb(err, data) {
@@ -23,14 +23,16 @@
             return el.Key !== scope.params.Prefix;
         });
 
-        // Accumulate the S3 objects and common prefixes
-        scope.Contents.push.apply(scope.Contents, data.Contents);
-        scope.CommonPrefixes.push.apply(scope.CommonPrefixes, data.CommonPrefixes);
-
-        console.log('Bucket ' + scope.params.Bucket + ' has ' + scope.Contents.length + ' objects, including ' + scope.CommonPrefixes.length + ' prefixes');
-        delete scope.params.Marker;
+        console.log('Bucket ' + scope.params.Bucket + ' has ' + data.Contents.length + ' objects, including ' + data.CommonPrefixes.length + ' prefixes');
+        
         if (scope.completecb) {
-            scope.completecb(scope, true);
+            var cbScope = {
+                Contents: data.Contents.slice(),
+                CommonPrefixes: data.CommonPrefixes.slice(),
+                params: { Bucket: scope.Bucket, Prefix: scope.Prefix, Delimiter: scope.Delimiter }
+            };
+            
+            scope.completecb(cbScope, true);
         }
     }
 
