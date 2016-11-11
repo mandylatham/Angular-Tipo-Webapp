@@ -13,8 +13,6 @@
 
     var _instance = this;
 
-    tipoRouter.recordSticky();
-
     var parentTipo = tipoDefinition;
 
     _instance.tipoDefinition = subTipoDefinition;
@@ -38,12 +36,14 @@
     _instance.hasTipos = subTipos.length > 0;
 
     _instance.createNew = function(){
+      tipoRouter.recordSticky();
       var data = tipoManipulationService.extractContextualData(tipoDefinition, subTipoDefinition);
       data = encodeURIComponent(angular.toJson(data));
       tipoRouter.toTipoCreate(tipo_name, {data: data});
     };
 
     _instance.toDetail = function(id){
+      tipoRouter.recordSticky();
       tipoRouter.toTipoView(tipo_name, id);
     };
 

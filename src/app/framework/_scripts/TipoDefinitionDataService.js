@@ -35,7 +35,7 @@
             definition = definition.data;
             childPromise = childPromise.then(function(){
               return _instance.getOne(definition.tipo_id);
-            })
+            });
           });
           return childPromise;
         });
