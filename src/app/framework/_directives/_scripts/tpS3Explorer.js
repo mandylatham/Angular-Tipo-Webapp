@@ -116,6 +116,7 @@
                 retryFailure($scope.promise);
             } else {
                 // Else user has clicked on an object
+                s3Service.select(obj.href);
                 console.log('Selected object: ' + obj.href);
             }
         }

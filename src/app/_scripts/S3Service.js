@@ -5,14 +5,12 @@
   function S3Service($q) {
 
     var s3 = new AWS.S3();
-    var scope = {
-        params: {}, stop: false, completecb: null
-    };
-
+    var selectedObj;
+    
     function go(config, completecb) {
-        scope.params = { Bucket: config.Bucket, Prefix: config.Prefix, Delimiter: config.Delimiter };
+        var params = { Bucket: config.Bucket, Prefix: config.Prefix, Delimiter: config.Delimiter };
         var deferred = $q.defer();
-        s3.makeUnauthenticatedRequest('listObjects', scope.params, function cb(err, data) {
+        s3.makeUnauthenticatedRequest('listObjects', params, function cb(err, data) {
             if (err) { 
                 console.log('Error: ' + JSON.stringify(err));
                 console.log('Error: ' + err.stack);
@@ -23,24 +21,33 @@
             // Filter the folders out of the listed S3 objects
             // (could probably be done more efficiently)
             data.Contents = data.Contents.filter(function(el) {
-                return el.Key !== scope.params.Prefix;
+                return el.Key !== params.Prefix;
             });
 
             if (completecb) {
-                var cbScope = {
+                var scope = {
                     Contents: data.Contents.slice(),
                     CommonPrefixes: data.CommonPrefixes.slice(),
-                    params: { Bucket: scope.params.Bucket, Prefix: scope.params.Prefix, Delimiter: scope.params.Delimiter }
+                    params: { Bucket: params.Bucket, Prefix: params.Prefix, Delimiter: params.Delimiter }
                 };
-                var result = completecb(cbScope, deferred);
+                var result = completecb(scope, deferred);
                 deferred.resolve(result);
             }
         });
         return deferred.promise;
     }
 
+    function select(obj){
+        selectedObj = obj;
+    }
+
+    function selected(){
+        return selectedObj;
+    }
+
     return {
-      go: go
+      go: go,
+      select: select
     };
   }
 
