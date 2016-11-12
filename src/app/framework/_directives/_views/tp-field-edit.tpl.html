@@ -18,6 +18,7 @@
           </div>
           <div ng-if="field.allowed_values">
             <md-select ng-model="field._value.key" placeholder="{{field.field_description}}">
+              <md-option value="">-- Clear --</md-option>
               <md-option ng-value="option" ng-repeat="option in field.allowed_values">{{ option }}</md-option>
             </md-select>
           </div>
