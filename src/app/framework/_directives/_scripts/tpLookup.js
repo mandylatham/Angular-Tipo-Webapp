@@ -28,10 +28,7 @@
           }
           scope.fieldTemplate = fieldTemplate;
 
-          var baseFilter;
-          if(!_.isUndefined(field.relationship_filter)){
-            baseFilter = tipoManipulationService.expandFilterExpression(field.relationship_filter, scope.root, scope.context);
-          }
+          var baseFilter = field.relationship_filter;
 
           var tipo_name = field._ui.relatedTipo;
           var label_field;
@@ -62,10 +59,11 @@
                 delete searchCriteria.tipo_filter;
               }
             }else{
+              var baseFilterExpanded = tipoManipulationService.expandFilterExpression(baseFilter, scope.root, scope.context);
               if(!_.isEmpty(text)){
-                searchCriteria.tipo_filter = baseFilter + ' and begins_with(' + label_field + ', \\"' + text + '\\")';
+                searchCriteria.tipo_filter = baseFilterExpanded + ' and begins_with(' + label_field + ', \\"' + text + '\\")';
               }else{
-                searchCriteria.tipo_filter = baseFilter;
+                searchCriteria.tipo_filter = baseFilterExpanded;
               }
             }
             return tipoInstanceDataService.search(tipo_name, searchCriteria).then(function(results){

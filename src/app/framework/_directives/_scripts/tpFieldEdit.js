@@ -7,6 +7,8 @@
   return module.directive('tpFieldEdit', function () {
       return {
         scope: {
+          root: '=',
+          context: '=',
           field: '='
         },
         restrict: 'EA',

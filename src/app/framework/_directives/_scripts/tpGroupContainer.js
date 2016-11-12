@@ -64,8 +64,8 @@
       return {
         scope: {
           root: '=',
-          group: '=',
           context: '=',
+          group: '=',
           mode: '@?'
         },
         require: '?^tpView',

@@ -8,6 +8,8 @@
       return {
         restrict: 'AE',
         scope: {
+          root: '=',
+          context: '=',
           field: '=',
           mode: '@?'
         },
