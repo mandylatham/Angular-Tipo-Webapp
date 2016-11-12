@@ -32,7 +32,7 @@
     "angular-truncate": "git://github.com/sparkalow/angular-truncate.git#master",
     "JSONPath": "git://github.com/clementlamoureux/JSONPath.git#master",
     "aws-sdk": "2.4.4",
-    "angular-ui-grid": "3.2.9"
+    "moment": "2.16.0"
   },
   "appPath": "app",
   "resolutions": {
