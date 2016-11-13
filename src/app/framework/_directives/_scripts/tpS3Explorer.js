@@ -130,7 +130,7 @@
         $scope.chooseBucket = function() {
             var confirm = $mdDialog.prompt()
                 .title('Please enter the S3 bucket name')
-                .textContent('(Use s3 bucket "fadeev.yegor")')
+                .textContent('Example: fadeev.yegor')
                 .initialValue('<bucket>')
                 .targetEvent(null)
                 .ok('OK')
