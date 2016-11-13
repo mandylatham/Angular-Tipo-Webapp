@@ -21,7 +21,7 @@
         </thead>
         <tbody md-body>
         <tr md-row md-auto-select ng-repeat="rowContent in rows | limitTo: query.limit: (query.page - 1) * query.limit" ng-click="selectObject(rowContent)">
-            <td md-cell>{{rowContent.Key}}</td>
+            <td md-cell title="{{rowContent.Key}}">{{rowContent.Key}}</td>
             <td md-cell>{{rowContent.LastModified}}</td>
             <td md-cell>{{rowContent.Size}}</td>
         </tr>
