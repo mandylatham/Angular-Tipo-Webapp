@@ -12,7 +12,7 @@
         <md-input-container md-no-float ng-switch-when="longstring">
          <textarea ng-model="field._value.key" rows="2" md-select-on-focus aria-label="field.display_name" placeholder="{{field.field_description}}"/>
         </md-input-container>
-        <md-input-container md-no-float ng-switch-when="s3bucket">
+        <md-input-container md-no-float ng-switch-when="s3explorer">
           <tp:s3-explorer />
         </md-input-container>
         <md-input-container md-no-float ng-switch-default>
