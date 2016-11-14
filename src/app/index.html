@@ -16,6 +16,8 @@
     <!-- endbuild -->
 
     <link href="_styles/pace.css" rel="stylesheet" />
+    <link href="_styles/crumbs.css" rel="stylesheet" />
+    <link href="_styles/s3explorer.css" rel="stylesheet" />
 
     <!-- build:css(app) _styles/main.css -->
     <link rel="stylesheet" type="text/css" media="screen" href="_styles/main.css">
@@ -26,8 +28,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <meta name='google-signin-client_id' content='${googleClientId}'/>
-    <script src='https://apis.google.com/js/platform.js' async defer></script>
-
+    <script src='https://apis.google.com/js/platform.js' async defer></script>  
+      
   </head>
 
   <body id="body" ng-app="tipo.main" ng-cloak>
@@ -109,6 +111,7 @@
     <script src="framework/_directives/_scripts/tpLookup.js"></script>
     <script src="framework/_directives/_scripts/tpActions.js"></script>
     <script src="framework/_directives/_scripts/tpFilters.js"></script>
+    <script src="framework/_directives/_scripts/tpS3Explorer.js"></script>
 
     <script src="dashboard/_scripts/dashboard.module.js"></script>
     
@@ -120,6 +123,7 @@
 
     <script src="_scripts/main.module.js"></script>
     <script src="_scripts/MainController.js"></script>
+    <script src="_scripts/S3Service.js"></script>
 
     <!-- endbuild -->
 

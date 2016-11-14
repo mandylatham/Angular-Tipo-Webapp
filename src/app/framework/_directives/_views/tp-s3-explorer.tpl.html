@@ -1,0 +1,31 @@
+<div>
+    <!-- Panel including S3 object table -->
+    <div>
+        <div class="btn pull-left" id="bucket">
+            <i id="bucket-chooser" style="cursor: pointer;" ng-click="chooseBucket($event)" class="fa fa-bitbucket fa-2x" title="Switch to a different S3 Bucket"></i>
+        </div>
+        <ul id="breadcrumb" class="crumbs" layout="row">
+            <li ng-repeat="breadcrumb in breadcrumbs" ng-click="selectBreakcrumb(breadcrumb)">
+                <a>{{breadcrumb.name}}</a>
+            </li>
+        </ul>
+    </div>
+    
+    <table md-table md-row-select ng-model="selected" md-progress="promise" class="gridStyle">
+        <thead md-head md-order="query.order">
+        <tr md-row>
+            <th md-column md-order-by="object">Object</th>
+            <th md-column md-date>Last Modified</th>
+            <th md-column md-numeric>Size</th>
+        </tr>
+        </thead>
+        <tbody md-body>
+        <tr md-row md-auto-select ng-repeat="rowContent in rows | limitTo: query.limit: (query.page - 1) * query.limit" ng-click="selectObject(rowContent)">
+            <td md-cell title="{{rowContent.Key}}">{{rowContent.Key}}</td>
+            <td md-cell>{{rowContent.LastModified}}</td>
+            <td md-cell>{{rowContent.Size}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{rows.length}}"></md-table-pagination>  
+</div>

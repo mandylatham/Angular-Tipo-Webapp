@@ -31,7 +31,8 @@
     "mustache": "2.2.1",
     "angular-truncate": "git://github.com/sparkalow/angular-truncate.git#master",
     "JSONPath": "git://github.com/clementlamoureux/JSONPath.git#master",
-    "aws-sdk": "2.4.4"
+    "aws-sdk": "2.4.4",
+    "moment": "2.16.0"
   },
   "appPath": "app",
   "resolutions": {
