@@ -9,4 +9,4 @@ pipelines:
     - step:
         script: # Modify the commands below to build your repository.
           - mvn --version
-          - mvn -X clean install -Dall
+          - mvn -X clean deploy -Dall
