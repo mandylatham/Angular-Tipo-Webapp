@@ -106,7 +106,7 @@
             <configuration>
               <fromDir>${basedir}/target-grunt/dist</fromDir>
               <includes>**</includes>
-              <url>s3://tipotappui/snapshot</url>
+              <url>s3://tipotapp.com/snapshot</url>
             </configuration>
           </execution>
         </executions>
