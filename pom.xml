@@ -106,8 +106,7 @@
             <configuration>
               <fromDir>${basedir}/target-grunt/dist</fromDir>
               <includes>**</includes>
-              <url>s3://tipotapp-ui/snapshot</url>
-              <serverId>tipoui.snapshot</serverId>
+              <url>s3://tipotappui/snapshot</url>
             </configuration>
           </execution>
         </executions>
