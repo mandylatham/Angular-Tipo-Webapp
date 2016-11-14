@@ -25,23 +25,18 @@
       var cache = tipoRegistry.get();
       if(_.isEmpty(cache)){
         console.info('Loading the tipo definitions');
-        promise = tipoResource.one(TIPO_DEFINITION_RESOURCE).get();
+        promise = tipoResource.one(TIPO_DEFINITION_RESOURCE).get({short_display: 'Y'});
         promise = promise.then(function(definitions){
-          definitions = _.sortBy(definitions, function(each){
-            return each.data.created_dt;
-          });
-          var childPromise = $q.when({});
+          var childPromises = [];
           _.each(definitions, function(definition){
             definition = definition.data;
-            childPromise = childPromise.then(function(){
-              return _instance.getOne(definition.tipo_id);
-            });
+            childPromises.push(_instance.getOne(definition.tipo_meta.tipo_name));
           });
-          return childPromise;
+          return childPromises;
         });
 
-        promise = promise.then(function(childPromise){
-          return $q.all(childPromise);
+        promise = promise.then(function(childPromises){
+          return $q.all(childPromises);
         });
 
       }else{
@@ -57,8 +52,8 @@
         promise = $q.when(definition);
       }else{
         console.info('Loading detailed metadata for the tipo - ' + id);
-        promise = tipoResource.one(TIPO_DEFINITION_RESOURCE, id).get();
-        promise = promise.then(tipoManipulationService.mapDefinitionToUI).then(function(definition){
+        promise = tipoResource.one(TIPO_DEFINITION_RESOURCE, id).get({expand_def: 'Y'});
+        promise = promise.then(function(definition){
           console.info('Caching the detailed definition for network optimization');
           definition.detailsLoaded = true;
           tipoRegistry.push(definition);

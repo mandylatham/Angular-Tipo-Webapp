@@ -29,6 +29,8 @@
     }
 
     _instance.search = function(tipo_name, criteria){
+      criteria = criteria || {};
+      criteria.short_display = 'Y';
       return getCollectionResource(tipo_name).getList(criteria).then(unwrapAndSort);
     };
 
