@@ -3,14 +3,13 @@
   'use strict';  
 
   function S3Service($q) {
-
-    var s3 = new AWS.S3();
     var selectedObj;
     
     function go(config, completecb) {
+        var s3 = new AWS.S3();
         var params = { Bucket: config.Bucket, Prefix: config.Prefix, Delimiter: config.Delimiter };
         var deferred = $q.defer();
-        s3.makeUnauthenticatedRequest('listObjects', params, function cb(err, data) {
+        s3.makeRequest('listObjects', params, function cb(err, data) {
             if (err) { 
                 console.log('Error: ' + JSON.stringify(err));
                 console.log('Error: ' + err.stack);
