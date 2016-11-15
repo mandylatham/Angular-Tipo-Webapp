@@ -4,7 +4,7 @@
 
   var module = angular.module('tipo.framework');
 
-  return module.directive('tpFieldView', function () {
+  return module.directive('tpFieldView', function ($sce) {
       return {
         scope: {
           field: '='
@@ -14,6 +14,9 @@
         templateUrl: 'framework/_directives/_views/tp-field-view.tpl.html',
         link: function(scope, element, attrs){
           var field = scope.field;
+          if (field.field_type === 'richstring'){
+            scope.formattedText = $sce.trustAsHtml(field._value.label);
+          }
           scope.hasValue = !_.isUndefined(field._value);
           scope.isArray = Boolean(field._ui.isArray);
           scope.isSingle = !scope.isArray;
