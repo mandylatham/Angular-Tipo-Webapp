@@ -4,6 +4,8 @@
 # You can specify a custom docker image from Dockerhub as your build environment.
 # image: maven:3.3.3
 
+image: tipotapp/tipo-build:latest
+
 pipelines:
   default:
     - step:
