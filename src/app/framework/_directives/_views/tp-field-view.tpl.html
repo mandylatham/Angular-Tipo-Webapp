@@ -8,7 +8,7 @@
           <div ng-bind-html="field._value.label"></div>
         </span>
         <span ng-switch-when="s3explorer">
-          <tp:s3-explorer />
+          <tp:s3-fileselector />
         </span>
         <span ng-switch-default>{{field._value.label}}</span>
       </span>

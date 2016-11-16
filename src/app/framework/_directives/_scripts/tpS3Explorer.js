@@ -108,15 +108,23 @@
             return rows;
         }
         
-        $scope.selectObject = function(obj) {
+        $scope.onSelect = function(obj) {
             if (obj.s3 === 'folder') {
                 s3exp_config.Prefix = obj.prefix;
                 $scope.promise = s3Service.go(s3exp_config, s3draw);
                 retryFailure($scope.promise);
             } else {
                 // Else user has clicked on an object
-                s3Service.select(obj.href);
+                s3Service.selections.push(obj.href);
                 console.log('Selected object: ' + obj.href);
+            }
+        }
+
+        $scope.onDeselect = function(obj) {
+            console.log('Deselected object: ' + obj.href);
+            var index = s3Service.selections.indexOf(obj.href);
+            if (index > -1) {
+                s3Service.selections.splice(index, 1);
             }
         }
 

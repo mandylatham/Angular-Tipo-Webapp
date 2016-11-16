@@ -3,7 +3,7 @@
   'use strict';  
 
   function S3Service($q) {
-    var selectedObj;
+    var selections = [];
     
     function go(config, completecb) {
         var s3 = new AWS.S3();
@@ -36,17 +36,9 @@
         return deferred.promise;
     }
 
-    function select(obj){
-        selectedObj = obj;
-    }
-
-    function selected(){
-        return selectedObj;
-    }
-
     return {
-      go: go,
-      select: select
+      selections,
+      go: go
     };
   }
 
