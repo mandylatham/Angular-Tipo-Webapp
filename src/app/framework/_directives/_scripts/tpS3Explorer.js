@@ -2,7 +2,6 @@
 
   'use strict';
 
-  AWS.config.region = 'us-east-1';
   var s3exp_config = { Region: '', Bucket: '', Prefix: '', Delimiter: '/' };
   s3exp_config.Bucket = '<bucket>';
 
