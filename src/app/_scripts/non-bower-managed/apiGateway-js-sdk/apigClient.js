@@ -53,7 +53,20 @@ apigClientFactory.newClient = function (config) {
 
     
     // extract endpoint and path from url
-    var invokeUrl = 'https://74oj0xr2l2.execute-api.us-east-1.amazonaws.com/dev';
+	// api endpoint derived based on url - e.g. tipo application url should be https://api.tipotapp.com/tipo whereas billionbase application should be https://api.tipotapp.com/deltagene.billionbases
+	var hostname = window.location.hostname;
+	var domainarray = string.split('.');
+	var domain0 = domainarray[0];
+	var domain1 = domainarray[1];
+	var invokeUrl;
+	
+	if (domain0 == app) {
+		invokeUrl = 'https://api.tipotapp.com/tipo';
+	} else {
+		invokeUrl = 'https://api.tipotapp.com/deltagene.billionbases';
+	}
+	
+    // var invokeUrl = 'https://74oj0xr2l2.execute-api.us-east-1.amazonaws.com/dev';
     var endpoint = /(^https?:\/\/[^\/]+)/g.exec(invokeUrl)[1];
     var pathComponent = invokeUrl.substring(endpoint.length);
 
