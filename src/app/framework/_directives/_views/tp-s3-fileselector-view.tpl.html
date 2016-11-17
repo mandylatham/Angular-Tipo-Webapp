@@ -1,0 +1,16 @@
+<div>
+    <md-content>
+      <md-list flex>
+        <md-subheader class="md-no-sticky">3 line item (with hover)</md-subheader>
+        <md-list-item class="md-3-line" ng-repeat="item in items" ng-click="null">
+          <div class="md-list-item-text" layout="column">
+            <h3>{{ item.name }}</h3>
+          </div>
+        </md-list-item>
+        
+      </md-list>
+    </md-content>
+    <md-button class="md-primary md-raised" ng-click="showS3Explorer($event)">
+      Browse
+    </md-button>
+</div>

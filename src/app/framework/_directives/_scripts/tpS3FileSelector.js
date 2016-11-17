@@ -6,7 +6,7 @@
   
   return module.directive('tpS3Fileselector', function () {
       return {
-        templateUrl: 'framework/_directives/_views/tp-s3-fileselector.tpl.html',
+        templateUrl: 'framework/_directives/_views/tp-s3-fileselector-view.tpl.html',
         controller: controller
       };
       
@@ -15,7 +15,7 @@
             $mdDialog.show({
                 controller: function() {
                 },
-                template: '<tp:s3-explorer />',
+                templateUrl: 'framework/_directives/_views/tp-s3-fileselector-edit.tpl.html',
                 parent: angular.element(document.body),
                 targetEvent: event,
                 clickOutsideToClose:true,

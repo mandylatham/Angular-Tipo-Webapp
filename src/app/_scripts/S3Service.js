@@ -37,7 +37,7 @@
     }
 
     return {
-      selections,
+      selections: selections,
       go: go
     };
   }
