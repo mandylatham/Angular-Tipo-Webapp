@@ -71,7 +71,7 @@
       function controller($scope, $mdDialog, s3Service) {
 
         function retryFailure(promise) {
-            promise.then(function(result){
+            promise.then(function(result) {
             }, function(err) {
                 $scope.chooseBucket();
             });
@@ -115,17 +115,14 @@
                 retryFailure($scope.promise);
             } else {
                 // Else user has clicked on an object
-                s3Service.selections.push(obj.href);
-                console.log('Selected object: ' + obj.href);
+                s3Service.addItem({ Key: obj.Key, href: obj.href, prefix: obj.prefix });
+                console.log('Selected object: ', obj);
             }
         }
 
         $scope.onDeselect = function(obj) {
-            console.log('Deselected object: ' + obj.href);
-            var index = s3Service.selections.indexOf(obj.href);
-            if (index > -1) {
-                s3Service.selections.splice(index, 1);
-            }
+            console.log('Deselected object: ', obj);
+            s3Service.removeItem(obj);
         }
 
         $scope.selectBreakcrumb = function(breakcrumb) {

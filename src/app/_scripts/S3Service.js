@@ -3,7 +3,7 @@
   'use strict';  
 
   function S3Service($q) {
-    var selections = [];
+    var items = [];
     
     function go(config, completecb) {
         var s3 = new AWS.S3();
@@ -36,8 +36,25 @@
         return deferred.promise;
     }
 
+    function addItem(obj) {
+        items.push(obj);
+    }
+
+    function removeItem(obj) {
+        var index = items.indexOf(obj);
+        if (index > -1) {
+            items.splice(index, 1);
+        }
+    }
+
+    function listItems() {
+        return items.slice();
+    }
+
     return {
-      selections: selections,
+      addItem: addItem,
+      removeItem: removeItem,
+      listItems: listItems,
       go: go
     };
   }
