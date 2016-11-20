@@ -70,7 +70,7 @@
         controller: controller
       };
       
-      function controller($scope, $mdDialog, s3Service) {
+      function controller($scope, $mdDialog, s3Service, s3SelectionModel) {
 
         function handleFailure(promise) {
             promise.then(function(result) {
@@ -118,14 +118,14 @@
                 handleFailure($scope.promise);
             } else {
                 // Else user has clicked on an object
-                s3Service.addItem({ Key: obj.Key, href: obj.href, prefix: obj.prefix });
+                s3SelectionModel.addItem({ Key: obj.Key, href: obj.href, prefix: obj.prefix });
                 console.log('Selected object: ', obj);
             }
         }
 
         $scope.onDeselect = function(obj) {
             console.log('Deselected object: ', obj);
-            s3Service.removeItem(obj);
+            s3SelectionModel.removeItem(obj);
         }
 
         $scope.selectBreakcrumb = function(breakcrumb) {

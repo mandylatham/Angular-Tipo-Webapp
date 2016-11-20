@@ -25,10 +25,11 @@
         controller: controller
       };
 
-      function controller($scope, $mdDialog, s3Service) {
+      function controller($scope, $mdDialog, s3SelectionModel) {
 
         $scope.items = [];  
         $scope.showS3Explorer = function(event) {
+            s3SelectionModel.clear();
             $mdDialog.show({
                 controller: function($scope) {
                     $scope.onOk = function(event) {
@@ -46,7 +47,7 @@
                 escapeToClose: false
             })
             .then(function() {
-                $scope.items = unique($scope.items.concat(s3Service.listItems()));
+                $scope.items = unique($scope.items.concat(s3SelectionModel.listItems()));
             }, function() {
                 // You cancelled the dialog.
             });
@@ -57,7 +58,5 @@
             $scope.items.splice($index, 1);
         }
       }
-      
-      
   });
 })();

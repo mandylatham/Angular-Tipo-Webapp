@@ -3,11 +3,8 @@
   'use strict';  
 
   function S3Service($q) {
-    var items = [];
-    
     function go(config, completecb) {
         var s3 = new AWS.S3();
-        items = [];
         var params = { Bucket: config.Bucket, Prefix: config.Prefix, Delimiter: config.Delimiter };
         var deferred = $q.defer();
         s3.makeRequest('listObjects', params, function cb(err, data) {
@@ -39,24 +36,7 @@
         return deferred.promise;
     }
 
-    function addItem(obj) {
-        items.push(obj);
-    }
-
-    function removeItem(obj) {
-        items = items.filter(function(el) {
-            return el.href !== obj.href;
-        });
-    }
-
-    function listItems() {
-        return items.slice();
-    }
-
     return {
-      addItem: addItem,
-      removeItem: removeItem,
-      listItems: listItems,
       go: go
     };
   }
