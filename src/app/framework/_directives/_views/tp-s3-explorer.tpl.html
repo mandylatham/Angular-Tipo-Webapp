@@ -1,16 +1,24 @@
 <div>
   <!-- Panel including S3 object table -->
   <div>
-    <div class="btn pull-left" id="bucket">
-      <i id="bucket-chooser" style="cursor: pointer;" ng-click="chooseBucket($event)" class="fa fa-bitbucket fa-2x" title="Switch to a different S3 Bucket"></i>
-    </div>
-    <ul id="breadcrumb" class="crumbs" layout="row">
-      <li ng-repeat="breadcrumb in breadcrumbs" ng-click="selectBreakcrumb(breadcrumb)">
-        <a>{{breadcrumb.name}}</a>
-      </li>
-    </ul>
+    <md-content layout-padding>
+      <div class="btn pull-left" id="bucket" ng-hide="isEditMode()">
+        <i id="bucket-chooser" style="cursor: pointer;" ng-click="chooseBucket($event)" class="fa fa-bitbucket fa-2x" title="Switch to a different S3 Bucket"></i>
+      </div>
+      <form name="editForm" ng-show="isEditMode()" data-ng-submit="submit(bucketName)">
+        <md-input-container class="md-block" flex-gt-sm>
+          <label>Bucket name</label>
+          <input ng-model="bucketName">
+        </md-input-container>
+      </form>
+      <md-chips layout="row" ng-hide="isEditMode()">
+        <md-chip ng-repeat="breadcrumb in breadcrumbs" ng-click="selectBreakcrumb(breadcrumb)">
+          {{breadcrumb.name}}
+        </md-chip>
+      </md-chips>
+    </md-content>
   </div>
-  
+
   <md-table-container>
     <table md-table md-row-select multiple ng-model="selected" md-progress="promise" class="gridStyle">
       <thead md-head md-order="query.order">

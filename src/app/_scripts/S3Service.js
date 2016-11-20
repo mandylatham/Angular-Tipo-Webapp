@@ -31,7 +31,9 @@
                 };
                 var result = completecb(scope, deferred);
                 deferred.resolve(result);
+                return;
             }
+            deferred.reject();
         });
         return deferred.promise;
     }
@@ -41,10 +43,9 @@
     }
 
     function removeItem(obj) {
-        var index = items.indexOf(obj);
-        if (index > -1) {
-            items.splice(index, 1);
-        }
+        items = items.filter(function(el) {
+            return el.href !== obj.href;
+        });
     }
 
     function listItems() {
