@@ -1,29 +1,13 @@
 <div flex-gt-sm="100" flex>
-    <md-toolbar layout="row" class="md-hue-1">
-      <div class="md-toolbar-tools">
-        <span>Samples</span>
-      </div>
-    </md-toolbar>
     <md-content>
-      <md-list flex>
-        <md-list-item class="md-1-line" ng-repeat="item in items" ng-click="null">
-          <div class="md-list-item-text">
-            {{ item.Key }}
-          </div>
-          <md-menu md-position-mode="target-right target"  class="md-secondary">
-              <md-button aria-label="Open demo menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-                  <md-icon md-menu-origin>menu</md-icon>
-              </md-button>
-              <md-menu-content width="4">
-                  <md-menu-item>
-                      <md-button ng-click="deleteItem($index)">
-                          <div layout="row" flex>
-                              <p flex>Delete {{item.Key}}</p>
-                          </div>
-                      </md-button>
-                  </md-menu-item>
-              </md-menu-content>
-          </md-menu>
+      <md-list class="gridStyle">
+        <md-subheader>Samples</md-subheader>
+        <md-list-item ng-hide="items.length > 0">&ltEmpty&gt</md-list-item>
+        <md-list-item ng-show="items.length > 0" ng-repeat="item in items" title="{{ item.href }}">
+          <p>{{ item.Key }}</p>
+          <md-button class="md-icon-button md-secondary" ng-click="deleteItem($index)">
+              <md-icon class="material-icons">close</md-icon>
+          </md-button>
         </md-list-item>
       </md-list>
     </md-content>

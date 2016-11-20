@@ -138,8 +138,8 @@
             return editMode;    
         }
 
-        $scope.chooseBucket = function() {
-            editMode = true;
+        $scope.chooseBucket = function(_editMode) {
+            editMode = typeof _editMode !== 'undefined' ? _editMode : true;
         }
 
         $scope.submit = function(bucketName) {

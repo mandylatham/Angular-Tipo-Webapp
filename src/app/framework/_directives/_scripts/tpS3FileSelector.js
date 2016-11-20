@@ -24,7 +24,7 @@
         templateUrl: 'framework/_directives/_views/tp-s3-fileselector-view.tpl.html',
         controller: controller
       };
-      
+
       function controller($scope, $mdDialog, s3Service) {
 
         $scope.items = [];  
@@ -39,16 +39,16 @@
                         $mdDialog.cancel();
                     }
                 },
-                templateUrl: 'framework/_directives/_views/tp-s3-fileselector-edit.tpl.html',
+                templateUrl: 'framework/_directives/_views/tp-s3-fileselector-select.tpl.html',
                 parent: angular.element(document.body),
                 targetEvent: event,
-                clickOutsideToClose: true,
+                clickOutsideToClose: false,
+                escapeToClose: false
             })
             .then(function() {
                 $scope.items = unique($scope.items.concat(s3Service.listItems()));
-                console.log('You accepted the dialog.');
             }, function() {
-                console.log('You cancelled the dialog.');
+                // You cancelled the dialog.
             });
         }
 

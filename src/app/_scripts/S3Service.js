@@ -7,6 +7,7 @@
     
     function go(config, completecb) {
         var s3 = new AWS.S3();
+        items = [];
         var params = { Bucket: config.Bucket, Prefix: config.Prefix, Delimiter: config.Delimiter };
         var deferred = $q.defer();
         s3.makeRequest('listObjects', params, function cb(err, data) {
