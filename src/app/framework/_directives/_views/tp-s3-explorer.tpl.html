@@ -5,7 +5,7 @@
       <!-- Edit mode -->
       <div layout="row" ng-show="isEditMode()">
         <form name="editForm" data-ng-submit="submit(bucketName)" flex="100">
-          <md-input-container class="md-block" flex-gt-sm>
+          <md-input-container class="md-block">
             <label>Bucket name</label>
             <input ng-model="bucketName">
           </md-input-container>
@@ -20,7 +20,7 @@
         <div class="btn pull-left" id="bucket">
           <i id="bucket-chooser" style="cursor: pointer;" ng-click="chooseBucket()" class="fa fa-bitbucket fa-2x" title="Switch to a different S3 Bucket"></i>
         </div>
-        <md-chips layout="row">
+        <md-chips>
           <md-chip ng-repeat="breadcrumb in breadcrumbs" ng-click="selectBreakcrumb(breadcrumb)">
             {{breadcrumb.name}}
           </md-chip>

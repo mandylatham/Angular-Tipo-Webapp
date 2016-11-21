@@ -3,22 +3,6 @@
   'use strict';
 
   var module = angular.module('tipo.framework');
-
-  /**
-   * Return list of unique by href items
-   */
-  function unique(a) {
-      var present = [], res = [];
-      for (var i = 0; i < a.length; i++) {
-          if (present[a[i].href]) {
-              continue;
-          }
-          present[a[i].href] = true;
-          res.push(a[i]);
-      }
-      return res;
-  }
-  
   return module.directive('tpS3Fileselector', function () {
       return {
         templateUrl: 'framework/_directives/_views/tp-s3-fileselector-view.tpl.html',
@@ -27,9 +11,8 @@
 
       function controller($scope, $mdDialog, s3SelectionModel) {
 
-        $scope.items = [];  
         $scope.showS3Explorer = function(event) {
-            s3SelectionModel.clear();
+            s3SelectionModel.current.clear();
             $mdDialog.show({
                 controller: function($scope) {
                     $scope.onOk = function(event) {
@@ -47,7 +30,7 @@
                 escapeToClose: false
             })
             .then(function() {
-                $scope.items = unique($scope.items.concat(s3SelectionModel.listItems()));
+                $scope.items = s3SelectionModel.addCurrent().listItems();
             }, function() {
                 // You cancelled the dialog.
             });
@@ -55,7 +38,7 @@
 
         $scope.deleteItem = function($index) {
             console.log('Delete item', $index);
-            $scope.items.splice($index, 1);
+            $scope.items = s3SelectionModel.total.removeByIndex($index);
         }
       }
   });

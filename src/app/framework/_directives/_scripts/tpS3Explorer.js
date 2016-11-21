@@ -118,19 +118,17 @@
                 handleFailure($scope.promise);
             } else {
                 // Else user has clicked on an object
-                s3SelectionModel.addItem({ Key: obj.Key, href: obj.href, prefix: obj.prefix });
-                console.log('Selected object: ', obj);
+                s3SelectionModel.current.addItem({ Key: obj.Key, href: obj.href, prefix: obj.prefix });
             }
         }
 
         $scope.onDeselect = function(obj) {
-            console.log('Deselected object: ', obj);
-            s3SelectionModel.removeItem(obj);
+            s3SelectionModel.current.removeItem(obj);
         }
 
         $scope.selectBreakcrumb = function(breakcrumb) {
-            var config = { Bucket: s3exp_config.Bucket, Prefix: breakcrumb.prefix, Delimiter: s3exp_config.Delimiter };
-            $scope.promise = s3Service.go(config, s3draw);
+            s3exp_config.Prefix = breakcrumb.prefix;
+            $scope.promise = s3Service.go(s3exp_config, s3draw);
             handleFailure($scope.promise);
         }
 
