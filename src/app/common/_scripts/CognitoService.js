@@ -77,8 +77,9 @@
       var deferred = $q.defer();
       cognitoUser.authenticateUser(authenticationDetails, {
         onSuccess: function (result) {
+          console.log('Identity token: ', result.getIdToken().getJwtToken());
           var securityContext = {
-            'tokenDetails.access_token': result.getAccessToken().getJwtToken(),
+            'tokenDetails.access_token': result.getIdToken().getJwtToken(),
             'loggedInUser': username
           };
           securityContextService.saveContext(securityContext);
