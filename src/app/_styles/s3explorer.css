@@ -1,4 +1,4 @@
-.gridStyle td {
+.gridStyle td, p {
   max-width:150px;
   white-space: nowrap;
   overflow: hidden;

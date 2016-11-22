@@ -3,8 +3,6 @@
   'use strict';  
 
   function S3Service($q) {
-    var selectedObj;
-    
     function go(config, completecb) {
         var s3 = new AWS.S3();
         var params = { Bucket: config.Bucket, Prefix: config.Prefix, Delimiter: config.Delimiter };
@@ -31,22 +29,15 @@
                 };
                 var result = completecb(scope, deferred);
                 deferred.resolve(result);
+                return;
             }
+            deferred.reject();
         });
         return deferred.promise;
     }
 
-    function select(obj){
-        selectedObj = obj;
-    }
-
-    function selected(){
-        return selectedObj;
-    }
-
     return {
-      go: go,
-      select: select
+      go: go
     };
   }
 

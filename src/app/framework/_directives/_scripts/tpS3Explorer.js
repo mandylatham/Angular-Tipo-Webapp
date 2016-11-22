@@ -30,24 +30,24 @@
 
   // The parts array will contain the bucket name followed by all the
   // segments of the prefix, exploded out as separate strings.
-  function folder2breadcrumbs(data) {
+  function folder2breadcrumbs(params) {
       var parts = [];
-      if (data.params.Prefix) {
-          parts = data.params.Prefix.endsWith('/') ?
-              data.params.Prefix.slice(0, -1).split('/') :
-              data.params.Prefix.split('/');
+      if (params.Prefix) {
+          parts = params.Prefix.endsWith('/') ?
+              params.Prefix.slice(0, -1).split('/') :
+              params.Prefix.split('/');
       }
 
       var buildprefix = '';
       var breadcrumbs = [{
-          name: data.params.Bucket + '/',
+          name: params.Bucket,
           prefix: buildprefix
       }];
 
       parts.forEach(function(part) {
           buildprefix += part + '/';
           breadcrumbs.push({
-              name: part + ' /',
+              name: part,
               prefix: buildprefix
           });
       });
@@ -63,22 +63,25 @@
   
   var module = angular.module('tipo.framework');
   return module.directive('tpS3Explorer', function () {
+      var editMode = false;
+      
       return {
         templateUrl: 'framework/_directives/_views/tp-s3-explorer.tpl.html',
         controller: controller
       };
       
-      function controller($scope, $mdDialog, s3Service) {
+      function controller($scope, $mdDialog, s3Service, s3SelectionModel) {
 
-        function retryFailure(promise) {
-            promise.then(function(result){
+        function handleFailure(promise) {
+            promise.then(function(result) {
             }, function(err) {
-                $scope.chooseBucket();
+                $scope.rows = [];
+                $scope.breadcrumbs = folder2breadcrumbs(s3exp_config);
             });
         }
 
         function s3draw(data, complete) {
-            var breadcrumbs = folder2breadcrumbs(data);
+            var breadcrumbs = folder2breadcrumbs(data.params);
             
             var prefixes = data.CommonPrefixes.map(function(prefix) {
                 return {
@@ -108,37 +111,41 @@
             return rows;
         }
         
-        $scope.selectObject = function(obj) {
+        $scope.onSelect = function(obj) {
             if (obj.s3 === 'folder') {
                 s3exp_config.Prefix = obj.prefix;
                 $scope.promise = s3Service.go(s3exp_config, s3draw);
-                retryFailure($scope.promise);
+                handleFailure($scope.promise);
             } else {
                 // Else user has clicked on an object
-                s3Service.select(obj.href);
-                console.log('Selected object: ' + obj.href);
+                s3SelectionModel.current.addItem({ Key: obj.Key, href: obj.href, prefix: obj.prefix });
             }
         }
 
-        $scope.selectBreakcrumb = function(breakcrumb) {
-            var config = { Bucket: s3exp_config.Bucket, Prefix: breakcrumb.prefix, Delimiter: s3exp_config.Delimiter };
-            $scope.promise = s3Service.go(config, s3draw);
-            retryFailure($scope.promise);
+        $scope.onDeselect = function(obj) {
+            s3SelectionModel.current.removeItem(obj);
         }
 
-        $scope.chooseBucket = function() {
-            var confirm = $mdDialog.prompt()
-                .title('Please enter the S3 bucket name')
-                .textContent('Example: fadeev.yegor')
-                .initialValue('<bucket>')
-                .targetEvent(null)
-                .ok('OK')
-                .cancel('Cancel');
-            $mdDialog.show(confirm).then(function(result) {
-                s3exp_config.Bucket = result;
-                $scope.promise = s3Service.go(s3exp_config, s3draw);
-                retryFailure($scope.promise);
-            });
+        $scope.selectBreakcrumb = function(breakcrumb) {
+            s3exp_config.Prefix = breakcrumb.prefix;
+            $scope.promise = s3Service.go(s3exp_config, s3draw);
+            handleFailure($scope.promise);
+        }
+
+        $scope.isEditMode = function() {
+            return editMode;    
+        }
+
+        $scope.chooseBucket = function(_editMode) {
+            editMode = typeof _editMode !== 'undefined' ? _editMode : true;
+        }
+
+        $scope.submit = function(bucketName) {
+            editMode = false;
+            s3exp_config.Bucket = bucketName;
+            s3exp_config.Prefix = '';
+            $scope.promise = s3Service.go(s3exp_config, s3draw);
+            handleFailure($scope.promise);  
         }
 
         $scope.selected = [];
@@ -148,7 +155,7 @@
             page: 1
         };
         $scope.promise = s3Service.go(s3exp_config, s3draw);
-        retryFailure($scope.promise);
+        handleFailure($scope.promise);
       }
   });
 })();

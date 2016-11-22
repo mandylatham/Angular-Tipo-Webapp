@@ -14,7 +14,7 @@
         </md-input-container>
         <text-angular ng-model="field._value.key" ng-switch-when="richstring"></text-angular>
         <md-input-container md-no-float ng-switch-when="s3explorer">
-          <tp:s3-explorer />
+          <tp:s3-fileselector />
         </md-input-container>
         <md-input-container md-no-float ng-switch-default>
           <div ng-if="!field.allowed_values">
