@@ -21,34 +21,17 @@
     }
 
     _instance.getAll = function(){
-      var promise;
-      var cache = tipoRegistry.get();
-      if(_.isEmpty(cache)){
-        console.info('Loading the tipo definitions');
-        promise = tipoResource.one(TIPO_DEFINITION_RESOURCE).get({short_display: 'Y'});
-        promise = promise.then(function(definitions){
-          var childPromises = [];
-          _.each(definitions, function(definition){
-            definition = definition.data;
-            childPromises.push(_instance.getOne(definition.tipo_meta.tipo_name));
-          });
-          return childPromises;
+      return tipoResource.one(TIPO_DEFINITION_RESOURCE).get({short_display: 'Y'}).then(function(definitions){
+        return _.map(definitions, function(each){
+          return each.data;
         });
-
-        promise = promise.then(function(childPromises){
-          return $q.all(childPromises);
-        });
-
-      }else{
-        promise = $q.when(cache);
-      }
-      return promise;
+      });
     };
 
     _instance.getOne = function(id){
       var promise;
       var definition = tipoRegistry.get(id);
-      if(definition && definition.detailsLoaded){
+      if(definition){
         promise = $q.when(definition);
       }else{
         console.info('Loading detailed metadata for the tipo - ' + id);

@@ -20,9 +20,12 @@
       $mdSidenav('left').open();
     };
 
+    this.showSettings = function(){
+    };
+
     this.showLoginForm = function($event) {
        $state.go('login');
-    };      
+    };
 
     this.signUp = function(){
       $state.go('registerUser');
@@ -41,7 +44,7 @@
     };
 
     // Register state change interactions for visual transition cues
-    $rootScope.$on('$stateChangeStart', function() {
+    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState) {
       tipoRouter.startStateChange();
     });
  

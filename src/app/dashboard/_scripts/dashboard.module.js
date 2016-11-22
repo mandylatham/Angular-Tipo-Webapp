@@ -11,6 +11,9 @@
         'content@layout': {
           templateUrl: 'dashboard/_views/dashboard.tpl.html'
         }
+      },
+      onEnter: function($rootScope){
+        $rootScope.perspective  = 'home';
       }
     };
 

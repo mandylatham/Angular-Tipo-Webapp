@@ -21,7 +21,7 @@
     }
   ];
 
-  function prepareMenu(tipoDefinitions){
+  function prepareTipoMenu(tipoDefinitions){
     tipoDefinitions = _.filter(_.values(tipoDefinitions), function(each){
       return Boolean(each.tipo_meta.main_menu);
     });
@@ -47,13 +47,11 @@
     tipoRouter,
     tipoDefinitionDataService,
     $mdSidenav,
-    $mdMedia) {
-    
-    var _instance = this;
+    $mdMedia,
+    $scope,
+    $rootScope) {
 
-    tipoDefinitionDataService.getAll().then(function(definitions){
-      _instance.menu = prepareMenu(definitions);
-    });
+    var _instance = this;
 
     _instance.navigate = function(menuItem){
       $mdSidenav('left').close();
@@ -64,6 +62,14 @@
         tipoRouter.toTipoList(menuItem.tipo_name);
       }
     };
+
+    $rootScope.$watch('perspective', function(newValue, oldValue){
+      if(newValue === 'home'){
+        _instance.menu = prepareTipoMenu($scope.allTipoDefinitions);
+      }else if(newValue === 'settings'){
+        // load settings menu
+      }
+    });
 
   }
 

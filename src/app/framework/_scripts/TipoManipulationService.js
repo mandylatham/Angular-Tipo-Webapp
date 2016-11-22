@@ -327,9 +327,9 @@
                   tipoData[fieldKey] = translateSimpleValue(field, fieldValue.key);
                 }
               }
-              if(!isValidValue(tipoData[fieldKey]) && field._hadValueOriginally){
-                tipoData[fieldKey] = null;
-              }
+            }
+            if(!isValidValue(tipoData[fieldKey]) && field._hadValueOriginally){
+              tipoData[fieldKey] = null;
             }
           }
         });

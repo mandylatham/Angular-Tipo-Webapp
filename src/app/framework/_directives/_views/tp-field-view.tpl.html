@@ -5,7 +5,7 @@
         <span ng-switch-when="date_time">{{field._value.label}}</span>
         <span ng-switch-when="longstring" class="preformatted-text">{{field._value.label}}</span>
         <span ng-switch-when="richstring">
-          <div ng-bind-html="field._value.label"></div>
+          <div ng-bind-html="formattedText"></div>
         </span>
         <span ng-switch-when="s3explorer">
           <tp:s3-explorer />
@@ -14,7 +14,7 @@
       </span>
     </span>
     <span ng-if="isSingle && isTipoRef">
-      <a class="explicit" ui-sref="tipoView({tipo_name: field._ui.relatedTipo, tipo_id: field._value.key})" ui-sref-opts="{reload: 'tipoView'}">{{formattedText}}</a>
+      <a class="explicit" ui-sref="tipoView({tipo_name: field._ui.relatedTipo, tipo_id: field._value.key})" ui-sref-opts="{reload: 'tipoView'}">{{field._value.label}}</a>
     </span>
     <span ng-if="isArray && isSelfField">
       <md-chips ng-model="field._value" readonly="'true'" class="tp-chips readonly">

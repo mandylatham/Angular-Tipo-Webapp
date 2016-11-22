@@ -9,8 +9,8 @@
       parent: 'layout',
       resolve: /*@ngInject*/
       {
-        tipoDefinition: function(tipoDefinitions, tipoRegistry, tipoManipulationService, $stateParams) {
-          return tipoRegistry.get($stateParams.tipo_name);
+        tipoDefinition: function(tipoDefinitions, tipoDefinitionDataService, tipoManipulationService, $stateParams) {
+          return tipoDefinitionDataService.getOne($stateParams.tipo_name);
         },
         tipos: function(tipoDefinition, tipoInstanceDataService, tipoManipulationService, $stateParams){
           var filter = {};
@@ -26,6 +26,9 @@
           controller: 'TipoListRootController',
           controllerAs: 'tipoRootController'
         }
+      },
+      onEnter: function($rootScope){
+        $rootScope.perspective  = 'home';
       }
     };
 
@@ -49,11 +52,13 @@
             return undefined;
           }
         },
-        tipoDefinition: function(tipoDefinitions, tipoRegistry, tipoManipulationService, tipo, $stateParams) {
-          var tipoDefinition = tipoRegistry.get($stateParams.tipo_name);
-          if(!_.isUndefined(tipo)){
-            tipoManipulationService.mergeDefinitionAndData(tipoDefinition, tipo);
-          }
+        tipoDefinition: function(tipoDefinitions, tipoDefinitionDataService, tipoManipulationService, tipo, $stateParams) {
+          var tipoDefinition = tipoDefinitionDataService.getOne($stateParams.tipo_name).then(function(definition){
+            if(!_.isUndefined(tipo)){
+              tipoManipulationService.mergeDefinitionAndData(definition, tipo);
+            }
+            return definition;
+          });
           return tipoDefinition;
         }
       },
@@ -63,6 +68,9 @@
           controller: 'TipoCreateRootController',
           controllerAs: 'tipoRootController'
         }
+      },
+      onEnter: function($rootScope){
+        $rootScope.perspective  = 'home';
       }
     };
 
@@ -76,9 +84,13 @@
           var tipo = tipoInstanceDataService.getOne($stateParams.tipo_name, $stateParams.tipo_id);
           return tipo;
         },
-        tipoDefinition: function(tipoDefinitions, tipoRegistry, tipoManipulationService, tipo, $stateParams) {
-          var tipoDefinition = tipoRegistry.get($stateParams.tipo_name);
-          tipoManipulationService.mergeDefinitionAndData(tipoDefinition, tipo);
+        tipoDefinition: function(tipoDefinitions, tipoDefinitionDataService, tipoManipulationService, tipo, $stateParams) {
+          var tipoDefinition = tipoDefinitionDataService.getOne($stateParams.tipo_name).then(function(definition){
+            if(!_.isUndefined(definition)){
+              tipoManipulationService.mergeDefinitionAndData(definition, tipo);
+            }
+            return definition;
+          });
           return tipoDefinition;
         }
       },
@@ -88,6 +100,9 @@
           controller: 'TipoViewRootController',
           controllerAs: 'tipoRootController'
         }
+      },
+      onEnter: function($rootScope){
+        $rootScope.perspective  = 'home';
       }
     };
 
@@ -101,6 +116,9 @@
           controller: 'TipoEditRootController',
           controllerAs: 'tipoRootController'
         }
+      },
+      onEnter: function($rootScope){
+        $rootScope.perspective  = 'home';
       }
     };
 
@@ -120,10 +138,10 @@
           }
           return tipoInstanceDataService.search(subTipoField._ui.relatedTipo, searchCriteria);
         },
-        subTipoDefinition: function(tipoDefinition, tipoRegistry, tipoManipulationService, $stateParams) {
+        subTipoDefinition: function(tipoDefinition, tipoDefinitionDataService, tipoManipulationService, $stateParams) {
           var subTipoFieldName = $stateParams.sub_tipo_field_name;
           var subTipoField = _.find(tipoDefinition.tipo_fields, {field_name: subTipoFieldName});
-          return tipoRegistry.get(subTipoField._ui.relatedTipo);
+          return tipoDefinitionDataService.getOne(subTipoField._ui.relatedTipo);
         },
       },
       views: {
@@ -132,6 +150,9 @@
           controller: 'SubTipoListRootController',
           controllerAs: 'tipoRootController'
         }
+      },
+      onEnter: function($rootScope){
+        $rootScope.perspective  = 'home';
       }
     };
 

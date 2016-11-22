@@ -25,6 +25,7 @@
       },
       controller: /*@ngInject*/ function(tipoDefinitions, $scope){
         $scope.$emit('userLoggedInEvent');
+        $scope.allTipoDefinitions = tipoDefinitions;
       },
       templateUrl: 'layout/_views/layout.tpl.html'
     };
