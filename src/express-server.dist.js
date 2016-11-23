@@ -3,7 +3,7 @@
 var path = require('path');
 var express = require('express');
 var lodash = require('lodash');
-var proxy = require('json-proxy');
+var proxy = require('http-proxy-middleware');
 
 var pathMappings = [
   {
@@ -11,8 +11,10 @@ var pathMappings = [
     dir: 'dist'
   },
   {
-    path: '/api/v1',
-    url: 'http://localhost:8082'
+    path: '/dev',
+    //url: 'http://localhost:9001'
+    //url: 'https://k2lajprh2f.execute-api.us-east-1.amazonaws.com'
+    url: 'https://tipo.tipotapp.com'
   }
 ];
 
@@ -26,12 +28,8 @@ lodash.each(pathMappings, function(mapping){
   if(mapping.dir){
     app.use(mapping.path, express.static(path.resolve(__dirname, mapping.dir)));
   }else if(mapping.url){
-    proxyConfig.forward[mapping.path] = mapping.url;
+    app.use(mapping.path, proxy({target: mapping.url, changeOrigin: true}));
   }
 });
-
-app.use(proxy.initialize({
-  proxy: proxyConfig
-}));
 
 module.exports = app;
