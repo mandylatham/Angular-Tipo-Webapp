@@ -12,7 +12,8 @@
           templateUrl: 'dashboard/_views/dashboard.tpl.html'
         }
       },
-      onEnter: function($rootScope){
+      onEnter: /*@ngInject*/
+      function($rootScope){
         $rootScope.perspective  = 'home';
       }
     };

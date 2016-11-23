@@ -27,7 +27,8 @@
           controllerAs: 'tipoRootController'
         }
       },
-      onEnter: function($rootScope){
+      onEnter: /*@ngInject*/
+      function($rootScope){
         $rootScope.perspective  = 'home';
       }
     };
@@ -69,7 +70,8 @@
           controllerAs: 'tipoRootController'
         }
       },
-      onEnter: function($rootScope){
+      onEnter: /*@ngInject*/
+      function($rootScope){
         $rootScope.perspective  = 'home';
       }
     };
@@ -101,7 +103,8 @@
           controllerAs: 'tipoRootController'
         }
       },
-      onEnter: function($rootScope){
+      onEnter: /*@ngInject*/
+      function($rootScope){
         $rootScope.perspective  = 'home';
       }
     };
@@ -117,7 +120,8 @@
           controllerAs: 'tipoRootController'
         }
       },
-      onEnter: function($rootScope){
+      onEnter: /*@ngInject*/
+      function($rootScope){
         $rootScope.perspective  = 'home';
       }
     };
@@ -151,7 +155,8 @@
           controllerAs: 'tipoRootController'
         }
       },
-      onEnter: function($rootScope){
+      onEnter: /*@ngInject*/
+      function($rootScope){
         $rootScope.perspective  = 'home';
       }
     };
