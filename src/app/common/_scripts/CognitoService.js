@@ -20,19 +20,22 @@
 
   function CognitoService($q, securityContextService) {
         
-    function signUp(username, password, email, account) {
-      var attributeEmail = new AWSCognito.CognitoIdentityServiceProvider.CognitoUserAttribute({
+    function signUp(username, password, email, phoneNumber) {
+      var attributeList = [];
+  
+      var dataEmail = {
         Name : 'email',
         Value : email
-      });
-      var attributeAccount = new AWSCognito.CognitoIdentityServiceProvider.CognitoUserAttribute({
-        Name : 'custom:account',
-        Value : account.toUpperCase()
-      });
+      };
+      var dataPhoneNumber = {
+        Name : 'phone_number',
+        Value : phoneNumber
+      };
+      var attributeEmail = new AWSCognito.CognitoIdentityServiceProvider.CognitoUserAttribute(dataEmail);
+      var attributePhoneNumber = new AWSCognito.CognitoIdentityServiceProvider.CognitoUserAttribute(dataPhoneNumber);
       
-      var attributeList = [];
       attributeList.push(attributeEmail);
-      attributeList.push(attributeAccount);
+      // attributeList.push(attributePhoneNumber);
 
       var deferred = $q.defer();
       userPool.signUp(username, password, attributeList, null, function(err, result){
@@ -77,9 +80,9 @@
       var deferred = $q.defer();
       cognitoUser.authenticateUser(authenticationDetails, {
         onSuccess: function (result) {
-          console.log('Identity token: ', result.getIdToken().getJwtToken());
+          console.log('access token + ' + result.getAccessToken().getJwtToken());
           var securityContext = {
-            'tokenDetails.access_token': result.getIdToken().getJwtToken(),
+            'tokenDetails.access_token': result.getAccessToken().getJwtToken(),
             'loggedInUser': username
           };
           securityContextService.saveContext(securityContext);

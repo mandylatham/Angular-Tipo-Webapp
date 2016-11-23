@@ -56,7 +56,7 @@
           console.log('error handling');
           console.error(response);
 
-          if(response.status === 401) {
+          if(response.status === 403) {
             refreshAccesstoken().then(function() {
               // Repeat the request and then call the handlers the usual way.
               response.config.headers.Authorization = securityContextService.getCurrentAccessToken();
