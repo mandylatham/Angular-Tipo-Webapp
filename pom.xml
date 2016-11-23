@@ -105,7 +105,6 @@
             </goals>
             <configuration>
               <fromDir>${basedir}/target-grunt/dist</fromDir>
-              <optimize>true</optimize>
               <includes>**</includes>
               <url>s3://api.tipotapp.com/</url>
             </configuration>
