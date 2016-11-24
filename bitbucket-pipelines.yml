@@ -7,8 +7,9 @@
 image: tipotapp/tipo-build:latest
 
 pipelines:
-  default:
-    - step:
-        script: # Modify the commands below to build your repository.
-          - mvn --version
-          - mvn -X clean deploy -Dall
+  branches:
+    master:
+      - step:
+          script: # Modify the commands below to build your repository.
+            - mvn --version
+            - mvn -X clean deploy -Dall

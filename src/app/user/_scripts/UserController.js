@@ -14,7 +14,7 @@
     
     function signUp(user) {
       console.log(user);
-      var promise = cognitoService.signUp(user.username, user.password, user.email, user.phone);
+      var promise = cognitoService.signUp(user.username, user.password, user.email, user.account);
       promise.then(function (result) {
         gotoPreviousView();
         
