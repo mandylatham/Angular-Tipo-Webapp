@@ -2,40 +2,32 @@
 
   'use strict';
 
-  function registerStates($stateProvider) {    
+  function registerStates($stateProvider) {
 
     var confirmRegistrationState = {
       name: 'confirmRegistration',
       url: '/confirmation/{confirmationCode}',
-      parent: 'layout',
-      views: {
-        'content@layout': {
-          templateUrl: 'user/_views/confirmation.tpl.html',
-          controller: 'UserController',
-          controllerAs: 'userController'
-        }
-      }
+      parent: 'root',
+      templateUrl: 'user/_views/confirmation.tpl.html',
+      controller: 'UserController',
+      controllerAs: 'userController'
     };
 
     var loginState = {
       name: 'login',
       url: '/login',
-      parent: 'layout',
+      parent: 'root',
       params: {
         'retry': null
       },
-      views: {
-        'content@layout': {
-          templateUrl: 'user/_views/login2.tpl.html',
-          controller: 'UserController',
-          controllerAs: 'userController'
-        }
-      }
+      templateUrl: 'user/_views/login2.tpl.html',
+      controller: 'UserController',
+      controllerAs: 'userController'
     };
 
-    $stateProvider      
+    $stateProvider
       .state(loginState)
-      .state(confirmRegistrationState);  
+      .state(confirmRegistrationState);
   }
 
   function configureModule($stateProvider) {
@@ -47,7 +39,7 @@
     $rootScope.$on('$stateChangeSuccess', function(event, to, toParams, from, fromParams) {
         $rootScope.$previousState = from;
         $rootScope.$previousParams = fromParams;
-    });
+      });
   });
 
   module.config(function ($stateProvider) {

@@ -20,12 +20,22 @@
       return mappedDefinitions;
     }
 
-    _instance.getAll = function(){
-      return tipoResource.one(TIPO_DEFINITION_RESOURCE).get({short_display: 'Y'}).then(function(definitions){
+    _instance.search = function(filter){
+      var queryParams = {
+        short_display: 'Y'
+      };
+      if(filter){
+        queryParams.tipo_filter = filter;
+      }
+      return tipoResource.one(TIPO_DEFINITION_RESOURCE).get(queryParams).then(function(definitions){
         return _.map(definitions, function(each){
           return each.data;
         });
       });
+    };
+
+    _instance.getAll = function(){
+      return _instance.search();
     };
 
     _instance.getOne = function(id){
@@ -40,7 +50,7 @@
           console.info('Caching the detailed definition for network optimization');
           definition.detailsLoaded = true;
           tipoRegistry.push(definition);
-          return definition;
+          return tipoRegistry.get(id);
         });
       }
       return promise;

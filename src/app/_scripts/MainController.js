@@ -16,15 +16,18 @@
     var _instance = this;
     console.warn('Bootstrapping the main controller. This should happen only once');
 
+    var perspectives;
+
     this.showNavigation = function(){
       $mdSidenav('left').open();
     };
 
-    this.showSettings = function(){
+    this.toPerspective = function(name) {
+      tipoRouter.to(perspectives[name].root);
     };
 
     this.showLoginForm = function($event) {
-       $state.go('login');
+      tipoRouter.to('login');
     };
 
     this.signUp = function(){
@@ -55,6 +58,10 @@
     
     $rootScope.$on('$stateChangeError', function() {
       tipoRouter.endStateChange();
+    });
+
+    $rootScope.$on('userLoggedInEvent', function(event) {
+      perspectives = $rootScope.perspectives;
     });
 
     _instance.routing = {

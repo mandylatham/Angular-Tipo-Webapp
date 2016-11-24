@@ -7,7 +7,8 @@
     tipo,
     tipoManipulationService,
     tipoInstanceDataService,
-    tipoRouter) {
+    tipoRouter,
+    $scope) {
     
     var _instance = this;
     _instance.tipoDefinition = tipoDefinition;
@@ -15,6 +16,8 @@
 
     var tipo_name = tipoDefinition.tipo_meta.tipo_name;
     var tipo_id = tipo.tipo_id;
+
+    var perspective = $scope.perspective;
 
     _instance.save = function(){
       tipoRouter.startStateChange();
@@ -24,7 +27,11 @@
         if(tipoRouter.stickyExists()){
           tipoRouter.toStickyAndReset();
         }else{
-          tipoRouter.toTipoView(tipo_name, tipo_id);
+          if(perspective === 'settings'){
+            tipoRouter.toSettingsView(tipo_name);
+          }else{
+            tipoRouter.toTipoView(tipo_name, tipo_id);
+          }
         }
       });
     };
@@ -34,7 +41,11 @@
     };
 
     _instance.toView = function(){
-      tipoRouter.toTipoView(tipo_name, tipo_id);
+      if(perspective === 'settings'){
+        tipoRouter.toSettingsView(tipo_name);
+      }else{
+        tipoRouter.toTipoView(tipo_name, tipo_id);
+      }
     };
 
     _instance.cancel = function(){

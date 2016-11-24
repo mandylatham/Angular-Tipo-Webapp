@@ -9,7 +9,7 @@
       parent: 'layout',
       resolve: /*@ngInject*/
       {
-        tipoDefinition: function(tipoDefinitions, tipoDefinitionDataService, tipoManipulationService, $stateParams) {
+        tipoDefinition: function(tipoDefinitionDataService, tipoManipulationService, $stateParams) {
           return tipoDefinitionDataService.getOne($stateParams.tipo_name);
         },
         tipos: function(tipoDefinition, tipoInstanceDataService, tipoManipulationService, $stateParams){
@@ -53,7 +53,7 @@
             return undefined;
           }
         },
-        tipoDefinition: function(tipoDefinitions, tipoDefinitionDataService, tipoManipulationService, tipo, $stateParams) {
+        tipoDefinition: function(tipoDefinitionDataService, tipoManipulationService, tipo, $stateParams) {
           var tipoDefinition = tipoDefinitionDataService.getOne($stateParams.tipo_name).then(function(definition){
             if(!_.isUndefined(tipo)){
               tipoManipulationService.mergeDefinitionAndData(definition, tipo);
@@ -72,7 +72,7 @@
       },
       onEnter: /*@ngInject*/
       function($rootScope){
-        $rootScope.perspective  = 'home';
+        $rootScope.perspective  = 'settings';
       }
     };
 
@@ -86,7 +86,7 @@
           var tipo = tipoInstanceDataService.getOne($stateParams.tipo_name, $stateParams.tipo_id);
           return tipo;
         },
-        tipoDefinition: function(tipoDefinitions, tipoDefinitionDataService, tipoManipulationService, tipo, $stateParams) {
+        tipoDefinition: function(tipoDefinitionDataService, tipoManipulationService, tipo, $stateParams) {
           var tipoDefinition = tipoDefinitionDataService.getOne($stateParams.tipo_name).then(function(definition){
             if(!_.isUndefined(definition)){
               tipoManipulationService.mergeDefinitionAndData(definition, tipo);

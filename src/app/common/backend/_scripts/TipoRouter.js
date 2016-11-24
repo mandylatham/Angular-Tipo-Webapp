@@ -82,6 +82,22 @@
       return $state.go('tipoEdit', parameters, stateOptions);
     }
 
+    function toSettingsView(tipoName, parameters){
+      var stateOptions = {reload: 'settingsView'};
+      parameters = parameters || {};
+      parameters.tipo_name = tipoName;
+      stateOptions.inherit = false;
+      return $state.go('settingsView', parameters, stateOptions);
+    }
+
+    function toSettingsEdit(tipoName, parameters){
+      var stateOptions = {reload: 'settingsEdit'};
+      parameters = parameters || {};
+      parameters.tipo_name = tipoName;
+      stateOptions.inherit = false;
+      return $state.go('settingsEdit', parameters, stateOptions);
+    }
+
     function recordSticky(){
       _stickyState.name = getCurrent().name;
       _stickyState.params = angular.copy($state.params);
@@ -115,6 +131,8 @@
       toTipoCreate: toTipoCreate,
       toTipoView: toTipoView,
       toTipoEdit: toTipoEdit,
+      toSettingsView: toSettingsView,
+      toSettingsEdit: toSettingsEdit,
       recordSticky: recordSticky,
       toStickyAndReset: toStickyAndReset,
       stickyExists: stickyExists,

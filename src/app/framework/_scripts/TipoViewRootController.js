@@ -7,9 +7,12 @@
     tipo,
     tipoInstanceDataService,
     tipoRouter,
-    $state) {
+    $state,
+    $scope) {
 
     var _instance = this;
+
+    var perspective = $scope.perspective;
 
     _instance.tipoDefinition = tipoDefinition;
     _instance.tipo = tipo;
@@ -18,7 +21,11 @@
     var tipo_id = tipo.tipo_id;
 
     _instance.edit = function(){
-      tipoRouter.toTipoEdit(tipo_name, tipo_id);
+      if(perspective === 'settings'){
+        tipoRouter.toSettingsEdit(tipo_name);
+      }else{
+        tipoRouter.toTipoEdit(tipo_name, tipo_id);
+      }
     };
 
     _instance.delete = function(){

@@ -4,9 +4,9 @@
       <md-icon>menu</md-icon>
     </md-button>
     <span flex> </span>
-    <md-button ng-show="perspective !== 'home'" ng-click="main.showHome()">Home</md-button>
-    <md-button ng-show="perspective !== 'settings'" ng-click="main.showSettings()">Settings</md-button>
-    <md-button ng-show="!main.isSignedIn()" ng-click="main.showLoginForm(null)">Login</md-button>
-    <!--<md-button ng-show="main.isSignedIn()" ng-click="main.signOut()">Logout</md-button>-->
+    <md-button ng-show="perspective !== 'home'" ng-click="main.toPerspective('home')">Home</md-button>
+    <md-button ng-show="perspective !== 'settings'" ng-click="main.toPerspective('settings')">Settings</md-button>
+    <!--<md-button ng-show="!main.isSignedIn()" ng-click="main.showLoginForm(null)">Login</md-button>-->
+    <md-button ng-click="main.signOut()">Logout</md-button>
   </div>
 </md-toolbar>

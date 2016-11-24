@@ -16,7 +16,7 @@
     <md-icon>create</md-icon>
   </md-button>
   <div layout-padding>
-    <tp:filters definition="tipoRootController.tipoDefinition" />
+    <tp:filters definition="tipoRootController.tipoDefinition" ng-if="tipoRootController.hasTipos"/>
   </div>
   <div ng-if="!tipoRootController.hasTipos" flex layout="row" layout-align="center center">
     <tp-no-content message="No records found" />

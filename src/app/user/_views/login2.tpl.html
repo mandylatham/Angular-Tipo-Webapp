@@ -1,67 +1,69 @@
-<div id="view-container" class="card card-5">
-  <h2 align="center">Research Center</h2>
-  <h3 align="center">Login to get acess to the Research Center</h3>
-  <div ng-cloak layout-gt-sm="row" layout="column">
-      
-      <div flex-gt-sm="70" flex>     
-        <md-content flex layout-padding>
-          <md-tabs md-dynamic-height md-border-bottom md-center-tabs>
-            <md-tab label="Existing user">
-              <!--<md-content flex layout-padding>-->
-              <form name="loginForm" data-ng-submit="userController.submit(username, password)">
-                <md-input-container class="md-block">
-                    <label>Username:</label>
-                    <input ng-model="username" required>
-                </md-input-container>
+<div id="layout" layout="row" layout-align="center center">
+  <div id="view-container" md-whiteframe="6" class="card">
+    <h2 align="center">Research Center</h2>
+    <h3 align="center">Login to get acess to the Research Center</h3>
+    <div ng-cloak layout-gt-sm="row" layout="column">
 
-                <md-input-container class="md-block">
-                    <label>Password:</label>
-                    <input ng-model="password" type="password" required>
-                </md-input-container>
+        <div flex-gt-sm="70" flex>
+          <md-content flex layout-padding>
+            <md-tabs md-dynamic-height md-border-bottom md-center-tabs>
+              <md-tab label="Existing user">
+                <!--<md-content flex layout-padding>-->
+                <form name="loginForm" data-ng-submit="userController.submit(username, password)">
+                  <md-input-container class="md-block">
+                      <label>Username:</label>
+                      <input ng-model="username" required>
+                  </md-input-container>
 
-                <md-button type="submit" class="md-primary md-raised"
-                           ng-class="{'md-raised md-hue-1': (loginForm.$dirty && loginForm.$valid) }"
-                           aria-label="OK">
-                    Login
-                </md-button>
-                <div/>
-                <div><a href="/forgotpass">Forgot Password?</a></div>              
-              <!--</md-content>-->
-              </form>
-            </md-tab>
-            <md-tab label="New User">
-              <form name="newUserForm" data-ng-submit="userController.signUp(user)">              
-                <md-input-container class="md-block">
-                  <label>Username</label>
-                  <input ng-model="user.username" required>
-                </md-input-container>
-                <md-input-container class="md-block" md-no-float>
-                  <label>Password</label>
-                  <input ng-model="user.password" type="password" required>
-                </md-input-container>
-                <md-input-container class="md-block" md-no-float>
-                  <label>Email</label>
-                  <input ng-model="user.email" type="email" required>
-                </md-input-container>
-                <md-input-container class="md-block" md-no-float>
-                  <label>Phone number</label>
-                  <input ng-model="user.phone" required>
-                </md-input-container>
-                <md-button type="submit" class="md-raised md-primary">
-                  Submit
-                </md-button>
-              </form>
-            </md-tab>
-          </md-tabs> 
-        </md-content>
-      </div>
-      <md-divider></md-divider>
-      <div flex-gt-sm="30" flex>      
-        <md-content flex layout-padding>
-          <div>Login with</div>
-          <div/>
-          <google-sign-in-button button-id="g-signin2" options="options"></google-sign-in-button>
-        </md-content>
-      </div>
+                  <md-input-container class="md-block">
+                      <label>Password:</label>
+                      <input ng-model="password" type="password" required>
+                  </md-input-container>
+
+                  <md-button type="submit" class="md-primary md-raised"
+                             ng-class="{'md-raised md-hue-1': (loginForm.$dirty && loginForm.$valid) }"
+                             aria-label="OK">
+                      Login
+                  </md-button>
+                  <div/>
+                  <div><a href="/forgotpass">Forgot Password?</a></div>
+                <!--</md-content>-->
+                </form>
+              </md-tab>
+              <md-tab label="New User">
+                <form name="newUserForm" data-ng-submit="userController.signUp(user)">
+                  <md-input-container class="md-block">
+                    <label>Username</label>
+                    <input ng-model="user.username" required>
+                  </md-input-container>
+                  <md-input-container class="md-block" md-no-float>
+                    <label>Password</label>
+                    <input ng-model="user.password" type="password" required>
+                  </md-input-container>
+                  <md-input-container class="md-block" md-no-float>
+                    <label>Email</label>
+                    <input ng-model="user.email" type="email" required>
+                  </md-input-container>
+                  <md-input-container class="md-block" md-no-float>
+                    <label>Phone number</label>
+                    <input ng-model="user.phone" required>
+                  </md-input-container>
+                  <md-button type="submit" class="md-raised md-primary">
+                    Submit
+                  </md-button>
+                </form>
+              </md-tab>
+            </md-tabs> 
+          </md-content>
+        </div>
+        <md-divider></md-divider>
+        <div flex-gt-sm="30" flex>
+          <md-content flex layout-padding>
+            <div>Login with</div>
+            <div/>
+            <google-sign-in-button button-id="g-signin2" options="options"></google-sign-in-button>
+          </md-content>
+        </div>
+    </div>
   </div>
 </div>

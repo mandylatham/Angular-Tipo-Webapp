@@ -8,8 +8,8 @@
     //urlRouterProvider.when('', loginUrl);
     //urlRouterProvider.otherwise(loginUrl);
 
-    urlRouterProvider.when('', '/dashboard');
-    urlRouterProvider.otherwise('/dashboard');
+    urlRouterProvider.when('', '/login');
+    urlRouterProvider.otherwise('/login');
   }
 
   function registerStates(stateProvider) {
@@ -19,13 +19,25 @@
       parent: 'root',
       resolve: /*@ngInject*/
       {
-        tipoDefinitions: function(tipoDefinitionDataService) {
-          return tipoDefinitionDataService.getAll();
+        mainMenuDefinitions: function(tipoDefinitionDataService) {
+          return tipoDefinitionDataService.search('tipo_meta.main_menu=true');
+        },
+        settingsDefinitions: function(tipoDefinitionDataService) {
+          return tipoDefinitionDataService.search('tipo_meta.tipo_ui_type=settings');
         }
       },
-      controller: /*@ngInject*/ function(tipoDefinitions, $scope){
+      controller: /*@ngInject*/ function(mainMenuDefinitions, settingsDefinitions, $scope, $rootScope){
+        var perspectives = {};
+        perspectives.home = {
+          root: 'dashboard',
+          definitions: mainMenuDefinitions
+        };
+        perspectives.settings = {
+          root: 'settings',
+          definitions: settingsDefinitions
+        };
+        $rootScope.perspectives = perspectives;
         $scope.$emit('userLoggedInEvent');
-        $scope.allTipoDefinitions = tipoDefinitions;
       },
       templateUrl: 'layout/_views/layout.tpl.html'
     };

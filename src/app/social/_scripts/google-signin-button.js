@@ -4,11 +4,11 @@
 
   var module = angular.module('tipo.social');
 
-  module.directive('googleSignInButton', function (googleService) {      
+  module.directive('googleSignInButton', function (googleService) {
       return {
         scope: {
           buttonId: '@',
-	        options: '&'
+          options: '&'
         },
         template: '<div></div>',
         link: function(scope, element, attrs){
