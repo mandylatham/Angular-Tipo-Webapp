@@ -91,8 +91,13 @@
           params.Logins = {};
           params.Logins[loginsKey] = result.getIdToken().getJwtToken();
           AWS.config.credentials = new AWS.CognitoIdentityCredentials(params);
-
-          deferred.resolve(result);
+          AWS.config.credentials.get(function(err) {
+            if (err) {
+              deferred.reject(err);
+              return;
+            }
+            deferred.resolve(result);
+          });
         },
 
         onFailure: function(err) {
