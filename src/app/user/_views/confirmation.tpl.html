@@ -1,18 +1,35 @@
-<md-card flex="initial" layout="column">
-  <form flex layout="column" layout-wrap layout-padding layout-align="space-between start" class="md-inline-form" ng-cloak>
-    
-    <md-input-container class="md-block">
-      <label>Username</label>
-      <input ng-model="userDetails.username">
-    </md-input-container>
-    <md-input-container class="md-block" md-no-float>
-      <label>Confirmation code</label>
-      <input ng-model="userDetails.confirmationCode">
-    </md-input-container>    
-  </form>
-   <md-content md-theme="docs-dark" layout-gt-sm="row" layout-padding>
-    <div data-ng-init="userController.initConfirmation()">
-      <md-button class="md-raised md-primary" ng-click="userController.confirmRegistration(userDetails)">Confirm</md-button>
+<div id="layout" layout="row" layout-align="center center">
+  <div id="view-container" md-whiteframe="6" class="card">
+    <h2 align="center">Welcome to TipoTap</h2>
+    <h3 align="center">Enter the confirmation code to get access to TipoTap</h3>
+    <div ng-cloak layout-gt-sm="row" layout="column">
+      <div flex-gt-sm="70" flex>
+        <md-content flex layout-padding>
+          <form name="confirmationForm" data-ng-submit="userController.confirmRegistration(userDetails)">
+            <md-input-container class="md-block">
+              <label>Username</label>
+              <input ng-model="userDetails.username">
+            </md-input-container>
+
+            <md-input-container class="md-block" md-no-float>
+              <label>Confirmation code</label>
+              <input ng-model="userDetails.confirmationCode">
+            </md-input-container>
+            
+            <div ng-if="!userController.confirmationInProgress()">
+              <md-button type="submit" class="md-primary md-raised">
+                Confirm
+              </md-button>
+            </div>
+            <div ng-if="userController.confirmationInProgress()">
+              <md-button ng-disabled="true" class="md-raised md-primary">
+                <i class="fa fa-refresh fa-spin"></i>
+                Confirming...
+              </md-button>
+            </div>
+          </form>
+        </md-content>
+      </div>
     </div>
-  </md-content>
-</md-card>
+  </div>
+</div>

@@ -18,12 +18,17 @@
                     <input ng-model="password" type="password" required>
                 </md-input-container>
 
-                <md-button type="submit" class="md-primary md-raised"
-                           ng-class="{'md-raised md-hue-1': (loginForm.$dirty && loginForm.$valid) }"
-                           aria-label="OK">
+                <div ng-if="!userController.loginInProgress()">
+                  <md-button type="submit" class="md-raised md-primary">
                     Login
-                </md-button>
-                <div/>
+                  </md-button>
+                </div>
+                <div ng-if="userController.loginInProgress()">
+                  <md-button ng-disabled="true" class="md-raised md-primary">
+                    <i class="fa fa-refresh fa-spin"></i>
+                    Logging in...
+                  </md-button>
+                </div>
                 <div><a href="/forgotpass">Forgot Password?</a></div>
               </form>
             </md-tab>
@@ -45,9 +50,17 @@
                   <label>Account</label>
                   <input ng-model="user.account" required>
                 </md-input-container>
-                <md-button type="submit" class="md-raised md-primary">
-                  Submit
-                </md-button>
+                <div ng-if="!userController.registrationInProgress()">
+                  <md-button type="submit" class="md-raised md-primary">
+                    Submit
+                  </md-button>
+                </div>
+                <div ng-if="userController.registrationInProgress()">
+                  <md-button ng-disabled="true" class="md-raised md-primary">
+                    <i class="fa fa-refresh fa-spin"></i>
+                    Submitting...
+                  </md-button>
+                </div>
               </form>
             </md-tab>
           </md-tabs> 
