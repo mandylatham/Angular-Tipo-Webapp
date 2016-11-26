@@ -109,6 +109,7 @@
     }
 
     function signOut() {
+      AWS.config.credentials.clearCachedId();
       var cognitoUser = userPool.getCurrentUser();
       if(cognitoUser !== null) {
         cognitoUser.signOut();
