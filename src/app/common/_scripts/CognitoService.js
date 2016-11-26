@@ -76,7 +76,6 @@
       var cognitoUser = new AWSCognito.CognitoIdentityServiceProvider.CognitoUser(userData);
       var deferred = $q.defer();
       
-      AWS.config.credentials.clearCachedId();
       cognitoUser.authenticateUser(authenticationDetails, {
         onSuccess: function (result) {
           console.log('Identity token: ', result.getIdToken().getJwtToken());
@@ -93,12 +92,13 @@
           params.Logins = {};
           params.Logins[loginsKey] = result.getIdToken().getJwtToken();
           AWS.config.credentials = new AWS.CognitoIdentityCredentials(params);
-          AWS.config.credentials.get(function(err) {
-            if (err) {
-              deferred.reject(err);
-              return;
-            }
-            deferred.resolve(result);
+          
+          AWS.config.credentials.refresh(function(err) {
+              if (err) {
+                deferred.reject(err);
+                return;
+              }
+              deferred.resolve(result);
           });
         },
 
@@ -111,6 +111,7 @@
     }
 
     function signOut() {
+      AWS.config.credentials.clearCachedId();
       var cognitoUser = userPool.getCurrentUser();
       if(cognitoUser !== null) {
         cognitoUser.signOut();
