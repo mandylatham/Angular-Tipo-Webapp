@@ -47,7 +47,9 @@
         confirmationInProgress = true;
         promise.then(function (result) {
 
-          $state.go('dashboard');
+          // Go to login after successful registration
+          // https://github.com/aws/amazon-cognito-identity-js/issues/186
+          $state.go('login');
           confirmationInProgress = false;
         }, function (err) {
           

@@ -65,11 +65,14 @@
     }
 
     function signOut() {
-      var auth2 = gapi.auth2.getAuthInstance();
-      auth2.signOut().then(function () {
-        // $state.go('login');
-      });
-      return true;
+      if (gapi && gapi.auth2) {
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () {
+          // $state.go('login');
+        });
+        return true;
+      }
+      return false;
     }
 
     function isSignedIn() {
