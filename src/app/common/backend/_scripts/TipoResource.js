@@ -2,10 +2,6 @@
 
   'use strict';
 
-  var TIPO_API_URLS = {
-    BASE: TIPO_CONSTANTS.API_URL
-  };
-
   function getAllInterceptors($http, $q, securityContextService) {
 
     function refreshAccesstoken() {
@@ -71,11 +67,18 @@
   }
 
   // Configures Restangular for API interactions
-  function configureRestangular(RestangularConfigurer, $http, $q, securityContextService) {
- 
-    var interceptors = getAllInterceptors($http, $q, securityContextService);
-    
-    RestangularConfigurer.setBaseUrl(TIPO_API_URLS.BASE);
+  function configureRestangular(
+    RestangularConfigurer,
+    $http,
+    $q,
+    $window,
+    securityContextService) {
+
+    var interceptors = getAllInterceptors($http, $q, securityContextService, $window);
+    var location = $window.location;
+    var baseUrl = location.origin + location.pathname + 'api';
+    console.info('API Url - ' + baseUrl);
+    RestangularConfigurer.setBaseUrl(baseUrl);
     //RestangularConfigurer.addRequestInterceptor(interceptors.request.sanitize);
     RestangularConfigurer.addFullRequestInterceptor(interceptors.request.security);
     RestangularConfigurer.addResponseInterceptor(interceptors.response.extractData);
@@ -84,8 +87,8 @@
   }
 
   // Tipo Resource. This shall be used for invoking the Tipo REST APIs
-  function TipoResource($http, $q, Restangular, securityContextService) {
-    var factory = Restangular.withConfig(_.partialRight(configureRestangular, $http, $q, securityContextService));
+  function TipoResource($http, $q, $window, Restangular, securityContextService) {
+    var factory = Restangular.withConfig(_.partialRight(configureRestangular, $http, $q, $window, securityContextService));
     return factory;
   }
 
