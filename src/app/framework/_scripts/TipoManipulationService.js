@@ -147,6 +147,7 @@
           var isArray = Boolean(_.get(field, '_ui.isArray'));
           var isGroup = Boolean(_.get(field, '_ui.isGroup'));
           var isRelatedTipo = Boolean(_.get(field, '_ui.isTipoRelationship'));
+          var isLegacy;
           if(isRelatedTipo && !isGroup){
             var hasOnlyKey = _.isUndefined(field.label_field);
             if(hasOnlyKey){
@@ -154,8 +155,8 @@
                 field._value = [];
                 _.each(fieldValue, function(each){
                   field._value.push({
-                    key: fieldValue,
-                    label: fieldValue
+                    key: each,
+                    label: each
                   });
                 });
               }else{
@@ -167,21 +168,41 @@
             }else{
               if(isArray){
                 field._value = [];
-                _.each(fieldValue, function(each){
-                  var keyFieldValue = _.get(each, field.key_field.field_name);
-                  var labelFieldValue = _.get(each, field.label_field.field_name);
-                  field._value.push({
+                if(!_.isEmpty(fieldValue)){
+                  isLegacy = _.isObject(fieldValue[0]);
+                  if(isLegacy){
+                    _.each(fieldValue, function(each){
+                      var keyFieldValue = _.get(each, field.key_field.field_name);
+                      var labelFieldValue = _.get(each, field.label_field.field_name);
+                      field._value.push({
+                        key: keyFieldValue,
+                        label: labelFieldValue
+                      });
+                    });
+                  }else{
+                    _.each(fieldValue, function(each){
+                      field._value.push({
+                        key: each,
+                        label: _.get(tipoData, fieldKey + '.' + each)
+                      });
+                    });
+                  }
+                }
+              }else{
+                isLegacy = _.isObject(fieldValue);
+                if(isLegacy){
+                  var keyFieldValue = _.get(fieldValue, field.key_field.field_name);
+                  var labelFieldValue = _.get(fieldValue, field.label_field.field_name);
+                  field._value = {
                     key: keyFieldValue,
                     label: labelFieldValue
-                  });
-                });
-              }else{
-                var keyFieldValue = _.get(fieldValue, field.key_field.field_name);
-                var labelFieldValue = _.get(fieldValue, field.label_field.field_name);
-                field._value = {
-                  key: keyFieldValue,
-                  label: labelFieldValue
-                };
+                  };
+                }else{
+                  field._value = {
+                    key: fieldValue,
+                    label: _.get(tipoData, fieldKey + '.' + fieldValue)
+                  };
+                }
               }
             }
           }
@@ -252,19 +273,16 @@
               if(isArray){
                 tipoData[fieldKey] = [];
                 _.each(fieldValue, function(each){
-                  tipoData[fieldKey].push({
-                    tipo_id: each.key
-                  });
+                  tipoData[fieldKey].push(each.key);
+                  if(!_.isUndefined(field.label_field)){
+                    tipoData[fieldKey + '.' + each.key] = each.label;
+                  }
                 });
               }else{
                 if(hasSimpleValue){
+                  tipoData[fieldKey] = fieldValue.key;
                   if(!_.isUndefined(field.label_field)){
-                    tipoData[fieldKey] = {
-                      tipo_id: fieldValue.key
-                    };
-                    tipoData[fieldKey][field.label_field.field_name] = fieldValue.label;
-                  }else{
-                    tipoData[fieldKey] = fieldValue.key;
+                    tipoData[fieldKey + '.' + fieldValue.key] = fieldValue.label;
                   }
                 }
               }

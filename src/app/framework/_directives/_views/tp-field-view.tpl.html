@@ -1,4 +1,4 @@
-<div>
+<div class="tp-field">
   <span ng-if="hasValue">
     <span ng-if="isSingle && isSelfField">
       <span ng-switch="field.field_type">
@@ -25,11 +25,11 @@
       </md-chips>
     </span>
     <span ng-if="isArray && isTipoRef">
-      <md-chips ng-model="field._value" readonly="'true'" class="tp-chips readonly">
-        <md-chip-template>
-          <a class="explicit" ui-sref="tipoView({tipo_name: field._ui.relatedTipo, tipo_id: $schip.key})">{{$chip.label}}</a>
-        </md-chip-template>
-      </md-chips>
+      <div class="multiple-list">
+        <div ng-repeat="value in field._value">
+          <a class="explicit" ui-sref="tipoView({tipo_name: field._ui.relatedTipo, tipo_id: value.key})" ui-sref-opts="{reload: 'tipoView'}">{{value.label}}</a>
+        </div>
+      </div>
     </span>
   </span>
   <span ng-if="!hasValue" class="no-value">

@@ -20,8 +20,73 @@
           var field = scope.field;
           var isArray = Boolean(field._ui.isArray);
           var isGroup = Boolean(field._ui.isGroup);
+          scope.isArray = isArray;
+
           var fieldTemplate;
           if(isArray && !isGroup){
+            fieldTemplate = 'framework/_directives/_views/tp-lookup-multiple.tpl.html';
+          }else{
+            fieldTemplate = 'framework/_directives/_views/tp-lookup-single.tpl.html';
+          }
+          scope.fieldTemplate = fieldTemplate;
+
+          var baseFilter = field.relationship_filter;
+          var tipo_name = field._ui.relatedTipo;
+
+          var label_field;
+          if(_.isUndefined(field.label_field)){
+            label_field = field.key_field.field_name;
+          }else{
+            label_field = field.label_field.field_name;
+          }
+
+          if(isArray){
+            scope.options = field._value;
+          }else{
+            if(_.get(field, '_value.key')){
+              scope.options = [field._value];
+            }
+          }
+
+          scope.loadOptions = function(){
+            delete scope.options;
+            var searchCriteria = {};
+            if(!_.isUndefined(baseFilter)){
+              var baseFilterExpanded = tipoManipulationService.expandFilterExpression(baseFilter, scope.root, scope.context);
+              searchCriteria.tipo_filter = baseFilterExpanded;
+            }
+            return tipoInstanceDataService.search(tipo_name, searchCriteria).then(function(results){
+              scope.options = _.map(results, function(each){
+                return {
+                  key: each.tipo_id,
+                  label: each[label_field]
+                };
+              });
+            });
+          };
+
+          scope.searchTerm = {};
+          scope.cleanup = function(){
+            delete scope.searchTerm.text;
+          };
+
+          scope.stopBubbling = function(event){
+            event.stopPropagation();
+          };
+
+          scope.renderSelection = function(){
+            var text = '<div class="placeholder">' + field.field_description + '</div>';
+            if (field._value && field._value.length){
+              text = '<div class="multiple-list">';
+              _.each(field._value, function(each){
+                text += '<div>' +each.label + '</div>';
+              });
+              text += '</div>';
+            }
+            return text;
+          };
+
+          /*if(isArray && !isGroup){
             fieldTemplate = 'framework/_directives/_views/tp-lookup-multiple.tpl.html';
           }else{
             fieldTemplate = 'framework/_directives/_views/tp-lookup-single.tpl.html';
@@ -74,7 +139,7 @@
                 };
               });
             });
-          };
+          };*/
         }
       };
     }

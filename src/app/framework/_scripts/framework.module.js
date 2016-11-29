@@ -72,7 +72,7 @@
       },
       onEnter: /*@ngInject*/
       function($rootScope){
-        $rootScope.perspective  = 'settings';
+        $rootScope.perspective  = 'home';
       }
     };
 
