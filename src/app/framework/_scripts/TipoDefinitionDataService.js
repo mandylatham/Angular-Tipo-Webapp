@@ -2,7 +2,7 @@
 
   'use strict';
 
-  var TIPO_DEFINITION_RESOURCE = 'tipo/TipoDefinition';
+  var TIPO_DEFINITION_RESOURCE = 'TipoDefinition';
 
   function TipoDefinitionDataService(
     tipoResource,

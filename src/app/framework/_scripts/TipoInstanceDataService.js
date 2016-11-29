@@ -2,8 +2,6 @@
 
   'use strict';
 
-  var TIPO_INSTANCE_RESOURCE = 'tipo';
-
   function TipoInstanceDataService(
     tipoResource,
     $q) {
@@ -21,7 +19,7 @@
     }
 
     function getCollectionResource(tipo_name){
-      return tipoResource.one(TIPO_INSTANCE_RESOURCE).all(tipo_name);
+      return tipoResource.all(tipo_name);
     }
 
     function getDocumentResource(tipo_name, id){
