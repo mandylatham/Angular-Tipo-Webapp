@@ -11,6 +11,9 @@
         <span ng-switch-when="s3explorer">
           <tp:s3-fileselector />
         </span>
+        <span ng-switch-when="htmlLink">
+          <a ng-href="{{field._value.label}}" target="_blank">{{field._value.label}}</a>
+        </span>
         <span ng-switch-default>{{field._value.label}}</span>
       </span>
     </span>
