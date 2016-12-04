@@ -10,6 +10,7 @@
     $window,
     $state,
     $stateParams,
+    tipoResource,
     cognitoService) {
 
     var loginInProgress = false;
@@ -18,14 +19,34 @@
     
     function signUp(user) {
       if (!registrationInProgress) {
-        var promise = cognitoService.signUp(user.username, user.password, user.email, user.account);
-        registrationInProgress = true;
-        promise.then(function (result) {
-          $state.go('confirmRegistration');
-          registrationInProgress = false;
-        }, function (err) {
-          registrationInProgress = false;
-          $window.alert(err);
+        var params = {
+          application: $window.location.origin, 
+          account: user.account
+        };
+        tipoResource.one('subscription').customGET('', params).then(function(existsAccount) {
+          if (!existsAccount) {
+            var promise = cognitoService.signUp(user.email, user.password, user.account);
+            registrationInProgress = true;
+            promise.then(function (result) {
+              $state.go('confirmRegistration');
+              registrationInProgress = false;
+            }, function (err) {
+              registrationInProgress = false;
+              $window.alert(err);
+            });
+          } else {
+            var alertDlg = $mdDialog.alert()
+              .title('Registration')
+              .content('Account ' + user.account + ' already exists. Pick a new one')
+              .ok('Close');
+            $mdDialog.show(alertDlg);
+          }
+        }, function(err) {
+          var alertDlg = $mdDialog.alert()
+              .title('Registration')
+              .content(err.data.errorMessage)
+              .ok('Close');
+          $mdDialog.show(alertDlg);
         });
       }
     }

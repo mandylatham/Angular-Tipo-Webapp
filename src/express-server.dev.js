@@ -18,7 +18,8 @@ var pathMappings = [
     path: '/api',
     //url: 'http://localhost:9001'
     //url: 'https://k2lajprh2f.execute-api.us-east-1.amazonaws.com'
-    url: 'https://tipo.tipotapp.com/apps/tipo/tipotapp'
+    //url: 'https://tipo.tipotapp.com/apps/tipo/tipotapp'
+    url: 'https://tipo.tipotapp.com/dev'
   }
 ];
 

@@ -59,8 +59,9 @@
               $http(response.config).then(responseHandler, deferred.reject);
               // Be aware that no request interceptors are called this way.
             });
+            return false;
           }
-          return false;
+          return true;
         }
       }
     };

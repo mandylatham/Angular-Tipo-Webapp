@@ -20,7 +20,7 @@
       params: {
         'retry': null
       },
-      templateUrl: 'user/_views/login2.tpl.html',
+      templateUrl: 'user/_views/login.tpl.html',
       controller: 'UserController',
       controllerAs: 'userController'
     };
