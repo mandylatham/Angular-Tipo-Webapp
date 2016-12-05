@@ -38,11 +38,11 @@
       response: {
         // Extracts the payload from the wrapped API response
         extractData: function(rawData) {
-          if(rawData.response){
+          if(rawData && rawData.response){
             return rawData.response;
-          }else if(rawData.data){
+          } else if(rawData && rawData.data){
             return rawData.data;
-          }else{
+          } else{
             return rawData;
           }
         }

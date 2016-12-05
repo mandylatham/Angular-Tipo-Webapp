@@ -17,37 +17,57 @@
     var registrationInProgress = false;
     var confirmationInProgress = false;
     
+    $scope.lastError = null;
+    
     function signUp(user) {
       if (!registrationInProgress) {
         var params = {
-          application: $window.location.origin, 
-          account: user.account
+          type: 'application',
+          url: $window.location.origin
         };
-        tipoResource.one('subscription').customGET('', params).then(function(existsAccount) {
-          if (!existsAccount) {
-            var promise = cognitoService.signUp(user.email, user.password, user.account);
-            registrationInProgress = true;
-            promise.then(function (result) {
-              $state.go('confirmRegistration');
+        registrationInProgress = true;
+        tipoResource.one('subscription').customGET('', params).then(function(application) {
+
+          var params = {
+            type: 'account',
+            application: application.value, 
+            account: user.account
+          };
+          tipoResource.one('subscription').customGET('', params).then(function(account) {
+            if (account) {
+              $scope.lastError = 'Account ' + user.account + ' already exists';
               registrationInProgress = false;
-            }, function (err) {
-              registrationInProgress = false;
-              $window.alert(err);
-            });
-          } else {
-            var alertDlg = $mdDialog.alert()
-              .title('Registration')
-              .content('Account ' + user.account + ' already exists. Pick a new one')
-              .ok('Close');
-            $mdDialog.show(alertDlg);
-          }
+            } else {
+              tipoResource.one('subscription').customPUT('', '', params).then(function(existsAccount) {
+                var promise = cognitoService.signUp(user.email, user.password, user.account);
+                promise.then(function (result) {
+                  $state.go('confirmRegistration');
+                  registrationInProgress = false;
+                }, function (err) {
+                  registrationInProgress = false;
+                  printErrorMessage(err);
+                  console.error(err);
+                });
+              });
+            }
+          }, function(err) {
+            registrationInProgress = false;
+            printErrorMessage(err);
+            console.error(err);
+          });
         }, function(err) {
-          var alertDlg = $mdDialog.alert()
-              .title('Registration')
-              .content(err.data.errorMessage)
-              .ok('Close');
-          $mdDialog.show(alertDlg);
+          registrationInProgress = false;
+          printErrorMessage(err);
+          console.error(err);
         });
+      }
+    }
+
+    function printErrorMessage(err) {
+      if (err && err.errorMessage) {
+        $scope.lastError = err.errorMessage;
+      } else if (err && err.message) {
+        $scope.lastError = err.message;
       }
     }
 
