@@ -7,7 +7,7 @@
         <md-content flex layout-padding>
           <md-tabs md-dynamic-height md-border-bottom md-center-tabs>
             <md-tab label="Existing user">
-              <form name="loginForm" data-ng-submit="userController.submit(username, password)">
+              <form name="loginForm" data-ng-submit="userController.login(username, password)">
                 <md-input-container class="md-block">
                     <label>Email:</label>
                     <input ng-model="username" required>
@@ -15,7 +15,10 @@
 
                 <md-input-container class="md-block">
                     <label>Password:</label>
-                    <input ng-model="password" type="password" required>
+                    <input name="password" ng-model="password" type="password" required>
+                    <div ng-messages="loginForm.password.$error" ng-if="lastError">
+                      <div ng-message="required">{{ lastError }}</div>
+                    </div>
                 </md-input-container>
 
                 <div ng-if="!userController.loginInProgress()">

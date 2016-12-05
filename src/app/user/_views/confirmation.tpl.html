@@ -5,15 +5,18 @@
     <div ng-cloak layout-gt-sm="row" layout="column">
       <div flex-gt-sm="70" flex>
         <md-content flex layout-padding>
-          <form name="confirmationForm" data-ng-submit="userController.confirmRegistration(userDetails)">
+          <form name="confirmationForm" data-ng-submit="userController.confirmRegistration(username, confirmationCode)">
             <md-input-container class="md-block">
               <label>Email</label>
-              <input ng-model="userDetails.username">
+              <input ng-model="username">
             </md-input-container>
 
             <md-input-container class="md-block" md-no-float>
               <label>Confirmation code</label>
-              <input ng-model="userDetails.confirmationCode">
+              <input name="confirmationCode" ng-model="confirmationCode">
+              <div ng-messages="confirmationForm.confirmationCode.$error" ng-if="lastError">
+                <div ng-message="required">{{ lastError }}</div>
+              </div>
             </md-input-container>
             
             <div ng-if="!userController.confirmationInProgress()">

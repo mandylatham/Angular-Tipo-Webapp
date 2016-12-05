@@ -20,7 +20,7 @@
 
   function CognitoService($q, securityContextService) {
         
-    function signUp(email, password, account) {
+    function signUp(username, password, email, account) {
       var attributeEmail = new AWSCognito.CognitoIdentityServiceProvider.CognitoUserAttribute({
         Name : 'email',
         Value : email
@@ -35,7 +35,7 @@
       attributeList.push(attributeAccount);
 
       var deferred = $q.defer();
-      userPool.signUp(email, password, attributeList, null, function(err, result){
+      userPool.signUp(username, password, attributeList, null, function(err, result){
         if (err) {
           deferred.reject(err);
           return;

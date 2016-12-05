@@ -38,16 +38,18 @@
               $scope.lastError = 'Account ' + user.account + ' already exists';
               registrationInProgress = false;
             } else {
-              var params = {
-                type: 'account',
-                application: appResult.application, 
-                account: user.account,
-                owner: appResult.owner,
-                email: user.email
-              };
-              tipoResource.one('subscription').customPUT('', '', params).then(function(created) {
-                var promise = cognitoService.signUp(user.email, user.password, user.account);
-                promise.then(function (result) {
+              
+              var username = appResult.owner + '.' + appResult.application + '.' + user.email;
+              var promise = cognitoService.signUp(username, user.password, user.email, user.account);
+              promise.then(function (result) {
+                var params = {
+                  type: 'account',
+                  application: appResult.application, 
+                  account: user.account,
+                  owner: appResult.owner,
+                  email: user.email
+                };
+                tipoResource.one('subscription').customPUT('', '', params).then(function(created) {
                   $state.go('confirmRegistration');
                   registrationInProgress = false;
                 }, function (err) {
@@ -70,17 +72,6 @@
       }
     }
 
-    function printErrorMessage(err) {
-      console.error(err); 
-      if (err && err.errorMessage) {
-        $scope.lastError = err.errorMessage;
-      } else if (err && err.data && err.data.errorMessage) {
-        $scope.lastError = err.data.errorMessage;
-      } else if (err && err.message) {
-        $scope.lastError = err.message;
-      }
-    }
-
     function initConfirmation() {
       // Path will be /verification/1234, and array looks like: ["","verification","1234"]
       var confirmationCode = $location.path().split("/")[2] || "Unknown";
@@ -90,45 +81,66 @@
       $scope.userDetails.confirmationCode = confirmationCode;
     }
 
-    function confirmRegistration(userDetails) {
+    function confirmRegistration(email, confirmationCode) {
       if (!confirmationInProgress) {
-        userDetails = userDetails || { username: '', confirmationCode: '' };
-
-        var promise = cognitoService.confirmRegistration(userDetails.username, userDetails.confirmationCode);
         confirmationInProgress = true;
-        promise.then(function (result) {
 
-          // Go to login after successful registration
-          // https://github.com/aws/amazon-cognito-identity-js/issues/186
-          $state.go('login');
+        var params = {
+          type: 'application',
+          url: $window.location.origin
+        };
+        tipoResource.one('subscription').customGET('', params).then(function(appResult) {
+          var username = appResult.owner + '.' + appResult.application + '.' + email;
+
+          var promise = cognitoService.confirmRegistration(username, confirmationCode);
+          promise.then(function (result) {
+
+            // Go to login after successful registration
+            // https://github.com/aws/amazon-cognito-identity-js/issues/186
+            $state.go('login');
+            confirmationInProgress = false;
+          }, function (err) {
+            
+            confirmationInProgress = false;
+            printErrorMessage(err);
+          });
+        }, function(err) {
           confirmationInProgress = false;
-        }, function (err) {
-          
-          confirmationInProgress = false;
-          $window.alert(err);
+          printErrorMessage(err);
         });
       }
     }
 
-    function submit(username, password) {
+    function login(email, password) {
       if (!loginInProgress) {
-        var promise = cognitoService.authenticate(username, password);
         loginInProgress = true;
-        promise.then(function(result) {
-          
-          gotoPreviousView();
-          if ($stateParams.retry) {
-            $stateParams.retry.resolve();
-          }
-          $state.go('dashboard');
+
+        var params = {
+          type: 'application',
+          url: $window.location.origin
+        };
+        tipoResource.one('subscription').customGET('', params).then(function(appResult) {
+          var username = appResult.owner + '.' + appResult.application + '.' + email;
+          var promise = cognitoService.authenticate(username, password);
+          promise.then(function(result) {
+            
+            gotoPreviousView();
+            if ($stateParams.retry) {
+              $stateParams.retry.resolve();
+            }
+            $state.go('dashboard');
+            loginInProgress = false;
+          }, function (err) {
+            
+            if ($stateParams.retry) {
+              $stateParams.retry.reject();
+            }
+            loginInProgress = false;
+            printErrorMessage(err);
+          });
+        }, function(err) {
           loginInProgress = false;
-        }, function (err) {
-          
-          if ($stateParams.retry) {
-            $stateParams.retry.reject();
-          }
-          loginInProgress = false;
-          $window.alert(err);
+          printErrorMessage(err);
         });
       }
     }
@@ -138,6 +150,17 @@
         $state.go('dashboard');
       } else {
         $state.go($rootScope.$previousState, $rootScope.$previousParams);
+      }
+    }
+
+    function printErrorMessage(err) {
+      console.error(err); 
+      if (err && err.errorMessage) {
+        $scope.lastError = err.errorMessage;
+      } else if (err && err.data && err.data.errorMessage) {
+        $scope.lastError = err.data.errorMessage;
+      } else if (err && err.message) {
+        $scope.lastError = err.message;
       }
     }
 
@@ -157,7 +180,7 @@
       signUp: signUp,
       initConfirmation: initConfirmation,
       confirmRegistration: confirmRegistration,
-      submit: submit,
+      login: login,
       loginInProgress: isLoginInProgress,
       registrationInProgress: isRegistrationInProgress,
       confirmationInProgress: isConfirmationInProgress
