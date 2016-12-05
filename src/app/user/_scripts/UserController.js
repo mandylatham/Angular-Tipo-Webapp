@@ -26,11 +26,11 @@
           url: $window.location.origin
         };
         registrationInProgress = true;
-        tipoResource.one('subscription').customGET('', params).then(function(application) {
+        tipoResource.one('subscription').customGET('', params).then(function(appResult) {
 
           var params = {
             type: 'account',
-            application: application.value, 
+            application: appResult.application, 
             account: user.account
           };
           tipoResource.one('subscription').customGET('', params).then(function(account) {
@@ -38,7 +38,14 @@
               $scope.lastError = 'Account ' + user.account + ' already exists';
               registrationInProgress = false;
             } else {
-              tipoResource.one('subscription').customPUT('', '', params).then(function(existsAccount) {
+              var params = {
+                type: 'account',
+                application: appResult.application, 
+                account: user.account,
+                owner: appResult.owner,
+                email: user.email
+              };
+              tipoResource.one('subscription').customPUT('', '', params).then(function(created) {
                 var promise = cognitoService.signUp(user.email, user.password, user.account);
                 promise.then(function (result) {
                   $state.go('confirmRegistration');
@@ -46,26 +53,29 @@
                 }, function (err) {
                   registrationInProgress = false;
                   printErrorMessage(err);
-                  console.error(err);
                 });
+              }, function(err) {
+                registrationInProgress = false;
+                printErrorMessage(err);
               });
             }
           }, function(err) {
             registrationInProgress = false;
             printErrorMessage(err);
-            console.error(err);
           });
         }, function(err) {
           registrationInProgress = false;
           printErrorMessage(err);
-          console.error(err);
         });
       }
     }
 
     function printErrorMessage(err) {
+      console.error(err); 
       if (err && err.errorMessage) {
         $scope.lastError = err.errorMessage;
+      } else if (err && err.data && err.data.errorMessage) {
+        $scope.lastError = err.data.errorMessage;
       } else if (err && err.message) {
         $scope.lastError = err.message;
       }
