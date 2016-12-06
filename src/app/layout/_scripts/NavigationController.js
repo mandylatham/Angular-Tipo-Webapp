@@ -51,26 +51,54 @@
     }
 
     function prepareTipoMenu(perspective){
-      var tipoDefinitions = perspectives[perspective].definitions;
-      var tipoMenuItems = _.map(tipoDefinitions, function(definition){
-        var menuItem = {};
-        var meta = definition.tipo_meta;
-        menuItem.id = 'tipo.' + meta.tipo_name;
-        menuItem.tipo_name = meta.tipo_name;
-        menuItem.label = meta.display_name;
-        menuItem.icon = meta.icon;
-        return menuItem;
-      });
+      var tipoMenuItems;
+      if(S(perspective).startsWith('tipo.')){
+        var parts = perspective.split('.');
+        var tipoName = parts[1];
+        var tipoId = parts[2];
+        tipoDefinitionDataService.getOne(tipoName).then(function(tipoDefinition){
+          var subTipos = tipoDefinition._ui.subTipos;
+          subTipos = _.sortBy(subTipos, function(each){
+            if(each._ui.sequence){
+              return parseFloat(each._ui.sequence, 10);
+            }else{
+              return 999;
+            }
+          });
+          tipoMenuItems = _.map(subTipos, function(fieldDefinition){
+            var menuItem = {};
+            menuItem.id = 'tipo.' + fieldDefinition._ui.relatedTipo;
+            menuItem.tipo_name = fieldDefinition._ui.relatedTipo;
+            menuItem.label = fieldDefinition.display_name;
+            menuItem.perspective = perspective;
+            return menuItem;
+          });
+          markActiveItem(tipoMenuItems);
+          _instance.menu = tipoMenuItems;
+        });
+      }
+      else{
+        var tipoDefinitions = perspectives[perspective].definitions;
+        tipoMenuItems = _.map(tipoDefinitions, function(definition){
+          var menuItem = {};
+          var meta = definition.tipo_meta;
+          menuItem.id = 'tipo.' + meta.tipo_name;
+          menuItem.tipo_name = meta.tipo_name;
+          menuItem.label = meta.display_name;
+          menuItem.icon = meta.icon;
+          return menuItem;
+        });
 
-      var fullMenu = _.cloneDeep(menu);
-      fullMenu = _.filter(fullMenu, function(each){
-        return _.isUndefined(each.perspectives) || _.includes(each.perspectives, perspective);
-      });
-      var tipoMenuIndex = _.findIndex(fullMenu, {id: 'dynamic'});
-      fullMenu.splice(tipoMenuIndex, 1, tipoMenuItems);
-      fullMenu = _.flatten(fullMenu);
-      markActiveItem(fullMenu);
-      return fullMenu;
+        var fullMenu = _.cloneDeep(menu);
+        fullMenu = _.filter(fullMenu, function(each){
+          return _.isUndefined(each.perspectives) || _.includes(each.perspectives, perspective);
+        });
+        var tipoMenuIndex = _.findIndex(fullMenu, {id: 'dynamic'});
+        fullMenu.splice(tipoMenuIndex, 1, tipoMenuItems);
+        fullMenu = _.flatten(fullMenu);
+        markActiveItem(fullMenu);
+        _instance.menu = fullMenu;
+      }
     }
 
     _instance.navigate = function(menuItem){
@@ -83,13 +111,19 @@
         if(perspective === 'settings'){
           tipoRouter.toSettingsView(menuItem.tipo_name);
         }else{
-          tipoRouter.toTipoList(menuItem.tipo_name);
+          var parameters;
+          if(menuItem.perspective){
+            parameters = {
+              perspective: menuItem.perspective
+            };
+          }
+          tipoRouter.toTipoList(menuItem.tipo_name, parameters);
         }
       }
     };
 
     $rootScope.$watch('perspective', function(newValue, oldValue){
-      _instance.menu = prepareTipoMenu(newValue);
+      prepareTipoMenu(newValue);
     });
 
   }

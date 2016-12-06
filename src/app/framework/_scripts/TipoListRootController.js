@@ -33,7 +33,15 @@
     _instance.hasTipos = tipos.length > 0;
 
     _instance.createNew = function(){
-      tipoRouter.toTipoCreate(tipo_name);
+      var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
+      if(perspectiveMetadata){
+        var data = {};
+        data[perspectiveMetadata.fieldName] = perspectiveMetadata.tipoId;
+        data = encodeURIComponent(angular.toJson(data));
+        tipoRouter.toTipoCreate(tipo_name, {data: data});
+      }else{
+        tipoRouter.toTipoCreate(tipo_name);
+      }
     };
 
     _instance.toDetail = function(id){

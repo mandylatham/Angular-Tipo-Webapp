@@ -21,6 +21,10 @@
       tipoRouter.startStateChange();
       var data = {};
       tipoManipulationService.extractDataFromMergedDefinition(_instance.tipoDefinition, data);
+      var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
+      if(perspectiveMetadata && !data[perspectiveMetadata.fieldName]){
+        data[perspectiveMetadata.fieldName] = perspectiveMetadata.tipoId;
+      }
       tipoInstanceDataService.upsertAll(tipo_name, [data]).then(function(result){
         if(tipoRouter.stickyExists()){
           tipoRouter.toStickyAndReset();

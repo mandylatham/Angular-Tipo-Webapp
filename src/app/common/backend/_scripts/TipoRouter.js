@@ -4,6 +4,7 @@
 
   // Tipo router. Contains common functions for state traversal, reload, etc.
   function TipoRouter(
+    tipoManipulationService,
     $rootScope,
     $state,
     $stateParams) {
@@ -52,6 +53,10 @@
       var stateOptions = {reload: 'tipoList'};
       parameters = parameters || {};
       parameters.tipo_name = tipoName;
+      var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
+      if(perspectiveMetadata){
+        parameters.perspective = perspectiveMetadata.perspective;
+      }
       stateOptions.inherit = false;
       return $state.go('tipoList', parameters, stateOptions);
     }
@@ -60,6 +65,10 @@
       var stateOptions = {reload: 'tipoCreate'};
       parameters = parameters || {};
       parameters.tipo_name = tipoName;
+      var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
+      if(perspectiveMetadata){
+        parameters.perspective = perspectiveMetadata.perspective;
+      }
       stateOptions.inherit = false;
       return $state.go('tipoCreate', parameters, stateOptions);
     }
@@ -69,6 +78,10 @@
       parameters = parameters || {};
       parameters.tipo_name = tipoName;
       parameters.tipo_id = tipoId;
+      var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
+      if(perspectiveMetadata){
+        parameters.perspective = perspectiveMetadata.perspective;
+      }
       stateOptions.inherit = false;
       return $state.go('tipoView', parameters, stateOptions);
     }
@@ -78,7 +91,7 @@
       parameters = parameters || {};
       parameters.tipo_name = tipoName;
       parameters.tipo_id = tipoId;
-      stateOptions.inherit = false;
+      stateOptions.inherit = true;
       return $state.go('tipoEdit', parameters, stateOptions);
     }
 

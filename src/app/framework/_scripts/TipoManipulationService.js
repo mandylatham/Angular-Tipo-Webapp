@@ -2,7 +2,7 @@
 
   'use strict';
 
-  function TipoManipulationService(tipoRegistry) {
+  function TipoManipulationService(tipoRegistry, $rootScope) {
 
     function mapDefinitionToUI(definition){
 
@@ -475,6 +475,29 @@
       return filterExpression;
     }
 
+    function isTipoPerspective(){
+      var perspective = $rootScope.perspective;
+      return perspective && S(perspective).startsWith('tipo.');
+    }
+
+    function resolvePerspectiveMetadata(){
+      var perspective = $rootScope.perspective;
+      if(isTipoPerspective()){
+        var parts = perspective.split('.');
+        var tipoName = parts[1];
+        var tipoId = parts[2];
+        var tipoDefinition = tipoRegistry.get(tipoName);
+        var fieldName = tipoDefinition.tipo_meta.perspective_field_name || _.snakeCase(tipoName);
+        return {
+          perspective: perspective,
+          tipoName: tipoName,
+          tipoId: tipoId,
+          fieldName: fieldName,
+          tipoFilter: fieldName + '=' + tipoId
+        };
+      }
+    }
+
     // Expose the functions that need to be consumed from outside
     this.mapDefinitionToUI = mapDefinitionToUI;
     this.expandFieldHierarchy = expandFieldHierarchy;
@@ -489,6 +512,8 @@
     this.cloneInstance = cloneInstance;
     this.extractContextualData = extractContextualData;
     this.expandFilterExpression = expandFilterExpression;
+    this.isTipoPerspective = isTipoPerspective;
+    this.resolvePerspectiveMetadata = resolvePerspectiveMetadata;
 
   }
 

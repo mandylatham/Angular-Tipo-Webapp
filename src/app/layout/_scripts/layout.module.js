@@ -12,10 +12,24 @@
     urlRouterProvider.otherwise('/login');
   }
 
+  function parsePerspective(perspective){
+    if(perspective && S(perspective).startsWith('tipo.')){
+      var parts = perspective.split('.');
+      var tipoName = parts[1];
+      var tipoId = parts[2];
+      return {
+        tipoName: tipoName,
+        tipoId: tipoId
+      };
+    }
+    return {};
+  }
+
   function registerStates(stateProvider) {
     var layoutState = {
       name: 'layout',
       abstract: true,
+      url: '?perspective',
       parent: 'root',
       resolve: /*@ngInject*/
       {
@@ -24,6 +38,16 @@
         },
         settingsDefinitions: function(tipoDefinitionDataService) {
           return tipoDefinitionDataService.search('tipo_meta.tipo_ui_type=settings');
+        },
+        perspectiveMetadata: function(tipoDefinitionDataService, tipoManipulationService, $stateParams, $rootScope){
+          var perspective = parsePerspective($stateParams.perspective);
+          if(perspective.tipoName){
+            $rootScope.perspective = $stateParams.perspective;
+            return tipoDefinitionDataService.getOne(perspective.tipoName).then(function(){
+              return tipoManipulationService.resolvePerspectiveMetadata();
+            });
+          }
+          return undefined;
         }
       },
       controller: /*@ngInject*/ function(mainMenuDefinitions, settingsDefinitions, $scope, $rootScope){

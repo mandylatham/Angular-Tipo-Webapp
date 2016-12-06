@@ -5,6 +5,7 @@
         <md-button layout="row" layout-align="start center" ng-click="navigation.navigate(item)">
           <div class="md-list-item-inner">
             <md-icon ng-if="item.icon">{{item.icon}}</md-icon>
+            <md-icon ng-if="!item.icon">keyboard_arrow_right</md-icon>
             <span>{{item.label}}</span>
           </div>
         </md-button>

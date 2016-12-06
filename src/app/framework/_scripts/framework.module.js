@@ -12,10 +12,20 @@
         tipoDefinition: function(tipoDefinitionDataService, tipoManipulationService, $stateParams) {
           return tipoDefinitionDataService.getOne($stateParams.tipo_name);
         },
-        tipos: function(tipoDefinition, tipoInstanceDataService, tipoManipulationService, $stateParams){
+        tipos: function(tipoDefinition, tipoInstanceDataService, tipoManipulationService, perspectiveMetadata, $stateParams, $rootScope){
+
           var filter = {};
+
+          if(perspectiveMetadata){
+            filter.tipo_filter = perspectiveMetadata.tipoFilter;
+          }
+
           if($stateParams.filter){
-            filter.tipo_filter = tipoManipulationService.expandFilterExpression($stateParams.filter);
+            if(filter.tipo_filter){
+              filter.tipo_filter += " and " + tipoManipulationService.expandFilterExpression($stateParams.filter);
+            }else{
+              filter.tipo_filter = tipoManipulationService.expandFilterExpression($stateParams.filter);
+            }
           }
           return tipoInstanceDataService.search($stateParams.tipo_name, filter);
         }
@@ -28,8 +38,12 @@
         }
       },
       onEnter: /*@ngInject*/
-      function($rootScope){
-        $rootScope.perspective  = 'home';
+      function(tipoDefinition, $stateParams, $rootScope){
+        if(_.isUndefined($stateParams.perspective)){
+          $rootScope.perspective  = 'home';
+        }else{
+          $rootScope.perspective = $stateParams.perspective;
+        }
       }
     };
 
@@ -71,8 +85,10 @@
         }
       },
       onEnter: /*@ngInject*/
-      function($rootScope){
-        $rootScope.perspective  = 'home';
+      function(tipoDefinition, tipo, $stateParams, $rootScope){
+        if(_.isUndefined($stateParams.perspective)){
+          $rootScope.perspective  = 'home';
+        }
       }
     };
 
@@ -104,8 +120,13 @@
         }
       },
       onEnter: /*@ngInject*/
-      function($rootScope){
-        $rootScope.perspective  = 'home';
+      function(tipoDefinition, tipo, $stateParams, $rootScope){
+        var type = tipoDefinition.tipo_meta.tipo_ui_type;
+        if(type === 'perspective'){
+          $rootScope.perspective  = 'tipo.' + tipoDefinition.tipo_meta.tipo_name + '.' + tipo.tipo_id;
+        }else if(_.isUndefined($stateParams.perspective)){
+          $rootScope.perspective  = 'home';
+        }
       }
     };
 
@@ -121,9 +142,7 @@
         }
       },
       onEnter: /*@ngInject*/
-      function($rootScope){
-        $rootScope.perspective  = 'home';
-      }
+      function($rootScope){}
     };
 
     var subTipoListState = {
@@ -156,9 +175,7 @@
         }
       },
       onEnter: /*@ngInject*/
-      function($rootScope){
-        $rootScope.perspective  = 'home';
-      }
+      function($rootScope){}
     };
 
     stateProvider
