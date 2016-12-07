@@ -6,7 +6,7 @@
 
     var confirmRegistrationState = {
       name: 'confirmRegistration',
-      url: '/confirmation/{confirmationCode}',
+      url: '/confirmation',
       parent: 'root',
       templateUrl: 'user/_views/confirmation.tpl.html',
       controller: 'UserController',

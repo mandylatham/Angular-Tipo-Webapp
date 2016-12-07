@@ -50,8 +50,26 @@
                   email: user.email
                 };
                 tipoResource.one('subscription').customPUT('', '', params).then(function(created) {
-                  $state.go('confirmRegistration');
-                  registrationInProgress = false;
+                  var params = {
+                    type: 'plan',
+                    application: appResult.application, 
+                    owner: appResult.owner,
+                    stage: 'test',
+                    plan: 'bronze'
+                  };
+                  tipoResource.one('subscription').customGET('', params).then(function(plan) {
+                    if (plan) {
+                      if ('Hosted Page' == plan.apihostedpage) {
+                        $window.location = plan.hostedpageURL;
+                        return;
+                      }
+                    }
+                    $state.go('confirmRegistration');
+                    registrationInProgress = false;
+                  }, function(err) {
+                    $state.go('confirmRegistration');
+                    registrationInProgress = false;
+                  });
                 }, function (err) {
                   registrationInProgress = false;
                   printErrorMessage(err);
@@ -73,12 +91,10 @@
     }
 
     function initConfirmation() {
-      // Path will be /verification/1234, and array looks like: ["","verification","1234"]
-      var confirmationCode = $location.path().split("/")[2] || "Unknown";
-      console.log('Confirmation code: ' + confirmationCode);
-      $scope.userDetails = {};
-      
-      $scope.userDetails.confirmationCode = confirmationCode;
+      var params = $location.search();
+      console.log('Query params: ', params);
+      $scope.customerName = params.customer_name;
+      $scope.subscriptionId = params.subscription_id;
     }
 
     function confirmRegistration(email, confirmationCode) {
