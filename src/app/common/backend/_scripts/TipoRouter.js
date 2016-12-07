@@ -49,13 +49,17 @@
       return $state.go('^', undefined, stateOptions);
     }
 
-    function toTipoList(tipoName, parameters){
+    function toTipoList(tipoName, parameters, resetPerspective){
       var stateOptions = {reload: 'tipoList'};
       parameters = parameters || {};
       parameters.tipo_name = tipoName;
       var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
       if(perspectiveMetadata){
-        parameters.perspective = perspectiveMetadata.perspective;
+        if(resetPerspective){
+          parameters.perspective = undefined;
+        }else{
+          parameters.perspective = perspectiveMetadata.perspective;
+        }
       }
       stateOptions.inherit = false;
       return $state.go('tipoList', parameters, stateOptions);

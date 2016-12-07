@@ -42,8 +42,8 @@
       return getCollectionResource(tipo_name).doPUT(tipos).then(unwrapAndSort);
     };
 
-    _instance.getOne = function(tipo_name, id){
-      return getDocumentResource(tipo_name, id).get();
+    _instance.getOne = function(tipo_name, id, criteria){
+      return getDocumentResource(tipo_name, id).get(criteria);
     };
 
     _instance.updateOne = function(tipo_name, tipo, id){

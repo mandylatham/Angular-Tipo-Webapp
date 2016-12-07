@@ -39,7 +39,7 @@
         settingsDefinitions: function(tipoDefinitionDataService) {
           return tipoDefinitionDataService.search('tipo_meta.tipo_ui_type=settings');
         },
-        perspectiveMetadata: function(tipoDefinitionDataService, tipoManipulationService, $stateParams, $rootScope){
+        parentPromise: function(tipoDefinitionDataService, tipoManipulationService, $stateParams, $rootScope){
           var perspective = parsePerspective($stateParams.perspective);
           if(perspective.tipoName){
             $rootScope.perspective = $stateParams.perspective;

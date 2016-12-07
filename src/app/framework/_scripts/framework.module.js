@@ -12,9 +12,11 @@
         tipoDefinition: function(tipoDefinitionDataService, tipoManipulationService, $stateParams) {
           return tipoDefinitionDataService.getOne($stateParams.tipo_name);
         },
-        tipos: function(tipoDefinition, tipoInstanceDataService, tipoManipulationService, perspectiveMetadata, $stateParams, $rootScope){
+        tipos: function(tipoDefinition, tipoInstanceDataService, tipoManipulationService, parentPromise, $stateParams, $rootScope){
 
           var filter = {};
+
+          var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
 
           if(perspectiveMetadata){
             filter.tipo_filter = perspectiveMetadata.tipoFilter;
@@ -98,8 +100,16 @@
       parent: 'layout',
       resolve: /*@ngInject*/
       {
-        tipo: function(tipoInstanceDataService, $stateParams){
-          var tipo = tipoInstanceDataService.getOne($stateParams.tipo_name, $stateParams.tipo_id);
+        tipo: function(tipoInstanceDataService, tipoManipulationService, parentPromise, $stateParams){
+
+          var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
+
+          var filter = {};
+          if(perspectiveMetadata){
+            filter.tipo_filter = perspectiveMetadata.tipoFilter;
+          }
+
+          var tipo = tipoInstanceDataService.getOne($stateParams.tipo_name, $stateParams.tipo_id, filter);
           return tipo;
         },
         tipoDefinition: function(tipoDefinitionDataService, tipoManipulationService, tipo, $stateParams) {
