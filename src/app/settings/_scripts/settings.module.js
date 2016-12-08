@@ -25,8 +25,10 @@
       resolve: /*@ngInject*/
       {
         tipo: function(tipoInstanceDataService, $stateParams){
-          var tipo = tipoInstanceDataService.getOne($stateParams.tipo_name, 'default');
-          return tipo;
+          return tipoInstanceDataService.getOne($stateParams.tipo_name, 'default').then(function(data){
+            data.tipo_id = 'default';
+            return data;
+          });
         },
         tipoDefinition: function(tipoDefinitionDataService, tipoManipulationService, tipo, $stateParams) {
           var tipoDefinition = tipoDefinitionDataService.getOne($stateParams.tipo_name).then(function(definition){

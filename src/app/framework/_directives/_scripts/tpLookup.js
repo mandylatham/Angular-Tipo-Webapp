@@ -51,9 +51,21 @@
           scope.loadOptions = function(){
             delete scope.options;
             var searchCriteria = {};
+            var filter;
+            var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
+            if(perspectiveMetadata){
+              filter = perspectiveMetadata.tipoFilter;
+            }
             if(!_.isUndefined(baseFilter)){
               var baseFilterExpanded = tipoManipulationService.expandFilterExpression(baseFilter, scope.root, scope.context);
-              searchCriteria.tipo_filter = baseFilterExpanded;
+              if(_.isUndefined(filter)){
+                filter = baseFilterExpanded;
+              }else{
+                filter += ' and ' + baseFilterExpanded;
+              }
+            }
+            if(!_.isUndefined(filter)){
+              searchCriteria.tipo_filter = filter;
             }
             return tipoInstanceDataService.search(tipo_name, searchCriteria).then(function(results){
               scope.options = _.map(results, function(each){

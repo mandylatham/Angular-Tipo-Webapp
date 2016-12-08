@@ -9,6 +9,9 @@
     var _instance = this;
 
     function unwrapAndSort(collection){
+      collection = _.filter(collection, function(each){
+        return !_.isUndefined(each.data.tipo_id);
+      });
       collection = _.map(collection, function(each){
         return each.data;
       });
