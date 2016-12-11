@@ -20,6 +20,7 @@
     $scope.lastError = null;
     
     function signUp(user) {
+
       if (!registrationInProgress) {
         var params = {
           type: 'application',
@@ -55,17 +56,29 @@
                     application: appResult.application, 
                     owner: appResult.owner,
                     stage: 'test',
-                    plan: 'bronze'
+                    plan: 'trial'
                   };
                   tipoResource.one('subscription').customGET('', params).then(function(plan) {
                     if (plan) {
                       if ('Hosted Page' == plan.apihostedpage) {
                         $window.location = plan.hostedpageURL;
                         return;
+                      } else {
+                        // Trial
+                        tipoResource.one('trial-signup').customPOST('', '', {customerEmail: user.email}).then(function(result) {
+                          console.log(result);
+                          $state.go('confirmRegistration', {
+                            customer_id: result.customerId || '', 
+                            customer_name: result.customerName || '', 
+                            subscription_id: result.subscriptionId || ''
+                          }); 
+                          registrationInProgress = false; 
+                        }, function(err) {
+                          registrationInProgress = false;
+                          printErrorMessage(err);
+                        });
                       }
                     }
-                    $state.go('confirmRegistration');
-                    registrationInProgress = false;
                   }, function(err) {
                     $state.go('confirmRegistration');
                     registrationInProgress = false;
@@ -92,6 +105,13 @@
 
     function initConfirmation() {
       var params = $location.search();
+      params = _.mapKeys(params, function(value, key) {
+        if(key.startsWith('amp;')){
+          return key.substring(4);
+        } else{
+          return key;
+        }
+      });
       console.log('Query params: ', params);
       $scope.customerName = params.customer_name;
       $scope.subscriptionId = params.subscription_id;
