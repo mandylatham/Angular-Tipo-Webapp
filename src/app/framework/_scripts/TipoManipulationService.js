@@ -431,6 +431,11 @@
       });
     }
 
+    function getLabel(tipoDefinitionWithData){
+      var labelField = getMeaningfulKey(tipoDefinitionWithData) || getPrimaryKey(tipoDefinitionWithData);
+      return labelField._value.key;
+    }
+
     function cloneInstance(tipo){
       tipo = angular.copy(tipo);
       delete tipo.tipo_id;
@@ -508,6 +513,7 @@
     this.generateGroupItem = generateGroupItem;
     this.getPrimaryKey = getPrimaryKey;
     this.getMeaningfulKey = getMeaningfulKey;
+    this.getLabel = getLabel;
     this.resolveTemplateUrl = resolveTemplateUrl;
     this.cloneInstance = cloneInstance;
     this.extractContextualData = extractContextualData;

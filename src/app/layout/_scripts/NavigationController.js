@@ -50,7 +50,7 @@
       }
     }
 
-    function prepareTipoMenu(perspective){
+    function prepareMenu(perspective){
       var tipoMenuItems;
       if(S(perspective).startsWith('tipo.')){
         var parts = perspective.split('.');
@@ -70,6 +70,7 @@
             menuItem.id = 'tipo.' + fieldDefinition._ui.relatedTipo;
             menuItem.tipo_name = fieldDefinition._ui.relatedTipo;
             menuItem.label = fieldDefinition.display_name;
+            menuItem.icon = fieldDefinition._ui.icon;
             menuItem.perspective = perspective;
             return menuItem;
           });
@@ -123,7 +124,7 @@
     };
 
     $rootScope.$watch('perspective', function(newValue, oldValue){
-      prepareTipoMenu(newValue);
+      prepareMenu(newValue);
     });
 
   }
