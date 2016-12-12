@@ -55,7 +55,6 @@
                     type: 'plan',
                     application: appResult.application, 
                     owner: appResult.owner,
-                    stage: 'test',
                     plan: 'trial'
                   };
                   tipoResource.one('subscription').customGET('', params).then(function(plan) {
@@ -65,7 +64,11 @@
                         return;
                       } else {
                         // Trial
-                        tipoResource.one('trial-signup').customPOST('', '', {customerEmail: user.email}).then(function(result) {
+                        var body = {
+                          customerEmail: user.email,
+                          tipouser: appResult.owner + '.' + appResult.application + '.' + user.email
+                        };
+                        tipoResource.one('trial-signup').customPOST(body).then(function(result) {
                           console.log(result);
                           $state.go('confirmRegistration', {
                             customer_id: result.customerId || '', 
