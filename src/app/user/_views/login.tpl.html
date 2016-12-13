@@ -1,13 +1,13 @@
 <div id="layout" layout="row" layout-align="center center">
   <div id="view-container" md-whiteframe="6" class="card">
-    <h2 align="center">Welcome to TipoTap</h2>
-    <h3 align="center">Login to get access to TipoTap</h3>
+    <h2 align="center">Welcome to {{ displayName }}</h2>
+    <h3 align="center">Login to get access to {{ displayName }}</h3>
     <div ng-cloak layout-gt-sm="row" layout="column">
       <div flex-gt-sm="100" flex>
         <md-content flex layout-padding>
           <md-tabs md-dynamic-height md-border-bottom md-center-tabs>
             <md-tab label="Existing user">
-              <form name="loginForm" data-ng-submit="userController.login(username, password)">
+              <form name="loginForm" data-ng-init="userController.initLogin()" data-ng-submit="userController.login(username, password)">
                 <md-input-container class="md-block">
                     <label>Email:</label>
                     <input ng-model="username" required>

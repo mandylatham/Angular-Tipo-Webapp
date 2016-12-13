@@ -106,18 +106,27 @@
       }
     }
 
+    function initLogin() {
+      tipoResource.one('subscription').customGET('', { type: 'application', url: $window.location.origin }).then(function(appResult) {
+        $scope.displayName = appResult.displayName;
+      });
+    }
+    
     function initConfirmation() {
       var params = $location.search();
       params = _.mapKeys(params, function(value, key) {
         if(key.startsWith('amp;')){
           return key.substring(4);
-        } else{
+        } else {
           return key;
         }
       });
       console.log('Query params: ', params);
       $scope.customerName = params.customer_name;
       $scope.subscriptionId = params.subscription_id;
+      tipoResource.one('subscription').customGET('', { type: 'application', url: $window.location.origin }).then(function(appResult) {
+        $scope.displayName = appResult.displayName;
+      });
     }
 
     function confirmRegistration(email, confirmationCode) {
@@ -217,6 +226,7 @@
 
     return {
       signUp: signUp,
+      initLogin: initLogin,
       initConfirmation: initConfirmation,
       confirmRegistration: confirmRegistration,
       login: login,

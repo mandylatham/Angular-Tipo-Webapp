@@ -1,8 +1,8 @@
 <div id="layout" layout="row" layout-align="center center">
   <div id="view-container" md-whiteframe="6" class="card">
-    <h2 align="center">Welcome to TipoTap</h2>
-    <h3 align="center">Hey {{customerName}}! Thank you for signing up to our awesome service. Your subscription ID is: {{ subscriptionId }}.
-      Enter the confirmation code to get access to TipoTap</h3>
+    <h2 align="center">Welcome to {{ displayName }}</h2>
+    <h3 align="center">Hey {{ customerName }}! Thank you for signing up to our awesome service. Your subscription ID is: {{ subscriptionId }}.
+      Enter the confirmation code to get access to {{ displayName }}</h3>
     <div ng-cloak layout-gt-sm="row" layout="column">
       <div flex-gt-sm="100" flex>
         <md-content flex layout-padding>
