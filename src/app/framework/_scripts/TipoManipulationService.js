@@ -498,7 +498,7 @@
           tipoName: tipoName,
           tipoId: tipoId,
           fieldName: fieldName,
-          tipoFilter: fieldName + '=' + tipoId
+          tipoFilter: fieldName + '="' + tipoId + '"'
         };
       }
     }

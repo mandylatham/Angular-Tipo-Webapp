@@ -48,13 +48,19 @@
             }
           }
 
-          scope.loadOptions = function(){
+          function loadOptions(){
             delete scope.options;
             var searchCriteria = {};
             var filter;
             var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
             if(perspectiveMetadata){
-              filter = perspectiveMetadata.tipoFilter;
+              /*if(tipo_name !== perspectiveMetadata.tipoName){
+                filter = perspectiveMetadata.tipoFilter;
+              }*/
+              // TODO: Hack - Sushil as this is supposed to work only for applications
+              if(perspectiveMetadata.fieldName === 'application'){
+                filter = perspectiveMetadata.tipoFilter;
+              }
             }
             if(!_.isUndefined(baseFilter)){
               var baseFilterExpanded = tipoManipulationService.expandFilterExpression(baseFilter, scope.root, scope.context);
@@ -75,7 +81,9 @@
                 };
               });
             });
-          };
+          }
+
+          scope.loadOptions = loadOptions;
 
           scope.searchTerm = {};
           scope.cleanup = function(){
@@ -98,60 +106,8 @@
             return text;
           };
 
-          /*if(isArray && !isGroup){
-            fieldTemplate = 'framework/_directives/_views/tp-lookup-multiple.tpl.html';
-          }else{
-            fieldTemplate = 'framework/_directives/_views/tp-lookup-single.tpl.html';
-          }
-          scope.fieldTemplate = fieldTemplate;
+          loadOptions();
 
-          var baseFilter = field.relationship_filter;
-
-          var tipo_name = field._ui.relatedTipo;
-          var label_field;
-          if(_.isUndefined(field.label_field)){
-            label_field = field.key_field.field_name;
-          }else{
-            label_field = field.label_field.field_name;
-          }
-          var searchCriteria = {};
-
-          if(!_.isUndefined(field._value)){
-            scope.selectedTipo = field._value;
-          }
-
-          scope.setValue = function(tipo){
-            if(tipo){
-              field._value = tipo;
-            }else{
-              delete field._value;
-            }
-          };
-
-          scope.lookup = function(text){
-            if(_.isUndefined(baseFilter)){
-              if(!_.isEmpty(text)){
-                searchCriteria.tipo_filter = 'begins_with(' + label_field + ', \\"' + text + '\\")';
-              }else{
-                delete searchCriteria.tipo_filter;
-              }
-            }else{
-              var baseFilterExpanded = tipoManipulationService.expandFilterExpression(baseFilter, scope.root, scope.context);
-              if(!_.isEmpty(text)){
-                searchCriteria.tipo_filter = baseFilterExpanded + ' and begins_with(' + label_field + ', \\"' + text + '\\")';
-              }else{
-                searchCriteria.tipo_filter = baseFilterExpanded;
-              }
-            }
-            return tipoInstanceDataService.search(tipo_name, searchCriteria).then(function(results){
-              return _.map(results, function(each){
-                return {
-                  key: each.tipo_id,
-                  label: each[label_field]
-                };
-              });
-            });
-          };*/
         }
       };
     }
