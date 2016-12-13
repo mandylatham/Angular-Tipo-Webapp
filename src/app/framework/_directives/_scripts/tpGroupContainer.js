@@ -35,9 +35,9 @@
 
     var relatedTipoName = $scope.group._ui.relatedTipo;
 
-    var relatedTipo = tipoRegistry.get(relatedTipoName);
-
-    $scope.tipoDisplayName = relatedTipo.tipo_meta.display_name;
+    //var relatedTipo = tipoRegistry.get(relatedTipoName);
+    //$scope.tipoDisplayName = relatedTipo.tipo_meta.display_name;
+    $scope.tipoDisplayName = relatedTipoName;
 
     var definition = angular.copy($scope.definition);
     delete definition._value;

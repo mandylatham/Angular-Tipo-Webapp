@@ -106,7 +106,10 @@
 
           var filter = {};
           if(perspectiveMetadata){
-            filter.tipo_filter = perspectiveMetadata.tipoFilter;
+            // TODO: Hack - Sushil as this is supposed to work only for applications
+            if(perspectiveMetadata.fieldName === 'application'){
+              filter.tipo_filter = perspectiveMetadata.tipoFilter;
+            }
           }
 
           var tipo = tipoInstanceDataService.getOne($stateParams.tipo_name, $stateParams.tipo_id, filter);
