@@ -20,6 +20,11 @@
     $scope.lastError = null;
     
     function signUp(user) {
+      var subscriptionPlan = $location.search().plan || 'trial'; 
+      if(['trial', 'bronze', 'silver', 'gold'].indexOf(subscriptionPlan) === -1) {
+        printErrorMessage(new Error('Plan ' + subscriptionPlan + ' not exist'));
+        return;
+      }
 
       if (!registrationInProgress) {
         var params = {
@@ -51,11 +56,12 @@
                   email: user.email
                 };
                 tipoResource.one('subscription').customPUT('', '', params).then(function(created) {
+                  
                   var params = {
                     type: 'plan',
                     application: appResult.application, 
                     owner: appResult.owner,
-                    plan: 'trial'
+                    plan: subscriptionPlan
                   };
                   tipoResource.one('subscription').customGET('', params).then(function(plan) {
                     if (plan) {
@@ -73,7 +79,8 @@
                           $state.go('confirmRegistration', {
                             customer_id: result.customerId || '', 
                             customer_name: result.customerName || '', 
-                            subscription_id: result.subscriptionId || ''
+                            subscription_id: result.subscriptionId || '',
+                            email: user.email
                           }); 
                           registrationInProgress = false; 
                         }, function(err) {
@@ -124,6 +131,7 @@
       console.log('Query params: ', params);
       $scope.customerName = params.customer_name;
       $scope.subscriptionId = params.subscription_id;
+      $scope.username = params.email;
       tipoResource.one('subscription').customGET('', { type: 'application', url: $window.location.origin }).then(function(appResult) {
         $scope.displayName = appResult.displayName;
       });

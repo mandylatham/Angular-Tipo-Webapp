@@ -6,7 +6,7 @@
 
     var confirmRegistrationState = {
       name: 'confirmRegistration',
-      url: '/confirmation?customer_id&customer_name&subscription_id',
+      url: '/confirmation?customer_id&customer_name&subscription_id&email',
       parent: 'root',
       templateUrl: 'user/_views/confirmation.tpl.html',
       controller: 'UserController',
@@ -15,7 +15,7 @@
 
     var loginState = {
       name: 'login',
-      url: '/login',
+      url: '/login?plan',
       parent: 'root',
       params: {
         'retry': null
