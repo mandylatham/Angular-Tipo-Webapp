@@ -142,8 +142,8 @@
               scope: newScope,
               resolve: /*@ngInject*/
               {
-                tipoDefinition: function(tipoRegistry, tipoManipulationService) {
-                  return tipoRegistry.get(tipo_name);
+                tipoDefinition: function(tipoDefinitionDataService, tipoManipulationService) {
+                  return tipoDefinitionDataService.getOne(tipo_name);
                 }
               },
               skipHide: true,
