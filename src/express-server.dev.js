@@ -17,8 +17,9 @@ var pathMappings = [
   {
     path: '/api',
     //url: 'http://localhost:9001'
-    //url: 'https://k2lajprh2f.execute-api.us-east-1.amazonaws.com'
+    //url: 'https://app.billionbases.com/dev'
     url: 'https://tipo.tipotapp.com/dev'
+    //url: 'https://billionbases.tipotapp.com/dev'
   }
 ];
 

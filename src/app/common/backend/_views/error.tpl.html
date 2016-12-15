@@ -1,0 +1,41 @@
+<md-dialog ng-cloak ng-class="{'fullscreen': controller.fullscreen}" id="error-dialog">
+  <md-toolbar class="tipo-toolbar md-warn">
+    <div class="md-toolbar-tools">
+      <h2><md-icon>error_outline</md-icon> {{controller.exception.headerCode}} - {{controller.exception.headerMessage}}</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="controller.maximize()" ng-if="!controller.fullscreen">
+        <md-icon aria-label="Maximize">crop_square</md-icon>
+      </md-button>
+      <md-button class="md-icon-button" ng-click="controller.restore()" ng-if="controller.fullscreen">
+        <md-icon aria-label="Restore size">filter_none</md-icon>
+      </md-button>
+      <md-button class="md-icon-button" ng-click="controller.cancel()">
+        <md-icon aria-label="Close dialog">close</md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <div class="dialog" layout-padding>
+      <div layout="row">
+        <div flex="10"><strong>Code:</strong></div>
+        <div flex>{{controller.exception.detailCode}}</div>
+      </div>
+      <div layout="row">
+        <div flex="10"><strong>Message:</strong></div>
+        <div flex>{{controller.exception.detailMessage}}</div>
+      </div>
+      <div layout="row">
+        <div flex="10"><strong>Stack trace:</strong></div>
+        <div flex>
+          <code>
+            <pre>{{controller.exception.detailStackTrace}}</pre>
+          </code>
+        </div>
+      </div>
+    </div>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+    <span flex></span>
+    <md-button md-theme="reverse" class="md-raised md-primary" ng-click="controller.finish()">OK</md-button>
+  </md-dialog-actions>
+</md-dialog>

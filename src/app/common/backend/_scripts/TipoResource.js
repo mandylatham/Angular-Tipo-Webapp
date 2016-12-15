@@ -2,7 +2,7 @@
 
   'use strict';
 
-  function getAllInterceptors($http, $q, securityContextService) {
+  function getAllInterceptors($http, $q, securityContextService, tipoErrorHandler) {
 
     function refreshAccesstoken() {
       var deferred = $q.defer();
@@ -60,6 +60,8 @@
               // Be aware that no request interceptors are called this way.
             });
             return false;
+          }else{
+            tipoErrorHandler.handleError(response, deferred);
           }
           return true;
         }
@@ -73,9 +75,10 @@
     $http,
     $q,
     $window,
-    securityContextService) {
+    securityContextService,
+    tipoErrorHandler) {
 
-    var interceptors = getAllInterceptors($http, $q, securityContextService, $window);
+    var interceptors = getAllInterceptors($http, $q, securityContextService, tipoErrorHandler);
     var location = $window.location;
     var baseUrl = location.origin + location.pathname + 'api';
     console.info('API Url - ' + baseUrl);
@@ -88,8 +91,8 @@
   }
 
   // Tipo Resource. This shall be used for invoking the Tipo REST APIs
-  function TipoResource($http, $q, $window, Restangular, securityContextService) {
-    var factory = Restangular.withConfig(_.partialRight(configureRestangular, $http, $q, $window, securityContextService));
+  function TipoResource($http, $q, $window, Restangular, securityContextService, tipoErrorHandler) {
+    var factory = Restangular.withConfig(_.partialRight(configureRestangular, $http, $q, $window, securityContextService, tipoErrorHandler));
     return factory;
   }
 
