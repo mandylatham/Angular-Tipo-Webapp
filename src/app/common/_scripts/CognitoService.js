@@ -91,20 +91,22 @@
           params.IdentityPoolId = TIPO_CONSTANTS.COGNITO.IDENTITY_POOL_ID;
           params.Logins = {};
           params.Logins[loginsKey] = result.getIdToken().getJwtToken();
-          AWS.config.credentials = new AWS.CognitoIdentityCredentials(params);
           
-          AWS.config.credentials.refresh(function(err) {
-              if (err) {
-                deferred.reject(err);
-                return;
-              }
-              deferred.resolve(result);
+          AWS.config.update({
+            region: TIPO_CONSTANTS.COGNITO.REGION,
+            credentials: new AWS.CognitoIdentityCredentials(params)
+          });
+
+          awsRefresh().then(function(id) {
+            deferred.resolve(result);
+          }, function(err) {
+            deferred.reject(err);
           });
         },
 
         onFailure: function(err) {
           deferred.reject(err);
-        },
+        }
 
       });
       return deferred.promise;
@@ -124,6 +126,18 @@
     function isCurrentUserSigned() {
       var cognitoUser = userPool.getCurrentUser();
       return cognitoUser !== null;
+    }
+
+    function awsRefresh() {
+      var deferred = $q.defer();
+      AWS.config.credentials.refresh(function(err) {
+          if (err) {
+              deferred.reject(err);
+          } else {
+              deferred.resolve(AWS.config.credentials.identityId);
+          }
+      });
+      return deferred.promise;
     }
 
     return {
