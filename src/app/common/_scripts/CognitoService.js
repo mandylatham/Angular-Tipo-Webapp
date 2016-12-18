@@ -27,7 +27,6 @@
       if (cognitoUser != null) {
         cognitoUser.getSession(function(err, result) {
           if (result) {
-            
             var logins = {};
             var loginsKey = 'cognito-idp.' + TIPO_CONSTANTS.COGNITO.REGION + '.amazonaws.com/' + TIPO_CONSTANTS.COGNITO.USER_POOL_ID;
             logins[loginsKey] = result.getIdToken().getJwtToken();
@@ -145,7 +144,7 @@
       return false;
     }
 
-    function resendCode() {
+    function resendCode() { 
       var cognitoUser = userPool.getCurrentUser();
       if (cognitoUser === null) {
         console.log('No cached user');
@@ -162,10 +161,6 @@
             },
             onFailure: function(err) {
                 console.log(err);
-            },
-            inputVerificationCode() {
-                var verificationCode = prompt('Check you email for a verification code and enter it here: ' ,'');
-                cognitoUser.verifyAttribute('email', verificationCode, this);
             }
           });
       });
