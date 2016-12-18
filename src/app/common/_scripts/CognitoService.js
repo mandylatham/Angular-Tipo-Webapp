@@ -19,6 +19,28 @@
   var userPool = new AWSCognito.CognitoIdentityServiceProvider.CognitoUserPool(poolData);
 
   function CognitoService($q, securityContextService) {
+    initSession();
+    
+    // Update credentials when user refreshes the page
+    function initSession() {
+      var cognitoUser = userPool.getCurrentUser();
+      if (cognitoUser != null) {
+        cognitoUser.getSession(function(err, result) {
+          if (result) {
+            
+            var logins = {};
+            var loginsKey = 'cognito-idp.' + TIPO_CONSTANTS.COGNITO.REGION + '.amazonaws.com/' + TIPO_CONSTANTS.COGNITO.USER_POOL_ID;
+            logins[loginsKey] = result.getIdToken().getJwtToken();
+            // Add the User's Id Token to the Cognito credentials login map.
+            AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+                IdentityPoolId: TIPO_CONSTANTS.COGNITO.IDENTITY_POOL_ID,
+                Logins: logins
+            });
+            awsRefresh();
+          }
+        });
+      }
+    }
         
     function signUp(username, password, email, account) {
       var attributeEmail = new AWSCognito.CognitoIdentityServiceProvider.CognitoUserAttribute({
@@ -123,6 +145,33 @@
       return false;
     }
 
+    function resendCode() {
+      var cognitoUser = userPool.getCurrentUser();
+      if (cognitoUser === null) {
+        console.log('No cached user');
+        return;
+      }
+      cognitoUser.getSession(function(err, session) {
+          if (err) {
+              console.error(err);
+              return;
+          }
+          cognitoUser.getAttributeVerificationCode('email', {
+            onSuccess: function (result) {
+                console.log('Call result: ' + result);
+            },
+            onFailure: function(err) {
+                console.log(err);
+            },
+            inputVerificationCode() {
+                var verificationCode = prompt('Check you email for a verification code and enter it here: ' ,'');
+                cognitoUser.verifyAttribute('email', verificationCode, this);
+            }
+          });
+      });
+      
+    }
+
     function isCurrentUserSigned() {
       var cognitoUser = userPool.getCurrentUser();
       return cognitoUser !== null;
@@ -145,7 +194,8 @@
       confirmRegistration: confirmRegistration,
       authenticate: authenticate,
       signOut: signOut,
-      isCurrentUserSigned: isCurrentUserSigned
+      isCurrentUserSigned: isCurrentUserSigned,
+      resendCode: resendCode
     };
   }
 
