@@ -30,7 +30,6 @@
             var logins = {};
             var loginsKey = 'cognito-idp.' + TIPO_CONSTANTS.COGNITO.REGION + '.amazonaws.com/' + TIPO_CONSTANTS.COGNITO.USER_POOL_ID;
             logins[loginsKey] = result.getIdToken().getJwtToken();
-            // Add the User's Id Token to the Cognito credentials login map.
             AWS.config.credentials = new AWS.CognitoIdentityCredentials({
                 IdentityPoolId: TIPO_CONSTANTS.COGNITO.IDENTITY_POOL_ID,
                 Logins: logins
@@ -144,32 +143,55 @@
       return false;
     }
 
-    function resendCode() { 
-      var cognitoUser = userPool.getCurrentUser();
-      if (cognitoUser === null) {
-        console.log('No cached user');
-        return;
-      }
-      cognitoUser.getSession(function(err, session) {
-          if (err) {
-              console.error(err);
-              return;
+    function resendCode() {
+      var deferred = $q.defer();
+      getUserSession().then(function(cognitoUser) {
+        cognitoUser.getAttributeVerificationCode('email', {
+          onSuccess: function (result) {
+            deferred.resolve(result);
+          },
+          onFailure: function(err) {
+            deferred.reject(err);
+          },
+          inputVerificationCode: function() {
+            deferred.resolve();
           }
-          cognitoUser.getAttributeVerificationCode('email', {
-            onSuccess: function (result) {
-                console.log('Call result: ' + result);
-            },
-            onFailure: function(err) {
-                console.log(err);
-            }
-          });
+        });
+      }, function(err) {
+        deferred.reject(err);
       });
-      
+      return deferred.promise;
+    }
+
+    function verifyCode(verificationCode) {
+      var deferred = $q.defer();
+      getUserSession().then(function(cognitoUser) {
+        cognitoUser.verifyAttribute('email', verificationCode, this);
+      }, function(err) {
+        deferred.reject(err);
+      });
+      return deferred.promise;
     }
 
     function isCurrentUserSigned() {
       var cognitoUser = userPool.getCurrentUser();
       return cognitoUser !== null;
+    }
+
+    function getUserSession() {
+      var deferred = $q.defer();
+      var cognitoUser = userPool.getCurrentUser();
+      if (cognitoUser === null) {
+        return $q.reject('No cached user');
+      }
+      cognitoUser.getSession(function(err, session) {
+          if (err) {
+            deferred.reject(err);
+            return;
+          }
+          deferred.resolve(cognitoUser);
+      });
+      return deferred.promise;
     }
 
     function awsRefresh() {

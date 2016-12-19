@@ -6,7 +6,6 @@
     $rootScope,
     $scope,
     $location,
-    $mdDialog,
     $window,
     $state,
     $stateParams,
@@ -20,18 +19,12 @@
     $scope.lastError = null;
     
     function signUp(user) {
-      var subscriptionPlan = $location.search().plan || 'trial'; 
-      if(['trial', 'bronze', 'silver', 'gold'].indexOf(subscriptionPlan) === -1) {
-        printErrorMessage(new Error('Plan ' + subscriptionPlan + ' not exist'));
-        return;
-      }
-
       if (!registrationInProgress) {
+        registrationInProgress = true;
         var params = {
           type: 'application',
           url: $window.location.origin
         };
-        registrationInProgress = true;
         tipoResource.one('subscription').customGET('', params).then(function(appResult) {
 
           var params = {
@@ -44,7 +37,6 @@
               $scope.lastError = 'Account ' + user.account + ' already exists';
               registrationInProgress = false;
             } else {
-              
               var username = appResult.owner + '.' + appResult.application + '.' + user.email;
               var promise = cognitoService.signUp(username, user.password, user.email, user.account);
               promise.then(function (result) {
@@ -56,42 +48,28 @@
                   email: user.email
                 };
                 tipoResource.one('subscription').customPUT('', '', params).then(function(created) {
-                  
-                  var params = {
-                    type: 'plan',
-                    application: appResult.application, 
-                    owner: appResult.owner,
-                    plan: subscriptionPlan
+                  // Subscribe Trial plan
+                  var body = {
+                    customerEmail: user.email,
+                    tipouser: appResult.owner + '.' + appResult.application + '.' + user.email
                   };
-                  tipoResource.one('subscription').customGET('', params).then(function(plan) {
-                    if (plan) {
-                      if ('Hosted Page' == plan.apihostedpage) {
-                        $window.location = plan.hostedpageURL;
-                        return;
-                      } else {
-                        // Trial
-                        var body = {
-                          customerEmail: user.email,
-                          tipouser: appResult.owner + '.' + appResult.application + '.' + user.email
-                        };
-                        tipoResource.one('trial-signup').customPOST(body).then(function(result) {
-                          console.log(result);
-                          $state.go('confirmRegistration', {
-                            customer_id: result.customerId || '', 
-                            customer_name: result.customerName || '', 
-                            subscription_id: result.subscriptionId || '',
-                            email: user.email
-                          }); 
-                          registrationInProgress = false; 
-                        }, function(err) {
-                          registrationInProgress = false;
-                          printErrorMessage(err);
-                        });
-                      }
-                    }
+                  tipoResource.one('trial-signup').customPOST(body).then(function(result) {
+                    // Authenticate
+                    cognitoService.authenticate(username, user.password).then(function() {
+                      cognitoService.resendCode().then(function() {
+                        $state.go('dashboard');
+                        registrationInProgress = false;
+                      }, function(err) {
+                        $state.go('dashboard');
+                        registrationInProgress = false;
+                      });
+                    }, function(err) {
+                      registrationInProgress = false;
+                      printErrorMessage(err);  
+                    });
                   }, function(err) {
-                    $state.go('confirmRegistration');
                     registrationInProgress = false;
+                    printErrorMessage(err);
                   });
                 }, function (err) {
                   registrationInProgress = false;
