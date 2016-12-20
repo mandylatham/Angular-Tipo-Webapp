@@ -150,43 +150,34 @@
 
     function resendCode() {
       var deferred = $q.defer();
-      awsSession.then(function(result) {
-        getUserSession().then(function(cognitoUser) {
-          cognitoUser.getAttributeVerificationCode('email', {
-            onSuccess: function (result) {
-              deferred.resolve(result);
-            },
-            onFailure: function(err) {
-              deferred.reject(err);
-            },
-            inputVerificationCode: function() {
-              deferred.resolve();
-            }
-          });
-        }, function(err) {
-          deferred.reject(err);
+      getUserSession().then(function(cognitoUser) {
+        cognitoUser.getAttributeVerificationCode('email', {
+          onSuccess: function (result) {
+            deferred.resolve(result);
+          },
+          onFailure: function(err) {
+            deferred.reject(err);
+          },
+          inputVerificationCode: function() {
+            deferred.resolve();
+          }
         });
       }, function(err) {
         deferred.reject(err);
       });
-      
       return deferred.promise;
     }
 
     function verifyCode(verificationCode) {
       var deferred = $q.defer();
-      awsSession.then(function(result) {
-        getUserSession().then(function(cognitoUser) {
-          cognitoUser.verifyAttribute('email', verificationCode, {
-            onSuccess: function (result) {
-              deferred.resolve(result);
-            },
-            onFailure: function(err) {
-              deferred.reject(err);
-            }
-          });
-        }, function(err) {
-          deferred.reject(err);
+      getUserSession().then(function(cognitoUser) {
+        cognitoUser.verifyAttribute('email', verificationCode, {
+          onSuccess: function (result) {
+            deferred.resolve(result);
+          },
+          onFailure: function(err) {
+            deferred.reject(err);
+          }
         });
       }, function(err) {
         deferred.reject(err);
