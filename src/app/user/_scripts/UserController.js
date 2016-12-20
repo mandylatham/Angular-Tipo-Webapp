@@ -60,6 +60,7 @@
                         $state.go('dashboard');
                         registrationInProgress = false;
                       }, function(err) {
+                        console.error(err);
                         $state.go('dashboard');
                         registrationInProgress = false;
                       });
