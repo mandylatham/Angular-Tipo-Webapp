@@ -5,11 +5,13 @@
   function registerStates(stateProvider) {
     var homeState = {
       name: 'dashboard',
-      url: '/dashboard',
+      url: '/dashboard?code',
       parent: 'layout',
       views: {
         'content@layout': {
-          templateUrl: 'dashboard/_views/dashboard.tpl.html'
+          templateUrl: 'dashboard/_views/dashboard.tpl.html',
+          controller: 'DashboardController',
+          controllerAs: 'dashboardController'
         }
       },
       onEnter: /*@ngInject*/

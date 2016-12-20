@@ -1,6 +1,6 @@
-<div flex layout="column">
+<div flex layout="column" ng-init="dashboardController.verifyConfirmationCode()">
   <md-subheader class="md-primary">
-    <h2>Dashboard</h2>
+    <h2>{{ title }}</h2>
   </md-subheader>
   <div flex layout="column" layout-align="center center">
     <tp-no-content message="Content coming soon" />
