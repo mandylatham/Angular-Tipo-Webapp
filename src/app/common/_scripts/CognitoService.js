@@ -92,6 +92,9 @@
     }
 
     function authenticate(username, password) {
+      // Clear the cached Cognito ID to prevent 'Logins don't match. Please include at least one valid login for this identity or identity pool' error
+      AWS.config.credentials.clearCachedId();
+
       var authenticationData = {
         Username : username,
         Password : password,
@@ -114,16 +117,12 @@
           };
           securityContextService.saveContext(securityContext);
 
+          var logins = {};
           var loginsKey = 'cognito-idp.' + TIPO_CONSTANTS.COGNITO.REGION + '.amazonaws.com/' + TIPO_CONSTANTS.COGNITO.USER_POOL_ID;
-          
-          var params = {};
-          params.IdentityPoolId = TIPO_CONSTANTS.COGNITO.IDENTITY_POOL_ID;
-          params.Logins = {};
-          params.Logins[loginsKey] = result.getIdToken().getJwtToken();
-          
-          AWS.config.update({
-            region: TIPO_CONSTANTS.COGNITO.REGION,
-            credentials: new AWS.CognitoIdentityCredentials(params)
+          logins[loginsKey] = result.getIdToken().getJwtToken();
+          AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+              IdentityPoolId: TIPO_CONSTANTS.COGNITO.IDENTITY_POOL_ID,
+              Logins: logins
           });
 
           awsRefresh().then(function(id) {
