@@ -114,12 +114,16 @@
           };
           securityContextService.saveContext(securityContext);
 
-          var logins = {};
           var loginsKey = 'cognito-idp.' + TIPO_CONSTANTS.COGNITO.REGION + '.amazonaws.com/' + TIPO_CONSTANTS.COGNITO.USER_POOL_ID;
-          logins[loginsKey] = result.getIdToken().getJwtToken();
-          AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-              IdentityPoolId: TIPO_CONSTANTS.COGNITO.IDENTITY_POOL_ID,
-              Logins: logins
+          
+          var params = {};
+          params.IdentityPoolId = TIPO_CONSTANTS.COGNITO.IDENTITY_POOL_ID;
+          params.Logins = {};
+          params.Logins[loginsKey] = result.getIdToken().getJwtToken();
+          
+          AWS.config.update({
+            region: TIPO_CONSTANTS.COGNITO.REGION,
+            credentials: new AWS.CognitoIdentityCredentials(params)
           });
 
           awsRefresh().then(function(id) {
