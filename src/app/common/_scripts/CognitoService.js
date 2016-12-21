@@ -92,9 +92,6 @@
     }
 
     function authenticate(username, password) {
-      // Clear the cached Cognito ID to prevent 'Logins don't match. Please include at least one valid login for this identity or identity pool' error
-      AWS.config.credentials.clearCachedId();
-
       var authenticationData = {
         Username : username,
         Password : password,
@@ -128,7 +125,9 @@
           awsRefresh().then(function(id) {
             deferred.resolve(result);
           }, function(err) {
-            deferred.reject(err);
+            // Temp fix for 'Logins don't match.'
+            deferred.resolve(result);
+            // deferred.reject(err);
           });
         },
 
