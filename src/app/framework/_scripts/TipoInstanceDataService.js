@@ -16,7 +16,11 @@
         return each.data;
       });
       collection = _.sortBy(collection, function(each){
-        return each.created_dt;
+        if(_.get(each, 'tipo_meta.tipo_sequence')){
+          return parseFloat(each.tipo_meta.tipo_sequence, 10);
+        }else{
+          return 999;
+        }
       });
       return collection;
     }

@@ -1,49 +1,43 @@
 <div class="tp-field">
   <span>
-    <span ng-if="isSingle && isSelfField">
-      <span ng-switch="field.field_type">
-        <md-datepicker ng-model="field._value.key" md-placeholder="{{field.field_description}}" ng-switch-when="date_time">
-        </md-datepicker>
-        <div class="tp-switch" ng-switch-when="boolean">
-          <md-switch class="md-primary" ng-model="field._value.key" aria-label="{{field.field_description}}">
-            <span>{{ field._value.key && 'Yes' || 'No' }}</span>
-          </md-switch>
-        </div>
-        <md-input-container md-no-float ng-switch-when="longstring">
-         <textarea ng-model="field._value.key" rows="2" md-select-on-focus aria-label="field.display_name" placeholder="{{field.field_description}}"/>
-        </md-input-container>
-        <md-input-container md-no-float ng-switch-when="password">
-         <input type="password" ng-model="field._value.key" aria-label="field.display_name" placeholder="{{field.field_description}}">
-        </md-input-container>
-        <md-input-container md-no-float ng-switch-when="htmlLink">
-          <input ng-model="field._value.key" aria-label="field.display_name" placeholder="{{field.field_description}}">
-        </md-input-container>
-        <text-angular ng-model="field._value.key" ng-switch-when="richstring"></text-angular>
-        <md-input-container md-no-float ng-switch-when="s3explorer">
-          <tp:s3-fileselector />
-        </md-input-container>
-        <md-input-container md-no-float ng-switch-default>
-          <div ng-if="!field.allowed_values">
-            <input ng-model="field._value.key" aria-label="field.display_name" placeholder="{{field.field_description}}">
+    <md-input-container md-no-float>
+      <span ng-if="isSingle && isSelfField">
+        <span ng-switch="field.field_type">
+          <md-datepicker ng-model="field._value.key" md-placeholder="{{field.field_description}}" ng-switch-when="date_time">
+          </md-datepicker>
+          <div class="tp-switch" ng-switch-when="boolean">
+            <md-switch class="md-primary" ng-model="field._value.key" aria-label="{{field.field_description}}">
+              <span>{{ field._value.key && 'Yes' || 'No' }}</span>
+            </md-switch>
           </div>
-          <div ng-if="field.allowed_values">
-            <md-select ng-model="field._value.key" placeholder="{{field.field_description}}">
-              <md-option value="">-- Clear --</md-option>
-              <md-option ng-value="option" ng-repeat="option in field.allowed_values">{{ option }}</md-option>
-            </md-select>
+          <textarea ng-model="field._value.key" rows="2" md-select-on-focus aria-label="field.display_name" placeholder="{{field.field_description}}" ng-switch-when="longstring"/>
+          <input type="password" ng-model="field._value.key" aria-label="field.display_name" placeholder="{{field.field_description}}" ng-switch-when="password">
+          <input ng-model="field._value.key" aria-label="field.display_name" placeholder="{{field.field_description}}" ng-switch-when="htmlLink">
+          <text-angular ng-model="field._value.key" ng-switch-when="richstring"></text-angular>
+          <tp:s3-fileselector ng-switch-when="s3explorer"/>
+          <div ng-switch-default>
+            <div ng-if="!field.allowed_values">
+              <input ng-model="field._value.key" aria-label="field.display_name" placeholder="{{field.field_description}}">
+            </div>
+            <div ng-if="field.allowed_values">
+              <md-select ng-model="field._value.key" placeholder="{{field.field_description}}">
+                <md-option value="">-- Clear --</md-option>
+                <md-option ng-value="option" ng-repeat="option in field.allowed_values">{{ option }}</md-option>
+              </md-select>
+            </div>
           </div>
-        </md-input-container>
+        </span>
       </span>
-    </span>
-    <span ng-if="isArray && isSelfField" flex layout="column">
-      <md-chips ng-model="field._value" md-transform-chip="wrapSimpleValue($chip)" class="tp-chips" placeholder="{{field.field_description}}" >
-        <md-chip-template>
-          <span>{{$chip.key}}</span>
-        </md-chip-template>
-      </md-chips>
-    </span>
-    <span ng-if="isTipoRef">
-     <tp:lookup root="root" context="context" field="field" />
-    </span>
+      <span ng-if="isArray && isSelfField" flex layout="column">
+        <md-chips ng-model="field._value" md-transform-chip="wrapSimpleValue($chip)" class="tp-chips" placeholder="{{field.field_description}}" >
+          <md-chip-template>
+            <span>{{$chip.key}}</span>
+          </md-chip-template>
+        </md-chips>
+      </span>
+      <span ng-if="isTipoRef">
+       <tp:lookup root="root" context="context" field="field" />
+      </span>
+    </md-input-container>
   </span>
 </div>

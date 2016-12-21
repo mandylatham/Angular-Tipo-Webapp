@@ -28,9 +28,17 @@
         queryParams.tipo_filter = filter;
       }
       return tipoResource.one(TIPO_DEFINITION_RESOURCE).get(queryParams).then(function(definitions){
-        return _.map(definitions, function(each){
+        var data = _.map(definitions, function(each){
           return each.data;
         });
+        data = _.sortBy(data, function(each){
+          if(each.tipo_meta.tipo_sequence){
+            return parseFloat(each.tipo_meta.tipo_sequence, 10);
+          }else{
+            return 999;
+          }
+        });
+        return data;
       });
     };
 

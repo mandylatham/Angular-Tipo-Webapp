@@ -213,7 +213,7 @@ module.exports = function (grunt) {
           },
           {
             expand: true,
-            cwd: '<%= config.directories.source %>/_scripts/non-bower-managed/separate',
+            cwd: '<%= config.directories.staging %>/_scripts/non-bower-managed/separate',
             src: ['**'],
             dest: '<%= config.directories.dist %>/_scripts/non-bower-managed/separate'
           },
