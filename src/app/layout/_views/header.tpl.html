@@ -6,7 +6,7 @@
     <div ng-if="header.tipoMenu">
       <span>{{header.tipoMenu.tipoName}}:</span>
       <span><a href="" ng-click="header.switch(header.selectedItem)">{{header.selectedItem.label}}</a></span>
-      <md-menu>
+      <md-menu ng-if="header.tipoMenu.menuItems.length > 1">
         <md-button class="md-icon-button" ng-click="header.openMenu($mdOpenMenu, $event)">
           <md-icon md-menu-origin>compare_arrows</md-icon>
         </md-button>

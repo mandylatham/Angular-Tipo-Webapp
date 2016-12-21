@@ -20,6 +20,10 @@
   .pointer{
     cursor: pointer;
   }
+  a.plain{
+    text-decoration: none;
+  }
+
   #layout {
     height: 99.5vh;
   }
@@ -183,6 +187,9 @@
   }
 
   .tp-field{
+    span{
+      word-wrap: break-word;
+    }
     md-input-container{
       margin: 0;
       width: 100%;
@@ -275,26 +282,24 @@
     }
   }
 
-}
-
-
-.card {
-  background: #fff;
-  border-radius: 2px;
-  display: inline-block;
-  margin: 0 auto;
-  position: relative;
-  width: 800px;
-}
-
-.card-5 {
-  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
-}
-
-#error-dialog{
-  code{
-    pre {
-      white-space: normal;
+  #error-dialog{
+    code{
+      pre {
+        white-space: normal;
+      }
     }
+  }
+
+  .card {
+    background: #fff;
+    border-radius: 2px;
+    display: inline-block;
+    margin: 0 auto;
+    position: relative;
+    width: 800px;
+  }
+
+  .card-5 {
+    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
   }
 }
