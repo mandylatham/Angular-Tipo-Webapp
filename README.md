@@ -39,3 +39,4 @@ This document attempts to outline some setup instructions to get the code buildi
 6. Some changes do not get reflected in the browser automatically.
     - Less files. You would need to run `grunt dev` from the 'target-grunt' folder and launch the UI again using `grunt serve-dev`
     - bower.json & package.json. You would need to run `mvn clean install -Dall` from the root and launch the UI again using `grunt serve-dev`
+7. Any JavaScript dependencies should normally be managed by Bower. For exceptions, add the scripts to the `_scripts/non-bower-managed` directory.
