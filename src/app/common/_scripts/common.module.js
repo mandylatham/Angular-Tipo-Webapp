@@ -9,7 +9,8 @@
     'LocalStorageModule',
     'ngMaterial',
     'md.data.table',
-    'textAngular'
+    'textAngular',
+    'vcRecaptcha'
   ]);
 
   module.config(function ($mdThemingProvider) {

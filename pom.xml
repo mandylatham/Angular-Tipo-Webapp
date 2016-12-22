@@ -11,6 +11,7 @@
     <grunt.plugin.version>1.5.1</grunt.plugin.version>
     <tipo.api.url>/dev</tipo.api.url>
     <google.client.id>736797628374-35k6fefv902aq6dcrlg9hdt102ndtp0g.apps.googleusercontent.com</google.client.id>
+    <google.recaptcha.sitekey>6Ldaig8UAAAAABblj3oOjSlTco3HTUhArcn_nJAG</google.recaptcha.sitekey>
   </properties>
 
   <build>

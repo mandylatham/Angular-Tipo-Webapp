@@ -4,5 +4,6 @@
   "version": "${project.version}",
   "finalName": "${project.build.finalName}",
   "description": "${project.description}",
-  "googleClientId": "${google.client.id}"
+  "googleClientId": "${google.client.id}",
+  "googleRecaptchaSitekey": "${google.recaptcha.sitekey}"
 }
