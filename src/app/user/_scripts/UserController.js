@@ -38,7 +38,7 @@
               registrationInProgress = false;
             } else {
               var username = appResult.owner + '.' + appResult.application + '.' + user.email;
-              var promise = cognitoService.signUp(username, user.password, user.email, user.account);
+              var promise = cognitoService.signUp(username, user.password, user.email, user.account, user.recaptchaResponse);
               promise.then(function (result) {
                 var params = {
                   type: 'account',
