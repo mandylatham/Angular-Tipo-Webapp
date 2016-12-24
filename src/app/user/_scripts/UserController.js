@@ -19,7 +19,7 @@
     $scope.lastError = null;
     
     function signUp(user) {
-      console.log('recaptchaResponse: ' + user.recaptchaResponse);
+      console.log('recaptcha: ' + user.recaptcha);
       if (!registrationInProgress) {
         registrationInProgress = true;
         var params = {
@@ -39,7 +39,7 @@
               registrationInProgress = false;
             } else {
               var username = appResult.owner + '.' + appResult.application + '.' + user.email;
-              var promise = cognitoService.signUp(username, user.password, user.email, user.account, user.recaptchaResponse);
+              var promise = cognitoService.signUp(username, user.password, user.email, user.account, user.recaptcha);
               promise.then(function (result) {
                 var params = {
                   type: 'account',
