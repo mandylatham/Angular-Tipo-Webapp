@@ -27,61 +27,43 @@
           url: $window.location.origin
         };
         tipoResource.one('subscription').customGET('', params).then(function(appResult) {
-
           var params = {
             type: 'account',
             application: appResult.application, 
-            account: user.account
+            owner: appResult.owner,
+            email: user.email
           };
-          tipoResource.one('subscription').customGET('', params).then(function(account) {
-            if (account) {
-              $scope.lastError = 'Account ' + user.account + ' already exists';
-              registrationInProgress = false;
-            } else {
-              var username = appResult.owner + '.' + appResult.application + '.' + user.email;
-              var promise = cognitoService.signUp(username, user.password, user.email, user.account, user.recaptcha);
-              promise.then(function (result) {
-                var params = {
-                  type: 'account',
-                  application: appResult.application, 
-                  account: user.account,
-                  owner: appResult.owner,
-                  email: user.email
-                };
-                tipoResource.one('subscription').customPUT('', '', params).then(function(created) {
-                  // Subscribe Trial plan
-                  var body = {
-                    customerEmail: user.email,
-                    tipouser: appResult.owner + '.' + appResult.application + '.' + user.email
-                  };
-                  tipoResource.one('trial-signup').customPOST(body).then(function(result) {
-                    // Authenticate
-                    cognitoService.authenticate(username, user.password).then(function() {
-                      cognitoService.resendCode().then(function() {
-                        $state.go('dashboard');
-                        registrationInProgress = false;
-                      }, function(err) {
-                        console.error(err);
-                        $state.go('dashboard');
-                        registrationInProgress = false;
-                      });
-                    }, function(err) {
-                      registrationInProgress = false;
-                      printErrorMessage(err);  
-                    });
-                  }, function(err) {
+          tipoResource.one('subscription').customPUT('', '', params).then(function(created) {
+            var username = appResult.owner + '.' + appResult.application + '.' + user.email;
+            cognitoService.signUp(username, user.password, user.email, user.recaptcha).then(function (result) {
+              // Subscribe Trial plan
+              var body = {
+                customerEmail: user.email,
+                tipouser: appResult.owner + '.' + appResult.application + '.' + user.email
+              };
+              tipoResource.one('trial-signup').customPOST(body).then(function(result) {
+                // Authenticate
+                cognitoService.authenticate(username, user.password).then(function() {
+                  cognitoService.resendCode().then(function() {
+                    $state.go('dashboard');
                     registrationInProgress = false;
-                    printErrorMessage(err);
+                  }, function(err) {
+                    console.error(err);
+                    $state.go('dashboard');
+                    registrationInProgress = false;
                   });
-                }, function (err) {
+                }, function(err) {
                   registrationInProgress = false;
-                  printErrorMessage(err);
+                  printErrorMessage(err);  
                 });
               }, function(err) {
                 registrationInProgress = false;
                 printErrorMessage(err);
               });
-            }
+            }, function (err) {
+              registrationInProgress = false;
+              printErrorMessage(err);
+            });
           }, function(err) {
             registrationInProgress = false;
             printErrorMessage(err);
