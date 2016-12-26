@@ -26,20 +26,20 @@
           type: 'application',
           url: $window.location.origin
         };
-        tipoResource.one('subscription').customGET('', params).then(function(appResult) {
+        tipoResource.one('subscription').customGET('', params).then(function(appData) {
           var params = {
             type: 'account',
-            application: appResult.application, 
-            owner: appResult.owner,
+            application: appData.application, 
+            owner: appData.owner,
             email: user.email
           };
-          tipoResource.one('subscription').customPUT('', '', params).then(function(created) {
-            var username = appResult.owner + '.' + appResult.application + '.' + user.email;
-            cognitoService.signUp(username, user.password, user.email, user.recaptcha).then(function (result) {
+          tipoResource.one('subscription').customPUT('', '', params).then(function(accountData) {
+            var username = appData.owner + '.' + appData.application + '.' + user.email;
+            cognitoService.signUp(username, user.password, user.email, accountData.account, user.recaptcha).then(function (result) {
               // Subscribe Trial plan
               var body = {
                 customerEmail: user.email,
-                tipouser: appResult.owner + '.' + appResult.application + '.' + user.email
+                tipouser: appData.owner + '.' + appData.application + '.' + user.email
               };
               tipoResource.one('trial-signup').customPOST(body).then(function(result) {
                 // Authenticate
@@ -76,8 +76,8 @@
     }
 
     function initLogin() {
-      tipoResource.one('subscription').customGET('', { type: 'application', url: $window.location.origin }).then(function(appResult) {
-        $scope.displayName = appResult.displayName;
+      tipoResource.one('subscription').customGET('', { type: 'application', url: $window.location.origin }).then(function(appData) {
+        $scope.displayName = appData.displayName;
       });
     }
     
@@ -94,8 +94,8 @@
       $scope.customerName = params.customer_name;
       $scope.subscriptionId = params.subscription_id;
       $scope.username = params.email;
-      tipoResource.one('subscription').customGET('', { type: 'application', url: $window.location.origin }).then(function(appResult) {
-        $scope.displayName = appResult.displayName;
+      tipoResource.one('subscription').customGET('', { type: 'application', url: $window.location.origin }).then(function(appData) {
+        $scope.displayName = appData.displayName;
       });
     }
 
@@ -107,8 +107,8 @@
           type: 'application',
           url: $window.location.origin
         };
-        tipoResource.one('subscription').customGET('', params).then(function(appResult) {
-          var username = appResult.owner + '.' + appResult.application + '.' + email;
+        tipoResource.one('subscription').customGET('', params).then(function(appData) {
+          var username = appData.owner + '.' + appData.application + '.' + email;
 
           var promise = cognitoService.confirmRegistration(username, confirmationCode);
           promise.then(function (result) {
@@ -137,8 +137,8 @@
           type: 'application',
           url: $window.location.origin
         };
-        tipoResource.one('subscription').customGET('', params).then(function(appResult) {
-          var username = appResult.owner + '.' + appResult.application + '.' + email;
+        tipoResource.one('subscription').customGET('', params).then(function(appData) {
+          var username = appData.owner + '.' + appData.application + '.' + email;
           var promise = cognitoService.authenticate(username, password);
           promise.then(function(result) {
             
