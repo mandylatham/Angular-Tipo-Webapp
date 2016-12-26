@@ -52,13 +52,13 @@
                 <!--<div vc-recaptcha ng-model="user.recaptchaResponse" key="'${googleRecaptchaSitekey}'"></div>-->
                 <div ng-if="!userController.registrationInProgress()">
                   <md-button type="submit" class="md-raised md-primary">
-                    Submit
+                    Register
                   </md-button>
                 </div>
                 <div ng-if="userController.registrationInProgress()">
                   <md-button ng-disabled="true" class="md-raised md-primary">
                     <i class="fa fa-refresh fa-spin"></i>
-                    Submitting...
+                    Registering...
                   </md-button>
                 </div>
               </form>
