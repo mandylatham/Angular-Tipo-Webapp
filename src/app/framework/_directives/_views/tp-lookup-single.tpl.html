@@ -2,6 +2,6 @@
   <md-select-header class="search" ng-if="options">
     <input ng-model="searchTerm.text" type="search" placeholder="Search ..." ng-keydown="stopBubbling($event)" tp:auto-focus>
   </md-select-header>
-  <md-option value="">-- Clear --</md-option>
+  <md-option value="" ng-if="!field.mandatory">-- Clear --</md-option>
   <md-option ng-value="option" ng-repeat="option in options | filter: {label: searchTerm.text}">{{ option.label }}</md-option>
 </md-select>

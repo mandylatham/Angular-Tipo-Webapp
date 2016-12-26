@@ -27,7 +27,6 @@
     'tipo.layout',
     'tipo.framework',
     'tipo.dashboard',
-    'tipo.settings',
     'tipo.user',
     'tipo.social'
   ]);

@@ -9,7 +9,7 @@
       state: 'dashboard',
       icon: 'dashboard',
       divider: true,
-      perspectives: ['home']
+      perspectives: ['home', 'settings']
     },
     {
       id: 'dynamic'
@@ -71,6 +71,7 @@
             menuItem.tipo_name = fieldDefinition._ui.relatedTipo;
             menuItem.label = fieldDefinition.display_name;
             menuItem.icon = fieldDefinition._ui.icon;
+            menuItem.isSingleton = fieldDefinition._ui.isSingleton;
             menuItem.perspective = perspective;
             return menuItem;
           });
@@ -87,6 +88,7 @@
           menuItem.tipo_name = meta.tipo_name;
           menuItem.label = meta.display_name;
           menuItem.icon = meta.icon;
+          menuItem.isSingleton = definition._ui.isSingleton;
           return menuItem;
         });
 
@@ -109,15 +111,15 @@
       if(menuItem.state){
         tipoRouter.to(menuItem.state, menuItem.state);
       }else if(menuItem.tipo_name){
-        if(perspective === 'settings'){
-          tipoRouter.toSettingsView(menuItem.tipo_name);
+        var parameters;
+        if(menuItem.perspective){
+          parameters = {
+            perspective: menuItem.perspective
+          };
+        }
+        if(menuItem.isSingleton){
+          tipoRouter.toTipoView(menuItem.tipo_name, 'default', parameters);
         }else{
-          var parameters;
-          if(menuItem.perspective){
-            parameters = {
-              perspective: menuItem.perspective
-            };
-          }
           tipoRouter.toTipoList(menuItem.tipo_name, parameters);
         }
       }

@@ -20,6 +20,8 @@
           var field = scope.field;
           var isArray = Boolean(field._ui.isArray);
           var isGroup = Boolean(field._ui.isGroup);
+          var isMandatory = Boolean(field.mandatory);
+
           scope.isArray = isArray;
 
           var fieldTemplate;
@@ -80,6 +82,13 @@
                   label: each[label_field]
                 };
               });
+              if(isMandatory && !field._value){
+                if(isArray){
+                  field._value = [scope.options[0]];
+                }else{
+                  field._value = scope.options[0];
+                }
+              }
             });
           }
 

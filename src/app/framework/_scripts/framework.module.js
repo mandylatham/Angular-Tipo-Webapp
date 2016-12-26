@@ -38,14 +38,6 @@
           controller: 'TipoListRootController',
           controllerAs: 'tipoRootController'
         }
-      },
-      onEnter: /*@ngInject*/
-      function(tipoDefinition, $stateParams, $rootScope){
-        if(_.isUndefined($stateParams.perspective)){
-          $rootScope.perspective  = 'home';
-        }else{
-          $rootScope.perspective = $stateParams.perspective;
-        }
       }
     };
 
@@ -85,12 +77,6 @@
           controller: 'TipoCreateRootController',
           controllerAs: 'tipoRootController'
         }
-      },
-      onEnter: /*@ngInject*/
-      function(tipoDefinition, tipo, $stateParams, $rootScope){
-        if(_.isUndefined($stateParams.perspective)){
-          $rootScope.perspective  = 'home';
-        }
       }
     };
 
@@ -112,7 +98,11 @@
             }
           }
 
-          var tipo = tipoInstanceDataService.getOne($stateParams.tipo_name, $stateParams.tipo_id, filter);
+          var tipo = tipoInstanceDataService.getOne($stateParams.tipo_name, $stateParams.tipo_id, filter).then(function(data){
+            data.tipo_id = data.tipo_id || $stateParams.tipo_id;
+            return data;
+          });
+
           return tipo;
         },
         tipoDefinition: function(tipoDefinitionDataService, tipoManipulationService, tipo, $stateParams) {
@@ -137,8 +127,6 @@
         var type = tipoDefinition.tipo_meta.tipo_ui_type;
         if(type === 'perspective'){
           $rootScope.perspective  = 'tipo.' + tipoDefinition.tipo_meta.tipo_name + '.' + tipo.tipo_id;
-        }else if(_.isUndefined($stateParams.perspective)){
-          $rootScope.perspective  = 'home';
         }
       }
     };

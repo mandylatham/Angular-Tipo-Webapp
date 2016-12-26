@@ -23,7 +23,12 @@
     };
 
     this.toPerspective = function(name) {
-      tipoRouter.to(perspectives[name].root);
+      //tipoRouter.to(perspectives[name].root);
+      var params;
+      if(name === 'settings'){
+        params = {perspective: name};
+      }
+      tipoRouter.to('dashboard', true, params, false);
     };
 
     this.showLoginForm = function($event) {

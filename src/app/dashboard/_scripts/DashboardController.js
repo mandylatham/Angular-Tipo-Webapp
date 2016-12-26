@@ -7,7 +7,9 @@
     $location,
     cognitoService) {
 
-    function verifyConfirmationCode() {
+    var _instance = this;
+
+    _instance.verifyConfirmationCode = function(){
       var params = $location.search();
       if (params.code) {
         cognitoService.verifyCode(params.code).then(function() {
@@ -19,11 +21,8 @@
         return;
       }
       $scope.title = 'Dashboard';
-    }
-
-    return {
-      verifyConfirmationCode: verifyConfirmationCode
     };
+
   }
   angular.module('tipo.dashboard')
   .controller('DashboardController', DashboardController);

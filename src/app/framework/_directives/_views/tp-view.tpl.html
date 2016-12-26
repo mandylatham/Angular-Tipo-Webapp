@@ -1,5 +1,5 @@
 <div class="p-8">
-  <form ng-cloak>
+  <form ng-cloak novalidate>
     <section class="fieldset no-header fluid-row-container">
       <div class="data" layout-padding layout="row" layout-wrap layout-align="start start">
         <tp:field-container root="root" context="definition" field="field" mode="{{mode}}" ng-repeat="field in definition.tipo_fields" ng-if="field._ui.isSimple && !field.hidden && (mode === 'edit' || field._value)"/>
