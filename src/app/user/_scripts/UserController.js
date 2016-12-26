@@ -19,7 +19,6 @@
     $scope.lastError = null;
     
     function signUp(user) {
-      console.log('recaptcha: ' + user.recaptcha);
       if (!registrationInProgress) {
         registrationInProgress = true;
         var params = {

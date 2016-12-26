@@ -236,7 +236,8 @@ module.exports = function (grunt) {
     'string-replace': {
       google: {
         files: {
-          '<%= config.directories.source %>/index.html': '<%= config.directories.source %>/index.html'
+          '<%= config.directories.source %>/index.html': '<%= config.directories.source %>/index.html',
+          '<%= config.directories.source %>/user/_views/login.tpl.html': '<%= config.directories.source %>/user/_views/login.tpl.html'
         },
         options: {
           replacements: [{
