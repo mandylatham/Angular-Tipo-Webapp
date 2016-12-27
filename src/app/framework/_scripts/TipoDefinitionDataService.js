@@ -29,7 +29,10 @@
       }
       return tipoResource.one(TIPO_DEFINITION_RESOURCE).get(queryParams).then(function(definitions){
         var data = _.map(definitions, function(each){
-          return each.data;
+          each = each.data;
+          each._ui = each._ui || {};
+          each._ui.isSingleton = _.includes(each.tipo_meta.tipo_type, 'singleton');
+          return each;
         });
         data = _.sortBy(data, function(each){
           if(each.tipo_meta.tipo_sequence){

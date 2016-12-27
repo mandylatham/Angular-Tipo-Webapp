@@ -1,8 +1,9 @@
 <div flex layout="column" ng-init="dashboardController.verifyConfirmationCode()">
-  <md-subheader class="md-primary">
+  <!--<md-subheader class="md-primary">
     <h2>{{ title }}</h2>
-  </md-subheader>
+  </md-subheader>-->
   <div flex layout="column" layout-align="center center">
-    <tp-no-content message="Content coming soon" />
+    <tp-no-content message="Content coming soon" ng-if="perspective === 'home'"/>
+    <tp-no-content message="Please select the settings that you want to view from the left menu" ng-if="perspective === 'settings'"/>
   </div>
 </div>

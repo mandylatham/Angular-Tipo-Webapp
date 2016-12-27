@@ -84,7 +84,7 @@
     };
 
     $rootScope.$watch('perspective', function(newValue, oldValue){
-      prepareMenu(newValue, oldValue);
+      prepareMenu(newValue);
     });
 
   }

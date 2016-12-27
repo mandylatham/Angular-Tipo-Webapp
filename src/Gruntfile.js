@@ -236,12 +236,16 @@ module.exports = function (grunt) {
     'string-replace': {
       google: {
         files: {
-          '<%= config.directories.source %>/index.html': '<%= config.directories.source %>/index.html'
+          '<%= config.directories.source %>/index.html': '<%= config.directories.source %>/index.html',
+          '<%= config.directories.source %>/user/_views/login.tpl.html': '<%= config.directories.source %>/user/_views/login.tpl.html'
         },
         options: {
           replacements: [{
             pattern: '${googleClientId}',
             replacement: config.mavenProperties.googleClientId
+          }, {
+            pattern: '${googleRecaptchaSitekey}',
+            replacement: config.mavenProperties.googleRecaptchaSitekey
           }]
         }
       }

@@ -13,6 +13,11 @@
   }
 
   function parsePerspective(perspective){
+    if(_.isUndefined(perspective)){
+      return {
+        name: 'home'
+      };
+    }
     if(perspective && S(perspective).startsWith('tipo.')){
       var parts = perspective.split('.');
       var tipoName = parts[1];
@@ -22,7 +27,9 @@
         tipoId: tipoId
       };
     }
-    return {};
+    return {
+      name: perspective
+    };
   }
 
   function registerStates(stateProvider) {
@@ -46,6 +53,8 @@
             return tipoDefinitionDataService.getOne(perspective.tipoName).then(function(){
               return tipoManipulationService.resolvePerspectiveMetadata();
             });
+          }else if(perspective.name){
+            $rootScope.perspective = perspective.name;
           }
           return undefined;
         }
@@ -53,15 +62,12 @@
       controller: /*@ngInject*/ function(mainMenuDefinitions, settingsDefinitions, $scope, $rootScope){
         var perspectives = {};
         perspectives.home = {
-          root: 'dashboard',
           definitions: mainMenuDefinitions
         };
         perspectives.settings = {
-          root: 'settings',
           definitions: settingsDefinitions
         };
         $rootScope.perspectives = perspectives;
-        $scope.$emit('userLoggedInEvent');
       },
       templateUrl: 'layout/_views/layout.tpl.html'
     };

@@ -13,10 +13,6 @@
           controller: 'DashboardController',
           controllerAs: 'dashboardController'
         }
-      },
-      onEnter: /*@ngInject*/
-      function($rootScope){
-        $rootScope.perspective  = 'home';
       }
     };
 

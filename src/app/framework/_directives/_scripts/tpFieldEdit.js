@@ -25,12 +25,23 @@
           if(scope.isArray && !scope.hasValue){
             field._value = [];
           }
+          if(scope.isSingle && !scope.hasValue){
+            if(field.allowed_values && field.mandatory){
+              field._value = {
+                key: field.allowed_values[0]
+              };
+            }
+          }
 
           scope.wrapSimpleValue = function(key){
             return {
               key: key
             };
           };
+
+          scope.dummy = function(){
+            console.log('blurred - ' + field.field_name);
+          }
         }
       };
     }
