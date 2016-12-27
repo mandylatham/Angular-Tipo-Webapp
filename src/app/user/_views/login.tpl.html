@@ -47,7 +47,7 @@
                     <div ng-message="required">{{ lastError }}</div>
                   </div>
                 </md-input-container>
-                <div vc-recaptcha ng-model="user.recaptchaResponse" key="'${googleRecaptchaSitekey}'"></div>
+                <div vc-recaptcha ng-model="user.recaptcha" key="'${googleRecaptchaSitekey}'"></div>
                 <div ng-if="!userController.registrationInProgress()">
                   <md-button type="submit" class="md-raised md-primary">
                     Sign Up
