@@ -12,7 +12,7 @@
       </h2>-->
       <div flex></div>
       <div>
-        <md-button class="md-primary" ng-click="tipoRootController.delete()">Delete</md-button>
+        <md-button class="md-primary" ng-click="tipoRootController.delete()" ng-if="!tipoRootController.tipoDefinition._ui.isSingleton">Delete</md-button>
         <md-button md-theme="reverse" class="md-raised md-primary" ng-click="tipoRootController.edit()">Edit</md-button>
       </div>
       <tp:actions definition="tipoRootController.tipoDefinition" tipos="tipoRootController.tipo"/>
