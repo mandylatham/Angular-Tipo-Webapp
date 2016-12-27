@@ -1,7 +1,6 @@
 <div id="layout" layout="row" layout-align="center center">
   <div id="view-container" md-whiteframe="6" class="card">
     <h2 align="center">Welcome to {{ displayName }}</h2>
-    <h3 align="center">Login to get access to {{ displayName }}</h3>
     <div ng-cloak layout-gt-sm="row" layout="column">
       <div flex-gt-sm="100" flex>
         <md-content flex layout-padding>
@@ -23,13 +22,13 @@
 
                 <div ng-if="!userController.loginInProgress()">
                   <md-button type="submit" class="md-raised md-primary">
-                    Login
+                    Sign In
                   </md-button>
                 </div>
                 <div ng-if="userController.loginInProgress()">
                   <md-button ng-disabled="true" class="md-raised md-primary">
                     <i class="fa fa-refresh fa-spin"></i>
-                    Logging in...
+                    Signing in...
                   </md-button>
                 </div>
                 <div><a href="/forgotpass">Forgot Password?</a></div>
@@ -52,13 +51,13 @@
                 <!--<div vc-recaptcha ng-model="user.recaptchaResponse" key="'${googleRecaptchaSitekey}'"></div>-->
                 <div ng-if="!userController.registrationInProgress()">
                   <md-button type="submit" class="md-raised md-primary">
-                    Register
+                    Sign Up
                   </md-button>
                 </div>
                 <div ng-if="userController.registrationInProgress()">
                   <md-button ng-disabled="true" class="md-raised md-primary">
                     <i class="fa fa-refresh fa-spin"></i>
-                    Registering...
+                    Processing...
                   </md-button>
                 </div>
               </form>
