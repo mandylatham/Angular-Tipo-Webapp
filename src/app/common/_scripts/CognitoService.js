@@ -49,10 +49,14 @@
       return deferred.promise;
     }
         
-    function signUp(username, password, email, recaptcha) {
+    function signUp(username, password, email, account, recaptcha) {
       var attributeEmail = new AWSCognito.CognitoIdentityServiceProvider.CognitoUserAttribute({
         Name : 'email',
         Value : email
+      });
+      var attributeAccount = new AWSCognito.CognitoIdentityServiceProvider.CognitoUserAttribute({
+        Name : 'custom:account',
+        Value : account
       });
       var attributeRecaptcha = new AWSCognito.CognitoIdentityServiceProvider.CognitoUserAttribute({
         Name : 'custom:recaptcha',
@@ -61,6 +65,7 @@
       
       var attributeList = [];
       attributeList.push(attributeEmail);
+      attributeList.push(attributeAccount);
       attributeList.push(attributeRecaptcha);
 
       var deferred = $q.defer();

@@ -21,47 +21,56 @@
     function signUp(user) {
       if (!registrationInProgress) {
         registrationInProgress = true;
+        $scope.lastError = null;
         var params = {
           type: 'application',
           url: $window.location.origin
         };
         tipoResource.one('subscription').customGET('', params).then(function(appData) {
-          
-          var username = appData.owner + '.' + appData.application + '.' + user.email;
-          cognitoService.signUp(username, user.password, user.email, user.recaptcha).then(function (result) {
-            // Subscribe Trial plan
-            var body = {
-              customerEmail: user.email,
-              tipouser: appData.owner + '.' + appData.application + '.' + user.email
-            };
-            tipoResource.one('trial-signup').customPOST(body).then(function(result) {
-              // Authenticate
-              cognitoService.authenticate(username, user.password).then(function() {
-                cognitoService.resendCode().then(function() {
-                  $state.go('dashboard');
-                  registrationInProgress = false;
-                }, function(err) {
-                  console.error(err);
-                  $state.go('dashboard');
-                  registrationInProgress = false;
-                });
-              }, function(err) {
-                registrationInProgress = false;
-                printErrorMessage(err);  
-              });
-            }, function(err) {
-              registrationInProgress = false;
-              printErrorMessage(err);
-            });
-          }, function (err) {
-            registrationInProgress = false;
-            printErrorMessage(err);
-          });
+          cognitoSignUp(user, appData, 0); 
         }, function(err) {
           registrationInProgress = false;
           printErrorMessage(err);
         });
       }
+    }
+
+    function cognitoSignUp(user, appData, attemptCnt) {
+      var username = appData.owner + '.' + appData.application + '.' + user.email;
+      var account = '' + generateAccountId();
+      cognitoService.signUp(username, user.password, user.email, account, user.recaptcha).then(function (result) {
+        // Subscribe Trial plan
+        var body = {
+          customerEmail: user.email,
+          tipouser: appData.owner + '.' + appData.application + '.' + user.email
+        };
+        tipoResource.one('trial-signup').customPOST(body).then(function(result) {
+          // Authenticate
+          cognitoService.authenticate(username, user.password).then(function() {
+            cognitoService.resendCode().then(function() {
+              $state.go('dashboard');
+              registrationInProgress = false;
+            }, function(err) {
+              console.error(err);
+              $state.go('dashboard');
+              registrationInProgress = false;
+            });
+          }, function(err) {
+            registrationInProgress = false;
+            printErrorMessage(err);  
+          });
+        }, function(err) {
+          registrationInProgress = false;
+          printErrorMessage(err);
+        });
+      }, function (err) {
+        if (attemptCnt < 3 && err.message && err.message.indexOf('Account already exists') !== -1) {
+          cognitoSignUp(user, appData, attemptCnt + 1);
+          return;
+        }
+        registrationInProgress = false;
+        printErrorMessage(err);
+      });
     }
 
     function initLogin() {
@@ -121,6 +130,7 @@
     function login(email, password) {
       if (!loginInProgress) {
         loginInProgress = true;
+        $scope.lastError = null;
 
         var params = {
           type: 'application',
@@ -181,6 +191,15 @@
 
     function isConfirmationInProgress() {
       return confirmationInProgress;
+    }
+
+    /**
+     * Generate account id with range from 1000000000 to 9999999999
+     */
+    function generateAccountId() {
+        var start = 1000000000;
+        var end = 9999999999;
+        return Math.floor(Math.random() * end) + start;
     }
 
     return {
