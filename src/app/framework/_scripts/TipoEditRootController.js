@@ -27,11 +27,7 @@
         if(tipoRouter.stickyExists()){
           tipoRouter.toStickyAndReset();
         }else{
-          if(perspective === 'settings'){
-            tipoRouter.toSettingsView(tipo_name);
-          }else{
-            tipoRouter.toTipoView(tipo_name, tipo_id);
-          }
+          tipoRouter.toTipoView(tipo_name, tipo_id);
         }
       });
     };
@@ -41,11 +37,7 @@
     };
 
     _instance.toView = function(){
-      if(perspective === 'settings'){
-        tipoRouter.toSettingsView(tipo_name);
-      }else{
-        tipoRouter.toTipoView(tipo_name, tipo_id);
-      }
+      tipoRouter.toTipoView(tipo_name, tipo_id);
     };
 
     _instance.cancel = function(){
