@@ -12,6 +12,12 @@
 
     var _instance = this;
 
+    function isSingleton(definition){
+      return _.findIndex(definition.tipo_meta.tipo_type, function(each){
+        return _.startsWith(each, 'singleton');
+      }) !== -1;
+    }
+
     function mapList(definitions){
       var mappedDefinitions = {};
       _.each(definitions, function(definition){
@@ -31,7 +37,7 @@
         var data = _.map(definitions, function(each){
           each = each.data;
           each._ui = each._ui || {};
-          each._ui.isSingleton = _.includes(each.tipo_meta.tipo_type, 'singleton');
+          each._ui.isSingleton = isSingleton(each);
           return each;
         });
         data = _.sortBy(data, function(each){
