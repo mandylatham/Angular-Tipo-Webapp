@@ -25,9 +25,37 @@
       controllerAs: 'userController'
     };
 
+    var forgotPassState = {
+      name: 'forgotPass',
+      url: '/forgotpass',
+      parent: 'root',
+      templateUrl: 'user/_views/forgotpass.tpl.html',
+      controller: 'UserController',
+      controllerAs: 'userController'
+    };
+
+    var forgotPassInfoState = {
+      name: 'forgotPassInfo',
+      url: '/forgotpass-info',
+      parent: 'root',
+      templateUrl: 'user/_views/forgotpass-info.tpl.html'
+    };
+
+    var resetPassState = {
+      name: 'resetPass',
+      url: '/resetpass?code&email',
+      parent: 'root',
+      templateUrl: 'user/_views/resetpass.tpl.html',
+      controller: 'UserController',
+      controllerAs: 'userController'
+    };
+
     $stateProvider
       .state(loginState)
-      .state(confirmRegistrationState);
+      .state(confirmRegistrationState)
+      .state(forgotPassState)
+      .state(forgotPassInfoState)
+      .state(resetPassState);
   }
 
   function configureModule($stateProvider) {

@@ -1,0 +1,32 @@
+<div id="layout" layout="row" layout-align="center center">
+  <div id="view-container" md-whiteframe="6" class="card">
+    <h2 align="center">Reset your old password</h2>
+    <div ng-cloak layout-gt-sm="row" layout="column">
+      <div flex-gt-sm="100" flex>
+        <md-content flex layout-padding>
+          <form name="resetPassForm" data-ng-submit="userController.resetPassword(password)">
+            <md-input-container class="md-block">
+                <label>New Password:</label>
+                <input name="password" ng-model="password" type="password" required>
+                <div ng-messages="resetPassForm.password.$error" ng-if="lastError">
+                    <div ng-message="required">{{ lastError }}</div>
+                </div>
+            </md-input-container>
+
+            <div ng-if="!userController.resetPassInProgress()">
+                <md-button type="submit" class="md-raised md-primary">
+                Reset
+                </md-button>
+            </div>
+            <div ng-if="userController.resetPassInProgress()">
+                <md-button ng-disabled="true" class="md-raised md-primary">
+                <i class="fa fa-refresh fa-spin"></i>
+                Resetting...
+                </md-button>
+            </div>
+          </form>
+        </md-content>
+      </div>
+    </div>
+  </div>
+</div>

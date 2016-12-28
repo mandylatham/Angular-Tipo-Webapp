@@ -133,10 +133,9 @@
           awsRefresh().then(function(id) {
             deferred.resolve(result);
           }, function(err) {
-            // Temp fix for 'Logins don't match.'
+            // Return resolve even when err occurred
             console.error(err);
             deferred.resolve(result);
-            // deferred.reject(err);
           });
         },
 
@@ -196,6 +195,57 @@
       return deferred.promise;
     }
 
+    /**
+     * Reset password. Send an email with verification code
+     */
+    function forgotPassword(username) {
+      var userData = {
+        Username : username,
+        Pool : userPool
+      };
+      var cognitoUser = new AWSCognito.CognitoIdentityServiceProvider.CognitoUser(userData);
+      var deferred = $q.defer();
+      cognitoUser.forgotPassword({
+        onSuccess: function (result) {
+          deferred.resolve(result);
+        },
+        onFailure: function(err) {
+          deferred.reject(err);
+        },
+        inputVerificationCode: function(data) {
+          deferred.resolve(data);
+        }
+      });
+      return deferred.promise;
+    }
+
+    /**
+     * Reset old password. Confirm a new one
+     */
+    function resetPassword(username, newPassword, verificationCode) {
+      var userData = {
+        Username : username,
+        Pool : userPool
+      };
+      var cognitoUser = new AWSCognito.CognitoIdentityServiceProvider.CognitoUser(userData);
+      var deferred = $q.defer();
+      cognitoUser.confirmPassword(verificationCode, newPassword, {
+        onSuccess: function (result) {
+          deferred.resolve(result);
+        },
+        onFailure: function(err) {
+          deferred.reject(err);
+        },
+        inputVerificationCode: function(data) {
+          deferred.resolve(data);
+        }
+      });
+      return deferred.promise;
+    }
+
+    /**
+     * Get current user session from the cache
+     */
     function getUserSession() {
       var deferred = $q.defer();
       var cognitoUser = userPool.getCurrentUser();
@@ -212,11 +262,17 @@
       return deferred.promise;
     }
 
+    /**
+     * Check whether the user logged in
+     */
     function isCurrentUserSigned() {
       var cognitoUser = userPool.getCurrentUser();
       return cognitoUser !== null;
     }
 
+    /**
+     * Refresh AWS credentials
+     */
     function awsRefresh() {
       var deferred = $q.defer();
       AWS.config.credentials.refresh(function(err) {
@@ -236,7 +292,9 @@
       signOut: signOut,
       isCurrentUserSigned: isCurrentUserSigned,
       resendCode: resendCode,
-      verifyCode: verifyCode
+      verifyCode: verifyCode,
+      forgotPassword: forgotPassword,
+      resetPassword: resetPassword
     };
   }
 

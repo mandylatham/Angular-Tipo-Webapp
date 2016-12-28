@@ -15,6 +15,8 @@
     var loginInProgress = false;
     var registrationInProgress = false;
     var confirmationInProgress = false;
+    var forgotPassInProgress = false;
+    var resetPassInProgress = false;
     
     $scope.lastError = null;
     
@@ -97,6 +99,9 @@
       });
     }
 
+    /**
+     * Confirm user registration
+     */
     function confirmRegistration(email, confirmationCode) {
       if (!confirmationInProgress) {
         confirmationInProgress = true;
@@ -127,6 +132,9 @@
       }
     }
 
+    /**
+     * Login user
+     */
     function login(email, password) {
       if (!loginInProgress) {
         loginInProgress = true;
@@ -138,8 +146,7 @@
         };
         tipoResource.one('subscription').customGET('', params).then(function(appData) {
           var username = appData.owner + '.' + appData.application + '.' + email;
-          var promise = cognitoService.authenticate(username, password);
-          promise.then(function(result) {
+          cognitoService.authenticate(username, password).then(function(result) {
             
             gotoPreviousView();
             if ($stateParams.retry) {
@@ -159,6 +166,64 @@
           loginInProgress = false;
           printErrorMessage(err);
         });
+      }
+    }
+
+    /**
+     * Forgot Password
+     */
+    function forgotPassword(email) {
+      if (!forgotPassInProgress) {
+        forgotPassInProgress = true;
+        $scope.lastError = null;
+
+        var params = {
+          type: 'application',
+          url: $window.location.origin
+        };
+        tipoResource.one('subscription').customGET('', params).then(function(appData) {
+          var username = appData.owner + '.' + appData.application + '.' + email;
+          cognitoService.forgotPassword(username).then(function(result) {
+            $state.go('forgotPassInfo');
+            forgotPassInProgress = false;
+          }, function (err) {
+            forgotPassInProgress = false;
+            printErrorMessage(err);
+          });
+        }, function(err) {
+          forgotPassInProgress = false;
+          printErrorMessage(err);
+        });
+      }
+    }
+
+    /**
+     * Reset Password
+     */
+    function resetPassword(newPassword) {
+      if (!resetPassInProgress) {
+        resetPassInProgress = true;
+        $scope.lastError = null;
+
+        var params = $location.search();
+        if (params.code && params.email) {
+          tipoResource.one('subscription').customGET('', { type: 'application', url: $window.location.origin }).then(function(appData) {
+            var username = appData.owner + '.' + appData.application + '.' + params.email;
+            cognitoService.resetPassword(username, newPassword, params.code).then(function(result) {
+              $state.go('login');
+              resetPassInProgress = false;
+            }, function (err) {
+              resetPassInProgress = false;
+              printErrorMessage(err);
+            });
+          }, function(err) {
+            resetPassInProgress = false;
+            printErrorMessage(err);
+          });
+        } else {
+          $scope.lastError = 'Missing verification code or email';
+          resetPassInProgress = false;
+        }
       }
     }
 
@@ -193,6 +258,14 @@
       return confirmationInProgress;
     }
 
+    function isForgotPassInProgress() {
+      return forgotPassInProgress;
+    }
+
+    function isResetPassInProgress() {
+      return resetPassInProgress;
+    }
+
     /**
      * Generate account id with range from 1000000000 to 9999999999
      */
@@ -208,9 +281,13 @@
       initConfirmation: initConfirmation,
       confirmRegistration: confirmRegistration,
       login: login,
+      forgotPassword: forgotPassword,
+      resetPassword: resetPassword,
       loginInProgress: isLoginInProgress,
       registrationInProgress: isRegistrationInProgress,
-      confirmationInProgress: isConfirmationInProgress
+      confirmationInProgress: isConfirmationInProgress,
+      forgotPassInProgress: isForgotPassInProgress,
+      resetPassInProgress: isResetPassInProgress
     };
   }
   angular.module('tipo.user')
