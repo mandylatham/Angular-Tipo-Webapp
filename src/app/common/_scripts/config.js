@@ -1,9 +1,9 @@
 var TIPO_CONSTANTS = {
   COGNITO: {
     REGION: 'us-east-1',
-    IDENTITY_POOL_ID: 'us-east-1:e7737489-cf2d-4186-89a5-a234f9a041a9',
-    USER_POOL_ID: 'us-east-1_RphqhuPCh',
-    CLIENT_ID: '4af4tqltoni87osvgk25o53vs8',
+    IDENTITY_POOL_ID: 'us-east-1:55edf4db-74d8-42c5-b13b-23269e14584e',
+    USER_POOL_ID: 'us-east-1_ArsTT6ILr',
+    CLIENT_ID: 'h68uh9k3b8vico8b7k65tj378',
     GOOGLE_CLIENT_ID: '${google.client.id}'
   }
 };
