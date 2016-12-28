@@ -21,11 +21,7 @@
     var tipo_id = tipo.tipo_id;
 
     _instance.edit = function(){
-      if(perspective === 'settings'){
-        tipoRouter.toSettingsEdit(tipo_name);
-      }else{
-        tipoRouter.toTipoEdit(tipo_name, tipo_id);
-      }
+      tipoRouter.toTipoEdit(tipo_name, tipo_id);
     };
 
     _instance.delete = function(){
