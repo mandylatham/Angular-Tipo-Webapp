@@ -272,7 +272,7 @@
     function generateAccountId() {
         var start = 1000000000;
         var end = 9999999999;
-        return Math.floor(Math.random() * end) + start;
+        return Math.floor(Math.random() * (end - start + 1)) + start;
     }
 
     return {
