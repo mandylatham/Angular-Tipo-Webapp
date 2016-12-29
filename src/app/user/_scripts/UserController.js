@@ -10,7 +10,8 @@
     $state,
     $stateParams,
     tipoResource,
-    cognitoService) {
+    cognitoService,
+    Flash) {
 
     var loginInProgress = false;
     var registrationInProgress = false;
@@ -184,7 +185,9 @@
         tipoResource.one('subscription').customGET('', params).then(function(appData) {
           var username = appData.owner + '.' + appData.application + '.' + email;
           cognitoService.forgotPassword(username).then(function(result) {
-            $state.go('forgotPassInfo');
+            $state.go('login');
+            var message = 'You will receive the password reset link if this email is registered.';
+            Flash.create('success', message);
             forgotPassInProgress = false;
           }, function (err) {
             forgotPassInProgress = false;

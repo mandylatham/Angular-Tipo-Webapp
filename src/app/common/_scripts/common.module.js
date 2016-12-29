@@ -10,7 +10,8 @@
     'ngMaterial',
     'md.data.table',
     'textAngular',
-    'vcRecaptcha'
+    'vcRecaptcha',
+    'ngFlash'
   ]);
 
   module.config(function ($mdThemingProvider) {

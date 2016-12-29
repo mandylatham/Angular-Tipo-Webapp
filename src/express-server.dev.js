@@ -18,7 +18,7 @@ var pathMappings = [
     path: '/api',
     //url: 'http://localhost:9001'
     //url: 'https://app.billionbases.com/dev'
-    url: 'https://tipo.tipotapp.com/dev'
+    url: 'https://dev.tipotapp.com/app'
     //url: 'https://billionbases.tipotapp.com/dev'
   }
 ];
