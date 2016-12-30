@@ -147,7 +147,6 @@
           var isArray = Boolean(_.get(field, '_ui.isArray'));
           var isGroup = Boolean(_.get(field, '_ui.isGroup'));
           var isRelatedTipo = Boolean(_.get(field, '_ui.isTipoRelationship'));
-          var isLegacy;
           if(isRelatedTipo && !isGroup){
             var hasOnlyKey = _.isUndefined(field.label_field);
             if(hasOnlyKey){
@@ -169,40 +168,18 @@
               if(isArray){
                 field._value = [];
                 if(!_.isEmpty(fieldValue)){
-                  isLegacy = _.isObject(fieldValue[0]);
-                  if(isLegacy){
-                    _.each(fieldValue, function(each){
-                      var keyFieldValue = _.get(each, field.key_field.field_name);
-                      var labelFieldValue = _.get(each, field.label_field.field_name);
-                      field._value.push({
-                        key: keyFieldValue,
-                        label: labelFieldValue
-                      });
+                  _.each(fieldValue, function(each){
+                    field._value.push({
+                      key: each,
+                      label: _.get(tipoData, fieldKey + '_refs.ref' + each)
                     });
-                  }else{
-                    _.each(fieldValue, function(each){
-                      field._value.push({
-                        key: each,
-                        label: _.get(tipoData, fieldKey + '.' + each)
-                      });
-                    });
-                  }
+                  });
                 }
               }else{
-                isLegacy = _.isObject(fieldValue);
-                if(isLegacy){
-                  var keyFieldValue = _.get(fieldValue, field.key_field.field_name);
-                  var labelFieldValue = _.get(fieldValue, field.label_field.field_name);
-                  field._value = {
-                    key: keyFieldValue,
-                    label: labelFieldValue
-                  };
-                }else{
-                  field._value = {
-                    key: fieldValue,
-                    label: _.get(tipoData, fieldKey + '.' + fieldValue)
-                  };
-                }
+                field._value = {
+                  key: fieldValue,
+                  label: _.get(tipoData, fieldKey + '_refs.ref' + fieldValue)
+                };
               }
             }
           }
@@ -275,14 +252,14 @@
                 _.each(fieldValue, function(each){
                   tipoData[fieldKey].push(each.key);
                   if(!_.isUndefined(field.label_field)){
-                    tipoData[fieldKey + '.' + each.key] = each.label;
+                    _.set(tipoData, fieldKey + '_refs.ref' + each.key, each.label);
                   }
                 });
               }else{
                 if(hasSimpleValue){
                   tipoData[fieldKey] = fieldValue.key;
                   if(!_.isUndefined(field.label_field)){
-                    tipoData[fieldKey + '.' + fieldValue.key] = fieldValue.label;
+                    _.set(tipoData, fieldKey + '_refs.ref' + fieldValue.key, fieldValue.label);
                   }
                 }
               }
