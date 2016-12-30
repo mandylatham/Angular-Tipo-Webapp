@@ -34,7 +34,8 @@
     "aws-sdk": "2.7.15",
     "moment": "2.16.0",
     "rangy": "1.3.0",
-    "textAngular": "1.5.13"
+    "textAngular": "1.5.13",
+    "angular-flash-alert": "2.4.0"
   },
   "appPath": "app",
   "resolutions": {

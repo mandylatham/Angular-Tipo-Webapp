@@ -34,13 +34,6 @@
       controllerAs: 'userController'
     };
 
-    var forgotPassInfoState = {
-      name: 'forgotPassInfo',
-      url: '/forgotpass-info',
-      parent: 'root',
-      templateUrl: 'user/_views/forgotpass-info.tpl.html'
-    };
-
     var resetPassState = {
       name: 'resetPass',
       url: '/resetpass?code&email',
@@ -54,7 +47,6 @@
       .state(loginState)
       .state(confirmRegistrationState)
       .state(forgotPassState)
-      .state(forgotPassInfoState)
       .state(resetPassState);
   }
 
