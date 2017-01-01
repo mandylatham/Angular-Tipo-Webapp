@@ -19,7 +19,8 @@ var pathMappings = [
     //url: 'http://localhost:9001'
     //url: 'https://app.billionbases.com/dev'
     url: 'https://dev.tipotapp.com/2000000001.1000000001.raj@tipotapp.com/2000000001'
-    //url: 'https://billionbases.tipotapp.com/dev'
+    //url: 'https://dev.tipotapp.com/2000000001.1000000001.prasad.sid@deltagene.com/2000000002'
+    //url: 'https://dev.tipotapp.com'
   }
 ];
 

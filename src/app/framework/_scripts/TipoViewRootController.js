@@ -21,6 +21,7 @@
     var tipo_id = tipo.tipo_id;
 
     _instance.edit = function(){
+      tipoRouter.startStateChange();
       tipoRouter.toTipoEdit(tipo_name, tipo_id);
     };
 

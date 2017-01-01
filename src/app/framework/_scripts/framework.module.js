@@ -155,12 +155,21 @@
         subTipos: function(tipoDefinition, tipoInstanceDataService, tipoManipulationService, $stateParams){
           var subTipoFieldName = $stateParams.sub_tipo_field_name;
           var subTipoField = _.find(tipoDefinition.tipo_fields, {field_name: subTipoFieldName});
-          var searchCriteria = {};
-          if(subTipoField.relationship_filter){
-            var filter = tipoManipulationService.expandFilterExpression(subTipoField.relationship_filter, tipoDefinition);
-            searchCriteria.tipo_filter = filter;
+
+          var filter = {};
+
+          var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
+          if(perspectiveMetadata){
+            filter.tipo_filter = perspectiveMetadata.tipoFilter;
           }
-          return tipoInstanceDataService.search(subTipoField._ui.relatedTipo, searchCriteria);
+          if(subTipoField.relationship_filter){
+            if(filter.tipo_filter){
+              filter.tipo_filter += " and " + tipoManipulationService.expandFilterExpression(subTipoField.relationship_filter, tipoDefinition);
+            }else{
+              filter.tipo_filter = tipoManipulationService.expandFilterExpression(subTipoField.relationship_filter, tipoDefinition);
+            }
+          }
+          return tipoInstanceDataService.search(subTipoField._ui.relatedTipo, filter);
         },
         subTipoDefinition: function(tipoDefinition, tipoDefinitionDataService, tipoManipulationService, $stateParams) {
           var subTipoFieldName = $stateParams.sub_tipo_field_name;
