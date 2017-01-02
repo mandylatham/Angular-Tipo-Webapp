@@ -43,11 +43,24 @@
       controllerAs: 'userController'
     };
 
+    var newPassRequiredState = {
+      name: 'newPassRequired',
+      url: '/newpassrequired',
+      params: {
+        'deferredPassword': null
+      },
+      parent: 'root',
+      templateUrl: 'user/_views/newpassrequired.tpl.html',
+      controller: 'UserController',
+      controllerAs: 'userController'
+    };
+
     $stateProvider
       .state(loginState)
       .state(confirmRegistrationState)
       .state(forgotPassState)
-      .state(resetPassState);
+      .state(resetPassState)
+      .state(newPassRequiredState);
   }
 
   function configureModule($stateProvider) {

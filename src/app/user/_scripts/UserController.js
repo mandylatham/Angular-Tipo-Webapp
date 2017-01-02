@@ -148,12 +148,16 @@
         tipoResource.one('subscription').customGET('', params).then(function(appData) {
           var username = appData.owner + '.' + appData.application + '.' + email;
           cognitoService.authenticate(username, password).then(function(result) {
-            
-            gotoPreviousView();
             if ($stateParams.retry) {
               $stateParams.retry.resolve();
             }
-            $state.go('dashboard');
+            if (result && result.type === 'PasswordChallenge') {
+              // Go to New Password Required page when facing PasswordChallenge
+              $state.go('newPassRequired', { deferredPassword: result.value }, {});
+            } else {
+              $state.go('dashboard');
+              // gotoPreviousView();
+            }
             loginInProgress = false;
           }, function (err) {
             
@@ -168,6 +172,16 @@
           printErrorMessage(err);
         });
       }
+    }
+
+    function newPasswordChallange(newPassword) {
+      if ($stateParams.deferredPassword) {
+        $stateParams.deferredPassword.resolve(newPassword);
+        $state.go('login');
+        Flash.create('success', 'Your password has been reset');
+        return;
+      }
+      printErrorMessage({ errorMessage: 'You must login first with your temporary credentials'});
     }
 
     /**
@@ -186,8 +200,7 @@
           var username = appData.owner + '.' + appData.application + '.' + email;
           cognitoService.forgotPassword(username).then(function(result) {
             $state.go('login');
-            var message = 'You will receive the password reset link if this email is registered.';
-            Flash.create('success', message);
+            Flash.create('success', 'You will receive the password reset link if this email is registered.');
             forgotPassInProgress = false;
           }, function (err) {
             forgotPassInProgress = false;
@@ -214,6 +227,7 @@
             var username = appData.owner + '.' + appData.application + '.' + params.email;
             cognitoService.resetPassword(username, newPassword, params.code).then(function(result) {
               $state.go('login');
+              Flash.create('success', 'Your password has been reset');
               resetPassInProgress = false;
             }, function (err) {
               resetPassInProgress = false;
@@ -286,6 +300,7 @@
       login: login,
       forgotPassword: forgotPassword,
       resetPassword: resetPassword,
+      newPasswordChallange: newPasswordChallange,
       loginInProgress: isLoginInProgress,
       registrationInProgress: isRegistrationInProgress,
       confirmationInProgress: isConfirmationInProgress,
