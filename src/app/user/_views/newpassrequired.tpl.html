@@ -1,0 +1,33 @@
+<div layout="column" layout-align="center center">
+  <div id="layout" layout="row" layout-align="center center">
+    <div md-whiteframe="6">
+      <div ng-cloak layout-gt-sm="row" layout="column">
+        <div flex-gt-sm="100" flex>
+          <md-content flex layout-padding>
+            <h3 align="center">New Password Required</h3>
+            <form name="newPasswordRequiredForm" data-ng-submit="userController.newPasswordChallange(newPassword)">
+                <md-input-container class="md-block">
+                    <label>New Password:</label>
+                    <input name="password" ng-model="newPassword" type="password" required>
+                    <div ng-messages="newPasswordRequiredForm.password.$error" ng-if="lastError">
+                    <div ng-message="required">{{ lastError }}</div>
+                    </div>
+                </md-input-container>
+                <div ng-if="!userController.loginInProgress()">
+                    <md-button type="submit" class="md-raised md-primary">
+                    Reset
+                    </md-button>
+                </div>
+                <div ng-if="userController.loginInProgress()">
+                    <md-button ng-disabled="true" class="md-raised md-primary">
+                    <i class="fa fa-refresh fa-spin"></i>
+                    Resetting...
+                    </md-button>
+                </div>
+            </form>
+          </md-content>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

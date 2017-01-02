@@ -131,16 +131,31 @@
           });
 
           awsRefresh().then(function(id) {
-            deferred.resolve(result);
+            deferred.resolve({ type: 'Regular', value: result });
           }, function(err) {
             // Return resolve even when err occurred
             console.error(err);
-            deferred.resolve(result);
+            deferred.resolve({ type: 'Regular', value: result });
           });
         },
 
         onFailure: function(err) {
           deferred.reject(err);
+        }, 
+
+        newPasswordRequired: function(userAttributes, requiredAttributes) {
+          var deferredPassword = $q.defer();
+          deferred.resolve({ type: 'PasswordChallenge', value: deferredPassword });
+          deferredPassword.promise.then(function(newPassword) {
+            cognitoUser.completeNewPasswordChallenge(newPassword, userAttributes, {
+              onSuccess: function (result) {
+                console.log('Password Challange', result);
+              },
+              onFailure: function(err) {
+                console.error('Password Challange', result);
+              }
+            });
+          });
         }
 
       });
