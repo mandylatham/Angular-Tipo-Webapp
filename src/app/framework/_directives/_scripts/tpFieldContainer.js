@@ -19,19 +19,24 @@
           var mode = scope.mode || 'view';
           scope.mode = mode;
 
-          var fieldTemplate;
-          if(mode === 'edit'){
-            fieldTemplate = 'framework/_directives/_views/tp-field-container-edit.tpl.html';
-          }else{
-            fieldTemplate = 'framework/_directives/_views/tp-field-container-view.tpl.html';
-          }
-          scope.fieldTemplate = fieldTemplate;
-
           var field = scope.field;
           scope.isId = field.field_name === 'tipo_id';
 
           var sizing = _.get(field, 'sizing') || 1;
           sizing = parseInt(sizing, 10);
+
+          var fieldTemplate;
+          if(mode === 'edit'){
+            fieldTemplate = 'framework/_directives/_views/tp-field-container-edit.tpl.html';
+          }else{
+            if(sizing === 3){
+              fieldTemplate = 'framework/_directives/_views/tp-field-container-view-t-b.tpl.html';
+            }else{
+              fieldTemplate = 'framework/_directives/_views/tp-field-container-view-l-r.tpl.html';
+            }
+          }
+          scope.fieldTemplate = fieldTemplate;
+
           if(sizing === 1){
             scope.sizeGtSm = 50;
             scope.sizeGtMd = 33;
