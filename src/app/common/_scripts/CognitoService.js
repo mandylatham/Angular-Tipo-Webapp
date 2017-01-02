@@ -152,7 +152,7 @@
                 console.log('Password Challange', result);
               },
               onFailure: function(err) {
-                console.error('Password Challange', result);
+                console.error('Password Challange', err);
               }
             });
           });
