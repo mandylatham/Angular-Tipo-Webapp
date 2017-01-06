@@ -17,15 +17,15 @@
   <md-dialog-content>
     <div class="dialog" layout-padding>
       <div layout="row">
-        <div flex="10"><strong>Code:</strong></div>
+        <div flex="15"><strong>Code:</strong></div>
         <div flex>{{controller.exception.detailCode}}</div>
       </div>
       <div layout="row">
-        <div flex="10"><strong>Message:</strong></div>
+        <div flex="15"><strong>Message:</strong></div>
         <div flex>{{controller.exception.detailMessage}}</div>
       </div>
-      <div layout="row">
-        <div flex="10"><strong>Stack trace:</strong></div>
+      <div layout="row" ng-if="controller.exception.detailStackTrace">
+        <div flex="15"><strong>Stack trace:</strong></div>
         <div flex>
           <code>
             <pre>{{controller.exception.detailStackTrace}}</pre>

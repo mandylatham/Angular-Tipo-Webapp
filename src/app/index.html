@@ -22,19 +22,19 @@
     <!-- endbuild -->
 
     <link rel="shortcut icon" href="_assets/images/favicon/favicon.ico" type="image/x-icon">
-    
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <meta name='google-signin-client_id' content='${googleClientId}'/>
     <script src='https://apis.google.com/js/platform.js' async defer></script>  
     <script src="https://www.google.com/recaptcha/api.js?onload=vcRecaptchaApiLoaded&render=explicit" async defer></script>
-      
+
   </head>
 
   <body id="body" ng-app="tipo.main" ng-cloak>
 
-    <div ui-view></div>
+    <div id="background-container" ui-view></div>
 
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -63,16 +63,12 @@
     <script src="common/_scripts/config.js"></script>
 
     <script src="common/_scripts/common.module.js"></script>
-    <script src="common/_scripts/SecurityContextService.js"></script>
-    <script src="common/_scripts/CognitoService.js"></script>
-
-    <script src="social/_scripts/social.module.js"></script>
-    <script src="social/_scripts/GoogleService.js"></script>
-    <script src="social/_scripts/google-signin-button.js"></script>
-    
     <script src="common/backend/_scripts/TipoRouter.js"></script>
     <script src="common/backend/_scripts/TipoErrorHandler.js"></script>
     <script src="common/backend/_scripts/TipoResource.js"></script>
+    <script src="common/_scripts/MetadataService.js"></script>
+    <script src="common/_scripts/SecurityContextService.js"></script>
+    <script src="common/_scripts/CognitoService.js"></script>
 
     <script src="common/ui/_scripts/tpInclude.js"></script>
     <script src="common/ui/_scripts/tpIncludeReplace.js"></script>
@@ -105,10 +101,11 @@
 
     <script src="dashboard/_scripts/dashboard.module.js"></script>
     <script src="dashboard/_scripts/DashboardController.js"></script>
-    
+
+    <!--<script src="user_old/_scripts/user.module.js"></script>
+    <script src="user_old/_scripts/UserController.js"></script>-->
     <script src="user/_scripts/user.module.js"></script>
     <script src="user/_scripts/UserController.js"></script>
-    <script src="user/_scripts/angular-recaptcha.js"></script>
 
     <script src="layout/_scripts/layout.module.js"></script>
     <script src="layout/_scripts/NavigationController.js"></script>

@@ -42,7 +42,7 @@
 
     this.relogin = function(deferred){
       _instance.clearContext();
-      tipoRouter.to('login', false, {'retry': deferred});      
+      tipoRouter.to('login', false, {'retry': deferred});
     };
   }
 

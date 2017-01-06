@@ -61,7 +61,7 @@ module.exports = function (grunt) {
     watch: {
       source:{
         files: ['<%= config.gruntMaven.filesToWatch %>'],
-        tasks: ['mavenPrepare']
+        tasks: ['mavenPrepare', 'string-replace']
       },
       livereload:{
         options: {
@@ -101,14 +101,15 @@ module.exports = function (grunt) {
           bases: [],
           livereload: true,
           server: path.resolve(__dirname, 'express-server.dev.js'),
-          open: true
+          //open: 'http://localhost:9000/#/dashboard'
+          open: 'http://localhost:9000'
         }
       },
       dist: {
         options: {
           bases: [],
           server: path.resolve(__dirname, 'express-server.dist.js'),
-          open: true
+          open: 'http://localhost:9000/#/dashboard'
         }
       },
       mock: {
@@ -213,7 +214,7 @@ module.exports = function (grunt) {
           },
           {
             expand: true,
-            cwd: '<%= config.directories.staging %>/_scripts/non-bower-managed/separate',
+            cwd: '<%= config.directories.source %>/_scripts/non-bower-managed/separate',
             src: ['**'],
             dest: '<%= config.directories.dist %>/_scripts/non-bower-managed/separate'
           },
@@ -237,16 +238,19 @@ module.exports = function (grunt) {
       google: {
         files: {
           '<%= config.directories.source %>/index.html': '<%= config.directories.source %>/index.html',
-          '<%= config.directories.source %>/user/_views/login.tpl.html': '<%= config.directories.source %>/user/_views/login.tpl.html'
+          '<%= config.directories.source %>/user/_views/registration.tpl.html': '<%= config.directories.source %>/user/_views/registration.tpl.html'
         },
         options: {
-          replacements: [{
-            pattern: '${googleClientId}',
-            replacement: config.mavenProperties.googleClientId
-          }, {
-            pattern: '${googleRecaptchaSitekey}',
-            replacement: config.mavenProperties.googleRecaptchaSitekey
-          }]
+          replacements: [
+            {
+              pattern: '${googleClientId}',
+              replacement: config.mavenProperties.googleClientId
+            },
+            {
+              pattern: '${googleRecaptchaSitekey}',
+              replacement: config.mavenProperties.googleRecaptchaSitekey
+            }
+          ]
         }
       }
     },

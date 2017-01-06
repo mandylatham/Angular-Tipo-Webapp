@@ -8,7 +8,8 @@
     tipoInstanceDataService,
     tipoRouter,
     $state,
-    $scope) {
+    $scope,
+    $mdDialog) {
 
     var _instance = this;
 
@@ -26,13 +27,21 @@
     };
 
     _instance.delete = function(){
-      tipoRouter.startStateChange();
-      tipoInstanceDataService.deleteOne(tipo_name, tipo_id).then(function(){
-        if(tipoRouter.stickyExists()){
-          tipoRouter.toStickyAndReset();
-        }else{
-          tipoRouter.toTipoList(tipo_name);
-        }
+      var confirmation = $mdDialog.confirm()
+          .title('Delete Confirmation')
+          .textContent('Are you sure that you want to delete this record?')
+          .ariaLabel('Delete Confirmation')
+          .ok('Yes')
+          .cancel('No');
+      $mdDialog.show(confirmation).then(function(){
+        tipoRouter.startStateChange();
+        tipoInstanceDataService.deleteOne(tipo_name, tipo_id).then(function(){
+          if(tipoRouter.stickyExists()){
+            tipoRouter.toStickyAndReset();
+          }else{
+            tipoRouter.toTipoList(tipo_name);
+          }
+        });
       });
     };
 

@@ -83,6 +83,7 @@
     var baseUrl = location.origin + location.pathname + 'api';
     console.info('API Url - ' + baseUrl);
     RestangularConfigurer.setBaseUrl(baseUrl);
+    RestangularConfigurer.setPlainByDefault(true);
     //RestangularConfigurer.addRequestInterceptor(interceptors.request.sanitize);
     RestangularConfigurer.addFullRequestInterceptor(interceptors.request.security);
     RestangularConfigurer.addResponseInterceptor(interceptors.response.extractData);

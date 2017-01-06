@@ -6,7 +6,7 @@
         <span ng-switch-when="password">*******</span>
         <span ng-switch-when="longstring" class="preformatted-text">{{field._value.label}}</span>
         <span ng-switch-when="richstring">
-          <div ng-bind-html="formattedText"></div>
+          <div ng-bind-html="formattedText" class="richstring"></div>
         </span>
         <span ng-switch-when="s3explorer">
           <tp:s3-fileselector />

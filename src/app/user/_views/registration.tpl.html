@@ -1,0 +1,26 @@
+<div md-whiteframe="24">
+  <form name="registrationForm" data-ng-submit="controller.signUp()">
+    <md-content layout-padding layout="column" layout-align="center stretch">
+      <div class="md-subhead text-center">Create your account with this application</div>
+       <md-input-container class="md-icon-float md-block">
+        <label>Email</label>
+        <md-icon>person</md-icon>
+        <input ng-model="controller.user.email" type="text" required>
+      </md-input-container>
+      <md-input-container class="md-icon-float md-block">
+        <label>Password</label>
+        <md-icon>lock_open</md-icon>
+        <input ng-model="controller.user.password" type="password" required>
+      </md-input-container>
+      <div class="recaptcha" vc-recaptcha ng-model="controller.user.recaptcha" key="'${googleRecaptchaSitekey}'" layout="row" layout-align="center center"></div>
+      <div class="error with-margin" ng-show="controller.lastError"><i class="fa fa-exclamation-circle fa-fw"></i> {{controller.lastError}}</div>
+      <md-button type="submit" md-theme="reverse" class="md-raised md-primary" ng-if="!controller.inProgress">Create my Account</md-button>
+      <md-button disabled md-theme="reverse" class="md-raised md-primary" ng-show="controller.inProgress">
+        <i class="fa fa-refresh fa-spin fa-fw"></i> Processing...
+      </md-button>
+    </md-content>
+  </form>
+</div>
+<div layout="column" layout-align="center stretch" layout-padding ng-if="!controller.inProgress">
+  <md-button md-whiteframe="24" type="button" class="md-raised md-primary" ng-click="controller.toLogin()">Sign In</md-button>
+</div>

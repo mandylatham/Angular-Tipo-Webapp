@@ -4,63 +4,82 @@
 
   function registerStates($stateProvider) {
 
-    var confirmRegistrationState = {
-      name: 'confirmRegistration',
-      url: '/confirmation?customer_id&customer_name&subscription_id&email',
+    var baseState = {
+      name: 'userBase',
+      abstract: true,
       parent: 'root',
-      templateUrl: 'user/_views/confirmation.tpl.html',
-      controller: 'UserController',
-      controllerAs: 'userController'
+      templateUrl: 'user/_views/user-base.tpl.html'
+    };
+
+    var registrationState = {
+      name: 'registration',
+      url: '/register',
+      parent: baseState,
+      views: {
+        'content@userBase': {
+          templateUrl: 'user/_views/registration.tpl.html'
+        }
+      }
     };
 
     var loginState = {
       name: 'login',
       url: '/login?plan',
-      parent: 'root',
+      parent: baseState,
       params: {
         'retry': null
       },
-      templateUrl: 'user/_views/login.tpl.html',
-      controller: 'UserController',
-      controllerAs: 'userController'
+      views: {
+        'content@userBase': {
+          templateUrl: 'user/_views/login.tpl.html'
+        }
+      }
     };
 
-    var forgotPassState = {
-      name: 'forgotPass',
-      url: '/forgotpass',
-      parent: 'root',
-      templateUrl: 'user/_views/forgotpass.tpl.html',
-      controller: 'UserController',
-      controllerAs: 'userController'
+    var forgotPasswordState = {
+      name: 'forgotPassword',
+      url: '/forgot-password',
+      parent: baseState,
+      views: {
+        'content@userBase': {
+          templateUrl: 'user/_views/forgot-password.tpl.html'
+        }
+      }
     };
 
-    var resetPassState = {
-      name: 'resetPass',
+    var resetPasswordState = {
+      name: 'resetPassword',
       url: '/resetpass?code&email',
-      parent: 'root',
-      templateUrl: 'user/_views/resetpass.tpl.html',
-      controller: 'UserController',
-      controllerAs: 'userController'
+      //url: '/reset-password?code&email',
+      parent: baseState,
+      views: {
+        'content@userBase': {
+          templateUrl: 'user/_views/reset-password.tpl.html'
+        }
+      }
     };
 
-    var newPassRequiredState = {
-      name: 'newPassRequired',
-      url: '/newpassrequired',
+    var newPasswordRequiredState = {
+      name: 'newPasswordRequired',
+      url: '/new-password-required',
       params: {
         'deferredPassword': null
       },
-      parent: 'root',
-      templateUrl: 'user/_views/newpassrequired.tpl.html',
-      controller: 'UserController',
-      controllerAs: 'userController'
+      parent: baseState,
+      views: {
+        'content@userBase': {
+          templateUrl: 'user/_views/new-password-required.tpl.html'
+        }
+      }
     };
 
     $stateProvider
+      .state(baseState)
       .state(loginState)
-      .state(confirmRegistrationState)
-      .state(forgotPassState)
-      .state(resetPassState)
-      .state(newPassRequiredState);
+      .state(registrationState)
+      .state(forgotPasswordState)
+      .state(resetPasswordState)
+      .state(newPasswordRequiredState);
   }
 
   function configureModule($stateProvider) {
@@ -68,12 +87,6 @@
   }
 
   var module = angular.module('tipo.user', []);
-  module.run(function ($rootScope) {
-    $rootScope.$on('$stateChangeSuccess', function(event, to, toParams, from, fromParams) {
-        $rootScope.$previousState = from;
-        $rootScope.$previousParams = fromParams;
-      });
-  });
 
   module.config(function ($stateProvider) {
     configureModule($stateProvider);

@@ -3,18 +3,17 @@
   'use strict';
 
   function MainController(
+    applicationMetadata,
     tipoRouter,
     cognitoService,
-    googleService,
-    $mdSidenav,
     $state,
+    $mdSidenav,
     $rootScope,
-    $mdDialog,
-    $window
-    ) {
+    $mdDialog) {
 
     var _instance = this;
-    console.warn('Bootstrapping the main controller. This should happen only once');
+
+    $rootScope.applicationMetadata = applicationMetadata;
 
     var perspectives;
 
@@ -28,27 +27,11 @@
       if(name === 'settings'){
         params = {perspective: name};
       }
-      tipoRouter.to('dashboard', true, params, false);
+      tipoRouter.to('dashboard', 'layout', params, false);
     };
 
-    this.showLoginForm = function($event) {
+    _instance.signOut = function(){
       tipoRouter.to('login');
-    };
-
-    this.signUp = function(){
-      $state.go('registerUser');
-    };
-
-    this.signOut = function(){
-      if (cognitoService.signOut() === true) {
-        $state.go('login');
-        return;
-      }
-      googleService.signOut();
-    };
-
-    this.isSignedIn = function(){
-      return cognitoService.isCurrentUserSigned() === true || googleService.isSignedIn() === true;
     };
 
     // Register state change interactions for visual transition cues

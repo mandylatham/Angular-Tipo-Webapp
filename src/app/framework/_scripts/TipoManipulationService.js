@@ -205,6 +205,15 @@
               });
             }else{
               mergeDefinitionAndData(field, fieldValue);
+              // determine if the group has values for any field
+              var hasValue = false;
+              _.each(field.tipo_fields, function(each){
+                if(!each.hidden && !_.isUndefined(each._value)){
+                  hasValue = true;
+                  return false;
+                }
+              });
+              field._ui.hasValue = hasValue;
             }
           }else{
             if(isArray){

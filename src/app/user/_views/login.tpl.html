@@ -1,83 +1,28 @@
-<div layout="column" layout-align="center center">
-  <flash-message></flash-message> 
-  <div id="layout" layout="row" layout-align="center center">
-    <div md-whiteframe="6">
-      <h3 align="center">Sign into {{ displayName }}</h3>
-      <div ng-cloak layout-gt-sm="row" layout="column">
-        <div flex-gt-sm="100" flex>
-          <md-content flex layout-padding>
-            <md-tabs md-dynamic-height md-border-bottom md-center-tabs>
-              <md-tab label="Existing user">
-                <form name="loginForm" data-ng-init="userController.initLogin()" data-ng-submit="userController.login(username, password)">
-                  <md-input-container class="md-block">
-                      <label>Email:</label>
-                      <input ng-model="username" required>
-                  </md-input-container>
-
-                  <md-input-container class="md-block">
-                      <label>Password:</label>
-                      <input name="password" ng-model="password" type="password" required>
-                      <div ng-messages="loginForm.password.$error" ng-if="lastError">
-                        <div ng-message="required">{{ lastError }}</div>
-                      </div>
-                  </md-input-container>
-
-                  <div layout="row" layout-align="center center">
-                    <div ng-if="!userController.loginInProgress()">
-                      <md-button type="submit" class="md-raised md-primary">
-                        Sign In
-                      </md-button>
-                    </div>
-                    <div ng-if="userController.loginInProgress()">
-                      <md-button ng-disabled="true" class="md-raised md-primary">
-                        <i class="fa fa-refresh fa-spin"></i>
-                        Signing in...
-                      </md-button>
-                    </div>
-                    <div><a href="#/forgotpass">Forgot Password?</a></div>
-                  </div>
-
-                </form>
-              </md-tab>
-              <md-tab label="New User">
-                <form name="newUserForm" data-ng-submit="userController.signUp(user)">
-                  <md-input-container class="md-block" md-no-float>
-                    <label>Email</label>
-                    <input ng-model="user.email" type="email" required>
-                  </md-input-container>
-                  <md-input-container class="md-block" md-no-float>
-                    <label>Password</label>
-                    <input name="password" ng-model="user.password" type="password" required>
-                    <div ng-messages="loginForm.password.$error" ng-if="lastError">
-                      <div ng-message="required">{{ lastError }}</div>
-                    </div>
-                  </md-input-container>
-                  <div vc-recaptcha ng-model="user.recaptcha" key="'${googleRecaptchaSitekey}'"></div>
-                  <div ng-if="!userController.registrationInProgress()">
-                    <md-button type="submit" class="md-raised md-primary">
-                      Sign Up
-                    </md-button>
-                  </div>
-                  <div ng-if="userController.registrationInProgress()">
-                    <md-button ng-disabled="true" class="md-raised md-primary">
-                      <i class="fa fa-refresh fa-spin"></i>
-                      Processing...
-                    </md-button>
-                  </div>
-                </form>
-              </md-tab>
-            </md-tabs> 
-          </md-content>
+<div md-whiteframe="24">
+  <form name="loginForm" data-ng-submit="controller.login()">
+    <md-content layout-padding layout="column" layout-align="center stretch">
+      <div class="md-subhead text-center">Login to the application</div>
+      <md-input-container class="md-icon-float md-block">
+        <label>Email</label>
+        <md-icon>person</md-icon>
+        <input ng-model="controller.user.email" type="text" required>
+        <div class="text-right" id="forgot-password-link" ng-if="!controller.inProgress">
+          <a href="" ng-click="controller.toForgotPassword()">Forgot Password?</a>
         </div>
-        <!--<md-divider></md-divider>
-        <div flex-gt-sm="30" flex>      
-          <md-content flex layout-padding>
-            <div>Login with</div>
-            <div/>
-            <google-sign-in-button button-id="g-signin2" options="options"></google-sign-in-button>
-          </md-content>
-        </div>-->
-      </div>
-    </div>
-  </div>
+      </md-input-container>
+      <md-input-container class="md-icon-float md-block">
+        <label>Password</label>
+        <md-icon>lock_open</md-icon>
+        <input ng-model="controller.user.password" type="password" required>
+      </md-input-container>
+      <div class="error" ng-show="controller.lastError"><i class="fa fa-exclamation-circle fa-fw"></i> {{controller.lastError}}</div>
+      <md-button type="submit" md-theme="reverse" class="md-raised md-primary" ng-if="!controller.inProgress">Sign In</md-button>
+      <md-button disabled md-theme="reverse" class="md-raised md-primary" ng-show="controller.inProgress">
+        <i class="fa fa-refresh fa-spin fa-fw"></i> Signing in...
+      </md-button>
+    </md-content>
+  </form>
+</div>
+<div layout="column" layout-align="center stretch" layout-padding ng-if="!controller.inProgress">
+  <md-button type="button" class="md-raised md-primary" ng-click="controller.toRegistration()">Create a new Account</md-button>
 </div>
