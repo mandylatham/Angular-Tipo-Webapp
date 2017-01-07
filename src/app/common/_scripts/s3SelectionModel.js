@@ -45,7 +45,7 @@
 
     var current = Object.create(SelectionModel);
     var total = Object.create(SelectionModel);
-    var bucketName;
+    var context;
 
     /**
      * Add current to total
@@ -56,20 +56,20 @@
         return total;
     }
 
-    function setBucketName(bucketName) {
-        this.bucketName = bucketName;
+    function setContext(context) {
+        this.context = context;
     }
 
-    function getBucketName() {
-        return this.bucketName;
+    function getContext() {
+        return this.context;
     }
 
     return {
         current: current,
         total: total,
         addCurrent: addCurrent,
-        setBucketName: setBucketName,
-        getBucketName: getBucketName
+        setContext: setContext,
+        getContext: getContext
     };
   }
 
