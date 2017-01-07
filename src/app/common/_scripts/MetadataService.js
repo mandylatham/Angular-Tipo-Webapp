@@ -12,7 +12,7 @@
     var _instance = this;
 
     _instance.loadAppMetadata = function() {
-	  var origin = $window.location.href;
+      var origin = $window.location.href;
       var promise = tipoResource.one(SUBSCRIPTION_RESOURCE).get({ type: 'application', url: origin });
       promise = promise.then(function(metadata){
         _instance.applicationMetadata = metadata;
