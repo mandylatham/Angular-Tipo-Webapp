@@ -42,8 +42,10 @@
             this.items = [];
         }
     }
+
     var current = Object.create(SelectionModel);
     var total = Object.create(SelectionModel);
+    var bucketName;
 
     /**
      * Add current to total
@@ -54,14 +56,24 @@
         return total;
     }
 
+    function setBucketName(bucketName) {
+        this.bucketName = bucketName;
+    }
+
+    function getBucketName() {
+        return this.bucketName;
+    }
+
     return {
         current: current,
         total: total,
-        addCurrent: addCurrent
+        addCurrent: addCurrent,
+        setBucketName: setBucketName,
+        getBucketName: getBucketName
     };
   }
 
-  angular.module('tipo.framework')
+  angular.module('tipo.common')
     .service('s3SelectionModel', S3SelectionModel);
 
 })();

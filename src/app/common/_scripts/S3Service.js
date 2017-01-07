@@ -36,12 +36,32 @@
         return deferred.promise;
     }
 
+    function uploadFile(bucketName, file) {
+        var deferred = $q.defer();
+        var s3 = new AWS.S3({apiVersion: '2006-03-01'});
+        var params = { 
+            Bucket: bucketName,
+            Key: file.name,
+            ContentType: file.type,
+            Body: file
+        };
+        s3.upload(params, function (err, data) {
+            if (err) {
+                deferred.reject(err);
+                return;
+            }
+            deferred.resolve(data);
+        });
+        return deferred.promise;
+    }
+
     return {
-      go: go
+      go: go,
+      uploadFile: uploadFile
     };
   }
 
-  angular.module('tipo.main')
+  angular.module('tipo.common')
     .service('s3Service', S3Service);
 
 })();

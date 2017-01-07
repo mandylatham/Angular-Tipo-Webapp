@@ -141,6 +141,7 @@
         }
 
         $scope.submit = function(bucketName) {
+            s3SelectionModel.setBucketName(bucketName);
             editMode = false;
             s3exp_config.Bucket = bucketName;
             s3exp_config.Prefix = '';
