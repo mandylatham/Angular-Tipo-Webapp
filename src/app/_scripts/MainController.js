@@ -5,7 +5,7 @@
   function MainController(
     applicationMetadata,
     tipoRouter,
-    cognitoService,
+    tipoCache,
     $state,
     $mdSidenav,
     $rootScope,
@@ -17,11 +17,11 @@
 
     var perspectives;
 
-    this.showNavigation = function(){
+    _instance.showNavigation = function(){
       $mdSidenav('left').open();
     };
 
-    this.toPerspective = function(name) {
+    _instance.toPerspective = function(name) {
       //tipoRouter.to(perspectives[name].root);
       var params;
       if(name === 'settings'){
@@ -55,6 +55,11 @@
     _instance.routing = {
       isStateChanging: tipoRouter.isStateChanging,
       reloadCurrent: tipoRouter.reloadCurrent
+    };
+
+    _instance.printCache = function(){
+      var cache = tipoCache.getDefault();
+      console.log('CACHE KEYS', angular.toJson(cache.keySet()));
     };
   }
 

@@ -6,6 +6,7 @@
     tipoDefinition,
     tipo,
     tipoInstanceDataService,
+    tipoManipulationService,
     tipoRouter,
     $state,
     $scope,
@@ -35,7 +36,14 @@
           .cancel('No');
       $mdDialog.show(confirmation).then(function(){
         tipoRouter.startStateChange();
-        tipoInstanceDataService.deleteOne(tipo_name, tipo_id).then(function(){
+        // handle application perspective
+        var filter = {};
+        var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
+        if(perspectiveMetadata && perspectiveMetadata.fieldName === 'application'){
+          filter.tipo_filter = perspectiveMetadata.tipoFilter;
+        }
+        // ends here
+        tipoInstanceDataService.deleteOne(tipo_name, tipo_id, filter).then(function(){
           if(tipoRouter.stickyExists()){
             tipoRouter.toStickyAndReset();
           }else{

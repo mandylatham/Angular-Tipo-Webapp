@@ -4,6 +4,7 @@
 
   function TipoInstanceDataService(
     tipoResource,
+    tipoCache,
     $q) {
 
     var _instance = this;
@@ -40,6 +41,7 @@
     };
 
     _instance.upsertAll = function(tipo_name, tipos){
+      tipoCache.evict(tipo_name);
       tipos = _.map(tipos, function(each){
         return {
           tipo_name: tipo_name,
@@ -54,6 +56,7 @@
     };
 
     _instance.updateOne = function(tipo_name, tipo, id){
+      tipoCache.evict(tipo_name, id);
       tipo = {
         tipo_name: tipo_name,
         data: tipo
@@ -66,6 +69,7 @@
     };
 
     _instance.performSingleAction = function(tipo_name, tipo_id, action, additional_tipo_name, additional_tipo){
+      tipoCache.evict(tipo_name, tipo_id);
       var tipo = {};
       if(!_.isUndefined(additional_tipo_name)){
         tipo = {
@@ -94,8 +98,9 @@
       return getCollectionResource(tipo_name).doPUT(tipos, undefined, {tipo_action: action});
     };
 
-    _instance.deleteOne = function(tipo_name, id){
-      return getDocumentResource(tipo_name, id).remove();
+    _instance.deleteOne = function(tipo_name, id, queryParams){
+      tipoCache.evict(tipo_name, id);
+      return getDocumentResource(tipo_name, id).remove(queryParams);
     };
 
   }

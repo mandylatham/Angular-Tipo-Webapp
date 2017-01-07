@@ -83,7 +83,7 @@
       menuOpenFunction(event);
     };
 
-    $rootScope.$watch('perspective', function(newValue, oldValue){
+    $scope.$watch(function(){return $rootScope.perspective;}, function(newValue, oldValue){
       prepareMenu(newValue);
     });
 

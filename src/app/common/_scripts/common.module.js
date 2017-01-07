@@ -8,9 +8,11 @@
     'restangular',
     'LocalStorageModule',
     'ngMaterial',
+    'angular-cache',
     'md.data.table',
     'textAngular',
-    'vcRecaptcha'
+    'vcRecaptcha',
+    'lfNgMdFileInput'
   ]);
 
   module.config(function ($mdThemingProvider, $mdToastProvider) {

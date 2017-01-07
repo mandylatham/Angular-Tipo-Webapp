@@ -89,6 +89,7 @@
     RestangularConfigurer.addResponseInterceptor(interceptors.response.extractData);
     RestangularConfigurer.setErrorInterceptor(interceptors.errors.handleError);
     RestangularConfigurer.setDefaultHeaders({'Content-Type': 'application/json'});
+    RestangularConfigurer.setDefaultHttpFields({cache: true});
   }
 
   // Tipo Resource. This shall be used for invoking the Tipo REST APIs

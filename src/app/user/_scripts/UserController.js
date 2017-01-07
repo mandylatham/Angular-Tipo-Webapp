@@ -7,6 +7,7 @@
     tipoRouter,
     tipoResource,
     cognitoService,
+    tipoCache,
     $stateParams,
     $mdToast,
     $scope,
@@ -110,6 +111,7 @@
           // Go to New Password Required page when facing PasswordChallenge
           tipoRouter.to('newPasswordRequired', undefined, { deferredPassword: result.value });
         } else {
+          tipoCache.clearAll();
           tipoRouter.to('dashboard');
         }
       }, raiseError);

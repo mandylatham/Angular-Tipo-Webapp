@@ -7,7 +7,7 @@
     tipoManipulationService,
     tipoInstanceDataService,
     tipoRouter) {
-    
+
     var _instance = this;
     _instance.tipoDefinition = tipoDefinition;
 

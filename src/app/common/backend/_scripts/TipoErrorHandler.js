@@ -3,17 +3,26 @@
   'use strict';
 
   function translateToUiException(backendException){
+    if(backendException.headerCode){
+      // already seems to be properly mapped
+      return backendException;
+    }
+
     var exception = {};
     exception.headerCode = backendException.status;
     exception.headerMessage = backendException.statusText;
     
-    if(backendException.data.status_code){
+    if(_.isString(backendException.data)){
+      exception.detailCode = exception.headerCode;
+    }else if(backendException.data.status_code){
       exception.detailCode = backendException.data.status_code;
     }else{
       exception.detailCode = exception.headerCode;
     }
 
-    if(backendException.data.message){
+    if(_.isString(backendException.data)){
+      exception.detailMessage = backendException.data;
+    }else if(backendException.data.message){
       exception.detailMessage = backendException.data.message;
     }else{
       exception.detailMessage = backendException.data.errorMessage;
