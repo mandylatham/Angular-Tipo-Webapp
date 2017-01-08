@@ -113,7 +113,6 @@
           tipoRouter.to('newPasswordRequired', undefined, { deferredPassword: result.value });
         } else {
           tipoCache.clearAll();
-          //tipoRouter.to('dashboard');
           _instance.gotoPreviousView();
         }
       }, raiseError);
