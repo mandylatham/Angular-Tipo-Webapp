@@ -117,12 +117,19 @@
 
     function recordSticky(){
       _stickyState.name = getCurrent().name;
+      var parent = getCurrent().parent.name;
+      if(parent !== 'layout'){
+        _stickyState.reloadFrom = parent;
+      }else{
+        _stickyState.reloadFrom = _stickyState.name;
+      }
       _stickyState.params = angular.copy($state.params);
     }
 
     function toStickyAndReset(){
-      to(_stickyState.name, true, _stickyState.params, false);
-      _stickyState = {};
+      to(_stickyState.name, _stickyState.reloadFrom, _stickyState.params, false).then(function(){
+        _stickyState = {};
+      });
     }
 
     function stickyExists(){

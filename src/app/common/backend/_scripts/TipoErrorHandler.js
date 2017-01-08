@@ -86,6 +86,7 @@
         clickOutsideToClose: true,
         fullscreen: true
       });
+      promise.then(tipoRouter.endStateChange);
       return false;
     };
 

@@ -436,12 +436,9 @@
         return each.field_type === 'Tipo.' + parentTipoName;
       });
       var contextualData = {};
-      if(_.isUndefined(labelField)){
-        contextualData[associationField.field_name] = keyField._value.key;
-      }else{
-        contextualData[associationField.field_name] = {};
-        contextualData[associationField.field_name][keyField.field_name] = keyField._value.key;
-        contextualData[associationField.field_name][labelField.field_name] = labelField._value.key;
+      contextualData[associationField.field_name] = keyField._value.key;
+      if(!_.isUndefined(labelField)){
+        _.set(contextualData, associationField.field_name + '_refs.ref' + keyField._value.key, labelField._value.key);
       }
       return contextualData;
     }
