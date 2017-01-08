@@ -9,7 +9,8 @@
     $state,
     $mdSidenav,
     $rootScope,
-    $mdDialog) {
+    $mdDialog,
+    cognitoService) {
 
     var _instance = this;
 
@@ -31,6 +32,7 @@
     };
 
     _instance.signOut = function(){
+      cognitoService.signOut();
       tipoRouter.to('login');
     };
 
