@@ -157,10 +157,10 @@
     };
 
     _instance.gotoPreviousView = function() {
-      if ($rootScope.$previousState.abstract === true) {
-        $state.go('dashboard');
-      } else {
+      if ($rootScope.$previousState && $rootScope.$previousState.abstract === false) {
         $state.go($rootScope.$previousState, $rootScope.$previousParams);
+      } else {
+        $state.go('dashboard');
       }
     };
 
