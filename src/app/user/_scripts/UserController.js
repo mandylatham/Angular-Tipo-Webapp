@@ -82,16 +82,14 @@
           customerEmail: user.email,
           tipouser: user.fullName()
         };
-        tipoResource.one('trial-signup').customPOST(trial).then(function(result) {
-          // Authenticate
-          cognitoService.authenticate(user.fullName(), user.password).then(function() {
-            cognitoService.resendCode().then(function() {
-              tipoRouter.to('dashboard');
-            }, function(err) {
-              console.error(err);
-              tipoRouter.to('dashboard');
-            });
-          }, raiseError);
+        // Authenticate
+        cognitoService.authenticate(user.fullName(), user.password).then(function() {
+          cognitoService.resendCode().then(function() {
+            tipoRouter.to('dashboard');
+          }, function(err) {
+            console.error(err);
+            tipoRouter.to('dashboard');
+          });
         }, raiseError);
       }, function (err) {
         if (attemptCnt < 3 && err.message && err.message.indexOf('Account already exists') !== -1) {
