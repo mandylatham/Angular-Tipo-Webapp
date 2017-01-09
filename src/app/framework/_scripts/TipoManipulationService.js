@@ -250,10 +250,10 @@
           var fieldType = field.field_type;
           var fieldValue = field._value;
           var hasValue = !_.isEmpty(fieldValue);
-          var hasSimpleValue = !_.isEmpty(_.get(fieldValue, 'key'));
           var isArray = Boolean(_.get(field, '_ui.isArray'));
           var isGroup = Boolean(_.get(field, '_ui.isGroup'));
           var isRelatedTipo = Boolean(_.get(field, '_ui.isTipoRelationship'));
+          var hasSimpleValue = !_.isEmpty(_.get(fieldValue, 'key'));
           if(isRelatedTipo && !isGroup){
             if(hasValue){
               if(isArray){
@@ -342,6 +342,8 @@
 
     function isValidValue(value){
       if(_.isBoolean(value)){
+        return true;
+      }else if(_.isDate(value)){
         return true;
       }else{
         return !_.isEmpty(value);
