@@ -87,6 +87,16 @@
   }
 
   var module = angular.module('tipo.user', []);
+  module.run(function ($rootScope) {
+    $rootScope.$on('$stateChangeStart', function(event, to, toParams, from, fromParams) {
+      if(to.name === 'login'){
+        return; // no need to save login state 
+      }
+
+      $rootScope.$previousState = to;
+      $rootScope.$previousParams = toParams;
+    });
+  });
 
   module.config(function ($stateProvider) {
     configureModule($stateProvider);

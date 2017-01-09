@@ -8,6 +8,7 @@
     tipoResource,
     cognitoService,
     tipoCache,
+    $state,
     $stateParams,
     $mdToast,
     $scope,
@@ -112,7 +113,7 @@
           tipoRouter.to('newPasswordRequired', undefined, { deferredPassword: result.value });
         } else {
           tipoCache.clearAll();
-          tipoRouter.to('dashboard');
+          _instance.gotoPreviousView();
         }
       }, raiseError);
     };
@@ -153,6 +154,14 @@
         return;
       }
       raiseError({ errorMessage: 'You must login first with your temporary credentials before attempting to change your password'});
+    };
+
+    _instance.gotoPreviousView = function() {
+      if ($rootScope.$previousState.abstract === true) {
+        $state.go('dashboard');
+      } else {
+        $state.go($rootScope.$previousState, $rootScope.$previousParams);
+      }
     };
 
     $scope.$watch(function(){
