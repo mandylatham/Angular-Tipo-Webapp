@@ -29,7 +29,7 @@
             return false;
           }
         }
-        return each.contains(tipo + '?') || each.contains(tipo + '/' + id);
+        return each.contains(tipo + '?') || each.contains(tipo + '/' + id) || each.contains(tipo + '/default');
       });
       _.each(keysToEvict, cache.remove);
     };
