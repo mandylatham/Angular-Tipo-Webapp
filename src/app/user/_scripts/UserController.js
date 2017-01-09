@@ -157,7 +157,7 @@
     };
 
     _instance.gotoPreviousView = function() {
-      if ($rootScope.$previousState && $rootScope.$previousState.abstract === false) {
+      if ($rootScope.$previousState && (typeof $rootScope.$previousState.abstract === 'undefined' || $rootScope.$previousState.abstract === false)) {
         $state.go($rootScope.$previousState, $rootScope.$previousParams);
       } else {
         $state.go('dashboard');
