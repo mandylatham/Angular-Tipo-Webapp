@@ -107,7 +107,7 @@
             <configuration>
               <fromDir>${basedir}/target-grunt/dist</fromDir>
               <includes>**</includes>
-              <url>s3://${ui_s3_bucket}/</url>
+              <url>s3://${S3_BUCKET}/</url>
             </configuration>
           </execution>
         </executions>
