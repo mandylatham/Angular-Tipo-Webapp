@@ -16,3 +16,8 @@ pipelines:
                 - export S3_BUCKET=$prod_ui_s3_bucket
                 - mvn --version
                 - mvn -X clean deploy -Dall
+    master:            
+      - step:
+          script: # Modify the commands below to build your repository.
+                - mvn --version
+                - mvn -X clean deploy -Dall
