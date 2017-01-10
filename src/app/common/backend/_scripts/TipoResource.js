@@ -80,7 +80,13 @@
 
     var interceptors = getAllInterceptors($http, $q, securityContextService, tipoErrorHandler);
     var location = $window.location;
-    var baseUrl = location.origin + location.pathname + 'api';
+    var relativeUrl = location.pathname;
+    if(_.startsWith(relativeUrl, '/app')){
+      relativeUrl = '/api' + relativeUrl.substring(4);
+    }else{
+      relativeUrl = '/api';
+    }
+    var baseUrl = location.origin + relativeUrl;
     console.info('API Url - ' + baseUrl);
     RestangularConfigurer.setBaseUrl(baseUrl);
     RestangularConfigurer.setPlainByDefault(true);

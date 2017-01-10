@@ -14,7 +14,7 @@
       {
         applicationMetadata: function(metadataService) {
           if(metadataService.applicationMetadata){
-            console.warn('The root state is getting initialized again. This nornally indicates an unintentional reloading of the entire state hierarchy in the application');
+            console.warn('The root state is getting initialized again. This normally indicates an unintentional reloading of the entire state hierarchy in the application');
           }
           return metadataService.loadAppMetadata().then(function(metadata){
             return metadata;
