@@ -20,7 +20,7 @@ var pathMappings = [
     //url: 'https://app.billionbases.com/dev'
     //url: 'https://dev.tipotapp.com/2000000001.1000000001.raj@tipotapp.com/2000000001'
     //url: 'https://dev.tipotapp.com/2000000001.1000000001.prasad.sid@deltagene.com/2000000002'
-    url: 'https://dev.tipotapp.com/api'
+    url: 'https://app.tipodev.com'
   }
 ];
 
