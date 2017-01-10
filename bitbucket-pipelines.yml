@@ -11,7 +11,7 @@ pipelines:
     master:
       - step:
           script: # Modify the commands below to build your repository.
-		    - export AWS_ACCESS_KEY_ID = ${PROD_AWS_ACCESS_KEY_ID}
+		    - export AWS_ACCESS_KEY_ID  = ${PROD_AWS_ACCESS_KEY_ID}
 			- export AWS_SECRET_ACCESS_KEY = ${PROD_AWS_SECRET_ACCESS_KEY}
 			- export S3_BUCKET = ${prod_ui_s3_bucket}
             - mvn --version
