@@ -21,6 +21,10 @@
           };
         }, function(err) {
           console.error(err);
+          _instance.toast = {
+            header: 'Email confirmation',
+            body: 'The confirmation code is expired. Please request a new code.'
+          };
         });
       }
     };

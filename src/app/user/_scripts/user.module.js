@@ -89,8 +89,8 @@
   var module = angular.module('tipo.user', []);
   module.run(function ($rootScope) {
     $rootScope.$on('$stateChangeStart', function(event, to, toParams, from, fromParams) {
-      if(to.name === 'login'){
-        return; // no need to save login state 
+      if (['registration', 'login', 'forgotPassword', 'resetPassword', 'newPasswordRequired'].indexOf(to.name) != -1) {
+        return; // no need to save auxiliary states
       }
 
       $rootScope.$previousState = to;
