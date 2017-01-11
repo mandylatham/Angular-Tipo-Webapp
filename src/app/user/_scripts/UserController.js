@@ -121,7 +121,7 @@
       cognitoService.forgotPassword(user.fullName()).then(function(result){
         _instance.toast = {
           header: 'Check email',
-          body: 'An email has been sent containing a link to reset your password'
+          body: 'We sent an email to ' + _instance.user.email + ', which contains a link to reset your password.'
         };
         _instance.toLogin();
       }, raiseError);
@@ -134,7 +134,7 @@
       cognitoService.resetPassword(user.fullName(), user.newPassword, code).then(function(result){
         _instance.toast = {
           header: 'Password changed',
-          body: 'Your password has been changed successfully. Please login using the new password'
+          body: 'Your Password has been successfully reset. Sign in to your account.'
         };
         _instance.toLogin();
       }, raiseError);
