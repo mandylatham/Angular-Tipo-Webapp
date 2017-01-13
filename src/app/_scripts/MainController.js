@@ -33,6 +33,7 @@
 
     _instance.signOut = function(){
       cognitoService.signOut();
+      delete $rootScope.$previousState;
       tipoRouter.to('login');
     };
 
