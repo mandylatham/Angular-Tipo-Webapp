@@ -13,12 +13,6 @@
     },
     {
       id: 'dynamic'
-    },
-    {
-      id: 'support',
-      label: 'Support',
-      state: 'support',
-      icon: 'help_outline'
     }
   ];
 

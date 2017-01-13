@@ -5,18 +5,18 @@
       <md-input-container class="md-icon-float md-block">
         <label>Email</label>
         <md-icon>person</md-icon>
-        <input ng-model="controller.user.email" type="text" required>
+        <input ng-model="controller.user.email" type="text" required tabindex="1">
         <div class="text-right" id="forgot-password-link" ng-if="!controller.inProgress">
-          <a href="" ng-click="controller.toForgotPassword()">Forgot Password?</a>
+          <a href="" ng-click="controller.toForgotPassword()" tabindex="5">Forgot Password?</a>
         </div>
       </md-input-container>
       <md-input-container class="md-icon-float md-block">
         <label>Password</label>
         <md-icon>lock_open</md-icon>
-        <input ng-model="controller.user.password" type="password" required>
+        <input ng-model="controller.user.password" type="password" required tabindex="2">
       </md-input-container>
       <div class="error" ng-show="controller.lastError"><i class="fa fa-exclamation-circle fa-fw"></i> {{controller.lastError}}</div>
-      <md-button type="submit" md-theme="reverse" class="md-raised md-primary" ng-if="!controller.inProgress">Sign In</md-button>
+      <md-button type="submit" md-theme="reverse" class="md-raised md-primary" ng-if="!controller.inProgress" tabindex="3">Sign In</md-button>
       <md-button disabled md-theme="reverse" class="md-raised md-primary" ng-show="controller.inProgress">
         <i class="fa fa-refresh fa-spin fa-fw"></i> Signing in...
       </md-button>
@@ -24,5 +24,5 @@
   </form>
 </div>
 <div layout="column" layout-align="center stretch" layout-padding ng-if="!controller.inProgress">
-  <md-button type="button" class="md-raised md-primary" ng-click="controller.toRegistration()">Create a new Account</md-button>
+  <md-button type="button" class="md-raised md-primary" ng-click="controller.toRegistration()" tabindex="4">Create a new Account</md-button>
 </div>
