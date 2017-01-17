@@ -23,6 +23,7 @@
       tipoRouter.startStateChange();
       var data = {};
       tipoManipulationService.extractDataFromMergedDefinition(_instance.tipoDefinition, data);
+      data.copy_from_tipo_id = tipo.copy_from_tipo_id;
       tipoInstanceDataService.updateOne(tipo_name, data, tipo_id).then(function(result){
         if(tipoRouter.stickyExists()){
           tipoRouter.toStickyAndReset();

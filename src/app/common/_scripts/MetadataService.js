@@ -7,6 +7,7 @@
   function MetadataService(
     tipoResource,
     tipoErrorHandler,
+    $q,
     $window) {
 
     var _instance = this;
@@ -30,6 +31,16 @@
       });
       return promise;
     };
+
+    function loadGeolocation(){
+      if(navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(
+          function(position){
+            _instance.geoLocation = position.coords;
+          });
+      }
+    }
+    loadGeolocation();
   }
 
   angular.module('tipo.common')

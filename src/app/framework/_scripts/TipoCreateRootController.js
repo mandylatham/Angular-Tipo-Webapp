@@ -6,10 +6,13 @@
     tipoDefinition,
     tipoManipulationService,
     tipoInstanceDataService,
-    tipoRouter) {
+    tipoRouter,
+    $stateParams) {
 
     var _instance = this;
     _instance.tipoDefinition = tipoDefinition;
+
+    var clonedTipoId = $stateParams.copyFrom;
 
     var tipo_name = tipoDefinition.tipo_meta.tipo_name;
 
@@ -24,6 +27,9 @@
       var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
       if(perspectiveMetadata && !data[perspectiveMetadata.fieldName]){
         data[perspectiveMetadata.fieldName] = perspectiveMetadata.tipoId;
+      }
+      if(!_.isUndefined(clonedTipoId)){
+        data.copy_from_tipo_id = clonedTipoId;
       }
       tipoInstanceDataService.upsertAll(tipo_name, [data]).then(function(result){
         if(tipoRouter.stickyExists()){

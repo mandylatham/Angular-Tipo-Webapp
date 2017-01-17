@@ -22,6 +22,7 @@
     "jQuery": false,
     "$": false,
     "_": false,
+    "navigator": false,
     "Promise": false,
     "jsonPath": false,
     "S": false,

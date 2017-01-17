@@ -5,6 +5,7 @@
   function TipoInstanceDataService(
     tipoResource,
     tipoCache,
+    metadataService,
     $q) {
 
     var _instance = this;
@@ -26,6 +27,13 @@
       return collection;
     }
 
+    function populateGeolocation(tipo){
+      if(metadataService.geoLocation){
+        tipo.data.geo_latitude = metadataService.geoLocation.latitude;
+        tipo.data.geo_longitude = metadataService.geoLocation.longitude;
+      }
+    }
+
     function getCollectionResource(tipo_name){
       return tipoResource.all(tipo_name);
     }
@@ -43,10 +51,12 @@
     _instance.upsertAll = function(tipo_name, tipos){
       tipoCache.evict(tipo_name);
       tipos = _.map(tipos, function(each){
-        return {
+        var tipo = {
           tipo_name: tipo_name,
-          data: each
+          data: angular.copy(each)
         };
+        populateGeolocation(tipo);
+        return tipo;
       });
       return getCollectionResource(tipo_name).doPUT(tipos).then(unwrapAndSort);
     };
@@ -59,12 +69,13 @@
       tipoCache.evict(tipo_name, id);
       tipo = {
         tipo_name: tipo_name,
-        data: tipo
+        data: angular.copy(tipo)
       };
-      if(_.isUndefined(tipo.tipo_id)){
+      if(_.isUndefined(tipo.data.tipo_id)){
         console.log('Tipo ID not defined, setting it');
-        tipo.tipo_id = id;
+        tipo.data.tipo_id = id;
       }
+      populateGeolocation(tipo);
       return getDocumentResource(tipo_name, id).doPUT(tipo);
     };
 
