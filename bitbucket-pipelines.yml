@@ -14,6 +14,12 @@ pipelines:
                 - export AWS_ACCESS_KEY_ID=$DEV_AWS_ACCESS_KEY_ID
                 - export AWS_SECRET_ACCESS_KEY=$DEV_AWS_SECRET_ACCESS_KEY                
                 - export S3_BUCKET=$dev_ui_s3_bucket
+                - export google_client_id=$dev_google_client_id
+                - export google_recaptcha_sitekey=$dev_google_recaptcha_sitekey
+                - export cognito_client_id=dev_cognito_client_id
+                - export cognito_identity_pool_id=dev_cognito_identity_pool_id
+                - export cognito_region=dev_cognito_region
+                - export cognito_user_pool_id=dev_cognito_user_pool_id
                 - mvn --version
                 - mvn -X clean deploy -Dall
     master:            
