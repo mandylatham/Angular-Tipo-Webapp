@@ -10,8 +10,8 @@
   <properties>
     <grunt.plugin.version>1.5.1</grunt.plugin.version>
     <tipo.api.url>/dev</tipo.api.url>
-    <google.client.id>${google_client_id}</google.client.id>
-    <google.recaptcha.sitekey>${google_recaptcha_sitekey}</google.recaptcha.sitekey>
+    <google.client.id>${env.google_client_id}</google.client.id>
+    <google.recaptcha.sitekey>${env.google_recaptcha_sitekey}</google.recaptcha.sitekey>
   </properties>
 
   <build>
