@@ -1,8 +1,10 @@
 (function() {
 
-  'use strict';  
+  'use strict';
 
-  function S3Service($q) {
+  var S3_RESOURCE = 's3action';
+
+  function S3Service($q, tipoResource) {
     function go(config, completecb) {
         var s3 = new AWS.S3();
         var params = { Bucket: config.Bucket, Prefix: config.Prefix, Delimiter: config.Delimiter };
@@ -54,7 +56,16 @@
                     deferred.reject(err);
                     return;
                 }
-                deferred.resolve(data);
+                var s3action = {
+                    s3object: params.Key
+                };
+                tipoResource.one(S3_RESOURCE).post('', s3action).then(function(res) {
+                    console.log(res);
+                    deferred.resolve(data);
+                }, function(err) {
+                    console.error(err);
+                    deferred.resolve(data);
+                });
             });
         return deferred.promise;
     }
