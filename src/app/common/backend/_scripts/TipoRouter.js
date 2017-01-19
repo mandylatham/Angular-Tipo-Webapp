@@ -38,9 +38,17 @@
       return $state.go($state.current, reloadFlagParameters, {reload: true});
     }
 
+    function setPerspectiveIfRequired(parameters){
+      parameters = parameters || {};
+      if(!parameters.perspective && $stateParams.perspective){
+        parameters.perspective = $stateParams.perspective;
+      }
+    }
+
     function to(state, reload, parameters, inherit){
       var stateOptions = angular.isDefined(reload) ? {reload: reload} : {reload: state};
       stateOptions.inherit = Boolean(inherit);
+      setPerspectiveIfRequired(parameters);
       return $state.go(state, parameters, stateOptions);
     }
 
@@ -62,6 +70,7 @@
         }
       }
       stateOptions.inherit = false;
+      setPerspectiveIfRequired(parameters);
       return $state.go('tipoList', parameters, stateOptions);
     }
 
@@ -74,6 +83,7 @@
         parameters.perspective = perspectiveMetadata.perspective;
       }
       stateOptions.inherit = false;
+      setPerspectiveIfRequired(parameters);
       return $state.go('tipoCreate', parameters, stateOptions);
     }
 
@@ -87,6 +97,7 @@
         parameters.perspective = perspectiveMetadata.perspective;
       }
       stateOptions.inherit = false;
+      setPerspectiveIfRequired(parameters);
       return $state.go('tipoView', parameters, stateOptions);
     }
 
@@ -96,23 +107,8 @@
       parameters.tipo_name = tipoName;
       parameters.tipo_id = tipoId;
       stateOptions.inherit = true;
+      setPerspectiveIfRequired(parameters);
       return $state.go('tipoEdit', parameters, stateOptions);
-    }
-
-    function toSettingsView(tipoName, parameters){
-      var stateOptions = {reload: 'settingsView'};
-      parameters = parameters || {};
-      parameters.tipo_name = tipoName;
-      stateOptions.inherit = false;
-      return $state.go('settingsView', parameters, stateOptions);
-    }
-
-    function toSettingsEdit(tipoName, parameters){
-      var stateOptions = {reload: 'settingsEdit'};
-      parameters = parameters || {};
-      parameters.tipo_name = tipoName;
-      stateOptions.inherit = false;
-      return $state.go('settingsEdit', parameters, stateOptions);
     }
 
     function recordSticky(){
@@ -155,8 +151,6 @@
       toTipoCreate: toTipoCreate,
       toTipoView: toTipoView,
       toTipoEdit: toTipoEdit,
-      toSettingsView: toSettingsView,
-      toSettingsEdit: toSettingsEdit,
       recordSticky: recordSticky,
       toStickyAndReset: toStickyAndReset,
       stickyExists: stickyExists,

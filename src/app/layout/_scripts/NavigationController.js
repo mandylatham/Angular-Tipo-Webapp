@@ -19,6 +19,8 @@
   function NavigationController(
     tipoRouter,
     tipoDefinitionDataService,
+    tipoInstanceDataService,
+    tipoManipulationService,
     $mdSidenav,
     $mdMedia,
     $state,
@@ -30,8 +32,15 @@
 
     var perspectives = $scope.perspectives;
 
+    var currentPerspective;
+
     // TODO: Hacky way to mark the active menu item. Need to improve this
-    function markActiveItem(menu){
+    function markActiveItem(menu, perspectiveTipoId){
+      if(!_.isUndefined(perspectiveTipoId)){
+        var items = _instance.perspectiveMenu.menuItems;
+        var selectedItem = _.find(items, {tipoId: perspectiveTipoId});
+        _instance.selectedPerspectiveItem = selectedItem;
+      }
       var activeItem;
       if($stateParams.tipo_name){
         activeItem = _.find(menu, {tipo_name: $stateParams.tipo_name});
@@ -41,37 +50,75 @@
 
       if(!_.isUndefined(activeItem)){
         _instance.activeItem = activeItem;
+      }else{
+        delete _instance.activeItem;
       }
     }
 
-    function prepareMenu(perspective){
+    function prepareMenu(newPerspective){
+      delete _instance.activeItem;
       var tipoMenuItems;
-      if(S(perspective).startsWith('tipo.')){
+      var perspective = newPerspective;
+      newPerspective = S(newPerspective);
+      if(newPerspective.startsWith('tipo.')){
+        var skipMenuLoad = false;
         var parts = perspective.split('.');
         var tipoName = parts[1];
-        var tipoId = parts[2];
-        tipoDefinitionDataService.getOne(tipoName).then(function(tipoDefinition){
-          var subTipos = tipoDefinition._ui.subTipos;
-          subTipos = _.sortBy(subTipos, function(each){
-            if(each._ui.sequence){
-              return parseFloat(each._ui.sequence, 10);
-            }else{
-              return 999;
-            }
+        var selectedtTipoId = parts[2];
+        if(currentPerspective && S(currentPerspective).startsWith('tipo.')){
+          var oldTipoName = currentPerspective.split('.')[1];
+          if(tipoName === oldTipoName){
+            skipMenuLoad = true;
+          }
+        }
+
+        currentPerspective = newPerspective;
+
+        if(skipMenuLoad){
+          markActiveItem(_instance.menu, selectedtTipoId);
+        }else{
+          var perspectiveMenu = {};
+          var perspectiveMenuItems = [];
+          tipoDefinitionDataService.getOne(tipoName).then(function(definition){
+            perspectiveMenu.tipoName = definition.tipo_meta.tipo_name;
+            tipoInstanceDataService.search(tipoName).then(function(tipos){
+              var subTipos = definition._ui.subTipos;
+              subTipos = _.sortBy(subTipos, function(each){
+                if(each._ui.sequence){
+                  return parseFloat(each._ui.sequence, 10);
+                }else{
+                  return 999;
+                }
+              });
+              tipoMenuItems = _.map(subTipos, function(fieldDefinition){
+                var menuItem = {};
+                menuItem.id = 'tipo.' + fieldDefinition._ui.relatedTipo;
+                menuItem.tipo_name = fieldDefinition._ui.relatedTipo;
+                menuItem.label = fieldDefinition.display_name;
+                menuItem.icon = fieldDefinition._ui.icon;
+                menuItem.isSingleton = fieldDefinition._ui.isSingleton;
+                menuItem.perspective = perspective;
+                return menuItem;
+              });
+              _instance.menu = tipoMenuItems;
+              _.each(tipos, function(tipo){
+                var tipoId = tipo.tipo_id;
+                var clonedDefinition = _.cloneDeep(definition);
+                tipoManipulationService.mergeDefinitionAndData(clonedDefinition, tipo);
+                clonedDefinition.tipo_fields = tipoManipulationService.extractShortDisplayFields(clonedDefinition);
+                var label = tipoManipulationService.getLabel(clonedDefinition);
+                var menuItem = {};
+                menuItem.tipoId = tipoId;
+                menuItem.label = label;
+                menuItem.action = 'switch';
+                perspectiveMenuItems.push(menuItem);
+              });
+              perspectiveMenu.menuItems = perspectiveMenuItems;
+              _instance.perspectiveMenu = perspectiveMenu;
+              markActiveItem(_instance.menu, selectedtTipoId);
+            });
           });
-          tipoMenuItems = _.map(subTipos, function(fieldDefinition){
-            var menuItem = {};
-            menuItem.id = 'tipo.' + fieldDefinition._ui.relatedTipo;
-            menuItem.tipo_name = fieldDefinition._ui.relatedTipo;
-            menuItem.label = fieldDefinition.display_name;
-            menuItem.icon = fieldDefinition._ui.icon;
-            menuItem.isSingleton = fieldDefinition._ui.isSingleton;
-            menuItem.perspective = perspective;
-            return menuItem;
-          });
-          markActiveItem(tipoMenuItems);
-          _instance.menu = tipoMenuItems;
-        });
+        }
       }
       else{
         var tipoDefinitions = perspectives[perspective].definitions;
@@ -95,6 +142,8 @@
         fullMenu = _.flatten(fullMenu);
         markActiveItem(fullMenu);
         _instance.menu = fullMenu;
+        currentPerspective = undefined;
+        delete _instance.perspectiveMenu;
       }
     }
 
@@ -117,6 +166,18 @@
           tipoRouter.toTipoList(menuItem.tipo_name, parameters);
         }
       }
+    };
+
+    _instance.switchTipoPerspective = function(menuItem){
+      var tipoName = _instance.perspectiveMenu.tipoName;
+      $rootScope.perspective = 'tipo.' + tipoName + '.' + menuItem.tipoId;
+      tipoRouter.toTipoView(tipoName, menuItem.tipoId).then(function(){
+        delete _instance.activeItem;
+      });
+    };
+
+    _instance.openPerspectiveMenu = function(menuOpenFunction, event) {
+      menuOpenFunction(event);
     };
 
     $scope.$watch(function(){return $rootScope.perspective;}, function(newValue, oldValue){

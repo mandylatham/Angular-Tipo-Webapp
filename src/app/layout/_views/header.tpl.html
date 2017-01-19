@@ -1,24 +1,10 @@
-<md-toolbar md-whiteframe="2" md-colors="{background: 'primary-600'}" ng-controller="HeaderController as header">
+<md-toolbar id="header" md-whiteframe="2" md-colors="{background: 'primary-600'}" ng-controller="HeaderController as header">
   <div class="md-toolbar-tools docs-toolbar-tools" tabIndex="-1">
     <md-button class="md-icon-button" ng-click="main.showNavigation()" hide-gt-md aria-label="Menu">
       <md-icon>menu</md-icon>
     </md-button>
-    <div ng-if="header.tipoMenu">
-      <span>{{header.tipoMenu.tipoName}}:</span>
-      <span><a href="" ng-click="header.switch(header.selectedItem)">{{header.selectedItem.label}}</a></span>
-      <md-menu ng-if="header.tipoMenu.menuItems.length > 1">
-        <md-button class="md-icon-button" ng-click="header.openMenu($mdOpenMenu, $event)">
-          <md-icon md-menu-origin>compare_arrows</md-icon>
-        </md-button>
-        <md-menu-content width="4">
-          <md-menu-item ng-repeat="tipo in header.tipoMenu.menuItems" ng-if="tipo !== header.selectedItem">
-            <md-button ng-click="header.switch(tipo)">{{tipo.label}}</md-button>
-          </md-menu-item>
-        </md-menu-content>
-      </md-menu>
-    </div>
+    <img src="_assets/images/logo.png"></img>
     <span flex> </span>
-    <!--<md-button ng-click="main.printCache()">Log Cache</md-button>-->
     <md-button ng-if="perspective !== 'home'" ng-click="main.toPerspective('home')">Home</md-button>
     <md-button ng-if="perspective !== 'settings'" ng-click="main.toPerspective('settings')">Settings</md-button>
     <md-button ng-click="main.signOut()">Logout</md-button>
