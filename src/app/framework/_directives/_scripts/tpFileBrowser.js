@@ -14,7 +14,7 @@
             input.on('change', function (e) {
                 var files = e.target.files;
                 if (files[0] && s3SelectionModel.getContext()) {
-                    var bucket = s3SelectionModel.getContext().Bucket;
+                    var bucket = s3SelectionModel.getContext().TempBucket;
                     var prefix = s3SelectionModel.getContext().Prefix;
                     s3Service.uploadFile(bucket, prefix, files[0]).then(function(result) {
                         $scope.$broadcast('refresh', []); 
