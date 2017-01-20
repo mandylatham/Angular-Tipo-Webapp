@@ -1,10 +1,10 @@
 <md-toolbar id="header" md-whiteframe="2" md-colors="{background: 'primary-600'}" ng-controller="HeaderController as header">
-  <div class="md-toolbar-tools docs-toolbar-tools" tabIndex="-1">
-    <md-button class="md-icon-button" ng-click="main.showNavigation()" hide-gt-md aria-label="Menu">
+  <div class="md-toolbar-tools docs-toolbar-tools" tabIndex="-1" layout-wrap>
+    <md-button class="md-icon-button" ng-click="main.showNavigation()" hide-gt-md aria-label="Menu" flex="none">
       <md-icon>menu</md-icon>
     </md-button>
-    <img src="_assets/images/logo.png"></img>
-    <span flex> </span>
+    <img src="_assets/images/logo.png" hide-xs></img>
+    <span flex></span>
     <md-button ng-if="perspective !== 'home'" ng-click="main.toPerspective('home')">Home</md-button>
     <md-button ng-if="perspective !== 'settings'" ng-click="main.toPerspective('settings')">Settings</md-button>
     <md-button ng-click="main.signOut()">Logout</md-button>

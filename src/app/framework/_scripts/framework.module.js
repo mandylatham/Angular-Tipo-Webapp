@@ -2,6 +2,14 @@
 
   'use strict';
 
+  function falseDelay($q, $timeout){
+    var defer = $q.defer();
+    $timeout(function() {
+      defer.resolve('resolved');
+    }, 100);
+    return defer.promise;
+  }
+
   function registerStates(stateProvider) {
     var listState = {
       name: 'tipoList',
@@ -30,6 +38,9 @@
             }
           }
           return tipoInstanceDataService.search($stateParams.tipo_name, filter);
+        },
+        delay: function($q, $timeout){
+          return falseDelay($q, $timeout);
         }
       },
       views: {
@@ -69,6 +80,9 @@
             return definition;
           });
           return tipoDefinition;
+        },
+        delay: function($q, $timeout){
+          return falseDelay($q, $timeout);
         }
       },
       views: {
@@ -113,6 +127,9 @@
             return definition;
           });
           return tipoDefinition;
+        },
+        delay: function($q, $timeout){
+          return falseDelay($q, $timeout);
         }
       },
       views: {
@@ -135,6 +152,12 @@
       name: 'tipoEdit',
       url: '/edit',
       parent: viewState,
+      resolve: /*@ngInject*/
+      {
+        delay: function($q, $timeout){
+          return falseDelay($q, $timeout);
+        }
+      },
       views: {
         'content@layout': {
           templateUrl: 'framework/_views/tipo-edit-root.tpl.html',
@@ -176,6 +199,9 @@
           var subTipoField = _.find(tipoDefinition.tipo_fields, {field_name: subTipoFieldName});
           return tipoDefinitionDataService.getOne(subTipoField._ui.relatedTipo);
         },
+        delay: function($q, $timeout){
+          return falseDelay($q, $timeout);
+        }
       },
       views: {
         'child': {
