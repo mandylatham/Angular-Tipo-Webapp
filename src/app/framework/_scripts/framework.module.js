@@ -27,7 +27,11 @@
           var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
 
           if(perspectiveMetadata){
-            filter.tipo_filter = perspectiveMetadata.tipoFilter;
+            if(perspectiveMetadata.tipoName !== tipoDefinition.tipo_meta.tipo_name){
+              filter.tipo_filter = perspectiveMetadata.tipoFilter;
+            }else{
+              $rootScope.perspective = 'home';
+            }
           }
 
           if($stateParams.filter){

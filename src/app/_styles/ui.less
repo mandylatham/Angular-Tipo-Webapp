@@ -107,8 +107,8 @@ html{
   }
   .md-fab.main{
     position: fixed;
-    bottom: 60px;
-    right: 40px;
+    bottom: 20px;
+    right: 20px;
     z-index: 10;
   }
 
@@ -386,6 +386,9 @@ html{
   }
 
   #error-dialog{
+    @media (min-width: 600px){
+      min-width: 550px;
+    }
     code{
       pre {
         white-space: normal;
@@ -414,5 +417,22 @@ html{
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+}
+
+#tipoapp-app-list{
+  md-card{
+    margin: 20px;
+    width: 345px;
+    min-height: 345px;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+  .app-logo{
+    margin-top: 15px;
+    img{
+      width: 160px;
+      height: 160px;
+    }
   }
 }
