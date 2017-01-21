@@ -2,49 +2,43 @@
   <!-- Panel including S3 object table -->
   <div>
     <md-content layout-padding>
-      <!-- Edit mode -->
-      <div layout="row" ng-show="isEditMode()">
-        <form name="editForm" data-ng-submit="submit(bucketName)" flex="100">
-          <md-input-container class="md-block">
-            <label>Bucket name</label>
-            <input ng-model="bucketName">
-          </md-input-container>
-        </form>
-        <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="chooseBucket(false)" aria-label="close">
-          <md-icon class="material-icons">close</md-icon>
-          <div class="md-ripple-container"></div>
-        </button>
-      </div>
-      <!-- View/Select mode -->
-      <div layout="row" ng-hide="isEditMode()">
-        <div class="btn pull-left" id="bucket">
-          <i id="bucket-chooser" style="cursor: pointer;" ng-click="chooseBucket()" class="fa fa-bitbucket fa-2x" title="Switch to a different S3 Bucket"></i>
-        </div>
-        <md-chips>
-          <md-chip ng-repeat="breadcrumb in breadcrumbs" ng-click="selectBreakcrumb(breadcrumb)">
-            {{breadcrumb.name}}
-          </md-chip>
-        </md-chips>
-      </div>
-    </md-content>
+      <md-autocomplete
+        ng-disabled="false"
+        md-no-cache="true"
+        md-selected-item="selectedItem"
+        md-search-text-change="searchTextChange(searchText)"
+        md-search-text="searchText"
+        md-selected-item-change="selectedItemChange(item)"
+        md-items="item in querySearch(searchText)"
+        md-item-text="item.Key"
+        md-min-length="0"
+        placeholder="Type folder name"
+        md-menu-class="autocomplete-custom-template">
+      <md-item-template>
+        <span class="item-title">
+          <md-icon md-svg-icon="img/icons/octicon-repo.svg"></md-icon>
+          <span> {{item.Key}} </span>
+        </span>
+      </md-item-template>
+    </md-autocomplete>
   </div>
 
   <md-table-container>
     <table md-table md-row-select multiple ng-model="selected" md-progress="promise" class="gridStyle">
-      <thead md-head md-order="query.order">
+      <!--<thead md-head md-order="query.order">
       <tr md-row>
         <th md-column md-order-by="object">Object</th>
         <th md-column md-date>Last Modified</th>
         <th md-column md-numeric>Size</th>
       </tr>
-      </thead>
+      </thead>-->
       <tbody md-body>
-      <tr ng-if="rowContent.s3 === 'folder'" md-row md-auto-select ng-repeat="rowContent in rows | limitTo: query.limit: (query.page - 1) * query.limit" ng-click="onSelect(rowContent)">
+      <tr ng-if="rowContent.s3 === 'folder'" md-row md-auto-select ng-repeat="rowContent in rows | limitTo: query.limit: (query.page - 1) * query.limit" ng-click="selectedItemChange(rowContent)">
         <td md-cell title="{{rowContent.Key}}">{{rowContent.Key}}</td>
         <td md-cell>{{rowContent.LastModified}}</td>
         <td md-cell>{{rowContent.Size}}</td>
       </tr>
-      <tr ng-if="rowContent.s3 === 'object'" md-row md-select="rowContent" md-select-id="Key" md-auto-select ng-repeat="rowContent in rows | limitTo: query.limit: (query.page - 1) * query.limit" md-on-select="onSelect" md-on-deselect="onDeselect">
+      <tr ng-if="rowContent.s3 === 'object'" md-row md-select="rowContent" md-select-id="Key" md-auto-select ng-repeat="rowContent in rows | limitTo: query.limit: (query.page - 1) * query.limit" md-on-select="selectedItemChange" md-on-deselect="onDeselect">
         <td md-cell title="{{rowContent.Key}}">{{rowContent.Key}}</td>
         <td md-cell>{{rowContent.LastModified}}</td>
         <td md-cell>{{rowContent.Size}}</td>
