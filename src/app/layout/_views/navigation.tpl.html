@@ -11,7 +11,12 @@
               <md-icon md-menu-origin>compare_arrows</md-icon>
             </md-button>
             <md-menu-content width="4">
-              <md-menu-item ng-repeat="tipo in navigation.perspectiveMenu.menuItems" ng-if="tipo !== navigation.selectedPerspectiveItem">
+              <md-menu-item class="search" ng-if="navigation.perspectiveMenu.menuItems.length > 6">
+                <md-input-container md-no-float>
+                  <input ng-model="navigation.perspectiveMenu.searchText" type="search" placeholder="Search ...">
+                </md-menu-item>
+              </md-menu-item>
+              <md-menu-item ng-repeat="tipo in navigation.perspectiveMenu.menuItems | filter: navigation.perspectiveMenu.searchText" ng-if="tipo !== navigation.selectedPerspectiveItem">
                 <md-button ng-click="navigation.switchTipoPerspective(tipo)">{{tipo.label}}</md-button>
               </md-menu-item>
             </md-menu-content>

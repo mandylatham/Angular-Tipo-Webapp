@@ -177,6 +177,7 @@
     };
 
     _instance.openPerspectiveMenu = function(menuOpenFunction, event) {
+      delete _instance.perspectiveMenu.searchText;
       menuOpenFunction(event);
     };
 

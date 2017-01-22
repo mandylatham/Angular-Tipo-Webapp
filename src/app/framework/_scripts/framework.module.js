@@ -62,9 +62,17 @@
       parent: 'layout',
       resolve: /*@ngInject*/
       {
-        tipo: function(tipoInstanceDataService, $stateParams){
+        tipo: function(tipoInstanceDataService, tipoManipulationService, $stateParams){
           if($stateParams.copyFrom){
-            return tipoInstanceDataService.getOne($stateParams.tipo_name, $stateParams.copyFrom)
+            var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
+            var filter = {};
+            if(perspectiveMetadata){
+              // TODO: Hack - Sushil as this is supposed to work only for applications
+              if(perspectiveMetadata.fieldName === 'application'){
+                filter.tipo_filter = perspectiveMetadata.tipoFilter;
+              }
+            }
+            return tipoInstanceDataService.getOne($stateParams.tipo_name, $stateParams.copyFrom, filter)
             .then(function(tipo){
               delete tipo.tipo_id;
               return tipo;
