@@ -42,10 +42,8 @@
             this.items = [];
         }
     }
-
     var current = Object.create(SelectionModel);
     var total = Object.create(SelectionModel);
-    var context;
 
     /**
      * Add current to total
@@ -56,20 +54,10 @@
         return total;
     }
 
-    function setContext(context) {
-        this.context = context;
-    }
-
-    function getContext() {
-        return this.context;
-    }
-
     return {
         current: current,
         total: total,
-        addCurrent: addCurrent,
-        setContext: setContext,
-        getContext: getContext
+        addCurrent: addCurrent
     };
   }
 

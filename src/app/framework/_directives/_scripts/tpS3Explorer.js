@@ -72,10 +72,6 @@
       
       function controller($scope, $mdDialog, s3Service, s3SelectionModel) {
 
-        $scope.$on('refresh', function(args) {
-            saveContextAndDraw();
-        });
-
         function handleFailure(promise) {
             promise.then(function(result) {
             }, function(err) {
@@ -114,17 +110,12 @@
             });
             return rows;
         }
-
-        function saveContextAndDraw() {
-            s3SelectionModel.setContext(s3exp_config);
-            $scope.promise = s3Service.go(s3exp_config, s3draw);
-            handleFailure($scope.promise);    
-        }
         
         $scope.onSelect = function(obj) {
             if (obj.s3 === 'folder') {
                 s3exp_config.Prefix = obj.prefix;
-                saveContextAndDraw();
+                $scope.promise = s3Service.go(s3exp_config, s3draw);
+                handleFailure($scope.promise);
             } else {
                 // Else user has clicked on an object
                 s3SelectionModel.current.addItem({ Key: obj.Key, href: obj.href, prefix: obj.prefix });
@@ -137,7 +128,8 @@
 
         $scope.selectBreakcrumb = function(breakcrumb) {
             s3exp_config.Prefix = breakcrumb.prefix;
-            saveContextAndDraw();
+            $scope.promise = s3Service.go(s3exp_config, s3draw);
+            handleFailure($scope.promise);
         }
 
         $scope.isEditMode = function() {
@@ -152,7 +144,8 @@
             editMode = false;
             s3exp_config.Bucket = bucketName;
             s3exp_config.Prefix = '';
-            saveContextAndDraw(); 
+            $scope.promise = s3Service.go(s3exp_config, s3draw);
+            handleFailure($scope.promise);  
         }
 
         $scope.selected = [];
@@ -161,7 +154,8 @@
             limit: 5,
             page: 1
         };
-        saveContextAndDraw();
+        $scope.promise = s3Service.go(s3exp_config, s3draw);
+        handleFailure($scope.promise);
       }
   });
 })();
