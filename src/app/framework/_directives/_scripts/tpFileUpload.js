@@ -4,9 +4,8 @@
 
   var accountId = '2000000001';
   var userPrefix = accountId + '/';
-  var s3exp_config = { Region: '', Bucket: '', Prefix: userPrefix, Delimiter: '/' };
-  s3exp_config.Bucket = 'user.tipotapp.com';
-  s3exp_config.TempBucket = 'temp.tipotapp.com';
+  var userBucket = 'user.tipotapp.com';
+  var tempBuket = 'temp.tipotapp.com';
 
   function object2hrefvirt(bucket, object) {
       if (AWS.config.region === "us-east-1") {
@@ -47,12 +46,25 @@
         controller: controller
       };
       
-      function controller($scope, $mdDialog, s3Service, s3SelectionModel, metadataService) {
+      function controller($scope, $element, s3Service, metadataService) {
 
+        var s3config = { Region: '', Bucket: userBucket, TempBucket: tempBuket, Prefix: userPrefix, Delimiter: '/' };
         var appMetadata = metadataService.applicationMetadata;
-
+        
         $scope.$on('refresh', function(args) {
-            saveContextAndDraw();
+            refreshView();
+        });
+
+        var input = $element.find('#input-file-id');
+        input.on('change', function (e) {
+            var files = e.target.files;
+            if (files[0]) {
+                s3Service.uploadFile(s3config.TempBucket, s3config.Prefix, files[0]).then(function(result) {
+                    $scope.$broadcast('refresh', []);
+                }, function(err) {
+                    console.error(err);
+                });
+            }
         });
 
         function s3draw(data, complete) {
@@ -63,7 +75,7 @@
                     Size: null,
                     s3: 'folder',
                     prefix: prefix.Prefix,
-                    href: object2hrefvirt(s3exp_config.Bucket, prefix.Prefix) 
+                    href: object2hrefvirt(s3config.Bucket, prefix.Prefix) 
                 };
             });
             var objects = data.Contents.map(function(object) {
@@ -73,7 +85,7 @@
                     Size: bytesToSize(object.Size),
                     s3: 'object',
                     prefix: null,
-                    href: object2hrefvirt(s3exp_config.Bucket, object.Key)
+                    href: object2hrefvirt(s3config.Bucket, object.Key)
                 };
             });
             var rows = prefixes.concat(objects);
@@ -84,11 +96,21 @@
 
         }
 
-        function saveContextAndDraw() {
-            s3SelectionModel.setContext(s3exp_config);
-            $scope.promise = s3Service.go(s3exp_config, s3draw).catch(function(err) {
+        /**
+         * Refresh grid
+         * Update queried items
+         */
+        var items = [];
+        function refreshView() {
+            $scope.promise = s3Service.go(s3config, s3draw).then(function(result) {
+                items = result.filter(function(item){
+                    return item && item.s3 === 'folder';
+                });
+                return items;
+            }).catch(function(err) {
                 $scope.rows = [];
             });
+            return $scope.promise;
         }
 
         $scope.searchTextChange = function(searchText) {
@@ -97,35 +119,31 @@
 
         $scope.selectedItemChange = function(item) {
             // Selection canceled by clicking on cross item
-            if (!item) {
-                s3exp_config.Prefix = userPrefix;
-                saveContextAndDraw(); 
-                return;
+            if (item) {
+                if (item.s3 === 'folder') {
+                    s3config.Prefix = item.prefix;
+                    refreshView();
+                }
+                if (item.prefix) {
+                    // Cut account prefix ouf of item's prefix
+                    $scope.searchText = item.prefix.substring(userPrefix.length);
+                }
             }
-            if (item.s3 === 'folder') {
-                s3exp_config.Prefix = item.prefix;
-                saveContextAndDraw();
-            }
-            // Cut account prefix ouf of item's prefix
-            $scope.searchText = item.prefix.substring(userPrefix.length);
         }
 
-        var items = [];
-        $scope.querySearch = function(searchText) {
-            console.log(searchText);
-            if (searchText === '' || searchText.lastIndexOf('/') === searchText.length - 1) {
-                s3exp_config.Prefix = userPrefix + searchText;
-                var promise = s3Service.go(s3exp_config, s3draw).then(function(result) {
-                    return result.filter(function(item){
-                        return item && item.s3 === 'folder';
-                    });
-                });
-                promise.then(function(result) {
-                    items = result;
-                });
-                return promise;
+        $scope.querySearch = function(query) {
+            if (query === '' || query.lastIndexOf('/') !== -1 && query.lastIndexOf('/') === query.length - 1) {
+                s3config.Prefix = userPrefix + query;
+                return refreshView();
             } else {
-                return items;
+                var lowercaseQuery = angular.lowercase(query);
+                return items.filter(function(item) {
+                    if (item && item.prefix) {
+                        var itemPrefix = item.prefix.substring(userPrefix.length);
+                        return itemPrefix.toLowerCase().indexOf(lowercaseQuery) === 0;
+                    }
+                    return false;
+                });
             }
         }
         
@@ -135,7 +153,7 @@
             limit: 5,
             page: 1
         };
-        saveContextAndDraw();
+        refreshView();
       }
   });
 })();

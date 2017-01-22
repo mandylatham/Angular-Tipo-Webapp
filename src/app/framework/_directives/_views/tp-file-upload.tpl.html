@@ -3,42 +3,30 @@
   <div>
     <md-content layout-padding>
       <md-autocomplete
-        ng-disabled="false"
-        md-no-cache="true"
-        md-selected-item="selectedItem"
-        md-search-text-change="searchTextChange(searchText)"
-        md-search-text="searchText"
-        md-selected-item-change="selectedItemChange(item)"
-        md-items="item in querySearch(searchText)"
-        md-item-text="item.Key"
-        md-min-length="0"
-        placeholder="Type folder name"
-        md-menu-class="autocomplete-custom-template">
-      <md-item-template>
-        <span class="item-title">
-          <md-icon md-svg-icon="img/icons/octicon-repo.svg"></md-icon>
-          <span> {{item.Key}} </span>
-        </span>
-      </md-item-template>
-    </md-autocomplete>
+          ng-disabled="false"
+          md-no-cache="true"
+          md-selected-item="selectedItem"
+          md-search-text-change="searchTextChange(searchText)"
+          md-search-text="searchText"
+          md-selected-item-change="selectedItemChange(item)"
+          md-items="item in querySearch(searchText)"
+          md-item-text="item.Key"
+          md-min-length="0"
+          placeholder="Type folder name"
+          md-menu-class="autocomplete-custom-template">
+        <md-item-template>
+          <span class="item-title">
+            <span> {{item.Key}} </span>
+          </span>
+        </md-item-template>
+      </md-autocomplete>
+    </md-content>
   </div>
-
+  
   <md-table-container>
-    <table md-table md-row-select multiple ng-model="selected" md-progress="promise" class="gridStyle">
-      <!--<thead md-head md-order="query.order">
-      <tr md-row>
-        <th md-column md-order-by="object">Object</th>
-        <th md-column md-date>Last Modified</th>
-        <th md-column md-numeric>Size</th>
-      </tr>
-      </thead>-->
+    <table md-table ng-model="selected" class="gridStyle">
       <tbody md-body>
-      <tr ng-if="rowContent.s3 === 'folder'" md-row md-auto-select ng-repeat="rowContent in rows | limitTo: query.limit: (query.page - 1) * query.limit" ng-click="selectedItemChange(rowContent)">
-        <td md-cell title="{{rowContent.Key}}">{{rowContent.Key}}</td>
-        <td md-cell>{{rowContent.LastModified}}</td>
-        <td md-cell>{{rowContent.Size}}</td>
-      </tr>
-      <tr ng-if="rowContent.s3 === 'object'" md-row md-select="rowContent" md-select-id="Key" md-auto-select ng-repeat="rowContent in rows | limitTo: query.limit: (query.page - 1) * query.limit" md-on-select="selectedItemChange" md-on-deselect="onDeselect">
+      <tr md-row md-auto-select ng-repeat="rowContent in rows | limitTo: query.limit: (query.page - 1) * query.limit" ng-click="selectedItemChange(rowContent)">
         <td md-cell title="{{rowContent.Key}}">{{rowContent.Key}}</td>
         <td md-cell>{{rowContent.LastModified}}</td>
         <td md-cell>{{rowContent.Size}}</td>
@@ -47,4 +35,7 @@
     </table>
   </md-table-container>
   <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{rows.length}}"></md-table-pagination>
+  <md-input-container class="ng-hide"> <!-- Workaround to solve the issue "Error: <md-input-container> can only have *one* <input>, <textarea> or <md-select> child element!"-->
+    <input id="input-file-id" multiple type="file" />
+  </md-input-container>
 </div>

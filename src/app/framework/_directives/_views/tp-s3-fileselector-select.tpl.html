@@ -5,7 +5,7 @@
     <div>
         <md-button class="md-primary md-raised" ng-click="onOk($event)">Ok</md-button>
         <md-button class="md-primary md-raised" ng-click="onCancel($event)">Cancel</md-button>
-        
-        <tp:file-browser />
+        <input class="ng-hide" id="input-file-id" multiple type="file" />
+        <label for="input-file-id" class="md-button md-raised md-primary">Choose Files</label>
     </div>
 </div>
