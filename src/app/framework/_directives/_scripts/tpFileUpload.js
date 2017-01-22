@@ -2,13 +2,11 @@
 
   'use strict';
 
-  var accountId = '2000000001';
-  var userPrefix = accountId + '/';
   var userBucket = 'user.tipotapp.com';
   var tempBuket = 'temp.tipotapp.com';
 
   function object2hrefvirt(bucket, object) {
-      if (AWS.config.region === "us-east-1") {
+      if (AWS.config.region === 'us-east-1') {
           return document.location.protocol + '//' + bucket + '.s3.amazonaws.com/' + object;
       } else {
           return document.location.protocol + '//' + bucket + '.s3-' + AWS.config.region + '.amazonaws.com/' + object;
@@ -39,17 +37,26 @@
   
   var module = angular.module('tipo.framework');
   return module.directive('tpFileUpload', function () {
-      var editMode = false;
       
       return {
         templateUrl: 'framework/_directives/_views/tp-file-upload.tpl.html',
         controller: controller
       };
-      
-      function controller($scope, $element, s3Service, metadataService) {
 
+      function controller($scope, $element, s3Service, accountService) {
+        accountService.loadAccount().then(function(accountData){
+            if (accountData) {
+                myController($scope, $element, s3Service, accountData);
+            }
+        }).catch(function(err) {
+            console.error(err);    
+        });
+      }
+      
+      function myController($scope, $element, s3Service, accountData) {
+
+        var userPrefix = accountData.s3folder + '/';
         var s3config = { Region: '', Bucket: userBucket, TempBucket: tempBuket, Prefix: userPrefix, Delimiter: '/' };
-        var appMetadata = metadataService.applicationMetadata;
         
         $scope.$on('refresh', function(args) {
             refreshView();
