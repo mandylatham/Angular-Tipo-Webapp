@@ -3,9 +3,9 @@
   'use strict';
 
   var module = angular.module('tipo.framework');
-  return module.directive('tpS3Fileselector', function () {
+  return module.directive('tpFileuploadPicker', function () {
       return {
-        templateUrl: 'framework/_directives/_views/tp-s3-fileselector-view.tpl.html',
+        templateUrl: 'framework/_directives/_views/tp-fileupload-picker.tpl.html',
         controller: controller
       };
 
@@ -23,7 +23,7 @@
                         $mdDialog.cancel();
                     }
                 },
-                templateUrl: 'framework/_directives/_views/tp-s3-fileselector-select.tpl.html',
+                templateUrl: 'framework/_directives/_views/tp-fileupload-modal.tpl.html',
                 parent: angular.element(document.body),
                 targetEvent: event,
                 clickOutsideToClose: false,
@@ -34,11 +34,6 @@
             }, function() {
                 // You cancelled the dialog.
             });
-        }
-
-        $scope.deleteItem = function($index) {
-            console.log('Delete item', $index);
-            $scope.items = s3SelectionModel.total.removeByIndex($index);
         }
       }
   });

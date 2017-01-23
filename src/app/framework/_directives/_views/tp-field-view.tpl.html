@@ -9,10 +9,10 @@
           <div ng-bind-html="formattedText" class="richstring"></div>
         </span>
         <span ng-switch-when="s3explorer">
-          <tp:s3-fileselector />
+          <tp:fileupload-picker/>
         </span>
         <span ng-switch-when="s3upload">
-          <tp:file-upload />
+          <tp:fileupload-picker/>
         </span>
         <span ng-switch-when="htmlLink">
           <a ng-href="{{field._value.label}}" target="_blank">{{field._value.label}}</a>
