@@ -11,7 +11,7 @@
 
       function controller($scope, $mdDialog, s3SelectionModel) {
 
-        $scope.showS3Explorer = function(event) {
+        $scope.showModal = function(event) {
             s3SelectionModel.current.clear();
             $mdDialog.show({
                 controller: function($scope) {
