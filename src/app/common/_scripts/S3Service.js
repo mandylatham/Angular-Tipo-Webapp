@@ -49,7 +49,7 @@
         };
         s3.upload(params)
             .on('httpUploadProgress', function(evt) {
-                console.log('Progress:', evt.loaded, '/', evt.total); 
+                console.log('Progress on:' + this.body, evt.loaded, '/', evt.total); 
             })
             .send(function (err, data) {
                 if (err) {

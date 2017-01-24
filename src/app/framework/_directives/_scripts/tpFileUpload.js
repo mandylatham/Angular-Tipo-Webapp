@@ -43,17 +43,17 @@
         controller: controller
       };
 
-      function controller($scope, $element, s3Service, accountService) {
+      function controller($scope, $element, $mdDialog, s3Service, accountService) {
         accountService.loadAccount().then(function(accountData){
             if (accountData) {
-                myController($scope, $element, s3Service, accountData);
+                myController($scope, $element, $mdDialog, s3Service, accountData);
             }
         }).catch(function(err) {
             console.error(err);    
         });
       }
       
-      function myController($scope, $element, s3Service, accountData) {
+      function myController($scope, $element, $mdDialog, s3Service, accountData) {
 
         var userPrefix = accountData.s3folder + '/';
         var s3config = { Region: '', Bucket: userBucket, TempBucket: tempBuket, Prefix: userPrefix, Delimiter: '/' };
@@ -152,6 +152,37 @@
                     return false;
                 });
             }
+        }
+
+        var $parentScope = $scope;
+        $scope.showModal = function(event) {
+            $mdDialog.show({
+                controller: function($scope) {
+                    $scope.submit = function(event) {
+                        if ($scope.files) {
+                            $scope.files.forEach(function(file) {
+                                console.log(file);
+                                s3Service.uploadFile(s3config.TempBucket, s3config.Prefix, file.lfFile).then(function(result) {
+                                    $parentScope.$broadcast('refresh', []);
+                                    $mdDialog.hide();
+                                }, function(err) {
+                                    console.error(err);
+                                    $mdDialog.hide();
+                                });
+                            });
+                        }
+                    }
+
+                    $scope.onCancel = function(event) {
+                        $mdDialog.cancel();
+                    }
+                },
+                templateUrl: 'framework/_directives/_views/tp-fileupload-modal.tpl.html',
+                parent: angular.element(document.body),
+                targetEvent: event,
+                clickOutsideToClose: false,
+                escapeToClose: false
+            });
         }
         
         $scope.selected = [];
