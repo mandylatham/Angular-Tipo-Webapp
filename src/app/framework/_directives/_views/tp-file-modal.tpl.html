@@ -1,0 +1,15 @@
+<div cg-busy="progress">
+    <form name="uploadForm" layout="column">
+        <lf-ng-md-file-input name="files" lf-files="files" lf-required lf-maxcount="5" lf-filesize="10MB" lf-totalsize="20MB" multiple drag preview></lf-ng-md-file-input>
+        <!--<div ng-messages="testForm.files.$error" style="color:red;">
+            <div ng-message="required">This is required.</div>
+            <div ng-message="maxcount">Too many files.</div>
+            <div ng-message="filesize">File size too large.</div>
+            <div ng-message="totalsize">Total size too large.</div>
+        </div>-->
+    </form>
+    <div>
+        <md-button class="md-primary md-raised" ng-click="submit($event)">Start Upload</md-button>
+        <md-button class="md-primary md-raised" ng-click="onCancel($event)">Cancel</md-button>
+    </div>
+</div>

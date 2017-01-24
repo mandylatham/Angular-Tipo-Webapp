@@ -61,7 +61,7 @@
     };
   }
 
-  angular.module('tipo.framework')
+  angular.module('tipo.common')
     .service('s3SelectionModel', S3SelectionModel);
 
 })();
