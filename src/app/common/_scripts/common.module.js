@@ -12,7 +12,8 @@
     'md.data.table',
     'textAngular',
     'vcRecaptcha',
-    'lfNgMdFileInput'
+    'lfNgMdFileInput',
+    'cgBusy'
   ]);
 
   module.config(function ($mdThemingProvider, $mdToastProvider) {

@@ -14,8 +14,8 @@
           <input type="password" ng-model="field._value.key" aria-label="field.display_name" placeholder="{{field.field_description}}" ng-switch-when="password">
           <input ng-model="field._value.key" aria-label="field.display_name" placeholder="{{field.field_description}}" ng-switch-when="htmlLink">
           <text-angular ng-model="field._value.key" ng-switch-when="richstring"></text-angular>
-          <tp:file-upload ng-switch-when="s3explorer"/>
-          <tp:file-upload ng-switch-when="s3upload"/>
+          <tp:file ng-switch-when="s3explorer"/>
+          <tp:file ng-switch-when="s3upload"/>
           <div ng-switch-default>
             <div ng-if="!field.allowed_values">
               <input ng-model="field._value.key" aria-label="field.display_name" placeholder="{{field.field_description}}">

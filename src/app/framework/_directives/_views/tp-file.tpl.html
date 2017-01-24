@@ -35,8 +35,5 @@
     </table>
   </md-table-container>
   <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{rows.length}}"></md-table-pagination>
-  <md-input-container class="ng-hide"> <!-- Workaround to solve the issue "Error: <md-input-container> can only have *one* <input>, <textarea> or <md-select> child element!"-->
-    <input id="input-file-id" multiple type="file" />
-  </md-input-container>
   <md-button class="md-primary md-raised" ng-click="showModal($event)">Upload</md-button>
 </div>

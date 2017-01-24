@@ -36,15 +36,15 @@
   }
   
   var module = angular.module('tipo.framework');
-  return module.directive('tpFileUpload', function () {
+  return module.directive('tpFile', function () {
       
       return {
-        templateUrl: 'framework/_directives/_views/tp-file-upload.tpl.html',
+        templateUrl: 'framework/_directives/_views/tp-file.tpl.html',
         controller: controller
       };
 
-      function controller($scope, $element, $mdDialog, s3Service, accountService) {
-        accountService.loadAccount().then(function(accountData){
+      function controller($scope, $element, $mdDialog, s3Service, metadataService) {
+        metadataService.loadAccount().then(function(accountData){
             if (accountData) {
                 myController($scope, $element, $mdDialog, s3Service, accountData);
             }
@@ -60,18 +60,6 @@
         
         $scope.$on('refresh', function(args) {
             refreshView();
-        });
-
-        var input = $element.find('#input-file-id');
-        input.on('change', function (e) {
-            var files = e.target.files;
-            if (files[0]) {
-                s3Service.uploadFile(s3config.TempBucket, s3config.Prefix, files[0]).then(function(result) {
-                    $scope.$broadcast('refresh', []);
-                }, function(err) {
-                    console.error(err);
-                });
-            }
         });
 
         function s3draw(data, complete) {
@@ -158,11 +146,18 @@
         $scope.showModal = function(event) {
             $mdDialog.show({
                 controller: function($scope) {
+                    $scope.delay = 0;
+                    $scope.minDuration = 0;
+                    $scope.message = 'Please Wait...';
+                    $scope.backdrop = true;
+                    $scope.promise = null;
                     $scope.submit = function(event) {
                         if ($scope.files) {
                             $scope.files.forEach(function(file) {
                                 console.log(file);
-                                s3Service.uploadFile(s3config.TempBucket, s3config.Prefix, file.lfFile).then(function(result) {
+                                var promise = s3Service.uploadFile(s3config.TempBucket, s3config.Prefix, file.lfFile);
+                                $scope.progress = promise;
+                                promise.then(function(result) {
                                     $parentScope.$broadcast('refresh', []);
                                     $mdDialog.hide();
                                 }, function(err) {
@@ -177,7 +172,7 @@
                         $mdDialog.cancel();
                     }
                 },
-                templateUrl: 'framework/_directives/_views/tp-fileupload-modal.tpl.html',
+                templateUrl: 'framework/_directives/_views/tp-file-modal.tpl.html',
                 parent: angular.element(document.body),
                 targetEvent: event,
                 clickOutsideToClose: false,
