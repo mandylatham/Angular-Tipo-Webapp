@@ -39,6 +39,10 @@
     }
 
     function uploadFile(bucketName, prefix, file) {
+        if (!bucketName || !prefix || !file) {
+            return $q.reject({ errorMessage: 'Bucket, Prefix or File are not supplied' });
+        }
+        
         var deferred = $q.defer();
         var s3 = new AWS.S3({apiVersion: '2006-03-01'});
         var params = { 
@@ -47,6 +51,7 @@
             ContentType: file.type,
             Body: file
         };
+
         s3.upload(params)
             .on('httpUploadProgress', function(evt) {
                 console.log('Progress on:' + this.body, evt.loaded, '/', evt.total); 

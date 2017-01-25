@@ -27,7 +27,8 @@
     <table md-table ng-model="selected" class="gridStyle">
       <tbody md-body>
       <tr md-row md-auto-select ng-repeat="rowContent in rows | limitTo: query.limit: (query.page - 1) * query.limit" ng-click="selectedItemChange(rowContent)">
-        <td md-cell title="{{rowContent.Key}}">{{rowContent.Key}}</td>
+        <td ng-if="rowContent.s3 === 'folder'" md-cell title="{{rowContent.Key}}" style="cursor: pointer">{{rowContent.Key}}</td>
+        <td ng-if="rowContent.s3 === 'object'" md-cell title="{{rowContent.Key}}">{{rowContent.Key}}</td>
         <td md-cell>{{rowContent.LastModified}}</td>
         <td md-cell>{{rowContent.Size}}</td>
       </tr>

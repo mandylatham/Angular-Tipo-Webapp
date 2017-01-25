@@ -109,7 +109,6 @@
         }
 
         $scope.searchTextChange = function(searchText) {
-            console.log('searchTextChange: ' + searchText);
         }
 
         $scope.selectedItemChange = function(item) {
@@ -150,19 +149,16 @@
                     $scope.minDuration = 0;
                     $scope.message = 'Please Wait...';
                     $scope.backdrop = true;
-                    $scope.promise = null;
                     $scope.submit = function(event) {
                         if ($scope.files) {
                             $scope.files.forEach(function(file) {
-                                console.log(file);
                                 var promise = s3Service.uploadFile(s3config.TempBucket, s3config.Prefix, file.lfFile);
                                 $scope.progress = promise;
                                 promise.then(function(result) {
                                     $parentScope.$broadcast('refresh', []);
                                     $mdDialog.hide();
                                 }, function(err) {
-                                    console.error(err);
-                                    $mdDialog.hide();
+                                    raiseError(err);
                                 });
                             });
                         }
@@ -170,6 +166,17 @@
 
                     $scope.onCancel = function(event) {
                         $mdDialog.cancel();
+                    }
+
+                    function raiseError(err) {
+                        console.error(err);
+                        if (err && err.errorMessage) {
+                            $scope.lastError = err.errorMessage;
+                        } else if (err && err.data && err.data.errorMessage) {
+                            $scope.lastError = err.data.errorMessage;
+                        } else if (err && err.message) {
+                            $scope.lastError = err.message;
+                        }
                     }
                 },
                 templateUrl: 'framework/_directives/_views/tp-file-modal.tpl.html',
