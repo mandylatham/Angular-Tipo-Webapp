@@ -72,6 +72,16 @@
       
       function controller($scope, $mdDialog, s3Service, s3SelectionModel) {
 
+        if ($scope.field._value && $scope.field._value.key) {
+            $scope.field._value.key.forEach(function(item) {
+                s3SelectionModel.current().addItem(item);
+            });
+        } else {
+            $scope.field._value = {
+                key: []
+            };
+        }
+
         function handleFailure(promise) {
             promise.then(function(result) {
             }, function(err) {
@@ -119,11 +129,17 @@
             } else {
                 // Else user has clicked on an object
                 s3SelectionModel.current.addItem({ Key: obj.Key, href: obj.href, prefix: obj.prefix });
+                $scope.field._value = {
+                    key: s3SelectionModel.current.listItems()
+                };
             }
         }
 
         $scope.onDeselect = function(obj) {
             s3SelectionModel.current.removeItem(obj);
+            $scope.field._value = {
+                key: s3SelectionModel.current.listItems()
+            };
         }
 
         $scope.selectBreakcrumb = function(breakcrumb) {

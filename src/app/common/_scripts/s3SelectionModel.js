@@ -29,7 +29,7 @@
             this.items = this.items.filter(function(el) {
                 return el.href !== obj.href;
             });
-            return items;
+            return this.items;
         },
         removeByIndex: function(index) {
             this.items.splice(index, 1);
