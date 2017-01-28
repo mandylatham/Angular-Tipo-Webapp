@@ -70,17 +70,7 @@
         controller: controller
       };
       
-      function controller($scope, $mdDialog, s3Service, s3SelectionModel) {
-
-        if ($scope.field._value && $scope.field._value.key) {
-            $scope.field._value.key.forEach(function(item) {
-                s3SelectionModel.current().addItem(item);
-            });
-        } else {
-            $scope.field._value = {
-                key: []
-            };
-        }
+      function controller($scope, $mdDialog, s3Service) {
 
         function handleFailure(promise) {
             promise.then(function(result) {
@@ -127,18 +117,17 @@
                 $scope.promise = s3Service.go(s3exp_config, s3draw);
                 handleFailure($scope.promise);
             } else {
-                // Else user has clicked on an object
-                s3SelectionModel.current.addItem({ Key: obj.Key, href: obj.href, prefix: obj.prefix });
-                $scope.field._value = {
-                    key: s3SelectionModel.current.listItems()
+                $scope.field._value.key = {
+                    bucket: $scope.field._value.key.bucket,
+                    selected: $scope.selected
                 };
             }
         }
 
         $scope.onDeselect = function(obj) {
-            s3SelectionModel.current.removeItem(obj);
-            $scope.field._value = {
-                key: s3SelectionModel.current.listItems()
+            $scope.field._value.key = {
+                bucket: $scope.field._value.key.bucket,
+                selected: $scope.selected
             };
         }
 
@@ -157,6 +146,10 @@
         }
 
         $scope.submit = function(bucketName) {
+            $scope.field._value.key = {
+                items: $scope.field._value.key && $scope.field._value.key.items || [],
+                bucket: bucketName
+            };
             editMode = false;
             s3exp_config.Bucket = bucketName;
             s3exp_config.Prefix = '';
@@ -164,7 +157,12 @@
             handleFailure($scope.promise);  
         }
 
-        $scope.selected = [];
+        if (typeof $scope.field._value === 'undefined' || $scope.field._value === null) {
+            $scope.field._value = { key: [] };
+        }
+        $scope.selected = $scope.field._value.key.selected || [];
+        s3exp_config.Bucket = $scope.field._value.key && $scope.field._value.key.bucket || '<bucket>';
+
         $scope.query = {
             order: 'name',
             limit: 5,
