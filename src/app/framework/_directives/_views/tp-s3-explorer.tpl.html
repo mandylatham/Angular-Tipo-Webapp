@@ -39,12 +39,12 @@
       </tr>
       </thead>
       <tbody md-body>
-      <tr ng-if="rowContent.s3 === 'folder'" md-row md-auto-select ng-repeat="rowContent in rows | limitTo: query.limit: (query.page - 1) * query.limit" ng-click="onSelect(rowContent)">
+      <tr ng-if="rowContent.s3 === 'folder'" md-row md-auto-select ng-repeat="rowContent in rows | limitTo: query.limit: (query.page - 1) * query.limit" ng-click="onSelect(rowContent)" style="cursor: pointer">
         <td md-cell title="{{rowContent.Key}}">{{rowContent.Key}}</td>
         <td md-cell>{{rowContent.LastModified}}</td>
         <td md-cell>{{rowContent.Size}}</td>
       </tr>
-      <tr ng-if="rowContent.s3 === 'object'" md-row md-select="rowContent" md-select-id="Key" md-auto-select ng-repeat="rowContent in rows | limitTo: query.limit: (query.page - 1) * query.limit" md-on-select="onSelect" md-on-deselect="onDeselect">
+      <tr ng-if="rowContent.s3 === 'object'" md-row md-select="rowContent" md-select-id="href" md-auto-select ng-repeat="rowContent in rows | limitTo: query.limit: (query.page - 1) * query.limit" md-on-select="onSelect" md-on-deselect="onDeselect">
         <td md-cell title="{{rowContent.Key}}">{{rowContent.Key}}</td>
         <td md-cell>{{rowContent.LastModified}}</td>
         <td md-cell>{{rowContent.Size}}</td>
@@ -53,5 +53,4 @@
     </table>
   </md-table-container>
   <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{rows.length}}"></md-table-pagination>
-  <md-button class="md-primary md-raised" ng-click="save($event)">Save</md-button>
 </div>

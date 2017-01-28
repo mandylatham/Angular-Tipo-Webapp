@@ -2,9 +2,6 @@
 
   'use strict';
 
-  var s3exp_config = { Region: '', Bucket: '', Prefix: '', Delimiter: '/' };
-  s3exp_config.Bucket = '<bucket>';
-
   function object2hrefvirt(bucket, object) {
       if (AWS.config.region === "us-east-1") {
           return document.location.protocol + '//' + bucket + '.s3.amazonaws.com/' + object;
@@ -63,6 +60,8 @@
   
   var module = angular.module('tipo.framework');
   return module.directive('tpS3Explorer', function () {
+      
+      var s3config = { Region: '', Bucket: '<bucket>', Prefix: '', Delimiter: '/' };
       var editMode = false;
       
       return {
@@ -72,11 +71,11 @@
       
       function controller($scope, $mdDialog, s3Service) {
 
-        function handleFailure(promise) {
+        function refreshView(promise) {
             promise.then(function(result) {
             }, function(err) {
                 $scope.rows = [];
-                $scope.breadcrumbs = folder2breadcrumbs(s3exp_config);
+                $scope.breadcrumbs = folder2breadcrumbs(s3config);
             });
         }
 
@@ -90,7 +89,7 @@
                     Size: null,
                     s3: 'folder',
                     prefix: prefix.Prefix,
-                    href: object2hrefvirt(s3exp_config.Bucket, prefix.Prefix) 
+                    href: object2hrefvirt(s3config.Bucket, prefix.Prefix) 
                 };
             });
             var objects = data.Contents.map(function(object) {
@@ -100,7 +99,7 @@
                     Size: bytesToSize(object.Size),
                     s3: 'object',
                     prefix: null,
-                    href: object2hrefvirt(s3exp_config.Bucket, object.Key)
+                    href: object2hrefvirt(s3config.Bucket, object.Key)
                 };
             });
             var rows = prefixes.concat(objects);
@@ -113,10 +112,11 @@
         
         $scope.onSelect = function(obj) {
             if (obj.s3 === 'folder') {
-                s3exp_config.Prefix = obj.prefix;
-                $scope.promise = s3Service.go(s3exp_config, s3draw);
-                handleFailure($scope.promise);
+                s3config.Prefix = obj.prefix;
+                $scope.promise = s3Service.go(s3config, s3draw);
+                refreshView($scope.promise);
             } else {
+                console.log(obj);
                 $scope.field._value.key = {
                     bucket: $scope.field._value.key.bucket,
                     selected: $scope.selected
@@ -132,9 +132,9 @@
         }
 
         $scope.selectBreakcrumb = function(breakcrumb) {
-            s3exp_config.Prefix = breakcrumb.prefix;
-            $scope.promise = s3Service.go(s3exp_config, s3draw);
-            handleFailure($scope.promise);
+            s3config.Prefix = breakcrumb.prefix;
+            $scope.promise = s3Service.go(s3config, s3draw);
+            refreshView($scope.promise);
         }
 
         $scope.isEditMode = function() {
@@ -151,25 +151,25 @@
                 bucket: bucketName
             };
             editMode = false;
-            s3exp_config.Bucket = bucketName;
-            s3exp_config.Prefix = '';
-            $scope.promise = s3Service.go(s3exp_config, s3draw);
-            handleFailure($scope.promise);  
+            s3config.Bucket = bucketName;
+            s3config.Prefix = '';
+            $scope.promise = s3Service.go(s3config, s3draw);
+            refreshView($scope.promise);  
         }
 
         if (typeof $scope.field._value === 'undefined' || $scope.field._value === null) {
             $scope.field._value = { key: [] };
         }
         $scope.selected = $scope.field._value.key.selected || [];
-        s3exp_config.Bucket = $scope.field._value.key && $scope.field._value.key.bucket || '<bucket>';
+        s3config.Bucket = $scope.field._value.key && $scope.field._value.key.bucket || '<bucket>';
 
         $scope.query = {
             order: 'name',
             limit: 5,
             page: 1
         };
-        $scope.promise = s3Service.go(s3exp_config, s3draw);
-        handleFailure($scope.promise);
+        $scope.promise = s3Service.go(s3config, s3draw);
+        refreshView($scope.promise);
       }
   });
 })();
