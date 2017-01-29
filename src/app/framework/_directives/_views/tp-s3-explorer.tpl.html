@@ -30,7 +30,7 @@
   </div>
 
   <md-table-container>
-    <table md-table md-row-select multiple ng-model="selected" md-progress="promise" class="gridStyle">
+    <table md-table md-row-select multiple="{{isArray}}" ng-model="selected" md-progress="promise" class="gridStyle">
       <thead md-head md-order="query.order">
       <tr md-row>
         <th md-column md-order-by="object">Object</th>

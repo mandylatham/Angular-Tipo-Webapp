@@ -116,7 +116,6 @@
                 $scope.promise = s3Service.go(s3config, s3draw);
                 refreshView($scope.promise);
             } else {
-                console.log(obj);
                 $scope.field._value.key = {
                     bucket: $scope.field._value.key.bucket,
                     selected: $scope.selected
@@ -158,10 +157,11 @@
         }
 
         if (typeof $scope.field._value === 'undefined' || $scope.field._value === null) {
-            $scope.field._value = { key: [] };
+            $scope.field._value = { key: {} };
         }
         $scope.selected = $scope.field._value.key.selected || [];
         s3config.Bucket = $scope.field._value.key && $scope.field._value.key.bucket || '<bucket>';
+        $scope.isArray = $scope.field._ui && $scope.field._ui.isArray;
 
         $scope.query = {
             order: 'name',

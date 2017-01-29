@@ -149,12 +149,28 @@
                     $scope.minDuration = 0;
                     $scope.message = 'Please Wait...';
                     $scope.backdrop = true;
+                    $scope.isArray = $parentScope.field._ui && $parentScope.field._ui.isArray;
+                    
+                    $scope.fileSize = "10MB";
+                    if ($parentScope.field.metadata) {
+                        var meta = $parentScope.field.metadata.filter(function(item) { return item.key === 'maximum.size'; });
+                        if (meta.length > 0) {
+                            $scope.fileSize = meta[0].value;
+                        }
+                    }
+                    
                     $scope.submit = function(event) {
                         if ($scope.files) {
                             $scope.files.forEach(function(file) {
                                 var promise = s3Service.uploadFile(s3config.TempBucket, s3config.Prefix, file.lfFile);
                                 $scope.progress = promise;
                                 promise.then(function(result) {
+                                    var files = $scope.files.map(function(file) {
+                                        return s3config.Prefix? s3config.Prefix.substring(userPrefix.length) + file.lfFileName: file.lfFileName;
+                                    });
+                                    $parentScope.field._value.key = {
+                                        files: $parentScope.field._value.key.files && $parentScope.field._value.key.files.concat(files) || files
+                                    };
                                     $parentScope.$broadcast('refresh', []);
                                     $mdDialog.hide();
                                 }, function(err) {
@@ -186,7 +202,10 @@
                 escapeToClose: false
             });
         }
-        
+        if (typeof $scope.field._value === 'undefined' || $scope.field._value === null) {
+            $scope.field._value = { key: {} };
+        }
+
         $scope.selected = [];
         $scope.query = {
             order: 'name',

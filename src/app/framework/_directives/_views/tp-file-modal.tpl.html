@@ -1,6 +1,7 @@
 <div cg-busy="progress">
     <form name="uploadForm" layout="column">
-        <lf-ng-md-file-input name="files" lf-files="files" lf-required lf-maxcount="5" lf-filesize="10MB" lf-totalsize="20MB" multiple drag preview></lf-ng-md-file-input>
+        <lf-ng-md-file-input ng-show="{{isArray}}" name="files" lf-files="files" lf-required lf-maxcount="5" lf-filesize="{{fileSize}}" lf-totalsize="20MB" multiple drag preview></lf-ng-md-file-input>
+        <lf-ng-md-file-input ng-hide="{{isArray}}" name="files" lf-files="files" lf-required lf-maxcount="5" lf-filesize="{{fileSize}}" lf-totalsize="20MB" drag preview></lf-ng-md-file-input>
         <div class="error" ng-show="lastError" style="color:red;"><i class="fa fa-exclamation-circle fa-fw"></i>{{lastError}}</div>
     </form>
     <div>

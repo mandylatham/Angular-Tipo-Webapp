@@ -1,0 +1,11 @@
+<div flex-gt-sm="100" flex>
+    <md-content>
+      <md-list class="md-dense" flex>
+        <!--<md-subheader>Selections</md-subheader>-->
+        <md-list-item ng-hide="files.length > 0">&ltEmpty&gt</md-list-item>
+        <md-list-item ng-show="files.length > 0" ng-repeat="file in files" title="{{ file }}">
+          <p>{{ file }}</p>
+        </md-list-item>
+      </md-list>
+    </md-content>
+</div>
