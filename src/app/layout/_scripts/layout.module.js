@@ -3,10 +3,6 @@
   'use strict';
 
   function registerUrlRedirects(urlRouterProvider) {
-    // Blank or Invalid URL redirect to /login
-    //var loginUrl = '/login';
-    //urlRouterProvider.when('', loginUrl);
-    //urlRouterProvider.otherwise(loginUrl);
 
     urlRouterProvider.when('', '/login');
     urlRouterProvider.otherwise('/login');
@@ -40,13 +36,16 @@
       parent: 'root',
       resolve: /*@ngInject*/
       {
-        mainMenuDefinitions: function(tipoDefinitionDataService) {
+        userMetadata: function(metadataService){
+          return metadataService.loadUserMetadata();
+        },
+        mainMenuDefinitions: function(tipoDefinitionDataService, userMetadata) {
           return tipoDefinitionDataService.search('tipo_meta.main_menu=true');
         },
-        settingsDefinitions: function(tipoDefinitionDataService) {
+        settingsDefinitions: function(tipoDefinitionDataService, userMetadata) {
           return tipoDefinitionDataService.search('tipo_meta.tipo_ui_type=settings');
         },
-        parentPromise: function(tipoDefinitionDataService, tipoManipulationService, $stateParams, $rootScope){
+        parentPromise: function(tipoDefinitionDataService, tipoManipulationService, userMetadata, $stateParams, $rootScope){
           var perspective = parsePerspective($stateParams.perspective);
           if(perspective.tipoName){
             $rootScope.perspective = $stateParams.perspective;

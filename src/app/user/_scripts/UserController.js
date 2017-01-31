@@ -38,7 +38,7 @@
       tipoRouter.to('forgotPassword');
     };
 
-    $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState) {
+    $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState) {
       _instance.inProgress = false;
       delete _instance.lastError;
     });
@@ -85,6 +85,7 @@
         // Authenticate
         cognitoService.authenticate(user.fullName(), user.password).then(function() {
           cognitoService.resendCode().then(function() {
+            tipoCache.clearMemoryCache();
             tipoRouter.to('dashboard');
           }, function(err) {
             console.error(err);
@@ -110,7 +111,7 @@
           // Go to New Password Required page when facing PasswordChallenge
           tipoRouter.to('newPasswordRequired', undefined, { deferredPassword: result.value });
         } else {
-          tipoCache.clearAll();
+          tipoCache.clearMemoryCache();
           _instance.gotoPreviousView();
         }
       }, raiseError);

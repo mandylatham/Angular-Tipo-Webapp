@@ -3,10 +3,17 @@
   'use strict';
 
   function setupCache($http, CacheFactory){
-    $http.defaults.cache = CacheFactory('defaultCache', {
+    var memoryCache = CacheFactory('memoryCache', {
       maxAge: 30 * 60 * 1000,
       cacheFlushInterval: 120 * 60 * 1000,
-      deleteOnExpire: 'passive' // Items will be deleted from this cache when they expire
+      deleteOnExpire: 'passive'
+    });
+
+    var persistentCache = CacheFactory('persistentCache', {
+      maxAge: 24 * 60 * 60 * 1000,
+      cacheFlushInterval: 24 * 60 * 60 * 1000,
+      deleteOnExpire: 'aggressive',
+      storageMode: 'localStorage'
     });
   }
 
@@ -14,13 +21,22 @@
 
     var _instance = this;
 
-    _instance.getDefault = function(){
-      return CacheFactory.get('defaultCache');
+    _instance.getMemory = function(){
+      return CacheFactory.get('memoryCache');
+    };
+
+    _instance.getPersistent = function(){
+      return CacheFactory.get('persistentCache');
     };
 
     _instance.evict = function(tipo, id){
       id = id || 'not_set';
-      var cache = _instance.getDefault();
+      var cache;
+      if(tipo === 'TipoDefinition'){
+        cache = _instance.getPersistent();
+      }else{
+        cache = _instance.getMemory();
+      }
       var keys = cache.keys();
       var keysToEvict = _.filter(keys, function(each){
         each = S(each);
@@ -34,8 +50,8 @@
       _.each(keysToEvict, cache.remove);
     };
 
-    _instance.clearAll = function(){
-      CacheFactory.clearAll();
+    _instance.clearMemoryCache = function(){
+      _instance.getMemory().removeAll();
     };
   }
 

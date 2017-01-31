@@ -8,6 +8,7 @@
     tipoResource,
     tipoRegistry,
     tipoManipulationService,
+    metadataService,
     $q) {
 
     var _instance = this;
@@ -28,7 +29,8 @@
 
     _instance.search = function(filter){
       var queryParams = {
-        short_display: 'Y'
+        short_display: 'Y',
+        cckey: metadataService.cckey
       };
       if(filter){
         queryParams.tipo_filter = filter;
@@ -56,7 +58,7 @@
     };
 
     _instance.getOne = function(id){
-      var promise = tipoResource.one(TIPO_DEFINITION_RESOURCE, id).get({expand_def: 'Y'});
+      var promise = tipoResource.one(TIPO_DEFINITION_RESOURCE, id).get({expand_def: 'Y', cckey: metadataService.cckey});
       promise = promise.then(function(definition){
         tipoRegistry.push(definition);
         return tipoRegistry.get(id);

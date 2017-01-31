@@ -45,6 +45,7 @@
     _instance.search = function(tipo_name, criteria){
       criteria = criteria || {};
       criteria.short_display = 'Y';
+      criteria.cckey = metadataService.cckey;
       return getCollectionResource(tipo_name).getList(criteria).then(unwrapAndSort);
     };
 
@@ -62,6 +63,8 @@
     };
 
     _instance.getOne = function(tipo_name, id, criteria){
+      criteria = criteria || {};
+      criteria.cckey = metadataService.cckey;
       return getDocumentResource(tipo_name, id).get(criteria);
     };
 

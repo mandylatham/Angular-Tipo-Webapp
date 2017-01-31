@@ -36,7 +36,7 @@
     "textAngular": "1.5.13",
     "angular-recaptcha": "3.2.1",
     "lf-ng-md-file-input": "1.5.1",
-    "angular-cache": "4.6.0",
+    "ua-parser-js": "0.7.12",
     "angular-truncate": "git://github.com/sparkalow/angular-truncate.git#master",
     "JSONPath": "git://github.com/clementlamoureux/JSONPath.git#master"
   },
