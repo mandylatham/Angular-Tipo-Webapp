@@ -53,6 +53,11 @@
     _instance.clearMemoryCache = function(){
       _instance.getMemory().removeAll();
     };
+
+    _instance.clearAll = function(){
+      _instance.getMemory().removeAll();
+      _instance.getPersistent().removeAll();
+    };
   }
 
   angular.module('tipo.framework').run(setupCache);

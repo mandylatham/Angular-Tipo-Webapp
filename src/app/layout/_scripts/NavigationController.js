@@ -13,6 +13,12 @@
     },
     {
       id: 'dynamic'
+    },
+    {
+      id: 'clear_cache',
+      label: 'Clear Cache',
+      icon: 'sync',
+      perspectives: ['settings']
     }
   ];
 
@@ -21,6 +27,7 @@
     tipoDefinitionDataService,
     tipoInstanceDataService,
     tipoManipulationService,
+    tipoCache,
     $mdSidenav,
     $mdMedia,
     $state,
@@ -148,6 +155,10 @@
     }
 
     _instance.navigate = function(menuItem){
+      if(menuItem.id === 'clear_cache'){
+        tipoCache.clearAll();
+        return;
+      }
       var perspective = $rootScope.perspective;
       $mdSidenav('left').close();
       _instance.activeItem = menuItem;
