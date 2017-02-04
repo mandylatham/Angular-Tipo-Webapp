@@ -47,7 +47,9 @@
         }
         return each.contains(tipo + '?') || each.contains(tipo + '/' + id) || each.contains(tipo + '/default');
       });
-      _.each(keysToEvict, cache.remove);
+      _.each(keysToEvict, function(each){
+        cache.remove(each);
+      });
     };
 
     _instance.clearMemoryCache = function(){

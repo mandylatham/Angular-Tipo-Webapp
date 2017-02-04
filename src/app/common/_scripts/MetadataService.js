@@ -66,7 +66,7 @@
     };
 
     _instance.loadUserMetadata = function () {
-      var promise = tipoResource.one(PROFILE_RESOURCE).get();
+      var promise = tipoResource.one(PROFILE_RESOURCE).get(undefined, {'Cache-Control': 'max-age:0'});
       return promise.then(function (profile) {
         _instance.userMetadata = profile;
         _instance.cckey = checksum(profile.role);

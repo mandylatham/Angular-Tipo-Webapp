@@ -42,10 +42,14 @@
       return getCollectionResource(tipo_name).one(id);
     }
 
-    _instance.search = function(tipo_name, criteria){
+    _instance.search = function(tipo_name, criteria, reload){
       criteria = criteria || {};
       criteria.short_display = 'Y';
       criteria.cckey = metadataService.cckey;
+      var headers = {};
+      if(reload){
+        headers['Cache-Control'] = 'max-age=0';
+      }
       return getCollectionResource(tipo_name).getList(criteria).then(unwrapAndSort);
     };
 
@@ -59,13 +63,20 @@
         populateGeolocation(tipo);
         return tipo;
       });
-      return getCollectionResource(tipo_name).doPUT(tipos).then(unwrapAndSort);
+      var promise = getCollectionResource(tipo_name).doPUT(tipos).then(unwrapAndSort);
+      // load list again in background
+      _instance.search(tipo_name, undefined, true);
+      return promise;
     };
 
-    _instance.getOne = function(tipo_name, id, criteria){
+    _instance.getOne = function(tipo_name, id, criteria, reload){
       criteria = criteria || {};
       criteria.cckey = metadataService.cckey;
-      return getDocumentResource(tipo_name, id).get(criteria);
+      var headers = {};
+      if(reload){
+        headers['Cache-Control'] = 'max-age=0';
+      }
+      return getDocumentResource(tipo_name, id).get(criteria, headers);
     };
 
     _instance.updateOne = function(tipo_name, tipo, id){
@@ -79,7 +90,9 @@
         tipo.data.tipo_id = id;
       }
       populateGeolocation(tipo);
-      return getDocumentResource(tipo_name, id).doPUT(tipo);
+      return getDocumentResource(tipo_name, id).doPUT(tipo).then(function(){
+        return _instance.getOne(tipo_name, id, undefined, true);
+      });
     };
 
     _instance.performSingleAction = function(tipo_name, tipo_id, action, additional_tipo_name, additional_tipo){
@@ -114,7 +127,10 @@
 
     _instance.deleteOne = function(tipo_name, id, queryParams){
       tipoCache.evict(tipo_name, id);
-      return getDocumentResource(tipo_name, id).remove(queryParams);
+      var promise = getDocumentResource(tipo_name, id).remove(queryParams);
+      // load list again in background
+      _instance.search(tipo_name, undefined, true);
+      return promise;
     };
 
   }

@@ -21,10 +21,10 @@
     return {
       request: {
         cache: function (element, operation, route, url, headers, params, httpConfig) {
-          if (!deviceInformation.isMobile) {
-            if (S(url).contains('TipoDefinition')) {
-              httpConfig.cache = tipoCache.getPersistent();
-            } else {
+          if (S(url).contains('TipoDefinition')) {
+            httpConfig.cache = tipoCache.getPersistent();
+          } else {
+            if (!deviceInformation.isMobile) {
               httpConfig.cache = tipoCache.getMemory();
             }
           }
