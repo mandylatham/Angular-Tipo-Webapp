@@ -185,8 +185,11 @@
           }
           else if(isGroup){
             if(isArray){
-              // special sorting of tipo_fields so that the user can easily see how his order affects display
-              if(fieldKey === 'tipo_fields'){
+              // special sorting by the sequence field
+              var sequenceField = _.find(field.tipo_fields, function(each){
+                return each.field_name === 'sequence';
+              });
+              if(!_.isUndefined(sequenceField)){
                 fieldValue = _.sortBy(fieldValue, function(each){
                   if(each.sequence){
                     return parseFloat(each.sequence, 10);
