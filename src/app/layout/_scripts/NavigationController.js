@@ -27,6 +27,7 @@
     tipoDefinitionDataService,
     tipoInstanceDataService,
     tipoManipulationService,
+    metadataService,
     tipoCache,
     $mdSidenav,
     $mdMedia,
@@ -156,7 +157,11 @@
 
     _instance.navigate = function(menuItem){
       if(menuItem.id === 'clear_cache'){
-        tipoCache.clearAll();
+        tipoRouter.startStateChange();
+        metadataService.clearServerCache().then(function(){
+          tipoCache.clearAll();
+          tipoRouter.endStateChange();
+        })
         return;
       }
       var perspective = $rootScope.perspective;

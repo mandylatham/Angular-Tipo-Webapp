@@ -130,6 +130,7 @@ html{
 
   .preformatted-text{
     white-space: pre-wrap;
+    word-wrap: break-word;
   }
 
   .md-subheader{
@@ -387,9 +388,14 @@ html{
     @media (min-width: 600px){
       min-width: 550px;
     }
+    .longtext{
+      white-space: normal;
+      word-wrap: break-word;
+    }
     code{
       pre {
         white-space: normal;
+        word-wrap: break-word;
       }
     }
   }
