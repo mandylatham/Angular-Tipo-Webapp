@@ -50,7 +50,7 @@
       if(reload){
         headers['Cache-Control'] = 'max-age=0';
       }
-      return getCollectionResource(tipo_name).getList(criteria).then(unwrapAndSort);
+      return getCollectionResource(tipo_name).getList(criteria, headers).then(unwrapAndSort);
     };
 
     _instance.upsertAll = function(tipo_name, tipos){
