@@ -3,25 +3,25 @@
     <md-input-container md-no-float>
       <span ng-if="isSingle && isSelfField">
         <span ng-switch="field.field_type">
-          <md-datepicker ng-model="field._value.key" md-placeholder="{{field.field_description}}" ng-switch-when="date_time">
+          <md-datepicker ng-model="field._value.key" md-placeholder="{{field.field_description}}" name="{{field.display_name}}_{{field.field_type}}" ng-required="field.mandatory" ng-switch-when="date_time">
           </md-datepicker>
           <div class="tp-switch" ng-switch-when="boolean">
             <md-switch class="md-primary" ng-model="field._value.key" aria-label="{{field.field_description}}">
               <span>{{ field._value.key && 'Yes' || 'No' }}</span>
             </md-switch>
           </div>
-          <textarea ng-model="field._value.key" rows="2" md-select-on-focus aria-label="field.display_name" placeholder="{{field.field_description}}" ng-switch-when="longstring"/>
-          <input type="password" ng-model="field._value.key" aria-label="field.display_name" placeholder="{{field.field_description}}" ng-switch-when="password">
-          <input ng-model="field._value.key" aria-label="field.display_name" placeholder="{{field.field_description}}" ng-switch-when="htmlLink">
-          <text-angular ng-model="field._value.key" ng-switch-when="richstring"></text-angular>
-          <tp:s3-explorer ng-switch-when="s3explorer"/>
-          <tp:file ng-switch-when="s3upload"/>
+          <textarea ng-model="field._value.key" rows="2" md-select-on-focus aria-label="field.display_name" name="{{field.display_name}}_{{field.field_type}}" ng-required="field.mandatory" placeholder="{{field.field_description}}" ng-switch-when="longstring"/>
+          <input type="password" ng-model="field._value.key" aria-label="field.display_name" placeholder="{{field.field_description}}" name="{{field.display_name}}_{{field.field_type}}" ng-required="field.mandatory" ng-switch-when="password">
+          <input ng-model="field._value.key" aria-label="field.display_name" placeholder="{{field.field_description}}" name="{{field.display_name}}_{{field.field_type}}" ng-required="field.mandatory" ng-switch-when="htmlLink">
+          <text-angular ng-model="field._value.key" name="{{field.display_name}}_{{field.field_type}}" data-ng-required="field.mandatory" ng-switch-when="richstring"></text-angular>
+          <tp:s3-explorer name="{{field.display_name}}_{{field.field_type}}" ng-required="field.mandatory" ng-switch-when="s3explorer"/>
+          <tp:file name="{{field.display_name}}_{{field.field_type}}" ng-required="field.mandatory" ng-switch-when="s3upload"/>
           <div ng-switch-default>
             <div ng-if="!field.allowed_values">
-              <input ng-model="field._value.key" aria-label="field.display_name" placeholder="{{field.field_description}}">
+              <input ng-model="field._value.key" aria-label="field.display_name" placeholder="{{field.field_description}}" name="{{field.display_name}}_{{field.field_type}}" ng-required="field.mandatory">
             </div>
             <div ng-if="field.allowed_values">
-              <md-select ng-model="field._value.key" placeholder="{{field.field_description}}">
+              <md-select ng-model="field._value.key" placeholder="{{field.field_description}}" name="{{field.display_name}}_{{field.field_type}}" ng-required="field.mandatory">
                 <md-option value="" ng-if="!field.mandatory">-- Clear --</md-option>
                 <md-option ng-value="option" ng-repeat="option in field.allowed_values">{{ option }}</md-option>
               </md-select>
@@ -30,7 +30,7 @@
         </span>
       </span>
       <span ng-if="isArray && isSelfField" flex layout="column">
-        <md-chips ng-model="field._value" md-transform-chip="wrapSimpleValue($chip)" class="tp-chips" placeholder="{{field.field_description}}" >
+        <md-chips ng-model="field._value" md-transform-chip="wrapSimpleValue($chip)" class="tp-chips" placeholder="{{field.field_description}}" name="{{field.display_name}}_{{field.field_type}}" ng-required="field.mandatory">
           <md-chip-template>
             <span>{{$chip.key}}</span>
           </md-chip-template>
@@ -39,6 +39,9 @@
       <span ng-if="isTipoRef">
        <tp:lookup root="root" context="context" field="field" />
       </span>
+      <div ng-messages="tipoForm[field.display_name + '_' +field.field_type].$error">
+          <div ng-message="required" >This is required.</div>
+      </div>
     </md-input-container>
   </span>
 </div>

@@ -8,12 +8,13 @@
     'restangular',
     'LocalStorageModule',
     'ngMaterial',
+    'ngMessages',
     'angular-cache',
     'md.data.table',
     'textAngular',
     'vcRecaptcha',
     'lfNgMdFileInput',
-    'cgBusy'
+    'cgBusy',
   ]);
 
   module.config(function ($mdThemingProvider, $mdToastProvider) {
