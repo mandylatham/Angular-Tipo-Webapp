@@ -18,6 +18,7 @@
 
   return module.directive('tpView', function ($mdDialog, tipoManipulationService) {
       return {
+        require: '^?form',
         scope: {
           root: '=',
           definition: '=',
@@ -25,7 +26,9 @@
         },
         controller: function($scope){
           $scope.mode = $scope.mode || 'view';
-
+          this.getForm = function(){
+            return $scope.formCtrl;
+          }
           this.getMode = function(){
             return $scope.mode;
           };
@@ -34,7 +37,8 @@
         restrict: 'EA',
         replace: false,
         templateUrl: 'framework/_directives/_views/tp-view.tpl.html',
-        link: function(scope, element, attrs){
+        link: function(scope, element, attrs, formCtrl){
+          scope.formCtrl = formCtrl;
         }
       };
     }
