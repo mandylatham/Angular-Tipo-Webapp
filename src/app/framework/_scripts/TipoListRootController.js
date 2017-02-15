@@ -12,8 +12,11 @@
     $state) {
 
     var _instance = this;
-
+    console.log("TipoListRootController");
+    console.log(tipoDefinition);
+    console.log(tipoFilters);
     _instance.tipoDefinition = tipoDefinition;
+    _instance.tipoFilters = tipoFilters;
     _instance.tipos = tipos;
 
     var tipo_name = tipoDefinition.tipo_meta.tipo_name;

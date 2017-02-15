@@ -20,15 +20,19 @@
         tipoDefinition: function(tipoDefinitionDataService, tipoManipulationService, $stateParams) {
           return tipoDefinitionDataService.getOne($stateParams.tipo_name);
         },
-        tipoFilters: function(tipoDefinition){
-          var tipoFilters = _.get(tipoDefinition, 'tipo_list.filters');
-          var expression = tipoManipulationService.convertToExpression(tipoFilters,$stateParams.filter);
+        tipoFilters: function(tipoDefinition, tipoManipulationService, $stateParams){
+          console.log("enteres");
+          var filterList = _.get(tipoDefinition, 'tipo_list.filters');
+          console.log("enteres");
+          var expression = tipoManipulationService.convertToExpression(filterList,$stateParams.filter);
           return expression;
         },
         tipos: function(tipoDefinition, tipoFilters, tipoInstanceDataService, tipoManipulationService, parentPromise, $stateParams, $rootScope){
 
           var filter = {};
+          console.log("tipoFilters");
           console.log(tipoDefinition);
+          console.log(tipoFilters);
           var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
 
           if(perspectiveMetadata){
@@ -43,7 +47,7 @@
             if(filter.tipo_filter){
               filter.tipo_filter += " and " + tipoManipulationService.expandFilterExpression(tipoFilters.currentExpression);
             }else{
-              filter.tipo_filter = tipoManipulationService.expandFilterExpression($stateParams.filter);
+              filter.tipo_filter = tipoManipulationService.expandFilterExpression(tipoFilters.currentExpression);
             }
           }
           return tipoInstanceDataService.search($stateParams.tipo_name, filter);

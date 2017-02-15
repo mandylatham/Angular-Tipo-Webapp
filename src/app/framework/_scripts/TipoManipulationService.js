@@ -492,9 +492,18 @@
     }
 
     function convertToExpression(tipoFilters, filterName){
-      var filterArray = filterName.split("&&");
+      if (!_.isUndefined(filterName)) {
+        console.log("isUndefined");
+        var filterArray = filterName.split("&&");
+      }
+      else{
+        console.log("filterArray");
+        var filterArray = [];
+      }
       var expressionArray = [];
       var filters = _.map(tipoFilters, function(each){
+        console.log("each");
+        console.log(each);
         var selected = false;
         if (filterArray.indexOf(each.display_name) != -1 ) {
           selected = true;
@@ -507,6 +516,7 @@
         };
         return filter;
       });
+      console.log("enteres");
       return {filters: filters, currentExpression: expressionArray.join(" and ")};
     }
 

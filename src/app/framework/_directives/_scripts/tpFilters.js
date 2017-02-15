@@ -12,7 +12,7 @@
       return {
         scope: {
           definition: '=',
-          filters: '='
+          filterslist: '='
         },
         restrict: 'EA',
         replace: true,
@@ -28,9 +28,12 @@
               tipoRouter.toTipoList(tipo_name);
             }
           };
+          console.log(scope.filterslist);
+          console.log("scope.tipoFilters");
+          scope.filters = scope.filterslist.filters;
 
           if($stateParams.filter){
-            scope.currentExpression = $stateParams.filter;
+            scope.currentExpression = scope.filterslist.currentExpression;
             scope.selectedArray = scope.currentExpression.split(" and ");
             scope.selectedObj = _.zipObject(scope.selectedArray,scope.selectedArray);
           }else{
