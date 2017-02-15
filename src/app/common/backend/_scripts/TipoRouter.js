@@ -70,6 +70,8 @@
         }
       }
       stateOptions.inherit = false;
+      console.log("tiporouter");
+      console.log(parameters);
       setPerspectiveIfRequired(parameters);
       return $state.go('tipoList', parameters, stateOptions);
     }

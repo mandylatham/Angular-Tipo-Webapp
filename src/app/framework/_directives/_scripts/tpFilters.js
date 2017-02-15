@@ -33,17 +33,15 @@
           scope.filters = scope.filterslist.filters;
 
           if($stateParams.filter){
-            scope.currentExpression = scope.filterslist.currentExpression;
-            scope.selectedArray = scope.currentExpression.split(" and ");
-            scope.selectedObj = _.zipObject(scope.selectedArray,scope.selectedArray);
+            scope.currentExpression = $stateParams.filter;
+            scope.selectedArray = scope.currentExpression.split("&&");
           }else{
-            scope.selectedObj = {};
             scope.selectedArray = [];
           }
 
           function removeFromCurrentExpression(filter){
-            scope.selectedArray.splice(scope.selectedArray.indexOf(filter.expression),1);
-            scope.currentExpression = scope.selectedArray.join(" and ");
+            scope.selectedArray.splice(scope.selectedArray.indexOf(filter.display_name),1);
+            scope.currentExpression = scope.selectedArray.join("&&");
           }
 
           scope.applyFilter = function(filter){
@@ -51,9 +49,9 @@
               removeFromCurrentExpression(filter);
             }else{
               if ($stateParams.filter) {
-              scope.currentExpression = scope.currentExpression + " and " + filter.expression;
+              scope.currentExpression = scope.currentExpression + "&&" + filter.display_name;
               }else{
-                scope.currentExpression = filter.expression;
+                scope.currentExpression = filter.display_name;
               }
             }        
             scope.search();
