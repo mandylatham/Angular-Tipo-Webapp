@@ -11,7 +11,8 @@
     $stateParams) {
       return {
         scope: {
-          definition: '='
+          definition: '=',
+          filters: '='
         },
         restrict: 'EA',
         replace: true,
@@ -36,27 +37,6 @@
             scope.selectedObj = {};
             scope.selectedArray = [];
           }
-
-
-          function prepareFilters(){
-            var tipoFilters = _.get(scope.definition, 'tipo_list.filters');
-            var filters = _.map(tipoFilters, function(each){
-              var selected = false;
-              if(scope.selectedObj[each.filter_expression]){
-                selected = true;
-              }
-              var filter = {
-                name: each.display_name,
-                expression: each.filter_expression,
-                selected: selected
-              };
-              return filter;
-            });
-
-            return filters;
-          }
-
-          scope.filters = prepareFilters();
 
           function removeFromCurrentExpression(filter){
             scope.selectedArray.splice(scope.selectedArray.indexOf(filter.expression),1);

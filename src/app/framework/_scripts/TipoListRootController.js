@@ -4,6 +4,7 @@
 
   function TipoListRootController(
     tipoDefinition,
+    tipoFilters,
     tipos,
     tipoManipulationService,
     tipoInstanceDataService,
