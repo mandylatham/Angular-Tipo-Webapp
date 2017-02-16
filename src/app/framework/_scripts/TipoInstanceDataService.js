@@ -65,7 +65,9 @@
       });
       var promise = getCollectionResource(tipo_name).doPUT(tipos).then(unwrapAndSort);
       // load list again in background
-      _instance.search(tipo_name, undefined, true);
+      promise.then(function(){
+        _instance.search(tipo_name, undefined, true);
+      });
       return promise;
     };
 
