@@ -14,6 +14,8 @@
         <span ng-switch-when="s3upload">
           <tp:file-view/>
         </span>
+        <span ng-switch-when="colour" style="color: #FFFFFF; background-color: {{field._value.label}}; !important; " >{{field._value.label}}
+        </span>
         <span ng-switch-when="htmlLink">
           <a ng-href="{{field._value.label}}" target="_blank">{{field._value.label}}</a>
         </span>

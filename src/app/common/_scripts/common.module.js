@@ -14,6 +14,7 @@
     'textAngular',
     'vcRecaptcha',
     'lfNgMdFileInput',
+    'mdColorPicker',
     'cgBusy',
   ]);
 
