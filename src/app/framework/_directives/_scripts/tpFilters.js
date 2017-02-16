@@ -22,26 +22,24 @@
           var tipo_name = scope.definition.tipo_meta.tipo_name;
 
           scope.search = function(){
-            if(!_.isEmpty(scope.currentExpression)){
-              tipoRouter.toTipoList(tipo_name, {filter: scope.currentExpression});
+            if(!_.isEmpty(scope.currentFilters)){
+              tipoRouter.toTipoList(tipo_name, {filter: scope.currentFilters});
             }else{
               tipoRouter.toTipoList(tipo_name);
             }
           };
-          console.log(scope.filterslist);
-          console.log("scope.tipoFilters");
           scope.filters = scope.filterslist.filters;
 
           if($stateParams.filter){
-            scope.currentExpression = $stateParams.filter;
-            scope.selectedArray = scope.currentExpression.split("&&");
+            scope.currentFilters = $stateParams.filter;
+            scope.selectedArray = scope.currentFilters.split("&&");
           }else{
             scope.selectedArray = [];
           }
 
           function removeFromCurrentExpression(filter){
-            scope.selectedArray.splice(scope.selectedArray.indexOf(filter.display_name),1);
-            scope.currentExpression = scope.selectedArray.join("&&");
+            scope.selectedArray.splice(scope.selectedArray.indexOf(filter.name),1);
+            scope.currentFilters = scope.selectedArray.join("&&");
           }
 
           scope.applyFilter = function(filter){
@@ -49,11 +47,11 @@
               removeFromCurrentExpression(filter);
             }else{
               if ($stateParams.filter) {
-              scope.currentExpression = scope.currentExpression + "&&" + filter.display_name;
+              scope.currentFilters = scope.currentFilters + "&&" + filter.name;
               }else{
-                scope.currentExpression = filter.display_name;
+                scope.currentFilters = filter.name;
               }
-            }        
+            }
             scope.search();
           }
         }

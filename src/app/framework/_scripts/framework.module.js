@@ -21,18 +21,12 @@
           return tipoDefinitionDataService.getOne($stateParams.tipo_name);
         },
         tipoFilters: function(tipoDefinition, tipoManipulationService, $stateParams){
-          console.log("enteres");
-          var filterList = _.get(tipoDefinition, 'tipo_list.filters');
-          console.log("enteres");
-          var expression = tipoManipulationService.convertToExpression(filterList,$stateParams.filter);
+          var expression = tipoManipulationService.convertToExpression(tipoDefinition,$stateParams.filter);
           return expression;
         },
         tipos: function(tipoDefinition, tipoFilters, tipoInstanceDataService, tipoManipulationService, parentPromise, $stateParams, $rootScope){
 
           var filter = {};
-          console.log("tipoFilters");
-          console.log(tipoDefinition);
-          console.log(tipoFilters);
           var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
 
           if(perspectiveMetadata){
