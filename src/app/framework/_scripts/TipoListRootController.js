@@ -4,6 +4,7 @@
 
   function TipoListRootController(
     tipoDefinition,
+    tipoFilters,
     tipos,
     tipoManipulationService,
     tipoInstanceDataService,
@@ -11,8 +12,8 @@
     $state) {
 
     var _instance = this;
-
     _instance.tipoDefinition = tipoDefinition;
+    _instance.tipoFilters = tipoFilters;
     _instance.tipos = tipos;
 
     var tipo_name = tipoDefinition.tipo_meta.tipo_name;

@@ -491,6 +491,31 @@
       }
     }
 
+    function convertToExpression(tipoDefinition, filterName){
+      var tipoFilters = _.get(tipoDefinition, 'tipo_list.filters');
+      if (!_.isUndefined(filterName)) {
+        var filterArray = filterName.split("&&");
+      }
+      else{
+        var filterArray = [];
+      }
+      var expressionArray = [];
+      var filters = _.map(tipoFilters, function(each){
+        var selected = false;
+        if (filterArray.indexOf(each.display_name) != -1 ) {
+          selected = true;
+          expressionArray.push(each.filter_expression);
+        }
+        var filter = {
+          name: each.display_name,
+          expression: each.filter_expression,
+          selected: selected
+        };
+        return filter;
+      });
+      return {filters: filters, currentExpression: expressionArray.join(" and ")};
+    }
+
     // Expose the functions that need to be consumed from outside
     this.mapDefinitionToUI = mapDefinitionToUI;
     this.expandFieldHierarchy = expandFieldHierarchy;
@@ -508,6 +533,7 @@
     this.expandFilterExpression = expandFilterExpression;
     this.isTipoPerspective = isTipoPerspective;
     this.resolvePerspectiveMetadata = resolvePerspectiveMetadata;
+    this.convertToExpression = convertToExpression;
 
   }
 

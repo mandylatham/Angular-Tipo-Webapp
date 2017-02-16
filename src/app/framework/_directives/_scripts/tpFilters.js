@@ -11,7 +11,8 @@
     $stateParams) {
       return {
         scope: {
-          definition: '='
+          definition: '=',
+          filterslist: '='
         },
         restrict: 'EA',
         replace: true,
@@ -21,46 +22,24 @@
           var tipo_name = scope.definition.tipo_meta.tipo_name;
 
           scope.search = function(){
-            if(!_.isEmpty(scope.currentExpression)){
-              tipoRouter.toTipoList(tipo_name, {filter: scope.currentExpression});
+            if(!_.isEmpty(scope.currentFilters)){
+              tipoRouter.toTipoList(tipo_name, {filter: scope.currentFilters});
             }else{
               tipoRouter.toTipoList(tipo_name);
             }
           };
+          scope.filters = scope.filterslist.filters;
 
           if($stateParams.filter){
-            scope.currentExpression = $stateParams.filter;
-            scope.selectedArray = scope.currentExpression.split(" and ");
-            scope.selectedObj = _.zipObject(scope.selectedArray,scope.selectedArray);
+            scope.currentFilters = $stateParams.filter;
+            scope.selectedArray = scope.currentFilters.split("&&");
           }else{
-            scope.selectedObj = {};
             scope.selectedArray = [];
           }
 
-
-          function prepareFilters(){
-            var tipoFilters = _.get(scope.definition, 'tipo_list.filters');
-            var filters = _.map(tipoFilters, function(each){
-              var selected = false;
-              if(scope.selectedObj[each.filter_expression]){
-                selected = true;
-              }
-              var filter = {
-                name: each.display_name,
-                expression: each.filter_expression,
-                selected: selected
-              };
-              return filter;
-            });
-
-            return filters;
-          }
-
-          scope.filters = prepareFilters();
-
           function removeFromCurrentExpression(filter){
-            scope.selectedArray.splice(scope.selectedArray.indexOf(filter.expression),1);
-            scope.currentExpression = scope.selectedArray.join(" and ");
+            scope.selectedArray.splice(scope.selectedArray.indexOf(filter.name),1);
+            scope.currentFilters = scope.selectedArray.join("&&");
           }
 
           scope.applyFilter = function(filter){
@@ -68,11 +47,11 @@
               removeFromCurrentExpression(filter);
             }else{
               if ($stateParams.filter) {
-              scope.currentExpression = scope.currentExpression + " and " + filter.expression;
+              scope.currentFilters = scope.currentFilters + "&&" + filter.name;
               }else{
-                scope.currentExpression = filter.expression;
+                scope.currentFilters = filter.name;
               }
-            }        
+            }
             scope.search();
           }
         }
