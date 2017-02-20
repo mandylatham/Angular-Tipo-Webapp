@@ -34,12 +34,15 @@
     tipoManipulationService,
     tipoInstanceDataService,
     tipoRouter,
-    $mdDialog) {
+    $mdDialog,
+    $mdMedia,
+    $window) {
       return {
         scope: {
           definition: '=',
           tipos: '=',
-          mode: '@?'
+          mode: '@?',
+          bulkedit: '='
         },
         restrict: 'EA',
         replace: true,
@@ -52,6 +55,12 @@
           }
 
           scope.mode = mode;
+          console.log("windowsize");
+          console.log(angular.element(document.getElementById('content')).prop('offsetWidth'));
+          var widthContainer = angular.element(document.getElementById('content')).prop('offsetWidth') - 16;
+          scope.noOfActions =  Math.floor(widthContainer/200) ;
+          console.log(scope.noOfActions);
+          console.log(scope.definition);
 
           var tipo_name = scope.definition.tipo_meta.tipo_name;
           var tipo_id;
@@ -67,24 +76,32 @@
             }else{
               tipoActions = _.get(scope.definition, 'tipo_list.actions');
             }
-
-            var actions = _.map(tipoActions, function(each){
-              var action = {
-                name: each.tipo_action,
-                label: each.display_name,
-                additionalTipo: _.get(each, 'client_dependency.tipo_name')
+            var actions = [];
+            _.forEach(tipoActions, function(each){
+              if (!each.hidden_) {
+                actions.push({
+                  name: each.tipo_action,
+                  label: each.display_name,
+                  highlight: each.highlight,
+                  additionalTipo: _.get(each, 'client_dependency.tipo_name')
+                });
               };
-              return action;
             });
 
             return actions;
           }
 
           scope.actions = prepareActions();
+          console.log("scope.actions");
+          console.log(scope.actions);
 
           scope.openMenu = function(menuOpenFunction, event) {
             menuOpenFunction(event);
           };
+
+          scope.updateBulkEdit = function(){
+            scope.bulkedit = !scope.bulkedit;
+          }
 
           scope.performAction = function(action){
             if(mode === 'view'){
@@ -112,6 +129,9 @@
 
           function performBulkAction(action){
             var selected_tipo_ids = _.filter(scope.tipos, 'selected');
+            console.log("selected");
+            console.log(selected_tipo_ids);
+            console.log(scope.tipos);
             selected_tipo_ids = _.map(selected_tipo_ids, function(each){
               return each.key;
             });

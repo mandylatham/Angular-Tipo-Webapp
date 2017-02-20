@@ -29,7 +29,9 @@
       });
     });
     _instance.tiposWithDefinition = tiposWithDefinition;
-
+    _instance.bulkedit = false;
+    console.log("_instance.bulkedit");
+    console.log(_instance.bulkedit);
     _instance.hasTipos = tipos.length > 0;
 
     _instance.createNew = function(){
@@ -51,6 +53,14 @@
     _instance.clone = function(id){
       tipoRouter.toTipoCreate(tipo_name, {copyFrom: id});
     };
+
+    _instance.selectTipo = function(tipo,event){
+      tipo.selected = !tipo.selected;
+      console.log(_instance.bulkedit);
+      if (_instance.bulkedit) {
+        event.stopPropagation();
+      }
+    }
 
   }
 

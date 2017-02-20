@@ -1,13 +1,22 @@
-<div>
-  <md-menu ng-if="actions.length > 0">
-    <md-button class="md-raised" ng-click="openMenu($mdOpenMenu, $event)" aria-label="Actions">
-      <span ng-if="mode === 'list'">Bulk Actions <md-icon md-menu-origin>expand_more</md-icon></span>
-      <span ng-if="mode === 'view'">Actions <md-icon md-menu-origin>expand_more</md-icon></span>
+<div layout="column" layout-align="start end">
+  <md-switch ng-if="mode === 'list' && actions.length > 0" ng-click="updateBulkEdit()" md-invert aria-label="Bulk Edit Switch">
+    Bulk Actions
+  </md-switch>
+  <div ng-if="(mode === 'list' && bulkedit) || mode === 'view' " layout="row" layout-align="center center">
+    <md-button ng-repeat="action in actions | orderBy:['highlight' , true] | limitTo: noOfActions" ng-click="performAction(action)" class="md-raised md-primary">
+      {{action.label}}
     </md-button>
-    <md-menu-content width="4">
-      <md-menu-item ng-repeat="action in actions">
-        <md-button ng-click="performAction(action)">{{action.label}}</md-button>
-      </md-menu-item>
-    </md-menu-content>
-  </md-menu>
+    <md-menu ng-if="actions.length > noOfActions">
+          <md-button class="md-icon-button" ng-click="openMenu($mdOpenMenu,$event)">
+            <md-icon md-menu-origin>more_vert</md-icon>
+          </md-button>
+          <md-menu-content width="4">
+            <md-menu-item ng-repeat="action in actions | orderBy:['highlight' , true]">
+              <md-button ng-click="performAction(action)">
+                {{action.label}}
+              </md-button>
+            </md-menu-item>
+          </md-menu-content>
+    </md-menu>
+  </div>
 </div>
