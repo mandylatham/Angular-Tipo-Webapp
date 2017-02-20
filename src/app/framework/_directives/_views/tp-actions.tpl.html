@@ -11,7 +11,7 @@
             <md-icon md-menu-origin>more_vert</md-icon>
           </md-button>
           <md-menu-content width="4">
-            <md-menu-item ng-repeat="action in actions | orderBy:['highlight' , true]">
+            <md-menu-item ng-repeat="action in actions | orderBy:['highlight' , true] | limitTo: actions.length: noOfActions  ">
               <md-button ng-click="performAction(action)">
                 {{action.label}}
               </md-button>

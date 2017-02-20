@@ -7,6 +7,7 @@
       </div>
     </div>
   </md-subheader>
+  <md-divider></md-divider>
   <md-button md-theme="reverse" class="md-fab md-primary main" aria-label="Create new"  ng-if="!tipoRootController.tipoDefinition._ui.isSingleton" ng-click="tipoRootController.createNew()">
     <md-tooltip md-direction="left">Create new</md-tooltip>
     <md-icon>create</md-icon>
@@ -14,6 +15,7 @@
   <div layout-padding>
     <tp:filters definition="tipoRootController.tipoDefinition" filterslist="tipoRootController.tipoFilters" ng-if="tipoRootController.hasTipos || tipoRootController.tipoFilters.currentExpression"/>
   </div>
+  <md-divider></md-divider>
   <div ng-if="!tipoRootController.hasTipos" flex layout="row" layout-align="center center">
     <tp-no-content message="No records found" />
   </div>
