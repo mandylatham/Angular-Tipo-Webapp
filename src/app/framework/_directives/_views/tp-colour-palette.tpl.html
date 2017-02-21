@@ -1,0 +1,32 @@
+<div class="tp-field">
+  <div layout="row" layout-wrap ng-if=" mode === 'edit' ">
+    <md-button ng-repeat="color in colors" md-colors="{background: '{{color}}'}" md-colors-watch="false"
+               ng-disabled="primary === color && !isPrimary" ng-click="selectTheme(color)" flex-gt-md="15" flex="30" class="palette">
+      {{ color }}
+    </md-button>
+  </div>
+  <div layout="column">
+  <div md-colors="{background: '{{primary}}-500'}">
+    <span>Primary - {{primary}}</span>
+    <div layout="row" layout-align="space-between end" flex="95" flex-offset="5">
+      <span>500</span>
+      <span>{{getColor(primary + '-500')}}</span>
+    </div>
+  </div>
+  <div md-colors="{background: '{{primary}}-700'}" layout="row" layout-align="space-between end">
+    <span>700</span>
+    <span>{{getColor(primary + '-700')}}</span>
+  </div>
+  <div md-colors="{background: '{{primary}}-800'}" layout="row" layout-align="space-between end">
+    <span>800</span>
+    <span>{{getColor(primary + '-800')}}</span>
+  </div>
+  <div md-colors="{background: '{{accent}}-A200'}" layout="row" layout-align="space-between end">
+    <span>Accent - {{accent}}</span>
+    <div layout="row" layout-align="space-between end" flex="95" flex-offset="5">
+      <span>A200</span>
+      <span>{{getColor(accent + '-A200')}}</span>
+    </div>
+  </div>
+</div>
+</div>
