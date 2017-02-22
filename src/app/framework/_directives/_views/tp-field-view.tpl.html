@@ -24,7 +24,7 @@
       </span>
     </span>
     <span ng-if="isSingle && isTipoRef">
-      <a class="explicit" ui-sref="tipoView({tipo_name: field._ui.relatedTipo, tipo_id: field._value.key})" ui-sref-opts="{reload: 'tipoView'}">{{field._value.label}}</a>
+      <a class="explicit" ui-sref="tipoView({tipo_name: field._ui.relatedTipo, tipo_id: field._value.key})" ui-sref-opts="{reload: 'tipoView'}">{{field._value.label || field._value.key}}</a>
     </span>
     <span ng-if="isArray && isSelfField">
       <md-chips ng-model="field._value" readonly="'true'" class="tp-chips readonly">
@@ -36,7 +36,7 @@
     <span ng-if="isArray && isTipoRef">
       <div class="multiple-list">
         <div ng-repeat="value in field._value">
-          <a class="explicit" ui-sref="tipoView({tipo_name: field._ui.relatedTipo, tipo_id: value.key})" ui-sref-opts="{reload: 'tipoView'}">{{value.label}}</a>
+          <a class="explicit" ui-sref="tipoView({tipo_name: field._ui.relatedTipo, tipo_id: value.key})" ui-sref-opts="{reload: 'tipoView'}">{{value.label || value.key}}</a>
         </div>
       </div>
     </span>
