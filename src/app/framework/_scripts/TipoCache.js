@@ -29,7 +29,7 @@
       return CacheFactory.get('persistentCache');
     };
 
-    _instance.evict = function(tipo, id){
+    _instance.evict = function(tipo, id, evictList){
       id = id || 'not_set';
       var cache;
       if(tipo === 'TipoDefinition'){
@@ -39,13 +39,17 @@
       }
       var keys = cache.keys();
       var keysToEvict = _.filter(keys, function(each){
+        var predicate = false;
         each = S(each);
         if(tipo !== 'TipoDefinition'){
           if(each.contains('TipoDefinition')){
             return false;
           }
         }
-        return each.contains(tipo + '?') || each.contains(tipo + '/' + id) || each.contains(tipo + '/default');
+        if(evictList){
+          predicate = each.contains(tipo + '?');
+        }
+        return predicate || each.contains(tipo + '/' + id) || each.contains(tipo + '/default');
       });
       _.each(keysToEvict, function(each){
         cache.remove(each);

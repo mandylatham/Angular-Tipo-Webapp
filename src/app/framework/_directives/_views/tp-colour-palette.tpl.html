@@ -1,9 +1,11 @@
 <div class="tp-field">
   <div layout="row" layout-wrap ng-if=" mode === 'edit' ">
-    <md-button ng-repeat="color in colors" md-colors="{background: '{{color}}'}" md-colors-watch="false"
-               ng-disabled="primary === color && !isPrimary" ng-click="selectTheme(color)" flex-gt-md="15" flex="30" class="palette">
-      {{ color }}
-    </md-button>
+    <div flex-gt-md="15" flex="30">
+      <md-button ng-repeat="color in colors" md-colors="{background: '{{color}}'}" md-colors-watch="false"
+                 ng-disabled="primary === color && !isPrimary" ng-click="selectTheme(color)"  class="palette">
+        {{ color }}
+      </md-button>
+    </div>
   </div>
   <div layout="column">
   <div md-colors="{background: '{{primary}}-500'}">
