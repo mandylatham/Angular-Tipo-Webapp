@@ -328,11 +328,8 @@
                     tipoData[fieldKey].push(translateSimpleValue(field, each.key));
                   }
                 });
-              }else{
-                finalValue = translateSimpleValue(field, fieldValue.key);
-                if(finalValue){
-                  tipoData[fieldKey] = translateSimpleValue(field, fieldValue.key);
-                }
+              } else {
+                tipoData[fieldKey] = translateSimpleValue(field, fieldValue.key);
               }
             }
             if(!isValidValue(tipoData[fieldKey]) && field._hadValueOriginally){
