@@ -21,7 +21,7 @@
           return tipoDefinitionDataService.getOne($stateParams.tipo_name);
         },
         tipoFilters: function(tipoDefinition, tipoManipulationService, $stateParams){
-          var expression = tipoManipulationService.convertToExpression(tipoDefinition,$stateParams.filter);
+          var expression = tipoManipulationService.convertToFilterExpression(tipoDefinition, $stateParams.filter);
           return expression;
         },
         tipos: function(tipoDefinition, tipoFilters, tipoInstanceDataService, tipoManipulationService, parentPromise, $stateParams, $rootScope){
@@ -29,11 +29,11 @@
           var filter = {};
           var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
 
-          if(perspectiveMetadata){
+          if(perspectiveMetadata.tipoName){
             if(perspectiveMetadata.tipoName !== tipoDefinition.tipo_meta.tipo_name){
               filter.tipo_filter = perspectiveMetadata.tipoFilter;
             }else{
-              $rootScope.perspective = 'home';
+              $rootScope.perspective = 'Home';
             }
           }
 
@@ -69,11 +69,9 @@
           if($stateParams.copyFrom){
             var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
             var filter = {};
-            if(perspectiveMetadata){
-              // TODO: Hack - Sushil as this is supposed to work only for applications
-              if(perspectiveMetadata.fieldName === 'application'){
-                filter.tipo_filter = perspectiveMetadata.tipoFilter;
-              }
+            // TODO: Hack - Sushil as this is supposed to work only for applications
+            if(perspectiveMetadata.fieldName === 'application'){
+              filter.tipo_filter = perspectiveMetadata.tipoFilter;
             }
             return tipoInstanceDataService.getOne($stateParams.tipo_name, $stateParams.copyFrom, filter)
             .then(function(tipo){
@@ -120,11 +118,9 @@
           var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
 
           var filter = {};
-          if(perspectiveMetadata){
-            // TODO: Hack - Sushil as this is supposed to work only for applications
-            if(perspectiveMetadata.fieldName === 'application'){
-              filter.tipo_filter = perspectiveMetadata.tipoFilter;
-            }
+          // TODO: Hack - Sushil as this is supposed to work only for applications
+          if(perspectiveMetadata.fieldName === 'application'){
+            filter.tipo_filter = perspectiveMetadata.tipoFilter;
           }
 
           var tipo = tipoInstanceDataService.getOne($stateParams.tipo_name, $stateParams.tipo_id, filter).then(function(data){
@@ -158,7 +154,7 @@
       function(tipoDefinition, tipo, $stateParams, $rootScope){
         var type = tipoDefinition.tipo_meta.tipo_ui_type;
         if(type === 'perspective'){
-          $rootScope.perspective  = 'tipo.' + tipoDefinition.tipo_meta.tipo_name + '.' + tipo.tipo_id;
+          $rootScope.perspective  = tipoDefinition.tipo_meta.tipo_name + '.' + tipo.tipo_id;
         }
       }
     };
@@ -196,8 +192,7 @@
 
           var filter = {};
 
-          var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
-          if(perspectiveMetadata){
+          if(perspectiveMetadata.tipoFilter){
             filter.tipo_filter = perspectiveMetadata.tipoFilter;
           }
           if(subTipoField.relationship_filter){

@@ -62,7 +62,7 @@
       parameters = parameters || {};
       parameters.tipo_name = tipoName;
       var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
-      if(perspectiveMetadata){
+      if(perspectiveMetadata.tipoName){
         if(resetPerspective){
           parameters.perspective = undefined;
         }else{
@@ -79,7 +79,7 @@
       parameters = parameters || {};
       parameters.tipo_name = tipoName;
       var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
-      if(perspectiveMetadata){
+      if(perspectiveMetadata.tipoName){
         parameters.perspective = perspectiveMetadata.perspective;
       }
       stateOptions.inherit = false;
@@ -93,7 +93,7 @@
       parameters.tipo_name = tipoName;
       parameters.tipo_id = tipoId;
       var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
-      if(perspectiveMetadata){
+      if(perspectiveMetadata.tipoName){
         parameters.perspective = perspectiveMetadata.perspective;
       }
       stateOptions.inherit = false;
@@ -132,6 +132,27 @@
       return !_.isEmpty(_stickyState);
     }
 
+    function toMenuItem(menuItem){
+      if(menuItem.state){
+        return to(menuItem.state, menuItem.state);
+      }else if(menuItem.tipo_name){
+        var parameters = {};
+        if(menuItem.perspective){
+          parameters = {
+            perspective: menuItem.perspective
+          };
+        }
+        if(menuItem.isSingleton){
+          return toTipoView(menuItem.tipo_name, 'default', parameters);
+        }else{
+          if(menuItem.quickFilters){
+            parameters.filter = menuItem.quickFilters;
+          }
+          return toTipoList(menuItem.tipo_name, parameters);
+        }
+      }
+    }
+
     function toRegisterUser(parameters){
       var stateOptions = {reload: 'registerUser'};
       parameters = parameters || {};
@@ -154,7 +175,8 @@
       recordSticky: recordSticky,
       toStickyAndReset: toStickyAndReset,
       stickyExists: stickyExists,
-      toRegisterUser: toRegisterUser
+      toRegisterUser: toRegisterUser,
+      toMenuItem: toMenuItem
     };
 
   }
