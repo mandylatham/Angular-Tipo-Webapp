@@ -1,0 +1,16 @@
+
+
+#if ($tipo_customization.appearance_settings.font_url)
+$tipo_customization.appearance_settings.font_url
+#else
+@import url('https://fonts.googleapis.com/css?family=Baloo');
+#end
+
+
+body{
+	#if ($tipo_customization.appearance_settings.font_family)
+	font-family: $tipo_customization.appearance_settings.font_family;
+	#else
+	font-family: 'Baloo', cursive;
+	#end
+}

@@ -1,11 +1,11 @@
-<md-toolbar id="header" md-whiteframe="2" md-colors="{background: 'primary-600'}" ng-controller="HeaderController as header">
+<md-toolbar id="header" md-whiteframe="2" md-colors="{background: 'primary-500'}" ng-controller="HeaderController as header">
   <div class="md-toolbar-tools docs-toolbar-tools" tabIndex="-1" layout-wrap>
     <div flex="none" hide-gt-md>
       <md-button class="md-icon-button" ng-click="main.showNavigation()" aria-label="Menu">
         <md-icon>menu</md-icon>
       </md-button>
     </div>
-    <img src="pub/_assets/images/logo.png" hide-xs></img>
+    <img src="public/assets/images/logo.png" hide-xs></img>
     <span flex></span>
     <md-button ng-if="perspective !== each.perspective" ng-repeat="each in header.perspectives" ng-click="main.toPerspective(each.perspective)" class="md-icon-button">
       <md-tooltip md-direction="bottom">{{each.name}}</md-tooltip>
