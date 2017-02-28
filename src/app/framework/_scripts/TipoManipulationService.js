@@ -331,6 +331,10 @@
       return labelField._value.key;
     }
 
+    function getFieldMeta(field, key){
+      return _.get(_.find(field.metadata, {key_: key}), 'value_');
+    }
+
     function cloneInstance(tipo){
       tipo = angular.copy(tipo);
       delete tipo.tipo_id;
@@ -374,16 +378,11 @@
 
     function prepareMenu(perspective, definition){
       var subTipos = definition._ui.subTipos;
-      subTipos = _.sortBy(subTipos, function(each){
-        if(each._ui.sequence){
-          return parseFloat(each._ui.sequence, 10);
-        }else{
-          return 999;
-        }
-      });
+
       var menuItems = _.map(subTipos, function(fieldDefinition){
         var menuItem = {};
         menuItem.id = fieldDefinition._ui.relatedTipo;
+        menuItem.sequence = fieldDefinition.sequence;
         menuItem.tipo_name = fieldDefinition._ui.relatedTipo;
         menuItem.label = fieldDefinition.display_name;
         menuItem.icon = fieldDefinition._ui.icon;
@@ -397,6 +396,28 @@
         }
         return menuItem;
       });
+
+      var otherItems = _.filter(definition.tipo_fields, function(each){
+        return each.show_in_tab && !_.startsWith(each.field_type, 'Tipo.');
+      });
+      _.each(otherItems, function(each){
+        var menuItem = {};
+        menuItem.id = getFieldMeta(each, 'ui.client_action');
+        menuItem.type = 'client_action';
+        menuItem.label = each.display_name;
+        menuItem.icon = getFieldMeta(each, 'ui.menu_icon');
+        menuItem.sequence = each.sequence;
+        menuItems.push(menuItem);
+      });
+
+      menuItems = _.sortBy(menuItems, function(each){
+        if(each.sequence){
+          return parseFloat(each.sequence, 10);
+        }else{
+          return 999;
+        }
+      });
+
       return menuItems;
     }
 

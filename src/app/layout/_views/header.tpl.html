@@ -7,27 +7,9 @@
     </div>
     <img src="pub/_assets/images/logo.png" hide-xs></img>
     <span flex></span>
-    <md-button ng-if="perspective !== each.name" ng-repeat="each in header.perspectives" ng-click="main.toPerspective(each.name)" class="md-icon-button">
+    <md-button ng-if="perspective !== each.perspective" ng-repeat="each in header.perspectives" ng-click="main.toPerspective(each.perspective)" class="md-icon-button">
       <md-tooltip md-direction="bottom">{{each.name}}</md-tooltip>
       <md-icon>{{each.icon}}</md-icon>
     </md-button>
-    <md-menu>
-      <md-button aria-label="Profile" class="md-icon-button" ng-click="header.openProfileMenu($mdOpenMenu, $event)">
-        <md-tooltip md-direction="bottom">Profile</md-tooltip>
-        <md-icon md-menu-origin>account_box</md-icon>
-      </md-button>
-      <md-menu-content width="4">
-        <md-menu-item>
-          <md-button ng-click="header.toProfile()"><md-icon>account_circle</md-icon> My Profile</md-button>
-        </md-menu-item>
-        <md-menu-item>
-          <md-button ng-click="header.toAccount()"><md-icon>security</md-icon> My Account</md-button>
-        </md-menu-item>
-        <md-menu-divider></md-menu-divider>
-        <md-menu-item>
-          <md-button ng-click="main.signOut()"><md-icon>exit_to_app</md-icon> Logout</md-button>
-        </md-menu-item>
-      </md-menu-content>
-    </md-menu>
   </div>
 </md-toolbar>

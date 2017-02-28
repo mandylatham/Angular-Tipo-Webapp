@@ -113,12 +113,12 @@
     }
 
     _instance.navigate = function(menuItem){
-      if(menuItem.id === 'clear_cache'){
-        tipoRouter.startStateChange();
-        metadataService.clearServerCache().then(function(){
-          tipoCache.clearAll();
-          tipoRouter.endStateChange();
-        })
+      if(menuItem.type === 'client_action'){
+        if(clientActions[menuItem.id]){
+          clientActions[menuItem.id](menuItem);
+        }else{
+          // do nothing
+        }
         return;
       }
       var perspective = $rootScope.perspective;
@@ -147,6 +147,20 @@
     $scope.$on('$stateChangeSuccess', function() {
      markActiveItem(_instance.menu);
     });
+
+    // TODO: Hard-coded list of client actions. This needs to be extracted out and made configurable in future
+    var clientActions = {
+      clear_cache: function(){
+        tipoRouter.startStateChange();
+        metadataService.clearServerCache().then(function(){
+          tipoCache.clearAll();
+          tipoRouter.endStateChange();
+        });
+      },
+      logout: function(){
+        $scope.main.signOut();
+      }
+    };
 
   }
 
