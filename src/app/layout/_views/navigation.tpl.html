@@ -2,9 +2,17 @@
   <div ng-controller="NavigationController as navigation" class="tp-navigation">
     <md-list>
       <md-list-item ng-if="navigation.perspectiveMenu" class="menu-header">
-        <md-button layout="row" layout-align="start center" ng-click="navigation.switchTipoPerspective(navigation.selectedPerspectiveItem)">
+        <md-button layout="row" layout-align="start center" ng-disabled="true" ng-if="navigation.perspectiveMenu.abstract">
           <div>
-            <span class="md-subhead">{{navigation.selectedPerspectiveItem.label}}</span>
+            <span class="md-subhead">{{navigation.perspectiveMenu.displayName}}</span>
+          </div>
+        </md-button>
+        <md-button layout="row" layout-align="start center" ng-click="navigation.switchTipoPerspective(navigation.selectedPerspectiveItem)" ng-if="!navigation.perspectiveMenu.abstract">
+          <div>
+            <span class="md-subhead">
+              <span ng-if="navigation.perspectiveMenu.singleton">{{navigation.perspectiveMenu.displayName}}</span>
+              <span ng-if="!navigation.perspectiveMenu.singleton">{{navigation.selectedPerspectiveItem.label}}</span>
+            </span>
           </div>
           <md-menu ng-if="navigation.perspectiveMenu.menuItems.length > 1">
             <md-button class="md-icon-button" ng-click="navigation.openPerspectiveMenu($mdOpenMenu, $event)">

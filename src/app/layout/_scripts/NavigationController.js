@@ -2,26 +2,6 @@
 
   'use strict';
 
-  var menu = [
-    {
-      id: 'dashboard',
-      label: 'Dashboard',
-      state: 'dashboard',
-      icon: 'dashboard',
-      divider: true,
-      perspectives: ['home', 'settings']
-    },
-    {
-      id: 'dynamic'
-    },
-    {
-      id: 'clear_cache',
-      label: 'Clear Cache',
-      icon: 'sync',
-      perspectives: ['settings']
-    }
-  ];
-
   function NavigationController(
     tipoRouter,
     tipoDefinitionDataService,
@@ -51,7 +31,12 @@
       }
       var activeItem;
       if($stateParams.tipo_name){
-        activeItem = _.find(menu, {tipo_name: $stateParams.tipo_name});
+        if($stateParams.filter){
+          activeItem = _.find(menu, {tipo_name: $stateParams.tipo_name, quickFilters: $stateParams.filter});
+        }
+        if(!activeItem){
+          activeItem = _.find(menu, {tipo_name: $stateParams.tipo_name});
+        }  
       }else{
         activeItem = _.find(menu, {state: $state.current.name});
       }
@@ -61,54 +46,51 @@
       }else{
         delete _instance.activeItem;
       }
+
     }
 
-    function prepareMenu(newPerspective){
+    function prepareMenu(perspective){
       delete _instance.activeItem;
       var tipoMenuItems;
-      var perspective = newPerspective;
-      newPerspective = S(newPerspective);
-      if(newPerspective.startsWith('tipo.')){
-        var skipMenuLoad = false;
-        var parts = perspective.split('.');
-        var tipoName = parts[1];
-        var selectedtTipoId = parts[2];
-        if(currentPerspective && S(currentPerspective).startsWith('tipo.')){
-          var oldTipoName = currentPerspective.split('.')[1];
-          if(tipoName === oldTipoName){
-            skipMenuLoad = true;
-          }
+      var skipMenuLoad = false;
+      var parts = perspective.split('.');
+      var tipoName = parts[0];
+      var selectedTipoId;
+      if(parts.length > 1){
+       selectedTipoId = parts[1];
+      }
+      if(currentPerspective){
+        var oldTipoName = currentPerspective.split('.')[0];
+        if(tipoName === oldTipoName){
+          skipMenuLoad = true;
         }
+      }
 
-        currentPerspective = newPerspective;
+      currentPerspective = perspective;
 
-        if(skipMenuLoad){
-          markActiveItem(_instance.menu, selectedtTipoId);
-        }else{
-          var perspectiveMenu = {};
-          var perspectiveMenuItems = [];
-          tipoDefinitionDataService.getOne(tipoName).then(function(definition){
-            perspectiveMenu.tipoName = definition.tipo_meta.tipo_name;
+      if(skipMenuLoad){
+        markActiveItem(_instance.menu, selectedTipoId);
+      }else{
+        var perspectiveMenu = {};
+        var perspectiveMenuItems = [];
+        tipoDefinitionDataService.getOne(tipoName).then(function(definition){
+
+          _instance.menu = tipoManipulationService.prepareMenu(perspective, definition);
+
+          var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
+          perspectiveMenu.tipoName = perspectiveMetadata.tipoName;
+          perspectiveMenu.displayName = perspectiveMetadata.displayName;
+
+          if(perspectiveMetadata.abstract){
+            perspectiveMenu.abstract = true;
+            _instance.perspectiveMenu = perspectiveMenu;
+            markActiveItem(_instance.menu, selectedTipoId);
+          }else if(perspectiveMetadata.singleton){
+            perspectiveMenu.singleton = true;
+            _instance.perspectiveMenu = perspectiveMenu;
+            markActiveItem(_instance.menu, selectedTipoId);
+          }else{
             tipoInstanceDataService.search(tipoName).then(function(tipos){
-              var subTipos = definition._ui.subTipos;
-              subTipos = _.sortBy(subTipos, function(each){
-                if(each._ui.sequence){
-                  return parseFloat(each._ui.sequence, 10);
-                }else{
-                  return 999;
-                }
-              });
-              tipoMenuItems = _.map(subTipos, function(fieldDefinition){
-                var menuItem = {};
-                menuItem.id = 'tipo.' + fieldDefinition._ui.relatedTipo;
-                menuItem.tipo_name = fieldDefinition._ui.relatedTipo;
-                menuItem.label = fieldDefinition.display_name;
-                menuItem.icon = fieldDefinition._ui.icon;
-                menuItem.isSingleton = fieldDefinition._ui.isSingleton;
-                menuItem.perspective = perspective;
-                return menuItem;
-              });
-              _instance.menu = tipoMenuItems;
               _.each(tipos, function(tipo){
                 var tipoId = tipo.tipo_id;
                 var clonedDefinition = _.cloneDeep(definition);
@@ -123,70 +105,31 @@
               });
               perspectiveMenu.menuItems = perspectiveMenuItems;
               _instance.perspectiveMenu = perspectiveMenu;
-              markActiveItem(_instance.menu, selectedtTipoId);
+              markActiveItem(_instance.menu, selectedTipoId);
             });
-          });
-        }
-      }
-      else{
-        var tipoDefinitions = perspectives[perspective].definitions;
-        tipoMenuItems = _.map(tipoDefinitions, function(definition){
-          var menuItem = {};
-          var meta = definition.tipo_meta;
-          menuItem.id = 'tipo.' + meta.tipo_name;
-          menuItem.tipo_name = meta.tipo_name;
-          menuItem.label = meta.display_name;
-          menuItem.icon = meta.icon;
-          menuItem.isSingleton = definition._ui.isSingleton;
-          return menuItem;
+          }
         });
-
-        var fullMenu = _.cloneDeep(menu);
-        fullMenu = _.filter(fullMenu, function(each){
-          return _.isUndefined(each.perspectives) || _.includes(each.perspectives, perspective);
-        });
-        var tipoMenuIndex = _.findIndex(fullMenu, {id: 'dynamic'});
-        fullMenu.splice(tipoMenuIndex, 1, tipoMenuItems);
-        fullMenu = _.flatten(fullMenu);
-        markActiveItem(fullMenu);
-        _instance.menu = fullMenu;
-        currentPerspective = undefined;
-        delete _instance.perspectiveMenu;
       }
     }
 
     _instance.navigate = function(menuItem){
-      if(menuItem.id === 'clear_cache'){
-        tipoRouter.startStateChange();
-        metadataService.clearServerCache().then(function(){
-          tipoCache.clearAll();
-          tipoRouter.endStateChange();
-        })
+      if(menuItem.type === 'client_action'){
+        if(clientActions[menuItem.id]){
+          clientActions[menuItem.id](menuItem);
+        }else{
+          // do nothing
+        }
         return;
       }
       var perspective = $rootScope.perspective;
       $mdSidenav('left').close();
       _instance.activeItem = menuItem;
-      if(menuItem.state){
-        tipoRouter.to(menuItem.state, menuItem.state);
-      }else if(menuItem.tipo_name){
-        var parameters;
-        if(menuItem.perspective){
-          parameters = {
-            perspective: menuItem.perspective
-          };
-        }
-        if(menuItem.isSingleton){
-          tipoRouter.toTipoView(menuItem.tipo_name, 'default', parameters);
-        }else{
-          tipoRouter.toTipoList(menuItem.tipo_name, parameters);
-        }
-      }
+      tipoRouter.toMenuItem(menuItem);
     };
 
     _instance.switchTipoPerspective = function(menuItem){
       var tipoName = _instance.perspectiveMenu.tipoName;
-      $rootScope.perspective = 'tipo.' + tipoName + '.' + menuItem.tipoId;
+      $rootScope.perspective = tipoName + '.' + menuItem.tipoId;
       tipoRouter.toTipoView(tipoName, menuItem.tipoId).then(function(){
         delete _instance.activeItem;
       });
@@ -200,6 +143,24 @@
     $scope.$watch(function(){return $rootScope.perspective;}, function(newValue, oldValue){
       prepareMenu(newValue);
     });
+
+    $scope.$on('$stateChangeSuccess', function() {
+     markActiveItem(_instance.menu);
+    });
+
+    // TODO: Hard-coded list of client actions. This needs to be extracted out and made configurable in future
+    var clientActions = {
+      clear_cache: function(){
+        tipoRouter.startStateChange();
+        metadataService.clearServerCache().then(function(){
+          tipoCache.clearAll();
+          tipoRouter.endStateChange();
+        });
+      },
+      logout: function(){
+        $scope.main.signOut();
+      }
+    };
 
   }
 

@@ -23,9 +23,8 @@
     };
 
     _instance.toPerspective = function(name) {
-      //tipoRouter.to(perspectives[name].root);
       var params;
-      if(name === 'settings'){
+      if(name !== 'home'){
         params = {perspective: name};
       }
       tipoRouter.to('dashboard', 'layout', params, false);

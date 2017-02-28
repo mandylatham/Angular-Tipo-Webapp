@@ -39,34 +39,16 @@
         userMetadata: function(metadataService){
           return metadataService.loadUserMetadata();
         },
-        mainMenuDefinitions: function(tipoDefinitionDataService, userMetadata) {
-          return tipoDefinitionDataService.search('tipo_meta.main_menu=true');
-        },
-        settingsDefinitions: function(tipoDefinitionDataService, userMetadata) {
-          return tipoDefinitionDataService.search('tipo_meta.tipo_ui_type=settings');
-        },
         parentPromise: function(tipoDefinitionDataService, tipoManipulationService, userMetadata, $stateParams, $rootScope){
-          var perspective = parsePerspective($stateParams.perspective);
-          if(perspective.tipoName){
-            $rootScope.perspective = $stateParams.perspective;
-            return tipoDefinitionDataService.getOne(perspective.tipoName).then(function(){
-              return tipoManipulationService.resolvePerspectiveMetadata();
-            });
-          }else if(perspective.name){
-            $rootScope.perspective = perspective.name;
-          }
-          return undefined;
+          var perspective = $stateParams.perspective || 'Home';
+          var tipo = perspective.split('.')[0];
+          return tipoDefinitionDataService.getOne(tipo).then(function(){
+            $rootScope.perspective = perspective;
+            return tipoManipulationService.resolvePerspectiveMetadata(perspective);
+          });
         }
       },
-      controller: /*@ngInject*/ function(mainMenuDefinitions, settingsDefinitions, $scope, $rootScope){
-        var perspectives = {};
-        perspectives.home = {
-          definitions: mainMenuDefinitions
-        };
-        perspectives.settings = {
-          definitions: settingsDefinitions
-        };
-        $rootScope.perspectives = perspectives;
+      controller: /*@ngInject*/ function($scope, $rootScope){
       },
       templateUrl: 'layout/_views/layout.tpl.html'
     };

@@ -39,7 +39,7 @@
         // handle application perspective
         var filter = {};
         var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
-        if(perspectiveMetadata && perspectiveMetadata.fieldName === 'application'){
+        if(perspectiveMetadata.fieldName === 'application'){
           filter.tipo_filter = perspectiveMetadata.tipoFilter;
         }
         // ends here

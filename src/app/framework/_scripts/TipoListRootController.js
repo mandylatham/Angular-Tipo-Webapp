@@ -34,7 +34,7 @@
 
     _instance.createNew = function(){
       var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
-      if(perspectiveMetadata){
+      if(perspectiveMetadata.fieldName){
         var data = {};
         data[perspectiveMetadata.fieldName] = perspectiveMetadata.tipoId;
         data = encodeURIComponent(angular.toJson(data));

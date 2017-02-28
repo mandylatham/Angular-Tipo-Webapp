@@ -1,46 +1,47 @@
-(function() {
+(function () {
 
   'use strict';
-   
+
   function DashboardController(
-    $scope,
+    cognitoService,
+    menu,
+    tipoRouter,
     $location,
     $mdToast,
-    cognitoService) {
+    $rootScope,
+    $scope) {
 
     var _instance = this;
 
-    _instance.verifyConfirmationCode = function(){
-      $scope.title = 'Dashboard';
+    function showToast(toast) {
+      var tpToast = $mdToast.tpToast();
+      tpToast._options.locals = toast;
+      $mdToast.show(tpToast);
+    }
+
+    function verifyConfirmationCode() {
       var params = $location.search();
       if (params.code) {
-        cognitoService.verifyCode(params.code).then(function() {
-          _instance.toast = {
+        cognitoService.verifyCode(params.code).then(function () {
+          showToast({
             header: 'Email confirmation',
             body: 'Your email address is confirmed successfully.'
-          };
-        }, function(err) {
-          console.error(err);
-          _instance.toast = {
+          });
+        }, function (err) {
+          showToast({
             header: 'Email confirmation',
             body: 'The confirmation code is expired. Please request a new code.'
-          };
+          });
         });
       }
     };
 
-    $scope.$watch(function() {
-      return _instance.toast;
-    }, function(newValue, oldValue) {
-      if(newValue){
-        var toast = $mdToast.tpToast();
-        toast._options.locals = newValue;
-        $mdToast.show(toast);
-      }
-    });
+    verifyConfirmationCode();
+
+    tipoRouter.toMenuItem(menu[0]);
 
   }
   angular.module('tipo.dashboard')
-  .controller('DashboardController', DashboardController);
+    .controller('DashboardController', DashboardController);
 
 })();

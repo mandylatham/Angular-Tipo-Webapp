@@ -55,14 +55,12 @@
             var searchCriteria = {};
             var filter;
             var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
-            if(perspectiveMetadata){
-              /*if(tipo_name !== perspectiveMetadata.tipoName){
-                filter = perspectiveMetadata.tipoFilter;
-              }*/
-              // TODO: Hack - Sushil as this is supposed to work only for applications
-              if(perspectiveMetadata.fieldName === 'application'){
-                filter = perspectiveMetadata.tipoFilter;
-              }
+            /*if(tipo_name !== perspectiveMetadata.tipoName){
+              filter = perspectiveMetadata.tipoFilter;
+            }*/
+            // TODO: Hack - Sushil as this is supposed to work only for applications
+            if(perspectiveMetadata.fieldName === 'application'){
+              filter = perspectiveMetadata.tipoFilter;
             }
             if(!_.isUndefined(baseFilter)){
               var baseFilterExpanded = tipoManipulationService.expandFilterExpression(baseFilter, scope.root, scope.context);

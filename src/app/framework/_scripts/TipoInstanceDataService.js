@@ -5,6 +5,8 @@
   function TipoInstanceDataService(
     tipoResource,
     tipoCache,
+    tipoDefinitionDataService,
+    tipoManipulationService,
     metadataService,
     $q) {
 
@@ -53,8 +55,45 @@
       return getCollectionResource(tipo_name).getList(criteria, headers).then(unwrapAndSort);
     };
 
+    // TODO: Not used as of now but something like this might be required in future for the header menu which is now hard-coded
+    _instance.getTopPerspectives = function(){
+      var promise = _instance.search('TopPerspective').then(function(perspectives){
+        var childPromises = [];
+        perspectives = _.sortBy(perspectives, function(each){
+          if(each.sequence){
+            return parseFloat(each.sequence, 10);
+          }else{
+            return 999;
+          }
+        });
+        _.each(perspectives, function(each){
+          each.menu_items = _.sortBy(each.menu_items, function(item){
+            if(item.sequence){
+              return parseFloat(item.sequence, 10);
+            }else{
+              return 999;
+            }
+          });
+          _.each(each.menu_items, function(item){
+            if(item.tipo){
+              var childPromise = tipoDefinitionDataService.getOne(item.tipo, true).then(function(definition){
+                item.tipoDefinition = definition;
+              });
+              childPromises.push(childPromise);
+            }
+          });
+        });
+        return $q.all(childPromises).then(function(){
+          return perspectives;
+        })
+      });
+
+      return promise.then(tipoManipulationService.prepareTopPerspectives);
+
+    }
+
     _instance.upsertAll = function(tipo_name, tipos){
-      tipoCache.evict(tipo_name, undefined, true);
+      tipoCache.evict(tipo_name);
       tipos = _.map(tipos, function(each){
         var tipo = {
           tipo_name: tipo_name,
@@ -128,7 +167,7 @@
     };
 
     _instance.deleteOne = function(tipo_name, id, queryParams){
-      tipoCache.evict(tipo_name, id, true);
+      tipoCache.evict(tipo_name, id);
       var promise = getDocumentResource(tipo_name, id).remove(queryParams);
       // load list again in background
       _instance.search(tipo_name, undefined, true);
