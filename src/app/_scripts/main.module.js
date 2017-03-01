@@ -39,7 +39,8 @@
     'tipo.layout',
     'tipo.framework',
     'tipo.dashboard',
-    'tipo.tipoapp'
+    'tipo.tipoapp',
+    'tipo.custom'
   ]);
 
   module.config(function($stateProvider) {

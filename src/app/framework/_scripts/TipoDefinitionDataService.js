@@ -19,14 +19,6 @@
       }) !== -1;
     }
 
-    function mapList(definitions){
-      var mappedDefinitions = {};
-      _.each(definitions, function(definition){
-        mappedDefinitions[definition.tipo_name] = tipoManipulationService.mapDefinitionToUI(definition);
-      });
-      return mappedDefinitions;
-    }
-
     _instance.search = function(filter){
       var queryParams = {
         short_display: 'Y',

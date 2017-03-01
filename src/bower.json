@@ -38,6 +38,8 @@
     "angular-recaptcha": "3.2.1",
     "lf-ng-md-file-input": "1.5.1",
     "ua-parser-js": "0.7.12",
+    "md-color-picker": "0.2.6",
+    "tinycolor": "1.2.1",
     "angular-truncate": "git://github.com/sparkalow/angular-truncate.git#master",
     "JSONPath": "git://github.com/clementlamoureux/JSONPath.git#master"
   },

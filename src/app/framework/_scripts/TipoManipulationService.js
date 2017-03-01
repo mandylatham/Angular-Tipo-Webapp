@@ -246,6 +246,21 @@
       }
     }
 
+    function mergeDefinitionAndDataArray(tipoDefinition,tipoDataArray,label_field){
+      var tiposWithDefinition = [];
+      _.each(tipoDataArray, function(tipo){
+        var clonedDefinition = _.cloneDeep(tipoDefinition);
+        mergeDefinitionAndData(clonedDefinition, tipo);
+        clonedDefinition.tipo_fields = extractShortDisplayFields(clonedDefinition);
+        tiposWithDefinition.push({
+          key: tipo.tipo_id,
+          value: clonedDefinition,
+          label : tipo[label_field]
+        });
+      });
+      return tiposWithDefinition
+    }
+
     function extractDataFromMergedDefinition(tipoDefinition, tipoData){
       if(tipoDefinition.tipo_fields){
         _.each(tipoDefinition.tipo_fields, function(field){
@@ -328,11 +343,8 @@
                     tipoData[fieldKey].push(translateSimpleValue(field, each.key));
                   }
                 });
-              }else{
-                finalValue = translateSimpleValue(field, fieldValue.key);
-                if(finalValue){
-                  tipoData[fieldKey] = translateSimpleValue(field, fieldValue.key);
-                }
+              } else {
+                tipoData[fieldKey] = translateSimpleValue(field, fieldValue.key);
               }
             }
             if(!isValidValue(tipoData[fieldKey]) && field._hadValueOriginally){
@@ -522,6 +534,7 @@
     this.extractShortDisplayFields = extractShortDisplayFields;
     this.getFieldValue = getFieldValue;
     this.mergeDefinitionAndData = mergeDefinitionAndData;
+    this.mergeDefinitionAndDataArray = mergeDefinitionAndDataArray;
     this.extractDataFromMergedDefinition = extractDataFromMergedDefinition;
     this.generateGroupItem = generateGroupItem;
     this.getPrimaryKey = getPrimaryKey;

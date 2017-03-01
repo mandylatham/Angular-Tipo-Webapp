@@ -16,6 +16,20 @@
           <text-angular ng-model="field._value.key" name="{{field.display_name}}_{{field.field_type}}" data-ng-required="field.mandatory" ng-switch-when="richstring"></text-angular>
           <tp:s3-explorer name="{{field.display_name}}_{{field.field_type}}" ng-required="field.mandatory" ng-switch-when="s3explorer"/>
           <tp:file name="{{field.display_name}}_{{field.field_type}}" ng-required="field.mandatory" ng-switch-when="s3upload"/>
+      <!--     <div ng-switch-when="colour"
+			    md-color-picker
+			    ng-model="field._value.key"
+			    label=""
+			    icon=""
+			    default=""
+			    md-color-generic-palette="false"
+			    md-color-history="false"
+			    md-color-rgb = "false"
+			    md-color-hsl = "false"
+			    md-color-preview = "false"
+			    md-colour-default-tab = "materialPalette" 
+		  ></div> -->
+          <tp:colour-palette name="{{field.display_name}}_{{field.field_type}}" mode="edit" ng-model="field._value" ng-required="field.mandatory" ng-switch-when="colour" />
           <div ng-switch-default>
             <div ng-if="!field.allowed_values">
               <input ng-model="field._value.key" aria-label="field.display_name" placeholder="{{field.field_description}}" name="{{field.display_name}}_{{field.field_type}}" ng-required="field.mandatory">

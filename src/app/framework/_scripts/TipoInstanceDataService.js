@@ -54,7 +54,7 @@
     };
 
     _instance.upsertAll = function(tipo_name, tipos){
-      tipoCache.evict(tipo_name);
+      tipoCache.evict(tipo_name, undefined, true);
       tipos = _.map(tipos, function(each){
         var tipo = {
           tipo_name: tipo_name,
@@ -65,7 +65,9 @@
       });
       var promise = getCollectionResource(tipo_name).doPUT(tipos).then(unwrapAndSort);
       // load list again in background
-      _instance.search(tipo_name, undefined, true);
+      promise.then(function(){
+        _instance.search(tipo_name, undefined, true);
+      });
       return promise;
     };
 
@@ -126,7 +128,7 @@
     };
 
     _instance.deleteOne = function(tipo_name, id, queryParams){
-      tipoCache.evict(tipo_name, id);
+      tipoCache.evict(tipo_name, id, true);
       var promise = getDocumentResource(tipo_name, id).remove(queryParams);
       // load list again in background
       _instance.search(tipo_name, undefined, true);
