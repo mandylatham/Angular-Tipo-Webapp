@@ -18,17 +18,7 @@
 
     var tipo_name = tipoDefinition.tipo_meta.tipo_name;
 
-    var tiposWithDefinition = [];
-    _.each(tipos, function(tipo){
-      var clonedDefinition = _.cloneDeep(tipoDefinition);
-      tipoManipulationService.mergeDefinitionAndData(clonedDefinition, tipo);
-      clonedDefinition.tipo_fields = tipoManipulationService.extractShortDisplayFields(clonedDefinition);
-      tiposWithDefinition.push({
-        key: tipo.tipo_id,
-        value: clonedDefinition
-      });
-    });
-    _instance.tiposWithDefinition = tiposWithDefinition;
+    _instance.tiposWithDefinition = tipoManipulationService.mergeDefinitionAndDataArray(tipoDefinition,tipos);
 
     _instance.hasTipos = tipos.length > 0;
 
