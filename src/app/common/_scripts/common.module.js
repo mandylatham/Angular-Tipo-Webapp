@@ -15,6 +15,8 @@
     'vcRecaptcha',
     'lfNgMdFileInput',
     'cgBusy',
+    'ngProgress',
+    'ngPageTitle'
   ]);
 
   module.config(function ($mdThemingProvider, $mdToastProvider) {

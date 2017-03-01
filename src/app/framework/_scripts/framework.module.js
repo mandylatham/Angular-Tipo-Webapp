@@ -15,6 +15,9 @@
       name: 'tipoList',
       url: '/tipo/{tipo_name}?filter',
       parent: 'layout',
+      data: {
+              pageTitle: "{{$stateParams.tipo_name}} - List",
+            },
       resolve: /*@ngInject*/
       {
         tipoDefinition: function(tipoDefinitionDataService, tipoManipulationService, $stateParams) {
@@ -63,6 +66,9 @@
       name: 'tipoCreate',
       url: '/tipo/{tipo_name}/new?copyFrom&data',
       parent: 'layout',
+      data: {
+              pageTitle: "{{$stateParams.tipo_name}} - Create",
+            },
       resolve: /*@ngInject*/
       {
         tipo: function(tipoInstanceDataService, tipoManipulationService, $stateParams){
@@ -111,6 +117,9 @@
       name: 'tipoView',
       url: '/tipo/{tipo_name}/{tipo_id}',
       parent: 'layout',
+      data: {
+              pageTitle: "{{$stateParams.tipo_name}} - View",
+            },
       resolve: /*@ngInject*/
       {
         tipo: function(tipoInstanceDataService, tipoManipulationService, parentPromise, $stateParams){
@@ -165,6 +174,9 @@
       name: 'tipoEdit',
       url: '/edit',
       parent: viewState,
+      data: {
+              pageTitle: "{{$stateParams.tipo_name}} - Edit",
+            },
       resolve: /*@ngInject*/
       {
         delay: function($q, $timeout){

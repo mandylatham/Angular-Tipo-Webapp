@@ -7,22 +7,29 @@
     tipoManipulationService,
     $rootScope,
     $state,
-    $stateParams) {
+    $stateParams,
+    ngProgressFactory) {
 
     var _stateChanging = false;
 
     var _stickyState = {};
+    $rootScope.progressbar = ngProgressFactory.createInstance();
+    // $rootScope.progressbar.setColor('#AFF6FC');
+    $rootScope.progressbar.setColor('#FFF');
+    $rootScope.progressbar.setHeight('5px');
 
     function isStateChanging(){
       return _stateChanging;
     }
 
     function startStateChange(){
-      _stateChanging = true;
+      // _stateChanging = true;
+      $rootScope.progressbar.start();
     }
 
     function endStateChange(){
-      _stateChanging = false;
+      // _stateChanging = false;
+      $rootScope.progressbar.complete();
     }
 
     function getCurrent(){
