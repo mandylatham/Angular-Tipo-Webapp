@@ -125,7 +125,15 @@
           body: 'We sent an email to ' + _instance.user.email + ', which contains a link to reset your password.'
         };
         _instance.toLogin();
-      }, raiseError);
+      }, function(err) {
+        if (err && err.message && err.message.indexOf('no registered/verified email') != -1) {
+          _instance.toast = {
+            header: 'Email is not verified',
+            body: 'Please confirm your email ' + _instance.user.email
+          };
+        }
+        raiseError(err);
+      });
     };
 
     _instance.resetPassword = function(){
