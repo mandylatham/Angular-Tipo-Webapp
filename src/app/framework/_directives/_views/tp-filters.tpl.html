@@ -1,6 +1,6 @@
 <div class="tp-field">
   <div layout="row" layout-wrap layout-align="start center" hide-sm hide-xs>
-    <md-button ng-repeat="each in filters" ng-click="applyFilter(each)" class="md-raised" ng-class="{'md-primary': each.selected}">
+    <md-button ng-repeat="each in filters" ng-click="applyFilter(each)" ng-class="{'md-primary md-raised': each.selected}">
       {{ each.name }}
     </md-button>
   </div>

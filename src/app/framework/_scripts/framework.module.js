@@ -15,13 +15,16 @@
       name: 'tipoList',
       url: '/tipo/{tipo_name}?filter',
       parent: 'layout',
+      data: {
+              pageTitle: "{{$stateParams.tipo_name}} - List",
+            },
       resolve: /*@ngInject*/
       {
         tipoDefinition: function(tipoDefinitionDataService, tipoManipulationService, $stateParams) {
           return tipoDefinitionDataService.getOne($stateParams.tipo_name);
         },
         tipoFilters: function(tipoDefinition, tipoManipulationService, $stateParams){
-          var expression = tipoManipulationService.convertToExpression(tipoDefinition,$stateParams.filter);
+          var expression = tipoManipulationService.convertToFilterExpression(tipoDefinition, $stateParams.filter);
           return expression;
         },
         tipos: function(tipoDefinition, tipoFilters, tipoInstanceDataService, tipoManipulationService, parentPromise, $stateParams, $rootScope){
@@ -29,11 +32,11 @@
           var filter = {};
           var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
 
-          if(perspectiveMetadata){
+          if(perspectiveMetadata.tipoName){
             if(perspectiveMetadata.tipoName !== tipoDefinition.tipo_meta.tipo_name){
               filter.tipo_filter = perspectiveMetadata.tipoFilter;
             }else{
-              $rootScope.perspective = 'home';
+              $rootScope.perspective = 'Home';
             }
           }
 
@@ -63,17 +66,18 @@
       name: 'tipoCreate',
       url: '/tipo/{tipo_name}/new?copyFrom&data',
       parent: 'layout',
+      data: {
+              pageTitle: "{{$stateParams.tipo_name}} - Create",
+            },
       resolve: /*@ngInject*/
       {
         tipo: function(tipoInstanceDataService, tipoManipulationService, $stateParams){
           if($stateParams.copyFrom){
             var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
             var filter = {};
-            if(perspectiveMetadata){
-              // TODO: Hack - Sushil as this is supposed to work only for applications
-              if(perspectiveMetadata.fieldName === 'application'){
-                filter.tipo_filter = perspectiveMetadata.tipoFilter;
-              }
+            // TODO: Hack - Sushil as this is supposed to work only for applications
+            if(perspectiveMetadata.fieldName === 'application'){
+              filter.tipo_filter = perspectiveMetadata.tipoFilter;
             }
             return tipoInstanceDataService.getOne($stateParams.tipo_name, $stateParams.copyFrom, filter)
             .then(function(tipo){
@@ -113,6 +117,9 @@
       name: 'tipoView',
       url: '/tipo/{tipo_name}/{tipo_id}',
       parent: 'layout',
+      data: {
+              pageTitle: "{{$stateParams.tipo_name}} - View",
+            },
       resolve: /*@ngInject*/
       {
         tipo: function(tipoInstanceDataService, tipoManipulationService, parentPromise, $stateParams){
@@ -120,11 +127,9 @@
           var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
 
           var filter = {};
-          if(perspectiveMetadata){
-            // TODO: Hack - Sushil as this is supposed to work only for applications
-            if(perspectiveMetadata.fieldName === 'application'){
-              filter.tipo_filter = perspectiveMetadata.tipoFilter;
-            }
+          // TODO: Hack - Sushil as this is supposed to work only for applications
+          if(perspectiveMetadata.fieldName === 'application'){
+            filter.tipo_filter = perspectiveMetadata.tipoFilter;
           }
 
           var tipo = tipoInstanceDataService.getOne($stateParams.tipo_name, $stateParams.tipo_id, filter).then(function(data){
@@ -160,7 +165,7 @@
       function(tipoDefinition, tipo, $stateParams, $rootScope){
         var type = tipoDefinition.tipo_meta.tipo_ui_type;
         if(type === 'perspective'){
-          $rootScope.perspective  = 'tipo.' + tipoDefinition.tipo_meta.tipo_name + '.' + tipo.tipo_id;
+          $rootScope.perspective  = tipoDefinition.tipo_meta.tipo_name + '.' + tipo.tipo_id;
         }
       }
     };
@@ -169,6 +174,9 @@
       name: 'tipoEdit',
       url: '/edit',
       parent: viewState,
+      data: {
+              pageTitle: "{{$stateParams.tipo_name}} - Edit",
+            },
       resolve: /*@ngInject*/
       {
         delay: function($q, $timeout){
@@ -198,8 +206,7 @@
 
           var filter = {};
 
-          var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
-          if(perspectiveMetadata){
+          if(perspectiveMetadata.tipoFilter){
             filter.tipo_filter = perspectiveMetadata.tipoFilter;
           }
           if(subTipoField.relationship_filter){

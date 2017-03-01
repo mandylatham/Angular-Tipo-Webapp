@@ -7,8 +7,9 @@
     </div>
     <img src="public/assets/images/logo.png" hide-xs></img>
     <span flex></span>
-    <md-button ng-if="perspective !== 'home'" ng-click="main.toPerspective('home')">Home</md-button>
-    <md-button ng-if="perspective !== 'settings'" ng-click="main.toPerspective('settings')">Settings</md-button>
-    <md-button ng-click="main.signOut()">Logout</md-button>
+    <md-button ng-if="perspective !== each.perspective" ng-repeat="each in header.perspectives" ng-click="main.toPerspective(each.perspective)" class="md-icon-button">
+      <md-tooltip md-direction="bottom">{{each.name}}</md-tooltip>
+      <md-icon>{{each.icon}}</md-icon>
+    </md-button>
   </div>
 </md-toolbar>

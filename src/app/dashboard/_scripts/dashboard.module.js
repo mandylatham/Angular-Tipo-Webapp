@@ -7,6 +7,16 @@
       name: 'dashboard',
       url: '/dashboard?code',
       parent: 'layout',
+      resolve: /*@ngInject*/
+      {
+        menu: function(parentPromise, tipoDefinitionDataService, tipoManipulationService, $rootScope) {
+          var perspective = $rootScope.perspective;
+          var tipo = perspective.split('.')[0];
+          return tipoDefinitionDataService.getOne(tipo).then(function(definition){
+            return tipoManipulationService.prepareMenu(perspective, definition);
+          });
+        }
+      },
       views: {
         'content@layout': {
           templateUrl: 'dashboard/_views/dashboard.tpl.html',

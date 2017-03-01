@@ -49,12 +49,20 @@
       return _instance.search();
     };
 
-    _instance.getOne = function(id){
-      var promise = tipoResource.one(TIPO_DEFINITION_RESOURCE, id).get({expand_def: 'Y', cckey: metadataService.cckey});
-      promise = promise.then(function(definition){
-        tipoRegistry.push(definition);
-        return tipoRegistry.get(id);
-      });
+    _instance.getOne = function(id, disableExpansion){
+      var params = {
+        cckey: metadataService.cckey
+      };
+      if(!disableExpansion){
+        params.expand_def = 'Y';
+      }
+      var promise = tipoResource.one(TIPO_DEFINITION_RESOURCE, id).get(params);
+      if(!disableExpansion){
+        promise = promise.then(function(definition){
+          tipoRegistry.push(definition);
+          return tipoRegistry.get(id);
+        });
+      }
       return promise;
     };
 

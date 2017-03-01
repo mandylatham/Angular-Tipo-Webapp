@@ -25,7 +25,7 @@
       var data = {};
       tipoManipulationService.extractDataFromMergedDefinition(_instance.tipoDefinition, data);
       var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
-      if(perspectiveMetadata && !data[perspectiveMetadata.fieldName]){
+      if(perspectiveMetadata.fieldName && !data[perspectiveMetadata.fieldName]){
         data[perspectiveMetadata.fieldName] = perspectiveMetadata.tipoId;
       }
       if(!_.isUndefined(clonedTipoId)){
