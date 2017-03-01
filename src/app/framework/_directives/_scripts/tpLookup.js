@@ -212,8 +212,10 @@
               optionsFormat(selectedObjects);
               if(isArray){
                 field._value = scope.optionSelected;
+                scope.selectedTipos = field._value;
               }else{
                 field._value = scope.optionSelected[0];
+                scope.selectedTipos = [field._value];
               }
             });
           }
