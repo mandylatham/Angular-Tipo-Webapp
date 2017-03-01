@@ -131,6 +131,7 @@
             header: 'Email is not verified',
             body: 'Please confirm your email ' + _instance.user.email
           };
+          return raiseError({message: 'Please confirm your email ' + _instance.user.email});
         }
         raiseError(err);
       });
