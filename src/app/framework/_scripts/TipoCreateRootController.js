@@ -7,7 +7,8 @@
     tipoManipulationService,
     tipoInstanceDataService,
     tipoRouter,
-    $stateParams) {
+    $stateParams,
+    $mdToast) {
 
     var _instance = this;
     _instance.tipoDefinition = tipoDefinition;
@@ -15,6 +16,15 @@
     var clonedTipoId = $stateParams.copyFrom;
 
     var tipo_name = tipoDefinition.tipo_meta.tipo_name;
+
+    if ($stateParams.message) {
+      var toast = $mdToast.tpToast();
+      toast._options.locals = {
+        header: 'Action successfully completed',
+        body: $stateParams.message
+      };
+      $mdToast.show(toast);
+    };
 
     _instance.printDefinition = function(){
       console.log(angular.toJson(_instance.tipoDefinition));

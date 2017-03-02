@@ -8,7 +8,9 @@
     tipoManipulationService,
     tipoInstanceDataService,
     tipoRouter,
-    $scope) {
+    $scope,
+    $mdToast,
+    $stateParams) {
     
     var _instance = this;
     _instance.tipoDefinition = tipoDefinition;
@@ -18,6 +20,15 @@
     var tipo_id = tipo.tipo_id;
 
     var perspective = $scope.perspective;
+
+    if ($stateParams.message) {
+      var toast = $mdToast.tpToast();
+      toast._options.locals = {
+        header: 'Action successfully completed',
+        body: $stateParams.message
+      };
+      $mdToast.show(toast);
+    };
 
     _instance.save = function(){
       tipoRouter.startStateChange();

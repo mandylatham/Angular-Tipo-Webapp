@@ -13,7 +13,7 @@
   function registerStates(stateProvider) {
     var listState = {
       name: 'tipoList',
-      url: '/tipo/{tipo_name}?filter',
+      url: '/tipo/{tipo_name}?filter&message',
       parent: 'layout',
       data: {
               pageTitle: "{{$stateParams.tipo_name}} - List",
@@ -64,7 +64,7 @@
 
     var createState = {
       name: 'tipoCreate',
-      url: '/tipo/{tipo_name}/new?copyFrom&data',
+      url: '/tipo/{tipo_name}/new?copyFrom&data&message',
       parent: 'layout',
       data: {
               pageTitle: "{{$stateParams.tipo_name}} - Create",
@@ -115,7 +115,7 @@
 
     var viewState = {
       name: 'tipoView',
-      url: '/tipo/{tipo_name}/{tipo_id}',
+      url: '/tipo/{tipo_name}/{tipo_id}?message',
       parent: 'layout',
       data: {
               pageTitle: "{{$stateParams.tipo_name}} - View",
@@ -125,7 +125,8 @@
         tipo: function(tipoInstanceDataService, tipoManipulationService, parentPromise, $stateParams){
 
           var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
-
+          console.log($stateParams);
+          console.log($stateParams.message);
           var filter = {};
           // TODO: Hack - Sushil as this is supposed to work only for applications
           if(perspectiveMetadata.fieldName === 'application'){
@@ -172,7 +173,7 @@
 
     var editState = {
       name: 'tipoEdit',
-      url: '/edit',
+      url: '/edit?message',
       parent: viewState,
       data: {
               pageTitle: "{{$stateParams.tipo_name}} - Edit",

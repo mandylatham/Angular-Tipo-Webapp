@@ -1,8 +1,8 @@
 <div layout="column" layout-align="start end">
-  <md-switch ng-if="mode === 'list' && actions.length > 0" ng-click="updateBulkEdit()" md-invert aria-label="Bulk Edit Switch">
+<!--   <md-switch ng-if="mode === 'list' && actions.length > 0" ng-click="updateBulkEdit()" md-invert aria-label="Bulk Edit Switch">
     Bulk Actions
-  </md-switch>
-  <div ng-if="(mode === 'list' && bulkedit) || mode === 'view' " layout="row" layout-align="center center">
+  </md-switch> -->
+  <div ng-if="(mode === 'list') || mode === 'view' " layout="row" layout-align="center center">
     <md-button ng-repeat="action in actions | orderBy:['highlight' , true] | limitTo: noOfActions" ng-click="performAction(action)" class="md-raised md-primary">
       {{action.label}}
     </md-button>
@@ -18,5 +18,13 @@
             </md-menu-item>
           </md-menu-content>
     </md-menu>
+  </div>
+  <div ng-if="bulkedit">
+    <md-button ng-click="performAction(selectedAction)" class="md-raised md-primary">
+      Process
+    </md-button>
+    <md-button ng-click="updateBulkEdit()" class="md-raised md-primary">
+      Cancel
+    </md-button>
   </div>
 </div>

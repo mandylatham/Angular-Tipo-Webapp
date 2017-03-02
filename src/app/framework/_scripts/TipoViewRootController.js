@@ -10,7 +10,9 @@
     tipoRouter,
     $state,
     $scope,
-    $mdDialog) {
+    $mdDialog,
+    $mdToast,
+    $stateParams) {
 
     var _instance = this;
 
@@ -21,6 +23,15 @@
 
     var tipo_name = tipoDefinition.tipo_meta.tipo_name;
     var tipo_id = tipo.tipo_id;
+
+    if ($stateParams.message) {
+      var toast = $mdToast.tpToast();
+      toast._options.locals = {
+        header: 'Action successfully completed',
+        body: $stateParams.message
+      };
+      $mdToast.show(toast);
+    };
 
     _instance.edit = function(){
       tipoRouter.startStateChange();

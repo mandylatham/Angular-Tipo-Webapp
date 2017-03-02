@@ -9,7 +9,9 @@
     tipoManipulationService,
     tipoInstanceDataService,
     tipoRouter,
-    $state) {
+    $state,
+    $stateParams,
+    $mdToast) {
 
     var _instance = this;
     _instance.tipoDefinition = tipoDefinition;
@@ -22,6 +24,15 @@
     _instance.bulkedit = false;
 
     _instance.hasTipos = tipos.length > 0;
+
+    if ($stateParams.message) {
+      var toast = $mdToast.tpToast();
+      toast._options.locals = {
+        header: 'Action successfully completed',
+        body: $stateParams.message
+      };
+      $mdToast.show(toast);
+    };
 
     _instance.createNew = function(){
       var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();

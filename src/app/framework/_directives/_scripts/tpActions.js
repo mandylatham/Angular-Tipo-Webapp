@@ -37,7 +37,8 @@
     $mdDialog,
     $mdMedia,
     $window,
-    $mdToast) {
+    $mdToast,
+    $location) {
       return {
         scope: {
           definition: '=',
@@ -55,6 +56,7 @@
             mode = 'view';
           }
 
+          console.log(scope.definition);
           scope.mode = mode;
           var widthContainer = angular.element(document.getElementById('content')).prop('offsetWidth') - 16;
           scope.noOfActions =  Math.floor(widthContainer/200) ;
@@ -80,6 +82,7 @@
                   name: each.tipo_action,
                   label: each.display_name,
                   highlight: each.highlight,
+                  bulk_select: each.bulk_select,
                   additionalTipo: _.get(each, 'client_dependency.tipo_name')
                 });
               };
@@ -99,18 +102,32 @@
           }
 
           scope.performAction = function(action){
-            if(mode === 'view'){
-              performSingleAction(action);
+            console.log(action);
+            if(mode === 'view' || !action.bulk_select){
+              if (mode === 'view') {
+                performSingleAction(action);
+              }else{
+                performBulkAction(action);
+              }
             }else{
-              performBulkAction(action);
+              if (scope.bulkedit) {
+                performBulkAction(action);  
+              }else{
+                scope.selectedAction = action;
+                scope.bulkedit = !scope.bulkedit;
+              }
+              
             }
           };
 
-          function performResponseActions(message,state,params){
+          function performResponseActions(message,return_url){
             console.log('Entered performResponseActions');
-            if (!_.isEmpty(state) || !_.isUndefined(state)) {
+            if (!_.isEmpty(return_url) || !_.isUndefined(return_url)) {
               console.log('Yes state');
-              tipoRouter[state](params.tipo_name);             
+              if (!_.isEmpty(message) || !_.isUndefined(message)) {
+                return_url = return_url + '?message=' + message;
+              };
+              $location.url(return_url);            
             }else{
                 console.log('No state');
                 var toast = $mdToast.tpToast();
@@ -158,7 +175,7 @@
                 tipoInstanceDataService.performBulkAction(tipo_name, action.name, selected_tipo_ids)
                   .then(function(response){
                     console.log(response);
-                    performResponseActions(response[0].data.tipo_message,response[0].data.tipo_state,response[0].data.tipo_params);
+                    performResponseActions(response[0].message,response[0].data.return_url);
                     tipoRouter.endStateChange();});
               }
             }
@@ -184,16 +201,6 @@
             return promise;
           }
 
-          scope.$watch(function(){
-            return scope.toast;
-          }, function(newValue, oldValue){
-            if(newValue){
-              console.log("Entered toast newValue");
-              var toast = $mdToast.tpToast();
-              toast._options.locals = newValue;
-              $mdToast.show(toast);
-            }
-          });
 
         }
       };
