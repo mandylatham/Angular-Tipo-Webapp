@@ -36,7 +36,8 @@
     tipoRouter,
     $mdDialog,
     $mdMedia,
-    $window) {
+    $window,
+    $mdToast) {
       return {
         scope: {
           definition: '=',
@@ -55,12 +56,8 @@
           }
 
           scope.mode = mode;
-          console.log("windowsize");
-          console.log(angular.element(document.getElementById('content')).prop('offsetWidth'));
           var widthContainer = angular.element(document.getElementById('content')).prop('offsetWidth') - 16;
           scope.noOfActions =  Math.floor(widthContainer/200) ;
-          console.log(scope.noOfActions);
-          console.log(scope.definition);
 
           var tipo_name = scope.definition.tipo_meta.tipo_name;
           var tipo_id;
@@ -92,8 +89,6 @@
           }
 
           scope.actions = prepareActions();
-          console.log("scope.actions");
-          console.log(scope.actions);
 
           scope.openMenu = function(menuOpenFunction, event) {
             menuOpenFunction(event);
@@ -110,6 +105,22 @@
               performBulkAction(action);
             }
           };
+
+          function performResponseActions(message,state,params){
+            console.log('Entered performResponseActions');
+            if (!_.isEmpty(state) || !_.isUndefined(state)) {
+              console.log('Yes state');
+              tipoRouter[state](params.tipo_name);             
+            }else{
+                console.log('No state');
+                var toast = $mdToast.tpToast();
+                toast._options.locals = {
+                  header: 'Action successfully completed',
+                  body: message
+                };
+                $mdToast.show(toast);
+              }
+          }
 
           function performSingleAction(action){
             if(action.additionalTipo){
@@ -129,9 +140,6 @@
 
           function performBulkAction(action){
             var selected_tipo_ids = _.filter(scope.tipos, 'selected');
-            console.log("selected");
-            console.log(selected_tipo_ids);
-            console.log(scope.tipos);
             selected_tipo_ids = _.map(selected_tipo_ids, function(each){
               return each.key;
             });
@@ -148,7 +156,10 @@
                 console.log('Will just perform the action without opening any dialogs');
                 tipoRouter.startStateChange();
                 tipoInstanceDataService.performBulkAction(tipo_name, action.name, selected_tipo_ids)
-                  .then(tipoRouter.endStateChange);
+                  .then(function(response){
+                    console.log(response);
+                    performResponseActions(response[0].data.tipo_message,response[0].data.tipo_state,response[0].data.tipo_params);
+                    tipoRouter.endStateChange();});
               }
             }
           }
@@ -172,6 +183,17 @@
             });
             return promise;
           }
+
+          scope.$watch(function(){
+            return scope.toast;
+          }, function(newValue, oldValue){
+            if(newValue){
+              console.log("Entered toast newValue");
+              var toast = $mdToast.tpToast();
+              toast._options.locals = newValue;
+              $mdToast.show(toast);
+            }
+          });
 
         }
       };

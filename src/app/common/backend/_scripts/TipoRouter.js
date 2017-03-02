@@ -14,9 +14,9 @@
 
     var _stickyState = {};
     $rootScope.progressbar = ngProgressFactory.createInstance();
-    // $rootScope.progressbar.setColor('#AFF6FC');
-    $rootScope.progressbar.setColor('#FFF');
-    $rootScope.progressbar.setHeight('5px');
+    $rootScope.progressbar.setColor('#AFF6FC');
+    // $rootScope.progressbar.setColor('#FFF');
+    $rootScope.progressbar.setHeight('3px');
 
     function isStateChanging(){
       return _stateChanging;
@@ -65,6 +65,7 @@
     }
 
     function toTipoList(tipoName, parameters, resetPerspective){
+      console.log("entered toTipoList");
       var stateOptions = {reload: 'tipoList'};
       parameters = parameters || {};
       parameters.tipo_name = tipoName;
