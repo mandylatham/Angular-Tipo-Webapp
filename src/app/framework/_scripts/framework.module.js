@@ -6,7 +6,7 @@
     var defer = $q.defer();
     $timeout(function() {
       defer.resolve('resolved');
-    }, 100);
+    }, 300);
     return defer.promise;
   }
 
