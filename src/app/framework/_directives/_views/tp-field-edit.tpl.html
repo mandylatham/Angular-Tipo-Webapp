@@ -15,7 +15,7 @@
           <input ng-model="field._value.key" aria-label="field.display_name" placeholder="{{field.field_description}}" name="{{field.display_name}}_{{field.field_type}}" ng-required="field.mandatory" ng-switch-when="htmlLink">
           <text-angular ng-model="field._value.key" name="{{field.display_name}}_{{field.field_type}}" data-ng-required="field.mandatory" ng-switch-when="richstring"></text-angular>
           <tp:s3-explorer name="{{field.display_name}}_{{field.field_type}}" ng-required="field.mandatory" ng-switch-when="s3explorer"/>
-          <tp:file name="{{field.display_name}}_{{field.field_type}}" ng-required="field.mandatory" ng-switch-when="s3upload"/>
+          <tp:file field="field" mode="edit" ng-switch-when="file"/>
       <!--     <div ng-switch-when="colour"
 			    md-color-picker
 			    ng-model="field._value.key"

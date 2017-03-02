@@ -12,6 +12,7 @@
     $scope) {
 
     var _instance = this;
+    $rootScope.progressbar.start();
 
     function showToast(toast) {
       var tpToast = $mdToast.tpToast();

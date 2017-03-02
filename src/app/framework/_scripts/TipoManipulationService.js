@@ -503,6 +503,7 @@
     this.prepareMenu = prepareMenu;
     this.resolvePerspectiveMetadata = resolvePerspectiveMetadata;
     this.convertToFilterExpression = convertToFilterExpression;
+    this.getFieldMeta = getFieldMeta;
 
   }
 

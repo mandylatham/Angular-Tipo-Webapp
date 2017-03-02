@@ -4,7 +4,9 @@
 
   var module = angular.module('tipo.common');
 
-  return module.directive('tpStateChangeIndicator', function () {
+  // TODO: Sushil - Commenting out this directive till we encapsulate the new progress logic into it
+
+  /*return module.directive('tpStateChangeIndicator', function () {
       return {
         scope: {
           show: '&'
@@ -14,6 +16,6 @@
         templateUrl: 'common/ui/_views/state-change-indicator.tpl.html'
       };
     }
-  );
+  );*/
 
 })();
