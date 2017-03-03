@@ -56,7 +56,6 @@
             mode = 'view';
           }
 
-          console.log(scope.definition);
           scope.mode = mode;
           var widthContainer = angular.element(document.getElementById('content')).prop('offsetWidth') - 16;
 
@@ -102,7 +101,6 @@
           }
 
           scope.performAction = function(action){
-            console.log(action);
             if(mode === 'view' || !action.bulk_select){
               if (mode === 'view') {
                 performSingleAction(action);
@@ -121,15 +119,12 @@
           };
 
           function performResponseActions(message,return_url){
-            console.log('Entered performResponseActions');
             if (!_.isEmpty(return_url) || !_.isUndefined(return_url)) {
-              console.log('Yes state');
               if (!_.isEmpty(message) || !_.isUndefined(message)) {
                 return_url = return_url + '?message=' + message;
               };
               $location.url(return_url);            
             }else{
-                console.log('No state');
                 var toast = $mdToast.tpToast();
                 toast._options.locals = {
                   header: 'Action successfully completed',
@@ -174,7 +169,6 @@
                 tipoRouter.startStateChange();
                 tipoInstanceDataService.performBulkAction(tipo_name, action.name, selected_tipo_ids)
                   .then(function(response){
-                    console.log(response);
                     performResponseActions(response[0].message,response[0].data.return_url);
                     tipoRouter.endStateChange();});
               }

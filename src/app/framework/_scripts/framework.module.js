@@ -122,8 +122,6 @@
         tipo: function (tipoInstanceDataService, tipoManipulationService, parentPromise, $stateParams) {
 
           var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
-          console.log($stateParams);
-          console.log($stateParams.message);
           var filter = {};
           // TODO: Hack - Sushil as this is supposed to work only for applications
           if (perspectiveMetadata.fieldName === 'application') {
@@ -139,8 +137,6 @@
         },
         tipoDefinition: function (tipoDefinitionDataService, tipoManipulationService, tipo, $stateParams) {
           var tipoDefinition = tipoDefinitionDataService.getOne($stateParams.tipo_name).then(function (definition) {
-            console.log("definition");
-            console.log(definition);
             if (!_.isUndefined(definition)) {
               tipoManipulationService.mergeDefinitionAndData(definition, tipo);
             }

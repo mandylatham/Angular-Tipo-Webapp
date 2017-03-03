@@ -65,7 +65,6 @@
     }
 
     function toTipoList(tipoName, parameters, resetPerspective){
-      console.log("entered toTipoList");
       var stateOptions = {reload: 'tipoList'};
       parameters = parameters || {};
       parameters.tipo_name = tipoName;

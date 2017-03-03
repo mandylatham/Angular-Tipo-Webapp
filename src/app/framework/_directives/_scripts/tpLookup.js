@@ -10,10 +10,13 @@
     $scope,
     $mdDialog) {
 
-    $scope.definition = tipoDefinition;
+    var _instance = this;
+    _instance.tiposWithDefinition = tipoDefinition.tiposWithDefinition;
+    _instance.tipoDefinition = tipoDefinition.tipoDefinition;
+    _instance.popup = true;
     $scope.fullscreen = true;
     if ($scope.selectedTipos.length > 0) {
-      _.each($scope.definition, function(tipo){
+      _.each(_instance.tiposWithDefinition, function(tipo){
           _.each($scope.selectedTipos,function(selected){
             if(tipo.key === selected.key){
               tipo.selected = true;
@@ -21,17 +24,17 @@
           })
         });
     };
-    $scope.maximize = function(){
+    _instance.maximize = function(){
       $scope.fullscreen = true;
     };
 
-    $scope.restore = function(){
+    _instance.restore = function(){
       $scope.fullscreen = false;
     };
 
-    $scope.selectObject = function(tipoSelected){
+    _instance.selectTipo = function(tipoSelected,event){
       if (!$scope.isArray) {
-        _.each($scope.definition, function(tipo){
+        _.each(_instance.tiposWithDefinition, function(tipo){
           tipo.selected = false;
           $scope.selectedTipos = [];
         });
@@ -44,11 +47,12 @@
           return tipo.key === tipoSelected.key;
         });
       }
+      event.stopPropagation();
     }
-    $scope.finish = function() {      
+    _instance.finish = function() {      
       $mdDialog.hide($scope.selectedTipos);
     };
-    $scope.cancel = function() {
+    _instance.cancel = function() {
       $mdDialog.cancel();
     };
   }
@@ -188,12 +192,14 @@
             var promise = $mdDialog.show({
               templateUrl: 'framework/_directives/_views/tp-lookup-popup-select.tpl.html',
               controller: TipoObjectDialogController,
+              controllerAs: 'tipoRootController',
               scope: newScope,
               resolve: /*@ngInject*/
               {
                 tipoDefinition: function(tipoDefinitionDataService, tipoManipulationService) {
                   return tipoDefinitionDataService.getOne(scope.tipo_name).then(function(definition){
-                    return tipoManipulationService.mergeDefinitionAndDataArray(definition, scope.tipos, label_field);
+                    var tiposWithDefinition = tipoManipulationService.mergeDefinitionAndDataArray(definition, scope.tipos, label_field);
+                    return {tipoDefinition: definition, tiposWithDefinition: tiposWithDefinition}
                   });
                 }
               },

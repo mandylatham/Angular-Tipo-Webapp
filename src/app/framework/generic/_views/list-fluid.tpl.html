@@ -5,7 +5,7 @@
       <div flex layout="row" layout-padding layout-wrap layout-align="start start" class="data pointer" ng-class="{'selected': tipo.selected}" ng-click="tipoRootController.selectTipo(tipo,$event)">
         <tp:field-container field="field" ng-if="!field._ui.isGroup && !field.hidden && field._value" ng-repeat="field in tipo.value.tipo_fields"/>
       </div>
-      <div flex="none" layout="column" layout-align="center center" class="actions bg">
+      <div flex="none" layout="column" layout-align="center center" class="actions bg" ng-if="!tipoRootController.popup">
         <md-button ng-click="tipoRootController.toDetail(tipo.key)" aria-label="View details">
           <md-tooltip md-direction="left">Details</md-tooltip>
           <md-icon>fullscreen</md-icon>

@@ -21,6 +21,7 @@
     var tipo_name = tipoDefinition.tipo_meta.tipo_name;
 
     _instance.tiposWithDefinition = tipoManipulationService.mergeDefinitionAndDataArray(tipoDefinition,tipos);
+
     _instance.bulkedit = false;
 
     _instance.hasTipos = tipos.length > 0;
@@ -56,7 +57,6 @@
 
     _instance.selectTipo = function(tipo,event){
       tipo.selected = !tipo.selected;
-      console.log(_instance.bulkedit);
       if (_instance.bulkedit) {
         event.stopPropagation();
       }
