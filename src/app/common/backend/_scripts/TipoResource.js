@@ -8,6 +8,7 @@
     securityContextService,
     tipoErrorHandler,
     tipoCache,
+    cognitoService,
     $http,
     $q) {
 
@@ -28,6 +29,11 @@
               httpConfig.cache = tipoCache.getMemory();
             }
           }
+          cognitoService.getUserSession(function(result){
+            console.log(result);
+          }).catch(function(err) {
+            console.error(err);
+          });
           return {
             element: element,
             headers: headers,
@@ -91,11 +97,12 @@
     securityContextService,
     tipoErrorHandler,
     tipoCache,
+    cognitoService,
     $http,
     $q,
     $window) {
 
-    var interceptors = getAllInterceptors(securityContextService, tipoErrorHandler, tipoCache, $http, $q);
+    var interceptors = getAllInterceptors(securityContextService, tipoErrorHandler, tipoCache, cognitoService, $http, $q);
     var location = $window.location;
     var relativeUrl = location.pathname;
     if (_.startsWith(relativeUrl, '/app')) {
@@ -122,6 +129,7 @@
     securityContextService,
     tipoErrorHandler,
     tipoCache,
+    cognitoService,
     $mdMedia,
     $http,
     $q,
@@ -129,7 +137,7 @@
     deviceInformation = $.ua.device;
     var isSmallScreen = $mdMedia('xs');
     deviceInformation.isMobile = isSmallScreen || deviceInformation.type === 'mobile';
-    var factory = Restangular.withConfig(_.partialRight(configureRestangular, securityContextService, tipoErrorHandler, tipoCache, $http, $q, $window));
+    var factory = Restangular.withConfig(_.partialRight(configureRestangular, securityContextService, tipoErrorHandler, tipoCache, cognitoService, $http, $q, $window));
     return factory;
   }
 
