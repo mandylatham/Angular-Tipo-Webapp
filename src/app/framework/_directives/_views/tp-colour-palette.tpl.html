@@ -21,7 +21,7 @@
 		  </div>
 	  </div>
 	   <div layout="row" style="height:200px; margin:1px; text-align:center;">
-		   <div layout="column" md-colors="{background: '{{primary}}-50'}" style="width:50%; height:200px; padding-left:10px; margin:1px; align-content:top; text-align:center;">
+		   <div layout="column" md-colors="{background: '{{primary}}-50'}" flex-xs="50" flex="30" style="height:200px; padding-left:10px; margin:1px; align-content:top; text-align:center;">
 	        <md-button layout="row" layout-align="start center">
 	          <div class="md-list-item-inner">
 	            <md-icon>person</md-icon>
@@ -48,7 +48,7 @@
 	        </md-button>
 	        
 		  </div>
-		   <div layout="column" style="width:50%; height:200px; margin:1px; align-items:center; align-content:center; text-align:center;">
+		   <div layout="column" flex-xs="50" flex="70" style="height:200px; margin:1px; align-items:center; align-content:center; text-align:center;">
 		      <div layout="row">
 		      	<md-button class="md-primary">Cancel</md-button>
 		      </div>
@@ -56,8 +56,7 @@
 	          <md-button md-theme="reverse" class="md-raised md-primary" style="background-color: {{getColor(accent + '-500')}}" >Save</md-button>
 		      </div>
 		      <div layout="row">
-				  <md-button md-theme="reverse" class="md-fab md-primary" md-colors="{background: '{{accent}}-50'}" >
-				    <md-tooltip md-direction="left">Create new</md-tooltip>
+				  <md-button md-theme="reverse" style="z-index:1" class="md-fab md-primary" md-colors="{background: '{{accent}}-500'}" >
 				    <md-icon>create</md-icon>
 				  </md-button>	      
 		      </div>
