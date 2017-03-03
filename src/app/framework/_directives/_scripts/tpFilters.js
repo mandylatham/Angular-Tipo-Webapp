@@ -28,31 +28,32 @@
               tipoRouter.toTipoList(tipo_name);
             }
           };
-          scope.filters = scope.filterslist.filters;
+          scope.filters = _.filter(scope.filterslist.filters,function(filter){ return !filter.hidden });
 
           if($stateParams.filter){
             scope.currentFilters = $stateParams.filter;
-            scope.selectedArray = scope.currentFilters.split("&&");
+            scope.selectedArray = _.filter(scope.filters, 'selected')
           }else{
             scope.selectedArray = [];
           }
 
-          function removeFromCurrentExpression(filter){
-            scope.selectedArray.splice(scope.selectedArray.indexOf(filter.name),1);
-            scope.currentFilters = scope.selectedArray.join("&&");
-          }
+          scope.removeFromCurrentExpression = function(){
+            scope.currentFilters = _.map(scope.selectedArray,'name').join("&&");
+            scope.search();
+          } 
 
           scope.applyFilter = function(filter){
             if (filter.selected) {
-              removeFromCurrentExpression(filter);
+              scope.selectedArray.splice(scope.selectedArray.indexOf(filter),1);
+              scope.removeFromCurrentExpression();
             }else{
               if ($stateParams.filter) {
               scope.currentFilters = scope.currentFilters + "&&" + filter.name;
               }else{
                 scope.currentFilters = filter.name;
               }
+              scope.search();
             }
-            scope.search();
           }
         }
       };

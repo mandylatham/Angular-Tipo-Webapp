@@ -470,15 +470,18 @@
         var filterArray = [];
       }
       var expressionArray = [];
+      console.log(convertToFilterExpression);
       var filters = _.map(tipoFilters, function(each){
         var selected = false;
         if (filterArray.indexOf(each.display_name) != -1 ) {
           selected = true;
           expressionArray.push(each.filter_expression);
         }
+        console.log(each);
         var filter = {
           name: each.display_name,
           expression: each.filter_expression,
+          hidden: each.hidden_,
           selected: selected
         };
         return filter;

@@ -1,12 +1,7 @@
-<div class="tp-field">
-  <div layout="row" layout-wrap layout-align="start center" hide-sm hide-xs>
-    <md-button ng-repeat="each in filters" ng-click="applyFilter(each)" ng-class="{'md-primary md-raised': each.selected}">
-      {{ each.name }}
-    </md-button>
-  </div>
-  <md-menu md-offset="0 -7" hide-gt-sm>
+<div class="tp-field" layout="row">
+  <md-menu md-offset="0 -7" ng-if="filters.length > 0">
     <md-button aria-label="Open demo menu" class="md-primary" ng-click="$mdOpenMenu()">
-        Filters
+       <md-icon>filter_list</md-icon> Filters
     </md-button>
     <md-menu-content width="4">
       <md-menu-item ng-repeat="each in filters">
@@ -16,4 +11,11 @@
       </md-menu-item>
     </md-menu-content>
   </md-menu>
+  <md-chips class="custom-chips" ng-model="selectedArray" md-on-remove="removeFromCurrentExpression()" readonly="true" md-removable="true">
+      <md-chip-template>
+        <em>
+          {{$chip.name}}
+        </em>
+      </md-chip-template>
+  </md-chips>
 </div>

@@ -59,7 +59,6 @@
           console.log(scope.definition);
           scope.mode = mode;
           var widthContainer = angular.element(document.getElementById('content')).prop('offsetWidth') - 16;
-          scope.noOfActions =  Math.floor(widthContainer/200) ;
 
           var tipo_name = scope.definition.tipo_meta.tipo_name;
           var tipo_id;
@@ -83,6 +82,7 @@
                   label: each.display_name,
                   highlight: each.highlight,
                   bulk_select: each.bulk_select,
+                  icon: each.icon,
                   additionalTipo: _.get(each, 'client_dependency.tipo_name')
                 });
               };

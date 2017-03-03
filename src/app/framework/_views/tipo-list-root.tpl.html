@@ -1,21 +1,21 @@
 <div flex layout="column">
   <md-subheader class="md-primary">
-    <div layout="row" layout-align="start start">
-      <div flex></div>
+    <div layout="row" layout-align="space-between center">
+      <div>
+        <tp:filters definition="tipoRootController.tipoDefinition" filterslist="tipoRootController.tipoFilters" ng-if="tipoRootController.hasTipos || tipoRootController.tipoFilters.currentExpression"/>
+      </div>
       <div>
         <tp:actions mode="list" definition="tipoRootController.tipoDefinition" tipos="tipoRootController.tiposWithDefinition" bulkedit="tipoRootController.bulkedit"/>
       </div>
     </div>
   </md-subheader>
-  <md-divider></md-divider>
   <md-button md-theme="reverse" class="md-fab md-primary main" aria-label="Create new"  ng-if="!tipoRootController.tipoDefinition._ui.isSingleton" ng-click="tipoRootController.createNew()">
     <md-tooltip md-direction="left">Create new</md-tooltip>
     <md-icon>create</md-icon>
   </md-button>
-  <div layout-padding>
+  <!-- <div layout-padding>
     <tp:filters definition="tipoRootController.tipoDefinition" filterslist="tipoRootController.tipoFilters" ng-if="tipoRootController.hasTipos || tipoRootController.tipoFilters.currentExpression"/>
-  </div>
-  <md-divider></md-divider>
+  </div> -->
   <div ng-if="!tipoRootController.hasTipos" flex layout="row" layout-align="center center">
     <tp-no-content message="No records found" />
   </div>
