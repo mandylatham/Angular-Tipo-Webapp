@@ -29,11 +29,13 @@
           if(mode === 'edit'){
             fieldTemplate = 'framework/_directives/_views/tp-field-container-edit.tpl.html';
           }else{
-            if(sizing === 3){
+            // TODO: Sushil - Revisit the merit of left-right field orientation in future
+            /*if(sizing === 3){
               fieldTemplate = 'framework/_directives/_views/tp-field-container-view-t-b.tpl.html';
             }else{
               fieldTemplate = 'framework/_directives/_views/tp-field-container-view-l-r.tpl.html';
-            }
+            }*/
+            fieldTemplate = 'framework/_directives/_views/tp-field-container-view.tpl.html';
           }
           scope.fieldTemplate = fieldTemplate;
 

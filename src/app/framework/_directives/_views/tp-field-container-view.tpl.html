@@ -1,0 +1,6 @@
+<dl class="edit" layout="column" layout-align="center stretch" flex="100" flex-gt-sm="{{sizeGtSm}}" flex-gt-md="{{sizeGtMd}}">
+  <dt ng-if="field.display_name">{{field.display_name}} <span ng-if="field.mandatory">*</span></dt>
+  <dd>
+    <tp:field-view field="field"/>
+  </dd>
+</dl>
