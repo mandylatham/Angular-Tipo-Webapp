@@ -14,8 +14,17 @@
 
     function refreshAccesstoken() {
       var deferred = $q.defer();
-      // Refresh access-token logic
-      securityContextService.relogin(deferred);
+      cognitoService.getUserSession(function(result) {
+        var securityContext = {
+          'tokenDetails.access_token': result.getIdToken().getJwtToken(),
+          'loggedInUser': 'user'
+        };
+        securityContextService.saveContext(securityContext);
+        deferred.resolve();
+      }).catch(function(err) {
+        // Refresh access-token logic
+        securityContextService.relogin(deferred);
+      });
       return deferred.promise;
     }
 
@@ -29,11 +38,6 @@
               httpConfig.cache = tipoCache.getMemory();
             }
           }
-          cognitoService.getUserSession(function(result){
-            console.log(result);
-          }).catch(function(err) {
-            console.error(err);
-          });
           return {
             element: element,
             headers: headers,
