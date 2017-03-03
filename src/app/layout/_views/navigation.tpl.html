@@ -22,7 +22,7 @@
               <md-menu-item class="search" ng-if="navigation.perspectiveMenu.menuItems.length > 6">
                 <md-input-container md-no-float>
                   <input ng-model="navigation.perspectiveMenu.searchText" type="search" placeholder="Search ...">
-                </md-menu-item>
+                </md-input-container>
               </md-menu-item>
               <md-menu-item ng-repeat="tipo in navigation.perspectiveMenu.menuItems | filter: navigation.perspectiveMenu.searchText" ng-if="tipo !== navigation.selectedPerspectiveItem">
                 <md-button ng-click="navigation.switchTipoPerspective(tipo)">{{tipo.label}}</md-button>

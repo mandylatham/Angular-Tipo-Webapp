@@ -34,6 +34,9 @@
         if($stateParams.filter){
           activeItem = _.find(menu, {tipo_name: $stateParams.tipo_name, quickFilters: $stateParams.filter});
         }
+        else{
+          activeItem = _.find(menu, function(menuItems){return (menuItems.tipo_name === $stateParams.tipo_name && !menuItems.quickFilters)}); 
+        }
         if(!activeItem){
           activeItem = _.find(menu, {tipo_name: $stateParams.tipo_name});
         }  
