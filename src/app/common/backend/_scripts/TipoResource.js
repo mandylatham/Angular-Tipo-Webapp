@@ -15,6 +15,7 @@
     function refreshAccesstoken() {
       var deferred = $q.defer();
       cognitoService.getUserSession(function(result) {
+        console.log('GetSession', result);
         var securityContext = {
           'tokenDetails.access_token': result.getIdToken().getJwtToken(),
           'loggedInUser': 'user'
@@ -22,6 +23,7 @@
         securityContextService.saveContext(securityContext);
         deferred.resolve();
       }).catch(function(err) {
+        console.log('GetSession error', err);
         // Refresh access-token logic
         securityContextService.relogin(deferred);
       });
