@@ -8,13 +8,23 @@
     securityContextService,
     tipoErrorHandler,
     tipoCache,
+    cognitoService,
     $http,
     $q) {
 
     function refreshAccesstoken() {
       var deferred = $q.defer();
-      // Refresh access-token logic
-      securityContextService.relogin(deferred);
+      cognitoService.getUserSession(function(result) {
+        var securityContext = {
+          'tokenDetails.access_token': result.getIdToken().getJwtToken(),
+          'loggedInUser': 'user'
+        };
+        securityContextService.saveContext(securityContext);
+        deferred.resolve();
+      }).catch(function(err) {
+        // Refresh access-token logic
+        securityContextService.relogin(deferred);
+      });
       return deferred.promise;
     }
 
@@ -91,11 +101,12 @@
     securityContextService,
     tipoErrorHandler,
     tipoCache,
+    cognitoService,
     $http,
     $q,
     $window) {
 
-    var interceptors = getAllInterceptors(securityContextService, tipoErrorHandler, tipoCache, $http, $q);
+    var interceptors = getAllInterceptors(securityContextService, tipoErrorHandler, tipoCache, cognitoService, $http, $q);
     var location = $window.location;
     var relativeUrl = location.pathname;
     if (_.startsWith(relativeUrl, '/app')) {
@@ -122,6 +133,7 @@
     securityContextService,
     tipoErrorHandler,
     tipoCache,
+    cognitoService,
     $mdMedia,
     $http,
     $q,
@@ -129,7 +141,7 @@
     deviceInformation = $.ua.device;
     var isSmallScreen = $mdMedia('xs');
     deviceInformation.isMobile = isSmallScreen || deviceInformation.type === 'mobile';
-    var factory = Restangular.withConfig(_.partialRight(configureRestangular, securityContextService, tipoErrorHandler, tipoCache, $http, $q, $window));
+    var factory = Restangular.withConfig(_.partialRight(configureRestangular, securityContextService, tipoErrorHandler, tipoCache, cognitoService, $http, $q, $window));
     return factory;
   }
 

@@ -25,26 +25,23 @@
     function initSession() {
       var deferred = $q.defer();
       var cognitoUser = userPool.getCurrentUser();
-      if (cognitoUser == null) {
-        return $q.reject('No cached user');
+      if (cognitoUser != null) {
+        cognitoUser.getSession(function(err, result) {
+          if (result) {
+            var logins = {};
+            var loginsKey = 'cognito-idp.' + TIPO_CONSTANTS.COGNITO.REGION + '.amazonaws.com/' + TIPO_CONSTANTS.COGNITO.USER_POOL_ID;
+            logins[loginsKey] = result.getIdToken().getJwtToken();
+            AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+                IdentityPoolId: TIPO_CONSTANTS.COGNITO.IDENTITY_POOL_ID,
+                Logins: logins
+            });
+          }
+        });
       }
-      cognitoUser.getSession(function(err, result) {
-        if (err) {
-          deferred.reject(err);
-          return;
-        }
-        var logins = {};
-        var loginsKey = 'cognito-idp.' + TIPO_CONSTANTS.COGNITO.REGION + '.amazonaws.com/' + TIPO_CONSTANTS.COGNITO.USER_POOL_ID;
-        logins[loginsKey] = result.getIdToken().getJwtToken();
-        AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-            IdentityPoolId: TIPO_CONSTANTS.COGNITO.IDENTITY_POOL_ID,
-            Logins: logins
-        });
-        awsRefresh().then(function(result){
-          deferred.resolve(cognitoUser);
-        }, function(err){
-          deferred.reject(err);
-        });
+      awsRefresh().then(function(result){
+        deferred.resolve(cognitoUser);
+      }, function(err){
+        deferred.reject(err);
       });
       return deferred.promise;
     }
@@ -309,7 +306,8 @@
       resendCode: resendCode,
       verifyCode: verifyCode,
       forgotPassword: forgotPassword,
-      resetPassword: resetPassword
+      resetPassword: resetPassword,
+      getUserSession: getUserSession
     };
   }
 
