@@ -17,8 +17,8 @@
       cognitoService.getUserSession().then(function(result) {
         console.log('GetSession', result);
         var securityContext = {
-          'tokenDetails.access_token': result.getIdToken().getJwtToken(),
-          'loggedInUser': 'user'
+          'tokenDetails.access_token': result.getSignInUserSession().getIdToken().getJwtToken(),
+          'loggedInUser': result.getUsername()
         };
         securityContextService.saveContext(securityContext);
         deferred.resolve();
