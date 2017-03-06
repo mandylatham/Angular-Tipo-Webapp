@@ -196,6 +196,8 @@
             field_name: subTipoFieldName
           });
 
+          var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
+
           var filter = {};
 
           if (perspectiveMetadata.tipoFilter) {
