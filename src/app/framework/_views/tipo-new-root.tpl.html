@@ -4,8 +4,14 @@
       <div layout="row" layout-align="start start">
         <div flex></div>
         <div>
-          <md-button class="md-primary" ng-click="tipoRootController.cancel()">Cancel</md-button>
-          <md-button md-theme="reverse" class="md-raised md-primary" type="submit">Save</md-button>
+          <md-button class="md-primary md-fab md-mini" ng-click="tipoRootController.cancel()">
+            <md-icon>close</md-icon>
+            <md-tooltip md-direction="top">Cancel</md-tooltip>
+          </md-button>
+          <md-button md-theme="reverse" class="md-primary md-fab md-mini" type="submit">
+            <md-icon>done</md-icon>
+            <md-tooltip md-direction="top">Save</md-tooltip>
+          </md-button>
         </div>
       </div>
     </md-subheader>

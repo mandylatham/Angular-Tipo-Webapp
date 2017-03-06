@@ -16,7 +16,7 @@
 
     var _stickyState = {};
     $rootScope.progressbar = ngProgressFactory.createInstance();
-    $rootScope.progressbar.setColor($mdColorUtil.rgbaToHex($mdColors.getThemeColor('accent-500')));
+    $rootScope.progressbar.setColor($mdColorUtil.rgbaToHex($mdColors.getThemeColor('accent-50')));
     // $rootScope.progressbar.setColor('#FFF');
     $rootScope.progressbar.setHeight('3px');
 
