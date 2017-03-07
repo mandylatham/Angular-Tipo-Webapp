@@ -10,7 +10,7 @@
       <div class="actions horizontal" layout="row" layout-align="center center">
         <div ng-if="!group._ui.isArray" layout="row">
           <div flex="none">
-            <md-button class="m0"  ng-if="!(mode === 'edit') && !group.disable_expansion && group._ui.hasValue" ng-click="showDetail()" aria-label="Details">
+            <md-button class="m0"  ng-if="!(mode === 'edit') && !group.disable_expansion" ng-click="showDetail()" aria-label="Details">
               <md-tooltip md-direction="top">Details</md-tooltip>
               <md-icon>fullscreen</md-icon>
             </md-button>

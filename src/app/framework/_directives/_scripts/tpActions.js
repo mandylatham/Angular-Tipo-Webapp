@@ -11,6 +11,7 @@
     $mdDialog) {
 
     $scope.definition = tipoDefinition;
+    $scope.fullscreen = true;
 
     $scope.maximize = function(){
       $scope.fullscreen = true;
