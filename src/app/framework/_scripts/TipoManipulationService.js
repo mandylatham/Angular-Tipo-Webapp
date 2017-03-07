@@ -159,7 +159,8 @@
         tiposWithDefinition.push({
           key: tipo.tipo_id,
           value: clonedDefinition,
-          label : tipo[label_field]
+          label : tipo[label_field],
+          perm: tipo.perm
         });
       });
       return tiposWithDefinition

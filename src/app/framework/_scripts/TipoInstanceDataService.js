@@ -14,6 +14,7 @@
 
     function unwrapAndSort(collection){
       collection = _.filter(collection, function(each){
+        each.data.perm = each.perm
         return !_.isUndefined(each.data.tipo_id);
       });
       collection = _.map(collection, function(each){
@@ -41,6 +42,7 @@
     }
 
     function getDocumentResource(tipo_name, id){
+      var data = getCollectionResource(tipo_name).one(id)
       return getCollectionResource(tipo_name).one(id);
     }
 

@@ -21,7 +21,8 @@
     var tipo_name = tipoDefinition.tipo_meta.tipo_name;
 
     _instance.tiposWithDefinition = tipoManipulationService.mergeDefinitionAndDataArray(tipoDefinition,tipos);
-
+    console.log("_instance.tiposWithDefinition");
+    console.log(_instance.tiposWithDefinition);
     _instance.bulkedit = false;
 
     _instance.hasTipos = tipos.length > 0;

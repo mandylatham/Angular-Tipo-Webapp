@@ -69,6 +69,9 @@
           if (rawData && rawData.response) {
             return rawData.response;
           } else if (rawData && rawData.data) {
+            if(rawData.perm && _.isUndefined(rawData.data.length)){
+              rawData.data.perm = rawData.perm;
+            }
             return rawData.data;
           } else {
             return rawData;

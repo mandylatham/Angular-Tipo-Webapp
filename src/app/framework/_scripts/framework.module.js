@@ -129,6 +129,8 @@
           }
 
           var tipo = tipoInstanceDataService.getOne($stateParams.tipo_name, $stateParams.tipo_id, filter).then(function (data) {
+            console.log("data");
+            console.log(data);
             data.tipo_id = data.tipo_id || $stateParams.tipo_id;
             return data;
           });
