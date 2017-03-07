@@ -3,9 +3,9 @@
     Bulk Actions
   </md-switch> -->
   <div ng-if="(mode === 'list') || mode === 'view' " layout="row" layout-align="center center">
-    <md-button ng-repeat="action in actions | filter:{highlight: true}" aria-label="action.label" ng-click="performAction(action)" ng-class="{'md-fab md-mini': action.icon}" class="md-raised md-primary">
+    <md-button md-theme="reverse" ng-repeat="action in actions | filter:{highlight: true}" aria-label="action.label" ng-click="performAction(action)" ng-class="{'md-fab md-mini': action.icon}" class="md-raised md-primary">
     <md-icon ng-if="action.icon">{{action.icon | limitTo : 20 : 3}}</md-icon>
-    <md-tooltip ng-if="action.icon" md-direction="left">{{action.label}}</md-tooltip>
+    <md-tooltip ng-if="action.icon" md-direction="top">{{action.label}}</md-tooltip>
       <span ng-if="!action.icon">{{action.label}}</span>
     </md-button>
     <md-menu ng-if="actions.length > 0">
@@ -15,8 +15,8 @@
       <md-menu-content width="4">
         <md-menu-item ng-repeat="action in actions | filter:{highlight: '!true'}">
           <md-button ng-click="performAction(action)">
-            <md-icon ng-if="action.icon">{{action.icon | limitTo : 20 : 3}}</md-icon>
-            {{action.label}}
+          <md-icon  md-theme="reverse" class="md-primary" ng-if="action.icon">{{action.icon | limitTo : 20 : 3}}</md-icon>
+          {{action.label}}
           </md-button>
         </md-menu-item>
       </md-menu-content>

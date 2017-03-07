@@ -3,8 +3,14 @@
     <div layout="row" layout-align="start start">
       <div flex></div>
       <div>
-        <md-button class="md-primary" ng-click="tipoRootController.delete()" ng-if="!tipoRootController.tipoDefinition._ui.isSingleton">Delete</md-button>
-        <md-button md-theme="reverse" class="md-raised md-primary" ng-click="tipoRootController.edit()">Edit</md-button>
+        <md-button class="md-primary md-fab md-mini" ng-click="tipoRootController.delete()" ng-if="!tipoRootController.tipoDefinition._ui.isSingleton">
+          <md-icon>delete</md-icon>
+          <md-tooltip md-direction="top">Delete</md-tooltip>
+        </md-button>
+        <md-button md-theme="reverse" class="md-primary md-fab md-mini" ng-click="tipoRootController.edit()">
+          <md-icon>border_color</md-icon>
+          <md-tooltip md-direction="top">Edit</md-tooltip>
+        </md-button>
       </div>
       <tp:actions definition="tipoRootController.tipoDefinition" tipos="tipoRootController.tipo"/>
     </div>

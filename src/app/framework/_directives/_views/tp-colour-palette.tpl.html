@@ -50,13 +50,19 @@
 		  </div>
 		   <div layout="column" flex-xs="50" flex="70" style="height:200px; margin:1px; align-items:center; align-content:center; text-align:center;">
 		      <div layout="row">
-		      	<md-button class="md-primary">Cancel</md-button>
+		      	<md-button class="md-primary md-fab md-mini">
+			      <md-icon>close</md-icon>
+	              <md-tooltip md-direction="top">Cancel</md-tooltip>
+		      	</md-button>
 		      </div>
 		      <div layout="row">
-	          <md-button md-theme="reverse" class="md-raised md-primary" style="background-color: {{getColor(accent + '-500')}}" >Save</md-button>
+	          <md-button md-theme="reverse" class="md-fab md-mini md-primary" style="background-color: {{getColor(accent + '-500')}}" >
+	          	<md-icon>done</md-icon>
+            	<md-tooltip md-direction="top">Save</md-tooltip>
+	      	  </md-button>
 		      </div>
 		      <div layout="row">
-				  <md-button md-theme="reverse" style="z-index:1" class="md-fab md-primary" md-colors="{background: '{{accent}}-500'}" >
+				  <md-button style="z-index:1" class="md-fab md-primary" md-colors="{background: '{{accent}}-500'}" >
 				    <md-icon>create</md-icon>
 				  </md-button>	      
 		      </div>
