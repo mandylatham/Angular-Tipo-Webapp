@@ -114,7 +114,8 @@
         onSuccess: function (result) {
           console.log('Identity token: ', result.getIdToken().getJwtToken());
           var securityContext = {
-            'tokenDetails.access_token': result.getIdToken().getJwtToken(),
+            'tokenDetails.id_token': result.getIdToken().getJwtToken(),
+            'tokenDetails.access_token': result.getAccessToken().getJwtToken(),
             'loggedInUser': username
           };
           securityContextService.saveContext(securityContext);

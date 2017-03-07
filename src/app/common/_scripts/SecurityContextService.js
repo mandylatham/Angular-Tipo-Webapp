@@ -40,6 +40,10 @@
       return getCurrentContext('tokenDetails.access_token');
     };
 
+    this.getCurrentIdToken = function() {
+      return getCurrentContext('tokenDetails.id_token');
+    };
+
     this.relogin = function(deferred){
       _instance.clearContext();
       tipoRouter.to('login', false, {'retry': deferred});

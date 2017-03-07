@@ -30,15 +30,15 @@
 
     _instance.finish = function() {
       var tipoData = _instance.tipo;
-      if(_.isEmpty(tipoData)){
-        tipoManipulationService.extractDataFromMergedDefinition(tipoDefinition, tipoData);
-      }else{
-        if(_instance.hooks.preFinish){
-          var result = _instance.hooks.preFinish();
-          if(!result){
-            return;
-          }
+      if(_instance.hooks.preFinish){
+        var result = _instance.hooks.preFinish();
+        if(!result){
+          return;
         }
+        tipoData = _instance.data;
+      }
+      if(_.isEmpty(tipoData)) {
+        tipoManipulationService.extractDataFromMergedDefinition(tipoDefinition, tipoData);
       }
       $mdDialog.hide(tipoData);
     };

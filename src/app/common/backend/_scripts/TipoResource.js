@@ -18,6 +18,7 @@
         console.log('GetSession', result);
         var securityContext = {
           'tokenDetails.access_token': result.getSignInUserSession().getIdToken().getJwtToken(),
+          'tokenDetails.accessTokenMain': result.getSignInUserSession().getAccessToken().getJwtToken(),
           'loggedInUser': result.getUsername()
         };
         securityContextService.saveContext(securityContext);
@@ -48,7 +49,7 @@
           };
         },
         security: function (element, operation, route, url, headers, params, httpConfig) {
-          var accessToken = securityContextService.getCurrentAccessToken();
+          var accessToken = securityContextService.getCurrentIdToken();
           if (!_.isUndefined(accessToken)) {
             headers = _.extend(headers, {
               'Authorization': accessToken
@@ -83,7 +84,7 @@
           if (response.status === 401) {
             refreshAccesstoken().then(function () {
               // Repeat the request and then call the handlers the usual way.
-              response.config.headers.Authorization = securityContextService.getCurrentAccessToken();
+              response.config.headers.Authorization = securityContextService.getCurrentIdToken();
               $http(response.config).then(responseHandler, deferred.reject);
               // Be aware that no request interceptors are called this way.
             });
