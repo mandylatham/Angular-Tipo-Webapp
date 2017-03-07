@@ -18,6 +18,8 @@
 
     _instance.tipo = {};
 
+    _instance.hooks = {};
+
     _instance.maximize = function(){
       _instance.fullscreen = true;
     };
@@ -30,6 +32,13 @@
       var tipoData = _instance.tipo;
       if(_.isEmpty(tipoData)){
         tipoManipulationService.extractDataFromMergedDefinition(tipoDefinition, tipoData);
+      }else{
+        if(_instance.hooks.preFinish){
+          var result = _instance.hooks.preFinish();
+          if(!result){
+            return;
+          }
+        }
       }
       $mdDialog.hide(tipoData);
     };
