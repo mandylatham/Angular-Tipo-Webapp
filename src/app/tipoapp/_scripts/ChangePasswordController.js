@@ -11,7 +11,7 @@
 
     hooks.preFinish = function() {
       $scope.tipoRootController.data = {
-        accessToken: securityContextService.getAccessToken(),
+        accessToken: securityContextService.getCurrentAccessToken(),
         oldPassword: _instance.data.oldPassword,
         newPassword: _instance.data.newPassword,
         username: securityContextService.getCurrentUser()
