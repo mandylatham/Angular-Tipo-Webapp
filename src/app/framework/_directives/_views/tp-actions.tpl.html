@@ -9,17 +9,17 @@
       <span ng-if="!action.icon">{{action.label}}</span>
     </md-button>
     <md-menu ng-if="actions.length > 0">
-          <md-button class="md-icon-button" ng-click="openMenu($mdOpenMenu,$event)">
-            <md-icon md-menu-origin>more_vert</md-icon>
+      <md-button class="md-icon-button" ng-click="openMenu($mdOpenMenu,$event)">
+        <md-icon md-menu-origin>more_vert</md-icon>
+      </md-button>
+      <md-menu-content width="4">
+        <md-menu-item ng-repeat="action in actions | filter:{highlight: '!true'}">
+          <md-button ng-click="performAction(action)">
+          <md-icon  md-theme="reverse" class="md-primary" ng-if="action.icon">{{action.icon | limitTo : 20 : 3}}</md-icon>
+          {{action.label}}
           </md-button>
-          <md-menu-content width="4">
-            <md-menu-item ng-repeat="action in actions | filter:{highlight: '!true'}">
-              <md-button ng-click="performAction(action)">
-              <md-icon  md-theme="reverse" class="md-primary" ng-if="action.icon">{{action.icon | limitTo : 20 : 3}}</md-icon>
-              {{action.label}}
-              </md-button>
-            </md-menu-item>
-          </md-menu-content>
+        </md-menu-item>
+      </md-menu-content>
     </md-menu>
   </div>
   <div ng-if="bulkedit">

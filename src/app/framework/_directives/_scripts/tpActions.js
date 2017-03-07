@@ -6,27 +6,37 @@
 
   function TipoActionDialogController(
     tipoDefinition,
+    tipoAction,
     tipoManipulationService,
-    $scope,
     $mdDialog) {
 
     $scope.definition = tipoDefinition;
     $scope.fullscreen = true;
+    
+    var _instance = this;
+    _instance.tipoDefinition = tipoDefinition;
 
-    $scope.maximize = function(){
-      $scope.fullscreen = true;
+    _instance.tipoAction = tipoAction;
+
+    _instance.tipo = {};
+
+    _instance.maximize = function(){
+      _instance.fullscreen = true;
     };
 
-    $scope.restore = function(){
-      $scope.fullscreen = false;
+    _instance.restore = function(){
+      _instance.fullscreen = false;
     };
 
-    $scope.finish = function() {
-      var tipoData = {};
-      tipoManipulationService.extractDataFromMergedDefinition(tipoDefinition, tipoData);
+    _instance.finish = function() {
+      var tipoData = _instance.tipo;
+      if(_.isEmpty(tipoData)){
+        tipoManipulationService.extractDataFromMergedDefinition(tipoDefinition, tipoData);
+      }
       $mdDialog.hide(tipoData);
     };
-    $scope.cancel = function() {
+
+    _instance.cancel = function() {
       $mdDialog.cancel();
     };
   }
@@ -178,15 +188,18 @@
 
           function openAdditionalTipoDialog(tipo_name, action){
             var newScope = scope.$new();
-            newScope.tipoAction = action;
             var promise = $mdDialog.show({
               templateUrl: 'framework/_directives/_views/tp-action-dialog.tpl.html',
               controller: TipoActionDialogController,
+              controllerAs: 'tipoRootController',
               scope: newScope,
               resolve: /*@ngInject*/
               {
                 tipoDefinition: function(tipoDefinitionDataService, tipoManipulationService) {
                   return tipoDefinitionDataService.getOne(tipo_name);
+                },
+                tipoAction: function(){
+                  return action;
                 }
               },
               skipHide: true,
