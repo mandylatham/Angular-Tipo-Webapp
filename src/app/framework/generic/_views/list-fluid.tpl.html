@@ -1,6 +1,6 @@
 <div class="tp-list">
   <div class="fluid-row-container">
-    <div layout="row" tp:perm ng-click="tipoRootController.toDetail(tipo.key)" ng-repeat="tipo in tipoRootController.tiposWithDefinition" class="fluid-row" md-whiteframe="2">
+    <div layout="row" tp:perm ng-click="!tipo.disableclick && tipoRootController.toDetail(tipo.key)" ng-repeat="tipo in tipoRootController.tiposWithDefinition" class="fluid-row" md-whiteframe="2">
       <md-checkbox ng-if="tipoRootController.bulkedit" ng-model="tipo.selected" ng-click="$event.stopPropagation();" id="listcheckbox"></md-checkbox>
       <div flex layout="row" layout-padding layout-wrap layout-align="start start" class="data pointer" ng-class="{'selected': tipo.selected}" ng-click="!tipo.disableclick && tipoRootController.selectTipo(tipo,$event)">
         <tp:field-container field="field" ng-if="!field._ui.isGroup && !field.hidden && field._value" ng-repeat="field in tipo.value.tipo_fields"/>

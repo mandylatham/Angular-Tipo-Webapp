@@ -8,7 +8,7 @@
     <md-tooltip ng-if="action.icon" md-direction="top">{{action.label}}</md-tooltip>
       <span ng-if="!action.icon">{{action.label}}</span>
     </md-button>
-    <md-menu ng-if="actions.length > 0">
+    <md-menu ng-if="(actions | filter:{highlight: '!true'}).length > 0">
       <md-button class="md-icon-button" ng-click="openMenu($mdOpenMenu,$event)">
         <md-icon md-menu-origin>more_vert</md-icon>
       </md-button>
@@ -23,11 +23,21 @@
     </md-menu>
   </div>
   <div ng-if="bulkedit">
-    <md-button ng-click="performAction(selectedAction)" class="md-raised md-primary">
-      Process
+    <md-button ng-click="selectall()" class="md-fab md-mini md-primary">
+      <md-tooltip md-direction="top">Select All</md-tooltip>
+      <md-icon>done_all</md-icon>
     </md-button>
-    <md-button ng-click="updateBulkEdit()" class="md-raised md-primary">
-      Cancel
+    <md-button ng-click="deselectall()" class="md-fab md-mini md-primary">
+      <md-tooltip md-direction="top">Deselect All</md-tooltip>
+      <md-icon>delete_sweep</md-icon>
+    </md-button>
+    <md-button ng-click="performAction(selectedAction)" class="md-fab md-mini md-primary">
+      <md-tooltip md-direction="top">Process</md-tooltip>
+      <md-icon>play_arrow</md-icon>
+    </md-button>
+    <md-button ng-click="updateBulkEdit()" class="md-fab md-mini md-primary">
+      <md-tooltip md-direction="top">Cancel</md-tooltip>
+      <md-icon>close</md-icon>
     </md-button>
   </div>
 </div>

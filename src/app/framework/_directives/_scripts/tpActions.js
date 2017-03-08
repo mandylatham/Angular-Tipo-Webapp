@@ -138,6 +138,18 @@
             }
           };
 
+          scope.selectall = function(){
+            _.map(scope.tipos,function(tipo){
+              tipo.selected = true;
+            });
+          }
+
+          scope.deselectall = function(){
+            _.map(scope.tipos,function(tipo){
+              tipo.selected = false;
+            });
+          }
+
           function performResponseActions(message,return_url){
             if (!_.isEmpty(return_url) || !_.isUndefined(return_url)) {
               if (!_.isEmpty(message) || !_.isUndefined(message)) {
