@@ -1,8 +1,8 @@
 <div class="p-8">
 	<section class="fieldset no-header fluid-row-container">
 		<div class="data" layout-padding layout="row" layout-wrap layout-align="start start">
-			<tp:field-container root="root" context="definition" field="field" mode="{{mode}}" ng-repeat="field in definition.tipo_fields" ng-if="field._ui.isSimple && !field.hidden && (mode === 'edit' || field._value)"/>
+			<tp:field-container root="root" context="definition" field="field" mode="{{mode}}" ng-repeat="field in definition.tipo_fields" ng-if="field._ui.isSimple && !field.hidden_ && (mode === 'edit' || field._value)"/>
 		</div>
 	</section>
-	<tp:group-container root="root" context="definition" group="field" ng-repeat="field in definition.tipo_fields" ng-if="field._ui.isGroup"/>
+	<tp:group-container root="root" context="definition" group="field" ng-repeat="field in definition.tipo_fields" ng-if="field._ui.isGroup && !field.hidden_"/>
 </div>

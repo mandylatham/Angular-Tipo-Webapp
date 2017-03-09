@@ -3,33 +3,77 @@
     Bulk Actions
   </md-switch> -->
   <div ng-if="(mode === 'list') || mode === 'view' " layout="row" layout-align="center center">
-    <md-button md-theme="reverse" ng-repeat="action in actions | filter:{highlight: true}" aria-label="action.label" ng-click="performAction(action)" ng-class="{'md-fab md-mini': action.icon}" class="md-raised md-primary">
-    <md-icon ng-if="action.icon">{{action.icon | limitTo : 20 : 3}}</md-icon>
+    <div ng-if="bulkedit">
+      <md-button ng-click="selectall()" class="md-fab md-mini md-primary">
+        <md-tooltip md-direction="top">Select All</md-tooltip>
+        <md-icon>check_box</md-icon>
+      </md-button>
+      <md-button ng-click="deselectall()" class="md-fab md-mini md-primary">
+        <md-tooltip md-direction="top">Deselect All</md-tooltip>
+        <md-icon>check_box_outline_blank</md-icon>
+      </md-button>
+      <md-button ng-click="performAction(selectedAction)" class="md-fab md-mini md-primary">
+        <md-tooltip md-direction="top">Process</md-tooltip>
+        <md-icon>play_arrow</md-icon>
+      </md-button>
+      <md-button ng-click="updateBulkEdit()" class="md-fab md-mini md-primary">
+        <md-tooltip md-direction="top">Cancel</md-tooltip>
+        <md-icon>close</md-icon>
+      </md-button>
+    </div>
+    <md-button hide-xs md-theme="reverse" ng-repeat="action in actions | filter:{highlight: true}" aria-label="action.label" ng-click="performAction(action)" ng-class="{'md-fab md-mini': action.icon}" class="md-raised md-primary">
+    <md-icon ng-if="action.icon">{{action.icon}}</md-icon>
     <md-tooltip ng-if="action.icon" md-direction="top">{{action.label}}</md-tooltip>
       <span ng-if="!action.icon">{{action.label}}</span>
     </md-button>
-    <md-menu ng-if="(actions | filter:{highlight: '!true'}).length > 0">
+    <md-menu hide-xs ng-if="(actions | filter:{highlight: '!true'}).length > 0">
       <md-button class="md-icon-button" ng-click="openMenu($mdOpenMenu,$event)">
         <md-icon md-menu-origin>more_vert</md-icon>
       </md-button>
       <md-menu-content width="4">
         <md-menu-item ng-repeat="action in actions | filter:{highlight: '!true'}">
           <md-button ng-click="performAction(action)">
-          <md-icon  md-theme="reverse" class="md-primary" ng-if="action.icon">{{action.icon | limitTo : 20 : 3}}</md-icon>
+          <md-icon  md-theme="reverse" class="md-primary" ng-if="action.icon">{{action.icon}}</md-icon>
           {{action.label}}
           </md-button>
         </md-menu-item>
       </md-menu-content>
     </md-menu>
+    <!-- <md-menu hide-gt-xs>
+      <md-button class="md-primary" ng-click="openMenu($mdOpenMenu,$event)">
+        Actions<md-icon md-menu-origin>dns</md-icon>
+      </md-button>
+      <md-menu-content width="4">
+        <md-menu-item ng-repeat="action in actions">
+          <md-button ng-click="performAction(action)">
+          <md-icon  md-theme="reverse" class="md-primary" ng-if="action.icon">{{action.icon}}</md-icon>
+          {{action.label}}
+          </md-button>
+        </md-menu-item>
+      </md-menu-content>
+    </md-menu> -->
+    <md-fab-speed-dial hide-gt-xs md-open="isOpen" md-direction="down" class="md-scale">
+        <md-fab-trigger>
+          <md-button aria-label="menu" class="md-primary">
+            Actions<md-icon>dns</md-icon>
+          </md-button>
+        </md-fab-trigger>
+
+        <md-fab-actions ng-if="isOpen">
+          <md-button aria-label="Twitter" class="md-fab md-raised md-mini" ng-repeat="action in actions" ng-click="performAction(action)">
+            <md-icon>{{action.icon}}</md-icon>
+          </md-button>
+        </md-fab-actions>
+    </md-fab-speed-dial>
   </div>
-  <div ng-if="bulkedit">
+  <!-- <div ng-if="bulkedit">
     <md-button ng-click="selectall()" class="md-fab md-mini md-primary">
       <md-tooltip md-direction="top">Select All</md-tooltip>
-      <md-icon>done_all</md-icon>
+      <md-icon>check_box</md-icon>
     </md-button>
     <md-button ng-click="deselectall()" class="md-fab md-mini md-primary">
       <md-tooltip md-direction="top">Deselect All</md-tooltip>
-      <md-icon>delete_sweep</md-icon>
+      <md-icon>check_box_outline_blank</md-icon>
     </md-button>
     <md-button ng-click="performAction(selectedAction)" class="md-fab md-mini md-primary">
       <md-tooltip md-direction="top">Process</md-tooltip>
@@ -39,5 +83,5 @@
       <md-tooltip md-direction="top">Cancel</md-tooltip>
       <md-icon>close</md-icon>
     </md-button>
-  </div>
+  </div> -->
 </div>

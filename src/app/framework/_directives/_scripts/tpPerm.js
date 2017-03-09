@@ -8,9 +8,6 @@
     return {
       restrict: 'A',
       link: function (scope, element, attrs) {
-        console.log("enetered tpPerm");
-        console.log(scope);
-        console.log(scope.tipo);
         if (scope.tipo) {
           var perm = scope.tipo.perm;
           if (perm.substr(0,1) === '0'){
