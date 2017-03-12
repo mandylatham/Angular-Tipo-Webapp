@@ -87,7 +87,7 @@
         link: function(scope, element, attrs){
 
           var mode = scope.mode;
-          scope.isOpen = false;
+          scope.action= {isOpen: false};
           if(!mode){
             mode = 'view';
           }
@@ -174,18 +174,6 @@
             });
           }
 
-          scope.$watch('isOpen', function(newVal, oldVal) {
-            console.log(newVal);
-            console.log(oldVal);
-            if (newVal) {
-              $timeout(function() {
-                scope.tooltip = scope.isOpen;
-              }, 600);
-            } else {
-              scope.tooltip = scope.isOpen;
-            }
-          }, true);
-
           function performResponseActions(message,return_url){
             if (!_.isEmpty(return_url) || !_.isUndefined(return_url)) {
               if (!_.isEmpty(message) || !_.isUndefined(message)) {
@@ -259,6 +247,16 @@
             });
             return promise;
           }
+
+          scope.$watch('action.isOpen', function(newVal, oldVal) {
+            if (newVal) {
+              $timeout(function() {
+                scope.tooltip = scope.action.isOpen;
+              }, 600);
+            } else {
+              scope.tooltip = scope.action.isOpen;
+            }
+          }, true);
 
         }
       };
