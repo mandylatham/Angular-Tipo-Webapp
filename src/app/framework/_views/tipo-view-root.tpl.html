@@ -8,11 +8,13 @@
           <md-tooltip md-direction="top">Delete</md-tooltip>
         </md-button>
         <md-button md-theme="reverse" class="md-primary md-fab md-mini" ng-if="!disableedit" ng-click="tipoRootController.edit()">
-          <md-icon>border_color</md-icon>
+          <md-icon>edit</md-icon>
           <md-tooltip md-direction="top">Edit</md-tooltip>
         </md-button>
       </div>
-      <tp:actions definition="tipoRootController.tipoDefinition" tipos="tipoRootController.tipo"/>
+      <div>
+        <tp:actions definition="tipoRootController.tipoDefinition" tipos="tipoRootController.tipo"/>
+      </div>
     </div>
   </md-subheader>
   <md-card class="tp-detail page">

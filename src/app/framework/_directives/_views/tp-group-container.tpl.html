@@ -24,7 +24,7 @@
           <div flex="none">
             <md-button class="m0"  ng-if="mode === 'edit' && !group.disable_expansion" ng-click="showDetail()" aria-label="Edit">
               <md-tooltip md-direction="top">Edit</md-tooltip>
-              <md-icon>edit</md-icon>
+              <md-icon>launch</md-icon>
             </md-button>
           </div>
         </div>
@@ -69,7 +69,7 @@
         </div>
         <md-button ng-click="showDetail(groupItem)" ng-if="!group.disable_expansion" aria-label="Edit" class="md-icon-button">
           <md-tooltip md-direction="left">Edit</md-tooltip>
-          <md-icon>edit</md-icon>
+          <md-icon>launch</md-icon>
         </md-button>
         <md-button ng-click="deleteItem(groupItem, group)" aria-label="Delete" class="md-icon-button">
           <md-tooltip md-direction="left">Delete</md-tooltip>

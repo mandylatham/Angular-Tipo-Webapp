@@ -2,15 +2,11 @@
 <!--   <md-switch ng-if="mode === 'list' && actions.length > 0" ng-click="updateBulkEdit()" md-invert aria-label="Bulk Edit Switch">
     Bulk Actions
   </md-switch> -->
-  <div ng-if="(mode === 'list') || mode === 'view' " layout="row" layout-align="center center">
+  <div ng-if="(mode === 'list') || mode === 'view' " layout="row" layout-align="center center" layout-align-xs="end start" layout-wrap>
     <div ng-if="bulkedit">
       <md-button ng-click="selectall()" class="md-fab md-mini md-primary">
-        <md-tooltip md-direction="top">Select All</md-tooltip>
-        <md-icon>check_box</md-icon>
-      </md-button>
-      <md-button ng-click="deselectall()" class="md-fab md-mini md-primary">
-        <md-tooltip md-direction="top">Deselect All</md-tooltip>
-        <md-icon>check_box_outline_blank</md-icon>
+        <md-tooltip md-direction="top">{{tooltip}}</md-tooltip>
+        <md-icon>{{icon}}</md-icon>
       </md-button>
       <md-button ng-click="performAction(selectedAction)" class="md-fab md-mini md-primary">
         <md-tooltip md-direction="top">Process</md-tooltip>
@@ -21,12 +17,12 @@
         <md-icon>close</md-icon>
       </md-button>
     </div>
-    <md-button hide-xs md-theme="reverse" ng-repeat="action in actions | filter:{highlight: true}" aria-label="action.label" ng-click="performAction(action)" ng-class="{'md-fab md-mini': action.icon}" class="md-raised md-primary">
+    <md-button hide-xs md-theme="reverse" ng-repeat="action in actions | filter:{highlight: true}" aria-label="action.label" ng-click="performAction(action)" ng-class="{'md-fab md-mini': action.icon}" class="md-raised md-primary" ng-if="!bulkedit">
     <md-icon ng-if="action.icon">{{action.icon}}</md-icon>
     <md-tooltip ng-if="action.icon" md-direction="top">{{action.label}}</md-tooltip>
       <span ng-if="!action.icon">{{action.label}}</span>
     </md-button>
-    <md-menu hide-xs ng-if="(actions | filter:{highlight: '!true'}).length > 0">
+    <md-menu hide-xs ng-if="(actions | filter:{highlight: '!true'}).length > 0" ng-if="!bulkedit">
       <md-button class="md-icon-button" ng-click="openMenu($mdOpenMenu,$event)">
         <md-icon md-menu-origin>more_vert</md-icon>
       </md-button>
@@ -52,16 +48,20 @@
         </md-menu-item>
       </md-menu-content>
     </md-menu> -->
-    <md-fab-speed-dial hide-gt-xs md-open="isOpen" md-direction="down" class="md-scale">
+    <md-button hide-gt-xs aria-label="menu" ng-click="triggeractions()" class="md-primary md-fab md-mini">
+      <md-icon>dns</md-icon>
+    </md-button>
+    <md-fab-speed-dial hide-gt-xs md-open="isOpen" md-direction="down" class="md-scale md-fab-top-right" ng-if="!bulkedit">
         <md-fab-trigger>
-          <md-button aria-label="menu" class="md-primary">
-            Actions<md-icon>dns</md-icon>
+          <md-button id="actionmob" aria-label="menu" class="md-fab md-warn" style="display:none;">
+            <md-icon>dns</md-icon>
           </md-button>
         </md-fab-trigger>
-
-        <md-fab-actions ng-if="isOpen">
-          <md-button aria-label="Twitter" class="md-fab md-raised md-mini" ng-repeat="action in actions" ng-click="performAction(action)">
-            <md-icon>{{action.icon}}</md-icon>
+        <md-fab-actions>
+          <md-button class="md-fab md-raised md-mini" ng-repeat="action in actions" ng-click="performAction(action)">
+            <md-icon ng-if="action.icon">{{action.icon}}</md-icon>
+            <md-icon ng-if="!action.icon">arrow_back</md-icon>
+            <md-tooltip md-direction="left" md-visible="tooltip">{{action.label}}</md-tooltip>
           </md-button>
         </md-fab-actions>
     </md-fab-speed-dial>

@@ -72,6 +72,7 @@
     $mdMedia,
     $window,
     $mdToast,
+    $timeout,
     $location) {
       return {
         scope: {
@@ -92,7 +93,6 @@
           }
 
           scope.mode = mode;
-          var widthContainer = angular.element(document.getElementById('content')).prop('offsetWidth') - 16;
 
           var tipo_name = scope.definition.tipo_meta.tipo_name;
           var tipo_id;
@@ -126,6 +126,7 @@
           }
 
           scope.actions = prepareActions();
+          scope.tooltip = false;
 
           scope.openMenu = function(menuOpenFunction, event) {
             menuOpenFunction(event);
@@ -133,6 +134,10 @@
 
           scope.updateBulkEdit = function(){
             scope.bulkedit = !scope.bulkedit;
+          }
+
+          scope.triggeractions = function(){
+            angular.element('#actionmob').trigger('click');
           }
 
           scope.performAction = function(action){
@@ -152,18 +157,34 @@
               
             }
           };
-
+          scope.selectedall = false;
+          scope.icon = "check_box";
+          scope.tooltip = "Select All";
           scope.selectall = function(){
+            scope.selectedall = !scope.selectedall;
+            if (!scope.selectedall) {
+              scope.icon = "check_box_outline_blank";
+              scope.tooltip = "Select All";
+            }else{
+              scope.icon = "check_box";
+              scope.tooltip = "Deselect All";
+            }
             _.map(scope.tipos,function(tipo){
-              tipo.selected = true;
+              tipo.selected = scope.selectedall;
             });
           }
 
-          scope.deselectall = function(){
-            _.map(scope.tipos,function(tipo){
-              tipo.selected = false;
-            });
-          }
+          scope.$watch('isOpen', function(newVal, oldVal) {
+            console.log(newVal);
+            console.log(oldVal);
+            if (newVal) {
+              $timeout(function() {
+                scope.tooltip = scope.isOpen;
+              }, 600);
+            } else {
+              scope.tooltip = scope.isOpen;
+            }
+          }, true);
 
           function performResponseActions(message,return_url){
             if (!_.isEmpty(return_url) || !_.isUndefined(return_url)) {
@@ -238,7 +259,6 @@
             });
             return promise;
           }
-
 
         }
       };
