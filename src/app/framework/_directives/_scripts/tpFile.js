@@ -154,28 +154,24 @@
 
               $scope.upload = function () {
                 if($scope.content.length > 0){
-                  $scope.uploadStatus = 'in_progress';
                   var file = $scope.content[0].lfFile;
-                  /*var data = new FormData();
-                  data.append('file', file);
-                  tipoResource
-                  .oneUrl('content', $scope.finalPath)
-                  .customPUT(data, '', undefined, {'Content-Type': undefined})
-                  .then(function(result){
-                    $scope.uploadStatus = 'completed';
-                  });*/
-
+                  $scope.uploadStatus = 'in_progress';
                    var reader = new FileReader();
                    reader.onload = function(readerEvt) {
                     var binaryString = readerEvt.target.result;
                     var base64Encoded = btoa(binaryString);
+                    var data = {
+                      'File-Content': base64Encoded
+                    };
+
                     tipoResource
                     .oneUrl('content', $scope.finalPath)
-                    .customPUT(base64Encoded, '', undefined, {'Content-Type': undefined, 'isBase64Encoded': true})
+                    .customPUT(data, '', undefined)
                     .then(function(result){
                       $scope.uploadStatus = 'completed';
-                    })
-                   };
+                    });
+                   }
+                    
                    reader.readAsBinaryString(file);
                 }
               }
