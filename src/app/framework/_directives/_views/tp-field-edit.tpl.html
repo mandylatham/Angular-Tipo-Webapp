@@ -44,11 +44,16 @@
         </span>
       </span>
       <span ng-if="isArray && isSelfField" flex layout="column">
-        <md-chips ng-model="field._value" md-transform-chip="wrapSimpleValue($chip)" class="tp-chips" placeholder="{{field.field_description}}" name="{{field.display_name}}_{{field.field_type}}" ng-required="field.mandatory">
-          <md-chip-template>
-            <span>{{$chip.key}}</span>
-          </md-chip-template>
-        </md-chips>
+        <span ng-switch="field.field_type">
+          <span ng-switch-when="file">
+            <tp:file field="field" mode="edit"/>
+          </span>
+          <md-chips ng-model="field._value" md-transform-chip="wrapSimpleValue($chip)" class="tp-chips" placeholder="{{field.field_description}}" name="{{field.display_name}}_{{field.field_type}}" ng-required="field.mandatory" ng-switch-default>
+            <md-chip-template>
+              <span>{{$chip.key}}</span>
+            </md-chip-template>
+          </md-chips>
+        </span>
       </span>
       <span ng-if="isTipoRef">
        <tp:lookup root="root" context="context" field="field" />

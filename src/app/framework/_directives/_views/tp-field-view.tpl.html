@@ -27,11 +27,16 @@
       <a class="explicit" ui-sref="tipoView({tipo_name: field._ui.relatedTipo, tipo_id: field._value.key})" ui-sref-opts="{reload: 'tipoView'}">{{field._value.label || field._value.key}}</a>
     </span>
     <span ng-if="isArray && isSelfField">
-      <md-chips ng-model="field._value" readonly="'true'" class="tp-chips readonly">
-        <md-chip-template>
-          <span>{{$chip.label}}</span>
-        </md-chip-template>
-      </md-chips>
+      <span ng-switch="field.field_type">
+        <span ng-switch-when="file">
+          <tp:file field="field" mode="view"/>
+        </span>
+        <md-chips ng-model="field._value" readonly="'true'" class="tp-chips readonly" ng-switch-default>
+          <md-chip-template>
+            <span>{{$chip.label}}</span>
+          </md-chip-template>
+        </md-chips>
+      </span>
     </span>
     <span ng-if="isArray && isTipoRef">
       <div class="multiple-list">

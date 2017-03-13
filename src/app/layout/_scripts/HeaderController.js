@@ -31,16 +31,10 @@
       }
     ];
 
-    _instance.openProfileMenu = function (menuOpenFunction, event) {
-      menuOpenFunction(event);
+    _instance.reload = function () {
+      tipoRouter.reloadCurrent();
     };
 
-    _instance.toProfile = function () {
-      tipoRouter.toTipoView('TipoUser', 'default');
-    };
-    _instance.toAccount = function () {
-      tipoRouter.toTipoView('TipoAccount', 'default');
-    };
 
   }
 
