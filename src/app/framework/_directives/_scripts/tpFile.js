@@ -98,16 +98,16 @@
         };
 
         scope.addMultiPathEntry = function(){
-          if(!_.isEmpty(scope.tempPath.value)){
+            var path = scope.tempPath.value || '';
             scope.multiplePaths.push({
-              value: scope.tempPath.value
+              value: path
             });
             field._value = field._value || [];
             field._value.push({
-              key: scope.fileTarget + scope.tempPath.value
+              key: scope.fileTarget + path
             });
             delete scope.tempPath.value;
-          }
+            scope.openContentDialog(field._value.length - 1);
         };
 
         scope.removeMultiPathEntry = function(index){
