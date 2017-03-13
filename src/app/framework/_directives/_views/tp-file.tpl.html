@@ -1,36 +1,73 @@
-<div>
-  <em>Under development</em>
-  <!--<div layout="row" layout-align="start center">
-    <span flex-order="1">public/images/logo/xxx/</span>
-    <input type="text" ng-model="field._value.key" aria-label="field.display_name" flex-order="2">
-    <md-button class="md-icon-button" aria-label="Browse" flex-order="3">
-      <md-icon>attachment</md-icon>
-    </md-button>
-  </div>-->
-  <!--<div layout="column">
-    <div layout="row" layout-align="start center">
-      <span flex-order="1">public/images/logo/xxx/</span>
-      <md-button class="md-icon-button" aria-label="Browse" flex-order="3">
-        <md-icon>add</md-icon>
-      </md-button>
+<div class="tp-file">
+  <div ng-if="isEdit">
+    <div ng-if="isSingle">
+      <div layout="row" layout-align="start center">
+        <span flex-order="1" ng-if="isTargetSet">{{fileTarget}}</span>
+        <input type="text" ng-model="singlePath.value" aria-label="field.display_name" flex-order="2" ng-if="!(isTargetSet && isTargetFile)"
+          ng-change="onSinglePathChange()">
+        <span flex flex-order="3"></span>
+        <div flex="none" flex-order="4">
+          <md-button class="md-icon-button" aria-label="Upload" ng-click="openContentDialog()">
+            <md-tooltip md-direction="bottom">Upload Content</md-tooltip>
+            <md-icon>attachment</md-icon>
+          </md-button>
+        </div>
+      </div>
     </div>
-    <md-input-container md-no-float layout="row" layout-align="start center">
-      <input type="text" ng-model="p" aria-label="field.display_name" flex-order="2">
-      <md-button class="md-icon-button" aria-label="Browse" flex-order="3">
-        <md-icon>delete</md-icon>
-      </md-button>
-      <md-button class="md-icon-button" aria-label="Browse" flex-order="3">
-        <md-icon>attachment</md-icon>
-      </md-button>
-    </md-input-container>
-    <md-input-container md-no-float layout="row" layout-align="start center">
-      <input type="text" ng-model="q" aria-label="field.display_name" flex-order="2">
-      <md-button class="md-icon-button" aria-label="Browse" flex-order="3">
-        <md-icon>delete</md-icon>
-      </md-button>
-      <md-button class="md-icon-button" aria-label="Browse" flex-order="3">
-        <md-icon>attachment</md-icon>
-      </md-button>
-    </md-input-container>
-  </div>-->
+    <div ng-if="isArray">
+      <div layout="column">
+        <div md-no-float layout="row" layout-align="start center">
+          <span flex-order="1" ng-if="isTargetSet">{{fileTarget}}</span>
+          <input type="text" ng-model="tempPath.value" aria-label="field.display_name" flex-order="2">
+          <div flex="none" flex-order="3">
+            <md-button class="md-icon-button" aria-label="Add" ng-click="addMultiPathEntry()">
+              <md-tooltip md-direction="bottom">Add Entry</md-tooltip>
+              <md-icon>add</md-icon>
+            </md-button>
+          </div>
+        </div>
+        <div layout="row" class="multi-file-row" layout-align="start center" ng-repeat="path in multiplePaths">
+          <span flex-order="1" flex>{{fileTarget}}{{path.value}}</span>
+          <div flex="none" flex-order="3">
+            <md-button class="md-icon-button" aria-label="Delete" ng-click="removeMultiPathEntry($index)">
+              <md-tooltip md-direction="bottom">Remove Entry</md-tooltip>
+              <md-icon>delete</md-icon>
+            </md-button>
+          </div>
+          <div flex="none" flex-order="4">
+            <md-button class="md-icon-button" aria-label="Upload" flex-order="4" ng-click="openContentDialog($index)">
+              <md-tooltip md-direction="bottom">Upload Content</md-tooltip>
+              <md-icon>attachment</md-icon>
+            </md-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div ng-if="!isEdit">
+    <div ng-if="isSingle">
+      <div layout="row" layout-align="start center">
+        <span flex-order="1" flex>{{field._value.key}}</span>
+        <div flex-order="2" flex="none">
+          <md-button class="md-icon-button" aria-label="Download">
+            <md-tooltip md-direction="bottom">Download</md-tooltip>
+            <md-icon>file_download</md-icon>
+          </md-button>
+        </div>
+      </div>
+    </div>
+    <div ng-if="isArray">
+      <div layout="column">
+        <div layout="row" class="multi-file-row" layout-align="start center" ng-repeat="path in multiplePaths">
+          <span flex-order="1" flex>{{fileTarget}}{{path.value}}</span>
+          <div flex-order="2" flex="none">
+            <md-button class="md-icon-button" aria-label="Upload">
+              <md-tooltip md-direction="bottom">Download</md-tooltip>
+              <md-icon>file_download</md-icon>
+            </md-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

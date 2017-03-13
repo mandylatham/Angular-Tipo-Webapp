@@ -44,7 +44,7 @@
         return _.startsWith(key, 'reload');
       }));
       reloadFlagParameters = _.zipObject(reloadFlagParameters, _.fill(_.cloneDeep(reloadFlagParameters), true));
-      return $state.go($state.current, reloadFlagParameters, {reload: true});
+      return $state.go($state.current, reloadFlagParameters, {reload: $state.current});
     }
 
     function setPerspectiveIfRequired(parameters){

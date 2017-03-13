@@ -13,7 +13,7 @@
           <textarea ng-model="field._value.key" rows="2" md-select-on-focus aria-label="field.display_name" name="{{field.display_name}}_{{field.field_type}}" ng-required="field.mandatory" placeholder="{{field.field_description}}" ng-switch-when="longstring"/>
           <input type="password" ng-model="field._value.key" aria-label="field.display_name" placeholder="{{field.field_description}}" name="{{field.display_name}}_{{field.field_type}}" ng-required="field.mandatory" ng-switch-when="password">
           <input ng-model="field._value.key" aria-label="field.display_name" placeholder="{{field.field_description}}" name="{{field.display_name}}_{{field.field_type}}" ng-required="field.mandatory" ng-switch-when="htmlLink">
-          <text-angular ng-model="field._value.key" name="{{field.display_name}}_{{field.field_type}}" data-ng-required="field.mandatory" ng-switch-when="richstring"></text-angular>
+          <text-angular ng-model="field._value.key" style="z-index:1" name="{{field.display_name}}_{{field.field_type}}" data-ng-required="field.mandatory" ng-switch-when="richstring"></text-angular>
           <tp:s3-explorer name="{{field.display_name}}_{{field.field_type}}" ng-required="field.mandatory" ng-switch-when="s3explorer"/>
           <tp:file field="field" mode="edit" ng-switch-when="file"/>
       <!--     <div ng-switch-when="colour"
@@ -44,11 +44,16 @@
         </span>
       </span>
       <span ng-if="isArray && isSelfField" flex layout="column">
-        <md-chips ng-model="field._value" md-transform-chip="wrapSimpleValue($chip)" class="tp-chips" placeholder="{{field.field_description}}" name="{{field.display_name}}_{{field.field_type}}" ng-required="field.mandatory">
-          <md-chip-template>
-            <span>{{$chip.key}}</span>
-          </md-chip-template>
-        </md-chips>
+        <span ng-switch="field.field_type">
+          <span ng-switch-when="file">
+            <tp:file field="field" mode="edit"/>
+          </span>
+          <md-chips ng-model="field._value" md-transform-chip="wrapSimpleValue($chip)" class="tp-chips" placeholder="{{field.field_description}}" name="{{field.display_name}}_{{field.field_type}}" ng-required="field.mandatory" ng-switch-default>
+            <md-chip-template>
+              <span>{{$chip.key}}</span>
+            </md-chip-template>
+          </md-chips>
+        </span>
       </span>
       <span ng-if="isTipoRef">
        <tp:lookup root="root" context="context" field="field" />
