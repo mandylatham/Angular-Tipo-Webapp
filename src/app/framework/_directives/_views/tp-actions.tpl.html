@@ -22,7 +22,7 @@
     <md-tooltip ng-if="action.icon" md-direction="top">{{action.label}}</md-tooltip>
       <span ng-if="!action.icon">{{action.label}}</span>
     </md-button>
-    <md-menu hide-xs ng-if="(actions | filter:{highlight: '!true'}).length > 0" ng-if="!bulkedit">
+<!--     <md-menu hide-xs ng-if="(actions | filter:{highlight: '!true'}).length > 0 && !bulkedit">
       <md-button class="md-icon-button" ng-click="openMenu($mdOpenMenu,$event)">
         <md-icon md-menu-origin>more_vert</md-icon>
       </md-button>
@@ -34,21 +34,25 @@
           </md-button>
         </md-menu-item>
       </md-menu-content>
-    </md-menu>
-    <!-- <md-menu hide-gt-xs>
-      <md-button class="md-primary" ng-click="openMenu($mdOpenMenu,$event)">
-        Actions<md-icon md-menu-origin>dns</md-icon>
-      </md-button>
-      <md-menu-content width="4">
-        <md-menu-item ng-repeat="action in actions">
-          <md-button ng-click="performAction(action)">
-          <md-icon  md-theme="reverse" class="md-primary" ng-if="action.icon">{{action.icon}}</md-icon>
-          {{action.label}}
-          </md-button>
-        </md-menu-item>
-      </md-menu-content>
     </md-menu> -->
-    <md-button hide-gt-xs aria-label="menu" ng-click="triggeractions()" class="md-primary md-fab md-mini">
+    <md-button aria-label="menu" ng-click="triggerdeskActions()" hide-xs ng-if="(actions | filter:{highlight: '!true'}).length > 0 && !bulkedit" class="md-icon-button">
+      <md-icon>more_vert</md-icon>
+    </md-button>
+    <md-fab-speed-dial hide-xs md-open="deskaction.isOpen" md-direction="down" ng-if="(actions | filter:{highlight: '!true'}).length > 0 && !bulkedit" class="md-scale md-fab-top-right">
+        <md-fab-trigger>
+          <md-button id="actiondesk" aria-label="menu" class="md-fab md-warn" style="display:none;">
+            <md-icon>dns</md-icon>
+          </md-button>
+        </md-fab-trigger>
+        <md-fab-actions>
+          <md-button md-theme="reverse" class="md-fab md-primary md-raised md-mini" ng-repeat="action in actions | filter:{highlight: '!true'}" ng-click="performAction(action)">
+            <md-icon ng-if="action.icon">{{action.icon}}</md-icon>
+            <md-icon ng-if="!action.icon">arrow_back</md-icon>
+            <md-tooltip md-direction="left" md-visible="tooltipDesk">{{action.label}}</md-tooltip>
+          </md-button>
+        </md-fab-actions>
+    </md-fab-speed-dial>
+    <md-button hide-gt-xs aria-label="menu" ng-if="actions.length > 0" ng-click="triggeractions()" class="md-primary md-fab md-mini">
       <md-icon>dns</md-icon>
     </md-button>
     <md-fab-speed-dial hide-gt-xs md-open="action.isOpen" md-direction="down" class="md-scale md-fab-top-right" ng-if="!bulkedit">
@@ -58,7 +62,7 @@
           </md-button>
         </md-fab-trigger>
         <md-fab-actions>
-          <md-button class="md-fab md-raised md-mini" ng-repeat="action in actions" ng-click="performAction(action)">
+          <md-button md-theme="reverse" class="md-fab md-primary md-raised md-mini" ng-repeat="action in actions" ng-click="performAction(action)">
             <md-icon ng-if="action.icon">{{action.icon}}</md-icon>
             <md-icon ng-if="!action.icon">arrow_back</md-icon>
             <md-tooltip md-direction="left" md-visible="tooltip">{{action.label}}</md-tooltip>

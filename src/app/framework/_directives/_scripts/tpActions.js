@@ -88,6 +88,7 @@
 
           var mode = scope.mode;
           scope.action= {isOpen: false};
+          scope.deskaction= {isOpen: false};
           if(!mode){
             mode = 'view';
           }
@@ -138,6 +139,10 @@
 
           scope.triggeractions = function(){
             angular.element('#actionmob').trigger('click');
+          }
+
+          scope.triggerdeskActions = function(){
+            angular.element('#actiondesk').trigger('click');
           }
 
           scope.performAction = function(action){
@@ -255,6 +260,16 @@
               }, 600);
             } else {
               scope.tooltip = scope.action.isOpen;
+            }
+          }, true);
+
+          scope.$watch('deskaction.isOpen', function(newVal, oldVal) {
+            if (newVal) {
+              $timeout(function() {
+                scope.tooltipDesk = scope.deskaction.isOpen;
+              }, 600);
+            } else {
+              scope.tooltipDesk = scope.deskaction.isOpen;
             }
           }, true);
 
