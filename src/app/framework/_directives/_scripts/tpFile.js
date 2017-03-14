@@ -155,13 +155,15 @@
               $scope.upload = function () {
                 if($scope.content.length > 0){
                   var file = $scope.content[0].lfFile;
+                  var type = $scope.content[0].lfFileType;
                   $scope.uploadStatus = 'in_progress';
                    var reader = new FileReader();
                    reader.onload = function(readerEvt) {
                     var binaryString = readerEvt.target.result;
                     var base64Encoded = btoa(binaryString);
                     var data = {
-                      'File-Content': base64Encoded
+                      'File-Content': base64Encoded,
+                      'Content-Type': type
                     };
 
                     tipoResource
