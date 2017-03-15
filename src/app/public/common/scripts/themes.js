@@ -49,20 +49,126 @@
           'contrastDefaultColor': 'light',
           'contrastDarkColors': '50 100 200 A100 A200'
         });
+        
+        $mdThemingProvider.definePalette('tipoprimary1', {
+        	  '50': 'b5e0f7',
+        	  '100': '70c4ef',
+        	  '200': '3eafea',
+        	  '300': '168cca',
+        	  '400': '1379af',
+        	  '500': '106693',
+        	  '600': '0d5377',
+        	  '700': '0a405c',
+        	  '800': '072d40',
+        	  '900': '041925',
+        	  'A100': 'a3dfff',
+        	  'A200': '3dbcff',
+        	  'A400': '058bd1',
+        	  'A700': '0e77af',
+        	  'contrastDefaultColor': 'light',
+        	  'contrastDarkColors': [
+        	    '50',
+        	    '100',
+        	    '200',
+        	    'A100',
+        	    'A200'
+        	  ],
+        	  'contrastLightColors': [
+        	    '300',
+        	    '400',
+        	    '500',
+        	    '600',
+        	    '700',
+        	    '800',
+        	    '900',
+        	    'A400',
+        	    'A700'
+        	  ]
+        	});
+        	$mdThemingProvider.definePalette('tipoaccent1', {
+        	  '50': 'ffffff',
+        	  '100': 'fee4cd',
+        	  '200': 'fdc795',
+        	  '300': 'fca14f',
+        	  '400': 'fc9131',
+        	  '500': 'fb8113',
+        	  '600': 'eb7204',
+        	  '700': 'cd6303',
+        	  '800': 'af5503',
+        	  '900': '914602',
+        	  'A100': 'ffffff',
+        	  'A200': 'ffd1a8',
+        	  'A400': 'ff9c42',
+        	  'A700': 'ff8e28',
+        	  'contrastDefaultColor': 'light',
+        	  'contrastDarkColors': [
+        	    '50',
+        	    '100',
+        	    '200',
+        	    '300',
+        	    '400',
+        	    '500',
+        	    '600',
+        	    'A100',
+        	    'A200',
+        	    'A400',
+        	    'A700'
+        	  ],
+        	  'contrastLightColors': [
+        	    '700',
+        	    '800',
+        	    '900'
+        	  ]
+        	});
+        	
+        	$mdThemingProvider.definePalette('background', {
+        		  '50': 'ffffff',
+        		  '100': 'ffffff',
+        		  '200': 'ffffff',
+        		  '300': 'ecf7fd',
+        		  '400': 'd1ecfa',
+        		  '500': 'b5e0f7',
+        		  '600': '99d4f4',
+        		  '700': '7ec9f1',
+        		  '800': '62bdee',
+        		  '900': '47b2eb',
+        		  'A100': 'ffffff',
+        		  'A200': 'ffffff',
+        		  'A400': 'e1f4fe',
+        		  'A700': 'cbeafb',
+        		  'contrastDefaultColor': 'light',
+        		  'contrastDarkColors': [
+        		    '50',
+        		    '100',
+        		    '200',
+        		    '300',
+        		    '400',
+        		    '500',
+        		    '600',
+        		    '700',
+        		    '800',
+        		    '900',
+        		    'A100',
+        		    'A200',
+        		    'A400',
+        		    'A700'
+        		  ],
+        		  'contrastLightColors': []
+        		});
 
         $mdThemingProvider
         .theme('default')
-        .primaryPalette('tipoprimary')
-        .accentPalette('tipoaccent')
+        .primaryPalette('tipoprimary1')
+        .accentPalette('orange')
         .warnPalette('red')
-        .backgroundPalette('grey');
+        .backgroundPalette('background');
 
         $mdThemingProvider
         .theme('reverse')
-        .primaryPalette('tipoaccent')
-        .accentPalette('tipoprimary')
+        .primaryPalette('deep-orange')
+        .accentPalette('tipoprimary1')
         .warnPalette('red')
-        .backgroundPalette('grey');
+        .backgroundPalette('background');
     }
 
   function prepareToastPresets($mdToastProvider){
