@@ -10,6 +10,7 @@
         scope: {
           root: '=',
           context: '=',
+          parent: '=',
           field: '='
         },
         restrict: 'EA',

@@ -11,9 +11,13 @@
     $mdDialog) {
 
     var _instance = this;
+
     _instance.tiposWithDefinition = tipoDefinition.tiposWithDefinition;
+    console.log(_instance.tiposWithDefinition);
     _instance.tipoDefinition = tipoDefinition.tipoDefinition;
     _instance.popup = true;
+    _instance.tipo_field_groups = $scope.tipo_field_groups;
+    _instance.selectedTipos = $scope.selectedTipos;
     $scope.fullscreen = true;
     if ($scope.selectedTipos.length > 0) {
       _.each(_instance.tiposWithDefinition, function(tipo){
@@ -32,9 +36,9 @@
       $scope.fullscreen = false;
     };
 
-    _instance.selectTipo = function(tipoSelected,event){
+    _instance.selectTipo = function(tipoSelected,event,tiposData){
       if (!$scope.isArray) {
-        _.each(_instance.tiposWithDefinition, function(tipo){
+        _.each(tiposData, function(tipo){
           tipo.selected = false;
           $scope.selectedTipos = [];
         });
@@ -64,6 +68,7 @@
         scope: {
           root: '=',
           context: '=',
+          parent: '=',
           field: '='
         },
         restrict: 'EA',
@@ -188,6 +193,11 @@
           function openTipoObjectDialog(){
             var newScope = scope.$new();
             newScope.isArray = isArray;
+            newScope.field = scope.context;
+            if (scope.parent.tipo_field_groups) {
+            newScope.tipo_field_groups = scope.parent.tipo_field_groups}else{
+            newScope.tipo_field_groups = scope.context.tipo_field_groups;
+            }
             newScope.selectedTipos = scope.selectedTipos;
             var promise = $mdDialog.show({
               templateUrl: 'framework/_directives/_views/tp-lookup-popup-select.tpl.html',

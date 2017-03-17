@@ -56,7 +56,7 @@
         </span>
       </span>
       <span ng-if="isTipoRef">
-       <tp:lookup root="root" context="context" field="field" />
+       <tp:lookup root="root" context="context" parent="parent" field="field" />
       </span>
       <div ng-messages="tipoForm[field.display_name + '_' +field.field_type].$error">
           <div ng-message="required" >This is required.</div>

@@ -14,6 +14,7 @@
     
     var _instance = this;
     _instance.tipoDefinition = tipoDefinition;
+    _instance.tipoDefinition.tipo_field_groups = tipo.tipo_field_groups;
     _instance.tipo = tipo;
 
     var tipo_name = tipoDefinition.tipo_meta.tipo_name;

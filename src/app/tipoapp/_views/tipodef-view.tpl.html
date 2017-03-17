@@ -1,0 +1,52 @@
+<div class="tp-field" ng-repeat="(key, value) in tipoRootController.tipoDefinition.tipo_fields">
+  <span ng-if="hasValue">
+    <span ng-if="isSingle && isSelfField">
+      <span ng-switch="field.field_type">
+        <span ng-switch-when="date_time">{{field._value.label | date:'MM/dd/yyyy'}}</span>
+        <span ng-switch-when="password">*******</span>
+        <span ng-switch-when="longstring" class="preformatted-text">{{field._value.label}}</span>
+        <span ng-switch-when="richstring">
+          <div ng-bind-html="formattedText" class="richstring"></div>
+        </span>
+        <span ng-switch-when="s3explorer">
+          <tp:s3-explorer-view/>
+        </span>
+        <span ng-switch-when="file">
+          <tp:file field="field" mode="view"/>
+        </span>
+        <!-- <span ng-switch-when="colour" style="color: #FFFFFF; background-color: {{field._value.label}}; !important; " >{{field._value.label}}
+        </span> -->
+        <tp:colour-palette name="{{field.display_name}}_{{field.field_type}}" ng-model="field._value" ng-required="field.mandatory" ng-switch-when="colour" />
+        <span ng-switch-when="htmlLink">
+          <a ng-href="{{field._value.label}}" target="_blank">{{field._value.label}}</a>
+        </span>
+        <span ng-switch-default>{{field._value.label}}</span>
+      </span>
+    </span>
+    <span ng-if="isSingle && isTipoRef">
+      <a class="explicit" ui-sref="tipoView({tipo_name: field._ui.relatedTipo, tipo_id: field._value.key})" ui-sref-opts="{reload: 'tipoView'}">{{field._value.label || field._value.key}}</a>
+    </span>
+    <span ng-if="isArray && isSelfField">
+      <span ng-switch="field.field_type">
+        <span ng-switch-when="file">
+          <tp:file field="field" mode="view"/>
+        </span>
+        <md-chips ng-model="field._value" readonly="'true'" class="tp-chips readonly" ng-switch-default>
+          <md-chip-template>
+            <span>{{$chip.label}}</span>
+          </md-chip-template>
+        </md-chips>
+      </span>
+    </span>
+    <span ng-if="isArray && isTipoRef">
+      <div class="multiple-list">
+        <div ng-repeat="value in field._value">
+          <a class="explicit" ui-sref="tipoView({tipo_name: field._ui.relatedTipo, tipo_id: value.key})" ui-sref-opts="{reload: 'tipoView'}">{{value.label || value.key}}</a>
+        </div>
+      </div>
+    </span>
+  </span>
+  <span ng-if="!hasValue" class="no-value">
+    -Not available-
+  </span>
+</div>
