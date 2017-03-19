@@ -19,8 +19,6 @@
     var perspective = $scope.perspective;
 
     _instance.tipoDefinition = tipoDefinition;
-    console.log("_instance.tipoDefinition");
-    console.log(_instance.tipoDefinition);
     _instance.tipo = tipo;
 
     var tipo_name = tipoDefinition.tipo_meta.tipo_name;

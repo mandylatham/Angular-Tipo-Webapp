@@ -13,7 +13,6 @@
     var _instance = this;
 
     _instance.tiposWithDefinition = tipoDefinition.tiposWithDefinition;
-    console.log(_instance.tiposWithDefinition);
     _instance.tipoDefinition = tipoDefinition.tipoDefinition;
     _instance.popup = true;
     _instance.tipo_field_groups = $scope.tipo_field_groups;

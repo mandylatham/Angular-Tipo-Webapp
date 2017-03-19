@@ -12,18 +12,14 @@
 
     var _instance = this;
     var tipo_types = [];
-    console.log("entered TipoTypeController");
-    console.log(tipo_types.length);
     var tipo_name = $scope.tipoRootController.tipoDefinition.tipo_meta.tipo_name;
     var tipo_types = angular.copy(TipoTypeService.gettipo_types());
-    console.log(tipo_types.length);
     _.each($scope.tipoRootController.tipo_field_groups,function(tipo_group){
       tipo_types.push({ key: "FieldGroup." + tipo_group.tipo_group_name,
                         label: "FieldGroup." + tipo_group.tipo_group_name,
                         icon: "group_work",
                         field_group: true});
     });
-    console.log(tipo_types.length);
     tipoInstanceDataService.search("TipoDefinition").then(function(tipo_objects){
       _instance.tipo_objects = tipo_objects;
       _.each(tipo_objects,function(tipo_object){
@@ -32,7 +28,6 @@
                         icon: tipo_object.tipo_meta.icon,
                         tipo_object: true});
       });
-      console.log(tipo_types.length);
       if ($scope.tipoRootController.selectedTipos.length > 0) {
       _.each(tipo_types, function(tipo){
           _.each($scope.tipoRootController.selectedTipos,function(selected){
@@ -45,17 +40,6 @@
       _instance.tipo_types = tipo_types;
     });
     var tipos = angular.copy($scope.tipoRootController.tiposWithDefinition);
-    // _.each(tipos, function(each, index){
-    //   var logo;
-    //   if(each.app_name === 'Tipo App'){
-    //     logo = 'tipoapp';
-    //   } else if(index < 7){
-    //     logo = index + 1;
-    //   }else{
-    //     logo = 'no-image';
-    //   }
-    //   each.logo = logo + '.png';
-    // });
 
     _instance.tipos = tipos;
     
