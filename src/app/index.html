@@ -18,7 +18,7 @@
     <script src="_scripts/non-bower-managed/pace.js"></script>
     <!-- endbuild -->
 
-    <link href="_styles/pace.css" rel="stylesheet" />
+    <link href="public/common/styles/pace.css" rel="stylesheet" />
     
     <!-- build:css(app) _styles/main.css -->
     <link rel="stylesheet" type="text/css" media="screen" href="_styles/main.css">
@@ -32,7 +32,7 @@
     <meta name='google-signin-client_id' content='${googleClientId}'/>
     <script src='https://apis.google.com/js/platform.js' async defer></script>  
     <script src="https://www.google.com/recaptcha/api.js?onload=vcRecaptchaApiLoaded&render=explicit" async defer></script>
-	<link rel="stylesheet" type="text/css" media="screen" href="public/common/style/custom.css">
+	<link rel="stylesheet" type="text/css" media="screen" href="public/common/styles/custom.css">
   </head>
 
   <body id="body">
@@ -107,12 +107,11 @@
     <script src="framework/_directives/_scripts/tpS3ExplorerView.js"></script>
     <script src="framework/_directives/_scripts/tpFile.js"></script>
     <script src="framework/_directives/_scripts/tpColourPalette.js"></script>
+    <script src="framework/_directives/_scripts/tpPerm.js"></script>
 
     <script src="dashboard/_scripts/dashboard.module.js"></script>
     <script src="dashboard/_scripts/DashboardController.js"></script>
 
-    <!--<script src="user_old/_scripts/user.module.js"></script>
-    <script src="user_old/_scripts/UserController.js"></script>-->
     <script src="user/_scripts/user.module.js"></script>
     <script src="user/_scripts/UserController.js"></script>
 
@@ -124,6 +123,8 @@
     <script src="tipoapp/_scripts/tipoapp.module.js"></script>
     <script src="tipoapp/_scripts/TipoAppController.js"></script>
     <script src="tipoapp/_scripts/ChangePasswordController.js"></script>
+    <script src="tipoapp/_scripts/TipoTypeController.js"></script>
+
 
     <script src="_scripts/main.module.js"></script>
     <script src="_scripts/MainController.js"></script>
@@ -131,8 +132,7 @@
     <!-- endbuild -->
     <script src="public/common/scripts/themes.js"></script>
     <script src="public/common/scripts/GoogleAnalytics.js"></script>
-    <script src="framework/_directives/_scripts/tpPerm.js"></script>
-    <script src="tipoapp/_scripts/TipoTypeController.js"></script>
+
   </body>
 
 </html>

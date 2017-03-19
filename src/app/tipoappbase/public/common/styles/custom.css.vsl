@@ -1,6 +1,6 @@
 
 
-#if ($tipo_customization.appearance_settings.font_url)
+#if ($tipo_customization.appearance_settings.font_family)
 @import url('https://fonts.googleapis.com/css?family=$tipo_customization.appearance_settings.font_family');
 #else
 @import url('https://fonts.googleapis.com/css?family=Questrial');

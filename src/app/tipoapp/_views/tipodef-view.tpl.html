@@ -1,52 +1,44 @@
-<div class="tp-field" ng-repeat="(key, value) in tipoRootController.tipoDefinition.tipo_fields">
-  <span ng-if="hasValue">
-    <span ng-if="isSingle && isSelfField">
-      <span ng-switch="field.field_type">
-        <span ng-switch-when="date_time">{{field._value.label | date:'MM/dd/yyyy'}}</span>
-        <span ng-switch-when="password">*******</span>
-        <span ng-switch-when="longstring" class="preformatted-text">{{field._value.label}}</span>
-        <span ng-switch-when="richstring">
-          <div ng-bind-html="formattedText" class="richstring"></div>
-        </span>
-        <span ng-switch-when="s3explorer">
-          <tp:s3-explorer-view/>
-        </span>
-        <span ng-switch-when="file">
-          <tp:file field="field" mode="view"/>
-        </span>
-        <!-- <span ng-switch-when="colour" style="color: #FFFFFF; background-color: {{field._value.label}}; !important; " >{{field._value.label}}
-        </span> -->
-        <tp:colour-palette name="{{field.display_name}}_{{field.field_type}}" ng-model="field._value" ng-required="field.mandatory" ng-switch-when="colour" />
-        <span ng-switch-when="htmlLink">
-          <a ng-href="{{field._value.label}}" target="_blank">{{field._value.label}}</a>
-        </span>
-        <span ng-switch-default>{{field._value.label}}</span>
-      </span>
-    </span>
-    <span ng-if="isSingle && isTipoRef">
-      <a class="explicit" ui-sref="tipoView({tipo_name: field._ui.relatedTipo, tipo_id: field._value.key})" ui-sref-opts="{reload: 'tipoView'}">{{field._value.label || field._value.key}}</a>
-    </span>
-    <span ng-if="isArray && isSelfField">
-      <span ng-switch="field.field_type">
-        <span ng-switch-when="file">
-          <tp:file field="field" mode="view"/>
-        </span>
-        <md-chips ng-model="field._value" readonly="'true'" class="tp-chips readonly" ng-switch-default>
-          <md-chip-template>
-            <span>{{$chip.label}}</span>
-          </md-chip-template>
-        </md-chips>
-      </span>
-    </span>
-    <span ng-if="isArray && isTipoRef">
-      <div class="multiple-list">
-        <div ng-repeat="value in field._value">
-          <a class="explicit" ui-sref="tipoView({tipo_name: field._ui.relatedTipo, tipo_id: value.key})" ui-sref-opts="{reload: 'tipoView'}">{{value.label || value.key}}</a>
-        </div>
+<div>
+  <md-nav-bar aria-label="subTipoNavigation" ng-if="tipoRootController.tipoDefinition.tipo_meta.tipo_ui_type !== 'perspective' &&tipoRootController.tipoDefinition._ui.subTipos" md-selected-nav-item="tipoRootController.activeTab">
+    <md-nav-item md-nav-click="tipoRootController.toMainView()" name="main">Basic</md-nav-item>
+    <md-nav-item ng-repeat="subTipo in tipoRootController.tipoDefinition._ui.subTipos" md-nav-click="tipoRootController.toSubTipoList(subTipo)" name="{{subTipo.field_name}}">{{subTipo.display_name}}</md-nav-item>
+  </md-nav-bar>
+  <div class="p-8">
+    <section class="fieldset no-header fluid-row-container">
+      <div class="data" layout-padding layout="row" layout-wrap layout-align="start start">
+        <dl class="edit" layout="column" ng-repeat="field in tipoRootController.tipoDefinition.tipo_fields" ng-if="field._ui.isSimple && !field.hidden_ && field._value" layout-align="center stretch" flex="100" flex-gt-sm="{{sizeGtSm}}" flex-gt-md="{{sizeGtMd}}">
+          <dt ng-if="field.display_name">{{field.display_name}} <span ng-if="field.mandatory">*</span></dt>
+          <dd>
+            <div class="tp-field">
+              <span ng-switch="field.field_type">
+                <span ng-if="!field._value.length">
+                  <span ng-switch-when="richstring">
+                    <div ng-bind-html="formattedText" class="richstring"></div>
+                  </span>
+                  <span ng-switch-when="s3explorer">
+                    <tp:s3-explorer-view/>
+                  </span>
+                  <span ng-switch-when="file">
+                    <tp:file field="field" mode="view"/>
+                  </span>
+                  <span ng-switch-when="htmlLink">
+                    <a ng-href="{{field._value.label}}" target="_blank">{{field._value.label}}</a>
+                  </span>
+                  <span ng-switch-default>{{field._value.label}}</span>
+                </span>
+                <span ng-if="field._value.length > 0">
+                  <div class="multiple-list">
+                    <div ng-repeat="value in field._value">
+                      <a class="explicit" ui-sref="tipoView({tipo_name: field._ui.relatedTipo, tipo_id: value.key})" ui-sref-opts="{reload: 'tipoView'}">{{value.label || value.key}}</a>
+                    </div>
+                  </div>
+                </span>
+              </span>
+            </div>
+          </dd>
+        </dl>
       </div>
-    </span>
-  </span>
-  <span ng-if="!hasValue" class="no-value">
-    -Not available-
-  </span>
+    </section>
+  </div>
+  <div ng-if="tipoRootController.activeTab !== 'main'" ui-view="child"></div>
 </div>
