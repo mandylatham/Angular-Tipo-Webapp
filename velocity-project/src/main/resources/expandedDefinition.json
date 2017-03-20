@@ -183,11 +183,16 @@
             },
             "display_name": "Name",
             "field_type": "string",
-            "field_name": "tipo_meta.display_name",
+            "field_name": "display_name",
             "_ui": {
               "isArray": false,
               "isSimple": true
-            }
+            },
+            "underscore_ui": {
+              "isArray": false,
+              "isSimple": true
+            },
+            "fq_field_name": "tipo_meta.display_name"
           },
           {
             "sequence": "2",
@@ -203,7 +208,7 @@
             },
             "display_name": "Icon",
             "field_type": "Tipo.TipoIcon",
-            "field_name": "tipo_meta.icon",
+            "field_name": "icon",
             "_ui": {
               "isArray": false,
               "isTipoRelationship": true,
@@ -236,7 +241,14 @@
               "display_name": "name",
               "field_type": "string",
               "field_name": "name_"
-            }
+            },
+            "underscore_ui": {
+              "isArray": false,
+              "isTipoRelationship": true,
+              "relatedTipo": "TipoIcon",
+              "isSimple": true
+            },
+            "fq_field_name": "tipo_meta.icon"
           },
           {
             "sequence": "3",
@@ -250,11 +262,16 @@
             },
             "display_name": "Unique ID",
             "field_type": "string",
-            "field_name": "tipo_meta.tipo_name",
+            "field_name": "tipo_name",
             "_ui": {
               "isArray": false,
               "isSimple": true
-            }
+            },
+            "underscore_ui": {
+              "isArray": false,
+              "isSimple": true
+            },
+            "fq_field_name": "tipo_meta.tipo_name"
           },
           {
             "sequence": "3.5",
@@ -268,11 +285,16 @@
             },
             "display_name": "Description",
             "field_type": "longstring",
-            "field_name": "tipo_meta.description",
+            "field_name": "description",
             "_ui": {
               "isArray": false,
               "isSimple": true
-            }
+            },
+            "underscore_ui": {
+              "isArray": false,
+              "isSimple": true
+            },
+            "fq_field_name": "tipo_meta.description"
           },
           {
             "sequence": "4",
@@ -286,11 +308,16 @@
             },
             "display_name": "Menu Order",
             "field_type": "integer",
-            "field_name": "tipo_meta.tipo_sequence",
+            "field_name": "tipo_sequence",
             "_ui": {
               "isArray": false,
               "isSimple": true
-            }
+            },
+            "underscore_ui": {
+              "isArray": false,
+              "isSimple": true
+            },
+            "fq_field_name": "tipo_meta.tipo_sequence"
           },
           {
             "allowed_values": [
@@ -313,11 +340,16 @@
             },
             "display_name": "Tipo type",
             "field_type": "string",
-            "field_name": "tipo_meta.tipo_type",
+            "field_name": "tipo_type",
             "_ui": {
               "isArray": true,
               "isSimple": true
-            }
+            },
+            "underscore_ui": {
+              "isArray": true,
+              "isSimple": true
+            },
+            "fq_field_name": "tipo_meta.tipo_type"
           },
           {
             "hidden_": true,
@@ -353,11 +385,16 @@
             },
             "display_name": "Tipo UI Type",
             "field_type": "string",
-            "field_name": "tipo_meta.tipo_ui_type",
+            "field_name": "tipo_ui_type",
             "_ui": {
               "isArray": false,
               "isSimple": true
-            }
+            },
+            "underscore_ui": {
+              "isArray": false,
+              "isSimple": true
+            },
+            "fq_field_name": "tipo_meta.tipo_ui_type"
           },
           {
             "sequence": "8",
@@ -371,13 +408,22 @@
             },
             "display_name": "Perspective Field",
             "field_type": "string",
-            "field_name": "tipo_meta.perspective_field_name",
+            "field_name": "perspective_field_name",
             "_ui": {
               "isArray": false,
               "isSimple": true
-            }
+            },
+            "underscore_ui": {
+              "isArray": false,
+              "isSimple": true
+            },
+            "fq_field_name": "tipo_meta.perspective_field_name"
           }
-        ]
+        ],
+        "underscore_ui": {
+          "isArray": false,
+          "isGroup": true
+        }
       },
       {
         "sequence": "6",
@@ -3258,11 +3304,16 @@
         },
         "display_name": "Name",
         "field_type": "string",
-        "field_name": "tipo_meta.display_name",
+        "field_name": "display_name",
         "_ui": {
           "isArray": false,
           "isSimple": true
-        }
+        },
+        "underscore_ui": {
+          "isArray": false,
+          "isSimple": true
+        },
+        "fq_field_name": "tipo_meta.display_name"
       },
       {
         "sequence": "2",
@@ -3278,7 +3329,7 @@
         },
         "display_name": "Icon",
         "field_type": "Tipo.TipoIcon",
-        "field_name": "tipo_meta.icon",
+        "field_name": "icon",
         "_ui": {
           "isArray": false,
           "isTipoRelationship": true,
@@ -3311,7 +3362,14 @@
           "display_name": "name",
           "field_type": "string",
           "field_name": "name_"
-        }
+        },
+        "underscore_ui": {
+          "isArray": false,
+          "isTipoRelationship": true,
+          "relatedTipo": "TipoIcon",
+          "isSimple": true
+        },
+        "fq_field_name": "tipo_meta.icon"
       },
       {
         "sequence": "3",
@@ -3325,11 +3383,16 @@
         },
         "display_name": "Unique ID",
         "field_type": "string",
-        "field_name": "tipo_meta.tipo_name",
+        "field_name": "tipo_name",
         "_ui": {
           "isArray": false,
           "isSimple": true
-        }
+        },
+        "underscore_ui": {
+          "isArray": false,
+          "isSimple": true
+        },
+        "fq_field_name": "tipo_meta.tipo_name"
       },
       {
         "sequence": "3.5",
@@ -3343,11 +3406,16 @@
         },
         "display_name": "Description",
         "field_type": "longstring",
-        "field_name": "tipo_meta.description",
+        "field_name": "description",
         "_ui": {
           "isArray": false,
           "isSimple": true
-        }
+        },
+        "underscore_ui": {
+          "isArray": false,
+          "isSimple": true
+        },
+        "fq_field_name": "tipo_meta.description"
       },
       {
         "sequence": "4",
@@ -3361,11 +3429,16 @@
         },
         "display_name": "Menu Order",
         "field_type": "integer",
-        "field_name": "tipo_meta.tipo_sequence",
+        "field_name": "tipo_sequence",
         "_ui": {
           "isArray": false,
           "isSimple": true
-        }
+        },
+        "underscore_ui": {
+          "isArray": false,
+          "isSimple": true
+        },
+        "fq_field_name": "tipo_meta.tipo_sequence"
       },
       {
         "allowed_values": [
@@ -3388,11 +3461,16 @@
         },
         "display_name": "Tipo type",
         "field_type": "string",
-        "field_name": "tipo_meta.tipo_type",
+        "field_name": "tipo_type",
         "_ui": {
           "isArray": true,
           "isSimple": true
-        }
+        },
+        "underscore_ui": {
+          "isArray": true,
+          "isSimple": true
+        },
+        "fq_field_name": "tipo_meta.tipo_type"
       },
       {
         "allowed_values": [
@@ -3410,11 +3488,16 @@
         },
         "display_name": "Tipo UI Type",
         "field_type": "string",
-        "field_name": "tipo_meta.tipo_ui_type",
+        "field_name": "tipo_ui_type",
         "_ui": {
           "isArray": false,
           "isSimple": true
-        }
+        },
+        "underscore_ui": {
+          "isArray": false,
+          "isSimple": true
+        },
+        "fq_field_name": "tipo_meta.tipo_ui_type"
       },
       {
         "sequence": "8",
@@ -3428,11 +3511,16 @@
         },
         "display_name": "Perspective Field",
         "field_type": "string",
-        "field_name": "tipo_meta.perspective_field_name",
+        "field_name": "perspective_field_name",
         "_ui": {
           "isArray": false,
           "isSimple": true
-        }
+        },
+        "underscore_ui": {
+          "isArray": false,
+          "isSimple": true
+        },
+        "fq_field_name": "tipo_meta.perspective_field_name"
       }
     ]
   },

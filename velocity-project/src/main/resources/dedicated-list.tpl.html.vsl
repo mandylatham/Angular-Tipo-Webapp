@@ -5,7 +5,7 @@ This is a velocity template to generate AngularJS list view template for any Tip
 #[[
 <div class="tp-list">
   <div class="fluid-row-container">
-    <div layout="row" tp:perm ng-click="!tipo.disableclick && tipoRootController.toDetail(tipo.key)" ng-repeat="tipo in tipoRootController.tiposWithDefinition" class="fluid-row" md-whiteframe="2">
+    <div layout="row" tp:perm ng-click="!tipo.disableclick && tipoRootController.toDetail(tipo.key)" ng-repeat="tipo in tipoRootController.tipos" class="fluid-row" md-whiteframe="2">
       <md-checkbox ng-if="tipoRootController.bulkedit" ng-model="tipo.selected" ng-click="$event.stopPropagation();" id="listcheckbox"></md-checkbox>
       <div flex layout="row" layout-padding layout-wrap layout-align="start start" class="data pointer" ng-class="{'selected': tipo.selected}" ng-click="!tipo.disableclick && tipoRootController.selectTipo(tipo,$event,tipoRootController.tiposWithDefinition)">
         <!-- tp:field-container field="field" ng-if="!field._ui.isGroup && !field.hidden && field._value" ng-repeat="field in tipo.value.tipo_fields"/-->
@@ -43,6 +43,9 @@ This is a velocity template to generate AngularJS list view template for any Tip
 ##$field.hidden
 ##$group
   	#if( !$field.hidden && !$field.underscore_ui.isGroup )
+  	
+
+  	
         <div class="tp-field">
 			<dl class="edit" 
 			    layout="column" 
@@ -50,11 +53,54 @@ This is a velocity template to generate AngularJS list view template for any Tip
 				flex="100" 
 				flex-gt-sm="$sizeGtSm" 
 				flex-gt-md="$sizeGtMd">
-				<dt ng-if="tipo.$field.field_name">
+				<dt ng-if="tipo.$field.fq_field_name">
 				 $field.display_name  #if($mandatory) <span>*</span> #end
 				</dt>
 				<dd>
-				 <span>{{tipo.$field.field_name}}</span>
+  	#if( !$field.underscore_ui.isArray && !$field.underscore_ui.isTipoRelationship)
+  	
+        <span ng-switch-when="s3explorer">
+          <tp:s3-explorer-view/>
+        </span>
+        <span ng-switch-when="file">
+          <tp:file field="field" mode="view"/>
+        </span>
+        <!-- <span ng-switch-when="colour" style="color: #FFFFFF; background-color: {{tipo.$field.fq_field_name}}; !important; " >{{tipo.$field.fq_field_name}}
+        </span> -->
+        <tp:colour-palette name="{{field.display_name}}_{{field.field_type}}" ng-model="field._value" ng-required="field.mandatory" ng-switch-when="colour" />
+        <span ng-switch-when="htmlLink">
+          <a ng-href="{{tipo.$field.fq_field_name}}" target="_blank">{{tipo.$field.fq_field_name}}</a>
+        </span>
+        <span ng-switch-default>{{tipo.$field.fq_field_name}}</span>
+      </span>	
+  	
+  	
+  		#if($field.field_type == "date_time")
+         	<span>{{tipo.$field.fq_field_name | date:'MM/dd/yyyy'}}</span>
+		#elseif($field.field_type == "password")
+        	<span>*******</span>		
+		#elseif($field.field_type == "longstring")
+	        <span class="preformatted-text">{{tipo.$field.fq_field_name}}</span>
+		#elseif($field.field_type == "richstring")
+	        <span ng-switch-when="richstring">
+	        <script>
+	        	
+	        </script>
+	          <div ng-bind-html="formattedText" class="richstring"></div>
+	        </span>
+		#elseif($field.field_type == "s3explorer")
+
+		#elseif($field.field_type == "file")
+
+		#elseif($field.field_type == "colour")
+
+		#elseif($field.field_type == "htmlLink")
+		
+		#else
+				 <span>{{tipo.$field.fq_field_name}}</span>
+		#end
+  	#end				
+				 
 				</dd>
 			</dl>
         </div>
