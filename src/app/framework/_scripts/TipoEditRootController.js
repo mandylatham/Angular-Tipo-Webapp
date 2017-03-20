@@ -16,6 +16,10 @@
     _instance.tipoDefinition = tipoDefinition;
     _instance.tipoDefinition.tipo_field_groups = tipo.tipo_field_groups;
     _instance.tipo = tipo;
+    console.log("_instance.tipo");
+    console.log(_instance.tipo);
+    console.log("_instance.tipoDefinition");
+    console.log(_instance.tipoDefinition);
 
     var tipo_name = tipoDefinition.tipo_meta.tipo_name;
     var tipo_id = tipo.tipo_id;

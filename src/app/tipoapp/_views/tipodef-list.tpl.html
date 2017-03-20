@@ -1,4 +1,4 @@
-<div class="tp-list">
+<!-- <div class="tp-list">
   <div class="fluid-row-container">
     <div layout="row" tp:perm ng-click="!tipo.disableclick && tipoRootController.toDetail(tipo.key)" ng-repeat="tipo in tipoRootController.tiposWithDefinition" class="fluid-row" md-whiteframe="2">
       <div flex layout="row" layout-padding layout-wrap layout-align="start start" class="data pointer" ng-class="{'selected': tipo.selected}" ng-click="!tipo.disableclick && tipoRootController.selectTipo(tipo,$event,tipoRootController.tiposWithDefinition)">
@@ -29,4 +29,83 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
+<div class="tp-list">
+  <div class="fluid-row-container">
+    <div layout="row" tp:perm ng-click="!tipo.disableclick && tipoRootController.toDetail(tipo.key)" ng-repeat="tipo in tipoRootController.tipos" class="fluid-row" md-whiteframe="2">
+      <md-checkbox ng-if="tipoRootController.bulkedit" ng-model="tipo.selected" ng-click="$event.stopPropagation();" id="listcheckbox"></md-checkbox>
+      <div flex layout="row" layout-padding layout-wrap layout-align="start start" class="data pointer" ng-class="{'selected': tipo.selected}" ng-click="!tipo.disableclick && tipoRootController.selectTipo(tipo,$event,tipoRootController.tiposWithDefinition)">
+        <!-- tp:field-container field="field" ng-if="!field._ui.isGroup && !field.hidden && field._value" ng-repeat="field in tipo.value.tipo_fields"/-->
+ 
+                        <div class="tp-field">
+<dl class="edit" 
+    layout="column" 
+    layout-align="center stretch"
+flex="100" 
+flex-gt-sm="50" 
+flex-gt-md="33">
+<dt ng-if="tipo.tipo_meta.display_name">
+Name  </dt>
+<dd>
+<span>{{tipo.tipo_meta.display_name}}</span>
+</dd>
+</dl>
+        </div>
+                                            <div class="tp-field">
+<dl class="edit" 
+    layout="column" 
+    layout-align="center stretch"
+flex="100" 
+flex-gt-sm="50" 
+flex-gt-md="33">
+<dt ng-if="tipo.tipo_meta.tipo_name">
+Unique ID  </dt>
+<dd>
+<span>{{tipo.tipo_meta.tipo_name}}</span>
+</dd>
+</dl>
+        </div>
+                            <div class="tp-field">
+<dl class="edit" 
+    layout="column" 
+    layout-align="center stretch"
+flex="100" 
+flex-gt-sm="50" 
+flex-gt-md="33">
+<dt ng-if="tipo.tipo_meta.description">
+Description  </dt>
+<dd>
+<span>{{tipo.tipo_meta.description}}</span>
+</dd>
+</dl>
+        </div>
+                            <div class="tp-field">
+<dl class="edit" 
+    layout="column" 
+    layout-align="center stretch"
+flex="100" 
+flex-gt-sm="50" 
+flex-gt-md="33">
+<dt ng-if="tipo.tipo_meta.tipo_sequence">
+Menu Order  </dt>
+<dd>
+<span>{{tipo.tipo_meta.tipo_sequence}}</span>
+</dd>
+</dl>
+        </div>
+                                <div class="tp-field">
+<dl class="edit" 
+    layout="column" 
+    layout-align="center stretch"
+flex="100" 
+flex-gt-sm="50" 
+flex-gt-md="33">
+<dt ng-if="tipo.tipo_meta.tipo_type">
+Tipo type  </dt>
+<dd>
+<span>{{tipo.tipo_meta.tipo_type}}</span>
+</dd>
+</dl>
+        </div>
+                            <div class="tp-field">
+<dl class
