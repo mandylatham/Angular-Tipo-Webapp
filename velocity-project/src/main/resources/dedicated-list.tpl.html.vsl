@@ -59,22 +59,6 @@ This is a velocity template to generate AngularJS list view template for any Tip
 				<dd>
   	#if( !$field.underscore_ui.isArray && !$field.underscore_ui.isTipoRelationship)
   	
-        <span ng-switch-when="s3explorer">
-          <tp:s3-explorer-view/>
-        </span>
-        <span ng-switch-when="file">
-          <tp:file field="field" mode="view"/>
-        </span>
-        <!-- <span ng-switch-when="colour" style="color: #FFFFFF; background-color: {{tipo.$field.fq_field_name}}; !important; " >{{tipo.$field.fq_field_name}}
-        </span> -->
-        <tp:colour-palette name="{{field.display_name}}_{{field.field_type}}" ng-model="field._value" ng-required="field.mandatory" ng-switch-when="colour" />
-        <span ng-switch-when="htmlLink">
-          <a ng-href="{{tipo.$field.fq_field_name}}" target="_blank">{{tipo.$field.fq_field_name}}</a>
-        </span>
-        <span ng-switch-default>{{tipo.$field.fq_field_name}}</span>
-      </span>	
-  	
-  	
   		#if($field.field_type == "date_time")
          	<span>{{tipo.$field.fq_field_name | date:'MM/dd/yyyy'}}</span>
 		#elseif($field.field_type == "password")
@@ -89,13 +73,17 @@ This is a velocity template to generate AngularJS list view template for any Tip
 	          <div ng-bind-html="formattedText" class="richstring"></div>
 	        </span>
 		#elseif($field.field_type == "s3explorer")
-
+	        <span>
+	          <tp:s3-explorer-view/>
+	        </span>
 		#elseif($field.field_type == "file")
-
+	        <span ng-switch-when="file">
+	          <tp:file field="field" mode="view"/>
+	        </span>
 		#elseif($field.field_type == "colour")
-
+	        <tp:colour-palette name="{{field.display_name}}_{{field.field_type}}" ng-model="field._value" ng-required="field.mandatory" ng-switch-when="colour" />
 		#elseif($field.field_type == "htmlLink")
-		
+          <a ng-href="{{tipo.$field.fq_field_name}}" target="_blank">{{tipo.$field.fq_field_name}}</a>		
 		#else
 				 <span>{{tipo.$field.fq_field_name}}</span>
 		#end
