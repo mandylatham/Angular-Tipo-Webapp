@@ -1,0 +1,82 @@
+#*
+This is a velocity template to generate AngularJS list view template for any Tipo Object. Input is an expanded definition.
+*#         
+## Block of code between #[[ ]]# is not parsed, so it is safe to use all sorts of characters without escaping.
+#[[
+<div class="tp-list">
+  <div class="fluid-row-container">
+    <div layout="row" tp:perm ng-click="!tipo.disableclick && tipoRootController.toDetail(tipo.key)" ng-repeat="tipo in tipoRootController.tiposWithDefinition" class="fluid-row" md-whiteframe="2">
+      <md-checkbox ng-if="tipoRootController.bulkedit" ng-model="tipo.selected" ng-click="$event.stopPropagation();" id="listcheckbox"></md-checkbox>
+      <div flex layout="row" layout-padding layout-wrap layout-align="start start" class="data pointer" ng-class="{'selected': tipo.selected}" ng-click="!tipo.disableclick && tipoRootController.selectTipo(tipo,$event,tipoRootController.tiposWithDefinition)">
+        <!-- tp:field-container field="field" ng-if="!field._ui.isGroup && !field.hidden && field._value" ng-repeat="field in tipo.value.tipo_fields"/-->
+]]# 
+##
+#foreach( $field in $definition.short_display_fields)
+##
+##$field.field_name
+## Sizing ##
+    #if($field.sizing)
+    #set($sizing = $Integer.parseInt($field.sizing))
+    #else
+    #set($sizing = 1)
+	#end
+## Mandatory ##
+    #if($field.mandatory)
+    #set($mandatory = $field.mandatory)
+    #else
+    #set($mandatory = false)
+	#end
+##
+    #if ($sizing == 1)
+        #set($sizeGtSm = 50)
+    	#set($sizeGtMd = 33)
+  	#elseif($sizing == 2)
+        #set($sizeGtSm = 100)
+    	#set($sizeGtMd = 66)
+  	#elseif($sizing == 3)
+        #set($sizeGtSm = 100)
+    	#set($sizeGtMd = 100)
+  	#end 
+##
+##  	#set($group = ($field.field_type.startsWith('FieldGroup.') || $field.field_type.startsWith('Tipo.') ) )
+##
+##$field.hidden
+##$group
+  	#if( !$field.hidden && !$field.underscore_ui.isGroup )
+        <div class="tp-field">
+			<dl class="edit" 
+			    layout="column" 
+			    layout-align="center stretch"
+				flex="100" 
+				flex-gt-sm="$sizeGtSm" 
+				flex-gt-md="$sizeGtMd">
+				<dt ng-if="tipo.$field.field_name">
+				 $field.display_name  #if($mandatory) <span>*</span> #end
+				</dt>
+				<dd>
+				 <span>{{tipo.$field.field_name}}</span>
+				</dd>
+			</dl>
+        </div>
+##        
+    #end
+##        
+#end       
+##
+#[[        
+      </div>
+      <div flex="none" layout="column" layout-align="center center" class="actions bg" ng-if="!tipoRootController.popup">
+        <md-button ng-if="!tipo.disableclick" ng-click="tipoRootController.toDetail(tipo.key)" aria-label="View details">
+          <md-tooltip md-direction="left">Details</md-tooltip>
+          <md-icon>fullscreen</md-icon>
+        </md-button>
+        <md-button ng-click="tipoRootController.clone(tipo.key)"  ng-if="!tipoRootController.tipoDefinition._ui.isSingleton" aria-label="Copy" class="md-icon-button">
+          <md-tooltip md-direction="left">Copy</md-tooltip>
+          <md-icon>content_copy</md-icon>
+        </md-button>
+      </div>
+    </div>
+  </div>
+</div>
+
+]]# 
