@@ -10,6 +10,7 @@ import java.util.Map;
 
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
+import org.apache.velocity.tools.generic.EscapeTool;
 
 public class TemplateManager
 {
@@ -35,6 +36,7 @@ public String renderTemplate(String template, Map<String, Object> objects)
     // translate json string to velocity context                                                                                                                                                                
     // (we only need to convey the properties of the root object)
     VelocityContext context = new VelocityContext();
+    context.put("esc", new EscapeTool());
     for (Iterator<String> iterator = objects.keySet().iterator(); iterator.hasNext();) {
 		String objectName =  iterator.next();
 		Object data = objects.get(objectName);
