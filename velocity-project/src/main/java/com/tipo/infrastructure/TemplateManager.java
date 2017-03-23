@@ -36,7 +36,7 @@ public String renderTemplate(String template, Map<String, Object> objects)
     // translate json string to velocity context                                                                                                                                                                
     // (we only need to convey the properties of the root object)
     VelocityContext context = new VelocityContext();
-    context.put("esc", new EscapeTool());
+    context.put("converter", new FieldConverter());
     for (Iterator<String> iterator = objects.keySet().iterator(); iterator.hasNext();) {
 		String objectName =  iterator.next();
 		Object data = objects.get(objectName);
@@ -73,6 +73,7 @@ public String renderTemplate(String template, Map<String, Object> objects)
 			Map<String, Object> jsonObj = JsonHelper.getHelper().getGson().fromJson(definition, Map.class);
       Map<String, Object> definitionObj = (Map<String, Object>) jsonObj.get("data");
       objs.put("definition", definitionObj);
+      
       String result = new TemplateManager().renderTemplate(template, objs);
       String editdefinition = readFile("src/main/resources/expandedVelocityEditDefinition.json");
       String edittemplate = readFile("src/main/resources/dedicated-edit.tpl.html.vsl");
@@ -98,4 +99,8 @@ public String renderTemplate(String template, Map<String, Object> objects)
 			} 
 		return result;
 	}
+	
+	
+	
 }
+
