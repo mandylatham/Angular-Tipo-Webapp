@@ -29,7 +29,7 @@
 			    md-color-preview = "false"
 			    md-colour-default-tab = "materialPalette" 
 		  ></div> -->
-          <tp:colour-palette name="{{field.display_name}}_{{field.field_type}}" mode="edit" ng-model="field._value" ng-required="field.mandatory" ng-switch-when="colour" />
+          <tp:colour-palette name="{{field.display_name}}_{{field.field_type}}" mode="edit" ng-model="field._value.key" ng-required="field.mandatory" ng-switch-when="colour" />
           <div ng-switch-default>
             <div ng-if="!field.allowed_values">
               <input ng-model="field._value.key" aria-label="field.display_name" placeholder="{{field.field_description}}" name="{{field.display_name}}_{{field.field_type}}" ng-required="field.mandatory">

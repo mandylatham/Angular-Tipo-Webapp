@@ -20,12 +20,11 @@
           scope.isPrimary = true;
           console.log(scope.coloursSelected);
           if(_.isUndefined(scope.coloursSelected)){
-            scope.coloursSelected = {};
-            scope.coloursSelected.key = "purple,green";
+            scope.coloursSelected = "purple,green";
             scope.primary = 'purple';
             scope.accent = 'green';
           }else{
-            var selectedColors = scope.coloursSelected.key.split(',');
+            var selectedColors = scope.coloursSelected.split(',');
             scope.primary = selectedColors[0];
             scope.accent = selectedColors[1];
           }
@@ -36,7 +35,7 @@
           }   
 
           scope.selectTheme = function(color){
-            var selectedColors = scope.coloursSelected.key.split(',');
+            var selectedColors = scope.coloursSelected.split(',');
             if (scope.isPrimary) {
               selectedColors[0] = color;
               scope.primary = color;
@@ -47,7 +46,7 @@
               scope.accent = color;
               scope.isPrimary = true;
             }
-            scope.coloursSelected.key = selectedColors.join(',');
+            scope.coloursSelected = selectedColors.join(',');
           }
         }
       };

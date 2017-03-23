@@ -16,7 +16,7 @@
         </span>
         <!-- <span ng-switch-when="colour" style="color: #FFFFFF; background-color: {{field._value.label}}; !important; " >{{field._value.label}}
         </span> -->
-        <tp:colour-palette name="{{field.display_name}}_{{field.field_type}}" ng-model="field._value" ng-required="field.mandatory" ng-switch-when="colour" />
+        <tp:colour-palette name="{{field.display_name}}_{{field.field_type}}" ng-model="field._value.key" ng-required="field.mandatory" ng-switch-when="colour" />
         <span ng-switch-when="htmlLink">
           <a ng-href="{{field._value.label}}" target="_blank">{{field._value.label}}</a>
         </span>

@@ -1,0 +1,127 @@
+#*
+This is a velocity template to generate AngularJS list view template for any Tipo Object. Input is an expanded definition.
+*#         
+## Block of code between #[[ ]]# is not parsed, so it is safe to use all sorts of characters without escaping.
+#[[
+<div class="p-8">
+  <section class="fieldset no-header fluid-row-container">
+    <div class="data" layout-padding layout="row" layout-wrap layout-align="start start">
+      <!-- <tp:field-container root="root" context="definition" field="field" mode="{{mode}}" ng-repeat="field in definition.tipo_fields" ng-if="field._ui.isSimple && !field.hidden_ && (mode === 'edit' || field._value)"/> -->
+      			
+]]# 
+##
+#foreach( $field in $definition.tipo_fields)
+##
+##$field.field_name
+## Sizing ##
+    #if($field.sizing)
+    #set($sizing = $Integer.parseInt($field.sizing))
+    #else
+    #set($sizing = 1)
+	#end
+## Mandatory ##
+    #if($field.mandatory)
+    #set($mandatory = $field.mandatory)
+    #else
+    #set($mandatory = false)
+	#end
+##
+    #if ($sizing == 1)
+        #set($sizeGtSm = 50)
+    	#set($sizeGtMd = 33)
+  	#elseif($sizing == 2)
+        #set($sizeGtSm = 100)
+    	#set($sizeGtMd = 66)
+  	#elseif($sizing == 3)
+        #set($sizeGtSm = 100)
+    	#set($sizeGtMd = 100)
+  	#end 
+##
+##  	#set($group = ($field.field_type.startsWith('FieldGroup.') || $field.field_type.startsWith('Tipo.') ) )
+##
+##$field.hidden
+##$group
+  	#if( !$field.hidden && !$field.underscore_ui.isGroup )
+  	
+
+  	 <dl class="edit" 
+			    layout="column" 
+			    layout-align="center stretch"
+			    flex="100" 
+				flex-gt-sm="$sizeGtSm" 
+				flex-gt-md="$sizeGtMd">
+        <dt>
+				 $field.display_name  #if($mandatory) <span>*</span> #end
+		</dt>
+        <dd>
+			<div class="tp-field">
+				<span>
+					<md-input-container md-no-float>
+  	#if( !$field.underscore_ui.isArray && !$field.underscore_ui.isTipoRelationship)
+  	
+  		#if($field.field_type == "date_time")
+         	<md-datepicker ng-model="tipoRootController.tipo.$field.fq_field_name" md-placeholder="$field.field_description" name="$field.display_name_$field.field_type" ng-required="$mandatory">
+          	</md-datepicker>
+		#elseif($field.field_type == "password")
+        	<input type="password" ng-model="tipoRootController.tipo.$field.fq_field_name" aria-label="$field.display_name" placeholder="$field.field_description" name="$field.display_name_$field.field_type" ng-required="$mandatory" >		
+		#elseif($field.field_type == "longstring")
+	        <textarea ng-model="tipoRootController.tipo.$field.fq_field_name" rows="2" md-select-on-focus aria-label="$field.display_name" placeholder="$field.field_description" name="$field.display_name_$field.field_type" ng-required="$mandatory"  />
+		#elseif($field.field_type == "richstring")
+	        <text-angular ng-model="tipoRootController.tipo.$field.fq_field_name" style="z-index:1" name="$field.display_name_$field.field_type" data-ng-required="$mandatory"></text-angular>
+		#elseif($field.field_type == "s3explorer")
+	        <tp:s3-explorer name="$field.display_name_$field.field_type" ng-required="$mandatory"/>
+		#elseif($field.field_type == "file")
+	        <tp:file field="tipoRootController.tipo" mode="edit"/>
+		#elseif($field.field_type == "colour")
+	        <tp:colour-palette name="$field.display_name_$field.field_type" mode="edit" ng-model="tipoRootController.tipo.$field.fq_field_name" ng-required="$mandatory" />
+		#elseif($field.field_type == "htmlLink")
+          <input ng-model="tipoRootController.tipo.$field.fq_field_name" aria-label="$field.display_name" placeholder="$field.field_description" name="$field.display_name_$field.field_type" ng-required="$mandatory">
+        #elseif($field.field_type == "boolean")
+        <div class="tp-switch" >
+            <md-switch class="md-primary" ng-model="tipoRootController.tipo.$field.fq_field_name" aria-label="$field.field_description">
+              <span>{{ tipoRootController.tipo.$field.fq_field_name && 'Yes' || 'No' }}</span>
+            </md-switch>
+        </div>  		
+		#else
+			#if($field.allowed_values)
+				<md-select ng-model="tipoRootController.tipo.$field.fq_field_name" placeholder="$field.field_description" name="$field.display_name_$field.field_type" ng-required="$mandatory">
+	                <md-option value="" ng-if="!$mandatory">-- Clear --</md-option>
+	                <md-option ng-value="option" ng-repeat="option in $field.allowed_values">{{ option }}</md-option>
+              	</md-select>
+            #else
+            	<input ng-model="tipoRootController.tipo.$field.fq_field_name" aria-label="$field.display_name" placeholder="$field.field_description" name="$field.display_name_$field.field_type" ng-required="$mandatory">
+			#end
+		#end
+	#elseif($field.underscore_ui.isArray && !$field.underscore_ui.isTipoRelationship)
+		#if($field.field_type == "file")
+			<span>
+          		<tp:file field="tipoRootController.tipo" mode="edit"/>
+        	</span>
+        #else
+        	<md-chips ng-model="tipoRootController.tipo.$field.fq_field_name" md-transform-chip="wrapSimpleValue($chip)" class="tp-chips" placeholder="$field.field_description" name="$field.display_name_$field.field_type" ng-required="$mandatory">
+            <md-chip-template>
+              <span>{{$chip}}</span>
+            </md-chip-template>
+          </md-chips>
+		#end
+	#elseif($field.underscore_ui.isTipoRelationship)
+	#set($field = $field.toJson())
+		<tp:lookup root="tipoRootController.tipoDefinition" context="tipoRootController.tipoDefinition" field="$field" field.key="tipoRootController.tipo.$field.fq_field_name" />	
+  	#end				
+##        
+					</md-input-container>
+				</span>
+			</div>       
+        </dd>
+      </dl>
+    #end
+#end
+##              
+##
+#[[        
+     				
+    </div>
+  </section>
+</div>
+
+]]# 

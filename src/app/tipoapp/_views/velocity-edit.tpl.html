@@ -1,0 +1,250 @@
+         
+
+<div class="p-8">
+  <section class="fieldset no-header fluid-row-container">
+    <div class="data" layout-padding layout="row" layout-wrap layout-align="start start">
+      <!-- <tp:field-container root="root" context="definition" field="field" mode="{{mode}}" ng-repeat="field in definition.tipo_fields" ng-if="field._ui.isSimple && !field.hidden_ && (mode === 'edit' || field._value)"/> -->
+            
+ 
+                            
+
+     <dl class="edit" 
+          layout="column" 
+          layout-align="center stretch"
+          flex="100" 
+        flex-gt-sm="50" 
+        flex-gt-md="33">
+        <dt>
+         TIP19      </dt>
+        <dd>
+      <div class="tp-field">
+        <span>
+          <md-input-container md-no-float>
+        <tp:lookup root="tipoRootController.tipoDefinition" context="tipoRootController.tipoDefinition" field="{sequence=0, field_type_refs={refTipo={TIP-19=Tipo.TIP-19}}, short_display=true, _ARRAY_META={_HASH=49b7fab8-b52a-412d-bed6-1cd7121a120e}, display_name=TIP19, field_type=Tipo.TIP-19, field_name=tip19, _ui={isArray=false, isTipoRelationship=true, relatedTipo=TIP-19, isSimple=true}, label_field={sequence=0, field_type_refs={refstring=Simple String}, short_display=true, meaningful_key=true, _ARRAY_META={_HASH=9579a5d5-efef-4293-969b-dfc1084a4104}, display_name=name, field_type=string, field_name=name_}, underscore_ui={isArray=false, isTipoRelationship=true, relatedTipo=TIP-19, isSimple=true}, fq_field_name=tip19}" field.key="tipoRootController.tipo.tip19" />  
+              </md-input-container>
+        </span>
+      </div>       
+        </dd>
+      </dl>
+                                
+
+     <dl class="edit" 
+          layout="column" 
+          layout-align="center stretch"
+          flex="100" 
+        flex-gt-sm="50" 
+        flex-gt-md="33">
+        <dt>
+         Integer      </dt>
+        <dd>
+      <div class="tp-field">
+        <span>
+          <md-input-container md-no-float>
+        
+                          <input ng-model="tipoRootController.tipo.integer_" aria-label="Integer" placeholder="$field.field_description" name="$field.display_name_integer" ng-required="false">
+                      </md-input-container>
+        </span>
+      </div>       
+        </dd>
+      </dl>
+                                
+
+     <dl class="edit" 
+          layout="column" 
+          layout-align="center stretch"
+          flex="100" 
+        flex-gt-sm="50" 
+        flex-gt-md="33">
+        <dt>
+         Simple String      </dt>
+        <dd>
+      <div class="tp-field">
+        <span>
+          <md-input-container md-no-float>
+        
+                          <input ng-model="tipoRootController.tipo.simple_string" aria-label="Simple String" placeholder="$field.field_description" name="$field.display_name_string" ng-required="false">
+                      </md-input-container>
+        </span>
+      </div>       
+        </dd>
+      </dl>
+                                
+
+     <dl class="edit" 
+          layout="column" 
+          layout-align="center stretch"
+          flex="100" 
+        flex-gt-sm="50" 
+        flex-gt-md="33">
+        <dt>
+         Para     </dt>
+        <dd>
+      <div class="tp-field">
+        <span>
+          <md-input-container md-no-float>
+        
+                <textarea ng-model="tipoRootController.tipo.para" rows="2" md-select-on-focus aria-label="Para" placeholder="$field.field_description" name="$field.display_name_longstring" ng-required="false"  />
+                </md-input-container>
+        </span>
+      </div>       
+        </dd>
+      </dl>
+                                
+
+     <dl class="edit" 
+          layout="column" 
+          layout-align="center stretch"
+          flex="100" 
+        flex-gt-sm="50" 
+        flex-gt-md="33">
+        <dt>
+         Rich Text      </dt>
+        <dd>
+      <div class="tp-field">
+        <span>
+          <md-input-container md-no-float>
+        
+                <text-angular ng-model="tipoRootController.tipo.rich_text" style="z-index:1" name="$field.display_name_richstring" data-ng-required="false"></text-angular>
+                </md-input-container>
+        </span>
+      </div>       
+        </dd>
+      </dl>
+                                
+
+     <dl class="edit" 
+          layout="column" 
+          layout-align="center stretch"
+          flex="100" 
+        flex-gt-sm="50" 
+        flex-gt-md="33">
+        <dt>
+         Link     </dt>
+        <dd>
+      <div class="tp-field">
+        <span>
+          <md-input-container md-no-float>
+        
+                <input ng-model="tipoRootController.tipo.link" aria-label="Link" placeholder="$field.field_description" name="$field.display_name_htmlLink" ng-required="false">
+                    </md-input-container>
+        </span>
+      </div>       
+        </dd>
+      </dl>
+                                
+
+     <dl class="edit" 
+          layout="column" 
+          layout-align="center stretch"
+          flex="100" 
+        flex-gt-sm="50" 
+        flex-gt-md="33">
+        <dt>
+         Boolean      </dt>
+        <dd>
+      <div class="tp-field">
+        <span>
+          <md-input-container md-no-float>
+        
+              <div class="tp-switch" >
+            <md-switch class="md-primary" ng-model="tipoRootController.tipo.boolean_" aria-label="$field.field_description">
+              <span>{{ tipoRootController.tipo.boolean_ && 'Yes' || 'No' }}</span>
+            </md-switch>
+        </div>      
+                </md-input-container>
+        </span>
+      </div>       
+        </dd>
+      </dl>
+                                
+
+     <dl class="edit" 
+          layout="column" 
+          layout-align="center stretch"
+          flex="100" 
+        flex-gt-sm="50" 
+        flex-gt-md="33">
+        <dt>
+         Password     </dt>
+        <dd>
+      <div class="tp-field">
+        <span>
+          <md-input-container md-no-float>
+        
+                <input type="password" ng-model="tipoRootController.tipo.password" aria-label="Password" placeholder="$field.field_description" name="$field.display_name_password" ng-required="false" >   
+                </md-input-container>
+        </span>
+      </div>       
+        </dd>
+      </dl>
+                                
+
+     <dl class="edit" 
+          layout="column" 
+          layout-align="center stretch"
+          flex="100" 
+        flex-gt-sm="50" 
+        flex-gt-md="33">
+        <dt>
+         Date/Time      </dt>
+        <dd>
+      <div class="tp-field">
+        <span>
+          <md-input-container md-no-float>
+        
+                <md-datepicker ng-model="tipoRootController.tipo.date_time" md-placeholder="$field.field_description" name="$field.display_name_date_time" ng-required="false">
+            </md-datepicker>
+                </md-input-container>
+        </span>
+      </div>       
+        </dd>
+      </dl>
+                                
+
+     <dl class="edit" 
+          layout="column" 
+          layout-align="center stretch"
+          flex="100" 
+        flex-gt-sm="50" 
+        flex-gt-md="33">
+        <dt>
+         Color      </dt>
+        <dd>
+      <div class="tp-field">
+        <span>
+          <md-input-container md-no-float>
+        
+                <tp:colour-palette name="$field.display_name_colour" mode="edit" ng-model="tipoRootController.tipo.color" ng-required="false" />
+                </md-input-container>
+        </span>
+      </div>       
+        </dd>
+      </dl>
+                                
+
+     <dl class="edit" 
+          layout="column" 
+          layout-align="center stretch"
+          flex="100" 
+        flex-gt-sm="50" 
+        flex-gt-md="33">
+        <dt>
+         File     </dt>
+        <dd>
+      <div class="tp-field">
+        <span>
+          <md-input-container md-no-float>
+        
+                <tp:file field="tipoRootController.tipo" mode="edit"/>
+                </md-input-container>
+        </span>
+      </div>       
+        </dd>
+      </dl>
+            
+            
+    </div>
+  </section>
+</div>
+
+ 

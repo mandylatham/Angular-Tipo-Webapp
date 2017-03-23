@@ -1,36 +1,3 @@
-<!-- <div class="tp-list">
-  <div class="fluid-row-container">
-    <div layout="row" tp:perm ng-click="!tipo.disableclick && tipoRootController.toDetail(tipo.key)" ng-repeat="tipo in tipoRootController.tiposWithDefinition" class="fluid-row" md-whiteframe="2">
-      <div flex layout="row" layout-padding layout-wrap layout-align="start start" class="data pointer" ng-class="{'selected': tipo.selected}" ng-click="!tipo.disableclick && tipoRootController.selectTipo(tipo,$event,tipoRootController.tiposWithDefinition)">
-        <div class="p-8" flex="33" ng-if="!field.hidden && field._value.label" ng-repeat="field in tipo.value.tipo_fields">
-          <section class="fieldset no-header fluid-row-container">
-            <div class="data" layout-padding layout="row" layout-wrap layout-align="start start">
-              <dl class="edit" layout="column" layout-align="center stretch" flex="100">
-                <dt ng-if="field.display_name">{{field.display_name}} <span ng-if="field.mandatory">*</span></dt>
-                <dd>
-                  <div class="tp-field">
-                    <span>{{field._value.label}}</span>
-                  </div>
-                </dd>
-              </dl>
-            </div>
-          </section>
-        </div>
-      </div>
-      <div flex="none" layout="column" layout-align="center center" class="actions bg" ng-if="!tipoRootController.popup">
-        <md-button ng-if="!tipo.disableclick" ng-click="tipoRootController.toDetail(tipo.key)" aria-label="View details">
-          <md-tooltip md-direction="left">Details</md-tooltip>
-          <md-icon>fullscreen</md-icon>
-        </md-button>
-        <md-button ng-click="tipoRootController.clone(tipo.key)"  ng-if="!tipoRootController.tipoDefinition._ui.isSingleton" aria-label="Copy" class="md-icon-button">
-          <md-tooltip md-direction="left">Copy</md-tooltip>
-          <md-icon>content_copy</md-icon>
-        </md-button>
-      </div>
-    </div>
-  </div>
-</div> -->
-         
          
 
 <div class="tp-list">
@@ -48,29 +15,12 @@
           flex="100" 
         flex-gt-sm="50" 
         flex-gt-md="33"
-        ng-if="tipo.tipo_meta.display_name">
+        ng-if="tipo.tip19">
         <dt>
-         Name         </dt>
+         TIP19          </dt>
         <dd>
         <div class="tp-field">
-        
-               <span>{{tipo.tipo_meta.display_name}}</span>
-               </div>
-        </dd>
-      </dl>
-                                
-      <dl class="edit" 
-          layout="column" 
-          layout-align="center stretch"
-          flex="100" 
-        flex-gt-sm="50" 
-        flex-gt-md="33"
-        ng-if="tipo.tipo_meta.icon">
-        <dt>
-         Icon         </dt>
-        <dd>
-        <div class="tp-field">
-        <a class="explicit" ui-sref="tipoView({tipo_name: 'TipoIcon', tipo_id: tipo.tipo_meta.icon})" ui-sref-opts="{reload: 'tipoView'}">{{ tipo.tipo_meta.icon_refs['ref' + tipo.tipo_meta.icon] || tipo.tipo_meta.icon}}</a>
+        <a class="explicit" ui-sref="tipoView({tipo_name: 'TIP-19', tipo_id: tipo.tip19})" ui-sref-opts="{reload: 'tipoView'}">{{ tipo.tip19_refs['ref' + tipo.tip19] || tipo.tip19}}</a>
              </div>
         </dd>
       </dl>
@@ -81,13 +31,13 @@
           flex="100" 
         flex-gt-sm="50" 
         flex-gt-md="33"
-        ng-if="tipo.tipo_meta.tipo_name">
+        ng-if="tipo.integer_">
         <dt>
-         Unique ID          </dt>
+         Integer          </dt>
         <dd>
         <div class="tp-field">
         
-               <span>{{tipo.tipo_meta.tipo_name}}</span>
+               <span>{{tipo.integer_}}</span>
                </div>
         </dd>
       </dl>
@@ -98,13 +48,13 @@
           flex="100" 
         flex-gt-sm="50" 
         flex-gt-md="33"
-        ng-if="tipo.tipo_meta.description">
+        ng-if="tipo.simple_string">
         <dt>
-         Description          </dt>
+         Simple String          </dt>
         <dd>
         <div class="tp-field">
         
-                <span class="preformatted-text">{{tipo.tipo_meta.description}}</span>
+               <span>{{tipo.simple_string}}</span>
                </div>
         </dd>
       </dl>
@@ -115,33 +65,13 @@
           flex="100" 
         flex-gt-sm="50" 
         flex-gt-md="33"
-        ng-if="tipo.tipo_meta.tipo_sequence">
+        ng-if="tipo.para">
         <dt>
-         Menu Order         </dt>
+         Para         </dt>
         <dd>
         <div class="tp-field">
         
-               <span>{{tipo.tipo_meta.tipo_sequence}}</span>
-               </div>
-        </dd>
-      </dl>
-                                  
-      <dl class="edit" 
-          layout="column" 
-          layout-align="center stretch"
-          flex="100" 
-        flex-gt-sm="50" 
-        flex-gt-md="33"
-        ng-if="tipo.tipo_meta.tipo_type">
-        <dt>
-         Tipo type          </dt>
-        <dd>
-        <div class="tp-field">
-                  <md-chips ng-model="tipo.tipo_meta.tipo_type" readonly="'true'" class="tp-chips readonly">
-            <md-chip-template>
-              <span>{{$chip}}</span>
-            </md-chip-template>
-          </md-chips>
+                <span class="preformatted-text">{{tipo.para}}</span>
                </div>
         </dd>
       </dl>
@@ -152,13 +82,15 @@
           flex="100" 
         flex-gt-sm="50" 
         flex-gt-md="33"
-        ng-if="tipo.tipo_meta.tipo_ui_type">
+        ng-if="tipo.rich_text">
         <dt>
-         Tipo UI Type         </dt>
+         Rich Text          </dt>
         <dd>
         <div class="tp-field">
         
-               <span>{{tipo.tipo_meta.tipo_ui_type}}</span>
+                <span>
+            <div ng-bind-html="tipo.rich_text" class="richstring"></div>
+          </span>
                </div>
         </dd>
       </dl>
@@ -169,13 +101,101 @@
           flex="100" 
         flex-gt-sm="50" 
         flex-gt-md="33"
-        ng-if="tipo.tipo_meta.perspective_field_name">
+        ng-if="tipo.link">
         <dt>
-         Perspective Field          </dt>
+         Link         </dt>
         <dd>
         <div class="tp-field">
         
-               <span>{{tipo.tipo_meta.perspective_field_name}}</span>
+                <a ng-href="{{tipo.link}}" target="_blank">{{tipo.link}}</a>    
+               </div>
+        </dd>
+      </dl>
+                                
+      <dl class="edit" 
+          layout="column" 
+          layout-align="center stretch"
+          flex="100" 
+        flex-gt-sm="50" 
+        flex-gt-md="33"
+        ng-if="tipo.boolean_">
+        <dt>
+         Boolean          </dt>
+        <dd>
+        <div class="tp-field">
+        
+             <span ng-if="tipo.boolean_">Yes</span>
+       <span ng-if="!tipo.boolean_">No</span>
+               </div>
+        </dd>
+      </dl>
+                                
+      <dl class="edit" 
+          layout="column" 
+          layout-align="center stretch"
+          flex="100" 
+        flex-gt-sm="50" 
+        flex-gt-md="33"
+        ng-if="tipo.password">
+        <dt>
+         Password         </dt>
+        <dd>
+        <div class="tp-field">
+        
+                <span>*******</span>    
+               </div>
+        </dd>
+      </dl>
+                                
+      <dl class="edit" 
+          layout="column" 
+          layout-align="center stretch"
+          flex="100" 
+        flex-gt-sm="50" 
+        flex-gt-md="33"
+        ng-if="tipo.date_time">
+        <dt>
+         Date/Time          </dt>
+        <dd>
+        <div class="tp-field">
+        
+                <span>{{tipo.date_time | date:'MM/dd/yyyy'}}</span>
+               </div>
+        </dd>
+      </dl>
+                                
+      <dl class="edit" 
+          layout="column" 
+          layout-align="center stretch"
+          flex="100" 
+        flex-gt-sm="50" 
+        flex-gt-md="33"
+        ng-if="tipo.color">
+        <dt>
+         Color          </dt>
+        <dd>
+        <div class="tp-field">
+        
+                <tp:colour-palette  ng-model="tipo.color" />
+               </div>
+        </dd>
+      </dl>
+                                
+      <dl class="edit" 
+          layout="column" 
+          layout-align="center stretch"
+          flex="100" 
+        flex-gt-sm="50" 
+        flex-gt-md="33"
+        ng-if="tipo.file_">
+        <dt>
+         File         </dt>
+        <dd>
+        <div class="tp-field">
+        
+                <span>
+            <tp:file field="tipo" mode="view"/>
+          </span>
                </div>
         </dd>
       </dl>

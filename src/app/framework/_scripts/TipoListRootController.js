@@ -24,6 +24,7 @@
     _instance.bulkedit = false;
     console.log("_instance.tipos");
     console.log(_instance.tipos);
+    console.log(_instance.tiposWithDefinition);
 
     _instance.hasTipos = tipos.length > 0;
 

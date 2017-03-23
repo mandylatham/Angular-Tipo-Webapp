@@ -1,32 +1,15 @@
-<div class="tp-list">
-  <div class="fluid-row-container">
-    <div layout="row" tp:perm ng-click="!tipo.disableclick && tipoRootController.toDetail(tipo.key)" ng-repeat="tipo in tipoRootController.tiposWithDefinition" class="fluid-row" md-whiteframe="2">
-      <div flex layout="row" layout-padding layout-wrap layout-align="start start" class="data pointer" ng-class="{'selected': tipo.selected}" ng-click="!tipo.disableclick && tipoRootController.selectTipo(tipo,$event,tipoRootController.tiposWithDefinition)">
-        <div class="p-8" flex="33" ng-if="!field.hidden && field._value.label" ng-repeat="field in tipo.value.tipo_fields">
-          <section class="fieldset no-header fluid-row-container">
-            <div class="data" layout-padding layout="row" layout-wrap layout-align="start start">
-              <dl class="edit" layout="column" layout-align="center stretch" flex="100">
-                <dt ng-if="field.display_name">{{field.display_name}} <span ng-if="field.mandatory">*</span></dt>
-                <dd>
-                  <div class="tp-field">
-                    <span>{{field._value.label}}</span>
-                  </div>
-                </dd>
-              </dl>
-            </div>
-          </section>
-        </div>
-      </div>
-      <div flex="none" layout="column" layout-align="center center" class="actions bg" ng-if="!tipoRootController.popup">
-        <md-button ng-if="!tipo.disableclick" ng-click="tipoRootController.toDetail(tipo.key)" aria-label="View details">
-          <md-tooltip md-direction="left">Details</md-tooltip>
-          <md-icon>fullscreen</md-icon>
-        </md-button>
-        <md-button ng-click="tipoRootController.clone(tipo.key)"  ng-if="!tipoRootController.tipoDefinition._ui.isSingleton" aria-label="Copy" class="md-icon-button">
-          <md-tooltip md-direction="left">Copy</md-tooltip>
-          <md-icon>content_copy</md-icon>
-        </md-button>
-      </div>
+<div class="p-8">
+  <section class="fieldset no-header fluid-row-container">
+    <div class="data" layout-padding layout="row" layout-wrap layout-align="start start">
+      <!-- <tp:field-container root="root" context="definition" field="field" mode="{{mode}}" ng-repeat="field in definition.tipo_fields" ng-if="field._ui.isSimple && !field.hidden_ && (mode === 'edit' || field._value)"/> -->
+      <dl class="edit" layout="column" layout-align="center stretch" flex="100" flex-gt-sm="{{sizeGtSm}}" flex-gt-md="{{sizeGtMd}}">
+        <dt ng-if="field.display_name">{{field.display_name}} <span ng-if="field.mandatory">*</span></dt>
+        <dd>
+<!--           <tp:field-edit root="root" context="context" parent="parent" field="field" ng-if="!field.read_only"/> -->
+        
+        </dd>
+      </dl>
     </div>
-  </div>
+  </section>
+  <tp:group-container root="root" context="definition" group="field" ng-repeat="field in definition.tipo_fields" ng-if="field._ui.isGroup && !field.hidden_"/>
 </div>

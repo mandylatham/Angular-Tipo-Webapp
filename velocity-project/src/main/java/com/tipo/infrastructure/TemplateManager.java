@@ -65,13 +65,21 @@ public String renderTemplate(String template, Map<String, Object> objects)
     try
     {
       String definition = readFile("src/main/resources/expandedDefinition.json");
+//      String definition = readFile("src/main/resources/expandedVelocityDefinition.json");
       String template = readFile("src/main/resources/dedicated-list.tpl.html.vsl");
       Map<String, Object> objs = new HashMap<String, Object>();
-      Map<String, Object> jsonObj = JsonHelper.getHelper().getGson().fromJson(definition, Map.class);
+			Map<String, Object> jsonObj = JsonHelper.getHelper().getGson().fromJson(definition, Map.class);
       Map<String, Object> definitionObj = (Map<String, Object>) jsonObj.get("data");
       objs.put("definition", definitionObj);
       String result = new TemplateManager().renderTemplate(template, objs);
-      System.out.println(result);
+      String editdefinition = readFile("src/main/resources/expandedVelocityEditDefinition.json");
+      String edittemplate = readFile("src/main/resources/dedicated-edit.tpl.html.vsl");
+      Map<String, Object> editobjs = new HashMap<String, Object>();
+			Map<String, Object> editjsonObj = JsonHelper.getHelper().getGson().fromJson(editdefinition, Map.class);
+      Map<String, Object> editdefinitionObj = (Map<String, Object>) editjsonObj.get("data");
+      editobjs.put("definition", editdefinitionObj);
+      String editresult = new TemplateManager().renderTemplate(edittemplate, editobjs);
+      System.out.println(editresult);
     }
     catch (Exception e)
     {

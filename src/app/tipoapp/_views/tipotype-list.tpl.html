@@ -28,7 +28,7 @@
     <md-divider></md-divider>
   </div>
   <div layout="row" layout-align="center stretch" class="fluid-row data" layout-margin layout-wrap>
-    <div ng-repeat="tipo in controller.tipo_types | filter:{tipo_object: 'true'}" layout="column" style="width: 172px;" layout-align="center center" ng-click="controller.selectTipo(tipo,$event,controller.tipo_types)" ng-class="{'selected': tipo.selected}" class="pointer">
+    <div ng-repeat="tipo in controller.tipo_types | filter:{tipo_object: 'true'}" layout="column" style="width: 172px;" layout-align="center center" ng-click="tipoRootController.selectTipo(tipo,$event,controller.tipo_types)" ng-class="{'selected': tipo.selected}" class="pointer">
       <div class="app-logo">
           <md-icon style="width: 48px;height: 48px;font-size: 48px;" ng-if="tipo.icon">{{tipo.icon}}</md-icon>
           <md-icon style="width: 48px;height: 48px;font-size: 48px;" ng-if="!tipo.icon">assignment_late</md-icon>
