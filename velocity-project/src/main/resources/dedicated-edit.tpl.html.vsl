@@ -105,8 +105,39 @@ This is a velocity template to generate AngularJS list view template for any Tip
           </md-chips>
 		#end
 	#elseif($field.underscore_ui.isTipoRelationship)
-	#set($field = $field.toJson())
-		<tp:lookup root="tipoRootController.tipoDefinition" context="tipoRootController.tipoDefinition" field="$field" field.key="tipoRootController.tipo.$field.fq_field_name" />	
+		#set($fieldisArray = $field.underscore_ui.isArray)
+		#if($field.underscore_ui.isGroup)
+			#set($fieldisGroup = $field.underscore_ui.isGroup)
+		#else
+			#set($fieldisGroup = "false")
+		#end
+		#if($field.relationship_filter)
+			#set($fieldbaseFilter = $field.relationship_filter)
+		#else
+			#set($fieldbaseFilter = "")
+		#end
+		#set($fieldrelatedTipo = $field.underscore_ui.relatedTipo)
+		#if($field.label_field)
+			#set($field_label_field = $field.label_field.field_name)
+		#else
+			#set($field_label_field = $field.key_field.field_name)
+		#end
+		#set($fieldisPopup = false)
+		#foreach($value in $field.metadata)
+			#if($value.key_ == "popup.select")
+			#set($fieldisPopup = true)
+			#end
+		#end
+		#set($fieldJson= {"isArray": $fieldisArray,
+						 "isGroup": $fieldisGroup,
+						 "baseFilter": "$fieldbaseFilter",
+						 "relatedTipo": "$fieldrelatedTipo",
+						 "labelField": "$field_label_field",
+						 "isPopup": $fieldisPopup,
+						 "mandatory": $mandatory,
+						 "fieldKey": "$field.fq_field_name"})
+		#set($fieldJson = $converter.convert($fieldJson))
+		<tp:lookup root="tipoRootController.tipoDefinition" context="tipoRootController.tipoDefinition"  field="tipoRootController.tipo.$field.fq_field_name" field-data='$fieldJson' tipo-data="tipoRootController.tipo" />	
   	#end				
 ##        
 					</md-input-container>

@@ -68,24 +68,22 @@
           root: '=',
           context: '=',
           parent: '=',
-          field: '='
+          field: '=',
+          fieldData: '=',
+          tipoData: '=',
         },
         restrict: 'EA',
         replace: true,
         template: '<ng-include src="fieldTemplate" tp-include-replace/>',
         link: function(scope, element, attrs){
-          var field = scope.field;
-          var isArray = Boolean(field._ui.isArray);
-          var isGroup = Boolean(field._ui.isGroup);
-          var isMandatory = Boolean(field.mandatory);
-          scope.isPopup = false;
-          _.forEach(field.metadata, function(value) {
-            if (value.key_ === "popup.select") {
-              scope.isPopup = true;
-            };
-          });
-
-          scope.isArray = isArray;
+          var tipoData = scope.tipoData;
+          console.log("tipoData");
+          console.log(scope.tipoData);
+          var fieldData = scope.fieldData;
+          var isArray = Boolean(scope.fieldData.isArray);
+          var isGroup = Boolean(scope.fieldData.isGroup);
+          var isMandatory = Boolean(scope.fieldData.mandatory);
+          scope.isPopup = Boolean(scope.fieldData.isPopup);
 
           var fieldTemplate;
           if(isArray && !isGroup){
@@ -95,22 +93,27 @@
           }
           scope.fieldTemplate = fieldTemplate;
 
-          var baseFilter = field.relationship_filter;
-          scope.tipo_name = field._ui.relatedTipo;
+          var baseFilter = scope.fieldData.baseFilter;
+          scope.tipo_name = scope.fieldData.relatedTipo;
 
-          var label_field;
-          if(_.isUndefined(field.label_field)){
-            label_field = field.key_field.field_name;
-          }else{
-            label_field = field.label_field.field_name;
-          }
+          var label_field = scope.fieldData.labelField;
 
-          scope.selectedTipos = [];
+          scope.selectedTipos = [];          
           if(isArray){
-            scope.selectedTipos = field._value;
+            scope.selfield = [];
+            _.each(scope.field, function(each){
+                    scope.selfield.push({
+                      key: each,
+                      label: _.get(tipoData, scope.fieldData.fieldKey + '_refs.ref' + each)
+                    });
+                  });
+            scope.selectedTipos = scope.selfield;
           }else{
-            if(_.get(field, '_value.key')){
-              scope.selectedTipos = [field._value];
+            scope.selfield = {};
+            if(scope.field){
+              scope.selfield.key = scope.field;
+              scope.selfield.label = _.get(tipoData, scope.fieldData.fieldKey + '_refs.ref' + scope.field);
+              scope.selectedTipos = [scope.selfield];
             }
           }
 
@@ -148,17 +151,21 @@
             }
             return tipoInstanceDataService.search(scope.tipo_name, searchCriteria).then(function(results){
               scope.tipos = results;
+              console.log("results");
+              console.log(results);
+              console.log(label_field);
               scope.options = _.map(results, function(each){
                 return {
                   key: each.tipo_id,
                   label: each[label_field]
                 };
               });
-              if(isMandatory && !field._value){
+              console.log(scope.options)
+              if(isMandatory && !field){
                 if(isArray){
-                  field._value = [scope.options[0]];
+                  field = [scope.options[0]];
                 }else{
-                  field._value = scope.options[0];
+                  field = scope.options[0];
                 }
               }
             });
@@ -176,10 +183,10 @@
           };
 
           scope.renderSelection = function(){
-            var text = '<div class="placeholder">' + field.field_description + '</div>';
-            if (field._value && field._value.length){
+            var text = '<div class="placeholder"></div>';
+            if (field && field.length){
               text = '<div class="multiple-list">';
-              _.each(field._value, function(each){
+              _.each(field, function(each){
                 text += '<div>' +each.label + '</div>';
               });
               text += '</div>';
@@ -224,11 +231,11 @@
             promise.then(function(selectedObjects){
               optionsFormat(selectedObjects);
               if(isArray){
-                field._value = scope.optionSelected;
-                scope.selectedTipos = field._value;
+                field = scope.optionSelected;
+                scope.selectedTipos = field;
               }else{
-                field._value = scope.optionSelected[0];
-                scope.selectedTipos = [field._value];
+                field = scope.optionSelected[0];
+                scope.selectedTipos = [field];
               }
             });
           }
