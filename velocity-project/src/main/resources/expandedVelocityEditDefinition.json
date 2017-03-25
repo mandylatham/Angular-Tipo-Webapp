@@ -2,95 +2,91 @@
    "tipo_name":"TipoDefinition",
    "message":null,
    "status_code":"200",
-   "return_url":null,
    "data":{  
-      "created_dt":"1490178764902",
-      "application_refs":{  
-         "ref1000000001":"Tipo App"
+      "tipo_meta":{  
+         "display_name":"VelocityTest",
+         "icon":"sentiment_very_satisfied",
+         "icon_refs":{  
+            "refsentiment_very_satisfied":"sentiment very satisfied"
+         },
+         "tipo_name":"VelocityTest"
       },
-      "geo_latitude":"17.727658899999998",
-      "tipo_list":{  
-         "ui_template_url":"tipoapp.velocity-list"
-      },
-      "application_owner_account":"2000000001",
-      "geo_longitude":"83.31298",
       "tipo_fields":[  
          {  
-            "sequence":"0",
+            "display_name":"FieldGTest",
+            "field_type":"FieldGroup.TestGroup",
             "field_type_refs":{  
-               "refTipo":{  
-                  "TIP-19":"Tipo.TIP-19"
+               "refFieldGroup":{  
+                  "TestGroup":"FieldGroup. TestGroup"
                }
             },
             "short_display":true,
             "_ARRAY_META":{  
-               "_HASH":"49b7fab8-b52a-412d-bed6-1cd7121a120e"
+               "_HASH":"1676570916"
             },
-            "display_name":"TIP19",
-            "field_type":"Tipo.TIP-19",
-            "field_name":"tip19",
+            "field_name":"fieldgtest",
+            "sequence":1,
             "_ui":{  
                "isArray":false,
-               "isTipoRelationship":true,
-               "relatedTipo":"TIP-19",
-               "isSimple":true
+               "isGroup":true
             },
-            "label_field":{  
-               "sequence":"0",
-               "field_type_refs":{  
-                  "refstring":"Simple String"
+            "tipo_fields":[  
+               {  
+                  "display_name":"Field2",
+                  "field_type":"string",
+                  "field_type_refs":{  
+                     "refstring":"Simple String"
+                  },
+                  "field_name":"field2",
+                  "_ARRAY_META":{  
+                     "_HASH":"1650330353"
+                  },
+                  "sequence":1,
+                  "_ui":{  
+                     "isArray":false,
+                     "isSimple":true
+                  }
                },
-               "short_display":true,
-               "meaningful_key":true,
-               "_ARRAY_META":{  
-                  "_HASH":"9579a5d5-efef-4293-969b-dfc1084a4104"
-               },
-               "display_name":"name",
-               "field_type":"string",
-               "field_name":"name_"
-            },
+               {  
+                  "display_name":"Field1",
+                  "field_type":"string",
+                  "field_type_refs":{  
+                     "refstring":"Simple String"
+                  },
+                  "short_display":true,
+                  "field_name":"field1",
+                  "_ARRAY_META":{  
+                     "_HASH":"2486224639"
+                  },
+                  "sequence":0,
+                  "_ui":{  
+                     "isArray":false,
+                     "isSimple":true
+                  },
+                  "underscore_ui":{  
+                     "isArray":false,
+                     "isSimple":true
+                  },
+                  "fq_field_name":"fieldgtest.field1"
+               }
+            ],
             "underscore_ui":{  
                "isArray":false,
-               "isTipoRelationship":true,
-               "relatedTipo":"TIP-19",
-               "isSimple":true
-            },
-            "fq_field_name":"tip19"
+               "isGroup":true
+            }
          },
          {  
-            "sequence":"0",
-            "field_type_refs":{  
-               "refinteger":"Integer"
-            },
-            "short_display":true,
-            "_ARRAY_META":{  
-               "_HASH":"970bab60-d135-4d8a-9788-dc3534ad6af0"
-            },
-            "display_name":"Integer",
-            "field_type":"integer",
-            "field_name":"integer_",
-            "_ui":{  
-               "isArray":false,
-               "isSimple":true
-            },
-            "underscore_ui":{  
-               "isArray":false,
-               "isSimple":true
-            },
-            "fq_field_name":"integer_"
-         },
-         {  
-            "sequence":"1",
+            "display_name":"Simple String",
+            "field_type":"string",
             "field_type_refs":{  
                "refstring":"Simple String"
             },
             "short_display":true,
             "_ARRAY_META":{  
-               "_HASH":"3fa9af40-0478-4c0a-b1e0-666cab965cb3"
+               "_HASH":"8814052217"
             },
-            "display_name":"Simple String",
-            "field_type":"string",
             "field_name":"simple_string",
+            "sequence":2,
             "_ui":{  
                "isArray":false,
                "isSimple":true
@@ -99,20 +95,20 @@
                "isArray":false,
                "isSimple":true
             },
-            "fq_field_name":"simple_string"
+            "fq_field_name":"fieldgtest.simple_string"
          },
          {  
-            "sequence":"2",
+            "display_name":"Para",
+            "field_type":"longstring",
             "field_type_refs":{  
                "reflongstring":"Paragraph"
             },
             "short_display":true,
             "_ARRAY_META":{  
-               "_HASH":"714cd4e4-3bea-473a-b90b-d640179ae1fc"
+               "_HASH":"2575865057"
             },
-            "display_name":"Para",
-            "field_type":"longstring",
             "field_name":"para",
+            "sequence":3,
             "_ui":{  
                "isArray":false,
                "isSimple":true
@@ -121,20 +117,20 @@
                "isArray":false,
                "isSimple":true
             },
-            "fq_field_name":"para"
+            "fq_field_name":"fieldgtest.para"
          },
          {  
-            "sequence":"3",
+            "display_name":"Rich Text",
+            "field_type":"richstring",
             "field_type_refs":{  
                "refrichstring":"Rich Text"
             },
             "short_display":true,
             "_ARRAY_META":{  
-               "_HASH":"667e8e9d-1754-497c-a0d0-e8f212460f5f"
+               "_HASH":"1240763039"
             },
-            "display_name":"Rich Text",
-            "field_type":"richstring",
             "field_name":"rich_text",
+            "sequence":4,
             "_ui":{  
                "isArray":false,
                "isSimple":true
@@ -143,20 +139,20 @@
                "isArray":false,
                "isSimple":true
             },
-            "fq_field_name":"rich_text"
+            "fq_field_name":"fieldgtest.rich_text"
          },
          {  
-            "sequence":"4",
+            "display_name":"HTML Link",
+            "field_type":"htmlLink",
             "field_type_refs":{  
                "refhtmlLink":"Link"
             },
             "short_display":true,
             "_ARRAY_META":{  
-               "_HASH":"3f4de2c5-abf3-4e7f-b589-c34744cfaa87"
+               "_HASH":"7693096437"
             },
-            "display_name":"Link",
-            "field_type":"htmlLink",
-            "field_name":"link",
+            "field_name":"html_link",
+            "sequence":5,
             "_ui":{  
                "isArray":false,
                "isSimple":true
@@ -165,20 +161,20 @@
                "isArray":false,
                "isSimple":true
             },
-            "fq_field_name":"link"
+            "fq_field_name":"fieldgtest.html_link"
          },
          {  
-            "sequence":"5",
+            "display_name":"Boolean",
+            "field_type":"boolean",
             "field_type_refs":{  
                "refboolean":"True/False"
             },
             "short_display":true,
             "_ARRAY_META":{  
-               "_HASH":"2b43ea62-18ab-4373-a802-8c3f7ba8813c"
+               "_HASH":"7407795207"
             },
-            "display_name":"Boolean",
-            "field_type":"boolean",
             "field_name":"boolean_",
+            "sequence":6,
             "_ui":{  
                "isArray":false,
                "isSimple":true
@@ -187,42 +183,20 @@
                "isArray":false,
                "isSimple":true
             },
-            "fq_field_name":"boolean_"
+            "fq_field_name":"fieldgtest.boolean_"
          },
          {  
-            "sequence":"6",
-            "field_type_refs":{  
-               "refpassword":"Password"
-            },
-            "short_display":true,
-            "_ARRAY_META":{  
-               "_HASH":"689c0d14-79c5-466f-a0bb-6ad91af6ea39"
-            },
-            "display_name":"Password",
-            "field_type":"password",
-            "field_name":"password",
-            "_ui":{  
-               "isArray":false,
-               "isSimple":true
-            },
-            "underscore_ui":{  
-               "isArray":false,
-               "isSimple":true
-            },
-            "fq_field_name":"password"
-         },
-         {  
-            "sequence":"7",
+            "display_name":"Date/Time",
+            "field_type":"date_time",
             "field_type_refs":{  
                "refdate_time":"Date/Time"
             },
             "short_display":true,
             "_ARRAY_META":{  
-               "_HASH":"ce68c32b-0652-486e-b150-e52c5f5d52f3"
+               "_HASH":"4508423425"
             },
-            "display_name":"Date/Time",
-            "field_type":"date_time",
             "field_name":"date_time",
+            "sequence":7,
             "_ui":{  
                "isArray":false,
                "isSimple":true
@@ -231,141 +205,121 @@
                "isArray":false,
                "isSimple":true
             },
-            "fq_field_name":"date_time"
+            "fq_field_name":"fieldgtest.date_time"
          },
          {  
-            "sequence":"8",
+            "display_name":"Integer",
+            "field_type":"integer",
             "field_type_refs":{  
-               "refcolour":"Colour"
+               "refinteger":"Integer"
+            },
+            "short_display":true,
+            "field_name":"integer_",
+            "_ARRAY_META":{  
+               "_HASH":"1656516289"
+            },
+            "sequence":8,
+            "_ui":{  
+               "isArray":false,
+               "isSimple":true
+            },
+            "underscore_ui":{  
+               "isArray":false,
+               "isSimple":true
+            },
+            "fq_field_name":"fieldgtest.integer_"
+         },
+         {  
+            "display_name":"TipoCustomer",
+            "field_type":"Tipo.Customer",
+            "field_type_refs":{  
+               "refTipo":{  
+                  "Customer":"Tipo. Customer"
+               }
             },
             "short_display":true,
             "_ARRAY_META":{  
-               "_HASH":"c98750db-a4cd-47fd-a931-51e0e17641eb"
+               "_HASH":"3910313322"
             },
-            "display_name":"Color",
-            "field_type":"colour",
-            "field_name":"color",
+            "field_name":"tipocustomer",
+            "sequence":0,
             "_ui":{  
                "isArray":false,
+               "isTipoRelationship":true,
+               "relatedTipo":"Customer",
                "isSimple":true
+            },
+            "key_field":{  
+               "sequence":"0",
+               "field_type_refs":{  
+                  "refstring":"Simple String"
+               },
+               "short_display":true,
+               "_ARRAY_META":{  
+                  "_HASH":"9904b0d7-361c-4992-978a-60e2e45f7ea8"
+               },
+               "display_name":"Customer ID",
+               "field_type":"string",
+               "field_name":"tipo_id"
             },
             "underscore_ui":{  
                "isArray":false,
+               "isTipoRelationship":true,
+               "relatedTipo":"Customer",
                "isSimple":true
             },
-            "fq_field_name":"color"
-         },
-         {  
-            "sequence":"9",
-            "field_type_refs":{  
-               "reffile":"File"
-            },
-            "short_display":true,
-            "_ARRAY_META":{  
-               "_HASH":"44491c02-184f-469f-b460-d19a0027745f"
-            },
-            "display_name":"File",
-            "field_type":"file",
-            "field_name":"file_",
-            "_ui":{  
-               "isArray":false,
-               "isSimple":true
-            },
-            "underscore_ui":{  
-               "isArray":false,
-               "isSimple":true
-            },
-            "fq_field_name":"file_"
+            "fq_field_name":"fieldgtest.tipocustomer"
          }
       ],
-      "created_by":"santosh.subbarao@tipotapp.com",
-      "hash_key":"2000000001.1000000001.2000000001.TipoDefinition.VelocityList",
+      "geo_latitude":17.727654299999998,
+      "geo_longitude":83.31300929999999,
+      "tipo_id":"VelocityTest",
       "application":"1000000001",
-      "updated_dt":"1490182092457",
-      "updated_by":"santosh.subbarao@tipotapp.com",
-      "created_date":"2017-03-22T10:32:44.902Z",
-      "tipo_id":"VelocityList",
-      "updated_date":"2017-03-22T11:28:12.457Z",
+      "application_owner_account":"2000000001",
       "account":"2000000001",
+      "hash_key":"2000000001.1000000001.2000000001.TipoDefinition.VelocityTest",
+      "created_by":"santosh.subbarao@tipotapp.com",
+      "created_date":"2017-03-25T11:57:48.246Z",
+      "created_dt":1490443068246,
+      "updated_by":"santosh.subbarao@tipotapp.com",
+      "updated_date":"2017-03-25T15:07:11.076Z",
+      "updated_dt":1490454431076,
+      "el_index":true,
       "account_refs":{  
-         "ref2000000001":"tipotapp"
+
       },
-      "tipo_meta":{  
-         "icon":"message",
-         "icon_refs":{  
-            "refmessage":"message"
-         },
-         "tipo_name":"VelocityList",
-         "display_name":"VelocityList"
+      "application_refs":{  
+
+      },
+      "tipo_edit":{  
+         "ui_template_url":"tipoapp.velocity-edit"
       },
       "_ui":{  
-         "listTemplate":"tipoapp.velocity-list",
-         "listTemplateUrl":"tipoapp/_views/velocity-list.tpl.html",
-         "detailTemplate":"framework.generic.view",
+         "listTemplate":"public/common/views/list-fluid.tpl.html___VelocityTest",
+         "listTemplateUrl":"public/common/views/list-fluid.tpl.html___VelocityTest",
+         "detailTemplate":"framework/generic/_views/view.tpl.html",
          "detailTemplateUrl":"framework/generic/_views/view.tpl.html",
-         "createTemplate":"framework.generic.create",
+         "createTemplate":"framework/generic/_views/create.tpl.html",
          "createTemplateUrl":"framework/generic/_views/create.tpl.html",
-         "editTemplate":"framework.generic.edit",
-         "editTemplateUrl":"framework/generic/_views/edit.tpl.html",
+         "editTemplate":"tipoapp.velocity-edit",
+         "editTemplateUrl":"tipoapp/_views/velocity-edit.tpl.html",
          "isDefinition":true,
          "isSingleton":false,
          "hierarchyPrepared":true
       },
       "short_display_fields":[  
          {  
-            "sequence":"0",
+            "display_name":"Field1",
+            "field_type":"string",
             "field_type_refs":{  
-               "refTipo":{  
-                  "TIP-19":"Tipo.TIP-19"
-               }
+               "refstring":"Simple String"
             },
             "short_display":true,
+            "field_name":"field1",
             "_ARRAY_META":{  
-               "_HASH":"49b7fab8-b52a-412d-bed6-1cd7121a120e"
+               "_HASH":"2486224639"
             },
-            "display_name":"TIP19",
-            "field_type":"Tipo.TIP-19",
-            "field_name":"tip19",
-            "_ui":{  
-               "isArray":false,
-               "isTipoRelationship":true,
-               "relatedTipo":"TIP-19",
-               "isSimple":true
-            },
-            "label_field":{  
-               "sequence":"0",
-               "field_type_refs":{  
-                  "refstring":"Simple String"
-               },
-               "short_display":true,
-               "meaningful_key":true,
-               "_ARRAY_META":{  
-                  "_HASH":"9579a5d5-efef-4293-969b-dfc1084a4104"
-               },
-               "display_name":"name",
-               "field_type":"string",
-               "field_name":"name_"
-            },
-            "underscore_ui":{  
-               "isArray":false,
-               "isTipoRelationship":true,
-               "relatedTipo":"TIP-19",
-               "isSimple":true
-            },
-            "fq_field_name":"tip19"
-         },
-         {  
-            "sequence":"0",
-            "field_type_refs":{  
-               "refinteger":"Integer"
-            },
-            "short_display":true,
-            "_ARRAY_META":{  
-               "_HASH":"970bab60-d135-4d8a-9788-dc3534ad6af0"
-            },
-            "display_name":"Integer",
-            "field_type":"integer",
-            "field_name":"integer_",
+            "sequence":0,
             "_ui":{  
                "isArray":false,
                "isSimple":true
@@ -374,20 +328,20 @@
                "isArray":false,
                "isSimple":true
             },
-            "fq_field_name":"integer_"
+            "fq_field_name":"fieldgtest.field1"
          },
          {  
-            "sequence":"1",
+            "display_name":"Simple String",
+            "field_type":"string",
             "field_type_refs":{  
                "refstring":"Simple String"
             },
             "short_display":true,
             "_ARRAY_META":{  
-               "_HASH":"3fa9af40-0478-4c0a-b1e0-666cab965cb3"
+               "_HASH":"8814052217"
             },
-            "display_name":"Simple String",
-            "field_type":"string",
             "field_name":"simple_string",
+            "sequence":2,
             "_ui":{  
                "isArray":false,
                "isSimple":true
@@ -396,20 +350,20 @@
                "isArray":false,
                "isSimple":true
             },
-            "fq_field_name":"simple_string"
+            "fq_field_name":"fieldgtest.simple_string"
          },
          {  
-            "sequence":"2",
+            "display_name":"Para",
+            "field_type":"longstring",
             "field_type_refs":{  
                "reflongstring":"Paragraph"
             },
             "short_display":true,
             "_ARRAY_META":{  
-               "_HASH":"714cd4e4-3bea-473a-b90b-d640179ae1fc"
+               "_HASH":"2575865057"
             },
-            "display_name":"Para",
-            "field_type":"longstring",
             "field_name":"para",
+            "sequence":3,
             "_ui":{  
                "isArray":false,
                "isSimple":true
@@ -418,20 +372,20 @@
                "isArray":false,
                "isSimple":true
             },
-            "fq_field_name":"para"
+            "fq_field_name":"fieldgtest.para"
          },
          {  
-            "sequence":"3",
+            "display_name":"Rich Text",
+            "field_type":"richstring",
             "field_type_refs":{  
                "refrichstring":"Rich Text"
             },
             "short_display":true,
             "_ARRAY_META":{  
-               "_HASH":"667e8e9d-1754-497c-a0d0-e8f212460f5f"
+               "_HASH":"1240763039"
             },
-            "display_name":"Rich Text",
-            "field_type":"richstring",
             "field_name":"rich_text",
+            "sequence":4,
             "_ui":{  
                "isArray":false,
                "isSimple":true
@@ -440,20 +394,20 @@
                "isArray":false,
                "isSimple":true
             },
-            "fq_field_name":"rich_text"
+            "fq_field_name":"fieldgtest.rich_text"
          },
          {  
-            "sequence":"4",
+            "display_name":"HTML Link",
+            "field_type":"htmlLink",
             "field_type_refs":{  
                "refhtmlLink":"Link"
             },
             "short_display":true,
             "_ARRAY_META":{  
-               "_HASH":"3f4de2c5-abf3-4e7f-b589-c34744cfaa87"
+               "_HASH":"7693096437"
             },
-            "display_name":"Link",
-            "field_type":"htmlLink",
-            "field_name":"link",
+            "field_name":"html_link",
+            "sequence":5,
             "_ui":{  
                "isArray":false,
                "isSimple":true
@@ -462,20 +416,20 @@
                "isArray":false,
                "isSimple":true
             },
-            "fq_field_name":"link"
+            "fq_field_name":"fieldgtest.html_link"
          },
          {  
-            "sequence":"5",
+            "display_name":"Boolean",
+            "field_type":"boolean",
             "field_type_refs":{  
                "refboolean":"True/False"
             },
             "short_display":true,
             "_ARRAY_META":{  
-               "_HASH":"2b43ea62-18ab-4373-a802-8c3f7ba8813c"
+               "_HASH":"7407795207"
             },
-            "display_name":"Boolean",
-            "field_type":"boolean",
             "field_name":"boolean_",
+            "sequence":6,
             "_ui":{  
                "isArray":false,
                "isSimple":true
@@ -484,42 +438,20 @@
                "isArray":false,
                "isSimple":true
             },
-            "fq_field_name":"boolean_"
+            "fq_field_name":"fieldgtest.boolean_"
          },
          {  
-            "sequence":"6",
-            "field_type_refs":{  
-               "refpassword":"Password"
-            },
-            "short_display":true,
-            "_ARRAY_META":{  
-               "_HASH":"689c0d14-79c5-466f-a0bb-6ad91af6ea39"
-            },
-            "display_name":"Password",
-            "field_type":"password",
-            "field_name":"password",
-            "_ui":{  
-               "isArray":false,
-               "isSimple":true
-            },
-            "underscore_ui":{  
-               "isArray":false,
-               "isSimple":true
-            },
-            "fq_field_name":"password"
-         },
-         {  
-            "sequence":"7",
+            "display_name":"Date/Time",
+            "field_type":"date_time",
             "field_type_refs":{  
                "refdate_time":"Date/Time"
             },
             "short_display":true,
             "_ARRAY_META":{  
-               "_HASH":"ce68c32b-0652-486e-b150-e52c5f5d52f3"
+               "_HASH":"4508423425"
             },
-            "display_name":"Date/Time",
-            "field_type":"date_time",
             "field_name":"date_time",
+            "sequence":7,
             "_ui":{  
                "isArray":false,
                "isSimple":true
@@ -528,53 +460,72 @@
                "isArray":false,
                "isSimple":true
             },
-            "fq_field_name":"date_time"
+            "fq_field_name":"fieldgtest.date_time"
          },
          {  
-            "sequence":"8",
+            "display_name":"Integer",
+            "field_type":"integer",
             "field_type_refs":{  
-               "refcolour":"Colour"
+               "refinteger":"Integer"
+            },
+            "short_display":true,
+            "field_name":"integer_",
+            "_ARRAY_META":{  
+               "_HASH":"1656516289"
+            },
+            "sequence":8,
+            "_ui":{  
+               "isArray":false,
+               "isSimple":true
+            },
+            "underscore_ui":{  
+               "isArray":false,
+               "isSimple":true
+            },
+            "fq_field_name":"fieldgtest.integer_"
+         },
+         {  
+            "display_name":"TipoCustomer",
+            "field_type":"Tipo.Customer",
+            "field_type_refs":{  
+               "refTipo":{  
+                  "Customer":"Tipo. Customer"
+               }
             },
             "short_display":true,
             "_ARRAY_META":{  
-               "_HASH":"c98750db-a4cd-47fd-a931-51e0e17641eb"
+               "_HASH":"3910313322"
             },
-            "display_name":"Color",
-            "field_type":"colour",
-            "field_name":"color",
+            "field_name":"tipocustomer",
+            "sequence":0,
             "_ui":{  
                "isArray":false,
+               "isTipoRelationship":true,
+               "relatedTipo":"Customer",
                "isSimple":true
+            },
+            "key_field":{  
+               "sequence":"0",
+               "field_type_refs":{  
+                  "refstring":"Simple String"
+               },
+               "short_display":true,
+               "_ARRAY_META":{  
+                  "_HASH":"9904b0d7-361c-4992-978a-60e2e45f7ea8"
+               },
+               "display_name":"Customer ID",
+               "field_type":"string",
+               "field_name":"tipo_id"
             },
             "underscore_ui":{  
                "isArray":false,
+               "isTipoRelationship":true,
+               "relatedTipo":"Customer",
                "isSimple":true
             },
-            "fq_field_name":"color"
-         },
-         {  
-            "sequence":"9",
-            "field_type_refs":{  
-               "reffile":"File"
-            },
-            "short_display":true,
-            "_ARRAY_META":{  
-               "_HASH":"44491c02-184f-469f-b460-d19a0027745f"
-            },
-            "display_name":"File",
-            "field_type":"file",
-            "field_name":"file_",
-            "_ui":{  
-               "isArray":false,
-               "isSimple":true
-            },
-            "underscore_ui":{  
-               "isArray":false,
-               "isSimple":true
-            },
-            "fq_field_name":"file_"
+            "fq_field_name":"fieldgtest.tipocustomer"
          }
       ]
    },
-   "perm":"11111111"
+   "perm":"1111111"
 }

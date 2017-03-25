@@ -49,6 +49,10 @@
       });
     };
 
+    _instance.Date = function(date){
+      return new Date(date);
+    }
+
     _instance.toList = function(){
       tipoRouter.toTipoList(tipo_name);
     };

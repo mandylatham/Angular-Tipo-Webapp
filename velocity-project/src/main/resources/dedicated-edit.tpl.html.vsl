@@ -43,7 +43,6 @@ This is a velocity template to generate AngularJS list view template for any Tip
 ##$group
   	#if( !$field.hidden && !$field.underscore_ui.isGroup )
   	
-
   	 <dl class="edit" 
 			    layout="column" 
 			    layout-align="center stretch"
@@ -60,7 +59,7 @@ This is a velocity template to generate AngularJS list view template for any Tip
   	#if( !$field.underscore_ui.isArray && !$field.underscore_ui.isTipoRelationship)
   	
   		#if($field.field_type == "date_time")
-         	<md-datepicker ng-model="tipoRootController.tipo.$field.fq_field_name" md-placeholder="$field.field_description" name="$field.display_name_$field.field_type" ng-required="$mandatory">
+         	<md-datepicker ng-model="tipoRootController.tipo.$field.fq_field_name" md-placeholder="$field.field_description" name="$field.display_name_$field.field_type" ng-required="$mandatory" ng-init="tipoRootController.tipo.$field.fq_field_name = tipoRootController.Date(tipoRootController.tipo.$field.fq_field_name)">
           	</md-datepicker>
 		#elseif($field.field_type == "password")
         	<input type="password" ng-model="tipoRootController.tipo.$field.fq_field_name" aria-label="$field.display_name" placeholder="$field.field_description" name="$field.display_name_$field.field_type" ng-required="$mandatory" >		
@@ -134,7 +133,7 @@ This is a velocity template to generate AngularJS list view template for any Tip
 						 "relatedTipo": "$fieldrelatedTipo",
 						 "labelField": "$field_label_field",
 						 "isPopup": $fieldisPopup,
-						 "mandatory": $mandatory,
+						 "mandatory": 	$mandatory,
 						 "fieldKey": "$field.fq_field_name"})
 		#set($fieldJson = $converter.convert($fieldJson))
 		<tp:lookup root="tipoRootController.tipoDefinition" context="tipoRootController.tipoDefinition"  field="tipoRootController.tipo.$field.fq_field_name" field-data='$fieldJson' tipo-data="tipoRootController.tipo" />	
