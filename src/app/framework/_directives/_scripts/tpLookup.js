@@ -15,7 +15,7 @@
     _instance.tiposWithDefinition = tipoDefinition.tiposWithDefinition;
     _instance.tipoDefinition = tipoDefinition.tipoDefinition;
     _instance.popup = true;
-    _instance.tipo_field_groups = $scope.tipo_field_groups;
+    _instance.tipo_fields = $scope.tipo_fields;
     _instance.selectedTipos = $scope.selectedTipos;
     $scope.fullscreen = true;
     if ($scope.selectedTipos.length > 0) {
@@ -84,7 +84,6 @@
               scope.isPopup = true;
             };
           });
-
           scope.isArray = isArray;
 
           var fieldTemplate;
@@ -123,7 +122,7 @@
             });
           }
 
-          function loadOptions(){
+          scope.loadOptions = function (){
             delete scope.options;
             var searchCriteria = {};
             var filter;
@@ -162,9 +161,7 @@
                 }
               }
             });
-          }
-
-          scope.loadOptions = loadOptions;
+          };
 
           scope.searchTerm = {};
           scope.cleanup = function(){
@@ -187,16 +184,21 @@
             return text;
           };
 
-          loadOptions();
+          if (scope.isPopup) {
+            scope.loadOptions();
+          }else{
+            if(isArray){
+              scope.options = scope.field._value;
+            }
+          }
 
           function openTipoObjectDialog(){
+            scope.loadOptions();
             var newScope = scope.$new();
             newScope.isArray = isArray;
             newScope.field = scope.context;
-            if (scope.parent.tipo_field_groups) {
-            newScope.tipo_field_groups = scope.parent.tipo_field_groups}else{
-            newScope.tipo_field_groups = scope.context.tipo_field_groups;
-            }
+            if (scope.root) {
+            newScope.tipo_fields = scope.root.tipo_fields}
             newScope.selectedTipos = scope.selectedTipos;
             var promise = $mdDialog.show({
               templateUrl: 'framework/_directives/_views/tp-lookup-popup-select.tpl.html',

@@ -6,6 +6,7 @@
     tipoRouter,
     $window,
     $scope,
+    $rootScope,
     tipoInstanceDataService,
     TipoTypeService,
     $stateParams) {
@@ -14,9 +15,17 @@
     var tipo_types = [];
     var tipo_name = $scope.tipoRootController.tipoDefinition.tipo_meta.tipo_name;
     var tipo_types = angular.copy(TipoTypeService.gettipo_types());
-    _.each($scope.tipoRootController.tipo_field_groups,function(tipo_group){
-      tipo_types.push({ key: "FieldGroup." + tipo_group.tipo_group_name,
-                        label: "FieldGroup." + tipo_group.tipo_group_name,
+    var tipo_groups = _.find($scope.tipoRootController.tipo_fields,function(field){
+      return field.field_name === "tipo_field_groups"
+    });
+    console.log("tipo_groups");
+    console.log(tipo_groups);
+    _.each(tipo_groups._items,function(tipo_group){
+      var group_name = _.find(tipo_group.tipo_fields,function(group){
+      return group.field_name === "tipo_group_name"
+    });
+      tipo_types.push({ key: "FieldGroup." + group_name._value.key,
+                        label: "FieldGroup." + group_name._value.key,
                         icon: "group_work",
                         field_group: true});
     });

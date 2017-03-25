@@ -10,7 +10,7 @@
           <md-tooltip md-direction="left">Details</md-tooltip>
           <md-icon>fullscreen</md-icon>
         </md-button>
-        <md-button ng-click="tipoRootController.clone(tipo.key)"  ng-if="!tipoRootController.tipoDefinition._ui.isSingleton" aria-label="Copy" class="md-icon-button">
+        <md-button ng-click="tipoRootController.clone(tipo.key);$event.stopPropagation();"  ng-if="!tipoRootController.tipoDefinition._ui.isSingleton" aria-label="Copy" class="md-icon-button">
           <md-tooltip md-direction="left">Copy</md-tooltip>
           <md-icon>content_copy</md-icon>
         </md-button>
