@@ -13,69 +13,6 @@
       },
       "tipo_fields":[  
          {  
-            "display_name":"FieldGTest",
-            "field_type":"FieldGroup.TestGroup",
-            "field_type_refs":{  
-               "refFieldGroup":{  
-                  "TestGroup":"FieldGroup. TestGroup"
-               }
-            },
-            "short_display":true,
-            "_ARRAY_META":{  
-               "_HASH":"1676570916"
-            },
-            "field_name":"fieldgtest",
-            "sequence":1,
-            "_ui":{  
-               "isArray":false,
-               "isGroup":true
-            },
-            "tipo_fields":[  
-               {  
-                  "display_name":"Field2",
-                  "field_type":"string",
-                  "field_type_refs":{  
-                     "refstring":"Simple String"
-                  },
-                  "field_name":"field2",
-                  "_ARRAY_META":{  
-                     "_HASH":"1650330353"
-                  },
-                  "sequence":1,
-                  "_ui":{  
-                     "isArray":false,
-                     "isSimple":true
-                  }
-               },
-               {  
-                  "display_name":"Field1",
-                  "field_type":"string",
-                  "field_type_refs":{  
-                     "refstring":"Simple String"
-                  },
-                  "short_display":true,
-                  "field_name":"field1",
-                  "_ARRAY_META":{  
-                     "_HASH":"2486224639"
-                  },
-                  "sequence":0,
-                  "_ui":{  
-                     "isArray":false,
-                     "isSimple":true
-                  },
-                  "underscore_ui":{  
-                     "isArray":false,
-                     "isSimple":true
-                  },
-                  "fq_field_name":"fieldgtest.field1"
-               }
-            ],
-            "underscore_ui":{  
-               "isArray":false,
-               "isGroup":true
-            }
-         },
-         {  
             "display_name":"Simple String",
             "field_type":"string",
             "field_type_refs":{  
@@ -86,7 +23,7 @@
                "_HASH":"8814052217"
             },
             "field_name":"simple_string",
-            "sequence":2,
+            "sequence":1,
             "_ui":{  
                "isArray":false,
                "isSimple":true
@@ -95,7 +32,7 @@
                "isArray":false,
                "isSimple":true
             },
-            "fq_field_name":"fieldgtest.simple_string"
+            "fq_field_name":"simple_string"
          },
          {  
             "display_name":"Para",
@@ -108,7 +45,7 @@
                "_HASH":"2575865057"
             },
             "field_name":"para",
-            "sequence":3,
+            "sequence":2,
             "_ui":{  
                "isArray":false,
                "isSimple":true
@@ -117,7 +54,7 @@
                "isArray":false,
                "isSimple":true
             },
-            "fq_field_name":"fieldgtest.para"
+            "fq_field_name":"para"
          },
          {  
             "display_name":"Rich Text",
@@ -130,7 +67,7 @@
                "_HASH":"1240763039"
             },
             "field_name":"rich_text",
-            "sequence":4,
+            "sequence":3,
             "_ui":{  
                "isArray":false,
                "isSimple":true
@@ -139,7 +76,7 @@
                "isArray":false,
                "isSimple":true
             },
-            "fq_field_name":"fieldgtest.rich_text"
+            "fq_field_name":"rich_text"
          },
          {  
             "display_name":"HTML Link",
@@ -152,7 +89,7 @@
                "_HASH":"7693096437"
             },
             "field_name":"html_link",
-            "sequence":5,
+            "sequence":4,
             "_ui":{  
                "isArray":false,
                "isSimple":true
@@ -161,7 +98,7 @@
                "isArray":false,
                "isSimple":true
             },
-            "fq_field_name":"fieldgtest.html_link"
+            "fq_field_name":"html_link"
          },
          {  
             "display_name":"Boolean",
@@ -174,7 +111,7 @@
                "_HASH":"7407795207"
             },
             "field_name":"boolean_",
-            "sequence":6,
+            "sequence":5,
             "_ui":{  
                "isArray":false,
                "isSimple":true
@@ -183,7 +120,7 @@
                "isArray":false,
                "isSimple":true
             },
-            "fq_field_name":"fieldgtest.boolean_"
+            "fq_field_name":"boolean_"
          },
          {  
             "display_name":"Date/Time",
@@ -196,7 +133,7 @@
                "_HASH":"4508423425"
             },
             "field_name":"date_time",
-            "sequence":7,
+            "sequence":6,
             "_ui":{  
                "isArray":false,
                "isSimple":true
@@ -205,7 +142,7 @@
                "isArray":false,
                "isSimple":true
             },
-            "fq_field_name":"fieldgtest.date_time"
+            "fq_field_name":"date_time"
          },
          {  
             "display_name":"Integer",
@@ -218,7 +155,7 @@
             "_ARRAY_META":{  
                "_HASH":"1656516289"
             },
-            "sequence":8,
+            "sequence":7,
             "_ui":{  
                "isArray":false,
                "isSimple":true
@@ -227,52 +164,72 @@
                "isArray":false,
                "isSimple":true
             },
-            "fq_field_name":"fieldgtest.integer_"
+            "fq_field_name":"integer_"
          },
          {  
-            "display_name":"TipoCustomer",
-            "field_type":"Tipo.Customer",
+            "display_name":"TipoApp",
+            "field_type":"Tipo.TipoApp",
             "field_type_refs":{  
                "refTipo":{  
-                  "Customer":"Tipo. Customer"
+                  "TipoApp":"Tipo.TipoApp"
                }
             },
             "short_display":true,
             "_ARRAY_META":{  
-               "_HASH":"3910313322"
+               "_HASH":"7482760572"
             },
-            "field_name":"tipocustomer",
+            "field_name":"tipoapp",
             "sequence":0,
             "_ui":{  
                "isArray":false,
                "isTipoRelationship":true,
-               "relatedTipo":"Customer",
+               "relatedTipo":"TipoApp",
                "isSimple":true
             },
             "key_field":{  
-               "sequence":"0",
+               "sizing":"2",
+               "sequence":"4",
                "field_type_refs":{  
                   "refstring":"Simple String"
                },
+               "field_description":"App ID",
                "short_display":true,
+               "hidden":true,
+               "read_only":true,
                "_ARRAY_META":{  
-                  "_HASH":"9904b0d7-361c-4992-978a-60e2e45f7ea8"
+                  "_HASH":"4046f0f5-41f4-4a7e-8483-590c431381fd"
                },
-               "display_name":"Customer ID",
+               "display_name":"App ID",
                "field_type":"string",
                "field_name":"tipo_id"
+            },
+            "label_field":{  
+               "sequence":"1",
+               "field_type_refs":{  
+                  "refstring":"Simple String"
+               },
+               "field_description":"App Name",
+               "short_display":true,
+               "meaningful_key":true,
+               "_ARRAY_META":{  
+                  "_HASH":"96ac6aca-a96e-40a5-a3ca-50214129981f"
+               },
+               "display_name":"App Name",
+               "field_type":"string",
+               "mandatory":true,
+               "field_name":"app_name"
             },
             "underscore_ui":{  
                "isArray":false,
                "isTipoRelationship":true,
-               "relatedTipo":"Customer",
+               "relatedTipo":"TipoApp",
                "isSimple":true
             },
-            "fq_field_name":"fieldgtest.tipocustomer"
+            "fq_field_name":"tipoapp"
          }
       ],
-      "geo_latitude":17.727654299999998,
-      "geo_longitude":83.31300929999999,
+      "geo_latitude":17.727639,
+      "geo_longitude":83.31301409999999,
       "tipo_id":"VelocityTest",
       "application":"1000000001",
       "application_owner_account":"2000000001",
@@ -282,8 +239,8 @@
       "created_date":"2017-03-25T11:57:48.246Z",
       "created_dt":1490443068246,
       "updated_by":"santosh.subbarao@tipotapp.com",
-      "updated_date":"2017-03-25T15:07:11.076Z",
-      "updated_dt":1490454431076,
+      "updated_date":"2017-03-25T15:38:09.023Z",
+      "updated_dt":1490456289023,
       "el_index":true,
       "account_refs":{  
 
@@ -309,28 +266,6 @@
       },
       "short_display_fields":[  
          {  
-            "display_name":"Field1",
-            "field_type":"string",
-            "field_type_refs":{  
-               "refstring":"Simple String"
-            },
-            "short_display":true,
-            "field_name":"field1",
-            "_ARRAY_META":{  
-               "_HASH":"2486224639"
-            },
-            "sequence":0,
-            "_ui":{  
-               "isArray":false,
-               "isSimple":true
-            },
-            "underscore_ui":{  
-               "isArray":false,
-               "isSimple":true
-            },
-            "fq_field_name":"fieldgtest.field1"
-         },
-         {  
             "display_name":"Simple String",
             "field_type":"string",
             "field_type_refs":{  
@@ -341,7 +276,7 @@
                "_HASH":"8814052217"
             },
             "field_name":"simple_string",
-            "sequence":2,
+            "sequence":1,
             "_ui":{  
                "isArray":false,
                "isSimple":true
@@ -350,7 +285,7 @@
                "isArray":false,
                "isSimple":true
             },
-            "fq_field_name":"fieldgtest.simple_string"
+            "fq_field_name":"simple_string"
          },
          {  
             "display_name":"Para",
@@ -363,7 +298,7 @@
                "_HASH":"2575865057"
             },
             "field_name":"para",
-            "sequence":3,
+            "sequence":2,
             "_ui":{  
                "isArray":false,
                "isSimple":true
@@ -372,7 +307,7 @@
                "isArray":false,
                "isSimple":true
             },
-            "fq_field_name":"fieldgtest.para"
+            "fq_field_name":"para"
          },
          {  
             "display_name":"Rich Text",
@@ -385,7 +320,7 @@
                "_HASH":"1240763039"
             },
             "field_name":"rich_text",
-            "sequence":4,
+            "sequence":3,
             "_ui":{  
                "isArray":false,
                "isSimple":true
@@ -394,7 +329,7 @@
                "isArray":false,
                "isSimple":true
             },
-            "fq_field_name":"fieldgtest.rich_text"
+            "fq_field_name":"rich_text"
          },
          {  
             "display_name":"HTML Link",
@@ -407,7 +342,7 @@
                "_HASH":"7693096437"
             },
             "field_name":"html_link",
-            "sequence":5,
+            "sequence":4,
             "_ui":{  
                "isArray":false,
                "isSimple":true
@@ -416,7 +351,7 @@
                "isArray":false,
                "isSimple":true
             },
-            "fq_field_name":"fieldgtest.html_link"
+            "fq_field_name":"html_link"
          },
          {  
             "display_name":"Boolean",
@@ -429,7 +364,7 @@
                "_HASH":"7407795207"
             },
             "field_name":"boolean_",
-            "sequence":6,
+            "sequence":5,
             "_ui":{  
                "isArray":false,
                "isSimple":true
@@ -438,7 +373,7 @@
                "isArray":false,
                "isSimple":true
             },
-            "fq_field_name":"fieldgtest.boolean_"
+            "fq_field_name":"boolean_"
          },
          {  
             "display_name":"Date/Time",
@@ -451,7 +386,7 @@
                "_HASH":"4508423425"
             },
             "field_name":"date_time",
-            "sequence":7,
+            "sequence":6,
             "_ui":{  
                "isArray":false,
                "isSimple":true
@@ -460,7 +395,7 @@
                "isArray":false,
                "isSimple":true
             },
-            "fq_field_name":"fieldgtest.date_time"
+            "fq_field_name":"date_time"
          },
          {  
             "display_name":"Integer",
@@ -473,7 +408,7 @@
             "_ARRAY_META":{  
                "_HASH":"1656516289"
             },
-            "sequence":8,
+            "sequence":7,
             "_ui":{  
                "isArray":false,
                "isSimple":true
@@ -482,48 +417,68 @@
                "isArray":false,
                "isSimple":true
             },
-            "fq_field_name":"fieldgtest.integer_"
+            "fq_field_name":"integer_"
          },
          {  
-            "display_name":"TipoCustomer",
-            "field_type":"Tipo.Customer",
+            "display_name":"TipoApp",
+            "field_type":"Tipo.TipoApp",
             "field_type_refs":{  
                "refTipo":{  
-                  "Customer":"Tipo. Customer"
+                  "TipoApp":"Tipo.TipoApp"
                }
             },
             "short_display":true,
             "_ARRAY_META":{  
-               "_HASH":"3910313322"
+               "_HASH":"7482760572"
             },
-            "field_name":"tipocustomer",
+            "field_name":"tipoapp",
             "sequence":0,
             "_ui":{  
                "isArray":false,
                "isTipoRelationship":true,
-               "relatedTipo":"Customer",
+               "relatedTipo":"TipoApp",
                "isSimple":true
             },
             "key_field":{  
-               "sequence":"0",
+               "sizing":"2",
+               "sequence":"4",
                "field_type_refs":{  
                   "refstring":"Simple String"
                },
+               "field_description":"App ID",
                "short_display":true,
+               "hidden":true,
+               "read_only":true,
                "_ARRAY_META":{  
-                  "_HASH":"9904b0d7-361c-4992-978a-60e2e45f7ea8"
+                  "_HASH":"4046f0f5-41f4-4a7e-8483-590c431381fd"
                },
-               "display_name":"Customer ID",
+               "display_name":"App ID",
                "field_type":"string",
                "field_name":"tipo_id"
+            },
+            "label_field":{  
+               "sequence":"1",
+               "field_type_refs":{  
+                  "refstring":"Simple String"
+               },
+               "field_description":"App Name",
+               "short_display":true,
+               "meaningful_key":true,
+               "_ARRAY_META":{  
+                  "_HASH":"96ac6aca-a96e-40a5-a3ca-50214129981f"
+               },
+               "display_name":"App Name",
+               "field_type":"string",
+               "mandatory":true,
+               "field_name":"app_name"
             },
             "underscore_ui":{  
                "isArray":false,
                "isTipoRelationship":true,
-               "relatedTipo":"Customer",
+               "relatedTipo":"TipoApp",
                "isSimple":true
             },
-            "fq_field_name":"fieldgtest.tipocustomer"
+            "fq_field_name":"tipoapp"
          }
       ]
    },

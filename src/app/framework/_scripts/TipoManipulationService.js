@@ -462,6 +462,14 @@
       return metadata;
     }
 
+    function modifyTipoData(tipoData){
+      _.forOwn(tipoData, function(value, key){
+        if(!value){
+          tipoData[key] = null;
+        }
+      });
+    }
+
     function convertToFilterExpression(tipoDefinition, filterName){
       var tipoFilters = _.get(tipoDefinition, 'tipo_list.filters');
       if (!_.isUndefined(filterName)) {
@@ -506,6 +514,7 @@
     this.resolvePerspectiveMetadata = resolvePerspectiveMetadata;
     this.convertToFilterExpression = convertToFilterExpression;
     this.getFieldMeta = getFieldMeta;
+    this.modifyTipoData = modifyTipoData;
 
   }
 

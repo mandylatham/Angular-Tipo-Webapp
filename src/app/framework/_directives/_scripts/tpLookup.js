@@ -76,6 +76,7 @@
         replace: true,
         template: '<ng-include src="fieldTemplate" tp-include-replace/>',
         link: function(scope, element, attrs){
+          var field = scope.field;
           var tipoData = scope.tipoData;
           console.log("tipoData");
           console.log(scope.tipoData);
@@ -108,12 +109,14 @@
                     });
                   });
             scope.selectedTipos = scope.selfield;
+            field = scope.selfield;
           }else{
-            scope.selfield = {};
-            if(scope.field){
+            if(field){
+              scope.selfield = {};
               scope.selfield.key = scope.field;
               scope.selfield.label = _.get(tipoData, scope.fieldData.fieldKey + '_refs.ref' + scope.field);
               scope.selectedTipos = [scope.selfield];
+              field = scope.selfield;
             }
           }
 
@@ -151,16 +154,13 @@
             }
             return tipoInstanceDataService.search(scope.tipo_name, searchCriteria).then(function(results){
               scope.tipos = results;
-              console.log("results");
-              console.log(results);
-              console.log(label_field);
               scope.options = _.map(results, function(each){
                 return {
                   key: each.tipo_id,
                   label: each[label_field]
                 };
               });
-              console.log(scope.options)
+              console.log(scope.options);
               if(isMandatory && !field){
                 if(isArray){
                   field = [scope.options[0]];
@@ -173,6 +173,13 @@
 
           scope.searchTerm = {};
           scope.cleanup = function(){
+            console.log("scope.selfield");
+            console.log(scope.selfield);
+            console.log(field);
+            if (!isArray) {
+              tipoData[scope.fieldData.fieldKey] = scope.selfield.key;
+              _.set(tipoData, scope.fieldData.fieldKey + '_refs.ref' + scope.selfield.key, scope.selfield.label);
+            }
             delete scope.searchTerm.text;
           };
 
@@ -196,7 +203,7 @@
             scope.loadOptions();
           }else{
             if(isArray){
-              scope.options = scope.field._value;
+              scope.options = scope.field;
             }
           }
 
@@ -242,6 +249,9 @@
               }
             });
           }
+          scope.$watch("selfield", function () {
+            console.log(scope.selfield);
+          }, true)
 
         }
       };
