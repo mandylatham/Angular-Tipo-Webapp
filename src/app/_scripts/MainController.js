@@ -24,7 +24,7 @@
 
     _instance.toPerspective = function(name) {
       var params;
-      if (name!='Develop') {
+      if (name !== 'Develop') {
       if(name !== 'home'){
         params = {perspective: name};
       }
