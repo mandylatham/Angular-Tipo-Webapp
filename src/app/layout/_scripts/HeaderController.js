@@ -7,6 +7,7 @@
     tipoDefinitionDataService,
     tipoInstanceDataService,
     tipoManipulationService,
+    metadataService,
     $mdMedia,
     $state,
     $stateParams,
@@ -30,6 +31,15 @@
         perspective: 'ProfilePerspective'
       }
     ];
+
+    var userMeta = metadataService.userMetadata;
+    if (userMeta.application_owner_account === userMeta.account) {
+      _instance.perspectives.push({
+        name: 'Develop',
+        icon: 'edit',
+        perspective: 'Develop'
+      });
+    };
 
     _instance.reload = function () {
       tipoRouter.reloadCurrent();

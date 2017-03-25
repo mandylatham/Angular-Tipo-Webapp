@@ -1,0 +1,136 @@
+#*
+This is a velocity template to generate AngularJS list view template for any Tipo Object. Input is an expanded definition.
+*#         
+## Block of code between #[[ ]]# is not parsed, so it is safe to use all sorts of characters without escaping.
+#[[
+<div class="tp-list">
+  <div class="fluid-row-container">
+    <div layout="row" tp:perm ng-click="!tipo.disableclick && tipoRootController.toDetail(tipo.tipo_id)" ng-repeat="tipo in tipoRootController.tipos" class="fluid-row" md-whiteframe="2">
+      <md-checkbox ng-if="tipoRootController.bulkedit" ng-model="tipo.selected" ng-click="$event.stopPropagation();" id="listcheckbox"></md-checkbox>
+      <div flex layout="row" layout-padding layout-wrap layout-align="start start" class="data pointer layout-row" ng-class="{'selected': tipo.selected}" ng-click="!tipo.disableclick && tipoRootController.selectTipo(tipo,$event,tipoRootController.tiposWithDefinition)">
+      
+        <!-- tp:field-container field="field" ng-if="!field._ui.isGroup && !field.hidden && field._value" ng-repeat="field in tipo.value.tipo_fields"/-->
+]]# 
+##
+#foreach( $field in $definition.short_display_fields)
+##
+##$field.field_name
+## Sizing ##
+    #if($field.sizing)
+    #set($sizing = $Integer.parseInt($field.sizing))
+    #else
+    #set($sizing = 1)
+	#end
+## Mandatory ##
+    #if($field.mandatory)
+    #set($mandatory = $field.mandatory)
+    #else
+    #set($mandatory = false)
+	#end
+##
+    #if ($sizing == 1)
+        #set($sizeGtSm = 50)
+    	#set($sizeGtMd = 33)
+  	#elseif($sizing == 2)
+        #set($sizeGtSm = 100)
+    	#set($sizeGtMd = 66)
+  	#elseif($sizing == 3)
+        #set($sizeGtSm = 100)
+    	#set($sizeGtMd = 100)
+  	#end 
+##
+##  	#set($group = ($field.field_type.startsWith('FieldGroup.') || $field.field_type.startsWith('Tipo.') ) )
+##
+##$field.hidden
+##$group
+  	#if( !$field.hidden && !$field.underscore_ui.isGroup )
+  	
+			<dl class="edit" 
+			    layout="column" 
+			    layout-align="center stretch"
+			    flex="100" 
+				flex-gt-sm="$sizeGtSm" 
+				flex-gt-md="$sizeGtMd"
+				ng-if="tipo.$field.fq_field_name">
+				<dt>
+				 $field.display_name  #if($mandatory) <span>*</span> #end
+				</dt>
+				<dd>
+				<div class="tp-field">
+  	#if( !$field.underscore_ui.isArray && !$field.underscore_ui.isTipoRelationship)
+  	
+  		#if($field.field_type == "date_time")
+         	<span>{{tipo.$field.fq_field_name | date:'MM/dd/yyyy'}}</span>
+		#elseif($field.field_type == "password")
+        	<span>*******</span>		
+		#elseif($field.field_type == "longstring")
+	        <span class="preformatted-text">{{tipo.$field.fq_field_name}}</span>
+		#elseif($field.field_type == "richstring")
+	        <span>
+	          <div ng-bind-html="tipo.$field.fq_field_name" class="richstring"></div>
+	        </span>
+		#elseif($field.field_type == "s3explorer")
+	        <span>
+	          <tp:s3-explorer-view/>
+	        </span>
+		#elseif($field.field_type == "file")
+	        <span>
+	          <tp:file field="tipo" mode="view"/>
+	        </span>
+		#elseif($field.field_type == "colour")
+	        <tp:colour-palette  ng-model="tipo.$field.fq_field_name" />
+		#elseif($field.field_type == "htmlLink")
+          <a ng-href="{{tipo.$field.fq_field_name}}" target="_blank">{{tipo.$field.fq_field_name}}</a>		
+		#elseif($field.field_type == "boolean")
+			 <span ng-if="tipo.$field.fq_field_name">Yes</span>
+			 <span ng-if="!tipo.$field.fq_field_name">No</span>
+		#else
+				 <span>{{tipo.$field.fq_field_name}}</span>
+		#end
+	#elseif($field.underscore_ui.isArray && !$field.underscore_ui.isTipoRelationship)
+		#if($field.field_type == "file")
+			<span>
+          		<tp:file field="tipo.$field" mode="view"/>
+        	</span>
+        #else
+        	<md-chips ng-model="tipo.$field.fq_field_name" readonly="'true'" class="tp-chips readonly">
+	          <md-chip-template>
+	            <span>{{$chip}}</span>
+	          </md-chip-template>
+	        </md-chips>
+		#end
+	#elseif($field.underscore_ui.isArray && $field.underscore_ui.isTipoRelationship)
+		<div class="multiple-list">
+	        <div ng-repeat="value in tipo.$field.fq_field_name">
+	          <a class="explicit" ui-sref="tipoView({tipo_name: $field.underscore_ui.relatedTipo, tipo_id: value})" ui-sref-opts="{reload: 'tipoView'}">{{value}}</a>
+	        </div>
+	     </div>
+	#elseif(!$field.underscore_ui.isArray && $field.underscore_ui.isTipoRelationship)
+		#set($fieldLabel = "tipo.${field.fq_field_name}_refs['ref' + tipo.$field.fq_field_name]")
+		<a class="explicit" ui-sref="tipoView({tipo_name: '$field.underscore_ui.relatedTipo', tipo_id: tipo.$field.fq_field_name})" ui-sref-opts="{reload: 'tipoView'}">{{ $fieldLabel || tipo.$field.fq_field_name}}</a>
+  	#end				
+				 </div>
+				</dd>
+			</dl>
+##        
+    #end
+##        
+#end       
+##
+#[[        
+      </div>
+      <div flex="none" layout="column" layout-align="center center" class="actions bg" ng-if="!tipoRootController.popup">
+        <md-button ng-if="!tipo.disableclick" ng-click="tipoRootController.toDetail(tipo.tipo_id)" aria-label="View details">
+          <md-tooltip md-direction="left">Details</md-tooltip>
+          <md-icon>fullscreen</md-icon>
+        </md-button>
+        <md-button ng-click="tipoRootController.clone(tipo.tipo_id);$event.stopPropagation();"  ng-if="!tipoRootController.tipoDefinition._ui.isSingleton" aria-label="Copy" class="md-icon-button">
+          <md-tooltip md-direction="left">Copy</md-tooltip>
+          <md-icon>content_copy</md-icon>
+        </md-button>
+      </div>
+    </div>
+  </div>
+</div>
+
+]]# 
