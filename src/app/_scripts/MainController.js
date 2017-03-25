@@ -24,13 +24,15 @@
 
     _instance.toPerspective = function(name) {
       var params;
-      if (name !== 'Develop') {
       if(name !== 'home'){
         params = {perspective: name};
       }
+
+      if (!S(name).contains('TipoApp')) {
       tipoRouter.to('dashboard', 'layout', params, false);
       }else{
-      tipoRouter.toTipoView("TipoApp",applicationMetadata.application);
+        var tipoParams = name.split('.');
+        tipoRouter.toTipoView(tipoParams[0],tipoParams[1],params);
       }
     };
 

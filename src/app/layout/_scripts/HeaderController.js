@@ -36,8 +36,8 @@
     if (userMeta.application_owner_account === userMeta.account) {
       _instance.perspectives.push({
         name: 'Develop',
-        icon: 'edit',
-        perspective: 'Develop'
+        icon: 'build',
+        perspective: 'TipoApp.' + userMeta.application
       });
     };
 
