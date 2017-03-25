@@ -23,7 +23,7 @@
       return group.field_name === "tipo_group_name"
     });
       tipo_types.push({ key: "FieldGroup." + group_name._value.key,
-                        label: "FieldGroup. " + group_name._value.key,
+                        label: "FieldGroup." + group_name._value.key,
                         icon: "group_work",
                         field_group: true});
     });
@@ -31,7 +31,7 @@
       _instance.tipo_objects = tipo_objects;
       _.each(tipo_objects,function(tipo_object){
       tipo_types.push({ key: "Tipo." + tipo_object.tipo_id,
-                        label: "Tipo. " + tipo_object.tipo_meta.tipo_name,
+                        label: "Tipo." + tipo_object.tipo_meta.tipo_name,
                         icon: tipo_object.tipo_meta.icon,
                         tipo_object: true});
       });
