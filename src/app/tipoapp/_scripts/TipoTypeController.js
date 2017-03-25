@@ -18,8 +18,6 @@
     var tipo_groups = _.find($scope.tipoRootController.tipo_fields,function(field){
       return field.field_name === "tipo_field_groups"
     });
-    console.log("tipo_groups");
-    console.log(tipo_groups);
     _.each(tipo_groups._items,function(tipo_group){
       var group_name = _.find(tipo_group.tipo_fields,function(group){
       return group.field_name === "tipo_group_name"
