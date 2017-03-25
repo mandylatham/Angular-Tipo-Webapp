@@ -1,5 +1,5 @@
 <div layout="row" layout-align="center stretch" layout-margin layout-wrap>
-  <div ng-repeat="tipo in tipoRootController.tiposWithDefinition" layout="column" style="width: 172px;" layout-align="center center" ng-click="tipoRootController.selectTipo(tipo,$event)" ng-class="{'selected': tipo.selected}" class="pointer">
+  <div ng-repeat="tipo in tipoRootController.tiposWithDefinition" layout="column" style="width: 172px;" layout-align="center center" ng-click="tipoRootController.selectTipo(tipo,$event,tipoRootController.tiposWithDefinition)" ng-class="{'selected': tipo.selected}" class="pointer">
     <div class="app-logo">
         <img style="width: 100px;" ng-src="{{tipo.label}}">
     </div>
