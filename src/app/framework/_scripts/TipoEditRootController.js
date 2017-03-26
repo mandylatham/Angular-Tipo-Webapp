@@ -52,6 +52,16 @@
       });
     };
 
+    _instance.loadOptions = function (baseFilter,tipo_name){
+      delete _instance.options;
+      _instance.options = tipoInstanceDataService.gettpObjectOptions(baseFilter,tipo_name);
+    };
+
+    _instance.searchTerm = {};
+    _instance.cleanup = function(){
+      delete _instance.searchTerm.text;
+    }
+
     _instance.Date = function(date){
       return new Date(date);
     }

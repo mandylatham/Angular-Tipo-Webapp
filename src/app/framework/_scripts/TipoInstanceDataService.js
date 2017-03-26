@@ -179,6 +179,41 @@
       return promise;
     };
 
+    _instance.gettpObjectOptions = function(baseFilter,tipo_name){
+      var searchCriteria = {};
+      var filter;
+      var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
+      /*if(tipo_name !== perspectiveMetadata.tipoName){
+        filter = perspectiveMetadata.tipoFilter;
+      }*/
+      // TODO: Hack - Sushil as this is supposed to work only for applications
+      if(perspectiveMetadata.fieldName === 'application'){
+        filter = perspectiveMetadata.tipoFilter;
+      }
+      if(!_.isUndefined(baseFilter)){
+        var baseFilterExpanded = tipoManipulationService.expandFilterExpression(baseFilter, scope.root, scope.context);
+        if(_.isUndefined(filter)){
+          filter = baseFilterExpanded;
+        }else{
+          filter += ' and ' + baseFilterExpanded;
+        }
+      }
+      if(!_.isUndefined(filter)){
+        searchCriteria.tipo_filter = filter;
+      }
+      var options = [];
+      return _instance.search(tipo_name, searchCriteria).then(function(results){
+        options = _.map(results, function(each){
+          return {
+            key: each.tipo_id,
+            label: each[label_field]
+          };
+        });
+        console.log("options");
+        console.log(options);
+      });
+    };
+
   }
 
   angular.module('tipo.framework')

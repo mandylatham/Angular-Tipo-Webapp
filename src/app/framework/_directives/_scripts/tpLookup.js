@@ -68,23 +68,23 @@
           root: '=',
           context: '=',
           parent: '=',
-          field: '=',
-          fieldData: '=',
-          tipoData: '=',
+          field: '='
         },
         restrict: 'EA',
         replace: true,
         template: '<ng-include src="fieldTemplate" tp-include-replace/>',
         link: function(scope, element, attrs){
           var field = scope.field;
-          var tipoData = scope.tipoData;
-          console.log("tipoData");
-          console.log(scope.tipoData);
-          var fieldData = scope.fieldData;
-          var isArray = Boolean(scope.fieldData.isArray);
-          var isGroup = Boolean(scope.fieldData.isGroup);
-          var isMandatory = Boolean(scope.fieldData.mandatory);
-          scope.isPopup = Boolean(scope.fieldData.isPopup);
+          var isArray = Boolean(field._ui.isArray);
+          var isGroup = Boolean(field._ui.isGroup);
+          var isMandatory = Boolean(field.mandatory);
+          scope.isPopup = false;
+          _.forEach(field.metadata, function(value) {
+            if (value.key_ === "popup.select") {
+              scope.isPopup = true;
+            };
+          });
+          scope.isArray = isArray;
 
           var fieldTemplate;
           if(isArray && !isGroup){
@@ -94,29 +94,22 @@
           }
           scope.fieldTemplate = fieldTemplate;
 
-          var baseFilter = scope.fieldData.baseFilter;
-          scope.tipo_name = scope.fieldData.relatedTipo;
+          var baseFilter = field.relationship_filter;
+          scope.tipo_name = field._ui.relatedTipo;
 
-          var label_field = scope.fieldData.labelField;
-
-          scope.selectedTipos = [];          
-          if(isArray){
-            scope.selfield = [];
-            _.each(scope.field, function(each){
-                    scope.selfield.push({
-                      key: each,
-                      label: _.get(tipoData, scope.fieldData.fieldKey + '_refs.ref' + each)
-                    });
-                  });
-            scope.selectedTipos = scope.selfield;
-            field = scope.selfield;
+          var label_field;
+          if(_.isUndefined(field.label_field)){
+            label_field = field.key_field.field_name;
           }else{
-            if(field){
-              scope.selfield = {};
-              scope.selfield.key = scope.field;
-              scope.selfield.label = _.get(tipoData, scope.fieldData.fieldKey + '_refs.ref' + scope.field);
-              scope.selectedTipos = [scope.selfield];
-              field = scope.selfield;
+            label_field = field.label_field.field_name;
+          }
+
+          scope.selectedTipos = [];
+          if(isArray){
+            scope.selectedTipos = field._value;
+          }else{
+            if(_.get(field, '_value.key')){
+              scope.selectedTipos = [field._value];
             }
           }
 
@@ -131,55 +124,18 @@
 
           scope.loadOptions = function (){
             delete scope.options;
-            var searchCriteria = {};
-            var filter;
-            var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
-            /*if(tipo_name !== perspectiveMetadata.tipoName){
-              filter = perspectiveMetadata.tipoFilter;
-            }*/
-            // TODO: Hack - Sushil as this is supposed to work only for applications
-            if(perspectiveMetadata.fieldName === 'application'){
-              filter = perspectiveMetadata.tipoFilter;
-            }
-            if(!_.isUndefined(baseFilter)){
-              var baseFilterExpanded = tipoManipulationService.expandFilterExpression(baseFilter, scope.root, scope.context);
-              if(_.isUndefined(filter)){
-                filter = baseFilterExpanded;
-              }else{
-                filter += ' and ' + baseFilterExpanded;
-              }
-            }
-            if(!_.isUndefined(filter)){
-              searchCriteria.tipo_filter = filter;
-            }
-            return tipoInstanceDataService.search(scope.tipo_name, searchCriteria).then(function(results){
-              scope.tipos = results;
-              scope.options = _.map(results, function(each){
-                return {
-                  key: each.tipo_id,
-                  label: each[label_field]
-                };
-              });
-              console.log(scope.options);
-              if(isMandatory && !field){
+            scope.options = tipoInstanceDataService.gettpObjectOptions(baseFilter,scope.tipo_name);
+            if(isMandatory && !field._value){
                 if(isArray){
-                  field = [scope.options[0]];
+                  field._value = [scope.options[0]];
                 }else{
-                  field = scope.options[0];
+                  field._value = scope.options[0];
                 }
               }
-            });
           };
 
           scope.searchTerm = {};
           scope.cleanup = function(){
-            console.log("scope.selfield");
-            console.log(scope.selfield);
-            console.log(field);
-            if (!isArray) {
-              tipoData[scope.fieldData.fieldKey] = scope.selfield.key;
-              _.set(tipoData, scope.fieldData.fieldKey + '_refs.ref' + scope.selfield.key, scope.selfield.label);
-            }
             delete scope.searchTerm.text;
           };
 
@@ -188,10 +144,10 @@
           };
 
           scope.renderSelection = function(){
-            var text = '<div class="placeholder"></div>';
-            if (field && field.length){
+            var text = '<div class="placeholder">' + field.field_description + '</div>';
+            if (field._value && field._value.length){
               text = '<div class="multiple-list">';
-              _.each(field, function(each){
+              _.each(field._value, function(each){
                 text += '<div>' +each.label + '</div>';
               });
               text += '</div>';
@@ -203,7 +159,7 @@
             scope.loadOptions();
           }else{
             if(isArray){
-              scope.options = scope.field;
+              scope.options = scope.field._value;
             }
           }
 
@@ -241,17 +197,14 @@
             promise.then(function(selectedObjects){
               optionsFormat(selectedObjects);
               if(isArray){
-                field = scope.optionSelected;
-                scope.selectedTipos = field;
+                field._value = scope.optionSelected;
+                scope.selectedTipos = field._value;
               }else{
-                field = scope.optionSelected[0];
-                scope.selectedTipos = [field];
+                field._value = scope.optionSelected[0];
+                scope.selectedTipos = [field._value];
               }
             });
           }
-          scope.$watch("selfield", function () {
-            console.log(scope.selfield);
-          }, true)
 
         }
       };

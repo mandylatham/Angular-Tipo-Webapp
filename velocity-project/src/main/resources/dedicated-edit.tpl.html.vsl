@@ -136,7 +136,33 @@ This is a velocity template to generate AngularJS list view template for any Tip
 						 "mandatory": 	$mandatory,
 						 "fieldKey": "$field.fq_field_name"})
 		#set($fieldJson = $converter.convert($fieldJson))
-		<tp:lookup root="tipoRootController.tipoDefinition" context="tipoRootController.tipoDefinition"  field="tipoRootController.tipo.$field.fq_field_name" field-data='$fieldJson' tipo-data="tipoRootController.tipo" />	
+		#if(!$fieldisArray)
+			<div layout="row">
+				<div flex>
+				#if(!$fieldisPopup)
+					<md-select ng-model="tipoRootController.tipo.$field.fq_field_name"  md-container-class="tp-field" placeholder="{{field.field_description}}" md-on-open="tipoRootController.loadOptions($fieldbaseFilter,$fieldrelatedTipo)" md-on-close="tipoRootController.cleanup()">
+					  <md-select-header class="search" ng-if="options.length > 5">
+					    <md-input-container md-no-float>
+					      <input ng-model="tipoRootController.searchTerm.text" type="search" placeholder="Search ..." ng-keydown="stopBubbling($event)" tp:auto-focus>
+					    </md-input-container>
+					  </md-select-header>
+					  <md-option value="" ng-if="!fieldData.mandatory && !tipoRootController.searchTerm.text"></md-option>
+					  <md-option ng-value="option.key" ng-repeat="option in tipoRootController.options | filter: {label: tipoRootController.searchTerm.text}">{{ option.label }}</md-option>
+					</md-select>
+				#else
+					<input ng-model="tipoRootController.tipo.${field.fq_field_name}_refs['ref' + tipoRootController.tipo.$field.fq_field_name]" ng-disabled="true">
+				#end
+				</div>
+				#if($fieldisPopup)
+				<div flex="none" class="actions">
+					<md-button class="m0" ng-click="tipoRootController.tipoObjecSelectiontDialog()">
+						<md-icon>search</md-icon>
+					</md-button>
+				</div>
+				#end
+			</div>
+			
+		#end
   	#end				
 ##        
 					</md-input-container>

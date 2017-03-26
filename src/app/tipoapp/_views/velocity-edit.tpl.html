@@ -164,8 +164,21 @@
       <div class="tp-field">
         <span>
           <md-input-container md-no-float>
-                                    <tp:lookup root="tipoRootController.tipoDefinition" context="tipoRootController.tipoDefinition"  field="tipoRootController.tipo.tipoapp" field-data='{"isArray":false,"isGroup":"false","baseFilter":"","relatedTipo":"TipoApp","labelField":"app_name","isPopup":false,"mandatory":false,"fieldKey":"tipoapp"}' tipo-data="tipoRootController.tipo" /> 
+                                          <div layout="row">
+        <div flex>
+                  <md-select ng-model="tipoRootController.tipo.tipoapp"  md-container-class="tp-field" placeholder="{{field.field_description}}" md-on-open="tipoRootController.loadOptions(,TipoApp)" md-on-close="tipoRootController.cleanup()">
+            <md-select-header class="search" ng-if="options.length > 5">
+              <md-input-container md-no-float>
+                <input ng-model="tipoRootController.searchTerm.text" type="search" placeholder="Search ..." ng-keydown="stopBubbling($event)" tp:auto-focus>
               </md-input-container>
+            </md-select-header>
+            <md-option value="" ng-if="!fieldData.mandatory && !tipoRootController.searchTerm.text"></md-option>
+            <md-option ng-value="option.key" ng-repeat="option in tipoRootController.options | filter: {label: tipoRootController.searchTerm.text}">{{ option.label }}</md-option>
+          </md-select>
+                </div>
+              </div>
+      
+                  </md-input-container>
         </span>
       </div>       
         </dd>
