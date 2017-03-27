@@ -52,13 +52,42 @@
       });
     };
 
-    _instance.loadOptions = function (baseFilter,tipo_name){
-      delete _instance.options;
-      _instance.options = tipoInstanceDataService.gettpObjectOptions(baseFilter,tipo_name);
+    _instance.loadOptions = function (baseFilter,tipo_name,label_field,uniq_name){
+      _instance[uniq_name] = {};
+      console.log("uniq_name");
+      console.log(uniq_name);
+      tipoInstanceDataService.gettpObjectOptions(baseFilter,tipo_name,label_field,_instance.tipoDefinition).then(function(options){
+        _instance[uniq_name].options = options;
+        var tipo_data = _instance.tipo[uniq_name];
+        if (_.isArray(tipo_data)) {
+          _instance[uniq_name].model = _.map(tipo_data, function(each){
+            return {
+              key: each,
+              label: _instance.tipo[uniq_name + '_refs']['ref' + each]
+            };
+          });
+        }else{
+          _instance[uniq_name].model = {key: tipo_data, label: _instance.tipo[uniq_name + '_refs']['ref' + tipo_data] }
+        }
+        console.log("_instance" + uniq_name);
+        console.log(_instance[uniq_name]);
+      });      
+    };
+
+    _instance.renderSelection = function(tipo_name){
+      var text = '<div class="placeholder"></div>';
+        if (_instance[tipo_name].model && _instance[tipo_name].model.length){
+          text = '<div class="multiple-list">';
+          _.each(_instance[tipo_name].model, function(each){
+            text += '<div>' +each.label + '</div>';
+          });
+          text += '</div>';
+        }
+          return text;
     };
 
     _instance.searchTerm = {};
-    _instance.cleanup = function(){
+    _instance.cleanup = function(label){
       delete _instance.searchTerm.text;
     }
 

@@ -179,7 +179,7 @@
       return promise;
     };
 
-    _instance.gettpObjectOptions = function(baseFilter,tipo_name){
+    _instance.gettpObjectOptions = function(baseFilter,tipo_name,label_field,context){
       var searchCriteria = {};
       var filter;
       var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
@@ -191,7 +191,7 @@
         filter = perspectiveMetadata.tipoFilter;
       }
       if(!_.isUndefined(baseFilter)){
-        var baseFilterExpanded = tipoManipulationService.expandFilterExpression(baseFilter, scope.root, scope.context);
+        var baseFilterExpanded = tipoManipulationService.expandFilterExpression(baseFilter, context, context);
         if(_.isUndefined(filter)){
           filter = baseFilterExpanded;
         }else{
@@ -203,6 +203,7 @@
       }
       var options = [];
       return _instance.search(tipo_name, searchCriteria).then(function(results){
+        console.log(results);
         options = _.map(results, function(each){
           return {
             key: each.tipo_id,
@@ -211,6 +212,7 @@
         });
         console.log("options");
         console.log(options);
+        return options;
       });
     };
 

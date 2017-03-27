@@ -73,7 +73,8 @@
     $window,
     $mdToast,
     $timeout,
-    $location) {
+    $location,
+    $window) {
       return {
         scope: {
           definition: '=',
@@ -146,6 +147,8 @@
           }
 
           scope.performAction = function(action){
+            console.log("action");
+            console.log(action);
             if(mode === 'view' || !action.bulk_select){
               if (mode === 'view') {
                 performSingleAction(action);
@@ -184,7 +187,11 @@
               if (!_.isEmpty(message) || !_.isUndefined(message)) {
                 return_url = return_url + '?message=' + message;
               };
-              $location.url(return_url);            
+              if(S(return_url).contains('http')){
+                $window.open(return_url, "_blank")
+              }else{
+                $location.url(return_url);  
+              }    
             }else{
                 var toast = $mdToast.tpToast();
                 toast._options.locals = {
@@ -212,7 +219,7 @@
             selected_tipo_ids = _.map(selected_tipo_ids, function(each){
               return each.key;
             });
-            if(!_.isEmpty(selected_tipo_ids)){
+            // if(!_.isEmpty(selected_tipo_ids)){
               if(action.additionalTipo){
                 var additionalTipo = action.additionalTipo;
                 var promise = openAdditionalTipoDialog(additionalTipo, action,tipo_name,selected_tipo_ids);
@@ -225,7 +232,7 @@
                     performResponseActions(response[0].message,response[0].data.return_url);
                     tipoRouter.endStateChange();});
               }
-            }
+            // }
           }
 
           function openAdditionalTipoDialog(tipo_name, action, parentTipo, tipoids){

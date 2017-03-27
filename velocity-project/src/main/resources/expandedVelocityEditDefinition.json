@@ -3,172 +3,16 @@
    "message":null,
    "status_code":"200",
    "data":{  
-      "tipo_meta":{  
-         "display_name":"VelocityTest",
-         "icon":"sentiment_very_satisfied",
-         "icon_refs":{  
-            "refsentiment_very_satisfied":"sentiment very satisfied"
-         },
-         "tipo_name":"VelocityTest"
+      "created_dt":"1490443068246",
+      "application_refs":{  
+
       },
+      "geo_latitude":17.7276338,
+      "application_owner_account":"2000000001",
+      "geo_longitude":83.3129172,
       "tipo_fields":[  
          {  
-            "display_name":"Simple String",
-            "field_type":"string",
-            "field_type_refs":{  
-               "refstring":"Simple String"
-            },
-            "short_display":true,
-            "_ARRAY_META":{  
-               "_HASH":"8814052217"
-            },
-            "field_name":"simple_string",
-            "sequence":1,
-            "_ui":{  
-               "isArray":false,
-               "isSimple":true
-            },
-            "underscore_ui":{  
-               "isArray":false,
-               "isSimple":true
-            },
-            "fq_field_name":"simple_string"
-         },
-         {  
-            "display_name":"Para",
-            "field_type":"longstring",
-            "field_type_refs":{  
-               "reflongstring":"Paragraph"
-            },
-            "short_display":true,
-            "_ARRAY_META":{  
-               "_HASH":"2575865057"
-            },
-            "field_name":"para",
-            "sequence":2,
-            "_ui":{  
-               "isArray":false,
-               "isSimple":true
-            },
-            "underscore_ui":{  
-               "isArray":false,
-               "isSimple":true
-            },
-            "fq_field_name":"para"
-         },
-         {  
-            "display_name":"Rich Text",
-            "field_type":"richstring",
-            "field_type_refs":{  
-               "refrichstring":"Rich Text"
-            },
-            "short_display":true,
-            "_ARRAY_META":{  
-               "_HASH":"1240763039"
-            },
-            "field_name":"rich_text",
-            "sequence":3,
-            "_ui":{  
-               "isArray":false,
-               "isSimple":true
-            },
-            "underscore_ui":{  
-               "isArray":false,
-               "isSimple":true
-            },
-            "fq_field_name":"rich_text"
-         },
-         {  
-            "display_name":"HTML Link",
-            "field_type":"htmlLink",
-            "field_type_refs":{  
-               "refhtmlLink":"Link"
-            },
-            "short_display":true,
-            "_ARRAY_META":{  
-               "_HASH":"7693096437"
-            },
-            "field_name":"html_link",
-            "sequence":4,
-            "_ui":{  
-               "isArray":false,
-               "isSimple":true
-            },
-            "underscore_ui":{  
-               "isArray":false,
-               "isSimple":true
-            },
-            "fq_field_name":"html_link"
-         },
-         {  
-            "display_name":"Boolean",
-            "field_type":"boolean",
-            "field_type_refs":{  
-               "refboolean":"True/False"
-            },
-            "short_display":true,
-            "_ARRAY_META":{  
-               "_HASH":"7407795207"
-            },
-            "field_name":"boolean_",
-            "sequence":5,
-            "_ui":{  
-               "isArray":false,
-               "isSimple":true
-            },
-            "underscore_ui":{  
-               "isArray":false,
-               "isSimple":true
-            },
-            "fq_field_name":"boolean_"
-         },
-         {  
-            "display_name":"Date/Time",
-            "field_type":"date_time",
-            "field_type_refs":{  
-               "refdate_time":"Date/Time"
-            },
-            "short_display":true,
-            "_ARRAY_META":{  
-               "_HASH":"4508423425"
-            },
-            "field_name":"date_time",
-            "sequence":6,
-            "_ui":{  
-               "isArray":false,
-               "isSimple":true
-            },
-            "underscore_ui":{  
-               "isArray":false,
-               "isSimple":true
-            },
-            "fq_field_name":"date_time"
-         },
-         {  
-            "display_name":"Integer",
-            "field_type":"integer",
-            "field_type_refs":{  
-               "refinteger":"Integer"
-            },
-            "short_display":true,
-            "field_name":"integer_",
-            "_ARRAY_META":{  
-               "_HASH":"1656516289"
-            },
-            "sequence":7,
-            "_ui":{  
-               "isArray":false,
-               "isSimple":true
-            },
-            "underscore_ui":{  
-               "isArray":false,
-               "isSimple":true
-            },
-            "fq_field_name":"integer_"
-         },
-         {  
-            "display_name":"TipoApp",
-            "field_type":"Tipo.TipoApp",
+            "sequence":"0",
             "field_type_refs":{  
                "refTipo":{  
                   "TipoApp":"Tipo.TipoApp"
@@ -178,8 +22,9 @@
             "_ARRAY_META":{  
                "_HASH":"7482760572"
             },
+            "display_name":"TipoApp",
+            "field_type":"Tipo.TipoApp",
             "field_name":"tipoapp",
-            "sequence":0,
             "_ui":{  
                "isArray":false,
                "isTipoRelationship":true,
@@ -226,30 +71,314 @@
                "isSimple":true
             },
             "fq_field_name":"tipoapp"
+         },
+         {  
+            "sequence":"1",
+            "field_type_refs":{  
+               "refstring":"Simple String"
+            },
+            "short_display":true,
+            "_ARRAY_META":{  
+               "_HASH":"8814052217"
+            },
+            "display_name":"Simple String",
+            "field_type":"string",
+            "field_name":"simple_string",
+            "_ui":{  
+               "isArray":false,
+               "isSimple":true
+            },
+            "underscore_ui":{  
+               "isArray":false,
+               "isSimple":true
+            },
+            "fq_field_name":"simple_string"
+         },
+         {  
+            "sequence":"2",
+            "field_type_refs":{  
+               "reflongstring":"Paragraph"
+            },
+            "short_display":true,
+            "_ARRAY_META":{  
+               "_HASH":"2575865057"
+            },
+            "display_name":"Para",
+            "field_type":"longstring",
+            "field_name":"para",
+            "_ui":{  
+               "isArray":false,
+               "isSimple":true
+            },
+            "underscore_ui":{  
+               "isArray":false,
+               "isSimple":true
+            },
+            "fq_field_name":"para"
+         },
+         {  
+            "sequence":"3",
+            "field_type_refs":{  
+               "refrichstring":"Rich Text"
+            },
+            "short_display":true,
+            "_ARRAY_META":{  
+               "_HASH":"1240763039"
+            },
+            "display_name":"Rich Text",
+            "field_type":"richstring",
+            "field_name":"rich_text",
+            "_ui":{  
+               "isArray":false,
+               "isSimple":true
+            },
+            "underscore_ui":{  
+               "isArray":false,
+               "isSimple":true
+            },
+            "fq_field_name":"rich_text"
+         },
+         {  
+            "sequence":"4",
+            "field_type_refs":{  
+               "refhtmlLink":"Link"
+            },
+            "short_display":true,
+            "_ARRAY_META":{  
+               "_HASH":"7693096437"
+            },
+            "display_name":"HTML Link",
+            "field_type":"htmlLink",
+            "field_name":"html_link",
+            "_ui":{  
+               "isArray":false,
+               "isSimple":true
+            },
+            "underscore_ui":{  
+               "isArray":false,
+               "isSimple":true
+            },
+            "fq_field_name":"html_link"
+         },
+         {  
+            "sequence":"5",
+            "field_type_refs":{  
+               "refboolean":"True/False"
+            },
+            "short_display":true,
+            "_ARRAY_META":{  
+               "_HASH":"7407795207"
+            },
+            "display_name":"Boolean",
+            "field_type":"boolean",
+            "field_name":"boolean_",
+            "_ui":{  
+               "isArray":false,
+               "isSimple":true
+            },
+            "underscore_ui":{  
+               "isArray":false,
+               "isSimple":true
+            },
+            "fq_field_name":"boolean_"
+         },
+         {  
+            "sequence":"6",
+            "field_type_refs":{  
+               "refdate_time":"Date/Time"
+            },
+            "short_display":true,
+            "_ARRAY_META":{  
+               "_HASH":"4508423425"
+            },
+            "display_name":"Date/Time",
+            "field_type":"date_time",
+            "field_name":"date_time",
+            "_ui":{  
+               "isArray":false,
+               "isSimple":true
+            },
+            "underscore_ui":{  
+               "isArray":false,
+               "isSimple":true
+            },
+            "fq_field_name":"date_time"
+         },
+         {  
+            "sequence":"7",
+            "field_type_refs":{  
+               "refinteger":"Integer"
+            },
+            "short_display":true,
+            "_ARRAY_META":{  
+               "_HASH":"1656516289"
+            },
+            "display_name":"Integer",
+            "field_type":"integer",
+            "field_name":"integer_",
+            "_ui":{  
+               "isArray":false,
+               "isSimple":true
+            },
+            "underscore_ui":{  
+               "isArray":false,
+               "isSimple":true
+            },
+            "fq_field_name":"integer_"
+         },
+         {  
+            "display_name":"TipoArray",
+            "field_type":"Tipo.TipoApp",
+            "field_type_refs":{  
+               "refTipo":{  
+                  "TipoApp":"Tipo.undefined"
+               }
+            },
+            "tipo_array":true,
+            "short_display":true,
+            "_ARRAY_META":{  
+               "_HASH":"9954111439"
+            },
+            "field_name":"tipoarray",
+            "sequence":0,
+            "_ui":{  
+               "isArray":true,
+               "isTipoRelationship":true,
+               "relatedTipo":"TipoApp",
+               "isSimple":true
+            },
+            "key_field":{  
+               "sizing":"2",
+               "sequence":"4",
+               "field_type_refs":{  
+                  "refstring":"Simple String"
+               },
+               "field_description":"App ID",
+               "short_display":true,
+               "hidden":true,
+               "read_only":true,
+               "_ARRAY_META":{  
+                  "_HASH":"4046f0f5-41f4-4a7e-8483-590c431381fd"
+               },
+               "display_name":"App ID",
+               "field_type":"string",
+               "field_name":"tipo_id"
+            },
+            "label_field":{  
+               "sequence":"1",
+               "field_type_refs":{  
+                  "refstring":"Simple String"
+               },
+               "field_description":"App Name",
+               "short_display":true,
+               "meaningful_key":true,
+               "_ARRAY_META":{  
+                  "_HASH":"96ac6aca-a96e-40a5-a3ca-50214129981f"
+               },
+               "display_name":"App Name",
+               "field_type":"string",
+               "mandatory":true,
+               "field_name":"app_name"
+            },
+            "underscore_ui":{  
+               "isArray":true,
+               "isTipoRelationship":true,
+               "relatedTipo":"TipoApp",
+               "isSimple":true
+            },
+            "fq_field_name":"tipoarray"
          }
       ],
-      "geo_latitude":17.727639,
-      "geo_longitude":83.31301409999999,
-      "tipo_id":"VelocityTest",
-      "application":"1000000001",
-      "application_owner_account":"2000000001",
-      "account":"2000000001",
-      "hash_key":"2000000001.1000000001.2000000001.TipoDefinition.VelocityTest",
       "created_by":"santosh.subbarao@tipotapp.com",
-      "created_date":"2017-03-25T11:57:48.246Z",
-      "created_dt":1490443068246,
-      "updated_by":"santosh.subbarao@tipotapp.com",
-      "updated_date":"2017-03-25T15:38:09.023Z",
-      "updated_dt":1490456289023,
+      "hash_key":"2000000001.1000000001.2000000001.TipoDefinition.VelocityTest",
+      "application":"1000000001",
       "el_index":true,
+      "updated_dt":1490595428307,
+      "updated_by":"santosh.subbarao@tipotapp.com",
+      "created_date":"2017-03-25T11:57:48.246Z",
+      "tipo_id":"VelocityTest",
+      "updated_date":"2017-03-27T06:17:08.307Z",
+      "tipo_edit":{  
+         "ui_template_url":"tipoapp.velocity-edit"
+      },
+      "account":"2000000001",
       "account_refs":{  
 
       },
-      "application_refs":{  
-
+      "tipo_meta":{  
+         "icon":"sentiment_very_satisfied",
+         "icon_refs":{  
+            "refsentiment_very_satisfied":"sentiment very satisfied"
+         },
+         "tipo_name":"VelocityTest",
+         "display_name":"VelocityTest"
       },
-      "tipo_edit":{  
-         "ui_template_url":"tipoapp.velocity-edit"
+      "tipo_list":{  
+         "filters":[  
+            {  
+               "display_name":"Something Else",
+               "filter_expression":"simple_string:(Something Else)",
+               "_ARRAY_META":{  
+                  "_HASH":"5691682500"
+               }
+            },
+            {  
+               "display_name":"Test Me",
+               "filter_expression":"simple_string:(Test Me)",
+               "_ARRAY_META":{  
+                  "_HASH":"7263641399"
+               }
+            }
+         ],
+         "actions":[  
+            {  
+               "tipo_action":"action_non_highlight",
+               "display_name":"Action Bulk",
+               "icon":"list",
+               "icon_refs":{  
+                  "reflist":"list"
+               },
+               "bulk_select":true,
+               "tipo_function":"5291001589",
+               "tipo_function_refs":{  
+                  "ref5291001589":"CustomFunction"
+               },
+               "_ARRAY_META":{  
+                  "_HASH":"4326685772"
+               }
+            },
+            {  
+               "tipo_action":"action_non_highlight",
+               "display_name":"Action Dropdown",
+               "icon":"attach_money",
+               "icon_refs":{  
+                  "refattach_money":"attach money"
+               },
+               "tipo_function":"5291001589",
+               "tipo_function_refs":{  
+                  "ref5291001589":"CustomFunction"
+               },
+               "_ARRAY_META":{  
+                  "_HASH":"7739810672"
+               }
+            },
+            {  
+               "tipo_action":"action_highlight",
+               "display_name":"Action Highlight",
+               "highlight":true,
+               "icon":"skip_next",
+               "icon_refs":{  
+                  "refskip_next":"skip next"
+               },
+               "tipo_function":"5291001589",
+               "tipo_function_refs":{  
+                  "ref5291001589":"CustomFunction"
+               },
+               "_ARRAY_META":{  
+                  "_HASH":"9998156291"
+               }
+            }
+         ]
       },
       "_ui":{  
          "listTemplate":"public/common/views/list-fluid.tpl.html___VelocityTest",
@@ -266,162 +395,7 @@
       },
       "short_display_fields":[  
          {  
-            "display_name":"Simple String",
-            "field_type":"string",
-            "field_type_refs":{  
-               "refstring":"Simple String"
-            },
-            "short_display":true,
-            "_ARRAY_META":{  
-               "_HASH":"8814052217"
-            },
-            "field_name":"simple_string",
-            "sequence":1,
-            "_ui":{  
-               "isArray":false,
-               "isSimple":true
-            },
-            "underscore_ui":{  
-               "isArray":false,
-               "isSimple":true
-            },
-            "fq_field_name":"simple_string"
-         },
-         {  
-            "display_name":"Para",
-            "field_type":"longstring",
-            "field_type_refs":{  
-               "reflongstring":"Paragraph"
-            },
-            "short_display":true,
-            "_ARRAY_META":{  
-               "_HASH":"2575865057"
-            },
-            "field_name":"para",
-            "sequence":2,
-            "_ui":{  
-               "isArray":false,
-               "isSimple":true
-            },
-            "underscore_ui":{  
-               "isArray":false,
-               "isSimple":true
-            },
-            "fq_field_name":"para"
-         },
-         {  
-            "display_name":"Rich Text",
-            "field_type":"richstring",
-            "field_type_refs":{  
-               "refrichstring":"Rich Text"
-            },
-            "short_display":true,
-            "_ARRAY_META":{  
-               "_HASH":"1240763039"
-            },
-            "field_name":"rich_text",
-            "sequence":3,
-            "_ui":{  
-               "isArray":false,
-               "isSimple":true
-            },
-            "underscore_ui":{  
-               "isArray":false,
-               "isSimple":true
-            },
-            "fq_field_name":"rich_text"
-         },
-         {  
-            "display_name":"HTML Link",
-            "field_type":"htmlLink",
-            "field_type_refs":{  
-               "refhtmlLink":"Link"
-            },
-            "short_display":true,
-            "_ARRAY_META":{  
-               "_HASH":"7693096437"
-            },
-            "field_name":"html_link",
-            "sequence":4,
-            "_ui":{  
-               "isArray":false,
-               "isSimple":true
-            },
-            "underscore_ui":{  
-               "isArray":false,
-               "isSimple":true
-            },
-            "fq_field_name":"html_link"
-         },
-         {  
-            "display_name":"Boolean",
-            "field_type":"boolean",
-            "field_type_refs":{  
-               "refboolean":"True/False"
-            },
-            "short_display":true,
-            "_ARRAY_META":{  
-               "_HASH":"7407795207"
-            },
-            "field_name":"boolean_",
-            "sequence":5,
-            "_ui":{  
-               "isArray":false,
-               "isSimple":true
-            },
-            "underscore_ui":{  
-               "isArray":false,
-               "isSimple":true
-            },
-            "fq_field_name":"boolean_"
-         },
-         {  
-            "display_name":"Date/Time",
-            "field_type":"date_time",
-            "field_type_refs":{  
-               "refdate_time":"Date/Time"
-            },
-            "short_display":true,
-            "_ARRAY_META":{  
-               "_HASH":"4508423425"
-            },
-            "field_name":"date_time",
-            "sequence":6,
-            "_ui":{  
-               "isArray":false,
-               "isSimple":true
-            },
-            "underscore_ui":{  
-               "isArray":false,
-               "isSimple":true
-            },
-            "fq_field_name":"date_time"
-         },
-         {  
-            "display_name":"Integer",
-            "field_type":"integer",
-            "field_type_refs":{  
-               "refinteger":"Integer"
-            },
-            "short_display":true,
-            "field_name":"integer_",
-            "_ARRAY_META":{  
-               "_HASH":"1656516289"
-            },
-            "sequence":7,
-            "_ui":{  
-               "isArray":false,
-               "isSimple":true
-            },
-            "underscore_ui":{  
-               "isArray":false,
-               "isSimple":true
-            },
-            "fq_field_name":"integer_"
-         },
-         {  
-            "display_name":"TipoApp",
-            "field_type":"Tipo.TipoApp",
+            "sequence":"0",
             "field_type_refs":{  
                "refTipo":{  
                   "TipoApp":"Tipo.TipoApp"
@@ -431,8 +405,9 @@
             "_ARRAY_META":{  
                "_HASH":"7482760572"
             },
+            "display_name":"TipoApp",
+            "field_type":"Tipo.TipoApp",
             "field_name":"tipoapp",
-            "sequence":0,
             "_ui":{  
                "isArray":false,
                "isTipoRelationship":true,
@@ -479,6 +454,222 @@
                "isSimple":true
             },
             "fq_field_name":"tipoapp"
+         },
+         {  
+            "sequence":"1",
+            "field_type_refs":{  
+               "refstring":"Simple String"
+            },
+            "short_display":true,
+            "_ARRAY_META":{  
+               "_HASH":"8814052217"
+            },
+            "display_name":"Simple String",
+            "field_type":"string",
+            "field_name":"simple_string",
+            "_ui":{  
+               "isArray":false,
+               "isSimple":true
+            },
+            "underscore_ui":{  
+               "isArray":false,
+               "isSimple":true
+            },
+            "fq_field_name":"simple_string"
+         },
+         {  
+            "sequence":"2",
+            "field_type_refs":{  
+               "reflongstring":"Paragraph"
+            },
+            "short_display":true,
+            "_ARRAY_META":{  
+               "_HASH":"2575865057"
+            },
+            "display_name":"Para",
+            "field_type":"longstring",
+            "field_name":"para",
+            "_ui":{  
+               "isArray":false,
+               "isSimple":true
+            },
+            "underscore_ui":{  
+               "isArray":false,
+               "isSimple":true
+            },
+            "fq_field_name":"para"
+         },
+         {  
+            "sequence":"3",
+            "field_type_refs":{  
+               "refrichstring":"Rich Text"
+            },
+            "short_display":true,
+            "_ARRAY_META":{  
+               "_HASH":"1240763039"
+            },
+            "display_name":"Rich Text",
+            "field_type":"richstring",
+            "field_name":"rich_text",
+            "_ui":{  
+               "isArray":false,
+               "isSimple":true
+            },
+            "underscore_ui":{  
+               "isArray":false,
+               "isSimple":true
+            },
+            "fq_field_name":"rich_text"
+         },
+         {  
+            "sequence":"4",
+            "field_type_refs":{  
+               "refhtmlLink":"Link"
+            },
+            "short_display":true,
+            "_ARRAY_META":{  
+               "_HASH":"7693096437"
+            },
+            "display_name":"HTML Link",
+            "field_type":"htmlLink",
+            "field_name":"html_link",
+            "_ui":{  
+               "isArray":false,
+               "isSimple":true
+            },
+            "underscore_ui":{  
+               "isArray":false,
+               "isSimple":true
+            },
+            "fq_field_name":"html_link"
+         },
+         {  
+            "sequence":"5",
+            "field_type_refs":{  
+               "refboolean":"True/False"
+            },
+            "short_display":true,
+            "_ARRAY_META":{  
+               "_HASH":"7407795207"
+            },
+            "display_name":"Boolean",
+            "field_type":"boolean",
+            "field_name":"boolean_",
+            "_ui":{  
+               "isArray":false,
+               "isSimple":true
+            },
+            "underscore_ui":{  
+               "isArray":false,
+               "isSimple":true
+            },
+            "fq_field_name":"boolean_"
+         },
+         {  
+            "sequence":"6",
+            "field_type_refs":{  
+               "refdate_time":"Date/Time"
+            },
+            "short_display":true,
+            "_ARRAY_META":{  
+               "_HASH":"4508423425"
+            },
+            "display_name":"Date/Time",
+            "field_type":"date_time",
+            "field_name":"date_time",
+            "_ui":{  
+               "isArray":false,
+               "isSimple":true
+            },
+            "underscore_ui":{  
+               "isArray":false,
+               "isSimple":true
+            },
+            "fq_field_name":"date_time"
+         },
+         {  
+            "sequence":"7",
+            "field_type_refs":{  
+               "refinteger":"Integer"
+            },
+            "short_display":true,
+            "_ARRAY_META":{  
+               "_HASH":"1656516289"
+            },
+            "display_name":"Integer",
+            "field_type":"integer",
+            "field_name":"integer_",
+            "_ui":{  
+               "isArray":false,
+               "isSimple":true
+            },
+            "underscore_ui":{  
+               "isArray":false,
+               "isSimple":true
+            },
+            "fq_field_name":"integer_"
+         },
+         {  
+            "display_name":"TipoArray",
+            "field_type":"Tipo.TipoApp",
+            "field_type_refs":{  
+               "refTipo":{  
+                  "TipoApp":"Tipo.undefined"
+               }
+            },
+            "tipo_array":true,
+            "short_display":true,
+            "_ARRAY_META":{  
+               "_HASH":"9954111439"
+            },
+            "field_name":"tipoarray",
+            "sequence":0,
+            "_ui":{  
+               "isArray":true,
+               "isTipoRelationship":true,
+               "relatedTipo":"TipoApp",
+               "isSimple":true
+            },
+            "key_field":{  
+               "sizing":"2",
+               "sequence":"4",
+               "field_type_refs":{  
+                  "refstring":"Simple String"
+               },
+               "field_description":"App ID",
+               "short_display":true,
+               "hidden":true,
+               "read_only":true,
+               "_ARRAY_META":{  
+                  "_HASH":"4046f0f5-41f4-4a7e-8483-590c431381fd"
+               },
+               "display_name":"App ID",
+               "field_type":"string",
+               "field_name":"tipo_id"
+            },
+            "label_field":{  
+               "sequence":"1",
+               "field_type_refs":{  
+                  "refstring":"Simple String"
+               },
+               "field_description":"App Name",
+               "short_display":true,
+               "meaningful_key":true,
+               "_ARRAY_META":{  
+                  "_HASH":"96ac6aca-a96e-40a5-a3ca-50214129981f"
+               },
+               "display_name":"App Name",
+               "field_type":"string",
+               "mandatory":true,
+               "field_name":"app_name"
+            },
+            "underscore_ui":{  
+               "isArray":true,
+               "isTipoRelationship":true,
+               "relatedTipo":"TipoApp",
+               "isSimple":true
+            },
+            "fq_field_name":"tipoarray"
          }
       ]
    },

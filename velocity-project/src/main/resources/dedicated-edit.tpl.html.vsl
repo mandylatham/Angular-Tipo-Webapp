@@ -111,17 +111,18 @@ This is a velocity template to generate AngularJS list view template for any Tip
 			#set($fieldisGroup = "false")
 		#end
 		#if($field.relationship_filter)
-			#set($fieldbaseFilter = $field.relationship_filter)
+			#set($fieldbaseFilter = "'$field.relationship_filter'")
 		#else
-			#set($fieldbaseFilter = "")
+			#set($fieldbaseFilter = "''")
 		#end
-		#set($fieldrelatedTipo = $field.underscore_ui.relatedTipo)
+		#set($fieldrelatedTipo = "'$field.underscore_ui.relatedTipo'")
 		#if($field.label_field)
-			#set($field_label_field = $field.label_field.field_name)
+			#set($field_label_field = "'$field.label_field.field_name'")
 		#else
-			#set($field_label_field = $field.key_field.field_name)
+			#set($field_label_field = "'$field.key_field.field_name'")
 		#end
 		#set($fieldisPopup = false)
+		#set($fieldlabel = "'$field.fq_field_name'")
 		#foreach($value in $field.metadata)
 			#if($value.key_ == "popup.select")
 			#set($fieldisPopup = true)
@@ -140,14 +141,14 @@ This is a velocity template to generate AngularJS list view template for any Tip
 			<div layout="row">
 				<div flex>
 				#if(!$fieldisPopup)
-					<md-select ng-model="tipoRootController.tipo.$field.fq_field_name"  md-container-class="tp-field" placeholder="{{field.field_description}}" md-on-open="tipoRootController.loadOptions($fieldbaseFilter,$fieldrelatedTipo)" md-on-close="tipoRootController.cleanup()">
+					<md-select ng-model="tipoRootController.$field.fq_field_name.model"  md-container-class="tp-field" placeholder="{{field.field_description}}" md-on-open="tipoRootController.loadOptions($fieldbaseFilter,$fieldrelatedTipo,$field_label_field,$fieldlabel)" md-on-close="tipoRootController.cleanup($fieldlabel)" ng-init="tipoRootController.loadOptions($fieldbaseFilter,$fieldrelatedTipo,$field_label_field,$fieldlabel)">
 					  <md-select-header class="search" ng-if="options.length > 5">
 					    <md-input-container md-no-float>
-					      <input ng-model="tipoRootController.searchTerm.text" type="search" placeholder="Search ..." ng-keydown="stopBubbling($event)" tp:auto-focus>
+					      <input ng-model="tipoRootController.$field.fq_field_name.searchTerm.text" type="search" placeholder="Search ..." ng-keydown="stopBubbling($event)" tp:auto-focus>
 					    </md-input-container>
 					  </md-select-header>
 					  <md-option value="" ng-if="!fieldData.mandatory && !tipoRootController.searchTerm.text"></md-option>
-					  <md-option ng-value="option.key" ng-repeat="option in tipoRootController.options | filter: {label: tipoRootController.searchTerm.text}">{{ option.label }}</md-option>
+					  <md-option ng-value="option.key" ng-repeat="option in tipoRootController.$field.fq_field_name.options | filter: {label: tipoRootController.$field.fq_field_name.searchTerm.text}">{{ option.label }}</md-option>
 					</md-select>
 				#else
 					<input ng-model="tipoRootController.tipo.${field.fq_field_name}_refs['ref' + tipoRootController.tipo.$field.fq_field_name]" ng-disabled="true">
@@ -159,6 +160,28 @@ This is a velocity template to generate AngularJS list view template for any Tip
 						<md-icon>search</md-icon>
 					</md-button>
 				</div>
+				#end
+			</div>
+		#else
+			<div layout="row">
+				<div flex>
+				#if(!$fieldisPopup)
+					<md-select ng-model="tipoRootController.$field.fq_field_name.model" md-container-class="tp-field" placeholder="{{field.field_description}}"  md-on-open="tipoRootController.loadOptions($fieldbaseFilter,$fieldrelatedTipo,$field_label_field,$fieldlabel)" md-on-close="tipoRootController.cleanup($fieldlabel)" md-selected-text="tipoRootController.renderSelection($fieldlabel)" multiple="true" flex ng-init="tipoRootController.loadOptions($fieldbaseFilter,$fieldrelatedTipo,$field_label_field,$fieldlabel)">
+					  <md-select-header class="search" ng-if="options.length > 5">
+					    <md-input-container md-no-float>
+					      <input ng-model="tipoRootController.$field.fq_field_name.searchTerm.text" type="search" placeholder="Search ..." ng-keydown="stopBubbling($event)" tp:auto-focus>
+					    </md-input-container>
+					  </md-select-header>
+					  <md-option ng-value="option.key" ng-repeat="option in tipoRootController.$field.fq_field_name.options | filter: {label: tipoRootController.$field.fq_field_name.searchTerm.text}">{{ option.label }}</md-option>
+					</md-select>
+				#end
+				</div>
+				#if($fieldisPopup)
+					<div flex="none" class="actions">
+						<md-button class="m0" ng-click="tipoObjecSelectiontDialog()">
+							<md-icon>search</md-icon>
+						</md-button>
+					</div>
 				#end
 			</div>
 			

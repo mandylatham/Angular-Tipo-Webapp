@@ -14,6 +14,37 @@
         flex-gt-sm="50" 
         flex-gt-md="33">
         <dt>
+         TipoApp      </dt>
+        <dd>
+      <div class="tp-field">
+        <span>
+          <md-input-container md-no-float>
+                                          <div layout="row">
+        <div flex>
+                  <md-select ng-model="tipoRootController.$field.fq_field_name.model"  md-container-class="tp-field" placeholder="{{field.field_description}}" md-on-open="tipoRootController.loadOptions('','TipoApp','app_name','tipoapp')" md-on-close="tipoRootController.cleanup('tipoapp')" ng-init="tipoRootController.loadOptions('','TipoApp','app_name','tipoapp')">
+            <md-select-header class="search" ng-if="options.length > 5">
+              <md-input-container md-no-float>
+                <input ng-model="tipoRootController.$field.fq_field_name.searchTerm.text" type="search" placeholder="Search ..." ng-keydown="stopBubbling($event)" tp:auto-focus>
+              </md-input-container>
+            </md-select-header>
+            <md-option value="" ng-if="!fieldData.mandatory && !tipoRootController.searchTerm.text"></md-option>
+            <md-option ng-value="option.key" ng-repeat="option in tipoRootController.$field.fq_field_name.options | filter: {label: tipoRootController.$field.fq_field_name.searchTerm.text}">{{ option.label }}</md-option>
+          </md-select>
+                </div>
+              </div>
+                  </md-input-container>
+        </span>
+      </div>       
+        </dd>
+      </dl>
+                                
+     <dl class="edit" 
+          layout="column" 
+          layout-align="center stretch"
+          flex="100" 
+        flex-gt-sm="50" 
+        flex-gt-md="33">
+        <dt>
          Simple String      </dt>
         <dd>
       <div class="tp-field">
@@ -159,21 +190,20 @@
         flex-gt-sm="50" 
         flex-gt-md="33">
         <dt>
-         TipoApp      </dt>
+         TipoArray      </dt>
         <dd>
       <div class="tp-field">
         <span>
           <md-input-container md-no-float>
                                           <div layout="row">
         <div flex>
-                  <md-select ng-model="tipoRootController.tipo.tipoapp"  md-container-class="tp-field" placeholder="{{field.field_description}}" md-on-open="tipoRootController.loadOptions(,TipoApp)" md-on-close="tipoRootController.cleanup()">
+                  <md-select ng-model="tipoRootController.$field.fq_field_name.model" md-container-class="tp-field" placeholder="{{field.field_description}}"  md-on-open="tipoRootController.loadOptions('','TipoApp','app_name','tipoarray')" md-on-close="tipoRootController.cleanup('tipoarray')" md-selected-text="tipoRootController.renderSelection('tipoarray')" multiple="true" flex ng-init="tipoRootController.loadOptions('','TipoApp','app_name','tipoarray')">
             <md-select-header class="search" ng-if="options.length > 5">
               <md-input-container md-no-float>
-                <input ng-model="tipoRootController.searchTerm.text" type="search" placeholder="Search ..." ng-keydown="stopBubbling($event)" tp:auto-focus>
+                <input ng-model="tipoRootController.$field.fq_field_name.searchTerm.text" type="search" placeholder="Search ..." ng-keydown="stopBubbling($event)" tp:auto-focus>
               </md-input-container>
             </md-select-header>
-            <md-option value="" ng-if="!fieldData.mandatory && !tipoRootController.searchTerm.text"></md-option>
-            <md-option ng-value="option.key" ng-repeat="option in tipoRootController.options | filter: {label: tipoRootController.searchTerm.text}">{{ option.label }}</md-option>
+            <md-option ng-value="option.key" ng-repeat="option in tipoRootController.$field.fq_field_name.options | filter: {label: tipoRootController.$field.fq_field_name.searchTerm.text}">{{ option.label }}</md-option>
           </md-select>
                 </div>
               </div>
