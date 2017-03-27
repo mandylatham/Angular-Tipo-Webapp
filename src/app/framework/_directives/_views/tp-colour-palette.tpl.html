@@ -2,7 +2,7 @@
   <div layout="row" layout-wrap ng-if=" mode === 'edit' ">
    <md-card>
       <md-card-content>
-      <div flex-gt-md="15" flex="30">
+      <div flex-gt-md="100" flex="30">
         <md-button ng-repeat="color in colors" md-colors="{background: '{{color}}'}" md-colors-watch="false"
                    ng-disabled="primary === color && !isPrimary" ng-click="selectTheme(color)" class="palette">
           {{ color }}
