@@ -1,0 +1,8 @@
+<div layout="row" layout-align="space-between center" layout-align-xs="space-between start">
+  <div>
+    <tp:filters definition="tipoRootController.tipoDefinition" filterslist="tipoRootController.tipoFilters" ng-if="tipoRootController.hasTipos || tipoRootController.tipoFilters.currentExpression"/>
+  </div>
+  <div>
+    <tp:actions mode="list" definition="tipoRootController.tipoDefinition" tipos="tipoRootController.tiposWithDefinition" bulkedit="tipoRootController.bulkedit"/>
+  </div>
+</div>

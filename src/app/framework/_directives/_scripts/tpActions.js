@@ -45,7 +45,7 @@
       if(_.isArray($scope.tipoids)){
         tipoInstanceDataService.performBulkAction($scope.parentTipo, tipoAction.name, $scope.tipoids, tipoDefinition.tipo_meta.tipo_name, tipoData)
           .then(function(response){
-            $mdDialog.hide();
+            $mdDialog.hide(response);
           },function(error){
             tipoRouter.endStateChange();
           });
@@ -182,12 +182,28 @@
             });
           }
 
-          function performResponseActions(message,return_url){
+          function performResponseActions(message,return_url,name){
             if (!_.isEmpty(return_url) || !_.isUndefined(return_url)) {
               if (!_.isEmpty(message) || !_.isUndefined(message)) {
                 return_url = return_url + '?message=' + message;
               };
-                 
+              if(S(return_url).contains('http')){
+                // $window.open(return_url, "_blank")
+               var confirm = $mdDialog.confirm()
+                  .clickOutsideToClose(true)
+                  .title(name + ' Completed')
+                  .textContent(message)
+                  .ariaLabel('Action completed')
+                  .ok('OK')
+      
+              $mdDialog.show(confirm).then(function() {
+                $window.open(return_url, "_blank")
+              }, function() {
+               
+              });
+              }else{
+                $location.url(return_url);  
+              }            
             }else{
                 var toast = $mdToast.tpToast();
                 toast._options.locals = {
@@ -219,13 +235,15 @@
               if(action.additionalTipo){
                 var additionalTipo = action.additionalTipo;
                 var promise = openAdditionalTipoDialog(additionalTipo, action,tipo_name,selected_tipo_ids);
-                promise.then(tipoRouter.endStateChange);
+                promise.then(function(response){
+                    performResponseActions(response[0].message,response[0].data.return_url,action.label);
+                    tipoRouter.endStateChange();});
               }else{
                 console.log('Will just perform the action without opening any dialogs');
                 tipoRouter.startStateChange();
                 tipoInstanceDataService.performBulkAction(tipo_name, action.name, selected_tipo_ids)
                   .then(function(response){
-                    performResponseActions(response[0].message,response[0].data.return_url);
+                    performResponseActions(response[0].message,response[0].data.return_url,action.label);
                     tipoRouter.endStateChange();});
               }
             // }
