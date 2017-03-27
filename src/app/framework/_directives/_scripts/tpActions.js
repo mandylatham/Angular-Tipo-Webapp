@@ -187,11 +187,7 @@
               if (!_.isEmpty(message) || !_.isUndefined(message)) {
                 return_url = return_url + '?message=' + message;
               };
-              if(S(return_url).contains('http')){
-                $window.open(return_url, "_blank")
-              }else{
-                $location.url(return_url);  
-              }    
+                 
             }else{
                 var toast = $mdToast.tpToast();
                 toast._options.locals = {
