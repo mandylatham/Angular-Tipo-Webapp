@@ -12,7 +12,8 @@
     var tipo_name = $scope.tipoRootController.tipoDefinition.tipo_meta.tipo_name;
 
     var tipos = angular.copy($scope.tipoRootController.tipos);
-
+    console.log("tipos");
+    console.log(tipos);
     _.each(tipos, function(each, index){
       var logo;
       if(each.app_name === 'Tipo App'){
