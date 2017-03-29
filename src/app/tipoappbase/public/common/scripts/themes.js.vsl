@@ -68,8 +68,16 @@
 
       $mdThemingProvider
       .theme('reverse')
+      #if ($tipo_customization.appearance_settings.secondary_colour)
+      .primaryPalette('$tipo_customization.appearance_settings.secondary_colour')
+      #else      
       .primaryPalette('tipoaccent')
+      #end
+      #if ($tipo_customization.appearance_settings.primary_colour)
+      .accentPalette('$tipo_customization.appearance_settings.primary_colour')
+      #else
       .accentPalette('tipoprimary')
+      #end
       .warnPalette('red')
       .backgroundPalette('grey');
     }
