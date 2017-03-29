@@ -2,7 +2,9 @@
 
   'use strict';
 
-  var module = angular.module('tipo.framework');
+  var module = angular.module('tipo.framework')
+              .controller('TipoGroupDialogController', TipoGroupDialogController)
+              .controller('TipoLookupDialogController', TipoLookupDialogController);
 
   function TipoGroupDialogController($scope, $mdDialog) {
 

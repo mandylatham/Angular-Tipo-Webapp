@@ -73,8 +73,7 @@
     $window,
     $mdToast,
     $timeout,
-    $location,
-    $window) {
+    $location) {
       return {
         scope: {
           definition: '=',
@@ -147,8 +146,6 @@
           }
 
           scope.performAction = function(action){
-            console.log("action");
-            console.log(action);
             if(mode === 'view' || !action.bulk_select){
               if (mode === 'view') {
                 performSingleAction(action);

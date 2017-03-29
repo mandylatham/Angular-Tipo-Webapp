@@ -124,14 +124,43 @@
 
           scope.loadOptions = function (){
             delete scope.options;
-            scope.options = tipoInstanceDataService.gettpObjectOptions(baseFilter,scope.tipo_name);
-            if(isMandatory && !field._value){
+            var searchCriteria = {};
+            var filter;
+            var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
+            /*if(tipo_name !== perspectiveMetadata.tipoName){
+              filter = perspectiveMetadata.tipoFilter;
+            }*/
+            // TODO: Hack - Sushil as this is supposed to work only for applications
+            if(perspectiveMetadata.fieldName === 'application'){
+              filter = perspectiveMetadata.tipoFilter;
+            }
+            if(!_.isUndefined(baseFilter)){
+              var baseFilterExpanded = tipoManipulationService.expandFilterExpression(baseFilter, scope.root, scope.context);
+              if(_.isUndefined(filter)){
+                filter = baseFilterExpanded;
+              }else{
+                filter += ' and ' + baseFilterExpanded;
+              }
+            }
+            if(!_.isUndefined(filter)){
+              searchCriteria.tipo_filter = filter;
+            }
+            return tipoInstanceDataService.search(scope.tipo_name, searchCriteria).then(function(results){
+              scope.tipos = results;
+              scope.options = _.map(results, function(each){
+                return {
+                  key: each.tipo_id,
+                  label: each[label_field]
+                };
+              });
+              if(isMandatory && !field._value){
                 if(isArray){
                   field._value = [scope.options[0]];
                 }else{
                   field._value = scope.options[0];
                 }
               }
+            });
           };
 
           scope.searchTerm = {};

@@ -1,5 +1,5 @@
 <div layout="row" layout-align="center stretch" layout-margin layout-wrap ng-controller="TipoAppController as controller" id="tipoapp-app-list">
-  <md-card ng-repeat="tipo in controller.tipos" layout="column" layout-align="start stretch" layout-padding ng-click="tipoRootController.toDetail(tipo.tipo_id)">
+  <md-card ng-repeat="tipo in controller.tipos"  layout="column" layout-align="start stretch" layout-padding ng-click="tipoRootController.toDetail(tipo.tipo_id)">
     <div layout="column" layout-align="start center">
       <span class="md-headline" md-colors="{color: 'primary-600'}">{{tipo.app_name}}</span>
       <div class="app-logo">

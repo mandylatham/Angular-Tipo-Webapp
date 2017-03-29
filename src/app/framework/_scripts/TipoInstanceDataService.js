@@ -203,16 +203,13 @@
       }
       var options = [];
       return _instance.search(tipo_name, searchCriteria).then(function(results){
-        console.log(results);
         options = _.map(results, function(each){
           return {
             key: each.tipo_id,
             label: each[label_field]
           };
         });
-        console.log("options");
-        console.log(options);
-        return options;
+        return {options: options,tipos: results };
       });
     };
 

@@ -4,7 +4,7 @@
   <div class="fluid-row-container">
     <div layout="row" tp:perm ng-click="!tipo.disableclick && tipoRootController.toDetail(tipo.tipo_id)" ng-repeat="tipo in tipoRootController.tipos" class="fluid-row" md-whiteframe="2">
       <md-checkbox ng-if="tipoRootController.bulkedit" ng-model="tipo.selected" ng-click="$event.stopPropagation();" id="listcheckbox"></md-checkbox>
-      <div flex layout="row" layout-padding layout-wrap layout-align="start start" class="data pointer layout-row" ng-class="{'selected': tipo.selected}" ng-click="!tipo.disableclick && tipoRootController.selectTipo(tipo,$event,tipoRootController.tiposWithDefinition)">
+      <div flex layout="row" layout-padding layout-wrap layout-align="start start" class="data pointer layout-row" ng-class="{'selected': tipo.selected}" ng-click="!tipo.disableclick && tipoRootController.selectTipo(tipo,$event,tipoRootController.tipos)">
       
         <!-- tp:field-container field="field" ng-if="!field._ui.isGroup && !field.hidden && field._value" ng-repeat="field in tipo.value.tipo_fields"/-->
  
@@ -15,30 +15,13 @@
           flex="100" 
         flex-gt-sm="50" 
         flex-gt-md="33"
-        ng-if="tipo.tip19">
+        ng-if="tipo.tipoapp">
         <dt>
-         TIP19          </dt>
+         TipoApp          </dt>
         <dd>
         <div class="tp-field">
-        <a class="explicit" ui-sref="tipoView({tipo_name: 'TIP-19', tipo_id: tipo.tip19})" ui-sref-opts="{reload: 'tipoView'}">{{ tipo.tip19_refs['ref' + tipo.tip19] || tipo.tip19}}</a>
+        <a class="explicit" ui-sref="tipoView({tipo_name: 'TipoApp', tipo_id: tipo.tipoapp})" ui-sref-opts="{reload: 'tipoView'}">{{ tipo.tipoapp_refs['ref' + tipo.tipoapp] || tipo.tipoapp}}</a>
              </div>
-        </dd>
-      </dl>
-                                
-      <dl class="edit" 
-          layout="column" 
-          layout-align="center stretch"
-          flex="100" 
-        flex-gt-sm="50" 
-        flex-gt-md="33"
-        ng-if="tipo.integer_">
-        <dt>
-         Integer          </dt>
-        <dd>
-        <div class="tp-field">
-        
-               <span>{{tipo.integer_}}</span>
-               </div>
         </dd>
       </dl>
                                 
@@ -82,6 +65,26 @@
           flex="100" 
         flex-gt-sm="50" 
         flex-gt-md="33"
+        ng-if="tipo.tipoarray">
+        <dt>
+         TipoArray          </dt>
+        <dd>
+        <div class="tp-field">
+        <div class="multiple-list">
+          <div ng-repeat="value in tipo.tipoarray">
+            <a class="explicit" ui-sref="tipoView({tipo_name: TipoApp, tipo_id: value})" ui-sref-opts="{reload: 'tipoView'}">{{value}}</a>
+          </div>
+       </div>
+           </div>
+        </dd>
+      </dl>
+                                
+      <dl class="edit" 
+          layout="column" 
+          layout-align="center stretch"
+          flex="100" 
+        flex-gt-sm="50" 
+        flex-gt-md="33"
         ng-if="tipo.rich_text">
         <dt>
          Rich Text          </dt>
@@ -101,13 +104,13 @@
           flex="100" 
         flex-gt-sm="50" 
         flex-gt-md="33"
-        ng-if="tipo.link">
+        ng-if="tipo.html_link">
         <dt>
-         Link         </dt>
+         HTML Link          </dt>
         <dd>
         <div class="tp-field">
         
-                <a ng-href="{{tipo.link}}" target="_blank">{{tipo.link}}</a>    
+                <a ng-href="{{tipo.html_link}}" target="_blank">{{tipo.html_link}}</a>    
                </div>
         </dd>
       </dl>
@@ -136,23 +139,6 @@
           flex="100" 
         flex-gt-sm="50" 
         flex-gt-md="33"
-        ng-if="tipo.password">
-        <dt>
-         Password         </dt>
-        <dd>
-        <div class="tp-field">
-        
-                <span>*******</span>    
-               </div>
-        </dd>
-      </dl>
-                                
-      <dl class="edit" 
-          layout="column" 
-          layout-align="center stretch"
-          flex="100" 
-        flex-gt-sm="50" 
-        flex-gt-md="33"
         ng-if="tipo.date_time">
         <dt>
          Date/Time          </dt>
@@ -170,13 +156,13 @@
           flex="100" 
         flex-gt-sm="50" 
         flex-gt-md="33"
-        ng-if="tipo.color">
+        ng-if="tipo.integer_">
         <dt>
-         Color          </dt>
+         Integer          </dt>
         <dd>
         <div class="tp-field">
         
-                <tp:colour-palette  ng-model="tipo.color" />
+               <span>{{tipo.integer_}}</span>
                </div>
         </dd>
       </dl>
@@ -187,16 +173,33 @@
           flex="100" 
         flex-gt-sm="50" 
         flex-gt-md="33"
-        ng-if="tipo.file_">
+        ng-if="tipo.tipopopup">
         <dt>
-         File         </dt>
+         TipoPopup          </dt>
         <dd>
         <div class="tp-field">
-        
-                <span>
-            <tp:file field="tipo" mode="view"/>
-          </span>
-               </div>
+        <a class="explicit" ui-sref="tipoView({tipo_name: 'VelocityTest', tipo_id: tipo.tipopopup})" ui-sref-opts="{reload: 'tipoView'}">{{ tipo.tipopopup_refs['ref' + tipo.tipopopup] || tipo.tipopopup}}</a>
+             </div>
+        </dd>
+      </dl>
+                                
+      <dl class="edit" 
+          layout="column" 
+          layout-align="center stretch"
+          flex="100" 
+        flex-gt-sm="50" 
+        flex-gt-md="33"
+        ng-if="tipo.tipoarraypop">
+        <dt>
+         TipoArrayPop         </dt>
+        <dd>
+        <div class="tp-field">
+        <div class="multiple-list">
+          <div ng-repeat="value in tipo.tipoarraypop">
+            <a class="explicit" ui-sref="tipoView({tipo_name: VelocityTest, tipo_id: value})" ui-sref-opts="{reload: 'tipoView'}">{{value}}</a>
+          </div>
+       </div>
+           </div>
         </dd>
       </dl>
             

@@ -6,7 +6,8 @@
       <!-- <tp:field-container root="root" context="definition" field="field" mode="{{mode}}" ng-repeat="field in definition.tipo_fields" ng-if="field._ui.isSimple && !field.hidden_ && (mode === 'edit' || field._value)"/> -->
             
  
-                            
+                    
+        
      <dl class="edit" 
           layout="column" 
           layout-align="center stretch"
@@ -21,14 +22,14 @@
           <md-input-container md-no-float>
                                           <div layout="row">
         <div flex>
-                  <md-select ng-model="tipoRootController.$field.fq_field_name.model"  md-container-class="tp-field" placeholder="{{field.field_description}}" md-on-open="tipoRootController.loadOptions('','TipoApp','app_name','tipoapp')" md-on-close="tipoRootController.cleanup('tipoapp')" ng-init="tipoRootController.loadOptions('','TipoApp','app_name','tipoapp')">
+                  <md-select ng-model="tipoRootController.tipoapp.model" ng-model-options="{trackBy: '$value.key'}"  md-container-class="tp-field" placeholder="{{field.field_description}}" md-on-open="tipoRootController.loadOptions('','TipoApp','app_name','tipoapp')" md-on-close="tipoRootController.cleanup('tipoapp')" ng-init="tipoRootController.loadOptions('','TipoApp','app_name','tipoapp')">
             <md-select-header class="search" ng-if="options.length > 5">
               <md-input-container md-no-float>
-                <input ng-model="tipoRootController.$field.fq_field_name.searchTerm.text" type="search" placeholder="Search ..." ng-keydown="stopBubbling($event)" tp:auto-focus>
+                <input ng-model="tipoRootController.tipoapp.searchTerm.text" type="search" placeholder="Search ..." ng-keydown="stopBubbling($event)" tp:auto-focus>
               </md-input-container>
             </md-select-header>
             <md-option value="" ng-if="!fieldData.mandatory && !tipoRootController.searchTerm.text"></md-option>
-            <md-option ng-value="option.key" ng-repeat="option in tipoRootController.$field.fq_field_name.options | filter: {label: tipoRootController.$field.fq_field_name.searchTerm.text}">{{ option.label }}</md-option>
+            <md-option ng-value="option" ng-repeat="option in tipoRootController.tipoapp.options | filter: {label: tipoRootController.tipoapp.searchTerm.text}">{{ option.label }}</md-option>
           </md-select>
                 </div>
               </div>
@@ -37,7 +38,8 @@
       </div>       
         </dd>
       </dl>
-                                
+                        
+        
      <dl class="edit" 
           layout="column" 
           layout-align="center stretch"
@@ -57,7 +59,8 @@
       </div>       
         </dd>
       </dl>
-                                
+                        
+        
      <dl class="edit" 
           layout="column" 
           layout-align="center stretch"
@@ -77,7 +80,8 @@
       </div>       
         </dd>
       </dl>
-                                
+                        
+        
      <dl class="edit" 
           layout="column" 
           layout-align="center stretch"
@@ -97,7 +101,40 @@
       </div>       
         </dd>
       </dl>
-                                
+                        
+        
+     <dl class="edit" 
+          layout="column" 
+          layout-align="center stretch"
+          flex="100" 
+        flex-gt-sm="50" 
+        flex-gt-md="33">
+        <dt>
+         TipoArray      </dt>
+        <dd>
+      <div class="tp-field">
+        <span>
+          <md-input-container md-no-float>
+                                          <div layout="row">
+        <div flex>
+                  <md-select ng-model="tipoRootController.tipoarray.model" ng-model-options="{trackBy: '$value.key'}" md-container-class="tp-field" placeholder="{{field.field_description}}"  md-on-open="tipoRootController.loadOptions('','TipoApp','app_name','tipoarray')" md-on-close="tipoRootController.cleanup('tipoarray')" md-selected-text="tipoRootController.renderSelection('tipoarray')" multiple="true" flex ng-init="tipoRootController.loadOptions('','TipoApp','app_name','tipoarray')">
+            <md-select-header class="search" ng-if="options.length > 5">
+              <md-input-container md-no-float>
+                <input ng-model="tipoRootController.tipoarray.searchTerm.text" type="search" placeholder="Search ..." ng-keydown="stopBubbling($event)" tp:auto-focus>
+              </md-input-container>
+            </md-select-header>
+            <md-option ng-value="option" ng-repeat="option in tipoRootController.tipoarray.options | filter: {label: tipoRootController.tipoarray.searchTerm.text}">{{ option.label }}</md-option>
+          </md-select>
+                </div>
+              </div>
+      
+                  </md-input-container>
+        </span>
+      </div>       
+        </dd>
+      </dl>
+                        
+        
      <dl class="edit" 
           layout="column" 
           layout-align="center stretch"
@@ -117,7 +154,8 @@
       </div>       
         </dd>
       </dl>
-                                
+                        
+        
      <dl class="edit" 
           layout="column" 
           layout-align="center stretch"
@@ -141,7 +179,8 @@
       </div>       
         </dd>
       </dl>
-                                
+                        
+        
      <dl class="edit" 
           layout="column" 
           layout-align="center stretch"
@@ -162,7 +201,8 @@
       </div>       
         </dd>
       </dl>
-                                
+                        
+        
      <dl class="edit" 
           layout="column" 
           layout-align="center stretch"
@@ -182,7 +222,8 @@
       </div>       
         </dd>
       </dl>
-                                
+                        
+        
      <dl class="edit" 
           layout="column" 
           layout-align="center stretch"
@@ -190,22 +231,53 @@
         flex-gt-sm="50" 
         flex-gt-md="33">
         <dt>
-         TipoArray      </dt>
+         TipoPopup      </dt>
         <dd>
       <div class="tp-field">
         <span>
           <md-input-container md-no-float>
-                                          <div layout="row">
+                                                          <div layout="row">
         <div flex>
-                  <md-select ng-model="tipoRootController.$field.fq_field_name.model" md-container-class="tp-field" placeholder="{{field.field_description}}"  md-on-open="tipoRootController.loadOptions('','TipoApp','app_name','tipoarray')" md-on-close="tipoRootController.cleanup('tipoarray')" md-selected-text="tipoRootController.renderSelection('tipoarray')" multiple="true" flex ng-init="tipoRootController.loadOptions('','TipoApp','app_name','tipoarray')">
-            <md-select-header class="search" ng-if="options.length > 5">
-              <md-input-container md-no-float>
-                <input ng-model="tipoRootController.$field.fq_field_name.searchTerm.text" type="search" placeholder="Search ..." ng-keydown="stopBubbling($event)" tp:auto-focus>
-              </md-input-container>
-            </md-select-header>
-            <md-option ng-value="option.key" ng-repeat="option in tipoRootController.$field.fq_field_name.options | filter: {label: tipoRootController.$field.fq_field_name.searchTerm.text}">{{ option.label }}</md-option>
-          </md-select>
+                  <input ng-model="tipoRootController.tipo.tipopopup_refs['ref' + tipoRootController.tipo.tipopopup]" ng-disabled="true">
                 </div>
+                <div flex="none" class="actions">
+          <md-button class="m0" ng-click="tipoRootController.tipoObjecSelectiontDialog('','VelocityTest','simple_string','tipopopup',false)">
+            <md-icon>search</md-icon>
+          </md-button>
+        </div>
+              </div>
+                  </md-input-container>
+        </span>
+      </div>       
+        </dd>
+      </dl>
+                        
+        
+     <dl class="edit" 
+          layout="column" 
+          layout-align="center stretch"
+          flex="100" 
+        flex-gt-sm="50" 
+        flex-gt-md="33">
+        <dt>
+         TipoArrayPop     </dt>
+        <dd>
+      <div class="tp-field">
+        <span>
+          <md-input-container md-no-float>
+                                                          <div layout="row">
+        <div flex>
+                  <div class="multiple-list" ng-init="tipoRootController.setInstance('tipoarraypop')">
+                <div ng-repeat="value in tipoRootController.tipoarraypop.model">
+                  <a class="explicit">{{value.label || value.key}}</a>
+                </div>
+            </div>
+                </div>
+                  <div flex="none" class="actions">
+            <md-button class="m0" ng-click="tipoRootController.tipoObjecSelectiontDialog('','VelocityTest','simple_string','tipoarraypop',true)">
+              <md-icon>search</md-icon>
+            </md-button>
+          </div>
               </div>
       
                   </md-input-container>
@@ -213,6 +285,125 @@
       </div>       
         </dd>
       </dl>
+                        
+        <section class="fieldset fluid-row-container" flex="100">
+      <div class="header">
+        <div layout="row" layout-align="end center">
+          <h3 flex ng-init="collapsed = $field.underscore_ui.collapsed">
+            <a href="" ng-click="collapsed = !collapsed" class="plain" md-colors="{color: 'primary-700'}">
+              <i class="fa" ng-class="{'fa-caret-down': !collapsed , 'fa-caret-right': collapsed}"></i>
+               FieldGrtest
+            </a>
+          </h3>
+          <div class="actions horizontal" layout="row" layout-align="center center">
+                      <div layout="row">
+              <div flex="none">
+                            </div>
+              <div flex="none">
+                              <md-button class="m0" ng-click="tipoRootController.showDetail('fieldgrtest')" aria-label="Edit">
+                  <md-tooltip md-direction="top">Edit</md-tooltip>
+                  <md-icon>launch</md-icon>
+                </md-button>
+                            </div>
+            </div>
+                      </div>
+        </div>
+        <md-divider></md-divider>
+      </div>
+              <div class="data" flex layout-padding layout="row" layout-wrap layout-align="start start" ng-hide="collapsed">
+                
+                                
+        
+     <dl class="edit" 
+          layout="column" 
+          layout-align="center stretch"
+          flex="100" 
+        flex-gt-sm="50" 
+        flex-gt-md="33">
+        <dt>
+         Field1     </dt>
+        <dd>
+      <div class="tp-field">
+        <span>
+          <md-input-container md-no-float>
+        
+                          <input ng-model="tipoRootController.tipo.fieldgrtest.field1" aria-label="Field1" placeholder="$gfield.field_description" name="$gfield.display_name_string" ng-required="false">
+                      </md-input-container>
+        </span>
+      </div>       
+        </dd>
+      </dl>
+                                
+                        </div>
+  </section>
+                        
+        <section class="fieldset fluid-row-container" flex="100">
+      <div class="header">
+        <div layout="row" layout-align="end center">
+          <h3 flex ng-init="collapsed = $field.underscore_ui.collapsed">
+            <a href="" ng-click="collapsed = !collapsed" class="plain" md-colors="{color: 'primary-700'}">
+              <i class="fa" ng-class="{'fa-caret-down': !collapsed , 'fa-caret-right': collapsed}"></i>
+               FieldGArrayTest
+            </a>
+          </h3>
+          <div class="actions horizontal" layout="row" layout-align="center center">
+                      <div>
+              <div flex="none">
+                <md-button class="m0" ng-click="tipoRootController.generateItem('fieldgarraytest')" aria-label="New">
+                  <md-tooltip md-direction="top">New</md-tooltip>
+                  <md-icon>add</md-icon>
+                </md-button>
+              </div>
+            </div>
+                      </div>
+        </div>
+        <md-divider></md-divider>
+      </div>
+            
+          <div class="data" style="margin-top: 10px;" ng-hide="collapsed" >
+            <div layout="row" ng-repeat="groupItem in tipoRootController.tipo.fieldgarraytest" ng-if="groupItem._ARRAY_META._STATUS != 'DELETED'" md-whiteframe="2" class="fluid-row">
+              <div flex layout="row" layout-padding layout-wrap layout-align="start start" class="data">
+                
+                                  
+        
+     <dl class="edit" 
+          layout="column" 
+          layout-align="center stretch"
+          flex="100" 
+        flex-gt-sm="50" 
+        flex-gt-md="33">
+        <dt>
+         Field1     </dt>
+        <dd>
+      <div class="tp-field">
+        <span>
+          <md-input-container md-no-float>
+        
+                          <input ng-model="tipoRootController.tipo.fieldgarraytest[$index].field1" aria-label="Field1" placeholder="$gfield.field_description" name="$gfield.display_name_string" ng-required="false">
+                      </md-input-container>
+        </span>
+      </div>       
+        </dd>
+      </dl>
+                                  
+                           </div>
+    <div flex="none" layout="column" layout-align="center center" class="actions bg">
+                    <md-button ng-click="tipoRootController.showDetail('fieldgarraytest',$index)" ng-if="!group.disable_expansion" aria-label="Edit" class="md-icon-button">
+          <md-tooltip md-direction="left">Edit</md-tooltip>
+          <md-icon>launch</md-icon>
+        </md-button>
+                <md-button ng-click="tipoRootController.deleteItem('fieldgarraytest',$index)" aria-label="Delete" class="md-icon-button">
+          <md-tooltip md-direction="left">Delete</md-tooltip>
+          <md-icon>delete</md-icon>
+        </md-button>
+        <md-button ng-click="tipoRootController.cloneItem('fieldgarraytest',$index)" aria-label="Copy" class="md-icon-button">
+          <md-tooltip md-direction="left">Copy</md-tooltip>
+          <md-icon>content_copy</md-icon>
+        </md-button>
+      </div>
+          </div>
+            </div>
+  </section>
             
             
     </div>
