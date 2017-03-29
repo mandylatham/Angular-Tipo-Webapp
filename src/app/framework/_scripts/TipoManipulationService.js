@@ -176,7 +176,7 @@
           var isArray = Boolean(_.get(field, '_ui.isArray'));
           var isGroup = Boolean(_.get(field, '_ui.isGroup'));
           var isRelatedTipo = Boolean(_.get(field, '_ui.isTipoRelationship'));
-          var hasSimpleValue = !_.isEmpty(_.get(fieldValue, 'key'));
+          var hasSimpleValue = !_.isNil(_.get(fieldValue, 'key'));
           if(isRelatedTipo && !isGroup){
             if(hasValue){
               if(isArray){
