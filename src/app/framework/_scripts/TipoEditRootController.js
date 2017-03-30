@@ -19,11 +19,13 @@
     $scope.fullscreen = true;
     if (!_.isUndefined($scope.selectedTipos) && !_.isEmpty($scope.selectedTipos)) {
       _.each(_instance.tipos, function(tipo){
+          if (!_.isUndefined(tipo.tipo_id)){
+            tipo.key = tipo.tipo_id;
+            tipo.label = tipo[label_field];
+          };
           _.each($scope.selectedTipos,function(selected){
             if (!_.isUndefined(selected)) {
-              if(tipo.tipo_id === selected.key){
-                selected[label_field] = tipo[label_field];
-                selected.tipo_id = tipo.tipo_id;
+              if(tipo.key === selected.key){
                 tipo.selected = true;
               }
             };
@@ -52,7 +54,7 @@
         $scope.selectedTipos.push(tipoSelected);
       }else{
         _.remove($scope.selectedTipos,function(tipo){
-          return (tipo.tipo_id === tipoSelected.tipo_id);
+          return (tipo.key === tipoSelected.key);
         });
       }
       event.stopPropagation();
@@ -111,7 +113,9 @@
     };
 
      _instance.setInstance = function(uniq_name,data){
-      _instance[uniq_name] = {};
+      if (_.isUndefined(_instance[uniq_name])) {
+        _instance[uniq_name] = {};
+      };
       if (!_.isUndefined(data)) {
         _instance[uniq_name].options = data.options;
         _instance[uniq_name].tipos = data.tipos;
@@ -138,8 +142,25 @@
       });      
     };
 
+    _instance.initCollapsed = function(uniq_name,collapsed){
+      if (!_.isNil(collapsed)) {
+        _instance[uniq_name] = {collapsed: collapsed};
+      }else{
+        _instance[uniq_name] = {collapsed: false};
+      }
+    }
+
+    _instance.setLabel = function(prefix,label,index){
+      _instance[prefix + index + label] = {};
+      var tipo_data = _.get(_instance.tipo[prefix][index],label);
+      if (_.startsWith(tipo_data,'Tipo') || _.startsWith(tipo_data,'FieldGroup')) {
+        _instance[prefix + index + label].model={key: tipo_data , label: _.get(_instance.tipo[prefix][index],label + '_refs.ref' + tipo_data )}
+      }else{
+        _instance[prefix + index + label].model={key: tipo_data , label: _.get(_instance.tipo[prefix][index],label + '_refs.ref' + tipo_data )}
+      }
+    }
+
     _instance.loadPopupOptions = function (baseFilter,tipo_name,label_field,uniq_name){
-      _instance[uniq_name] = {};
       return tipoInstanceDataService.gettpObjectOptions(baseFilter,tipo_name,label_field,_instance.tipoDefinition).then(function(result){
         _instance.setInstance(uniq_name,result)
       });      
@@ -158,17 +179,30 @@
     };
 
     _instance.searchTerm = {};
-    _instance.cleanup = function(uniq_name){
+    _instance.cleanup = function(uniq_name,prefix,label,index){
       var tipo_data = _instance[uniq_name].model;
-      if (_.isArray(tipo_data)){
-        _instance.tipo[uniq_name]=[];
-        _.each(tipo_data,function(each){
-          _instance.tipo[uniq_name].push(each.key);
-          _.set(_instance.tipo, uniq_name + '_refs.ref' + each.key, each.label);
-        });
+      if (_.isUndefined(prefix)) {
+        if (_.isArray(tipo_data)){
+          _instance.tipo[uniq_name]=[];
+          _.each(tipo_data,function(each){
+            _instance.tipo[uniq_name].push(each.key);
+            _.set(_instance.tipo, uniq_name + '_refs.ref' + each.key, each.label);
+          });
+        }else{
+          _instance.tipo[uniq_name] = tipo_data.key;
+          _.set(_instance.tipo, uniq_name + '_refs.ref' + tipo_data.key, tipo_data.label);
+        }
       }else{
-        _instance.tipo[uniq_name] = tipo_data.key;
-        _.set(_instance.tipo, uniq_name + '_refs.ref' + tipo_data.key, tipo_data.label);
+        if (_.isArray(tipo_data)){
+          _instance.tipo[prefix][index][label]=[];
+          _.each(tipo_data,function(each){
+            _instance.tipo[prefix][index][label].push(each.key);
+            _.set(_instance.tipo[prefix][index], label + '_refs.ref' + each.key, each.label);
+          });
+        }else{
+          _instance.tipo[prefix][index][label] = tipo_data.key;
+          _.set(_instance.tipo[prefix][index], label + '_refs.ref' + tipo_data.key, tipo_data.label);
+        }
       }
       delete _instance.searchTerm.text;
     }
@@ -197,7 +231,7 @@
     }
 
 
-    function openTipoObjectDialog(baseFilter,tipo_name,label_field,uniq_name,isArray){
+    function openTipoObjectDialog(baseFilter,tipo_name,label_field,uniq_name,isArray,prefix,label,index){
       var promise1 =  _instance.loadPopupOptions(baseFilter,tipo_name,label_field,uniq_name);
       promise1.then(function(){
       var newScope =$scope.$new();
@@ -235,21 +269,21 @@
           if (isArray) {
             _instance[uniq_name].model = _.map(selectedObjects, function(each){
               return {
-                key: each.tipo_id,
-                label: each[label_field]
+                key: each.key,
+                label: each.label
               };
             });
           }else{
-            _instance[uniq_name].model = {key: selectedObjects[0].tipo_id, label: selectedObjects[0][label_field]};
+            _instance[uniq_name].model = {key: selectedObjects[0].key, label: selectedObjects[0].label};
           } 
-            _instance.cleanup(uniq_name);
+            _instance.cleanup(uniq_name,prefix,label,index);
       });
       });
 
     }
 
-    _instance.tipoObjecSelectiontDialog = function(baseFilter,tipo_name,label_field,uniq_name,isArray){
-      var promise = openTipoObjectDialog(baseFilter,tipo_name,label_field,uniq_name,isArray);
+    _instance.tipoObjecSelectiontDialog = function(baseFilter,tipo_name,label_field,uniq_name,isArray,prefix,label,index){
+      var promise = openTipoObjectDialog(baseFilter,tipo_name,label_field,uniq_name,isArray,prefix,label,index);
     }
 
     _instance.Date = function(date){

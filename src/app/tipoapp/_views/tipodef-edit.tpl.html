@@ -1,15 +1,798 @@
+         
+
 <div class="p-8">
   <section class="fieldset no-header fluid-row-container">
     <div class="data" layout-padding layout="row" layout-wrap layout-align="start start">
       <!-- <tp:field-container root="root" context="definition" field="field" mode="{{mode}}" ng-repeat="field in definition.tipo_fields" ng-if="field._ui.isSimple && !field.hidden_ && (mode === 'edit' || field._value)"/> -->
-      <dl class="edit" layout="column" layout-align="center stretch" flex="100" flex-gt-sm="{{sizeGtSm}}" flex-gt-md="{{sizeGtMd}}">
-        <dt ng-if="field.display_name">{{field.display_name}} <span ng-if="field.mandatory">*</span></dt>
-        <dd>
-<!--           <tp:field-edit root="root" context="context" parent="parent" field="field" ng-if="!field.read_only"/> -->
+            
+ 
+                      
+                          
+                          
+                        
+        <section class="fieldset fluid-row-container" flex="100">
+      <div class="header">
+        <div layout="row" layout-align="end center">
+          <h3 flex ng-init="tipoRootController.initCollapsed('tipo_meta', '')">
+            <a href="" ng-click="tipo_meta.collapsed = !tipo_meta.collapsed" class="plain" md-colors="{color: 'primary-700'}">
+              <i class="fa" ng-class="{'fa-caret-down': !tipo_meta.collapsed , 'fa-caret-right': tipo_meta.collapsed}"></i>
+               Meta Data
+            </a>
+          </h3>
+          <div class="actions horizontal" layout="row" layout-align="center center">
+                      <div layout="row">
+              <div flex="none">
+                            </div>
+              <div flex="none">
+                            </div>
+            </div>
+                      </div>
+        </div>
+        <md-divider></md-divider>
+      </div>
+              <div class="data" flex layout-padding layout="row" layout-wrap layout-align="start start" ng-hide="tipo_meta.collapsed">
+                
+                                  
         
+     <dl class="edit" 
+          layout="column" 
+          layout-align="center stretch"
+          flex="100" 
+        flex-gt-sm="50" 
+        flex-gt-md="33">
+        <dt>
+         Name   <span>*</span>    </dt>
+        <dd>
+      <div class="tp-field">
+        <span>
+          <md-input-container md-no-float>
+        
+                          <input ng-model="tipoRootController.tipo.tipo_meta.display_name" aria-label="Name" placeholder="Label of the Tipo" name="$gfield.display_name_string" ng-required="true">
+                      </md-input-container>
+        </span>
+      </div>       
         </dd>
       </dl>
+                                
+        
+     <dl class="edit" 
+          layout="column" 
+          layout-align="center stretch"
+          flex="100" 
+        flex-gt-sm="50" 
+        flex-gt-md="33">
+        <dt>
+         Icon     </dt>
+        <dd>
+      <div class="tp-field">
+        <span>
+          <md-input-container md-no-float>
+                                                          <div layout="row">
+        <div flex>
+                  <input ng-model="tipoRootController['tipo_meta' + $index + 'icon'].model.label" ng-disabled="true" ng-init="tipoRootController.setLabel('tipo_meta','icon',$index)">
+                </div>
+                <div flex="none" class="actions">
+          <md-button class="m0" ng-click="tipoRootController.tipoObjecSelectiontDialog('','TipoIcon','name_','tipo_meta' + $index + 'icon',false,'tipo_meta','icon',$index)">
+            <md-icon>search</md-icon>
+          </md-button>
+        </div>
+              </div>
+                  </md-input-container>
+        </span>
+      </div>       
+        </dd>
+      </dl>
+                                
+        
+     <dl class="edit" 
+          layout="column" 
+          layout-align="center stretch"
+          flex="100" 
+        flex-gt-sm="50" 
+        flex-gt-md="33">
+        <dt>
+         URL Name     </dt>
+        <dd>
+      <div class="tp-field">
+        <span>
+          <md-input-container md-no-float>
+        
+                          <input ng-model="tipoRootController.tipo.tipo_meta.tipo_name" aria-label="URL Name" placeholder="Unique identifier for each Tipo used in the URL" name="$gfield.display_name_string" ng-required="false">
+                      </md-input-container>
+        </span>
+      </div>       
+        </dd>
+      </dl>
+                                
+        
+     <dl class="edit" 
+          layout="column" 
+          layout-align="center stretch"
+          flex="100" 
+        flex-gt-sm="50" 
+        flex-gt-md="33">
+        <dt>
+         Description      </dt>
+        <dd>
+      <div class="tp-field">
+        <span>
+          <md-input-container md-no-float>
+        
+                <textarea ng-model="tipoRootController.tipo.tipo_meta.description" rows="2" md-select-on-focus aria-label="Description" placeholder="Description of a Tipo." name="$gfield.display_name_longstring" ng-required="false"  />
+                </md-input-container>
+        </span>
+      </div>       
+        </dd>
+      </dl>
+                                
+        
+     <dl class="edit" 
+          layout="column" 
+          layout-align="center stretch"
+          flex="100" 
+        flex-gt-sm="50" 
+        flex-gt-md="33">
+        <dt>
+         Menu Order     </dt>
+        <dd>
+      <div class="tp-field">
+        <span>
+          <md-input-container md-no-float>
+        
+                          <input ng-model="tipoRootController.tipo.tipo_meta.tipo_sequence" aria-label="Menu Order" placeholder="Order in the list" name="$gfield.display_name_integer" ng-required="false">
+                      </md-input-container>
+        </span>
+      </div>       
+        </dd>
+      </dl>
+                                  
+        
+     <dl class="edit" 
+          layout="column" 
+          layout-align="center stretch"
+          flex="100" 
+        flex-gt-sm="50" 
+        flex-gt-md="33">
+        <dt>
+         Tipo type      </dt>
+        <dd>
+      <div class="tp-field">
+        <span>
+          <md-input-container md-no-float>
+                  <md-chips ng-model="tipoRootController.tipo.tipo_meta.tipo_type" md-transform-chip="wrapSimpleValue($chip)" class="tp-chips" placeholder="To indicate high level behaviour" name="$gfield.display_name_string" ng-required="false">
+            <md-chip-template>
+              <span>{{$chip}}</span>
+            </md-chip-template>
+          </md-chips>
+                </md-input-container>
+        </span>
+      </div>       
+        </dd>
+      </dl>
+                                
+                              
+        
+     <dl class="edit" 
+          layout="column" 
+          layout-align="center stretch"
+          flex="100" 
+        flex-gt-sm="50" 
+        flex-gt-md="33">
+        <dt>
+         Tipo UI Type     </dt>
+        <dd>
+      <div class="tp-field">
+        <span>
+          <md-input-container md-no-float>
+        
+                    <md-select ng-model="tipoRootController.tipo.tipo_meta.tipo_ui_type" placeholder="UI type of the tipo (settings, etc.)" name="$gfield.display_name_string" ng-required="false">
+                  <md-option value="" ng-if="!false">-- Clear --</md-option>
+                  <md-option ng-value="option" ng-repeat="option in [perspective, settings]">{{ option }}</md-option>
+                </md-select>
+                            </md-input-container>
+        </span>
+      </div>       
+        </dd>
+      </dl>
+                                
+        
+     <dl class="edit" 
+          layout="column" 
+          layout-align="center stretch"
+          flex="100" 
+        flex-gt-sm="50" 
+        flex-gt-md="33">
+        <dt>
+         Perspective Field      </dt>
+        <dd>
+      <div class="tp-field">
+        <span>
+          <md-input-container md-no-float>
+        
+                          <input ng-model="tipoRootController.tipo.tipo_meta.perspective_field_name" aria-label="Perspective Field" placeholder="The name of the perspective field in the child Tipos" name="$gfield.display_name_string" ng-required="false">
+                      </md-input-container>
+        </span>
+      </div>       
+        </dd>
+      </dl>
+                          </div>
+  </section>
+                        
+        <section class="fieldset fluid-row-container" flex="100">
+      <div class="header">
+        <div layout="row" layout-align="end center">
+          <h3 flex ng-init="tipoRootController.initCollapsed('tipo_fields', '')">
+            <a href="" ng-click="tipo_fields.collapsed = !tipo_fields.collapsed" class="plain" md-colors="{color: 'primary-700'}">
+              <i class="fa" ng-class="{'fa-caret-down': !tipo_fields.collapsed , 'fa-caret-right': tipo_fields.collapsed}"></i>
+               Fields
+            </a>
+          </h3>
+          <div class="actions horizontal" layout="row" layout-align="center center">
+                      <div>
+              <div flex="none">
+                <md-button class="m0" ng-click="tipoRootController.generateItem('tipo_fields')" aria-label="New">
+                  <md-tooltip md-direction="top">New</md-tooltip>
+                  <md-icon>add</md-icon>
+                </md-button>
+              </div>
+            </div>
+                      </div>
+        </div>
+        <md-divider></md-divider>
+      </div>
+            
+          <div class="data" style="margin-top: 10px;" ng-hide="tipo_fields.collapsed" >
+            <div layout="row" ng-repeat="groupItem in tipoRootController.tipo.tipo_fields" ng-if="groupItem._ARRAY_META._STATUS != 'DELETED'" md-whiteframe="2" class="fluid-row">
+              <div flex layout="row" layout-padding layout-wrap layout-align="start start" class="data">
+                
+                                    
+        
+     <dl class="edit" 
+          layout="column" 
+          layout-align="center stretch"
+          flex="100" 
+        flex-gt-sm="50" 
+        flex-gt-md="33">
+        <dt>
+         Field      </dt>
+        <dd>
+      <div class="tp-field">
+        <span>
+          <md-input-container md-no-float>
+        
+                          <input ng-model="tipoRootController.tipo.tipo_fields[$index].display_name" aria-label="Field" placeholder="Display name of the field" name="$gfield.display_name_string" ng-required="false">
+                      </md-input-container>
+        </span>
+      </div>       
+        </dd>
+      </dl>
+                                  
+        
+     <dl class="edit" 
+          layout="column" 
+          layout-align="center stretch"
+          flex="100" 
+        flex-gt-sm="50" 
+        flex-gt-md="33">
+        <dt>
+         Type     </dt>
+        <dd>
+      <div class="tp-field">
+        <span>
+          <md-input-container md-no-float>
+                                                          <div layout="row">
+        <div flex>
+                  <input ng-model="tipoRootController['tipo_fields' + $index + 'field_type'].model.label" ng-disabled="true" ng-init="tipoRootController.setLabel('tipo_fields','field_type',$index)">
+                </div>
+                <div flex="none" class="actions">
+          <md-button class="m0" ng-click="tipoRootController.tipoObjecSelectiontDialog('tipo_action:(field_type_lookup) and tipo_id:([[tipo_id]])','TipoLookup','text','tipo_fields' + $index + 'field_type',false,'tipo_fields','field_type',$index)">
+            <md-icon>search</md-icon>
+          </md-button>
+        </div>
+              </div>
+                  </md-input-container>
+        </span>
+      </div>       
+        </dd>
+      </dl>
+                                  
+        
+     <dl class="edit" 
+          layout="column" 
+          layout-align="center stretch"
+          flex="100" 
+        flex-gt-sm="50" 
+        flex-gt-md="33">
+        <dt>
+         Sequence     </dt>
+        <dd>
+      <div class="tp-field">
+        <span>
+          <md-input-container md-no-float>
+        
+                          <input ng-model="tipoRootController.tipo.tipo_fields[$index].sequence" aria-label="Sequence" placeholder="Order of this field (Auto generated, if not provided)" name="$gfield.display_name_integer" ng-required="false">
+                      </md-input-container>
+        </span>
+      </div>       
+        </dd>
+      </dl>
+                                  
+                                  
+                                
+        
+     <dl class="edit" 
+          layout="column" 
+          layout-align="center stretch"
+          flex="100" 
+        flex-gt-sm="50" 
+        flex-gt-md="33">
+        <dt>
+         Multi-valued/Array?      </dt>
+        <dd>
+      <div class="tp-field">
+        <span>
+          <md-input-container md-no-float>
+        
+              <div class="tp-switch" >
+            <md-switch class="md-primary" ng-model="tipoRootController.tipo.tipo_fields[$index].tipo_array" aria-label="Whether or not this is an array">
+              <span>{{ tipoRootController.tipo.tipo_fields[$index].tipo_array && 'Yes' || 'No' }}</span>
+            </md-switch>
+        </div>      
+                </md-input-container>
+        </span>
+      </div>       
+        </dd>
+      </dl>
+                                  
+        
+     <dl class="edit" 
+          layout="column" 
+          layout-align="center stretch"
+          flex="100" 
+        flex-gt-sm="50" 
+        flex-gt-md="33">
+        <dt>
+         Read-only?     </dt>
+        <dd>
+      <div class="tp-field">
+        <span>
+          <md-input-container md-no-float>
+        
+              <div class="tp-switch" >
+            <md-switch class="md-primary" ng-model="tipoRootController.tipo.tipo_fields[$index].read_only" aria-label="Whether or not this field is read-only">
+              <span>{{ tipoRootController.tipo.tipo_fields[$index].read_only && 'Yes' || 'No' }}</span>
+            </md-switch>
+        </div>      
+                </md-input-container>
+        </span>
+      </div>       
+        </dd>
+      </dl>
+                                    
+                                
+                                
+        
+     <dl class="edit" 
+          layout="column" 
+          layout-align="center stretch"
+          flex="100" 
+        flex-gt-sm="50" 
+        flex-gt-md="33">
+        <dt>
+         Short Display?     </dt>
+        <dd>
+      <div class="tp-field">
+        <span>
+          <md-input-container md-no-float>
+        
+              <div class="tp-switch" >
+            <md-switch class="md-primary" ng-model="tipoRootController.tipo.tipo_fields[$index].short_display" aria-label="Whether or not to display in summary mode">
+              <span>{{ tipoRootController.tipo.tipo_fields[$index].short_display && 'Yes' || 'No' }}</span>
+            </md-switch>
+        </div>      
+                </md-input-container>
+        </span>
+      </div>       
+        </dd>
+      </dl>
+                                  
+                                
+                                
+                                
+                                
+                                
+                                
+                                  
+                                
+                                
+                                
+                           </div>
+    <div flex="none" layout="column" layout-align="center center" class="actions bg">
+                    <md-button ng-click="tipoRootController.showDetail('tipo_fields',$index)" ng-if="!group.disable_expansion" aria-label="Edit" class="md-icon-button">
+          <md-tooltip md-direction="left">Edit</md-tooltip>
+          <md-icon>launch</md-icon>
+        </md-button>
+                <md-button ng-click="tipoRootController.deleteItem('tipo_fields',$index)" aria-label="Delete" class="md-icon-button">
+          <md-tooltip md-direction="left">Delete</md-tooltip>
+          <md-icon>delete</md-icon>
+        </md-button>
+        <md-button ng-click="tipoRootController.cloneItem('tipo_fields',$index)" aria-label="Copy" class="md-icon-button">
+          <md-tooltip md-direction="left">Copy</md-tooltip>
+          <md-icon>content_copy</md-icon>
+        </md-button>
+      </div>
+          </div>
+            </div>
+  </section>
+                        
+        <section class="fieldset fluid-row-container" flex="100">
+      <div class="header">
+        <div layout="row" layout-align="end center">
+          <h3 flex ng-init="tipoRootController.initCollapsed('tipo_field_groups', '')">
+            <a href="" ng-click="tipo_field_groups.collapsed = !tipo_field_groups.collapsed" class="plain" md-colors="{color: 'primary-700'}">
+              <i class="fa" ng-class="{'fa-caret-down': !tipo_field_groups.collapsed , 'fa-caret-right': tipo_field_groups.collapsed}"></i>
+               Field Groups
+            </a>
+          </h3>
+          <div class="actions horizontal" layout="row" layout-align="center center">
+                      <div>
+              <div flex="none">
+                <md-button class="m0" ng-click="tipoRootController.generateItem('tipo_field_groups')" aria-label="New">
+                  <md-tooltip md-direction="top">New</md-tooltip>
+                  <md-icon>add</md-icon>
+                </md-button>
+              </div>
+            </div>
+                      </div>
+        </div>
+        <md-divider></md-divider>
+      </div>
+            
+          <div class="data" style="margin-top: 10px;" ng-hide="tipo_field_groups.collapsed" >
+            <div layout="row" ng-repeat="groupItem in tipoRootController.tipo.tipo_field_groups" ng-if="groupItem._ARRAY_META._STATUS != 'DELETED'" md-whiteframe="2" class="fluid-row">
+              <div flex layout="row" layout-padding layout-wrap layout-align="start start" class="data">
+                
+                                    
+        
+     <dl class="edit" 
+          layout="column" 
+          layout-align="center stretch"
+          flex="100" 
+        flex-gt-sm="50" 
+        flex-gt-md="33">
+        <dt>
+         Group Name     </dt>
+        <dd>
+      <div class="tp-field">
+        <span>
+          <md-input-container md-no-float>
+        
+                          <input ng-model="tipoRootController.tipo.tipo_field_groups[$index].tipo_group_name" aria-label="Group Name" placeholder="Name of the group" name="$gfield.display_name_string" ng-required="false">
+                      </md-input-container>
+        </span>
+      </div>       
+        </dd>
+      </dl>
+                                  
+                           </div>
+    <div flex="none" layout="column" layout-align="center center" class="actions bg">
+                    <md-button ng-click="tipoRootController.showDetail('tipo_field_groups',$index)" ng-if="!group.disable_expansion" aria-label="Edit" class="md-icon-button">
+          <md-tooltip md-direction="left">Edit</md-tooltip>
+          <md-icon>launch</md-icon>
+        </md-button>
+                <md-button ng-click="tipoRootController.deleteItem('tipo_field_groups',$index)" aria-label="Delete" class="md-icon-button">
+          <md-tooltip md-direction="left">Delete</md-tooltip>
+          <md-icon>delete</md-icon>
+        </md-button>
+        <md-button ng-click="tipoRootController.cloneItem('tipo_field_groups',$index)" aria-label="Copy" class="md-icon-button">
+          <md-tooltip md-direction="left">Copy</md-tooltip>
+          <md-icon>content_copy</md-icon>
+        </md-button>
+      </div>
+          </div>
+            </div>
+  </section>
+                        
+        <section class="fieldset fluid-row-container" flex="100">
+      <div class="header">
+        <div layout="row" layout-align="end center">
+          <h3 flex ng-init="tipoRootController.initCollapsed('tipo_list', '')">
+            <a href="" ng-click="tipo_list.collapsed = !tipo_list.collapsed" class="plain" md-colors="{color: 'primary-700'}">
+              <i class="fa" ng-class="{'fa-caret-down': !tipo_list.collapsed , 'fa-caret-right': tipo_list.collapsed}"></i>
+               List View
+            </a>
+          </h3>
+          <div class="actions horizontal" layout="row" layout-align="center center">
+                      <div layout="row">
+              <div flex="none">
+                            </div>
+              <div flex="none">
+                              <md-button class="m0" ng-click="tipoRootController.showDetail('tipo_list')" aria-label="Edit">
+                  <md-tooltip md-direction="top">Edit</md-tooltip>
+                  <md-icon>launch</md-icon>
+                </md-button>
+                            </div>
+            </div>
+                      </div>
+        </div>
+        <md-divider></md-divider>
+      </div>
+              <div class="data" flex layout-padding layout="row" layout-wrap layout-align="start start" ng-hide="tipo_list.collapsed">
+                
+                                  
+                              
+                              
+                        </div>
+  </section>
+                        
+        <section class="fieldset fluid-row-container" flex="100">
+      <div class="header">
+        <div layout="row" layout-align="end center">
+          <h3 flex ng-init="tipoRootController.initCollapsed('tipo_detail', '')">
+            <a href="" ng-click="tipo_detail.collapsed = !tipo_detail.collapsed" class="plain" md-colors="{color: 'primary-700'}">
+              <i class="fa" ng-class="{'fa-caret-down': !tipo_detail.collapsed , 'fa-caret-right': tipo_detail.collapsed}"></i>
+               Detail View
+            </a>
+          </h3>
+          <div class="actions horizontal" layout="row" layout-align="center center">
+                      <div layout="row">
+              <div flex="none">
+                            </div>
+              <div flex="none">
+                              <md-button class="m0" ng-click="tipoRootController.showDetail('tipo_detail')" aria-label="Edit">
+                  <md-tooltip md-direction="top">Edit</md-tooltip>
+                  <md-icon>launch</md-icon>
+                </md-button>
+                            </div>
+            </div>
+                      </div>
+        </div>
+        <md-divider></md-divider>
+      </div>
+              <div class="data" flex layout-padding layout="row" layout-wrap layout-align="start start" ng-hide="tipo_detail.collapsed">
+                
+                                  
+                              
+                        </div>
+  </section>
+                        
+        <section class="fieldset fluid-row-container" flex="100">
+      <div class="header">
+        <div layout="row" layout-align="end center">
+          <h3 flex ng-init="tipoRootController.initCollapsed('tipo_create', '')">
+            <a href="" ng-click="tipo_create.collapsed = !tipo_create.collapsed" class="plain" md-colors="{color: 'primary-700'}">
+              <i class="fa" ng-class="{'fa-caret-down': !tipo_create.collapsed , 'fa-caret-right': tipo_create.collapsed}"></i>
+               Create View
+            </a>
+          </h3>
+          <div class="actions horizontal" layout="row" layout-align="center center">
+                      <div layout="row">
+              <div flex="none">
+                            </div>
+              <div flex="none">
+                              <md-button class="m0" ng-click="tipoRootController.showDetail('tipo_create')" aria-label="Edit">
+                  <md-tooltip md-direction="top">Edit</md-tooltip>
+                  <md-icon>launch</md-icon>
+                </md-button>
+                            </div>
+            </div>
+                      </div>
+        </div>
+        <md-divider></md-divider>
+      </div>
+              <div class="data" flex layout-padding layout="row" layout-wrap layout-align="start start" ng-hide="tipo_create.collapsed">
+                
+                                  
+        
+     <dl class="edit" 
+          layout="column" 
+          layout-align="center stretch"
+          flex="100" 
+        flex-gt-sm="50" 
+        flex-gt-md="33">
+        <dt>
+         UI Template URL      </dt>
+        <dd>
+      <div class="tp-field">
+        <span>
+          <md-input-container md-no-float>
+        
+                          <input ng-model="tipoRootController.tipo.tipo_create.ui_template_url" aria-label="UI Template URL" placeholder="The URL of a custom template if present" name="$gfield.display_name_string" ng-required="false">
+                      </md-input-container>
+        </span>
+      </div>       
+        </dd>
+      </dl>
+                                  
+                        </div>
+  </section>
+                        
+        <section class="fieldset fluid-row-container" flex="100">
+      <div class="header">
+        <div layout="row" layout-align="end center">
+          <h3 flex ng-init="tipoRootController.initCollapsed('tipo_edit', '')">
+            <a href="" ng-click="tipo_edit.collapsed = !tipo_edit.collapsed" class="plain" md-colors="{color: 'primary-700'}">
+              <i class="fa" ng-class="{'fa-caret-down': !tipo_edit.collapsed , 'fa-caret-right': tipo_edit.collapsed}"></i>
+               Edit View
+            </a>
+          </h3>
+          <div class="actions horizontal" layout="row" layout-align="center center">
+                      <div layout="row">
+              <div flex="none">
+                            </div>
+              <div flex="none">
+                              <md-button class="m0" ng-click="tipoRootController.showDetail('tipo_edit')" aria-label="Edit">
+                  <md-tooltip md-direction="top">Edit</md-tooltip>
+                  <md-icon>launch</md-icon>
+                </md-button>
+                            </div>
+            </div>
+                      </div>
+        </div>
+        <md-divider></md-divider>
+      </div>
+              <div class="data" flex layout-padding layout="row" layout-wrap layout-align="start start" ng-hide="tipo_edit.collapsed">
+                
+                                  
+                                
+                        </div>
+  </section>
+                        
+                        
+        <section class="fieldset fluid-row-container" flex="100">
+      <div class="header">
+        <div layout="row" layout-align="end center">
+          <h3 flex ng-init="tipoRootController.initCollapsed('tipo_menu', '')">
+            <a href="" ng-click="tipo_menu.collapsed = !tipo_menu.collapsed" class="plain" md-colors="{color: 'primary-700'}">
+              <i class="fa" ng-class="{'fa-caret-down': !tipo_menu.collapsed , 'fa-caret-right': tipo_menu.collapsed}"></i>
+               Tipo Menu
+            </a>
+          </h3>
+          <div class="actions horizontal" layout="row" layout-align="center center">
+                      <div>
+              <div flex="none">
+                <md-button class="m0" ng-click="tipoRootController.generateItem('tipo_menu')" aria-label="New">
+                  <md-tooltip md-direction="top">New</md-tooltip>
+                  <md-icon>add</md-icon>
+                </md-button>
+              </div>
+            </div>
+                      </div>
+        </div>
+        <md-divider></md-divider>
+      </div>
+            
+          <div class="data" style="margin-top: 10px;" ng-hide="tipo_menu.collapsed" >
+            <div layout="row" ng-repeat="groupItem in tipoRootController.tipo.tipo_menu" ng-if="groupItem._ARRAY_META._STATUS != 'DELETED'" md-whiteframe="2" class="fluid-row">
+              <div flex layout="row" layout-padding layout-wrap layout-align="start start" class="data">
+                
+                                  
+        
+     <dl class="edit" 
+          layout="column" 
+          layout-align="center stretch"
+          flex="100" 
+        flex-gt-sm="50" 
+        flex-gt-md="33">
+        <dt>
+         Label      </dt>
+        <dd>
+      <div class="tp-field">
+        <span>
+          <md-input-container md-no-float>
+        
+                          <input ng-model="tipoRootController.tipo.tipo_menu[$index].label" aria-label="Label" placeholder="$gfield.field_description" name="$gfield.display_name_string" ng-required="false">
+                      </md-input-container>
+        </span>
+      </div>       
+        </dd>
+      </dl>
+                                  
+        
+     <dl class="edit" 
+          layout="column" 
+          layout-align="center stretch"
+          flex="100" 
+        flex-gt-sm="50" 
+        flex-gt-md="33">
+        <dt>
+         Sequence     </dt>
+        <dd>
+      <div class="tp-field">
+        <span>
+          <md-input-container md-no-float>
+        
+                          <input ng-model="tipoRootController.tipo.tipo_menu[$index].sequence" aria-label="Sequence" placeholder="$gfield.field_description" name="$gfield.display_name_integer" ng-required="false">
+                      </md-input-container>
+        </span>
+      </div>       
+        </dd>
+      </dl>
+                                  
+        
+     <dl class="edit" 
+          layout="column" 
+          layout-align="center stretch"
+          flex="100" 
+        flex-gt-sm="50" 
+        flex-gt-md="33">
+        <dt>
+         Icon     </dt>
+        <dd>
+      <div class="tp-field">
+        <span>
+          <md-input-container md-no-float>
+        
+                          <input ng-model="tipoRootController.tipo.tipo_menu[$index].icon" aria-label="Icon" placeholder="$gfield.field_description" name="$gfield.display_name_string" ng-required="false">
+                      </md-input-container>
+        </span>
+      </div>       
+        </dd>
+      </dl>
+                                  
+        
+     <dl class="edit" 
+          layout="column" 
+          layout-align="center stretch"
+          flex="100" 
+        flex-gt-sm="50" 
+        flex-gt-md="33">
+        <dt>
+         Type     </dt>
+        <dd>
+      <div class="tp-field">
+        <span>
+          <md-input-container md-no-float>
+        
+                          <input ng-model="tipoRootController.tipo.tipo_menu[$index].type_" aria-label="Type" placeholder="$gfield.field_description" name="$gfield.display_name_string" ng-required="false">
+                      </md-input-container>
+        </span>
+      </div>       
+        </dd>
+      </dl>
+                                  
+        
+     <dl class="edit" 
+          layout="column" 
+          layout-align="center stretch"
+          flex="100" 
+        flex-gt-sm="50" 
+        flex-gt-md="33">
+        <dt>
+         Quick Filters      </dt>
+        <dd>
+      <div class="tp-field">
+        <span>
+          <md-input-container md-no-float>
+        
+                          <input ng-model="tipoRootController.tipo.tipo_menu[$index].quick_filters" aria-label="Quick Filters" placeholder="$gfield.field_description" name="$gfield.display_name_string" ng-required="false">
+                      </md-input-container>
+        </span>
+      </div>       
+        </dd>
+      </dl>
+                             </div>
+    <div flex="none" layout="column" layout-align="center center" class="actions bg">
+                    <md-button ng-click="tipoRootController.showDetail('tipo_menu',$index)" ng-if="!group.disable_expansion" aria-label="Edit" class="md-icon-button">
+          <md-tooltip md-direction="left">Edit</md-tooltip>
+          <md-icon>launch</md-icon>
+        </md-button>
+                <md-button ng-click="tipoRootController.deleteItem('tipo_menu',$index)" aria-label="Delete" class="md-icon-button">
+          <md-tooltip md-direction="left">Delete</md-tooltip>
+          <md-icon>delete</md-icon>
+        </md-button>
+        <md-button ng-click="tipoRootController.cloneItem('tipo_menu',$index)" aria-label="Copy" class="md-icon-button">
+          <md-tooltip md-direction="left">Copy</md-tooltip>
+          <md-icon>content_copy</md-icon>
+        </md-button>
+      </div>
+          </div>
+            </div>
+  </section>
+            
+            
     </div>
   </section>
-  <tp:group-container root="root" context="definition" group="field" ng-repeat="field in definition.tipo_fields" ng-if="field._ui.isGroup && !field.hidden_"/>
 </div>
+
+ 
