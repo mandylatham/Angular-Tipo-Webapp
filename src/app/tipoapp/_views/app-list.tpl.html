@@ -1,11 +1,13 @@
 <div layout="row" layout-align="center stretch" layout-margin layout-wrap ng-controller="TipoAppController as controller" id="tipoapp-app-list">
-  <md-card ng-repeat="tipo in controller.tipos"  layout="column" layout-align="start stretch" layout-padding ng-click="tipoRootController.toDetail(tipo.tipo_id)">
+  <md-card ng-repeat="tipo in controller.tipos"  layout="column" layout-align="start stretch" layout-padding ng-click="controller.launch(tipo); $event.stopPropagation();">
+    
+    
     <div layout="column" layout-align="start center">
-      <span class="md-headline" md-colors="{color: 'primary-600'}">{{tipo.app_name}}</span>
+      <span class="md-headline" md-colors="{color: 'primary-500'}">{{tipo.app_name}}</span>
       <div class="app-logo">
         <!-- <img ng-src="_assets/images/logos/{{tipo.logo}}" /> -->
-        <md-icon ng-if="tipo.icon" class="app-icon">{{tipo.icon}}</md-icon>
-        <md-icon ng-if="!tipo.icon" class="app-icon">apps</md-icon>
+        <md-icon ng-if="tipo.icon" md-colors="{color: 'accent-200'}" class="app-icon">{{tipo.icon}}</md-icon>
+        <md-icon ng-if="!tipo.icon" md-colors="{color: 'accent-200'}" class="app-icon">apps</md-icon>
       </div>
     </div>
     <div class="md-subhead text-center" flex>{{tipo.app_description}}</div>
