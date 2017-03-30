@@ -227,6 +227,9 @@
       _.each(definition.tipo_fields,function(field){
         newObject[field.field_name] = null;
       });
+      if (_.isUndefined(_instance.tipo[field_name])) {
+        _instance.tipo[field_name] = [];
+      };
       _instance.tipo[field_name].push(newObject);
     }
 
