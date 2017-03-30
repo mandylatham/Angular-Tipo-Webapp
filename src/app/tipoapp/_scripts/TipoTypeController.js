@@ -15,6 +15,7 @@
     var tipo_types = [];
     var tipo_name = $scope.tipoRootController.tipoDefinition.tipo_meta.tipo_name;
     var tipo_types = angular.copy(TipoTypeService.gettipo_types());
+    var application = $scope.tipoRootController.tipoDefinition.application;
     var tipo_groups = _.find($scope.tipoRootController.tipo_fields,function(field){
       return field.field_name === "tipo_field_groups"
     });
@@ -23,15 +24,21 @@
       return group.field_name === "tipo_group_name"
     });
       tipo_types.push({ key: "FieldGroup." + group_name._value.key,
-                        label: "FieldGroup." + group_name._value.key,
+                        label: group_name._value.key,
                         icon: "group_work",
                         field_group: true});
     });
     tipoInstanceDataService.search("TipoDefinition").then(function(tipo_objects){
       _instance.tipo_objects = tipo_objects;
       _.each(tipo_objects,function(tipo_object){
+    	  /**Either Tipos are from the same application or other application that the user has access to. 
+    	   * But, don't allow others to refer to Tipo application objects. 
+    	   * TODO: We may have to allow refering to TipoAccount & TipoUser, that can be allowed explicitly. */
+      if ( application === tipo_object.application ||
+    		  ! (tipo_object.application === "1000000001" 
+    	  && tipo_object.application_owner_account === "2000000001"))
       tipo_types.push({ key: "Tipo." + tipo_object.tipo_id,
-                        label: "Tipo." + tipo_object.tipo_meta.tipo_name,
+                        label: tipo_object.tipo_meta.display_name,
                         icon: tipo_object.tipo_meta.icon,
                         tipo_object: true});
       });
