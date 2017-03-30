@@ -464,9 +464,19 @@
 
     function modifyTipoData(tipoData){
       _.forOwn(tipoData, function(value, key){
-        if(!value){
-          tipoData[key] = null;
+        if (!_.isArray(value) && !_.isObject(value)) {
+          if(!value){
+            tipoData[key] = null;
+          }
         }
+        if (_.isObject(value)) {
+          modifyTipoData(value);
+        };
+        if (_.isArray(value)) {
+          _.each(value,function(val){
+            modifyTipoData(val);
+          });
+        };
       });
     }
 
