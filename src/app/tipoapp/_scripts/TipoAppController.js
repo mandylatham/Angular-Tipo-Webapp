@@ -4,6 +4,7 @@
 
   function TipoAppController(
     tipoRouter,
+    metadataService,
     $window,
     $scope) {
 
