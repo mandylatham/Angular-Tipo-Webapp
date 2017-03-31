@@ -69,13 +69,13 @@
           <md-input-container md-no-float>
                                                           <div layout="row">
         <div flex>
-                  <input ng-model="tipoRootController['tipo_meta' + $index + 'icon'].model.label" ng-disabled="true" ng-init="tipoRootController.setLabel('tipo_meta','icon',$index)">
-                </div>
+                              <input ng-model="tipoRootController.tipo.tipo_meta.icon_refs['ref' + tipoRootController.tipo.tipo_meta.icon]" ng-disabled="true">
+                          </div>
                 <div flex="none" class="actions">
-          <md-button class="m0" ng-click="tipoRootController.tipoObjecSelectiontDialog('','TipoIcon','name_','tipo_meta' + $index + 'icon',false,'tipo_meta','icon',$index)">
+                  <md-button class="m0" ng-click="tipoRootController.tipoObjecSelectiontDialog('','TipoIcon','name_')">
             <md-icon>search</md-icon>
           </md-button>
-        </div>
+                </div>
               </div>
                   </md-input-container>
         </span>
@@ -282,13 +282,13 @@
           <md-input-container md-no-float>
                                                           <div layout="row">
         <div flex>
-                  <input ng-model="tipoRootController['tipo_fields' + $index + 'field_type'].model.label" ng-disabled="true" ng-init="tipoRootController.setLabel('tipo_fields','field_type',$index)">
-                </div>
+                              <input ng-model="tipoRootController['tipo_fields' + $index + 'field_type'].model.label" ng-disabled="true" ng-init="tipoRootController.setLabel('tipo_fields','field_type',$index)">
+                          </div>
                 <div flex="none" class="actions">
-          <md-button class="m0" ng-click="tipoRootController.tipoObjecSelectiontDialog('tipo_action:(field_type_lookup) and tipo_id:([[tipo_id]])','TipoLookup','text','tipo_fields' + $index + 'field_type',false,'tipo_fields','field_type',$index)">
+                  <md-button class="m0" ng-click="tipoRootController.tipoObjecSelectiontDialog('tipo_action:(field_type_lookup) and tipo_id:([[tipo_id]])','TipoLookup','text','tipo_fields' + $index + 'field_type',false,'tipo_fields','field_type',$index)">
             <md-icon>search</md-icon>
           </md-button>
-        </div>
+                </div>
               </div>
                   </md-input-container>
         </span>

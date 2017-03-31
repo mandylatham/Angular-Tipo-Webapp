@@ -15,10 +15,8 @@
     function unwrapAndSort(collection){
       collection = _.filter(collection, function(each){
         if (!_.isNull(each.data)) {
-        	each.data.perm = each.perm
             return !_.isUndefined(each.data.tipo_id);
-        }
-        
+        }       
       });
       collection = _.map(collection, function(each){
         return each.data;

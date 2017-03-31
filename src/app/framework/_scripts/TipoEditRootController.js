@@ -213,13 +213,15 @@
     }
 
     function updateDatafromDefinition(definition,index,field_name){
-      _.each(definition.tipo_fields,function(field){
+      // _.each(definition.tipo_fields,function(field){
         if (_.isUndefined(index)) {
-         _.set(_instance.tipo,field.fq_field_name,field._value.key);
+          tipoManipulationService.extractDataFromMergedDefinition(definition,_instance.tipo[field_name])
+         // _.set(_instance.tipo,field.fq_field_name,field._value.key);
         }else{
-          _.set(_instance.tipo[field_name][index],field.field_name,field._value.key);
+          // _.set(_instance.tipo[field_name][index],field.field_name,field._value.key);
+          tipoManipulationService.extractDataFromMergedDefinition(definition,_instance.tipo[field_name][index])
         }
-      });
+      // });
     }
 
     function generateGroupItem(field_name,definition){
