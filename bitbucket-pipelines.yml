@@ -20,7 +20,7 @@ pipelines:
                 - export cognito_identity_pool_id=$dev_cognito_identity_pool_id
                 - export cognito_region=$dev_cognito_region
 		- export cognito_user_pool_id=$dev_cognito_user_pool_id
-		- export USER_S3_BUCKET=$dev_user_s3_bucket
+                - export USER_S3_BUCKET=$dev_user_s3_bucket
                 - mvn --version
                 - mvn -X clean deploy -Dall
     master:            
