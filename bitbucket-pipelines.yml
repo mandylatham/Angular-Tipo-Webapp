@@ -20,10 +20,6 @@ pipelines:
                 - export cognito_identity_pool_id=$dev_cognito_identity_pool_id
                 - export cognito_region=$dev_cognito_region
                 - export cognito_user_pool_id=$dev_cognito_user_pool_id
-                - export TIPOAPP_S3_BUCKET_PUBLIC_DIR=$dev_tipoapp_public_directory_path
-                - export TIPOAPP_S3_BUCKET_PRIVATE_DIR=$dev_tipoapp_private_directory_path
-                - export TIPOAPPBASE_S3_BUCKET_PUBLIC_DIR=$dev_tipoappbase_public_directory_path
-                - export TIPOAPPBASE_S3_BUCKET_PRIVATE_DIR=$dev_tipoappbase_private_directory_path
                 - mvn --version
                 - mvn -X clean deploy -Dall
     master:            
