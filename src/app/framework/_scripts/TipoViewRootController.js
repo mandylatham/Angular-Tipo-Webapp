@@ -41,7 +41,7 @@
     _instance.delete = function(){
       var confirmation = $mdDialog.confirm()
           .title('Delete Confirmation')
-          .textContent('Are you sure that you want to delete this record?')
+          .textContent('Are you sure that you want to delete ' + tipo_name + ' ' + tipo_id + '?')
           .ariaLabel('Delete Confirmation')
           .ok('Yes')
           .cancel('No');

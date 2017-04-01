@@ -76,7 +76,8 @@
     $scope,
     $mdToast,
     $stateParams,
-    $mdDialog) {
+    $mdDialog,
+    $templateCache) {
     
     var _instance = this;
     _instance.tipoDefinition = tipoDefinition;
@@ -107,6 +108,10 @@
         if(tipoRouter.stickyExists()){
           tipoRouter.toStickyAndReset();
         }else{
+          if (tipo_name === "TipoDefinition") {
+            $templateCache.remove(_instance.tipoDefinition._ui.editTemplateUrl.replace(/___TipoDefinition/g,"___" + tipo_id));
+            $templateCache.remove(_instance.tipoDefinition._ui.listTemplateUrl.replace(/___TipoDefinition/g,"___" + tipo_id));
+          }
           tipoRouter.toTipoView(tipo_name, tipo_id);
         }
       });
@@ -379,12 +384,13 @@
       delete clonedItem._ui.hash;
       group._items.push(clonedItem);
       var cloneObj = angular.copy(_instance.tipo[field_name][index]);
-      cloneObj._ARRAY_META = {};
+      delete cloneObj._ARRAY_META;
+      // cloneObj._ARRAY_META = {};
       _instance.tipo[field_name].push(cloneObj);
     }
 
-    _instance.filterByDeleted = function(obj){
       var val = false;
+    _instance.filterByDeleted = function(obj){
       if ( _.isUndefined(obj._ARRAY_META)) {
         val = true;
       }else{

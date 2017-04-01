@@ -171,9 +171,12 @@
 
     _instance.deleteOne = function(tipo_name, id, queryParams){
       tipoCache.evict(tipo_name, id);
+      tipoCache.evict(tipo_name);
       var promise = getDocumentResource(tipo_name, id).remove(queryParams);
       // load list again in background
-      _instance.search(tipo_name, undefined, true);
+      promise.then(function(){
+        _instance.search(tipo_name, undefined, true);
+      });
       return promise;
     };
 

@@ -31,6 +31,10 @@
       tipoRouter.toTipoEdit(tipo_name, tipo_id);
     };
 
+    _instance.delete = function(tipo_id){
+      $scope.tipoRootController.delete(tipo_id);
+    };
+
     _instance.launch = function(tipo){
       $window.open(tipo.app_url, '_blank');
     };

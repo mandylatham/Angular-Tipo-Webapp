@@ -11,7 +11,8 @@
     tipoRouter,
     $state,
     $stateParams,
-    $mdToast) {
+    $mdToast,
+    $mdDialog) {
 
     var _instance = this;
     _instance.tipoDefinition = tipoDefinition;
@@ -60,6 +61,32 @@
         event.stopPropagation();
       }
     }
+
+    _instance.delete = function(tipo_id){
+      var confirmation = $mdDialog.confirm()
+          .title('Delete Confirmation')
+          .textContent('Are you sure that you want to delete ' + tipo_name + ' ' + tipo_id + '?')
+          .ariaLabel('Delete Confirmation')
+          .ok('Yes')
+          .cancel('No');
+      $mdDialog.show(confirmation).then(function(){
+        tipoRouter.startStateChange();
+        // handle application perspective
+        var filter = {};
+        var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
+        if(perspectiveMetadata.fieldName === 'application'){
+          filter.tipo_filter = perspectiveMetadata.tipoFilter;
+        }
+        // ends here
+        tipoInstanceDataService.deleteOne(tipo_name, tipo_id, filter).then(function(){
+          if(tipoRouter.stickyExists()){
+            tipoRouter.toStickyAndReset();
+          }else{
+            tipoRouter.toTipoList(tipo_name);
+          }
+        });
+      });
+    };
 
     
   }

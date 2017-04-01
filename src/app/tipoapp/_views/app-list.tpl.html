@@ -20,6 +20,10 @@
         <md-tooltip md-direction="top">Launch Application</md-tooltip>
         <md-icon>launch</md-icon>
       </md-button>
+      <md-button ng-click="controller.delete(tipo.tipo_id); $event.stopPropagation();" aria-label="Launch" class="md-icon-button">
+        <md-tooltip md-direction="top">Delete Application</md-tooltip>
+        <md-icon>delete</md-icon>
+      </md-button>
     </action-bar>
   </md-card>
 <div>

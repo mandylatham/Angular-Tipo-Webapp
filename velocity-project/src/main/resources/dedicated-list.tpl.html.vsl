@@ -128,6 +128,10 @@ This is a velocity template to generate AngularJS list view template for any Tip
           <md-tooltip md-direction="left">Copy</md-tooltip>
           <md-icon>content_copy</md-icon>
         </md-button>
+        <md-button ng-click="tipoRootController.delete(tipo.tipo_id);$event.stopPropagation();"  ng-if="!tipoRootController.tipoDefinition._ui.isSingleton" aria-label="Copy" class="md-icon-button">
+          <md-tooltip md-direction="left">Delete</md-tooltip>
+          <md-icon>delete</md-icon>
+        </md-button>
       </div>
     </div>
   </div>
