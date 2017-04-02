@@ -116,7 +116,7 @@
     }
 
     _instance.navigate = function(menuItem){
-      if(menuItem.type === 'client_action'){
+      if(menuItem.type === 'Client'){
         if(clientActions[menuItem.id]){
           clientActions[menuItem.id](menuItem);
         }else{
@@ -160,7 +160,7 @@
           tipoRouter.endStateChange();
         });
       },
-      logout: function(){
+      'Logout': function(){
         $scope.main.signOut();
       }
     };

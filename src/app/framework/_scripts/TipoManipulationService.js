@@ -390,37 +390,24 @@
     }
 
     function prepareMenu(perspective, definition){
-      var subTipos = definition._ui.subTipos;
 
-      var menuItems = _.map(subTipos, function(fieldDefinition){
+      var menuItems = _.map(definition.tipo_menu, function(each){
         var menuItem = {};
-        menuItem.id = fieldDefinition._ui.relatedTipo;
-        menuItem.sequence = fieldDefinition.sequence;
-        menuItem.tipo_name = fieldDefinition._ui.relatedTipo;
-        menuItem.label = fieldDefinition.display_name;
-        menuItem.icon = fieldDefinition._ui.icon;
-        menuItem.isSingleton = fieldDefinition._ui.isSingleton;
-        menuItem.perspective = perspective;
-        var quickFilters = _.find(fieldDefinition.metadata, function(each){
-          return each.key_ === 'ui.quick_filters';
-        });
-        if(quickFilters){
-          menuItem.quickFilters = quickFilters.value_;
-        }
-        return menuItem;
-      });
-
-      var otherItems = _.filter(definition.tipo_fields, function(each){
-        return each.show_in_tab && !_.startsWith(each.field_type, 'Tipo.');
-      });
-      _.each(otherItems, function(each){
-        var menuItem = {};
-        menuItem.id = getFieldMeta(each, 'ui.client_action');
-        menuItem.type = 'client_action';
-        menuItem.label = each.display_name;
-        menuItem.icon = getFieldMeta(each, 'ui.menu_icon');
+        var parts = each.type_.split('.');
+        var isTipo = parts[0] === 'Tipo';
+        var isSingleton = parts.length > 2 && parts[2] === 'default';
+        menuItem.type = parts[0];
+        menuItem.id = parts[1];
+        menuItem.label = each.label;
+        menuItem.icon = each.icon;
         menuItem.sequence = each.sequence;
-        menuItems.push(menuItem);
+        menuItem.isSingleton = isSingleton;
+        if(isTipo){
+          menuItem.tipo_name = parts[1];
+          menuItem.perspective = perspective;
+        }
+        menuItem.quickFilters = each.quick_filters;
+        return menuItem;
       });
 
       menuItems = _.sortBy(menuItems, function(each){
