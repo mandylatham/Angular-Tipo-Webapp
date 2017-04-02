@@ -25,6 +25,7 @@
       return appMetadata.owner + '.' + appMetadata.application + '.' + _instance.user.email;
     };
     _instance.user = user;
+    _instance.captureAccountNameDuringSignup = appMetadata.captureAccountNameDuringSignup;
 
     _instance.toRegistration = function(){
       tipoRouter.to('registration');
@@ -57,6 +58,14 @@
       return Math.floor(Math.random() * (end - start + 1)) + start;
     }
 
+    /**
+     * Verify account name
+     * Account name should be unique, no integers, no spaces allowed.
+     */
+    function verifyAccountName(accountName) {
+      return accountName? /^[a-zA-Z-_]+$/.test(accountName): false;
+    }
+
     function raiseError(err) {
       console.error(err);
       if ($stateParams.retry) {
@@ -74,9 +83,14 @@
 
     _instance.signUp = function(attemptCnt) {
       markProgress();
+      if (appMetadata.captureAccountNameDuringSignup && !verifyAccountName(user.accountName)) {
+        raiseError({ message: 'Account name has invalid format' });
+        return;
+      }
+
       attemptCnt = attemptCnt || 0;
       var account = '' + generateAccountId();
-      cognitoService.signUp(user.fullName(), user.password, user.email, account, user.recaptcha).then(function (result) {
+      cognitoService.signUp(user.fullName(), user.password, user.email, account, user.accountName, user.recaptcha).then(function (result) {
         // Subscribe Trial plan
         var trial = {
           customerEmail: user.email,

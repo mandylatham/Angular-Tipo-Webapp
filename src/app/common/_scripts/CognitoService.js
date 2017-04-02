@@ -46,7 +46,7 @@
       return deferred.promise;
     }
         
-    function signUp(username, password, email, account, recaptcha) {
+    function signUp(username, password, email, account, accountName, recaptcha) {
       var attributeEmail = new AWSCognito.CognitoIdentityServiceProvider.CognitoUserAttribute({
         Name : 'email',
         Value : email
@@ -64,6 +64,13 @@
       attributeList.push(attributeEmail);
       attributeList.push(attributeAccount);
       attributeList.push(attributeRecaptcha);
+      if (accountName) {
+        var attributeAccountName = new AWSCognito.CognitoIdentityServiceProvider.CognitoUserAttribute({
+          Name : 'custom:accountName',
+          Value : accountName
+        });
+        attributeList.push(attributeAccountName);
+      }
 
       var deferred = $q.defer();
       userPool.signUp(username, password, attributeList, null, function(err, result){
