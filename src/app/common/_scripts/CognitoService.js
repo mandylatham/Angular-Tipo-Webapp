@@ -64,13 +64,13 @@
       attributeList.push(attributeEmail);
       attributeList.push(attributeAccount);
       attributeList.push(attributeRecaptcha);
-      if (accountName) {
-        var attributeAccountName = new AWSCognito.CognitoIdentityServiceProvider.CognitoUserAttribute({
-          Name : 'custom:accountName',
-          Value : accountName
-        });
-        attributeList.push(attributeAccountName);
-      }
+      
+      accountName = accountName || 'accountName' + account;
+      var attributeAccountName = new AWSCognito.CognitoIdentityServiceProvider.CognitoUserAttribute({
+        Name : 'custom:accountName',
+        Value : accountName
+      });
+      attributeList.push(attributeAccountName);
 
       var deferred = $q.defer();
       userPool.signUp(username, password, attributeList, null, function(err, result){
