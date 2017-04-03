@@ -6,7 +6,7 @@
           <md-datepicker ng-model="field._value.key" md-placeholder="{{field.field_description}}" name="{{field.display_name}}_{{field.field_type}}" ng-required="field.mandatory" ng-switch-when="date_time">
           </md-datepicker>
           <div class="tp-switch" ng-switch-when="boolean">
-            <md-switch class="md-primary" ng-model="field._value.key" aria-label="{{field.field_description}}">
+            <md-switch class="md-primary" ng-model="field._value.key" ng-true-value="'true'" ng-false-value="'false'" aria-label="{{field.field_description}}">
               <span>{{ field._value.key && 'Yes' || 'No' }}</span>
             </md-switch>
           </div>

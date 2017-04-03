@@ -117,7 +117,7 @@
       });
     };
 
-     _instance.setInstance = function(uniq_name,data){
+     _instance.setInstance = function(uniq_name,data,prefix,label,index){
       if (_.isUndefined(_instance[uniq_name])) {
         _instance[uniq_name] = {};
       };
@@ -125,25 +125,29 @@
         _instance[uniq_name].options = data.options;
         _instance[uniq_name].tipos = data.tipos;
       };
-      var tipo_data = _instance.tipo[uniq_name];
-      if (!_.isUndefined(tipo_data)) {
-        if (_.isArray(tipo_data)) {
-          _instance[uniq_name].model = _.map(tipo_data, function(each){
-            return {
-              key: each,
-              label: _instance.tipo[uniq_name + '_refs']['ref' + each]
-            };
-          });
-        }else{
-          _instance[uniq_name].model = {key: tipo_data, label: _instance.tipo[uniq_name + '_refs']['ref' + tipo_data] }
-        }
-      };
+      if (!_.isUndefined(prefix)) {
+        var tipo_data = _instance.tipo[uniq_name];
+      }else{
+        var tipo_data = _instance.tipo[prefix][index][label];
+      }
+        if (!_.isUndefined(tipo_data)) {
+          if (_.isArray(tipo_data)) {
+            _instance[uniq_name].model = _.map(tipo_data, function(each){
+              return {
+                key: each,
+                label: _instance.tipo[uniq_name + '_refs']['ref' + each]
+              };
+            });
+          }else{
+            _instance[uniq_name].model = {key: tipo_data, label: _instance.tipo[uniq_name + '_refs']['ref' + tipo_data] }
+          }
+        };
     }
 
-    _instance.loadOptions = function (baseFilter,tipo_name,label_field,uniq_name){
+    _instance.loadOptions = function (baseFilter,tipo_name,label_field,uniq_name,prefix,label,index){
       _instance[uniq_name] = {};
       tipoInstanceDataService.gettpObjectOptions(baseFilter,tipo_name,label_field,_instance.tipoDefinition).then(function(result){
-        _instance.setInstance(uniq_name,result)
+        _instance.setInstance(uniq_name,result,prefix,label,index)
       });      
     };
 

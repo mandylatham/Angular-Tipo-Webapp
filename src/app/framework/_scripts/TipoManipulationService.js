@@ -134,6 +134,7 @@
             }else{
               var label = fieldValue;
               if(fieldType === 'boolean'){
+                fieldValue = Boolean(fieldValue);
                 label = fieldValue ? 'Yes' : 'No';
               }else if (fieldType === 'date_time'){
                 if(fieldValue){
