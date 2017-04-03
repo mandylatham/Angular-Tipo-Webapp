@@ -153,7 +153,7 @@
 
     // TODO: Hard-coded list of client actions. This needs to be extracted out and made configurable in future
     var clientActions = {
-      clear_cache: function(){
+      'ClearCache': function(){
         tipoRouter.startStateChange();
         metadataService.clearServerCache().then(function(){
           tipoCache.clearAll();
