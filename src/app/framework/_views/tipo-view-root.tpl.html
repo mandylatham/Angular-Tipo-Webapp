@@ -3,6 +3,10 @@
     <div layout="row" layout-align="start start">
       <div flex></div>
       <div>
+        <md-button class="md-primary md-fab md-mini" ng-click="tipoRootController.refresh()">
+          <md-icon>autorenew</md-icon>
+          <md-tooltip md-direction="top">Refresh</md-tooltip>
+        </md-button>
         <md-button class="md-primary md-fab md-mini" ng-click="tipoRootController.delete()" ng-if="!disabledelete && !tipoRootController.tipoDefinition._ui.isSingleton">
           <md-icon>delete</md-icon>
           <md-tooltip md-direction="top">Delete</md-tooltip>

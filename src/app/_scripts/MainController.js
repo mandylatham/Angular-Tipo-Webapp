@@ -24,15 +24,19 @@
 
     _instance.toPerspective = function(name) {
       var params;
-      if(name !== 'home'){
-        params = {perspective: name};
-      }
+      if (name !== 'logout') {
+        if(name !== 'home'){
+          params = {perspective: name};
+        }
 
-      if (!S(name).contains('TipoApp')) {
-      tipoRouter.to('dashboard', 'layout', params, false);
+        if (!S(name).contains('TipoApp')) {
+        tipoRouter.to('dashboard', 'layout', params, false);
+        }else{
+          var tipoParams = name.split('.');
+          tipoRouter.toTipoView(tipoParams[0],tipoParams[1],params);
+        }
       }else{
-        var tipoParams = name.split('.');
-        tipoRouter.toTipoView(tipoParams[0],tipoParams[1],params);
+        _instance.signOut();
       }
     };
 

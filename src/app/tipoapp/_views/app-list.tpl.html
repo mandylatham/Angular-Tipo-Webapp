@@ -1,5 +1,5 @@
 <div layout="row" layout-align="center stretch" layout-margin layout-wrap ng-controller="TipoAppController as controller" id="tipoapp-app-list">
-  <md-card ng-repeat="tipo in controller.tipos"  layout="column" layout-align="start stretch" layout-padding ng-click="controller.launch(tipo); $event.stopPropagation();">
+  <md-card tp:perm ng-repeat="tipo in controller.tipos"  layout="column" layout-align="start stretch" layout-padding ng-click="!tipo.disableclick && controller.launch(tipo); $event.stopPropagation();">
     
     
     <div layout="column" layout-align="start center">

@@ -10,7 +10,8 @@
     tipoCache,
     cognitoService,
     $http,
-    $q) {
+    $q,
+    tipoRegistry) {
 
     function refreshAccesstoken() {
       var deferred = $q.defer();
@@ -68,6 +69,9 @@
         // Extracts the payload from the wrapped API response
         extractData: function (rawData) {
           if (rawData && rawData.response) {
+            var resp = rawData.response;
+            resp.tipo_name = rawData.tipo_name;
+            resp.perm = rawData.perm;
             return rawData.response;
           } else if (rawData && rawData.data) {
             return rawData.data;

@@ -8,11 +8,15 @@
     tipoDefinitionDataService,
     tipoManipulationService,
     metadataService,
+    tipoRegistry,
     $q) {
 
     var _instance = this;
 
     function unwrapAndSort(collection){
+      if (!_.isUndefined(collection.perm)) {
+        tipoRegistry.push({tipo_name: collection.tipo_name + 'perm', perm: collection.perm});
+      };
       collection = _.filter(collection, function(each){
         if (!_.isNull(each.data)) {
             return !_.isUndefined(each.data.tipo_id);

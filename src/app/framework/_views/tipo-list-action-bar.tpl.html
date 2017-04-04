@@ -2,7 +2,11 @@
   <div>
     <tp:filters definition="tipoRootController.tipoDefinition" filterslist="tipoRootController.tipoFilters" ng-if="tipoRootController.hasTipos || tipoRootController.tipoFilters.currentExpression"/>
   </div>
-  <div>
+  <div layout="row">
+  	<md-button class="md-primary md-fab md-mini" ng-click="tipoRootController.refresh()">
+	    <md-icon>autorenew</md-icon>
+	    <md-tooltip md-direction="top">Refresh</md-tooltip>
+  	</md-button>
     <tp:actions mode="list" definition="tipoRootController.tipoDefinition" tipos="tipoRootController.tipos" bulkedit="tipoRootController.bulkedit"/>
   </div>
 </div>

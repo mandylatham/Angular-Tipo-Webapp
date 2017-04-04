@@ -12,33 +12,51 @@
     $state,
     $stateParams,
     $scope,
-    $rootScope) {
+    $rootScope,
+    tipoRegistry) {
 
     var _instance = this;
 
-    _instance.perspectives = [{
-        name: 'Home',
-        icon: 'home',
-        perspective: 'Home'
-      }, {
-        name: 'Settings',
-        icon: 'settings',
-        perspective: 'Settings'
-      },
-      {
-        name: 'Profile',
-        icon: 'account_box',
-        perspective: 'ProfilePerspective'
-      }
-    ];
+    function addPerspectives(userMeta,homeMeta){
+        _instance.perspectives = [{
+          name: 'Home',
+          icon: 'home',
+          perspective: 'Home'
+        }, {
+          name: 'Settings',
+          icon: 'settings',
+          perspective: 'Settings'
+        },
+        {
+          name: 'Profile',
+          icon: 'account_box',
+          perspective: 'ProfilePerspective'
+        }
+      ];
+      if (homeMeta.application_owner_account === userMeta.account) {
+        _instance.perspectives.push({
+          name: 'Develop',
+          icon: 'build',
+          perspective: 'TipoApp.' + homeMeta.application
+        });
+      };
+
+      _instance.perspectives.push({
+          name: 'Log Out',
+          icon: 'exit_to_app',
+          perspective: 'logout'
+      });
+    }
 
     var userMeta = metadataService.userMetadata;
-    if (userMeta.application_owner_account === userMeta.account) {
-      _instance.perspectives.push({
-        name: 'Develop',
-        icon: 'build',
-        perspective: 'TipoApp.' + userMeta.application
+    var homeMeta = tipoRegistry.get('Home');
+    if (_.isUndefined(homeMeta)) {
+      tipoDefinitionDataService.getOne('Home').then(function(definition){
+        homeMeta = definition;
+        addPerspectives(userMeta,homeMeta);
       });
+    }else{
+      addPerspectives(userMeta,homeMeta);
     };
 
     _instance.reload = function () {

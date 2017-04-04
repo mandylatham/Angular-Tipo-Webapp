@@ -33,6 +33,14 @@
       $mdToast.show(toast);
     };
 
+    function getPerspective(filter){
+      var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
+      // TODO: Hack - Sushil as this is supposed to work only for applications
+      if (perspectiveMetadata.fieldName === 'application') {
+        filter.tipo_filter = perspectiveMetadata.tipoFilter;
+      }
+    }
+
     _instance.edit = function(){
       tipoRouter.startStateChange();
       tipoRouter.toTipoEdit(tipo_name, tipo_id);
@@ -49,10 +57,7 @@
         tipoRouter.startStateChange();
         // handle application perspective
         var filter = {};
-        var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
-        if(perspectiveMetadata.fieldName === 'application'){
-          filter.tipo_filter = perspectiveMetadata.tipoFilter;
-        }
+        getPerspective(filter);
         // ends here
         tipoInstanceDataService.deleteOne(tipo_name, tipo_id, filter).then(function(){
           if(tipoRouter.stickyExists()){
@@ -71,6 +76,18 @@
     _instance.toSubTipoList = function(subTipo){
       tipoRouter.to('subTipoListState', undefined, {sub_tipo_field_name: subTipo.field_name}, true);
     };
+
+    _instance.refresh = function(){
+      var filter = {};
+      tipoRouter.startStateChange();
+      getPerspective(filter);
+      tipoCache.evict($stateParams.tipo_name, $stateParams.tipo_id);
+      tipoInstanceDataService.getOne($stateParams.tipo_name, $stateParams.tipo_id, filter).then(function (data) {
+        data.tipo_id = data.tipo_id || $stateParams.tipo_id;
+        _instance.tipo = data;
+        tipoRouter.endStateChange();
+      });
+    }
 
     function setCurrentActiveTab(name){
       if(_.isUndefined(name)){

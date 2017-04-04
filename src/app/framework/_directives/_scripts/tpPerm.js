@@ -8,27 +8,34 @@
     return {
       restrict: 'A',
       link: function (scope, element, attrs) {
-        if (scope.tipo) {
-          var perm = scope.tipo.perm;
-          if (perm.substr(0,1) === '0'){
-            element.hide();
-          }
-          if (perm.substr(1,1) === '0') {
-            scope.tipo.disableclick = true;
-          }
-        }else{
-          if (scope.tipoRootController.tipo.perm) {
-            var perm = scope.tipoRootController.tipo.perm;            
-            if (perm.substr(1,1) === '0'){
+        if (!scope.tipoRootController.perm) {
+          if (scope.tipo) {
+            var perm = scope.tipo.perm;
+            if (perm.substr(0,1) === '0'){
               element.hide();
             }
-            if (perm.substr(3,1) === '0') {
-              scope.disableedit = true;
+            if (perm.substr(1,1) === '0') {
+              scope.tipo.disableclick = true;
             }
-            if (perm.substr(6,1) === '0') {
-              scope.disabledelete = true;
+          }else{
+            if (scope.tipoRootController.tipo.perm) {
+              var perm = scope.tipoRootController.tipo.perm;            
+              if (perm.substr(1,1) === '0'){
+                element.hide();
+              }
+              if (perm.substr(3,1) === '0') {
+                scope.disableedit = true;
+              }
+              if (perm.substr(6,1) === '0') {
+                scope.disabledelete = true;
+              };
             };
-          };
+          }
+        }else{
+          var perm = scope.tipoRootController.perm;
+          if (perm.substr(2,1) === '0') {
+            scope.tipoRootController.disablecreate = true;
+          }
         }
       }
     };

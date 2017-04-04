@@ -124,7 +124,7 @@ This is a velocity template to generate AngularJS list view template for any Tip
           <md-tooltip md-direction="left">Details</md-tooltip>
           <md-icon>fullscreen</md-icon>
         </md-button>
-        <md-button ng-click="tipoRootController.clone(tipo.tipo_id)"  ng-if="!tipoRootController.tipoDefinition._ui.isSingleton" aria-label="Copy" class="md-icon-button">
+        <md-button ng-click="tipoRootController.clone(tipo.tipo_id);$event.stopPropagation();"  ng-if="!tipoRootController.tipoDefinition._ui.isSingleton" aria-label="Copy" class="md-icon-button">
           <md-tooltip md-direction="left">Copy</md-tooltip>
           <md-icon>content_copy</md-icon>
         </md-button>
