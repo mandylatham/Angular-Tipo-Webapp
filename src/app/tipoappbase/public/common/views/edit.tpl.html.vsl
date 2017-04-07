@@ -42,7 +42,7 @@ This is a velocity template to generate AngularJS list view template for any Tip
     	#set($sizeGtMd = 100)
   	#end 
 
-  	#if( !$field.hidden && !$field.underscore_ui.isGroup && !$field.show_in_tab )
+  	#if( !$field.hidden_ && !$field.underscore_ui.isGroup && !$field.show_in_tab )
   	
   	 <dl class="edit" 
 			    layout="column" 
@@ -200,7 +200,7 @@ This is a velocity template to generate AngularJS list view template for any Tip
 			</div>       
         </dd>
       </dl>
-    #elseif( !$field.hidden && $field.underscore_ui.isGroup && !$field.show_in_tab)
+    #elseif( !$field.hidden_ && $field.underscore_ui.isGroup && !$field.show_in_tab)
     <section class="fieldset fluid-row-container" flex="100">
     	<div class="header">
 		    <div layout="row" layout-align="end center">
@@ -260,8 +260,9 @@ This is a velocity template to generate AngularJS list view template for any Tip
 	#if($field.underscore_ui.isArray)
 		#set($gfield.fq_field_name = "${field.fq_field_name}[$index].${gfield.field_name}" )
 	#end
+	#set($tmp = 0) 
     #if($gfield.sizing)
-    #set($gsizing = $Integer.parseInt($gfield.sizing))
+    #set($gsizing = $tmp.parseInt($gfield.sizing))
     #else
     #set($gsizing = 1)
 	#end
@@ -288,7 +289,7 @@ This is a velocity template to generate AngularJS list view template for any Tip
     	#set($gsizeGtMd = 100)
   	#end 
 
-  	#if( !$gfield.hidden && !$gfield.underscore_ui.isGroup && $gfield.short_display && !$gfield.show_in_tab)
+  	#if( !$gfield.hidden_ && !$gfield.underscore_ui.isGroup && $gfield.short_display && !$gfield.show_in_tab)
   	
   	 <dl class="edit" 
 			    layout="column" 

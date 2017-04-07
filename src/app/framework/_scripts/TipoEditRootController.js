@@ -125,7 +125,7 @@
         _instance[uniq_name].options = data.options;
         _instance[uniq_name].tipos = data.tipos;
       };
-      if (!_.isUndefined(prefix)) {
+      if (_.isUndefined(prefix)) {
         var tipo_data = _instance.tipo[uniq_name];
       }else{
         var tipo_data = _instance.tipo[prefix][index][label];

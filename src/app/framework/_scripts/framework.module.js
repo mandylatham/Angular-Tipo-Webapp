@@ -46,6 +46,8 @@
               filter.tipo_filter = tipoManipulationService.expandFilterExpression(tipoFilters.currentExpression);
             }
           }
+          filter.page = 1;
+          filter.per_page = 10;
           return tipoInstanceDataService.search($stateParams.tipo_name, filter);
         },
         delay: function ($q, $timeout) {
@@ -92,7 +94,7 @@
         tipoDefinition: function (tipoDefinitionDataService, tipoManipulationService, tipo, $stateParams) {
           var tipoDefinition = tipoDefinitionDataService.getOne($stateParams.tipo_name).then(function (definition) {
             if (!_.isUndefined(tipo)) {
-              tipoManipulationService.mergeDefinitionAndData(definition, tipo);
+              tipoManipulationService.mergeDefinitionAndData(definition, tipo,false,$stateParams.copyFrom);
             }
             return definition;
           });

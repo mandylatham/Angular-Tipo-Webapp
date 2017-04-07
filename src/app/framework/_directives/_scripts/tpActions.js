@@ -146,6 +146,7 @@
           }
 
           scope.performAction = function(action){
+            scope.deskaction.isOpen = false;
             if(mode === 'view' || !action.bulk_select){
               if (mode === 'view') {
                 performSingleAction(action);

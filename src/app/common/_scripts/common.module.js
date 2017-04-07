@@ -16,7 +16,8 @@
     'lfNgMdFileInput',
     'cgBusy',
     'ngProgress',
-    'ngPageTitle'
+    'ngPageTitle',
+    'infinite-scroll'
   ]);
 
   module.config(function ($mdThemingProvider, $mdToastProvider) {

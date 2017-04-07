@@ -23,7 +23,7 @@
 
     function extractShortDisplayFieldsRecursive(definition, collection){
       var eligibleFields = _.filter(definition.tipo_fields, function(each){
-        return each.short_display && !each.hidden;
+        return each.short_display && !each.hidden_;
       });
       _.each(eligibleFields, function(each){
         if(each._ui.isGroup){
@@ -34,12 +34,19 @@
       });
     }
 
-    function mergeDefinitionAndData(tipoDefinition, tipoData, resetExistingData){
+    function mergeDefinitionAndData(tipoDefinition, tipoData, resetExistingData, copy){
       if(tipoDefinition.tipo_fields){
+         copy = !_.isUndefined(copy);
         _.each(tipoDefinition.tipo_fields, function(field){
           var fieldKey = field.field_name;
           var fieldType = field.field_type;
-          var fieldValue = tipoData[fieldKey];
+          var istransient = _.find(field.metadata,{key_ : 'transient'});
+          if(istransient && copy){
+            var fieldValue;
+            delete tipoData[fieldKey];
+          }else{
+            var fieldValue = tipoData[fieldKey];
+          };
           if(resetExistingData){
             delete field._value;
           }
@@ -115,7 +122,7 @@
               // determine if the group has values for any field
               var hasValue = false;
               _.each(field.tipo_fields, function(each){
-                if(!each.hidden && !_.isUndefined(each._value)){
+                if(!each.hidden_ && !_.isUndefined(each._value)){
                   hasValue = true;
                   return false;
                 }
@@ -441,7 +448,7 @@
         }else{
           var fieldName = tipoDefinition.tipo_meta.perspective_field_name || _.snakeCase(tipoName);
           metadata.fieldName = fieldName;
-          metadata.tipoFilter = fieldName + '="' + tipoId + '"';
+          metadata.tipoFilter = '(' + fieldName + ':(' + tipoId + '))';
         }
       }else{
         metadata.abstract = true;

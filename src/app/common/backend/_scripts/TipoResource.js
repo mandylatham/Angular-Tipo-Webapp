@@ -152,7 +152,25 @@
     return factory;
   }
 
+  // Tipo Resource. This shall be used for all the HTTP XHR calls
+
+  function httpInterceptors(securityContextService){
+    return{
+      request: function(config){
+        var accessToken = securityContextService.getCurrentIdToken();
+        if (!_.isUndefined(accessToken)) {
+          config.headers['Authorization'] = accessToken;
+        }     
+        return config;
+      }
+    }
+  }
+
   angular.module('tipo.common')
     .factory('tipoResource', TipoResource);
+    // .factory('httpInterceptors', httpInterceptors)
+    // .config(function ($httpProvider) {
+    //   // $httpProvider.interceptors.push('httpInterceptors');
+    // });
 
 })();

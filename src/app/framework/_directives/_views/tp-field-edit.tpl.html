@@ -16,19 +16,16 @@
           <text-angular ng-model="field._value.key" style="z-index:1" name="{{field.display_name}}_{{field.field_type}}" data-ng-required="field.mandatory" ng-switch-when="richstring"></text-angular>
           <tp:s3-explorer name="{{field.display_name}}_{{field.field_type}}" ng-required="field.mandatory" ng-switch-when="s3explorer"/>
           <tp:file field="field" mode="edit" ng-switch-when="file"/>
-      <!--     <div ng-switch-when="colour"
-			    md-color-picker
-			    ng-model="field._value.key"
-			    label=""
-			    icon=""
-			    default=""
-			    md-color-generic-palette="false"
-			    md-color-history="false"
-			    md-color-rgb = "false"
-			    md-color-hsl = "false"
-			    md-color-preview = "false"
-			    md-colour-default-tab = "materialPalette" 
-		  ></div> -->
+          <!-- <div class="header" ng-switch-when="divider">
+            <div layout="row" layout-align="end center">
+              <h3 flex>
+                <a class="plain" md-colors="{color: 'primary-700'}">
+                  {{field.display_name}}
+                </a>
+              </h3>
+            </div>
+            <md-divider></md-divider>
+          </div> -->
           <tp:colour-palette name="{{field.display_name}}_{{field.field_type}}" mode="edit" ng-model="field._value.key" ng-required="field.mandatory" ng-switch-when="colour" />
           <div ng-switch-default>
             <div ng-if="!field.allowed_values">

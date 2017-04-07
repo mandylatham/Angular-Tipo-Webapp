@@ -12,9 +12,7 @@
         menu: function(parentPromise, tipoDefinitionDataService, tipoManipulationService, $rootScope) {
           var perspective = $rootScope.perspective;
           var tipo = perspective.split('.')[0];
-          console.log(tipo);
           return tipoDefinitionDataService.getOne(tipo).then(function(definition){
-            console.log(definition);
             return tipoManipulationService.prepareMenu(perspective, definition);
           });
         }

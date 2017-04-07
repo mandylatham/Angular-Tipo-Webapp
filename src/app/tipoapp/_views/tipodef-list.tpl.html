@@ -1,47 +1,14 @@
-<!-- <div class="tp-list">
-  <div class="fluid-row-container">
-    <div layout="row" tp:perm ng-click="!tipo.disableclick && tipoRootController.toDetail(tipo.key)" ng-repeat="tipo in tipoRootController.tiposWithDefinition" class="fluid-row" md-whiteframe="2">
-      <div flex layout="row" layout-padding layout-wrap layout-align="start start" class="data pointer" ng-class="{'selected': tipo.selected}" ng-click="!tipo.disableclick && tipoRootController.selectTipo(tipo,$event,tipoRootController.tiposWithDefinition)">
-        <div class="p-8" flex="33" ng-if="!field.hidden && field._value.label" ng-repeat="field in tipo.value.tipo_fields">
-          <section class="fieldset no-header fluid-row-container">
-            <div class="data" layout-padding layout="row" layout-wrap layout-align="start start">
-              <dl class="edit" layout="column" layout-align="center stretch" flex="100">
-                <dt ng-if="field.display_name">{{field.display_name}} <span ng-if="field.mandatory">*</span></dt>
-                <dd>
-                  <div class="tp-field">
-                    <span>{{field._value.label}}</span>
-                  </div>
-                </dd>
-              </dl>
-            </div>
-          </section>
-        </div>
-      </div>
-      <div flex="none" layout="column" layout-align="center center" class="actions bg" ng-if="!tipoRootController.popup">
-        <md-button ng-if="!tipo.disableclick" ng-click="tipoRootController.toDetail(tipo.key)" aria-label="View details">
-          <md-tooltip md-direction="left">Details</md-tooltip>
-          <md-icon>fullscreen</md-icon>
-        </md-button>
-        <md-button ng-click="tipoRootController.clone(tipo.key)"  ng-if="!tipoRootController.tipoDefinition._ui.isSingleton" aria-label="Copy" class="md-icon-button">
-          <md-tooltip md-direction="left">Copy</md-tooltip>
-          <md-icon>content_copy</md-icon>
-        </md-button>
-      </div>
-    </div>
-  </div>
-</div> -->
-         
          
 
 <div class="tp-list">
-  <div class="fluid-row-container">
-    <div layout="row" tp:perm ng-click="!tipo.disableclick && tipoRootController.toDetail(tipo.tipo_id)" ng-repeat="tipo in tipoRootController.tipos" class="fluid-row" md-whiteframe="2">
+  <div class="fluid-row-container" infinite-scroll='tipoRootController.nextPage(tipoRootController.searchText)' infinite-scroll-container="'#inf-wrapper'" infinite-scroll-disabled='tipoRootController.busy'>
+    <div layout="row" tp:perm ng-click="!tipo.disableclick && tipoRootController.toDetail(tipo.tipo_id)" ng-repeat="tipo in tipoRootController.tipos| filter:tipoRootController.searchText" class="fluid-row" md-whiteframe="2">
       <md-checkbox ng-if="tipoRootController.bulkedit" ng-model="tipo.selected" ng-click="$event.stopPropagation();" id="listcheckbox"></md-checkbox>
-      <div flex layout="row" layout-padding layout-wrap layout-align="start start" class="data pointer layout-row" ng-class="{'selected': tipo.selected}" ng-click="!tipo.disableclick && tipoRootController.selectTipo(tipo,$event,tipoRootController.tiposWithDefinition)">
+      <div flex layout="row" layout-padding layout-wrap layout-align="start start" class="data pointer layout-row" ng-class="{'selected': tipo.selected}" ng-click="!tipo.disableclick && tipoRootController.selectTipo(tipo,$event,tipoRootController.tipos)">
       
         <!-- tp:field-container field="field" ng-if="!field._ui.isGroup && !field.hidden && field._value" ng-repeat="field in tipo.value.tipo_fields"/-->
  
-                            
+                              
       <dl class="edit" 
           layout="column" 
           layout-align="center stretch"
@@ -50,7 +17,7 @@
         flex-gt-md="33"
         ng-if="tipo.tipo_meta.display_name">
         <dt>
-         Name         </dt>
+         Name   <span>*</span>        </dt>
         <dd>
         <div class="tp-field">
         
@@ -83,7 +50,7 @@
         flex-gt-md="33"
         ng-if="tipo.tipo_meta.tipo_name">
         <dt>
-         Unique ID          </dt>
+         URL Name         </dt>
         <dd>
         <div class="tp-field">
         
@@ -186,9 +153,13 @@
           <md-tooltip md-direction="left">Details</md-tooltip>
           <md-icon>fullscreen</md-icon>
         </md-button>
-        <md-button ng-click="tipoRootController.clone(tipo.tipo_id)"  ng-if="!tipoRootController.tipoDefinition._ui.isSingleton" aria-label="Copy" class="md-icon-button">
+        <md-button ng-click="tipoRootController.clone(tipo.tipo_id);$event.stopPropagation();"  ng-if="!tipoRootController.tipoDefinition._ui.isSingleton" aria-label="Copy" class="md-icon-button">
           <md-tooltip md-direction="left">Copy</md-tooltip>
           <md-icon>content_copy</md-icon>
+        </md-button>
+        <md-button ng-click="tipoRootController.delete(tipo.tipo_id);$event.stopPropagation();"  ng-if="!tipoRootController.tipoDefinition._ui.isSingleton" aria-label="Copy" class="md-icon-button">
+          <md-tooltip md-direction="left">Delete</md-tooltip>
+          <md-icon>delete</md-icon>
         </md-button>
       </div>
     </div>

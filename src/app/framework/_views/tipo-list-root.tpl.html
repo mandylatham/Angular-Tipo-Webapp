@@ -13,7 +13,11 @@
   <div ng-if="!tipoRootController.hasTipos" flex layout="row" layout-align="center center">
     <tp-no-content message="No records found" />
   </div>
-  <div ng-if="tipoRootController.hasTipos">
-    <ng-include src="tipoRootController.tipoDefinition._ui.listTemplateUrl" ng-if="tipoRootController.hasTipos" tp-include-replace/>
+  <div ng-if="tipoRootController.hasTipos" layout="column">
+    <md-input-container flex class="tp-list" ng-if="tipoRootController.showsearch">
+      <label>&nbsp;</label>
+      <input ng-model="tipoRootController.searchText" placeholder="enter search" ng-keyup="$event.keyCode == 13 ? tipoRootController.search() : null">
+    </md-input-container>
+    <ng-include src="tipoRootController.tipoDefinition._ui.listTemplateUrl" ng-if="tipoRootController.hasTipos" tp-include-replace>
   </div>
 </div>

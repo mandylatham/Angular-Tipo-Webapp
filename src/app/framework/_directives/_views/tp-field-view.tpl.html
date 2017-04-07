@@ -20,6 +20,16 @@
         <span ng-switch-when="htmlLink">
           <a ng-href="{{field._value.label}}" target="_blank">{{field._value.label}}</a>
         </span>
+        <!-- <div class="header" ng-switch-when="divider">
+          <div layout="row" layout-align="end center">
+            <h3 flex>
+              <a class="plain" md-colors="{color: 'primary-700'}">
+                {{field._value.label}}
+              </a>
+            </h3>
+          </div>
+          <md-divider></md-divider>
+        </div> -->
         <span ng-switch-default>{{field._value.label}}</span>
       </span>
     </span>

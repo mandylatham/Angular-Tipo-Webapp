@@ -19,7 +19,6 @@
         link: function(scope, element, attrs){
           var mode = scope.mode || 'view';
           scope.mode = mode;
-
           var field = scope.field;
           scope.isId = field.field_name === 'tipo_id';
 

@@ -19,15 +19,17 @@
     var tipo_groups = _.find($scope.tipoRootController.tipo_fields,function(field){
       return field.field_name === "tipo_field_groups"
     });
-    _.each(tipo_groups._items,function(tipo_group){
-      var group_name = _.find(tipo_group.tipo_fields,function(group){
-      return group.field_name === "tipo_group_name"
-    });
-      tipo_types.push({ key: "FieldGroup." + group_name._value.key,
-                        label: group_name._value.key,
-                        icon: "group_work",
-                        field_group: true});
-    });
+    if (!_.isUndefined(tipo_groups)) {
+      _.each(tipo_groups._items,function(tipo_group){
+        var group_name = _.find(tipo_group.tipo_fields,function(group){
+        return group.field_name === "tipo_group_name"
+      });
+        tipo_types.push({ key: "FieldGroup." + group_name._value.key,
+                          label: group_name._value.key,
+                          icon: "group_work",
+                          field_group: true});
+      });
+    };
     tipoInstanceDataService.search("TipoDefinition").then(function(tipo_objects){
       _instance.tipo_objects = tipo_objects;
       _.each(tipo_objects,function(tipo_object){
