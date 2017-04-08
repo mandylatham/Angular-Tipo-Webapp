@@ -15,13 +15,15 @@
     $stateParams,
     $mdToast,
     $mdDialog,
-    $window) {
+    $window,
+    $rootScope) {
 
     var _instance = this;
     _instance.tipoDefinition = tipoDefinition;
     _instance.tipoFilters = tipoFilters;
     _instance.tipos = tipos;
     _instance.busy = false;
+    _instance.loading = false;
     var page = 2;
     var per_page = 10;
     var tipo_perm = tipoRegistry.get($stateParams.tipo_name + 'perm');
@@ -47,10 +49,10 @@
       var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
       // TODO: Hack - Sushil as this is supposed to work only for applications
       if (!_.isEmpty(_instance.searchText)) {
-          filter.tipo_filter = "(_all:(" + _instance.searchText + "))";
+          filter.tipo_filter = "(_all:(" + _instance.searchText + "*))";
       };
       if (perspectiveMetadata.tipoName) {
-        if (perspectiveMetadata.tipoName !== tipoDefinition.tipo_meta.tipo_name) {
+        if (perspectiveMetadata.tipoName !== tipoDefinition.tipo_meta.tipo_name && perspectiveMetadata.tipoFilter) {
           if (filter.tipo_filter) {
             filter.tipo_filter += " AND " + perspectiveMetadata.tipoFilter;
           }else{
@@ -133,6 +135,7 @@
     _instance.nextPage = function(){
       if (_instance.busy) {return;}
       _instance.busy = true;
+      _instance.loading = true;
       var filter = {};
       getPerspective(filter);
       filter.page = angular.copy(page);
@@ -144,6 +147,7 @@
           _instance.busy = false;
           page++;
         };
+        _instance.loading = false;
         tipoRouter.endStateChange();
       });
     }
@@ -159,6 +163,7 @@
       tipoInstanceDataService.search($stateParams.tipo_name, filter).then(function(tiposData){
         _instance.tipos = tiposData;
         page++;
+        _instance.busy = false;
         tipoRouter.endStateChange();
       });
     }

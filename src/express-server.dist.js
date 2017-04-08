@@ -19,6 +19,10 @@ var pathMappings = [
      url: 'https://app.tipodev.com/app'
   },
   {
+     path: '/d/tipotapp/alandemo',
+     url: 'https://dev.tipotapp.com/app/d/tipotapp/alandemo'
+  },
+  {
     path: '/api',
     //url: 'http://localhost:9001'
     //url: 'https://app.billionbases.com/dev'

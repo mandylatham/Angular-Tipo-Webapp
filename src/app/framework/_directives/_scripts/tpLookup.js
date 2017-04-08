@@ -8,7 +8,8 @@
     tipoDefinition,
     tipoManipulationService,
     $scope,
-    $mdDialog) {
+    $mdDialog,
+    tipoCache) {
 
     var _instance = this;
 
@@ -58,6 +59,22 @@
     _instance.cancel = function() {
       $mdDialog.cancel();
     };
+    _instance.search = function(){
+      var filter = {};
+      if (!_.isEmpty(_instance.searchText)) {
+        filter.tipo_filter = "(_all:(" + _instance.searchText + "*))";
+      };
+      page = 1;
+      filter.page = angular.copy(page);
+      filter.per_page = 10;
+      tipoRouter.startStateChange();
+      tipoCache.evict($scope.tipo_name);
+      tipoInstanceDataService.search($scope.tipo_name, filter).then(function(tiposData){
+        var tiposWithDefinition = tipoManipulationService.mergeDefinitionAndDataArray(definition, tiposData, $scope.label_field);
+        page++;
+        tipoRouter.endStateChange();
+      });
+    }
   }
   return module.directive('tpLookup', function (
     tipoInstanceDataService,
@@ -130,17 +147,9 @@
             /*if(tipo_name !== perspectiveMetadata.tipoName){
               filter = perspectiveMetadata.tipoFilter;
             }*/
-            // TODO: Hack - Sushil as this is supposed to work only for applications
-            if(perspectiveMetadata.fieldName === 'application'){
-              filter = perspectiveMetadata.tipoFilter;
-            }
             if(!_.isUndefined(baseFilter)){
               var baseFilterExpanded = tipoManipulationService.expandFilterExpression(baseFilter, scope.root, scope.context);
-              if(_.isUndefined(filter)){
-                filter = baseFilterExpanded;
-              }else{
-                filter += ' and ' + baseFilterExpanded;
-              }
+              filter = baseFilterExpanded;
             }
             if(!_.isUndefined(filter)){
               searchCriteria.tipo_filter = filter;
@@ -197,6 +206,8 @@
             var newScope = scope.$new();
             newScope.isArray = isArray;
             newScope.field = scope.context;
+            newScope.tipo_name = scope.tipo_name;
+            newScope.label_field = scope.label_field;
             if (scope.root) {
             newScope.tipo_fields = scope.root.tipo_fields}
             newScope.selectedTipos = scope.selectedTipos;

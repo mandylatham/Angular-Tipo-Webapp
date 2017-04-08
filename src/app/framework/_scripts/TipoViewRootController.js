@@ -12,7 +12,8 @@
     $scope,
     $mdDialog,
     $mdToast,
-    $stateParams) {
+    $stateParams,
+    tipoCache) {
 
     var _instance = this;
 
