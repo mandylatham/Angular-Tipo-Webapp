@@ -162,7 +162,7 @@
               <goal>upload</goal>
             </goals>
             <configuration>
-              <fromDir>${basedir}/src/tipoappbase/public</fromDir>
+              <fromDir>${basedir}/src/app/tipoappbase/public</fromDir>
               <includes>**</includes>
               <url>s3://${USER_S3_BUCKET}/g/tipotapp/tipoappbase/public/</url>
             </configuration>
@@ -181,7 +181,7 @@
               <goal>upload</goal>
             </goals>
             <configuration>
-              <fromDir>${basedir}/src/tipoappbase/private</fromDir>
+              <fromDir>${basedir}/src/app/tipoappbase/private</fromDir>
               <includes>**</includes>
               <url>s3://${USER_S3_BUCKET}/g/tipotapp/tipoappbase/private/</url>
             </configuration>
