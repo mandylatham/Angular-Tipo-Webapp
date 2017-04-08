@@ -126,7 +126,7 @@
             <configuration>
               <fromDir>${basedir}/src/app/g/public</fromDir>
               <includes>**</includes>
-              <excludes>*.vsl</excludes>
+              <excludes>**/*.vsl</excludes>
               <url>s3://${USER_S3_BUCKET}/g/tipotapp/tipoapp/public/</url>
             </configuration>
           </execution>
@@ -146,7 +146,7 @@
             <configuration>
               <fromDir>${basedir}/src/app/g/private</fromDir>
               <includes>**</includes>
-              <excludes>*.vsl</excludes>
+              <excludes>**/*.vsl</excludes>
               <url>s3://${USER_S3_BUCKET}/g/tipotapp/tipoapp/private/</url>
             </configuration>
           </execution>
@@ -166,7 +166,7 @@
             <configuration>
               <fromDir>${basedir}/src/app/tipoappbase/public</fromDir>
               <includes>**</includes>
-              <excludes>*.vsl</excludes>
+              <excludes>**/*.vsl</excludes>
               <url>s3://${USER_S3_BUCKET}/g/tipotapp/tipoappbase/public/</url>
             </configuration>
           </execution>
@@ -186,7 +186,7 @@
             <configuration>
               <fromDir>${basedir}/src/app/tipoappbase/private</fromDir>
               <includes>**</includes>
-              <excludes>*.vsl</excludes>
+              <excludes>**/*.vsl</excludes>
               <url>s3://${USER_S3_BUCKET}/g/tipotapp/tipoappbase/private/</url>
             </configuration>
           </execution>
