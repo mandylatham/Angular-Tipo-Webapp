@@ -6,7 +6,10 @@
     tipoDefinition,
     tipoManipulationService,
     $scope,
-    $mdDialog) {
+    $mdDialog,
+    tipoRouter,
+    tipoCache,
+    tipoInstanceDataService) {
 
     var _instance = this;
     var label_field = $scope.label_field;
@@ -65,6 +68,24 @@
     _instance.cancel = function() {
       $mdDialog.cancel();
     };
+    _instance.search = function(){
+      var filter = {};
+      if (!_.isEmpty(_instance.searchText)) {
+        filter.tipo_filter = "(_all:(" + _instance.searchText + "*))";
+      };
+      var page = 1;
+      filter.page = angular.copy(page);
+      filter.per_page = 10;
+      tipoRouter.startStateChange();
+      tipoCache.evict($scope.tipo_name);
+      tipoInstanceDataService.search($scope.tipo_name, filter).then(function(tiposData){
+        _instance.tipos = tiposData;
+        var tiposWithDefinition = tipoManipulationService.mergeDefinitionAndDataArray(_instance.tipoDefinition, tiposData, label_field);
+        _instance.tiposWithDefinition = tiposWithDefinition;
+        page++;
+        tipoRouter.endStateChange();
+      });
+    }
   }
 
   function TipoEditRootController(
@@ -224,9 +245,15 @@
     function updateDatafromDefinition(definition,index,field_name){
       // _.each(definition.tipo_fields,function(field){
         if (_.isUndefined(index)) {
+          if (_.isUndefined (_instance.tipo[field_name])){
+            _instance.tipo[field_name] = {};
+          }
           tipoManipulationService.extractDataFromMergedDefinition(definition,_instance.tipo[field_name])
          // _.set(_instance.tipo,field.fq_field_name,field._value.key);
         }else{
+          if (_.isUndefined (_instance.tipo[field_name])){
+            _instance.tipo[field_name] = [];
+          }
           // _.set(_instance.tipo[field_name][index],field.field_name,field._value.key);
           tipoManipulationService.extractDataFromMergedDefinition(definition,_instance.tipo[field_name][index])
         }
@@ -251,6 +278,7 @@
       var newScope =$scope.$new();
       var tipo_data = _instance[uniq_name].model;
       newScope.label_field = label_field;
+      newScope.tipo_name = tipo_name;
       newScope.selectedTipos = [];
       if (isArray) {
         newScope.isArray = true;

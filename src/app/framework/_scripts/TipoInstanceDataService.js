@@ -191,21 +191,15 @@
       /*if(tipo_name !== perspectiveMetadata.tipoName){
         filter = perspectiveMetadata.tipoFilter;
       }*/
-      // TODO: Hack - Sushil as this is supposed to work only for applications
-      if(perspectiveMetadata.fieldName === 'application'){
-        filter = perspectiveMetadata.tipoFilter;
-      }
       if(!_.isUndefined(baseFilter)){
         var baseFilterExpanded = tipoManipulationService.expandFilterExpression(baseFilter, context, context);
-        if(_.isUndefined(filter)){
-          filter = baseFilterExpanded;
-        }else{
-          filter += ' and ' + baseFilterExpanded;
-        }
+        filter = baseFilterExpanded;
       }
       if(!_.isUndefined(filter)){
         searchCriteria.tipo_filter = filter;
       }
+      searchCriteria.page = 1;
+      searchCriteria.per_page = 10;
       var options = [];
       return _instance.search(tipo_name, searchCriteria).then(function(results){
         options = _.map(results, function(each){
