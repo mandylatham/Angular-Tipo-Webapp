@@ -45,6 +45,12 @@
       if(_.isArray($scope.tipoids)){
         tipoInstanceDataService.performBulkAction($scope.parentTipo, tipoAction.name, $scope.tipoids, tipoDefinition.tipo_meta.tipo_name, tipoData)
           .then(function(response){
+            // if(_instance.hooks.postFinish){
+            //   var result = _instance.hooks.postFinish();
+            //   if(!result){
+            //     return;
+            //   }
+            // }
             $mdDialog.hide(response);
           },function(error){
             tipoRouter.endStateChange();
@@ -52,7 +58,13 @@
       }else{
         tipoInstanceDataService.performSingleAction($scope.parentTipo, $scope.tipoids, tipoAction.name, tipoDefinition.tipo_meta.tipo_name, tipoData)
           .then(function(response){
-            $mdDialog.hide();
+            // if(_instance.hooks.postFinish){
+            //   var result = _instance.hooks.postFinish();
+            //   if(!result){
+            //     return;
+            //   }
+            // }
+            $mdDialog.hide(response);
           },function(error){
             tipoRouter.endStateChange();
           });

@@ -6,11 +6,19 @@
     tipoRouter,
     metadataService,
     $window,
-    $scope) {
+    $scope,
+    tipoCache) {
 
     var _instance = this;
 
     var tipo_name = $scope.tipoRootController.tipoDefinition.tipo_meta.tipo_name;
+    var hooks = $scope.tipoRootController.hooks;
+
+    hooks.postFinish = function() {
+      tipoCache.evict(tipo_name);
+      tipoRouter.toTipoList(tipo_name);
+      return true;
+    }
 
     function addLogotoData(tipos){
       _.each(tipos, function(each, index){
