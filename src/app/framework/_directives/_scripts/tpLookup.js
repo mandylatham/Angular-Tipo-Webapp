@@ -9,7 +9,9 @@
     tipoManipulationService,
     $scope,
     $mdDialog,
-    tipoCache) {
+    tipoCache,
+    tipoRouter,
+    tipoInstanceDataService) {
 
     var _instance = this;
 
@@ -64,13 +66,15 @@
       if (!_.isEmpty(_instance.searchText)) {
         filter.tipo_filter = "(_all:(" + _instance.searchText + "*))";
       };
-      page = 1;
+      var page = 1;
       filter.page = angular.copy(page);
       filter.per_page = 10;
       tipoRouter.startStateChange();
       tipoCache.evict($scope.tipo_name);
       tipoInstanceDataService.search($scope.tipo_name, filter).then(function(tiposData){
-        var tiposWithDefinition = tipoManipulationService.mergeDefinitionAndDataArray(definition, tiposData, $scope.label_field);
+        _instance.tipos = tiposData;
+        var tiposWithDefinition = tipoManipulationService.mergeDefinitionAndDataArray(_instance.tipoDefinition, tiposData, label_field);
+        _instance.tiposWithDefinition = tiposWithDefinition;
         page++;
         tipoRouter.endStateChange();
       });

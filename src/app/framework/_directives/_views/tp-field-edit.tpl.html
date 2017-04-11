@@ -6,7 +6,7 @@
           <md-datepicker ng-model="field._value.key" md-placeholder="{{field.field_description}}" name="{{field.display_name}}_{{field.field_type}}" ng-required="field.mandatory" ng-switch-when="date_time">
           </md-datepicker>
           <div class="tp-switch" ng-switch-when="boolean">
-            <md-switch class="md-primary" ng-model="field._value.key" ng-true-value="'true'" ng-false-value="'false'" aria-label="{{field.field_description}}">
+            <md-switch class="md-primary" ng-model="field._value.key" aria-label="{{field.field_description}}">
               <span>{{ field._value.key && 'Yes' || 'No' }}</span>
             </md-switch>
           </div>
@@ -16,7 +16,7 @@
           <text-angular ng-model="field._value.key" style="z-index:1" name="{{field.display_name}}_{{field.field_type}}" data-ng-required="field.mandatory" ng-switch-when="richstring"></text-angular>
           <tp:s3-explorer name="{{field.display_name}}_{{field.field_type}}" ng-required="field.mandatory" ng-switch-when="s3explorer"/>
           <tp:file field="field" mode="edit" ng-switch-when="file"/>
-          <!-- <div class="header" ng-switch-when="divider">
+          <span class="header" ng-switch-when="divider">
             <div layout="row" layout-align="end center">
               <h3 flex>
                 <a class="plain" md-colors="{color: 'primary-700'}">
@@ -25,7 +25,7 @@
               </h3>
             </div>
             <md-divider></md-divider>
-          </div> -->
+          </span>
           <tp:colour-palette name="{{field.display_name}}_{{field.field_type}}" mode="edit" ng-model="field._value.key" ng-required="field.mandatory" ng-switch-when="colour" />
           <div ng-switch-default>
             <div ng-if="!field.allowed_values">

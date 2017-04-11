@@ -201,10 +201,7 @@
       searchCriteria.page = 1;
       searchCriteria.per_page = 10;
       var options = [];
-      console.log("tipo_name");
-      console.log(tipo_name);
       return _instance.search(tipo_name, searchCriteria).then(function(results){
-        console.log(results);
         options = _.map(results, function(each){
           return {
             key: each.tipo_id,
