@@ -5,7 +5,7 @@ This is a velocity template to generate AngularJS list view template for any Tip
 #[[
 <div class="tp-list">
   <div class="fluid-row-container" infinite-scroll='tipoRootController.nextPage(tipoRootController.searchText)' infinite-scroll-container="'#inf-wrapper'" infinite-scroll-disabled='tipoRootController.busy'>
-    <div layout="row" tp:perm ng-click="!tipo.disableclick && tipoRootController.toDetail(tipo.tipo_id)" ng-repeat="tipo in tipoRootController.tipos" class="fluid-row" md-whiteframe="2">
+    <div layout="row" tp:perm ng-click="!tipo.disableclick && tipoRootController.toDetail(tipo.tipo_id)" ng-repeat="tipo in tipoRootController.tipos | filter:tipoRootController.searchText" class="fluid-row" md-whiteframe="2">
       <md-checkbox ng-if="tipoRootController.bulkedit" ng-model="tipo.selected" ng-click="$event.stopPropagation();" id="listcheckbox"></md-checkbox>
       <div flex layout="row" layout-padding layout-wrap layout-align="start start" class="data pointer layout-row" ng-class="{'selected': tipo.selected}" ng-click="!tipo.disableclick && tipoRootController.selectTipo(tipo,$event,tipoRootController.tipos)">
       

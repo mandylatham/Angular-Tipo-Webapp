@@ -112,6 +112,10 @@
       label: "File",
       icon: "insert_drive_file",
     },{
+      key: "divider",
+      label: "Divider",
+      icon: "remove",
+    },{
       key: "s3explorer",
       label: "DO NOT USE - S3 Browser",
       icon: "open_in_browser",

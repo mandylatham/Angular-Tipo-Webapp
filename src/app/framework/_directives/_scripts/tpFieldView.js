@@ -18,6 +18,9 @@
             scope.formattedText = $sce.trustAsHtml(field._value.label);
           }
           scope.hasValue = !_.isUndefined(field._value);
+          if (field.field_type === 'divider'){
+            scope.hasValue = true;
+          }
           scope.isArray = Boolean(field._ui.isArray);
           scope.isSingle = !scope.isArray;
           scope.isTipoRef = Boolean(field._ui.isTipoRelationship);

@@ -143,6 +143,7 @@
               if(fieldType === 'boolean'){
                 fieldValue = Boolean(fieldValue);
                 label = fieldValue ? 'Yes' : 'No';
+                fieldValue = fieldValue ? true : false;
               }else if (fieldType === 'date_time'){
                 if(fieldValue){
                   fieldValue = new Date(fieldValue);

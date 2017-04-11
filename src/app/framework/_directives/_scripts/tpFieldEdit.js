@@ -25,6 +25,12 @@
           scope.isTipoRef = Boolean(field._ui.isTipoRelationship);
           scope.tipoForm = tpView.getForm();
           scope.isSelfField = !scope.isTipoRef;
+          if (field.field_type === 'boolean' && field._value.key && field._value.key === "true") {
+            field._value.key = true;
+          };
+          if (field.field_type === 'boolean' && field._value.key && field._value.key === "false") {
+            field._value.key = false;
+          };
           if(scope.isArray && !scope.hasValue){
             field._value = [];
           }

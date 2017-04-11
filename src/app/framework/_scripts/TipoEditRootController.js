@@ -348,7 +348,14 @@
       var definition = extractDatafromDefinition(field_name);
       if (!_.isUndefined(index)) {
         definition = definition._items[index];
-      };
+        if (!_.isUndefined(_instance.tipo[field_name][index])) {
+          tipoManipulationService.mergeDefinitionAndData(definition,_instance.tipo[field_name][index]);
+        }
+      }else{
+        if (!_.isUndefined(_instance.tipo[field_name])) {
+          tipoManipulationService.mergeDefinitionAndData(definition,_instance.tipo[field_name]);
+        };
+      }
       var newScope = $scope.$new();
       newScope.definition = definition;
       newScope.mode = "edit";
@@ -431,6 +438,15 @@
         }
       };
       return val;
+    }
+    _instance.convertToBoolean = function(boolVal){
+      if (boolVal && boolVal === "true") {
+        boolVal = true;
+      }
+      if (boolVal && boolVal === "false") {
+        boolVal = false;
+      }
+      return boolVal;
     }
 
 
