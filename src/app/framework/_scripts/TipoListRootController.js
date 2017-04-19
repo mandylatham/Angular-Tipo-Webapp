@@ -16,7 +16,8 @@
     $mdToast,
     $mdDialog,
     $window,
-    $rootScope) {
+    $rootScope,
+    $scope) {
 
     var _instance = this;
     _instance.tipoDefinition = tipoDefinition;
@@ -26,7 +27,7 @@
     _instance.loading = false;
     var page = 2;
     var per_page = 10;
-    var tipo_perm = tipoRegistry.get($stateParams.tipo_name + 'perm');
+    var tipo_perm = tipoRegistry.get($stateParams.tipo_name + '_resdata');
     _instance.perm = tipo_perm.perm;
 
     var tipo_name = tipoDefinition.tipo_meta.tipo_name;
@@ -36,13 +37,37 @@
 
     _instance.hasTipos = tipos.length > 0;
 
-    if ($stateParams.message) {
-      var toast = $mdToast.tpToast();
-      toast._options.locals = {
-        header: 'Action successfully completed',
-        body: $stateParams.message
+    if ($stateParams.tab_url) {
+      var resData = tipoRegistry.get($stateParams.tab_url);
+      var confirm = $mdDialog.show({
+          clickOutsideToClose: true,
+          $scope: $scope,
+          template: '<md-dialog class="md-padding">' +
+                    '  <md-dialog-content class="md-padding">' +
+                     $stateParams.message +
+                    '  </md-dialog-content>' +
+                    '<md-dialog-actions layout="row">' + 
+                    '<md-button href="' + $stateParams.tab_url +
+                    '" target="_blank" ng-click="closeDialog()" md-autofocus>' +
+                    'OK' +
+                    '</md-button>' + 
+                    '</md-dialog-actions>' + 
+                    '</md-dialog>',
+           controller: function DialogController($scope, $mdDialog) {
+               $scope.closeDialog = function() {
+                  $mdDialog.hide();
+               }
+            }
+        });
+    }else{
+      if ($stateParams.message) {
+        var toast = $mdToast.tpToast();
+        toast._options.locals = {
+          header: 'Action successfully completed',
+          body: $stateParams.message
+        };
+        $mdToast.show(toast);
       };
-      $mdToast.show(toast);
     };
 
     function getPerspective(filter){

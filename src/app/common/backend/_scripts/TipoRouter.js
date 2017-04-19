@@ -10,7 +10,10 @@
     $stateParams,
     ngProgressFactory,
     $mdColors, 
-    $mdColorUtil) {
+    $mdColorUtil,
+    $mdDialog,
+    $mdToast,
+    $location) {
 
     var _stateChanging = false;
 
@@ -120,6 +123,72 @@
       return $state.go('tipoEdit', parameters, stateOptions);
     }
 
+    function openTabPopup (url, tipo_name , message) {
+      var confirm = $mdDialog.show({
+          clickOutsideToClose: true,
+          template: '<md-dialog class="md-padding">' +
+                    '  <md-dialog-content class="md-padding">' +
+                     message +
+                    '  </md-dialog-content>' +
+                    '<md-dialog-actions layout="row">' + 
+                    '<md-button href="' + url +
+                    '" target="_blank" ng-click="closeDialog()" md-autofocus>' +
+                    'OK' +
+                    '</md-button>' + 
+                    '</md-dialog-actions>' + 
+                    '</md-dialog>',
+           controller: function DialogController($scope, $mdDialog) {
+               $scope.closeDialog = function() {
+                  $mdDialog.hide();
+               }
+            }
+        });
+    }
+
+    function openMessageToast(message){
+      var toast = $mdToast.tpToast();
+      toast._options.locals = {
+        header: 'Action successfully completed',
+        body: $stateParams.message
+      };
+      $mdToast.show(toast);
+    }
+
+    function toTipoResponse (resData,tipo_name,tipo_id,parameters) {
+      if(!_.isEmpty(resData.return_url) || !_.isUndefined(resData.return_url)){
+          if (!S(resData.return_url).contains('?')) {
+            var return_url = resData.return_url + '?';
+          }else{
+            var return_url = resData.return_url + '&';
+          }
+          if (!_.isEmpty(resData.message) || !_.isUndefined(resData.message)) {
+            return_url = return_url + 'message=' + resData.message + '&';
+          };
+          if(!_.isEmpty(resData.tab_url) || !_.isUndefined(resData.tab_url)){
+            if (S(resData.tab_url).contains('#')) {
+              resData.tab_url = resData.tab_url.replace(/\#/,'%23');
+            };
+            return_url = return_url + 'tab_url=' + resData.tab_url;
+          };
+          $location.url(return_url);
+        }else{
+          if (!_.isEmpty(resData.tab_url) || !_.isUndefined(resData.tab_url)){
+            openTabPopup(resData.tab_url,tipo_name,resData.message);
+          }else{
+            if (!parameters) {
+              var parameters = {};
+            };
+            parameters.message = resData.message;
+            if (!_.isEmpty(tipo_name) || !_.isUndefined(tipo_name)){
+              tipoRouter.toTipoView(tipo_name, tipo_id, parameters);
+            }
+            if (!_.isEmpty(resData.message) || !_.isUndefined(resData.message)){
+              openMessageToast(resData.message);
+            }
+          }
+        }
+    }
+
     function recordSticky(){
       _stickyState.name = getCurrent().name;
       var parent = getCurrent().parent.name;
@@ -181,6 +250,7 @@
       toTipoCreate: toTipoCreate,
       toTipoView: toTipoView,
       toTipoEdit: toTipoEdit,
+      toTipoResponse: toTipoResponse,
       recordSticky: recordSticky,
       toStickyAndReset: toStickyAndReset,
       stickyExists: stickyExists,

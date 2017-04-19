@@ -8,7 +8,10 @@
     tipoInstanceDataService,
     tipoRouter,
     $stateParams,
-    $mdToast) {
+    tipoRegistry,
+    $mdToast,
+    $mdDialog,
+    $location) {
 
     var _instance = this;
     _instance.tipoDefinition = tipoDefinition;
@@ -16,6 +19,7 @@
     var clonedTipoId = $stateParams.copyFrom;
 
     var tipo_name = tipoDefinition.tipo_meta.tipo_name;
+
 
     if ($stateParams.message) {
       var toast = $mdToast.tpToast();
@@ -33,6 +37,7 @@
     _instance.save = function(){
       tipoRouter.startStateChange();
       var data = {};
+      var parameters = {};
       tipoManipulationService.extractDataFromMergedDefinition(_instance.tipoDefinition, data);
       var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
       if(perspectiveMetadata.fieldName && !data[perspectiveMetadata.fieldName]){
@@ -45,7 +50,9 @@
         if(tipoRouter.stickyExists()){
           tipoRouter.toStickyAndReset();
         }else{
-          tipoRouter.toTipoView(tipo_name, result[0].tipo_id);
+          var registryName = $stateParams.tipo_name + '_resdata';
+          var resData = tipoRegistry.get(registryName);
+          tipoRouter.toTipoResponse(resData,tipo_name,result[0].tipo_id,parameters);
         }
       });
     };
