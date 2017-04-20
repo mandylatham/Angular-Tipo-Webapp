@@ -180,7 +180,7 @@
             };
             parameters.message = resData.message;
             if (!_.isEmpty(tipo_name) || !_.isUndefined(tipo_name)){
-              tipoRouter.toTipoView(tipo_name, tipo_id, parameters);
+              toTipoView(tipo_name, tipo_id, parameters);
             }
             if (!_.isEmpty(resData.message) || !_.isUndefined(resData.message)){
               openMessageToast(resData.message);
