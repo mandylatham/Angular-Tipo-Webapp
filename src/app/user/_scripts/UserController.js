@@ -63,7 +63,7 @@
      * Account name should be unique, no integers, no spaces allowed.
      */
     function verifyAccountName(accountName) {
-      return accountName? /^[a-zA-Z-_]+$/.test(accountName): false;
+      return accountName? /^[a-zA-Z0-9-_]+$/.test(accountName): false;
     }
 
     function raiseError(err) {
