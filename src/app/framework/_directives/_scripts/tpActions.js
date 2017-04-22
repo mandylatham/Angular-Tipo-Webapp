@@ -208,8 +208,6 @@
       
               $mdDialog.show(confirm).then(function() {
                 $window.open(return_url, "_blank")
-              }, function() {
-               
               });
               }else{
                 $location.url(return_url);  
@@ -246,14 +244,17 @@
                 var additionalTipo = action.additionalTipo;
                 var promise = openAdditionalTipoDialog(additionalTipo, action,tipo_name,selected_tipo_ids);
                 promise.then(function(response){
-                    performResponseActions(response[0].message,response[0].data.return_url,action.label);
+                    response[0].message = response[0].user_message;
+                    tipoRouter.toTipoResponse(response[0]);
+                    // performResponseActions(response[0].message,response[0].return_url,response[0].return_url,action.label);
                     tipoRouter.endStateChange();});
               }else{
                 console.log('Will just perform the action without opening any dialogs');
                 tipoRouter.startStateChange();
                 tipoInstanceDataService.performBulkAction(tipo_name, action.name, selected_tipo_ids)
                   .then(function(response){
-                    performResponseActions(response[0].message,response[0].data.return_url,action.label);
+                    tipoRouter.toTipoResponse(response[0]);
+                    // performResponseActions(response[0].message,response[0].return_url,response[0].return_url,action.label);
                     tipoRouter.endStateChange();});
               }
             // }

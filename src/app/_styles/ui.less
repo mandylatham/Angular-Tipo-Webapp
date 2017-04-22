@@ -136,6 +136,7 @@ html{
   }
 
   .md-subheader{
+    z-index: 1 !important;
     .md-subheader-inner{
       padding: 8px;
     }
@@ -319,6 +320,9 @@ html{
       padding-top: 5px;
       md-switch{
         margin: 0;
+        .md-container{
+          z-index: 0;
+        }
       }
     }
     md-autocomplete button{

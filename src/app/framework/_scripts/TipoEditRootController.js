@@ -348,9 +348,9 @@
       var definition = extractDatafromDefinition(field_name);
       if (!_.isUndefined(index)) {
         definition = definition._items[index];
-        if (!_.isUndefined(_instance.tipo[field_name][index])) {
-          tipoManipulationService.mergeDefinitionAndData(definition,_instance.tipo[field_name][index]);
-        }
+        // if (!_.isUndefined(_instance.tipo[field_name][index])) {
+        //   tipoManipulationService.mergeDefinitionAndData(definition,_instance.tipo[field_name][index]);
+        // }
       }else{
         if (!_.isUndefined(_instance.tipo[field_name])) {
           tipoManipulationService.mergeDefinitionAndData(definition,_instance.tipo[field_name]);

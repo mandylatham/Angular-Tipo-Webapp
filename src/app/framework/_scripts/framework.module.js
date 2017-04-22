@@ -13,7 +13,7 @@
   function registerStates(stateProvider) {
     var listState = {
       name: 'tipoList',
-      url: '/tipo/{tipo_name}?filter&message',
+      url: '/tipo/{tipo_name}?filter&message&tab_url',
       parent: 'layout',
       data: {
         pageTitle: "{{$stateParams.tipo_name}} - List",
