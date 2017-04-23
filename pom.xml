@@ -220,6 +220,22 @@
               </arguments>
             </configuration>
           </execution>
+          <execution>
+            <id>upload-tipoappbase-private</id>
+            <phase>deploy</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>aws</executable>
+              <arguments>
+                <argument>s3</argument>
+                <argument>sync</argument>
+                <argument>${basedir}/src/app/tipoappbase/private</argument>
+                <argument>s3://${USER_S3_BUCKET}/g/tipotapp/tipoappbase/private/</argument>
+              </arguments>
+            </configuration>
+          </execution>
         </executions>
       </plugin>-->
     </plugins>
