@@ -352,9 +352,9 @@
         //   tipoManipulationService.mergeDefinitionAndData(definition,_instance.tipo[field_name][index]);
         // }
       }else{
-        if (!_.isUndefined(_instance.tipo[field_name])) {
-          tipoManipulationService.mergeDefinitionAndData(definition,_instance.tipo[field_name]);
-        };
+        // if (!_.isUndefined(_instance.tipo[field_name])) {
+        //   tipoManipulationService.mergeDefinitionAndData(definition,_instance.tipo[field_name]);
+        // };
       }
       var newScope = $scope.$new();
       newScope.definition = definition;

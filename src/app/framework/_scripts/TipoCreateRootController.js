@@ -11,6 +11,7 @@
     tipoRegistry,
     $mdToast,
     $mdDialog,
+    $scope,
     $location) {
 
     var _instance = this;
@@ -65,6 +66,14 @@
 
     _instance.toList = function(){
       tipoRouter.toTipoList(tipo_name);
+    };
+
+    _instance.maximize = function(){
+      $scope.fullscreen = true;
+    };
+
+    _instance.restore = function(){
+      $scope.fullscreen = false;
     };
 
     _instance.cancel = function(){
