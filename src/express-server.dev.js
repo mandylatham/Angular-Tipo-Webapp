@@ -16,11 +16,11 @@ var pathMappings = [
   },
   {
     path: '/g/public',
-    url: 'https://app.tipodev.com/app'
+    url: 'https://dev.tipotapp.com/app'
   },
   {
     path: '/public',
-    url: 'https://app.tipodev.com/app'
+    url: 'https://dev.tipotapp.com/app'
   },
   {
     path: '/api',

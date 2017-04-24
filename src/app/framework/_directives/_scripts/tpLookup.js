@@ -18,6 +18,7 @@
     _instance.tiposWithDefinition = tipoDefinition.tiposWithDefinition;
     _instance.tipoDefinition = tipoDefinition.tipoDefinition;
     _instance.popup = true;
+    _instance.tipos = $scope.tipos;
     _instance.tipo_fields = $scope.tipo_fields;
     _instance.selectedTipos = $scope.selectedTipos;
     $scope.fullscreen = true;
@@ -95,6 +96,7 @@
       var newScope = scope.$new();
       newScope.isArray = isArray;
       newScope.field = scope.context;
+      newScope.tipos = scope.tipos;
       newScope.tipo_name = scope.tipo_name;
       newScope.label_field = scope.label_field;
       if (scope.root) {

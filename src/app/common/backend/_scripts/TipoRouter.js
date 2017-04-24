@@ -148,7 +148,8 @@
     function openMessageToast(message){
       var toast = $mdToast.tpToast();
       toast._options.locals = {
-        header: message
+        header: message,
+        body: ""
       };
       $mdToast.show(toast);
     }
