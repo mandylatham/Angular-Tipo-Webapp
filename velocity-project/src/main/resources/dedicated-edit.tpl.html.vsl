@@ -460,7 +460,10 @@ This is a velocity template to generate AngularJS list view template for any Tip
 		                <md-option ng-value="option" ng-repeat="option in $gallowed_values">{{ option }}</md-option>
 	              	</md-select>
 	            #else
-	            	<input ng-model="tipoRootController.tipo.${gfield.fq_field_name}" aria-label="$gfield.display_name" placeholder="$!field_description" name="$gfield.display_name_$gfield.field_type" ng-required="$gmandatory">
+	            	#if($gfield.validations)
+		            	#set ($gdecoded = $tipo_utils.decodeBase64($gfield.validations))
+		            #end
+	            	<input ng-model="tipoRootController.tipo.${gfield.fq_field_name}" aria-label="$gfield.display_name" placeholder="$!field_description" name="$gfield.display_name_$gfield.field_type" ng-required="$gmandatory" ng-pattern="$gdecoded">
 				#end
 			#else
 				<span>{{tipoRootController.tipo.${gfield.fq_field_name}}}</span>
@@ -526,14 +529,14 @@ This is a velocity template to generate AngularJS list view template for any Tip
 					<div flex>
 					#if(!$gfieldisPopup)
 					#if(!$field.underscore_ui.isArray)
-						<md-select ng-model="tipoRootController.tipo.${gfield.fq_field_name}.model" ng-model-options="{trackBy: '$value.key'}"  md-container-class="tp-field" placeholder="$!field_description" md-on-open="tipoRootController.loadOptions($gfieldbaseFilter,$gfieldrelatedTipo,$gfield_label_field,'${field.fq_field_name}' + $index + '${gfield.field_name}')" md-on-close="tipoRootController.cleanup($gfieldlabel)" ng-init="tipoRootController.loadOptions($gfieldbaseFilter,$gfieldrelatedTipo,$gfield_label_field,$gfieldlabel)">
+						<md-select ng-model="tipoRootController.tipo.${gfield.fq_field_name}.model" ng-model-options="{trackBy: '$value.key'}"  md-container-class="tp-field" placeholder="$!field_description" md-on-open="tipoRootController.loadOptions($gfieldbaseFilter,$gfieldrelatedTipo,$gfield_label_field,$gfieldlabel)" md-on-close="tipoRootController.cleanup($gfieldlabel)" ng-init="tipoRootController.loadOptions($gfieldbaseFilter,$gfieldrelatedTipo,$gfield_label_field,$gfieldlabel)">
 						  <md-select-header class="search" ng-if="options.length > 5">
 						    <md-input-container md-no-float>
 						      <input ng-model="tipoRootController.tipo.${gfield.fq_field_name}.searchTerm.text" type="search" placeholder="Search ..." ng-keydown="stopBubbling($event)" tp:auto-focus>
 						    </md-input-container>
 						  </md-select-header>
 						  <md-option value="" ng-if="!fieldData.mandatory && !tipoRootController.searchTerm.text"></md-option>
-						  <md-option ng-value="option" ng-repeat="option in tipoRootController.tipo.${gfield.fq_field_name}.options | filter: {label: tipoRootController.tipo.${gfield.fq_field_name}.searchTerm.text}">{{ option.label }}</md-option>
+						  <md-option ng-value="option" ng-repeat="option in tipoRootController.${gfield.fq_field_name}.options | filter: {label: tipoRootController.tipo.${gfield.fq_field_name}.searchTerm.text}">{{ option.label }}</md-option>
 						</md-select>
 					#else
 						<md-select ng-model="tipoRootController['${field.fq_field_name}' + $index + '${gfield.field_name}'].model" ng-model-options="{trackBy: '$value.key'}"  md-container-class="tp-field" placeholder="$!field_description" md-on-open="tipoRootController.loadOptions($gfieldbaseFilter,$gfieldrelatedTipo,$gfield_label_field,'${field.fq_field_name}' + $index + '${gfield.field_name}','${field.fq_field_name}','${gfield.field_name}',$index)" md-on-close="tipoRootController.cleanup('${field.fq_field_name}' + $index + '${gfield.field_name}','${field.fq_field_name}','${gfield.field_name}',$index)" ng-init="tipoRootController.loadOptions($gfieldbaseFilter,$gfieldrelatedTipo,$gfield_label_field,'${field.fq_field_name}' + $index + '${gfield.field_name}','${field.fq_field_name}','${gfield.field_name}',$index)">
@@ -582,7 +585,7 @@ This is a velocity template to generate AngularJS list view template for any Tip
 						      <input ng-model="tipoRootController.tipo.${gfield.fq_field_name}.searchTerm.text" type="search" placeholder="Search ..." ng-keydown="stopBubbling($event)" tp:auto-focus>
 						    </md-input-container>
 						  </md-select-header>
-						  <md-option ng-value="option" ng-repeat="option in tipoRootController.tipo.${gfield.fq_field_name}.options | filter: {label: tipoRootController.tipo.${gfield.fq_field_name}.searchTerm.text}">{{ option.label }}</md-option>
+						  <md-option ng-value="option" ng-repeat="option in tipoRootController.${gfield.fq_field_name}.options | filter: {label: tipoRootController.tipo.${gfield.fq_field_name}.searchTerm.text}">{{ option.label }}</md-option>
 						</md-select>
 					#else
 						<div class="multiple-list" ng-init="tipoRootController.setInstance($gfieldlabel)">
