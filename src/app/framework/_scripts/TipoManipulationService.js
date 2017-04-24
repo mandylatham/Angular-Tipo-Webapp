@@ -463,7 +463,7 @@
     function modifyTipoData(tipoData){
       _.forOwn(tipoData, function(value, key){
         if (!_.isArray(value) && !_.isObject(value)) {
-          if(!_.isUndefined(value) || !_.isEmpty(value)){
+          if(_.isUndefined(value) || _.isEmpty(value)){
             tipoData[key] = null;
           }
         }
