@@ -148,8 +148,7 @@
     function openMessageToast(message){
       var toast = $mdToast.tpToast();
       toast._options.locals = {
-        header: 'Action successfully completed',
-        body: $stateParams.message
+        header: message
       };
       $mdToast.show(toast);
     }

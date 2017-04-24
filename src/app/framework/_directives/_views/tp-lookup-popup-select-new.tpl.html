@@ -1,0 +1,31 @@
+<md-dialog ng-cloak ng-class="{'fullscreen': fullscreen}">
+  <md-toolbar class="tipo-toolbar">
+    <div class="md-toolbar-tools">
+      <h2>{{tipoRootController.tiposWithDefinition.tipo_meta.display_name}}</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="tipoRootController.maximize()" ng-if="!fullscreen">
+        <md-icon aria-label="Maximize">crop_square</md-icon>
+      </md-button>
+      <md-button class="md-icon-button" ng-click="tipoRootController.restore()" ng-if="fullscreen">
+        <md-icon aria-label="Restore size">filter_none</md-icon>
+      </md-button>
+      <md-button class="md-icon-button" ng-click="tipoRootController.cancel()">
+        <md-icon aria-label="Close dialog">close</md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+  <form ng-cloak novalidate name="tipoForm" ng-submit="tipoForm.$valid && tipoRootController.save('dialog')">
+    <md-dialog-content>
+      <ng-include src="tipoRootController.tipoDefinition._ui.createTemplateUrl" tp-include-replace/>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="tipoRootController.cancel()">
+       Cancel
+      </md-button>
+      <md-button md-theme="reverse" class="md-raised md-primary" type="submit">
+       Save
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

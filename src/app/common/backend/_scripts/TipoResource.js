@@ -77,6 +77,9 @@
             resp.return_url = rawData.return_url;
             return rawData.response;
           } else if (rawData && rawData.data) {
+            rawData.data.tab_url = rawData.tab_url;
+            rawData.data.user_message = rawData.user_message;
+            rawData.data.return_url = rawData.return_url;
             return rawData.data;
           } else {
             return rawData;

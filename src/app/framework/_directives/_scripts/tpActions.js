@@ -45,12 +45,6 @@
       if(_.isArray($scope.tipoids)){
         tipoInstanceDataService.performBulkAction($scope.parentTipo, tipoAction.name, $scope.tipoids, tipoDefinition.tipo_meta.tipo_name, tipoData)
           .then(function(response){
-            // if(_instance.hooks.postFinish){
-            //   var result = _instance.hooks.postFinish();
-            //   if(!result){
-            //     return;
-            //   }
-            // }
             $mdDialog.hide(response);
           },function(error){
             tipoRouter.endStateChange();
@@ -58,12 +52,6 @@
       }else{
         tipoInstanceDataService.performSingleAction($scope.parentTipo, $scope.tipoids, tipoAction.name, tipoDefinition.tipo_meta.tipo_name, tipoData)
           .then(function(response){
-            // if(_instance.hooks.postFinish){
-            //   var result = _instance.hooks.postFinish();
-            //   if(!result){
-            //     return;
-            //   }
-            // }
             $mdDialog.hide(response);
           },function(error){
             tipoRouter.endStateChange();
@@ -226,11 +214,17 @@
             if(action.additionalTipo){
               var additionalTipo = action.additionalTipo;
               var promise = openAdditionalTipoDialog(additionalTipo, action, tipo_name, tipo_id);
-              promise.then(tipoRouter.endStateChange);
+              promise.then(function(response){
+                  response.message = response.user_message;
+                  tipoRouter.toTipoResponse(response);
+                  tipoRouter.endStateChange();});
             }else{
               tipoRouter.startStateChange();
               tipoInstanceDataService.performSingleAction(tipo_name, tipo_id, action.name)
-                .then(tipoRouter.endStateChange);
+                .then(function(response){
+                  response.message = response.user_message;
+                  tipoRouter.toTipoResponse(response);
+                  tipoRouter.endStateChange();});
             }
           }
 
@@ -253,6 +247,7 @@
                 tipoRouter.startStateChange();
                 tipoInstanceDataService.performBulkAction(tipo_name, action.name, selected_tipo_ids)
                   .then(function(response){
+                    response[0].message = response[0].user_message;
                     tipoRouter.toTipoResponse(response[0]);
                     // performResponseActions(response[0].message,response[0].return_url,response[0].return_url,action.label);
                     tipoRouter.endStateChange();});

@@ -1,0 +1,586 @@
+{
+    "tipo_name": "TipoDefinition",
+    "message": null,
+    "status_code": "200",
+    "data": {
+        "created_dt": "1484175766899",
+        "application_refs": {
+            "ref1000000001": "Tipo App"
+        },
+        "geo_latitude": "-27.398225",
+        "application_owner_account": "2000000001",
+        "geo_longitude": "153.0361733",
+        "tipo_fields": [
+            {
+                "hidden_": true,
+                "sequence": "1",
+                "field_type_refs": {
+                    "refstring": "Simple String"
+                },
+                "hidden": true,
+                "read_only": true,
+                "_ARRAY_META": {
+                    "_HASH": "ca67027f-9e58-4823-a3d0-d408bcd1c8c3"
+                },
+                "display_name": "ID",
+                "field_type": "string",
+                "field_name": "tipo_id",
+                "fq_field_name": "tipo_id",
+                "_ui": {
+                    "isArray": false,
+                    "isSimple": true
+                },
+                "underscore_ui": {
+                    "isArray": false,
+                    "isSimple": true
+                }
+            },
+            {
+                "hidden_": true,
+                "sequence": "2",
+                "field_type_refs": {
+                    "refTipo": {
+                        "TipoApp": "Tipo.TipoApp"
+                    },
+                    "refstring": "Simple String"
+                },
+                "_ARRAY_META": {
+                    "_HASH": "4a2d80b5-160b-4ab8-9ec3-c061ac818057"
+                },
+                "display_name": "Application",
+                "field_type": "Tipo.TipoApp",
+                "mandatory": true,
+                "field_name": "application",
+                "key_field": {
+                    "hidden_": "true",
+                    "sizing": "2",
+                    "sequence": "4",
+                    "field_type_refs": {
+                        "refstring": "Simple String"
+                    },
+                    "field_description": "App ID",
+                    "short_display": true,
+                    "hidden": true,
+                    "read_only": true,
+                    "_ARRAY_META": {
+                        "_HASH": "4046f0f5-41f4-4a7e-8483-590c431381fd"
+                    },
+                    "display_name": "App ID",
+                    "field_type": "string",
+                    "field_name": "tipo_id"
+                },
+                "label_field": {
+                    "sequence": "1",
+                    "field_type_refs": {
+                        "refstring": "Simple String"
+                    },
+                    "field_description": "App Name",
+                    "short_display": true,
+                    "meaningful_key": true,
+                    "_ARRAY_META": {
+                        "_HASH": "96ac6aca-a96e-40a5-a3ca-50214129981f"
+                    },
+                    "display_name": "App Name",
+                    "field_type": "string",
+                    "mandatory": true,
+                    "field_name": "app_name"
+                },
+                "fq_field_name": "application",
+                "_ui": {
+                    "isArray": false,
+                    "isTipoRelationship": true,
+                    "relatedTipo": "TipoApp",
+                    "isSimple": true
+                },
+                "underscore_ui": {
+                    "isArray": false,
+                    "isTipoRelationship": true,
+                    "relatedTipo": "TipoApp",
+                    "isSimple": true
+                }
+            },
+            {
+                "hidden_": true,
+                "sequence": "3",
+                "field_type_refs": {
+                    "refTipo": {
+                        "TipoAccount": "Tipo.TipoAccount"
+                    }
+                },
+                "hidden": true,
+                "read_only": false,
+                "_ARRAY_META": {
+                    "_HASH": "e1204ea1-4731-49a5-9966-bfaced4346ef"
+                },
+                "display_name": "Account",
+                "field_type": "Tipo.TipoAccount",
+                "field_name": "account",
+                "key_field": {
+                    "hidden_": "true",
+                    "sequence": "1",
+                    "field_type_refs": {
+                        "refstring": "Simple String"
+                    },
+                    "field_description": "Generated ID",
+                    "short_display": true,
+                    "_ARRAY_META": {
+                        "_HASH": "efaadaab-149d-4675-81da-02a2525c8c44"
+                    },
+                    "display_name": "Account ID",
+                    "field_type": "string",
+                    "mandatory": true,
+                    "field_name": "tipo_id"
+                },
+                "label_field": {
+                    "sizing": "1",
+                    "field_description": "Name of the Account",
+                    "short_display": true,
+                    "_ARRAY_META": {
+                        "_HASH": "01a242e9-8839-4d93-ad0f-26b672a4d2bf"
+                    },
+                    "display_name": "User Account Name",
+                    "mandatory": true,
+                    "field_name": "account_name",
+                    "hidden_": "false",
+                    "sequence": "1.1",
+                    "field_type_refs": {
+                        "refstring": "Simple String"
+                    },
+                    "read_only": "true",
+                    "meaningful_key": true,
+                    "field_type": "string"
+                },
+                "fq_field_name": "account",
+                "_ui": {
+                    "isArray": false,
+                    "isTipoRelationship": true,
+                    "relatedTipo": "TipoAccount",
+                    "isSimple": true
+                },
+                "underscore_ui": {
+                    "isArray": false,
+                    "isTipoRelationship": true,
+                    "relatedTipo": "TipoAccount",
+                    "isSimple": true
+                }
+            },
+            {
+                "sizing": "3",
+                "sequence": "3.1",
+                "field_type_refs": {
+                    "refstring": "Simple String"
+                },
+                "_ARRAY_META": {
+                    "_HASH": "0ea8bb42-f25b-452a-a5b9-53f0032c3bae"
+                },
+                "display_name": "App Web Title",
+                "field_type": "string",
+                "field_name": "app_title",
+                "fq_field_name": "app_title",
+                "_ui": {
+                    "isArray": false,
+                    "isSimple": true
+                },
+                "underscore_ui": {
+                    "isArray": false,
+                    "isSimple": true
+                }
+            },
+            {
+                "sizing": "3",
+                "sequence": "3.2",
+                "field_type_refs": {
+                    "refstring": "Simple String"
+                },
+                "_ARRAY_META": {
+                    "_HASH": "5553e000-80d3-4f9c-a753-3efcd3821e6b"
+                },
+                "display_name": "Google Analytics Tracking ID",
+                "field_type": "string",
+                "field_name": "ga_tracking_id",
+                "fq_field_name": "ga_tracking_id",
+                "_ui": {
+                    "isArray": false,
+                    "isSimple": true
+                },
+                "underscore_ui": {
+                    "isArray": false,
+                    "isSimple": true
+                }
+            },
+            {
+                "sizing": "3",
+                "sequence": "4",
+                "field_type_refs": {
+                    "refFieldGroup": {
+                        "appearance_settings": "FieldGroup.appearance_settings"
+                    }
+                },
+                "_ARRAY_META": {
+                    "_HASH": "6dbb6a89-6ca9-45e1-b0be-92c2cc47bdb0"
+                },
+                "display_name": "Appearance Settings",
+                "field_type": "FieldGroup.appearance_settings",
+                "field_name": "appearance_settings",
+                "fq_field_name": "appearance_settings",
+                "tipo_fields": [
+                    {
+                        "sizing": "3",
+                        "sequence": "1",
+                        "field_type_refs": {
+                            "refcolour": "Colour",
+                            "refstring": "Simple String"
+                        },
+                        "_ARRAY_META": {
+                            "_HASH": "39a2979e-be07-456c-a399-896252407556"
+                        },
+                        "display_name": "Colour Theme",
+                        "field_type": "colour",
+                        "field_name": "theme_colour",
+                        "fq_field_name": "appearance_settings.theme_colour",
+                        "_ui": {
+                            "isArray": false,
+                            "isSimple": true
+                        },
+                        "underscore_ui": {
+                            "isArray": false,
+                            "isSimple": true
+                        }
+                    },
+                    {
+                        "sizing": "3",
+                        "sequence": "2",
+                        "field_type_refs": {
+                            "reffile": "File"
+                        },
+                        "metadata": [
+                            {
+                                "key_": "file.target",
+                                "_ARRAY_META": {
+                                    "_HASH": "006658b7-d50f-4a56-b5f6-02c35db23bc3"
+                                },
+                                "value_": "public/assets/images/logo.png"
+                            }
+                        ],
+                        "_ARRAY_META": {
+                            "_HASH": "3f4a285e-206f-4e90-b7cf-34a8514af547"
+                        },
+                        "display_name": "Logo",
+                        "field_type": "file",
+                        "field_name": "logo",
+                        "fq_field_name": "appearance_settings.logo",
+                        "_ui": {
+                            "isArray": false,
+                            "isSimple": true
+                        },
+                        "underscore_ui": {
+                            "isArray": false,
+                            "isSimple": true
+                        }
+                    },
+                    {
+                        "sizing": "3",
+                        "sequence": "3",
+                        "field_type_refs": {
+                            "refTipo": {
+                                "TipoSampleLogo": "Tipo.TipoSampleLogo"
+                            }
+                        },
+                        "metadata": [
+                            {
+                                "key_": "popup.select",
+                                "_ARRAY_META": {
+                                    "_HASH": "8681757a-7123-4f16-83b4-45b2321c9bca"
+                                },
+                                "value_": "true"
+                            }
+                        ],
+                        "_ARRAY_META": {
+                            "_HASH": "02d0e301-0937-4465-a2bf-692a88e8e045"
+                        },
+                        "display_name": "Sample Logo",
+                        "field_type": "Tipo.TipoSampleLogo",
+                        "field_name": "sample_logo",
+                        "label_field": {
+                            "sequence": "0",
+                            "field_type_refs": {
+                                "refstring": "Simple String"
+                            },
+                            "short_display": true,
+                            "meaningful_key": true,
+                            "_ARRAY_META": {
+                                "_HASH": "613770a3-44bb-4103-b715-4edabfcc9265"
+                            },
+                            "display_name": "Logo Path",
+                            "field_type": "string",
+                            "field_name": "logo_path"
+                        },
+                        "fq_field_name": "appearance_settings.sample_logo",
+                        "_ui": {
+                            "isArray": false,
+                            "isTipoRelationship": true,
+                            "relatedTipo": "TipoSampleLogo",
+                            "isSimple": true
+                        },
+                        "underscore_ui": {
+                            "isArray": false,
+                            "isTipoRelationship": true,
+                            "relatedTipo": "TipoSampleLogo",
+                            "isSimple": true
+                        }
+                    },
+                    {
+                        "sizing": "3",
+                        "sequence": "4",
+                        "field_type_refs": {
+                            "refhtmlLink": "Link"
+                        },
+                        "_ARRAY_META": {
+                            "_HASH": "b4acf701-16e2-4bbf-827d-955a799a2c9a"
+                        },
+                        "display_name": "Font URL",
+                        "field_type": "htmlLink",
+                        "field_name": "font_url",
+                        "fq_field_name": "appearance_settings.font_url",
+                        "_ui": {
+                            "isArray": false,
+                            "isSimple": true
+                        },
+                        "underscore_ui": {
+                            "isArray": false,
+                            "isSimple": true
+                        }
+                    },
+                    {
+                        "sizing": "3",
+                        "sequence": "5",
+                        "field_type_refs": {
+                            "refstring": "Simple String"
+                        },
+                        "_ARRAY_META": {
+                            "_HASH": "b7637ac4-f159-4cb2-82d8-11d44634709c"
+                        },
+                        "display_name": "Font Family",
+                        "field_type": "string",
+                        "field_name": "font_family",
+                        "fq_field_name": "appearance_settings.font_family",
+                        "_ui": {
+                            "isArray": false,
+                            "isSimple": true
+                        },
+                        "underscore_ui": {
+                            "isArray": false,
+                            "isSimple": true
+                        }
+                    }
+                ],
+                "fq_prefix": "appearance_settings",
+                "_ui": {
+                    "isArray": false,
+                    "isGroup": true
+                },
+                "underscore_ui": {
+                    "isArray": false,
+                    "isGroup": true
+                }
+            },
+            {
+                "sizing": "3",
+                "sequence": "5",
+                "field_type_refs": {
+                    "refFieldGroup": {
+                        "email_customization": "FieldGroup.email_customization"
+                    }
+                },
+                "tipo_array": true,
+                "_ARRAY_META": {
+                    "_HASH": "ef5f088e-bdca-4dd3-9d37-175194944784"
+                },
+                "display_name": "Email Templates",
+                "field_type": "FieldGroup.email_customization",
+                "field_name": "email_template_customizations",
+                "fq_field_name": "email_template_customizations",
+                "tipo_fields": [
+                    {
+                        "allowed_values": [
+                            "Reset Password Email",
+                            "User Invitation Email",
+                            "User Registration Confirmation Email",
+                            "Welcome Email"
+                        ],
+                        "sizing": "1",
+                        "sequence": "1",
+                        "field_type_refs": {
+                            "refstring": "Simple String"
+                        },
+                        "short_display": true,
+                        "_ARRAY_META": {
+                            "_HASH": "2d3c136b-2c2a-4264-a9c2-bf9db50f4463"
+                        },
+                        "display_name": "Type",
+                        "field_type": "string",
+                        "field_name": "email_template_type",
+                        "fq_field_name": "email_template_customizations.email_template_type",
+                        "_ui": {
+                            "isArray": false,
+                            "isSimple": true
+                        },
+                        "underscore_ui": {
+                            "isArray": false,
+                            "isSimple": true
+                        }
+                    },
+                    {
+                        "sizing": "3",
+                        "sequence": "1.1",
+                        "field_type_refs": {
+                            "refstring": "Simple String"
+                        },
+                        "short_display": true,
+                        "_ARRAY_META": {
+                            "_HASH": "e7c4cc5e-fcf7-4afe-a2d4-baef2dbe54bd"
+                        },
+                        "display_name": "Subject",
+                        "field_type": "string",
+                        "field_name": "email_subject",
+                        "fq_field_name": "email_template_customizations.email_subject",
+                        "_ui": {
+                            "isArray": false,
+                            "isSimple": true
+                        },
+                        "underscore_ui": {
+                            "isArray": false,
+                            "isSimple": true
+                        }
+                    },
+                    {
+                        "sizing": "3",
+                        "sequence": "2",
+                        "field_type_refs": {
+                            "refrichstring": "Rich Text",
+                            "reflongstring": "Paragraph"
+                        },
+                        "_ARRAY_META": {
+                            "_HASH": "82b8ea91-9cce-43de-93fc-357a19f8bb7f"
+                        },
+                        "display_name": "Email Body",
+                        "field_type": "longstring",
+                        "field_name": "email_body",
+                        "fq_field_name": "email_template_customizations.email_body",
+                        "_ui": {
+                            "isArray": false,
+                            "isSimple": true
+                        },
+                        "underscore_ui": {
+                            "isArray": false,
+                            "isSimple": true
+                        }
+                    }
+                ],
+                "fq_prefix": "email_template_customizations",
+                "_ui": {
+                    "isArray": true,
+                    "isGroup": true
+                },
+                "underscore_ui": {
+                    "isArray": true,
+                    "isGroup": true
+                }
+            }
+        ],
+        "created_by": "raj@tipotapp.com",
+        "hash_key": "2000000001.1000000001.2000000001.TipoDefinition.TipoCustomization",
+        "application": "1000000001",
+        "el_index": true,
+        "updated_dt": "1490826074876",
+        "updated_by": null,
+        "tipo_name": "TipoDefinition",
+        "created_date": "2017-01-11T23:02:46.899Z",
+        "tipo_id": "TipoCustomization",
+        "updated_date": "2017-03-29T22:21:14.876Z",
+        "account": "2000000001",
+        "account_refs": {
+            "ref2000000001": "tipotapp"
+        },
+        "tipo_meta": {
+            "tipo_type": [
+                "singleton.application"
+            ],
+            "icon": "settings",
+            "icon_refs": {
+                "refsettings": "settings"
+            },
+            "tipo_name": "TipoCustomization",
+            "tipo_sequence": "6",
+            "display_name": "Tipo Customization"
+        },
+        "_ui": {
+            "listTemplate": "g/public/gen_temp/common/views/list-fluid.tpl.html___TipoCustomization",
+            "listTemplateUrl": "g/public/gen_temp/common/views/list-fluid.tpl.html___TipoCustomization",
+            "detailTemplate": "framework/generic/_views/view.tpl.html",
+            "detailTemplateUrl": "framework/generic/_views/view.tpl.html",
+            "createTemplate": "framework/generic/_views/create.tpl.html",
+            "createTemplateUrl": "framework/generic/_views/create.tpl.html",
+            "editTemplate": "g/public/gen_temp/common/views/edit.tpl.html___TipoCustomization",
+            "editTemplateUrl": "g/public/gen_temp/common/views/edit.tpl.html___TipoCustomization",
+            "isDefinition": true,
+            "isSingleton": true,
+            "hierarchyPrepared": true
+        },
+        "short_display_fields": [
+            {
+                "allowed_values": [
+                    "Reset Password Email",
+                    "User Invitation Email",
+                    "User Registration Confirmation Email",
+                    "Welcome Email"
+                ],
+                "sizing": "1",
+                "sequence": "1",
+                "field_type_refs": {
+                    "refstring": "Simple String"
+                },
+                "short_display": true,
+                "_ARRAY_META": {
+                    "_HASH": "2d3c136b-2c2a-4264-a9c2-bf9db50f4463"
+                },
+                "display_name": "Type",
+                "field_type": "string",
+                "field_name": "email_template_type",
+                "fq_field_name": "email_template_customizations.email_template_type",
+                "_ui": {
+                    "isArray": false,
+                    "isSimple": true
+                },
+                "underscore_ui": {
+                    "isArray": false,
+                    "isSimple": true
+                }
+            },
+            {
+                "sizing": "3",
+                "sequence": "1.1",
+                "field_type_refs": {
+                    "refstring": "Simple String"
+                },
+                "short_display": true,
+                "_ARRAY_META": {
+                    "_HASH": "e7c4cc5e-fcf7-4afe-a2d4-baef2dbe54bd"
+                },
+                "display_name": "Subject",
+                "field_type": "string",
+                "field_name": "email_subject",
+                "fq_field_name": "email_template_customizations.email_subject",
+                "_ui": {
+                    "isArray": false,
+                    "isSimple": true
+                },
+                "underscore_ui": {
+                    "isArray": false,
+                    "isSimple": true
+                }
+            }
+        ]
+    },
+    "perm": "1111111"
+}

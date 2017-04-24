@@ -58,9 +58,68 @@
     _instance.finish = function() {      
       $mdDialog.hide($scope.selectedTipos);
     };
+
     _instance.cancel = function() {
       $mdDialog.cancel();
     };
+
+    _instance.addTipo = function() {
+      var promise = $mdDialog.show({
+        templateUrl: 'framework/_directives/_views/tp-lookup-popup-select-new.tpl.html',
+        controller: 'TipoCreateRootController',
+        controllerAs: 'tipoRootController',
+        fullscreen: true,
+        resolve: /*@ngInject*/
+        {
+          tipo: function() {
+            return undefined;
+          },
+          tipoDefinition: function(){
+            return _instance.tipoDefinition;
+          }
+        },
+        skipHide: true,
+        clickOutsideToClose: true,
+        fullscreen: true
+      });
+      promise.then(function(tipos){
+        if (_.isArray(tipos)) {
+          _instance.tiposWithDefinition = tipoManipulationService.mergeDefinitionAndDataArray(_instance.tipoDefinition, tipos, $scope.label_field);
+        };
+      })
+      return promise;
+    };
+    function openTipoObjectDialog(){
+      scope.loadOptions();
+      var newScope = scope.$new();
+      newScope.isArray = isArray;
+      newScope.field = scope.context;
+      newScope.tipo_name = scope.tipo_name;
+      newScope.label_field = scope.label_field;
+      if (scope.root) {
+      newScope.tipo_fields = scope.root.tipo_fields}
+      newScope.selectedTipos = scope.selectedTipos;
+      var promise = $mdDialog.show({
+        templateUrl: 'framework/_directives/_views/tp-lookup-popup-select.tpl.html',
+        controller: TipoObjectDialogController,
+        controllerAs: 'tipoRootController',
+        scope: newScope,
+        resolve: /*@ngInject*/
+        {
+          tipoDefinition: function(tipoDefinitionDataService, tipoManipulationService) {
+            return tipoDefinitionDataService.getOne(scope.tipo_name).then(function(definition){
+              var tiposWithDefinition = tipoManipulationService.mergeDefinitionAndDataArray(definition, scope.tipos, label_field);
+              return {tipoDefinition: definition, tiposWithDefinition: tiposWithDefinition}
+            });
+          }
+        },
+        skipHide: true,
+        clickOutsideToClose: true,
+        fullscreen: true
+      });
+      return promise;
+    }
+
     _instance.search = function(){
       var filter = {};
       if (!_.isEmpty(_instance.searchText)) {
@@ -73,7 +132,7 @@
       tipoCache.evict($scope.tipo_name);
       tipoInstanceDataService.search($scope.tipo_name, filter).then(function(tiposData){
         _instance.tipos = tiposData;
-        var tiposWithDefinition = tipoManipulationService.mergeDefinitionAndDataArray(_instance.tipoDefinition, tiposData, label_field);
+        var tiposWithDefinition = tipoManipulationService.mergeDefinitionAndDataArray(_instance.tipoDefinition, tiposData, $scope.label_field);
         _instance.tiposWithDefinition = tiposWithDefinition;
         page++;
         tipoRouter.endStateChange();

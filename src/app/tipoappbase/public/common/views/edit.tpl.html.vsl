@@ -122,9 +122,17 @@ This is a velocity template to generate AngularJS list view template for any Tip
 		#else
 			#if(!$field.read_only)
 				#if($field.allowed_values)
+				#set ($allowed_values = "['" )
+				#foreach($i in $field.allowed_values)
+					#if( $foreach.hasNext )
+						#set ($allowed_values = "$allowed_values$i','" )
+					#else
+						#set ($allowed_values = "$allowed_values$i']" )
+					#end
+				#end
 					<md-select ng-model="tipoRootController.tipo.$field.fq_field_name" placeholder="$!field_description" name="$field.display_name_$field.field_type" ng-required="$mandatory">
 		                <md-option value="" ng-if="!$mandatory">-- Clear --</md-option>
-		                <md-option ng-value="option" ng-repeat="option in $field.allowed_values">{{ option }}</md-option>
+		                <md-option ng-value="option" ng-repeat="option in allowed_values">{{ option }}</md-option>
 	              	</md-select>
 	            #else
 	            	<input ng-model="tipoRootController.tipo.$field.fq_field_name" aria-label="$field.display_name" placeholder="$!field_description" name="$field.display_name_$field.field_type" ng-required="$mandatory">
@@ -432,9 +440,17 @@ This is a velocity template to generate AngularJS list view template for any Tip
 		#else
 			#if(!$gfield.read_only)
 				#if($gfield.allowed_values)
+				#set ($gallowed_values = "['" )
+				#foreach($i in $gfield.allowed_values)
+					#if( $foreach.hasNext )
+						#set ($gallowed_values = "$gallowed_values$i','" )
+					#else
+						#set ($gallowed_values = "$gallowed_values$i']" )
+					#end
+				#end
 					<md-select ng-model="tipoRootController.tipo.${gfield.fq_field_name}" placeholder="$!field_description" name="$gfield.display_name_$gfield.field_type" ng-required="$gmandatory">
 		                <md-option value="" ng-if="!$gmandatory">-- Clear --</md-option>
-		                <md-option ng-value="option" ng-repeat="option in $gfield.allowed_values">{{ option }}</md-option>
+		                <md-option ng-value="option" ng-repeat="option in $gallowed_values">{{ option }}</md-option>
 	              	</md-select>
 	            #else
 	            	<input ng-model="tipoRootController.tipo.${gfield.fq_field_name}" aria-label="$gfield.display_name" placeholder="$!field_description" name="$gfield.display_name_$gfield.field_type" ng-required="$gmandatory">
