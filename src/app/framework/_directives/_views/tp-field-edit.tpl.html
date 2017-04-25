@@ -29,7 +29,7 @@
           <tp:colour-palette name="{{field.display_name}}_{{field.field_type}}" mode="edit" ng-model="field._value.key" ng-required="field.mandatory" ng-switch-when="colour" />
           <div ng-switch-default>
             <div ng-if="!field.allowed_values">
-              <input ng-model="field._value.key" aria-label="field.display_name" placeholder="{{field.field_description}}" name="{{field.display_name}}_{{field.field_type}}" ng-required="field.mandatory">
+              <input ng-model="field._value.key" aria-label="field.display_name" placeholder="{{field.field_description}}" name="{{field.display_name}}_{{field.field_type}}"  ng-pattern="field.decvalidations">
             </div>
             <div ng-if="field.allowed_values">
               <md-select ng-model="field._value.key" placeholder="{{field.field_description}}" name="{{field.display_name}}_{{field.field_type}}" ng-required="field.mandatory">
@@ -55,8 +55,9 @@
       <span ng-if="isTipoRef">
        <tp:lookup root="root" context="context" parent="parent" field="field" />
       </span>
-      <div ng-messages="tipoForm[field.display_name + '_' +field.field_type].$error">
+      <div ng-messages="tipoForm[field.display_name + '_' +field.field_type].$error" multiple md-auto-hide="false">
           <div ng-message="required" >This is required.</div>
+          <div ng-message="pattern" >This field must be {{field.validations_refs['ref' + field.validations]}}</div>
       </div>
     </md-input-container>
   </span>

@@ -6,6 +6,7 @@
 		      <input ng-model="searchTerm.text" type="search" placeholder="Search ..." ng-keydown="stopBubbling($event)" tp:auto-focus>
 		    </md-input-container>
 		  </md-select-header>
+		  <md-option value="" ng-click="addTipo()">Create New</md-option>
 		  <md-option ng-value="option" ng-repeat="option in options | filter: {label: searchTerm.text}">{{ option.label }}</md-option>
 		</md-select>
 	</div>

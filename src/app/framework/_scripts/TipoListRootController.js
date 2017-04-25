@@ -83,9 +83,7 @@
           }else{
             filter.tipo_filter = perspectiveMetadata.tipoFilter;
           }
-        } else {
-          $rootScope.perspective = 'Home';
-        }
+        } 
       }
 
       if ($stateParams.filter) {

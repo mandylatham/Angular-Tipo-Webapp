@@ -31,6 +31,9 @@
           if (field.field_type === 'boolean' && field._value.key && field._value.key === "false") {
             field._value.key = false;
           };
+          if (field.validations) {
+            field.decvalidations = new RegExp(atob(field.validations));
+          };
           if(scope.isArray && !scope.hasValue){
             field._value = [];
           }

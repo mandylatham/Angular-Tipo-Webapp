@@ -139,12 +139,12 @@
     };
 
      _instance.setInstance = function(uniq_name,data,prefix,label,index){
-      if (_.isUndefined(_instance[uniq_name])) {
-        _instance[uniq_name] = {};
+      if (_.isUndefined(_.find(_instance,uniq_name))) {
+        _.set(_instance, uniq_name, {});
       };
       if (!_.isUndefined(data)) {
-        _instance[uniq_name].options = data.options;
-        _instance[uniq_name].tipos = data.tipos;
+        _.set(_instance, uniq_name + '.options', data.options);
+        _.set(_instance, uniq_name + '.tipos', data.tipos);
       };
       if (_.isUndefined(prefix)) {
         var tipo_data = _instance.tipo[uniq_name];
@@ -352,9 +352,9 @@
         //   tipoManipulationService.mergeDefinitionAndData(definition,_instance.tipo[field_name][index]);
         // }
       }else{
-        if (!_.isUndefined(_instance.tipo[field_name])) {
-          tipoManipulationService.mergeDefinitionAndData(definition,_instance.tipo[field_name]);
-        };
+        // if (!_.isUndefined(_instance.tipo[field_name])) {
+        //   tipoManipulationService.mergeDefinitionAndData(definition,_instance.tipo[field_name]);
+        // };
       }
       var newScope = $scope.$new();
       newScope.definition = definition;

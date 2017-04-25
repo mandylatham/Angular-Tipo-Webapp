@@ -11,6 +11,7 @@
     tipoRegistry,
     $mdToast,
     $mdDialog,
+    $scope,
     $location) {
 
     var _instance = this;
@@ -34,7 +35,7 @@
       console.log(angular.toJson(_instance.tipoDefinition));
     };
 
-    _instance.save = function(){
+    _instance.save = function(formtype){
       tipoRouter.startStateChange();
       var data = {};
       var parameters = {};
@@ -50,15 +51,29 @@
         if(tipoRouter.stickyExists()){
           tipoRouter.toStickyAndReset();
         }else{
-          var registryName = $stateParams.tipo_name + '_resdata';
-          var resData = tipoRegistry.get(registryName);
-          tipoRouter.toTipoResponse(resData,tipo_name,result[0].tipo_id,parameters);
+          if (formtype === 'dialog') {
+            tipoInstanceDataService.search(tipo_name).then(function(tipos){
+              $mdDialog.hide(tipos);
+            });            
+          }else{
+            var registryName = $stateParams.tipo_name + '_resdata';
+            var resData = tipoRegistry.get(registryName);
+            tipoRouter.toTipoResponse(resData,tipo_name,result[0].tipo_id,parameters);
+          }
         }
       });
     };
 
     _instance.toList = function(){
       tipoRouter.toTipoList(tipo_name);
+    };
+
+    _instance.maximize = function(){
+      $scope.fullscreen = true;
+    };
+
+    _instance.restore = function(){
+      $scope.fullscreen = false;
     };
 
     _instance.cancel = function(){

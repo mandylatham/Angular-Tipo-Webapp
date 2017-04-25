@@ -15,15 +15,6 @@
     </div>
   </md-toolbar>
   <md-dialog-content>
-    <!-- <div class="tp-list">
-      <div class="fluid-row-container">
-        <div layout="row" ng-repeat="tipo in tipoRootController.definition" class="fluid-row" md-whiteframe="2">
-          <div flex layout="row" layout-padding layout-wrap layout-align="start start" class="data pointer" ng-class="{'selected': tipo.selected}" ng-click="selectObject(tipo)">
-            <tp:field-container field="field" ng-if="!field._ui.isGroup && !field.hidden && field._value" ng-repeat="field in tipo.value.tipo_fields"/>
-          </div>
-        </div>
-      </div>
-    </div> -->
     <md-input-container flex class="tp-list">
       <label>&nbsp;</label>
       <input ng-model="tipoRootController.searchText" placeholder="enter search" data-ng-keyup="$event.keyCode == 13 ? tipoRootController.search() : null">
@@ -37,6 +28,9 @@
     </md-button>
     <md-button md-theme="reverse" class="md-raised md-primary" ng-click="tipoRootController.finish()">
      Save
+    </md-button>
+    <md-button md-theme="reverse" class="md-raised md-primary" ng-click="tipoRootController.addTipo()">
+     New
     </md-button>
   </md-dialog-actions>
 </md-dialog>

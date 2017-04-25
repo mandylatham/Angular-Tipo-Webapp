@@ -36,7 +36,9 @@
 
     function mergeDefinitionAndData(tipoDefinition, tipoData, resetExistingData, copy){
       if(tipoDefinition.tipo_fields){
-         copy = !_.isUndefined(copy);
+        if (_.isUndefined(copy)) {
+          copy = false;
+        };
         _.each(tipoDefinition.tipo_fields, function(field){
           var fieldKey = field.field_name;
           var fieldType = field.field_type;
@@ -115,10 +117,10 @@
                 if(item._ARRAY_META){
                   itemField._ui.hash = item._ARRAY_META._HASH;
                 }
-                mergeDefinitionAndData(itemField, item);
+                mergeDefinitionAndData(itemField, item ,resetExistingData, copy);
               });
             }else{
-              mergeDefinitionAndData(field, fieldValue);
+              mergeDefinitionAndData(field, fieldValue,resetExistingData, copy);
               // determine if the group has values for any field
               var hasValue = false;
               _.each(field.tipo_fields, function(each){
@@ -461,9 +463,13 @@
     function modifyTipoData(tipoData){
       _.forOwn(tipoData, function(value, key){
         if (!_.isArray(value) && !_.isObject(value)) {
-          if(!value){
+          if( _.isEmpty(value)){
             tipoData[key] = null;
-          }
+          }else{
+            if (_.isUndefined(value)) {
+              delete tipoData[key];
+            };
+          };
         }
         if (_.isObject(value)) {
           modifyTipoData(value);
