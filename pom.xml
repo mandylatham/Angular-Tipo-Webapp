@@ -160,23 +160,6 @@
           </execution>
 
           <execution>
-            <id>delete-tipoapp-gentemp-s3</id>
-            <phase>deploy</phase>
-            <goals>
-              <goal>exec</goal>
-            </goals>
-            <configuration>
-              <executable>aws</executable>
-              <arguments>
-                <argument>s3</argument>
-                <argument>rm</argument>
-                <argument>--recursive</argument>
-                <argument>s3://${USER_S3_BUCKET}/g/tipotapp/tipoapp/public/gen_temp/</argument>
-              </arguments>
-            </configuration>
-          </execution>
-
-          <execution>
             <id>upload-tipoappbase-public-s3</id>
             <phase>deploy</phase>
             <goals>
@@ -211,7 +194,7 @@
           </execution>
 
           <execution>
-            <id>delete-tipoappbase-gentemp-s3</id>
+            <id>delete-gentemp-s3</id>
             <phase>deploy</phase>
             <goals>
               <goal>exec</goal>
@@ -221,8 +204,13 @@
               <arguments>
                 <argument>s3</argument>
                 <argument>rm</argument>
+                <argument>s3://${USER_S3_BUCKET}/</argument>
+                <!--<argument>dryrun</argument>-->
                 <argument>--recursive</argument>
-                <argument>s3://${USER_S3_BUCKET}/g/tipotapp/tipoappbase/public/gen_temp/</argument>
+                <argument>--exclude</argument>
+                <argument>*</argument>
+                <argument>--include</argument>
+                <argument>*/gen_temp/</argument>
               </arguments>
             </configuration>
           </execution>
