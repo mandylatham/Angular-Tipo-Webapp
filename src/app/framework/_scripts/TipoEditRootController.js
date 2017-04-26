@@ -530,7 +530,17 @@
       return boolVal;
     }
 
+    _instance.initAllowedValues = function(allowed_values,field_name){
+      _instance[field_name] = {};
+      if (!_.isEmpty(allowed_values) && _.isArray(allowed_values)) {
+        _instance[field_name].allowed_values = allowed_values;
+      };
+    }
 
+    _instance.addValue = function(field_name){
+      _instance[field_name].allowed_values.push(_instance[field_name].allowed_value);
+      delete _instance[field_name].allowed_value;
+    }
 
   }
 
