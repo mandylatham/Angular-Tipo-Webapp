@@ -4,10 +4,10 @@
 		  <md-select-header class="search">
 		    <md-input-container md-no-float>
 		      <input ng-model="searchTerm.text" type="search" placeholder="Search ..." ng-keydown="stopBubbling($event)" ng-keyup="$event.keyCode == 13 ? tipoSearch(searchTerm.text) : null" tp:auto-focus>
+		      <md-icon class="md-primary addtipo pointer" ng-click="addTipo()">add</md-icon>
 		    </md-input-container>
 		  </md-select-header>
 		  <md-option value="" ng-if="!field.mandatory && !searchTerm.text"></md-option>
-		  <md-option value="" ng-click="addTipo()">Create New</md-option>
 		  <md-option ng-value="option" ng-repeat="option in options">{{ option.label }}</md-option>
 		</md-select>
 		<input ng-if="isPopup" ng-model="field._value.label" ng-disabled="isPopup">

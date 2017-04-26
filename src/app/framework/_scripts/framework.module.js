@@ -41,7 +41,7 @@
 
           if ($stateParams.filter) {
             if (filter.tipo_filter) {
-              filter.tipo_filter += " and " + tipoManipulationService.expandFilterExpression(tipoFilters.currentExpression);
+              filter.tipo_filter += " AND " + tipoManipulationService.expandFilterExpression(tipoFilters.currentExpression);
             } else {
               filter.tipo_filter = tipoManipulationService.expandFilterExpression(tipoFilters.currentExpression);
             }

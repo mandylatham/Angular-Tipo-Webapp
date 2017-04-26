@@ -455,6 +455,31 @@ md-fab-speed-dial.md-fab-top-right{
   top: 45px;
   right: 0px;
 }
+.addtipo{
+  top: 22px;
+  right: 10px !important
+}
+.md-dialog-container{
+  z-index:100;
+}
+ // For Rich Text
+.btn-group,
+.btn-group-vertical {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle; // match .btn alignment given font-size hack above
+  > .btn {
+    position: relative;
+    float: left;
+    // Bring the "active" button to the front
+    &:hover,
+    &:focus,
+    &:active,
+    &.active {
+      z-index: 1;
+    }
+  }
+}
 
 // For Loading Bar
  /* Styling for the ngProgress itself */

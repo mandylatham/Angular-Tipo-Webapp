@@ -29,7 +29,7 @@
     <md-button md-theme="reverse" class="md-raised md-primary" ng-click="tipoRootController.finish()">
      Save
     </md-button>
-    <md-button md-theme="reverse" class="md-raised md-primary" ng-click="tipoRootController.addTipo()">
+    <md-button tp:perm ng-if="!tipoRootController.disablecreate" md-theme="reverse" class="md-raised md-primary" ng-click="tipoRootController.addTipo()">
      New
     </md-button>
   </md-dialog-actions>

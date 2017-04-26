@@ -9,6 +9,7 @@
     $rootScope,
     tipoInstanceDataService,
     TipoTypeService,
+    tipoManipulationService,
     $stateParams) {
 
     var _instance = this;
@@ -30,7 +31,14 @@
                           field_group: true});
       });
     };
-    tipoInstanceDataService.search("TipoDefinition").then(function(tipo_objects){
+    var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
+    var filter = {};
+    if (perspectiveMetadata.tipoName) {
+      if (perspectiveMetadata.tipoName !== $scope.tipoRootController.tipoDefinition.tipo_meta.tipo_name) {
+        filter.tipo_filter = perspectiveMetadata.tipoFilter;
+      }
+    }
+    tipoInstanceDataService.search("TipoDefinition",filter).then(function(tipo_objects){
       _instance.tipo_objects = tipo_objects;
       _.each(tipo_objects,function(tipo_object){
     	  /**Either Tipos are from the same application or other application that the user has access to. 

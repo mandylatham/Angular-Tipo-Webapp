@@ -9,6 +9,7 @@
     $mdDialog,
     tipoRouter,
     tipoCache,
+    tipoRegistry,
     tipoInstanceDataService) {
 
     var _instance = this;
@@ -16,6 +17,8 @@
     _instance.tiposWithDefinition = tipoDefinition.tiposWithDefinition;
     _instance.tipoDefinition = tipoDefinition.tipoDefinition;
     _instance.tipos = tipoDefinition.tipos;
+    var tipo_perm = tipoRegistry.get($scope.tipo_name + '_resdata');
+    _instance.perm = tipo_perm.perm;
     _instance.popup = true;
     _instance.tipo_fields = $scope.tipo_fields;
     _instance.selectedTipos = $scope.selectedTipos;
@@ -64,6 +67,34 @@
     }
     _instance.finish = function() {    
       $mdDialog.hide($scope.selectedTipos);
+    };
+    _instance.addTipo = function() {
+      var promise = $mdDialog.show({
+        templateUrl: 'framework/_directives/_views/tp-lookup-popup-select-new.tpl.html',
+        controller: 'TipoCreateRootController',
+        controllerAs: 'tipoRootController',
+        fullscreen: true,
+        resolve: /*@ngInject*/
+        {
+          tipo: function() {
+            return undefined;
+          },
+          tipoDefinition: function(){
+            return _instance.tipoDefinition;
+          }
+        },
+        skipHide: true,
+        clickOutsideToClose: true,
+        fullscreen: true
+      });
+      promise.then(function(tipos){
+        if (_.isArray(tipos)) {
+          _instance.tipos = tipos;
+          _instance.tiposWithDefinition = tipoManipulationService.mergeDefinitionAndDataArray(_instance.tipoDefinition, tipos, $scope.label_field);
+        };
+        tipoRouter.endStateChange();
+      })
+      return promise;
     };
     _instance.cancel = function() {
       $mdDialog.cancel();
@@ -138,6 +169,41 @@
       });
     };
 
+    _instance.addTipo = function(baseFilter,tipo_name,label_field,uniq_name,prefix,label,index) {
+      var promise = $mdDialog.show({
+        templateUrl: 'framework/_directives/_views/tp-lookup-popup-select-new.tpl.html',
+        controller: 'TipoCreateRootController',
+        controllerAs: 'tipoRootController',
+        fullscreen: true,
+        resolve: /*@ngInject*/
+        {
+          tipo: function() {
+            return undefined;
+          },
+          tipoDefinition: function(tipoDefinitionDataService){
+            return tipoDefinitionDataService.getOne(tipo_name);
+          }
+        },
+        skipHide: true,
+        clickOutsideToClose: true
+      });
+      promise.then(function(tipos){
+        if (_.isArray(tipos)) {
+          _instance.loadOptions(baseFilter,tipo_name,label_field,uniq_name,prefix,label,index);
+        };
+        tipoRouter.endStateChange();
+      })
+      return promise;
+    };
+
+    _instance.stopBubbling = function(event){
+      event.stopPropagation();
+    };
+
+    _instance.tipoSearch = function(searchText,baseFilter,tipo_name,label_field,uniq_name,prefix,label,index){
+      _instance.loadOptions(baseFilter,tipo_name,label_field,uniq_name,prefix,label,index,searchText);
+    };
+
      _instance.setInstance = function(uniq_name,data,prefix,label,index){
       if (_.isUndefined(_.find(_instance,uniq_name))) {
         _.set(_instance, uniq_name, {});
@@ -153,21 +219,34 @@
       }
         if (!_.isUndefined(tipo_data)) {
           if (_.isArray(tipo_data)) {
-            _instance[uniq_name].model = _.map(tipo_data, function(each){
-              return {
-                key: each,
-                label: _instance.tipo[uniq_name + '_refs']['ref' + each]
-              };
-            });
+            if (_.isUndefined(prefix)) {
+              _instance[uniq_name].model = _.map(tipo_data, function(each){
+                return {
+                  key: each,
+                  label: _instance.tipo[uniq_name + '_refs']['ref' + each]
+                };
+              });
+            }else{
+              _instance[uniq_name].model = _.map(tipo_data, function(each){
+                return {
+                  key: each,
+                  label: _instance.tipo[prefix][index][label + '_refs']['ref' + each]
+                };
+              });
+            }
           }else{
-            _instance[uniq_name].model = {key: tipo_data, label: _instance.tipo[uniq_name + '_refs']['ref' + tipo_data] }
+            if (_.isUndefined(prefix)) {
+              _instance[uniq_name].model = {key: tipo_data, label: _instance.tipo[uniq_name + '_refs']['ref' + tipo_data] }
+            }else{
+              _instance[uniq_name].model = {key: tipo_data, label: _instance.tipo[prefix][index][label + '_refs']['ref' + tipo_data] }
+            }
           }
         };
     }
 
-    _instance.loadOptions = function (baseFilter,tipo_name,label_field,uniq_name,prefix,label,index){
+    _instance.loadOptions = function (baseFilter,tipo_name,label_field,uniq_name,prefix,label,index,searchText){
       _instance[uniq_name] = {};
-      tipoInstanceDataService.gettpObjectOptions(baseFilter,tipo_name,label_field,_instance.tipoDefinition).then(function(result){
+      tipoInstanceDataService.gettpObjectOptions(baseFilter,tipo_name,label_field,_instance.tipoDefinition,searchText).then(function(result){
         _instance.setInstance(uniq_name,result,prefix,label,index)
       });      
     };
@@ -190,9 +269,9 @@
       }
     }
 
-    _instance.loadPopupOptions = function (baseFilter,tipo_name,label_field,uniq_name){
+    _instance.loadPopupOptions = function (baseFilter,tipo_name,label_field,uniq_name,prefix,label,index){
       return tipoInstanceDataService.gettpObjectOptions(baseFilter,tipo_name,label_field,_instance.tipoDefinition).then(function(result){
-        _instance.setInstance(uniq_name,result)
+        _instance.setInstance(uniq_name,result,prefix,label,index)
       });      
     };
 
@@ -211,27 +290,29 @@
     _instance.searchTerm = {};
     _instance.cleanup = function(uniq_name,prefix,label,index){
       var tipo_data = _instance[uniq_name].model;
-      if (_.isUndefined(prefix)) {
-        if (_.isArray(tipo_data)){
-          _instance.tipo[uniq_name]=[];
-          _.each(tipo_data,function(each){
-            _instance.tipo[uniq_name].push(each.key);
-            _.set(_instance.tipo, uniq_name + '_refs.ref' + each.key, each.label);
-          });
+      if (!_.isUndefined(tipo_data)) {
+        if (_.isUndefined(prefix)) {
+          if (_.isArray(tipo_data)){
+            _instance.tipo[uniq_name]=[];
+            _.each(tipo_data,function(each){
+              _instance.tipo[uniq_name].push(each.key);
+              _.set(_instance.tipo, uniq_name + '_refs.ref' + each.key, each.label);
+            });
+          }else{
+            _instance.tipo[uniq_name] = tipo_data.key;
+            _.set(_instance.tipo, uniq_name + '_refs.ref' + tipo_data.key, tipo_data.label);
+          }
         }else{
-          _instance.tipo[uniq_name] = tipo_data.key;
-          _.set(_instance.tipo, uniq_name + '_refs.ref' + tipo_data.key, tipo_data.label);
-        }
-      }else{
-        if (_.isArray(tipo_data)){
-          _instance.tipo[prefix][index][label]=[];
-          _.each(tipo_data,function(each){
-            _instance.tipo[prefix][index][label].push(each.key);
-            _.set(_instance.tipo[prefix][index], label + '_refs.ref' + each.key, each.label);
-          });
-        }else{
-          _instance.tipo[prefix][index][label] = tipo_data.key;
-          _.set(_instance.tipo[prefix][index], label + '_refs.ref' + tipo_data.key, tipo_data.label);
+          if (_.isArray(tipo_data)){
+            _instance.tipo[prefix][index][label]=[];
+            _.each(tipo_data,function(each){
+              _instance.tipo[prefix][index][label].push(each.key);
+              _.set(_instance.tipo[prefix][index], label + '_refs.ref' + each.key, each.label);
+            });
+          }else{
+            _instance.tipo[prefix][index][label] = tipo_data.key;
+            _.set(_instance.tipo[prefix][index], label + '_refs.ref' + tipo_data.key, tipo_data.label);
+          }
         }
       }
       delete _instance.searchTerm.text;
@@ -273,7 +354,7 @@
 
 
     function openTipoObjectDialog(baseFilter,tipo_name,label_field,uniq_name,isArray,prefix,label,index){
-      var promise1 =  _instance.loadPopupOptions(baseFilter,tipo_name,label_field,uniq_name);
+      var promise1 =  _instance.loadPopupOptions(baseFilter,tipo_name,label_field,uniq_name,prefix,label,index);
       promise1.then(function(){
       var newScope =$scope.$new();
       var tipo_data = _instance[uniq_name].model;
