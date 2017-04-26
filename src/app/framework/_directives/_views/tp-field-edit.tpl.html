@@ -33,6 +33,11 @@
             </div>
             <div ng-if="field.allowed_values">
               <md-select ng-model="field._value.key" placeholder="{{field.field_description}}" name="{{field.display_name}}_{{field.field_type}}" ng-required="field.mandatory">
+                <md-select-header class="search">
+                  <md-input-container md-no-float>
+                    <input ng-model="allowed.value" type="search" placeholder="Add New" ng-keydown="$event.stopPropagation()" ng-keyup="$event.keyCode == 13 ? addValue() : null" tp:auto-focus>
+                  </md-input-container>
+                </md-select-header>
                 <md-option value="" ng-if="!field.mandatory">-- Clear --</md-option>
                 <md-option ng-value="option" ng-repeat="option in field.allowed_values">{{ option }}</md-option>
               </md-select>
@@ -45,7 +50,17 @@
           <span ng-switch-when="file">
             <tp:file field="field" mode="edit"/>
           </span>
-          <md-chips ng-model="field._value" md-transform-chip="wrapSimpleValue($chip)" class="tp-chips" placeholder="{{field.field_description}}" name="{{field.display_name}}_{{field.field_type}}" ng-required="field.mandatory" ng-switch-default>
+          <div ng-if="field.allowed_values">
+            <md-select ng-model="field._value.key" multiple="true" placeholder="{{field.field_description}}" name="{{field.display_name}}_{{field.field_type}}" ng-required="field.mandatory">
+              <md-select-header class="search">
+                <md-input-container md-no-float>
+                  <input ng-model="allowed.value" type="search" placeholder="Add New" ng-keydown="$event.stopPropagation()" ng-keyup="$event.keyCode == 13 ? addValue() : null" tp:auto-focus>
+                </md-input-container>
+              </md-select-header>
+              <md-option ng-value="option" ng-repeat="option in field.allowed_values">{{ option }}</md-option>
+            </md-select>
+          </div>
+          <md-chips ng-if="!field.allowed_values" ng-model="field._value" md-transform-chip="wrapSimpleValue($chip)" class="tp-chips" placeholder="{{field.field_description}}" name="{{field.display_name}}_{{field.field_type}}" ng-required="field.mandatory" ng-switch-default>
             <md-chip-template>
               <span>{{$chip.key}}</span>
             </md-chip-template>

@@ -76,11 +76,15 @@
       $scope.fullscreen = false;
     };
 
-    _instance.cancel = function(){
-      if(tipoRouter.stickyExists()){
-        tipoRouter.toStickyAndReset();
+    _instance.cancel = function(formtype){
+      if (formtype === 'dialog') {
+        $mdDialog.hide();
       }else{
-        _instance.toList();
+        if(tipoRouter.stickyExists()){
+          tipoRouter.toStickyAndReset();
+        }else{
+          _instance.toList();
+        }
       }
     };
 

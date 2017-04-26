@@ -184,7 +184,7 @@
       return promise;
     };
 
-    _instance.gettpObjectOptions = function(baseFilter,tipo_name,label_field,context){
+    _instance.gettpObjectOptions = function(baseFilter,tipo_name,label_field,context,searchText){
       var searchCriteria = {};
       var filter;
       var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
@@ -197,6 +197,13 @@
       }
       if(!_.isUndefined(filter)){
         searchCriteria.tipo_filter = filter;
+      }
+      if(!_.isUndefined(searchCriteria.tipo_filter) && !_.isEmpty(searchCriteria.tipo_filter)  && !_.isUndefined(searchText)){
+        searchCriteria.tipo_filter += "AND (_all:(" + searchText + "*))";
+      }else{
+        if (!_.isUndefined(searchText)) {
+          searchCriteria.tipo_filter = "(_all:(" + searchText + "*))";
+        }
       }
       searchCriteria.page = 1;
       searchCriteria.per_page = 10;

@@ -123,8 +123,10 @@
     var location = $window.location;
     var relativeUrl = location.pathname;
     if (_.startsWith(relativeUrl, '/app')) {
+      // relativeUrl = '/api/d/tipotapp/santoshtestt' + relativeUrl.substring(4);
       relativeUrl = '/api' + relativeUrl.substring(4);
     } else {
+      // relativeUrl = '/api/d/tipotapp/santoshtestt';
       relativeUrl = '/api';
     }
     var baseUrl = location.origin + relativeUrl;

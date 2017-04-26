@@ -11,6 +11,7 @@
     $mdDialog,
     tipoCache,
     tipoRouter,
+    tipoRegistry,
     tipoInstanceDataService) {
 
     var _instance = this;
@@ -21,6 +22,8 @@
     _instance.tipos = $scope.tipos;
     _instance.tipo_fields = $scope.tipo_fields;
     _instance.selectedTipos = $scope.selectedTipos;
+    var tipo_perm = tipoRegistry.get($scope.tipo_name + '_resdata');
+    _instance.perm = tipo_perm.perm;
     $scope.fullscreen = true;
     if ($scope.selectedTipos.length > 0) {
       _.each(_instance.tiposWithDefinition, function(tipo){
@@ -85,43 +88,13 @@
       });
       promise.then(function(tipos){
         if (_.isArray(tipos)) {
+          _instance.tipos = tipos;
           _instance.tiposWithDefinition = tipoManipulationService.mergeDefinitionAndDataArray(_instance.tipoDefinition, tipos, $scope.label_field);
         };
         tipoRouter.endStateChange();
       })
       return promise;
     };
-    function openTipoObjectDialog(){
-      scope.loadOptions();
-      var newScope = scope.$new();
-      newScope.isArray = isArray;
-      newScope.field = scope.context;
-      newScope.tipos = scope.tipos;
-      newScope.tipo_name = scope.tipo_name;
-      newScope.label_field = scope.label_field;
-      if (scope.root) {
-      newScope.tipo_fields = scope.root.tipo_fields}
-      newScope.selectedTipos = scope.selectedTipos;
-      var promise = $mdDialog.show({
-        templateUrl: 'framework/_directives/_views/tp-lookup-popup-select.tpl.html',
-        controller: TipoObjectDialogController,
-        controllerAs: 'tipoRootController',
-        scope: newScope,
-        resolve: /*@ngInject*/
-        {
-          tipoDefinition: function(tipoDefinitionDataService, tipoManipulationService) {
-            return tipoDefinitionDataService.getOne(scope.tipo_name).then(function(definition){
-              var tiposWithDefinition = tipoManipulationService.mergeDefinitionAndDataArray(definition, scope.tipos, label_field);
-              return {tipoDefinition: definition, tiposWithDefinition: tiposWithDefinition}
-            });
-          }
-        },
-        skipHide: true,
-        clickOutsideToClose: true,
-        fullscreen: true
-      });
-      return promise;
-    }
 
     _instance.search = function(){
       var filter = {};
@@ -145,6 +118,7 @@
   return module.directive('tpLookup', function (
     tipoInstanceDataService,
     tipoManipulationService,
+    tipoRouter,
     $mdDialog) {
       return {
         scope: {

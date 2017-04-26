@@ -5,7 +5,6 @@
     "data": {
         "perm": "1111111",
         "application_refs": {},
-        "geo_latitude": 17.727720899999998,
         "tipo_name": "TipoDefinition",
         "tipo_id": "VelocityTest",
         "account_refs": {},
@@ -53,7 +52,6 @@
             ],
             "actions": [
                 {
-                    "bulk_select": true,
                     "tipo_action": "action_non_highlight",
                     "tipo_function_refs": {
                         "ref5291001589": "CustomFunction"
@@ -84,7 +82,6 @@
                     "display_name": "Action Dropdown"
                 },
                 {
-                    "highlight": true,
                     "tipo_action": "action_highlight",
                     "tipo_function_refs": {
                         "ref5291001589": "CustomFunction"
@@ -102,7 +99,6 @@
             ]
         },
         "application_owner_account": "2000000001",
-        "geo_longitude": 83.3130329,
         "tipo_fields": [
             {
                 "sequence": "0",
@@ -111,14 +107,12 @@
                         "TipoApp": "Tipo.TipoApp"
                     }
                 },
-                "short_display": true,
                 "_ARRAY_META": {
                     "_HASH": "7482760572"
                 },
                 "display_name": "TipoApp",
                 "field_type": "Tipo.TipoApp",
                 "field_name": "tipoapp",
-                "hidden_": true,
                 "key_field": {
                     "hidden_": "true",
                     "sizing": "2",
@@ -173,8 +167,6 @@
                     "refstring": "Simple String"
                 },
                 "metadata": [],
-                "short_display": true,
-                "meaningful_key": true,
                 "_ARRAY_META": {
                     "_HASH": "8814052217"
                 },
@@ -182,10 +174,12 @@
                 "display_name": "Simple String",
                 "field_type": "string",
                 "field_name": "simple_string",
-                "validations": "L14uK0AuKy4uKyQv",
+                "validations": "Xi4rQC4rXC4uKyQ=",
                 "validations_refs": {
                     "ref5024097185": "Email",
-                    "refL14uK0AuKy4uKyQv": "Email"
+                    "refL14uK0AuKy4uKyQv": "Email",
+                    "refL14uK0AuK1wuLiskLw==": "Email",
+                    "refXi4rQC4rXC4uKyQ=": "Email"
                 },
                 "_value": {
                     "key": "Nooo"
@@ -215,7 +209,6 @@
                         "value_": "Y"
                     }
                 ],
-                "short_display": true,
                 "_ARRAY_META": {
                     "_HASH": "2575865057"
                 },
@@ -237,7 +230,6 @@
                 "field_type_refs": {
                     "refrichstring": "Rich Text"
                 },
-                "short_display": true,
                 "_ARRAY_META": {
                     "_HASH": "1240763039"
                 },
@@ -259,7 +251,6 @@
                 "field_type_refs": {
                     "refhtmlLink": "Link"
                 },
-                "short_display": true,
                 "_ARRAY_META": {
                     "_HASH": "7693096437"
                 },
@@ -281,7 +272,6 @@
                 "field_type_refs": {
                     "refboolean": "True/False"
                 },
-                "short_display": true,
                 "_ARRAY_META": {
                     "_HASH": "7407795207"
                 },
@@ -307,7 +297,6 @@
                 "field_type_refs": {
                     "refdate_time": "Date/Time"
                 },
-                "short_display": true,
                 "_ARRAY_META": {
                     "_HASH": "4508423425"
                 },
@@ -329,7 +318,6 @@
                 "field_type_refs": {
                     "refinteger": "Integer"
                 },
-                "short_display": true,
                 "_ARRAY_META": {
                     "_HASH": "1656516289"
                 },
@@ -350,11 +338,65 @@
                 "sequence": "9",
                 "field_type_refs": {
                     "refTipo": {
+                        "TipoApp": "Tipo.undefined",
+                        "Definitions": "Definitions",
+                        "TipoIcon": "TipoIcon"
+                    }
+                },
+                "display_name": "TipoDropdown",
+                "field_type": "Tipo.TipoIcon",
+                "field_name": "tipodropdown",
+                "_ARRAY_META": {
+                    "_HASH": "5135716791"
+                },
+                "key_field": {
+                    "sequence": "0",
+                    "field_type_refs": {
+                        "refstring": "Simple String"
+                    },
+                    "short_display": true,
+                    "_ARRAY_META": {
+                        "_HASH": "82883ae9-a0b4-477f-b363-2212bac76d4f"
+                    },
+                    "display_name": "tipo_id",
+                    "field_type": "string",
+                    "field_name": "tipo_id"
+                },
+                "label_field": {
+                    "sequence": "1",
+                    "field_type_refs": {
+                        "refstring": "Simple String"
+                    },
+                    "short_display": true,
+                    "meaningful_key": true,
+                    "_ARRAY_META": {
+                        "_HASH": "4c8b05e0-bad6-42a0-8e43-c02bf89d4c22"
+                    },
+                    "display_name": "name",
+                    "field_type": "string",
+                    "field_name": "name_"
+                },
+                "fq_field_name": "tipodropdown",
+                "_ui": {
+                    "isArray": false,
+                    "isTipoRelationship": true,
+                    "relatedTipo": "TipoIcon",
+                    "isSimple": true
+                },
+                "underscore_ui": {
+                    "isArray": false,
+                    "isTipoRelationship": true,
+                    "relatedTipo": "TipoIcon",
+                    "isSimple": true
+                }
+            },
+            {
+                "sequence": "9",
+                "field_type_refs": {
+                    "refTipo": {
                         "TipoApp": "Tipo.undefined"
                     }
                 },
-                "short_display": true,
-                "tipo_array": true,
                 "_ARRAY_META": {
                     "_HASH": "9954111439"
                 },
@@ -397,13 +439,13 @@
                 },
                 "fq_field_name": "tipoarray",
                 "_ui": {
-                    "isArray": true,
+                    "isArray": false,
                     "isTipoRelationship": true,
                     "relatedTipo": "TipoApp",
                     "isSimple": true
                 },
                 "underscore_ui": {
-                    "isArray": true,
+                    "isArray": false,
                     "isTipoRelationship": true,
                     "relatedTipo": "TipoApp",
                     "isSimple": true
@@ -425,34 +467,12 @@
                         "value_": "Y"
                     }
                 ],
-                "short_display": true,
                 "_ARRAY_META": {
                     "_HASH": "4564951070"
                 },
                 "display_name": "TipoPopup",
                 "field_type": "Tipo.VelocityTest",
                 "field_name": "tipopopup",
-                "label_field": {
-                    "sequence": "1",
-                    "field_type_refs": {
-                        "refstring": "Simple String"
-                    },
-                    "metadata": [],
-                    "short_display": true,
-                    "meaningful_key": true,
-                    "_ARRAY_META": {
-                        "_HASH": "8814052217"
-                    },
-                    "default_value": "Nooo",
-                    "display_name": "Simple String",
-                    "field_type": "string",
-                    "field_name": "simple_string",
-                    "validations": "L14uK0AuKy4uKyQv",
-                    "validations_refs": {
-                        "ref5024097185": "Email",
-                        "refL14uK0AuKy4uKyQv": "Email"
-                    }
-                },
                 "fq_field_name": "tipopopup",
                 "_ui": {
                     "isArray": false,
@@ -483,44 +503,21 @@
                         "value_": "Y"
                     }
                 ],
-                "short_display": true,
-                "tipo_array": true,
                 "_ARRAY_META": {
                     "_HASH": "2809913672"
                 },
                 "display_name": "TipoArrayPop",
                 "field_type": "Tipo.VelocityTest",
                 "field_name": "tipoarraypop",
-                "label_field": {
-                    "sequence": "1",
-                    "field_type_refs": {
-                        "refstring": "Simple String"
-                    },
-                    "metadata": [],
-                    "short_display": true,
-                    "meaningful_key": true,
-                    "_ARRAY_META": {
-                        "_HASH": "8814052217"
-                    },
-                    "default_value": "Nooo",
-                    "display_name": "Simple String",
-                    "field_type": "string",
-                    "field_name": "simple_string",
-                    "validations": "L14uK0AuKy4uKyQv",
-                    "validations_refs": {
-                        "ref5024097185": "Email",
-                        "refL14uK0AuKy4uKyQv": "Email"
-                    }
-                },
                 "fq_field_name": "tipoarraypop",
                 "_ui": {
-                    "isArray": true,
+                    "isArray": false,
                     "isTipoRelationship": true,
                     "relatedTipo": "VelocityTest",
                     "isSimple": true
                 },
                 "underscore_ui": {
-                    "isArray": true,
+                    "isArray": false,
                     "isTipoRelationship": true,
                     "relatedTipo": "VelocityTest",
                     "isSimple": true
@@ -533,14 +530,12 @@
                         "TestGroup": "FieldGroup.TestGroup"
                     }
                 },
-                "short_display": true,
                 "_ARRAY_META": {
                     "_HASH": "7682131537"
                 },
                 "display_name": "FieldGrtest",
                 "field_type": "FieldGroup.TestGroup",
                 "field_name": "fieldgrtest",
-                "hidden_": true,
                 "fq_field_name": "fieldgrtest",
                 "tipo_fields": [
                     {
@@ -549,13 +544,11 @@
                         "field_type_refs": {
                             "refstring": "Simple String"
                         },
-                        "hidden_": true,
-                        "short_display": true,
                         "field_name": "field1",
                         "_ARRAY_META": {
                             "_HASH": "4601571033"
                         },
-                        "sequence": 0,
+                        "sequence": 1,
                         "fq_field_name": "fieldgrtest.field1",
                         "_ui": {
                             "isArray": false,
@@ -572,12 +565,11 @@
                         "field_type_refs": {
                             "refstring": "Simple String"
                         },
-                        "short_display": true,
                         "field_name": "field2",
-                        "sequence": 1,
                         "_ARRAY_META": {
                             "_HASH": "5551983329"
                         },
+                        "sequence": 2,
                         "fq_field_name": "fieldgrtest.field2",
                         "_ui": {
                             "isArray": false,
@@ -606,8 +598,6 @@
                         "TestGroup": "FieldGroup.TestGroup"
                     }
                 },
-                "short_display": true,
-                "tipo_array": true,
                 "_ARRAY_META": {
                     "_HASH": "2012291716"
                 },
@@ -622,13 +612,11 @@
                         "field_type_refs": {
                             "refstring": "Simple String"
                         },
-                        "hidden_": true,
-                        "short_display": true,
                         "field_name": "field1",
                         "_ARRAY_META": {
                             "_HASH": "4601571033"
                         },
-                        "sequence": 0,
+                        "sequence": 1,
                         "fq_field_name": "fieldgarraytest.field1",
                         "_ui": {
                             "isArray": false,
@@ -645,12 +633,11 @@
                         "field_type_refs": {
                             "refstring": "Simple String"
                         },
-                        "short_display": true,
                         "field_name": "field2",
-                        "sequence": 1,
                         "_ARRAY_META": {
                             "_HASH": "5551983329"
                         },
+                        "sequence": 2,
                         "fq_field_name": "fieldgarraytest.field2",
                         "_ui": {
                             "isArray": false,
@@ -664,11 +651,11 @@
                 ],
                 "fq_prefix": "fieldgarraytest",
                 "_ui": {
-                    "isArray": true,
+                    "isArray": false,
                     "isGroup": true
                 },
                 "underscore_ui": {
-                    "isArray": true,
+                    "isArray": false,
                     "isGroup": true
                 }
             },
@@ -679,8 +666,6 @@
                         "TestGroup": "FieldGroup.TestGroup"
                     }
                 },
-                "short_display": true,
-                "disable_expansion": true,
                 "_ARRAY_META": {
                     "_HASH": "6504288864"
                 },
@@ -695,13 +680,11 @@
                         "field_type_refs": {
                             "refstring": "Simple String"
                         },
-                        "hidden_": true,
-                        "short_display": true,
                         "field_name": "field1",
                         "_ARRAY_META": {
                             "_HASH": "4601571033"
                         },
-                        "sequence": 0,
+                        "sequence": 1,
                         "fq_field_name": "disabelexptest.field1",
                         "_ui": {
                             "isArray": false,
@@ -718,12 +701,11 @@
                         "field_type_refs": {
                             "refstring": "Simple String"
                         },
-                        "short_display": true,
                         "field_name": "field2",
-                        "sequence": 1,
                         "_ARRAY_META": {
                             "_HASH": "5551983329"
                         },
+                        "sequence": 2,
                         "fq_field_name": "disabelexptest.field2",
                         "_ui": {
                             "isArray": false,
@@ -752,9 +734,6 @@
                         "TestGroup": "FieldGroup.TestGroup"
                     }
                 },
-                "short_display": true,
-                "tipo_array": true,
-                "disable_expansion": true,
                 "_ARRAY_META": {
                     "_HASH": "7786678820"
                 },
@@ -769,13 +748,11 @@
                         "field_type_refs": {
                             "refstring": "Simple String"
                         },
-                        "hidden_": true,
-                        "short_display": true,
                         "field_name": "field1",
                         "_ARRAY_META": {
                             "_HASH": "4601571033"
                         },
-                        "sequence": 0,
+                        "sequence": 1,
                         "fq_field_name": "disabearrayexptest.field1",
                         "_ui": {
                             "isArray": false,
@@ -792,12 +769,11 @@
                         "field_type_refs": {
                             "refstring": "Simple String"
                         },
-                        "short_display": true,
                         "field_name": "field2",
-                        "sequence": 1,
                         "_ARRAY_META": {
                             "_HASH": "5551983329"
                         },
+                        "sequence": 2,
                         "fq_field_name": "disabearrayexptest.field2",
                         "_ui": {
                             "isArray": false,
@@ -811,11 +787,11 @@
                 ],
                 "fq_prefix": "disabearrayexptest",
                 "_ui": {
-                    "isArray": true,
+                    "isArray": false,
                     "isGroup": true
                 },
                 "underscore_ui": {
-                    "isArray": true,
+                    "isArray": false,
                     "isGroup": true
                 }
             },
@@ -846,32 +822,19 @@
         "created_by": "santosh.subbarao@tipotapp.com",
         "hash_key": "2000000001.1000000001.2000000001.TipoDefinition.VelocityTest",
         "application": "1000000001",
-        "el_index": true,
-        "updated_dt": 1492685356405,
         "updated_by": "santosh.subbarao@tipotapp.com",
         "created_date": "2017-03-25T11:57:48.246Z",
-        "updated_date": "2017-04-20T10:49:16.405Z",
+        "updated_date": "2017-04-25T05:48:03.623Z",
         "tipo_fields2field_type_refs": {
             "refstring": "Simple String"
         },
         "tipo_fields2field_type": "string",
         "account": "2000000001",
         "tipo_create": {
-            "actions": [
-                {
-                    "tipo_action": "deafult_create",
-                    "hidden_": true,
-                    "default_": true,
-                    "tipo_function": "5291001589",
-                    "tipo_function_refs": {
-                        "ref5291001589": "CustomFunction"
-                    },
-                    "_ARRAY_META": {
-                        "_HASH": "2789209460"
-                    }
-                }
-            ]
+            "actions": []
         },
+        "updated_dt": 1493099283623,
+        "el_index": true,
         "_ui": {
             "listTemplate": "g/public/gen_temp/common/views/list-fluid.tpl.html___VelocityTest",
             "listTemplateUrl": "g/public/gen_temp/common/views/list-fluid.tpl.html___VelocityTest",
@@ -884,456 +847,7 @@
             "isDefinition": true,
             "isSingleton": false,
             "hierarchyPrepared": true
-        },
-        "short_display_fields": [
-            {
-                "sequence": "1",
-                "field_type_refs": {
-                    "refstring": "Simple String"
-                },
-                "metadata": [],
-                "short_display": true,
-                "meaningful_key": true,
-                "_ARRAY_META": {
-                    "_HASH": "8814052217"
-                },
-                "default_value": "Nooo",
-                "display_name": "Simple String",
-                "field_type": "string",
-                "field_name": "simple_string",
-                "validations": "L14uK0AuKy4uKyQv",
-                "validations_refs": {
-                    "ref5024097185": "Email",
-                    "refL14uK0AuKy4uKyQv": "Email"
-                },
-                "_value": {
-                    "key": "Nooo"
-                },
-                "fq_field_name": "simple_string",
-                "_ui": {
-                    "isArray": false,
-                    "isSimple": true
-                },
-                "underscore_ui": {
-                    "isArray": false,
-                    "isSimple": true
-                }
-            },
-            {
-                "sequence": "2",
-                "field_type_refs": {
-                    "refstring": "Simple String",
-                    "reflongstring": "Paragraph"
-                },
-                "metadata": [
-                    {
-                        "key_": "transient",
-                        "_ARRAY_META": {
-                            "_HASH": "5999531332"
-                        },
-                        "value_": "Y"
-                    }
-                ],
-                "short_display": true,
-                "_ARRAY_META": {
-                    "_HASH": "2575865057"
-                },
-                "display_name": "Para",
-                "field_type": "string",
-                "field_name": "para",
-                "fq_field_name": "para",
-                "_ui": {
-                    "isArray": false,
-                    "isSimple": true
-                },
-                "underscore_ui": {
-                    "isArray": false,
-                    "isSimple": true
-                }
-            },
-            {
-                "sequence": "3",
-                "field_type_refs": {
-                    "refrichstring": "Rich Text"
-                },
-                "short_display": true,
-                "_ARRAY_META": {
-                    "_HASH": "1240763039"
-                },
-                "display_name": "Rich Text",
-                "field_type": "richstring",
-                "field_name": "rich_text",
-                "fq_field_name": "rich_text",
-                "_ui": {
-                    "isArray": false,
-                    "isSimple": true
-                },
-                "underscore_ui": {
-                    "isArray": false,
-                    "isSimple": true
-                }
-            },
-            {
-                "sequence": "4",
-                "field_type_refs": {
-                    "refhtmlLink": "Link"
-                },
-                "short_display": true,
-                "_ARRAY_META": {
-                    "_HASH": "7693096437"
-                },
-                "display_name": "HTML Link",
-                "field_type": "htmlLink",
-                "field_name": "html_link",
-                "fq_field_name": "html_link",
-                "_ui": {
-                    "isArray": false,
-                    "isSimple": true
-                },
-                "underscore_ui": {
-                    "isArray": false,
-                    "isSimple": true
-                }
-            },
-            {
-                "sequence": "5",
-                "field_type_refs": {
-                    "refboolean": "True/False"
-                },
-                "short_display": true,
-                "_ARRAY_META": {
-                    "_HASH": "7407795207"
-                },
-                "default_value": "true",
-                "display_name": "Boolean",
-                "field_type": "boolean",
-                "field_name": "boolean_",
-                "_value": {
-                    "key": "true"
-                },
-                "fq_field_name": "boolean_",
-                "_ui": {
-                    "isArray": false,
-                    "isSimple": true
-                },
-                "underscore_ui": {
-                    "isArray": false,
-                    "isSimple": true
-                }
-            },
-            {
-                "sequence": "6",
-                "field_type_refs": {
-                    "refdate_time": "Date/Time"
-                },
-                "short_display": true,
-                "_ARRAY_META": {
-                    "_HASH": "4508423425"
-                },
-                "display_name": "Date/Time",
-                "field_type": "date_time",
-                "field_name": "date_time",
-                "fq_field_name": "date_time",
-                "_ui": {
-                    "isArray": false,
-                    "isSimple": true
-                },
-                "underscore_ui": {
-                    "isArray": false,
-                    "isSimple": true
-                }
-            },
-            {
-                "sequence": "7",
-                "field_type_refs": {
-                    "refinteger": "Integer"
-                },
-                "short_display": true,
-                "_ARRAY_META": {
-                    "_HASH": "1656516289"
-                },
-                "display_name": "Integer",
-                "field_type": "integer",
-                "field_name": "integer_",
-                "fq_field_name": "integer_",
-                "_ui": {
-                    "isArray": false,
-                    "isSimple": true
-                },
-                "underscore_ui": {
-                    "isArray": false,
-                    "isSimple": true
-                }
-            },
-            {
-                "sequence": "9",
-                "field_type_refs": {
-                    "refTipo": {
-                        "TipoApp": "Tipo.undefined"
-                    }
-                },
-                "short_display": true,
-                "tipo_array": true,
-                "_ARRAY_META": {
-                    "_HASH": "9954111439"
-                },
-                "display_name": "TipoArray",
-                "field_type": "Tipo.TipoApp",
-                "field_name": "tipoarray",
-                "key_field": {
-                    "hidden_": "true",
-                    "sizing": "2",
-                    "sequence": "4",
-                    "field_type_refs": {
-                        "refstring": "Simple String"
-                    },
-                    "field_description": "App ID",
-                    "short_display": true,
-                    "hidden": true,
-                    "read_only": true,
-                    "_ARRAY_META": {
-                        "_HASH": "4046f0f5-41f4-4a7e-8483-590c431381fd"
-                    },
-                    "display_name": "App ID",
-                    "field_type": "string",
-                    "field_name": "tipo_id"
-                },
-                "label_field": {
-                    "sequence": "1",
-                    "field_type_refs": {
-                        "refstring": "Simple String"
-                    },
-                    "field_description": "App Name",
-                    "short_display": true,
-                    "meaningful_key": true,
-                    "_ARRAY_META": {
-                        "_HASH": "96ac6aca-a96e-40a5-a3ca-50214129981f"
-                    },
-                    "display_name": "App Name",
-                    "field_type": "string",
-                    "mandatory": true,
-                    "field_name": "app_name"
-                },
-                "fq_field_name": "tipoarray",
-                "_ui": {
-                    "isArray": true,
-                    "isTipoRelationship": true,
-                    "relatedTipo": "TipoApp",
-                    "isSimple": true
-                },
-                "underscore_ui": {
-                    "isArray": true,
-                    "isTipoRelationship": true,
-                    "relatedTipo": "TipoApp",
-                    "isSimple": true
-                }
-            },
-            {
-                "sequence": "9",
-                "field_type_refs": {
-                    "refTipo": {
-                        "VelocityTest": "Tipo.VelocityTest"
-                    }
-                },
-                "metadata": [
-                    {
-                        "key_": "popup.select",
-                        "_ARRAY_META": {
-                            "_HASH": "4566015511"
-                        },
-                        "value_": "Y"
-                    }
-                ],
-                "short_display": true,
-                "_ARRAY_META": {
-                    "_HASH": "4564951070"
-                },
-                "display_name": "TipoPopup",
-                "field_type": "Tipo.VelocityTest",
-                "field_name": "tipopopup",
-                "label_field": {
-                    "sequence": "1",
-                    "field_type_refs": {
-                        "refstring": "Simple String"
-                    },
-                    "metadata": [],
-                    "short_display": true,
-                    "meaningful_key": true,
-                    "_ARRAY_META": {
-                        "_HASH": "8814052217"
-                    },
-                    "default_value": "Nooo",
-                    "display_name": "Simple String",
-                    "field_type": "string",
-                    "field_name": "simple_string",
-                    "validations": "L14uK0AuKy4uKyQv",
-                    "validations_refs": {
-                        "ref5024097185": "Email",
-                        "refL14uK0AuKy4uKyQv": "Email"
-                    }
-                },
-                "fq_field_name": "tipopopup",
-                "_ui": {
-                    "isArray": false,
-                    "isTipoRelationship": true,
-                    "relatedTipo": "VelocityTest",
-                    "isSimple": true
-                },
-                "underscore_ui": {
-                    "isArray": false,
-                    "isTipoRelationship": true,
-                    "relatedTipo": "VelocityTest",
-                    "isSimple": true
-                }
-            },
-            {
-                "sequence": "10",
-                "field_type_refs": {
-                    "refTipo": {
-                        "VelocityTest": "Tipo.VelocityTest"
-                    }
-                },
-                "metadata": [
-                    {
-                        "key_": "popup.select",
-                        "_ARRAY_META": {
-                            "_HASH": "2595826899"
-                        },
-                        "value_": "Y"
-                    }
-                ],
-                "short_display": true,
-                "tipo_array": true,
-                "_ARRAY_META": {
-                    "_HASH": "2809913672"
-                },
-                "display_name": "TipoArrayPop",
-                "field_type": "Tipo.VelocityTest",
-                "field_name": "tipoarraypop",
-                "label_field": {
-                    "sequence": "1",
-                    "field_type_refs": {
-                        "refstring": "Simple String"
-                    },
-                    "metadata": [],
-                    "short_display": true,
-                    "meaningful_key": true,
-                    "_ARRAY_META": {
-                        "_HASH": "8814052217"
-                    },
-                    "default_value": "Nooo",
-                    "display_name": "Simple String",
-                    "field_type": "string",
-                    "field_name": "simple_string",
-                    "validations": "L14uK0AuKy4uKyQv",
-                    "validations_refs": {
-                        "ref5024097185": "Email",
-                        "refL14uK0AuKy4uKyQv": "Email"
-                    }
-                },
-                "fq_field_name": "tipoarraypop",
-                "_ui": {
-                    "isArray": true,
-                    "isTipoRelationship": true,
-                    "relatedTipo": "VelocityTest",
-                    "isSimple": true
-                },
-                "underscore_ui": {
-                    "isArray": true,
-                    "isTipoRelationship": true,
-                    "relatedTipo": "VelocityTest",
-                    "isSimple": true
-                }
-            },
-            {
-                "display_name": "Field2",
-                "field_type": "string",
-                "field_type_refs": {
-                    "refstring": "Simple String"
-                },
-                "short_display": true,
-                "field_name": "field2",
-                "sequence": 1,
-                "_ARRAY_META": {
-                    "_HASH": "5551983329"
-                },
-                "fq_field_name": "fieldgrtest.field2",
-                "_ui": {
-                    "isArray": false,
-                    "isSimple": true
-                },
-                "underscore_ui": {
-                    "isArray": false,
-                    "isSimple": true
-                }
-            },
-            {
-                "display_name": "Field2",
-                "field_type": "string",
-                "field_type_refs": {
-                    "refstring": "Simple String"
-                },
-                "short_display": true,
-                "field_name": "field2",
-                "sequence": 1,
-                "_ARRAY_META": {
-                    "_HASH": "5551983329"
-                },
-                "fq_field_name": "fieldgarraytest.field2",
-                "_ui": {
-                    "isArray": false,
-                    "isSimple": true
-                },
-                "underscore_ui": {
-                    "isArray": false,
-                    "isSimple": true
-                }
-            },
-            {
-                "display_name": "Field2",
-                "field_type": "string",
-                "field_type_refs": {
-                    "refstring": "Simple String"
-                },
-                "short_display": true,
-                "field_name": "field2",
-                "sequence": 1,
-                "_ARRAY_META": {
-                    "_HASH": "5551983329"
-                },
-                "fq_field_name": "disabelexptest.field2",
-                "_ui": {
-                    "isArray": false,
-                    "isSimple": true
-                },
-                "underscore_ui": {
-                    "isArray": false,
-                    "isSimple": true
-                }
-            },
-            {
-                "display_name": "Field2",
-                "field_type": "string",
-                "field_type_refs": {
-                    "refstring": "Simple String"
-                },
-                "short_display": true,
-                "field_name": "field2",
-                "sequence": 1,
-                "_ARRAY_META": {
-                    "_HASH": "5551983329"
-                },
-                "fq_field_name": "disabearrayexptest.field2",
-                "_ui": {
-                    "isArray": false,
-                    "isSimple": true
-                },
-                "underscore_ui": {
-                    "isArray": false,
-                    "isSimple": true
-                }
-            }
-        ]
+        }
     },
     "perm": "1111111"
 }
