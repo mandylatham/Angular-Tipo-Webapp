@@ -2,7 +2,7 @@
 	<div flex>
 		<md-select ng-model="field._value"  ng-model-options="{trackBy: '$value.key'}" md-container-class="tp-field" placeholder="{{field.field_description}}" md-on-open="loadOptions()" md-on-close="cleanup()" ng-if="!isPopup">
 		  <md-select-header class="search">
-		    <md-input-container md-no-float>
+		    <md-input-container md-no-float class="fullwidth">
 		      <input ng-model="searchTerm.text" type="search" placeholder="Search ..." ng-keydown="stopBubbling($event)" ng-keyup="$event.keyCode == 13 ? tipoSearch(searchTerm.text) : null" tp:auto-focus>
 		      <md-icon class="md-primary addtipo pointer" ng-click="addTipo()">add</md-icon>
 		    </md-input-container>
