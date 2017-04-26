@@ -93,105 +93,7 @@
           </execution>
         </executions>
       </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>wagon-maven-plugin</artifactId>
-        <version>1.0</version>
-        <executions>
-          <execution>
-            <id>upload-s3</id>
-            <phase>deploy</phase>
-            <goals>
-              <goal>upload</goal>
-            </goals>
-            <configuration>
-              <fromDir>${basedir}/target-grunt/dist</fromDir>
-              <includes>**</includes>
-              <url>s3://${S3_BUCKET}/</url>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>wagon-maven-plugin</artifactId>
-        <version>1.0</version>
-        <executions>
-          <execution>
-            <id>upload-tipoapp-public-s3</id>
-            <phase>deploy</phase>
-            <goals>
-              <goal>upload</goal>
-            </goals>
-            <configuration>
-              <fromDir>${basedir}/src/app/g/public</fromDir>
-              <includes>**</includes>
-              <!-- <excludes>**/*.vsl</excludes> -->
-              <url>s3://${USER_S3_BUCKET}/g/tipotapp/tipoapp/public/</url>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>wagon-maven-plugin</artifactId>
-        <version>1.0</version>
-        <executions>
-          <execution>
-            <id>upload-tipoapp-private-s3</id>
-            <phase>deploy</phase>
-            <goals>
-              <goal>upload</goal>
-            </goals>
-            <configuration>
-              <fromDir>${basedir}/src/app/g/private</fromDir>
-              <includes>**</includes>
-              <!-- <excludes>**/*.vsl</excludes> -->
-              <url>s3://${USER_S3_BUCKET}/g/tipotapp/tipoapp/private/</url>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>wagon-maven-plugin</artifactId>
-        <version>1.0</version>
-        <executions>
-          <execution>
-            <id>upload-tipoappbase-public-s3</id>
-            <phase>deploy</phase>
-            <goals>
-              <goal>upload</goal>
-            </goals>
-            <configuration>
-              <fromDir>${basedir}/src/app/tipoappbase/public</fromDir>
-              <includes>**</includes>
-              <!-- <excludes>**/*.vsl</excludes> -->
-              <url>s3://${USER_S3_BUCKET}/g/tipotapp/tipoappbase/public/</url>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>wagon-maven-plugin</artifactId>
-        <version>1.0</version>
-        <executions>
-          <execution>
-            <id>upload-tipoappbase-private-s33</id>
-            <phase>deploy</phase>
-            <goals>
-              <goal>upload</goal>
-            </goals>
-            <configuration>
-              <fromDir>${basedir}/src/app/tipoappbase/private</fromDir>
-              <includes>**</includes>
-              <!-- <excludes>**/*.vsl</excludes> -->
-              <url>s3://${USER_S3_BUCKET}/g/tipotapp/tipoappbase/private/</url>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
+      
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-deploy-plugin</artifactId>
@@ -200,12 +102,65 @@
           <skip>true</skip>
         </configuration>
       </plugin>
-      <!--<plugin>
+
+      <plugin>
         <artifactId>exec-maven-plugin</artifactId>
         <groupId>org.codehaus.mojo</groupId>
         <executions>
+
           <execution>
-            <id>delete-gen_temp</id>
+            <id>upload-dist-to-s3</id>
+            <phase>deploy</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>aws</executable>
+              <arguments>
+                <argument>s3</argument>
+                <argument>sync</argument>
+                <argument>${basedir}/target-grunt/dist</argument>
+                <argument>s3://${S3_BUCKET}/</argument>
+              </arguments>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>upload-tipoapp-public-s3</id>
+            <phase>deploy</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>aws</executable>
+              <arguments>
+                <argument>s3</argument>
+                <argument>sync</argument>
+                <argument>${basedir}/src/app/g/public</argument>
+                <argument>s3://${USER_S3_BUCKET}/g/tipotapp/tipoapp/public/</argument>
+              </arguments>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>upload-tipoapp-private-s3</id>
+            <phase>deploy</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>aws</executable>
+              <arguments>
+                <argument>s3</argument>
+                <argument>sync</argument>
+                <argument>${basedir}/src/app/g/private</argument>
+                <argument>s3://${USER_S3_BUCKET}/g/tipotapp/tipoapp/private/</argument>
+              </arguments>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>delete-tipoapp-gentemp-s3</id>
             <phase>deploy</phase>
             <goals>
               <goal>exec</goal>
@@ -215,13 +170,31 @@
               <arguments>
                 <argument>s3</argument>
                 <argument>rm</argument>
-                <argument>recursive</argument>
+                <argument>--recursive</argument>
                 <argument>s3://${USER_S3_BUCKET}/g/tipotapp/tipoapp/public/gen_temp/</argument>
               </arguments>
             </configuration>
           </execution>
+
           <execution>
-            <id>upload-tipoappbase-private</id>
+            <id>upload-tipoappbase-public-s3</id>
+            <phase>deploy</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>aws</executable>
+              <arguments>
+                <argument>s3</argument>
+                <argument>sync</argument>
+                <argument>${basedir}/src/app/tipoappbase/public</argument>
+                <argument>s3://${USER_S3_BUCKET}/g/tipotapp/tipoappbase/public/</argument>
+              </arguments>
+            </configuration>
+          </execution>
+
+          <execution>
+            <id>upload-tipoappbase-private-s3</id>
             <phase>deploy</phase>
             <goals>
               <goal>exec</goal>
@@ -236,8 +209,26 @@
               </arguments>
             </configuration>
           </execution>
+
+          <execution>
+            <id>delete-tipoappbase-gentemp-s3</id>
+            <phase>deploy</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>aws</executable>
+              <arguments>
+                <argument>s3</argument>
+                <argument>rm</argument>
+                <argument>--recursive</argument>
+                <argument>s3://${USER_S3_BUCKET}/g/tipotapp/tipoappbase/public/gen_temp/</argument>
+              </arguments>
+            </configuration>
+          </execution>
+
         </executions>
-      </plugin>-->
+      </plugin>
     </plugins>
   </build>
   <profiles>
