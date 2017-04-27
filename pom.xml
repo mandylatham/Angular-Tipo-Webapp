@@ -210,7 +210,7 @@
                 <argument>--exclude</argument>
                 <argument>*</argument>
                 <argument>--include</argument>
-                <argument>*/gen_temp/</argument>
+                <argument>*/gen_temp/*</argument>
               </arguments>
             </configuration>
           </execution>
