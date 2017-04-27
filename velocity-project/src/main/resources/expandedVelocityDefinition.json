@@ -113,6 +113,7 @@
                 "display_name": "TipoApp",
                 "field_type": "Tipo.TipoApp",
                 "field_name": "tipoapp",
+                "short_display": true,
                 "key_field": {
                     "hidden_": "true",
                     "sizing": "2",
@@ -181,6 +182,7 @@
                     "refL14uK0AuK1wuLiskLw==": "Email",
                     "refXi4rQC4rXC4uKyQ=": "Email"
                 },
+                "short_display": true,
                 "_value": {
                     "key": "Nooo"
                 },
@@ -215,13 +217,20 @@
                 "display_name": "Para",
                 "field_type": "string",
                 "field_name": "para",
+                "allowed_values": [
+                    "tes2",
+                    "test",
+                    "test1"
+                ],
+                "tipo_array": true,
+                "short_display": true,
                 "fq_field_name": "para",
                 "_ui": {
-                    "isArray": false,
+                    "isArray": true,
                     "isSimple": true
                 },
                 "underscore_ui": {
-                    "isArray": false,
+                    "isArray": true,
                     "isSimple": true
                 }
             },
@@ -236,6 +245,7 @@
                 "display_name": "Rich Text",
                 "field_type": "richstring",
                 "field_name": "rich_text",
+                "short_display": true,
                 "fq_field_name": "rich_text",
                 "_ui": {
                     "isArray": false,
@@ -257,6 +267,7 @@
                 "display_name": "HTML Link",
                 "field_type": "htmlLink",
                 "field_name": "html_link",
+                "short_display": true,
                 "fq_field_name": "html_link",
                 "_ui": {
                     "isArray": false,
@@ -403,6 +414,7 @@
                 "display_name": "TipoArray",
                 "field_type": "Tipo.TipoApp",
                 "field_name": "tipoarray",
+                "tipo_array": true,
                 "key_field": {
                     "hidden_": "true",
                     "sizing": "2",
@@ -439,13 +451,13 @@
                 },
                 "fq_field_name": "tipoarray",
                 "_ui": {
-                    "isArray": false,
+                    "isArray": true,
                     "isTipoRelationship": true,
                     "relatedTipo": "TipoApp",
                     "isSimple": true
                 },
                 "underscore_ui": {
-                    "isArray": false,
+                    "isArray": true,
                     "isTipoRelationship": true,
                     "relatedTipo": "TipoApp",
                     "isSimple": true
@@ -824,7 +836,7 @@
         "application": "1000000001",
         "updated_by": "santosh.subbarao@tipotapp.com",
         "created_date": "2017-03-25T11:57:48.246Z",
-        "updated_date": "2017-04-25T05:48:03.623Z",
+        "updated_date": "2017-04-26T12:59:28.287Z",
         "tipo_fields2field_type_refs": {
             "refstring": "Simple String"
         },
@@ -833,8 +845,10 @@
         "tipo_create": {
             "actions": []
         },
-        "updated_dt": 1493099283623,
+        "geo_latitude": 17.727654899999997,
+        "geo_longitude": 83.3130187,
         "el_index": true,
+        "updated_dt": 1493211568287,
         "_ui": {
             "listTemplate": "g/public/gen_temp/common/views/list-fluid.tpl.html___VelocityTest",
             "listTemplateUrl": "g/public/gen_temp/common/views/list-fluid.tpl.html___VelocityTest",
@@ -847,7 +861,187 @@
             "isDefinition": true,
             "isSingleton": false,
             "hierarchyPrepared": true
-        }
+        },
+        "short_display_fields": [
+            {
+                "sequence": "0",
+                "field_type_refs": {
+                    "refTipo": {
+                        "TipoApp": "Tipo.TipoApp"
+                    }
+                },
+                "_ARRAY_META": {
+                    "_HASH": "7482760572"
+                },
+                "display_name": "TipoApp",
+                "field_type": "Tipo.TipoApp",
+                "field_name": "tipoapp",
+                "short_display": true,
+                "key_field": {
+                    "hidden_": "true",
+                    "sizing": "2",
+                    "sequence": "4",
+                    "field_type_refs": {
+                        "refstring": "Simple String"
+                    },
+                    "field_description": "App ID",
+                    "short_display": true,
+                    "hidden": true,
+                    "read_only": true,
+                    "_ARRAY_META": {
+                        "_HASH": "4046f0f5-41f4-4a7e-8483-590c431381fd"
+                    },
+                    "display_name": "App ID",
+                    "field_type": "string",
+                    "field_name": "tipo_id"
+                },
+                "label_field": {
+                    "sequence": "1",
+                    "field_type_refs": {
+                        "refstring": "Simple String"
+                    },
+                    "field_description": "App Name",
+                    "short_display": true,
+                    "meaningful_key": true,
+                    "_ARRAY_META": {
+                        "_HASH": "96ac6aca-a96e-40a5-a3ca-50214129981f"
+                    },
+                    "display_name": "App Name",
+                    "field_type": "string",
+                    "mandatory": true,
+                    "field_name": "app_name"
+                },
+                "fq_field_name": "tipoapp",
+                "_ui": {
+                    "isArray": false,
+                    "isTipoRelationship": true,
+                    "relatedTipo": "TipoApp",
+                    "isSimple": true
+                },
+                "underscore_ui": {
+                    "isArray": false,
+                    "isTipoRelationship": true,
+                    "relatedTipo": "TipoApp",
+                    "isSimple": true
+                }
+            },
+            {
+                "sequence": "1",
+                "field_type_refs": {
+                    "refstring": "Simple String"
+                },
+                "metadata": [],
+                "_ARRAY_META": {
+                    "_HASH": "8814052217"
+                },
+                "default_value": "Nooo",
+                "display_name": "Simple String",
+                "field_type": "string",
+                "field_name": "simple_string",
+                "validations": "Xi4rQC4rXC4uKyQ=",
+                "validations_refs": {
+                    "ref5024097185": "Email",
+                    "refL14uK0AuKy4uKyQv": "Email",
+                    "refL14uK0AuK1wuLiskLw==": "Email",
+                    "refXi4rQC4rXC4uKyQ=": "Email"
+                },
+                "short_display": true,
+                "_value": {
+                    "key": "Nooo"
+                },
+                "fq_field_name": "simple_string",
+                "_ui": {
+                    "isArray": false,
+                    "isSimple": true
+                },
+                "underscore_ui": {
+                    "isArray": false,
+                    "isSimple": true
+                }
+            },
+            {
+                "sequence": "2",
+                "field_type_refs": {
+                    "refstring": "Simple String",
+                    "reflongstring": "Paragraph"
+                },
+                "metadata": [
+                    {
+                        "key_": "transient",
+                        "_ARRAY_META": {
+                            "_HASH": "5999531332"
+                        },
+                        "value_": "Y"
+                    }
+                ],
+                "_ARRAY_META": {
+                    "_HASH": "2575865057"
+                },
+                "display_name": "Para",
+                "field_type": "string",
+                "field_name": "para",
+                "allowed_values": [
+                    "tes2",
+                    "test",
+                    "test1"
+                ],
+                "tipo_array": true,
+                "short_display": true,
+                "fq_field_name": "para",
+                "_ui": {
+                    "isArray": true,
+                    "isSimple": true
+                },
+                "underscore_ui": {
+                    "isArray": true,
+                    "isSimple": true
+                }
+            },
+            {
+                "sequence": "3",
+                "field_type_refs": {
+                    "refrichstring": "Rich Text"
+                },
+                "_ARRAY_META": {
+                    "_HASH": "1240763039"
+                },
+                "display_name": "Rich Text",
+                "field_type": "richstring",
+                "field_name": "rich_text",
+                "short_display": true,
+                "fq_field_name": "rich_text",
+                "_ui": {
+                    "isArray": false,
+                    "isSimple": true
+                },
+                "underscore_ui": {
+                    "isArray": false,
+                    "isSimple": true
+                }
+            },
+            {
+                "sequence": "4",
+                "field_type_refs": {
+                    "refhtmlLink": "Link"
+                },
+                "_ARRAY_META": {
+                    "_HASH": "7693096437"
+                },
+                "display_name": "HTML Link",
+                "field_type": "htmlLink",
+                "field_name": "html_link",
+                "short_display": true,
+                "fq_field_name": "html_link",
+                "_ui": {
+                    "isArray": false,
+                    "isSimple": true
+                },
+                "underscore_ui": {
+                    "isArray": false,
+                    "isSimple": true
+                }
+            }
+        ]
     },
     "perm": "1111111"
 }

@@ -119,7 +119,8 @@
     tipoInstanceDataService,
     tipoManipulationService,
     tipoRouter,
-    $mdDialog) {
+    $mdDialog,
+    $mdSelect) {
       return {
         scope: {
           root: '=',
@@ -281,6 +282,7 @@
           };
 
           scope.addTipo = function() {
+            $mdSelect.hide();
             var promise = $mdDialog.show({
               templateUrl: 'framework/_directives/_views/tp-lookup-popup-select-new.tpl.html',
               controller: 'TipoCreateRootController',
