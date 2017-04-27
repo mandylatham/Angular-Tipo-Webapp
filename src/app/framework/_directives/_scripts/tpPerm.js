@@ -31,7 +31,7 @@
             if (perm.substr(3,1) === '0') {
               scope.disableedit = true;
             }
-            if (perm.substr(6,1) === '0') {
+            if (perm.substr(7,1) === '0') {
               scope.disabledelete = true;
             };
           };

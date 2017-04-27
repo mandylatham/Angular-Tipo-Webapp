@@ -75,6 +75,7 @@
             resp.tab_url = rawData.tab_url;
             resp.user_message = rawData.user_message;
             resp.return_url = rawData.return_url;
+            resp.restricted_actions = rawData.restricted_actions;
             return rawData.response;
           } else if (rawData && rawData.data) {
             rawData.data.tab_url = rawData.tab_url;

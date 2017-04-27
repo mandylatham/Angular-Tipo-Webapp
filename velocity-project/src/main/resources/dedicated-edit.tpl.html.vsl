@@ -501,6 +501,7 @@ This is a velocity template to generate AngularJS list view template for any Tip
 						#set ($gallowed_values = "$gallowed_values$i']" )
 					#end
 				#end
+				#if(!$field.underscore_ui.isArray)
 					<md-select ng-model="tipoRootController.tipo.${gfield.fq_field_name}" placeholder="$!field_description" name="$gfield.display_name_$gfield.field_type" ng-required="$gmandatory" ng-init="tipoRootController.initAllowedValues($gallowed_values,'$gfield.fq_field_name')">
 						<md-input-container md-no-float class="fullwidth">
 			                <input ng-model="tipoRootController.${gfield.fq_field_name}.allowed_value" type="search" placeholder="Add New" ng-keydown="$event.stopPropagation()" ng-keyup="$event.keyCode == 13 ? tipoRootController.addValue('$gfield.fq_field_name') : null" tp:auto-focus>
@@ -509,6 +510,16 @@ This is a velocity template to generate AngularJS list view template for any Tip
 		                <md-option value="" ng-if="!$gmandatory">-- Clear --</md-option>
 		                <md-option ng-value="option" ng-repeat="option in tipoRootController.${gfield.fq_field_name}.allowed_values">{{ option }}</md-option>
 	              	</md-select>
+	            #else
+	            	<md-select ng-model="tipoRootController.tipo.${gfield.fq_field_name}" placeholder="$!field_description" name="$gfield.display_name_$gfield.field_type" ng-required="$gmandatory" ng-init="tipoRootController.initAllowedValues($gallowed_values,'$gfield.fq_field_name',$index,'$field.field_name','$gfield.field_name')">
+						<md-input-container md-no-float class="fullwidth">
+			                <input ng-model="tipoRootController['$field.field_name' + $index + '$gfield.field_name'].allowed_value" type="search" placeholder="Add New" ng-keydown="$event.stopPropagation()" ng-keyup="$event.keyCode == 13 ? tipoRootController.addValue('$gfield.fq_field_name',$index,'$field.field_name','$gfield.field_name') : null" tp:auto-focus>
+			              </md-input-container>
+			            </md-select-header>
+		                <md-option value="" ng-if="!$gmandatory">-- Clear --</md-option>
+		                <md-option ng-value="option" ng-repeat="option in tipoRootController['$field.field_name' + $index + '$gfield.field_name'].allowed_values">{{ option }}</md-option>
+	              	</md-select>
+	            #end
 	            #else
 	            	#if($gfield.validations)
 		            	#set ($gdecoded = $tipo_utils.decodeBase64($gfield.validations))
@@ -541,6 +552,7 @@ This is a velocity template to generate AngularJS list view template for any Tip
 						#set ($gallowed_values = "$gallowed_values$i']" )
 					#end
 					#end
+					#if(!$field.underscore_ui.isArray)
 			     	<md-select ng-model="tipoRootController.tipo.${gfield.fq_field_name}" multiple="true" placeholder="$!field_description" name="$gfield.display_name_$gfield.field_type" ng-required="$gmandatory" ng-init="tipoRootController.initAllowedValues($gallowed_values,'$gfield.fq_field_name')">
 						<md-input-container md-no-float class="fullwidth">
 			                <input ng-model="tipoRootController.${gfield.fq_field_name}.allowed_value" type="search" placeholder="Add New" ng-keydown="$event.stopPropagation()" ng-keyup="$event.keyCode == 13 ? tipoRootController.addValue('$gfield.fq_field_name') : null" tp:auto-focus>
@@ -548,6 +560,15 @@ This is a velocity template to generate AngularJS list view template for any Tip
 			            </md-select-header>
 		                <md-option ng-value="option" ng-repeat="option in tipoRootController.${gfield.fq_field_name}.allowed_values">{{ option }}</md-option>
 	              	</md-select>
+	              	#else
+	              	<md-select ng-model="tipoRootController.tipo.${field.field_name}[$index].${gfield.field_name}" multiple="true" placeholder="$!field_description" name="$gfield.display_name_$gfield.field_type" ng-required="$gmandatory" ng-init="tipoRootController.initAllowedValues($gallowed_values,'$gfield.fq_field_name',$index,'$field.field_name','$gfield.field_name')">
+						<md-input-container md-no-float class="fullwidth">
+			                <input ng-model="tipoRootController['${field.field_name}' + $index + '${gfield.field_name}'].allowed_value" type="search" placeholder="Add New" ng-keydown="$event.stopPropagation()" ng-keyup="$event.keyCode == 13 ? tipoRootController.addValue('$gfield.fq_field_name',$index,'$field.field_name','$gfield.field_name') : null" tp:auto-focus>
+			              </md-input-container>
+			            </md-select-header>
+		                <md-option ng-value="option" ng-repeat="option in tipoRootController['${field.field_name}' + $index + '${gfield.field_name}'].allowed_values">{{ option }}</md-option>
+	              	</md-select>
+	              	#end
 	           #end
           #else
           	#if(!$gfield.allowed_values)
@@ -565,6 +586,7 @@ This is a velocity template to generate AngularJS list view template for any Tip
 					#set ($gallowed_values = "$gallowed_values$i']" )
 				#end
 				#end
+				#if(!$field.underscore_ui.isArray)
 		     	<md-select ng-model="tipoRootController.tipo.${gfield.fq_field_name}" ng-disabled="true" multiple="true" placeholder="$!field_description" name="$gfield.display_name_$gfield.field_type" ng-required="$gmandatory" ng-init="tipoRootController.initAllowedValues($gallowed_values,'$gfield.fq_field_name')">
 					<md-input-container md-no-float class="fullwidth">
 		                <input ng-model="tipoRootController.${gfield.fq_field_name}.allowed_value" type="search" placeholder="Add New" ng-keydown="$event.stopPropagation()" ng-keyup="$event.keyCode == 13 ? tipoRootController.addValue('$gfield.fq_field_name') : null" tp:auto-focus>
@@ -572,6 +594,15 @@ This is a velocity template to generate AngularJS list view template for any Tip
 		            </md-select-header>
 	                <md-option ng-value="option" ng-repeat="option in tipoRootController.${gfield.fq_field_name}.allowed_values">{{ option }}</md-option>
               	</md-select>
+              	#else
+              	<md-select ng-model="tipoRootController.tipo.${field.field_name}[$index].${gfield.field_name}" ng-disabled="true" multiple="true" placeholder="$!field_description" name="$gfield.display_name_$gfield.field_type" ng-required="$gmandatory" ng-init="tipoRootController.initAllowedValues($gallowed_values,'$gfield.fq_field_name',$index,'$field.field_name','$gfield.field_name')">
+					<md-input-container md-no-float class="fullwidth">
+		                <input ng-model="tipoRootController['${field.field_name}' + $index + '${gfield.field_name}'].allowed_value" type="search" placeholder="Add New" ng-keydown="$event.stopPropagation()" ng-keyup="$event.keyCode == 13 ? tipoRootController.addValue('$gfield.fq_field_name',$index,'$field.field_name','$gfield.field_name') : null" tp:auto-focus>
+		              </md-input-container>
+		            </md-select-header>
+	                <md-option ng-value="option" ng-repeat="option in tipoRootController['${field.field_name}' + $index + '${gfield.field_name}'].allowed_values">{{ option }}</md-option>
+              	</md-select>
+              	#end
 		    #end
           #end
 		#end

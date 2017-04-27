@@ -16,7 +16,7 @@
   <div ng-if="tipoRootController.hasTipos" layout="column">
     <md-input-container flex class="tp-list" ng-if="tipoRootController.showsearch">
       <label>&nbsp;</label>
-      <input ng-model="tipoRootController.searchText" placeholder="enter search" ng-keyup="$event.keyCode == 13 ? tipoRootController.search() : null">
+      <input ng-model="tipoRootController.searchText" class="searchbar" placeholder="enter search" ng-keyup="$event.keyCode == 13 ? tipoRootController.search() : null">
     </md-input-container>
     <ng-include src="tipoRootController.tipoDefinition._ui.listTemplateUrl" ng-if="tipoRootController.hasTipos" tp-include-replace>
   </div>

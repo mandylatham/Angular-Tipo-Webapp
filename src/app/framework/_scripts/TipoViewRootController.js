@@ -13,6 +13,7 @@
     $mdDialog,
     $mdToast,
     $stateParams,
+    tipoRegistry,
     tipoCache) {
 
     var _instance = this;
@@ -86,6 +87,7 @@
       tipoInstanceDataService.getOne($stateParams.tipo_name, $stateParams.tipo_id, filter).then(function (data) {
         data.tipo_id = data.tipo_id || $stateParams.tipo_id;
         _instance.tipo = data;
+        _instance.tipoDefinition = tipoManipulationService.mergeDefinitionAndData(tipoRegistry.get($stateParams.tipo_name), _instance.tipo);
         tipoRouter.endStateChange();
       });
     }

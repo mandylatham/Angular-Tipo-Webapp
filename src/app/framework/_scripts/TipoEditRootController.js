@@ -532,21 +532,36 @@
       return boolVal;
     }
 
-    _instance.initAllowedValues = function(allowed_values,field_name){
-
-      if (_.isUndefined(_.find(_instance,field_name))) {
-        _.set(_instance,field_name,{});
-      };
-      if (!_.isEmpty(allowed_values) && _.isArray(allowed_values)) {
-        _.set(_instance,field_name + '.allowed_values',allowed_values);
-      };
+    _instance.initAllowedValues = function(allowed_values,field_name,index,prefix,label){
+      if (_.isUndefined(index)) {
+        if (_.isUndefined(_.get(_instance,field_name))) {
+          _.set(_instance,field_name,{});
+        };
+        if (!_.isEmpty(allowed_values) && _.isArray(allowed_values)) {
+          _.set(_instance,field_name + '.allowed_values',allowed_values);
+        };
+      }else{
+        if (_.isUndefined(_.get(_instance,prefix + index + label))) {
+          _.set(_instance,prefix + index + label,{});
+        };
+        if (!_.isEmpty(allowed_values) && _.isArray(allowed_values)) {
+          _.set(_instance,prefix + index + label + '.allowed_values',allowed_values);
+        };
+      }
     }
 
-    _instance.addValue = function(field_name){
-      var allowed_values = _.find(_instance,field_name + '.allowed_values');
-      allowed_values.push( _.find(_instance,field_name + '.allowed_value'));
-      _.set(_instance,field_name + '.allowed_values',allowed_values);
-      delete _instance[field_name].allowed_value;
+    _instance.addValue = function(field_name,index,prefix,label){
+      if (_.isUndefined(index)) {
+        var allowed_values = _.get(_instance,field_name + '.allowed_values');
+        allowed_values.push( _.get(_instance,field_name + '.allowed_value'));
+        _.set(_instance,field_name + '.allowed_values',allowed_values);
+        delete _instance[field_name].allowed_value;
+      }else{
+        var allowed_values = _.get(_instance,prefix + index + label + '.allowed_values');
+        allowed_values.push( _.get(_instance,prefix + index + label + '.allowed_value'));
+        _.set(_instance,prefix + index + label + '.allowed_values',allowed_values);
+        delete _instance[prefix + index + label].allowed_value;
+      }
     }
 
   }
