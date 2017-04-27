@@ -531,14 +531,19 @@
     }
 
     _instance.initAllowedValues = function(allowed_values,field_name){
-      _instance[field_name] = {};
+
+      if (_.isUndefined(_.find(_instance,field_name))) {
+        _.set(_instance,field_name,{});
+      };
       if (!_.isEmpty(allowed_values) && _.isArray(allowed_values)) {
-        _instance[field_name].allowed_values = allowed_values;
+        _.set(_instance,field_name + '.allowed_values',allowed_values);
       };
     }
 
     _instance.addValue = function(field_name){
-      _instance[field_name].allowed_values.push(_instance[field_name].allowed_value);
+      var allowed_values = _.find(_instance,field_name + '.allowed_values');
+      allowed_values.push(_instance[field_name].allowed_value);
+      _.set(_instance,field_name + '.allowed_values',allowed_values);
       delete _instance[field_name].allowed_value;
     }
 
