@@ -471,13 +471,17 @@
             };
           };
         }
-        if (_.isObject(value)) {
+        if (_.isObject(value) && !_.isArray(value)) {
           modifyTipoData(value);
         };
         if (_.isArray(value)) {
-          _.each(value,function(val){
-            modifyTipoData(val);
-          });
+          if (value.length === 0) {
+            tipoData[key] = null;
+          }else{
+            _.each(value,function(val){
+              modifyTipoData(val);
+            });
+          }
         };
       });
     }
