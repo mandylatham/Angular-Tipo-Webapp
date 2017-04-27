@@ -27,8 +27,9 @@
     _instance.loading = false;
     var page = 2;
     var per_page = 10;
-    var tipo_perm = tipoRegistry.get($stateParams.tipo_name + '_resdata');
-    _instance.perm = tipo_perm.perm;
+    var responseData = tipoRegistry.get($stateParams.tipo_name + '_resdata');
+    _instance.perm = responseData.perm;
+    _instance.restricted_actions = responseData.restricted_actions;
 
     var tipo_name = tipoDefinition.tipo_meta.tipo_name;
 

@@ -79,7 +79,8 @@
           definition: '=',
           tipos: '=',
           mode: '@?',
-          bulkedit: '='
+          bulkedit: '=',
+          restrictedActions: '='
         },
         restrict: 'EA',
         replace: true,
@@ -89,6 +90,7 @@
           var mode = scope.mode;
           scope.action= {isOpen: false};
           scope.deskaction= {isOpen: false};
+
           if(!mode){
             mode = 'view';
           }
@@ -100,6 +102,9 @@
           if(mode === 'view'){
             // only a single tipo
             tipo_id = scope.tipos.tipo_id;
+            var restrictedActions = tipos.restrictedActions.split(',');
+          }else{
+            var restrictedActions = scope.restrictedActions.split(',');
           }
 
           function prepareActions(){
@@ -111,12 +116,14 @@
             }
             var actions = [];
             _.forEach(tipoActions, function(each){
+              var restriced = _.find(restrictedActions, function(o) { return o === each.tipo_action; });
               if (!each.hidden_) {
                 actions.push({
                   name: each.tipo_action,
                   label: each.display_name,
                   highlight: each.highlight,
                   bulk_select: each.bulk_select,
+                  restriced: restriced,
                   icon: each.icon,
                   additionalTipo: _.get(each, 'client_dependency.tipo_name')
                 });
