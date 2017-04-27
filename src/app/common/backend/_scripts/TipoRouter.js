@@ -78,7 +78,9 @@
         if(resetPerspective){
           parameters.perspective = undefined;
         }else{
-          parameters.perspective = perspectiveMetadata.perspective;
+          if (!parameters.perspective) {
+            parameters.perspective = perspectiveMetadata.perspective;
+          };
         }
       }
       stateOptions.inherit = false;
@@ -220,13 +222,17 @@
             perspective: menuItem.perspective
           };
         }
-        if(menuItem.isSingleton){
-          return toTipoView(menuItem.tipo_name, 'default', parameters);
+        if (menuItem.abstract) {
+          to('dashboard', 'layout', {perspective: menuItem.id}, false);
         }else{
-          if(menuItem.quickFilters){
-            parameters.filter = menuItem.quickFilters;
+          if(menuItem.isSingleton){
+            return toTipoView(menuItem.tipo_name, 'default', parameters);
+          }else{
+            if(menuItem.quickFilters){
+              parameters.filter = menuItem.quickFilters;
+            }
+            return toTipoList(menuItem.tipo_name, parameters);
           }
-          return toTipoList(menuItem.tipo_name, parameters);
         }
       }
     }

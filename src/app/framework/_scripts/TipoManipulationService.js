@@ -413,6 +413,7 @@
         menuItem.icon = each.icon;
         menuItem.sequence = each.sequence;
         menuItem.isSingleton = isSingleton;
+        menuItem.abstract = each.abstract;
         if(isTipo){
           menuItem.tipo_name = parts[1];
           menuItem.perspective = perspective;
