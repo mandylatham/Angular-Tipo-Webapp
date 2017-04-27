@@ -217,7 +217,7 @@
       }else{
         var tipo_data = _instance.tipo[prefix][index][label];
       }
-        if (!_.isUndefined(tipo_data)) {
+        if (!_.isUndefined(tipo_data) && !_.isNull(tipo_data)) {
           if (_.isArray(tipo_data)) {
             if (_.isUndefined(prefix)) {
               _instance[uniq_name].model = _.map(tipo_data, function(each){
@@ -366,7 +366,9 @@
         newScope.selectedTipos = tipo_data;
       }else{
         newScope.isArray = false;
-        newScope.selectedTipos.push(tipo_data);
+        if (!_.isUndefined(tipo_data)) {
+          newScope.selectedTipos.push(tipo_data);
+        };
       }
       newScope.field = _instance.tipoDefinition;
       newScope.tipo_fields = _instance.tipoDefinition.tipo_fields;
@@ -542,7 +544,7 @@
 
     _instance.addValue = function(field_name){
       var allowed_values = _.find(_instance,field_name + '.allowed_values');
-      allowed_values.push(_instance[field_name].allowed_value);
+      allowed_values.push( _.find(_instance,field_name + '.allowed_value'));
       _.set(_instance,field_name + '.allowed_values',allowed_values);
       delete _instance[field_name].allowed_value;
     }
