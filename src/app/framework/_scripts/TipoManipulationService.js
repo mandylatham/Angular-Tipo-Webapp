@@ -42,7 +42,7 @@
         _.each(tipoDefinition.tipo_fields, function(field){
           var fieldKey = field.field_name;
           var fieldType = field.field_type;
-          var istransient = _.find(field.metadata,{key_ : 'transient'});
+          var istransient = Boolean(_.get(field, 'transient'));
           if(istransient && copy){
             var fieldValue;
             delete tipoData[fieldKey];
@@ -407,13 +407,16 @@
         var parts = each.type_.split('.');
         var isTipo = parts[0] === 'Tipo';
         var isSingleton = parts.length > 2 && parts[2] === 'default';
-        menuItem.type = parts[0];
-        menuItem.id = parts[1];
+        if (!S(each.type_).contains('http')) {
+          menuItem.type = parts[0];
+          menuItem.id = parts[1];
+        }else{
+          menuItem.url = each.type_;
+        }
         menuItem.label = each.label;
         menuItem.icon = each.icon;
         menuItem.sequence = each.sequence;
         menuItem.isSingleton = isSingleton;
-        menuItem.abstract = each.abstract;
         if(isTipo){
           menuItem.tipo_name = parts[1];
           menuItem.perspective = perspective;

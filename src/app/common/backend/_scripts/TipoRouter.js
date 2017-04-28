@@ -13,6 +13,7 @@
     $mdColorUtil,
     $mdDialog,
     $mdToast,
+    $window,
     $location) {
 
     var _stateChanging = false;
@@ -216,6 +217,7 @@
       if(menuItem.state){
         return to(menuItem.state, menuItem.state);
       }else if(menuItem.tipo_name){
+
         var parameters = {};
         if(menuItem.perspective){
           parameters = {
@@ -234,6 +236,8 @@
             return toTipoList(menuItem.tipo_name, parameters);
           }
         }
+      }else if(menuItem.url){
+        $window.location.href = menuItem.url;
       }
     }
 

@@ -204,10 +204,14 @@
       _instance.loadOptions(baseFilter,tipo_name,label_field,uniq_name,prefix,label,index,searchText);
     };
 
-     _instance.setInstance = function(uniq_name,data,prefix,label,index){
+     _instance.setInstance = function(uniq_name,data,prefix,label,index,tipo_name){
+      var tipo_perm = tipoRegistry.get(tipo_name + '_resdata');
       if (_.isUndefined(_.find(_instance,uniq_name))) {
         _.set(_instance, uniq_name, {});
       };
+      if(tipo_perm.perm.substr(2,1) === 0){
+        _.set(_instance, uniq_name + '.disablecreate', true);
+      }
       if (!_.isUndefined(data)) {
         _.set(_instance, uniq_name + '.options', data.options);
         _.set(_instance, uniq_name + '.tipos', data.tipos);
@@ -247,7 +251,7 @@
     _instance.loadOptions = function (baseFilter,tipo_name,label_field,uniq_name,prefix,label,index,searchText){
       _instance[uniq_name] = {};
       tipoInstanceDataService.gettpObjectOptions(baseFilter,tipo_name,label_field,_instance.tipoDefinition,searchText).then(function(result){
-        _instance.setInstance(uniq_name,result,prefix,label,index)
+        _instance.setInstance(uniq_name,result,prefix,label,index,tipo_name);
       });      
     };
 
@@ -271,7 +275,7 @@
 
     _instance.loadPopupOptions = function (baseFilter,tipo_name,label_field,uniq_name,prefix,label,index){
       return tipoInstanceDataService.gettpObjectOptions(baseFilter,tipo_name,label_field,_instance.tipoDefinition).then(function(result){
-        _instance.setInstance(uniq_name,result,prefix,label,index)
+        _instance.setInstance(uniq_name,result,prefix,label,index,tipo_name)
       });      
     };
 
