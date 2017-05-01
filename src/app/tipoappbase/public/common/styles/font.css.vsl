@@ -1,16 +1,13 @@
-
-
 #if ($tipo_customization.appearance_settings.font_family)
 @import url('https://fonts.googleapis.com/css?family=$tipo_customization.appearance_settings.font_family');
 #else
 @import url('https://fonts.googleapis.com/css?family=Questrial');
 #end
 
-
 body,button, select, html, textarea, input{
 	#if ($tipo_customization.appearance_settings.font_family)
-	font-family: '$tipo_customization.appearance_settings.font_family', sans-serif;
+	font-family:'$tipo_customization.appearance_settings.font_family';
 	#else
-	font-family: 'Questrial', sans-serif;
+	font-family:'Questrial';
 	#end
 }
