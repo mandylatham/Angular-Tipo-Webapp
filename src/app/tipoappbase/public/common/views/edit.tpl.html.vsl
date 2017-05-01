@@ -673,7 +673,7 @@ This is a velocity template to generate AngularJS list view template for any Tip
 							<md-icon>search</md-icon>
 						</md-button>
 					#else
-						<md-button class="m0" ng-click="tipoRootController.tipoObjecSelectiontDialog($gfieldbaseFilter,$gfieldrelatedTipo,$gfield_label_field)">
+						<md-button class="m0" ng-click="tipoRootController.tipoObjecSelectiontDialog($gfieldbaseFilter,$gfieldrelatedTipo,$gfield_label_field,$gfieldlabel,false)">
 							<md-icon>search</md-icon>
 						</md-button>
 					#end

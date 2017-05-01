@@ -207,7 +207,7 @@
 
      _instance.setInstance = function(uniq_name,data,prefix,label,index,tipo_name){
       var tipo_perm = tipoRegistry.get(tipo_name + '_resdata');
-      if (_.isUndefined(_.find(_instance,uniq_name))) {
+      if (_.isUndefined(_.get(_instance,uniq_name))) {
         _.set(_instance, uniq_name, {});
       };
       if(tipo_perm.perm.substr(2,1) === 0){
@@ -218,36 +218,41 @@
         _.set(_instance, uniq_name + '.tipos', data.tipos);
       };
       if (_.isUndefined(prefix)) {
-        var tipo_data = _instance.tipo[uniq_name];
+        var tipo_data = _.get(_instance,'tipo.' + uniq_name);
       }else{
         var tipo_data = _instance.tipo[prefix][index][label];
       }
         if (!_.isUndefined(tipo_data) && !_.isNull(tipo_data)) {
           if (_.isArray(tipo_data)) {
             if (_.isUndefined(prefix)) {
-              _instance[uniq_name].model = _.map(tipo_data, function(each){
+              var objs = _.map(tipo_data, function(each){
                 return {
                   key: each,
                   label: _instance.tipo[uniq_name + '_refs']['ref' + each]
                 };
               });
+               _.set(_instance, uniq_name + '.model', objs);
             }else{
-              _instance[uniq_name].model = _.map(tipo_data, function(each){
+              var objs = _.map(tipo_data, function(each){
                 return {
                   key: each,
                   label: _instance.tipo[prefix][index][label + '_refs']['ref' + each]
                 };
               });
+              _.set(_instance, uniq_name + '.model', objs);
             }
           }else{
             if (_.isUndefined(prefix)) {
-              _instance[uniq_name].model = {key: tipo_data, label: _instance.tipo[uniq_name + '_refs']['ref' + tipo_data] }
+              _.set(_instance, uniq_name + '.model', {key: tipo_data, label: _instance.tipo[uniq_name + '_refs']['ref' + tipo_data] });
+              // _instance[uniq_name].model = {key: tipo_data, label: _instance.tipo[uniq_name + '_refs']['ref' + tipo_data] }
             }else{
               if (_instance.tipo[prefix][index][label + '_refs']) {
-              _instance[uniq_name].model = {key: tipo_data, label: _instance.tipo[prefix][index][label + '_refs']['ref' + tipo_data] }  
+                _.set(_instance, uniq_name + '.model', {key: tipo_data, label: _instance.tipo[prefix][index][label + '_refs']['ref' + tipo_data] });
+              // _instance[uniq_name].model = {key: tipo_data, label: _instance.tipo[prefix][index][label + '_refs']['ref' + tipo_data] }  
               }else{
                 _instance.tipo[prefix][index][label + '_refs'] = {};
-              _instance[uniq_name].model = {key: tipo_data, label: _instance.tipo[prefix][index][label + '_refs']['ref' + tipo_data] }  
+                _.set(_instance, uniq_name + '.model', {key: tipo_data, label: _instance.tipo[prefix][index][label + '_refs']['ref' + tipo_data] });
+              // _instance[uniq_name].model = {key: tipo_data, label: _instance.tipo[prefix][index][label + '_refs']['ref' + tipo_data] }  
               }
             }
           }
@@ -255,7 +260,7 @@
     }
 
     _instance.loadOptions = function (baseFilter,tipo_name,label_field,uniq_name,prefix,label,index,searchText){
-      _instance[uniq_name] = {};
+      _.set(_instance, uniq_name, {});
       tipoInstanceDataService.gettpObjectOptions(baseFilter,tipo_name,label_field,_instance.tipoDefinition,searchText).then(function(result){
         _instance.setInstance(uniq_name,result,prefix,label,index,tipo_name);
       });      
@@ -263,9 +268,11 @@
 
     _instance.initCollapsed = function(uniq_name,collapsed){
       if (!_.isNil(collapsed)) {
-        _instance[uniq_name] = {collapsed: collapsed};
+        _.set(_instance, uniq_name + '.collapsed', collapsed);
+        // _instance[uniq_name] = {collapsed: collapsed};
       }else{
-        _instance[uniq_name] = {collapsed: false};
+        _.set(_instance, uniq_name + '.collapsed', false);
+        // _instance[uniq_name] = {collapsed: false};
       }
     }
 
@@ -299,17 +306,21 @@
 
     _instance.searchTerm = {};
     _instance.cleanup = function(uniq_name,prefix,label,index){
-      var tipo_data = _instance[uniq_name].model;
+      var tipo_data = _.get(_instance,uniq_name + '.model');
       if (!_.isUndefined(tipo_data)) {
         if (_.isUndefined(prefix)) {
           if (_.isArray(tipo_data)){
-            _instance.tipo[uniq_name]=[];
+            _.set(_instance,'tipo.' + uniq_name, []);
+            // _instance.tipo[uniq_name]=[];
             _.each(tipo_data,function(each){
-              _instance.tipo[uniq_name].push(each.key);
+              var objs = [];
+              objs.push(each.key);
+              _.set(_instance.tipo ,uniq_name, objs);
               _.set(_instance.tipo, uniq_name + '_refs.ref' + each.key, each.label);
             });
           }else{
-            _instance.tipo[uniq_name] = tipo_data.key;
+            _.set(_instance.tipo ,uniq_name, tipo_data.key);
+            // _instance.tipo[uniq_name] = tipo_data.key;
             _.set(_instance.tipo, uniq_name + '_refs.ref' + tipo_data.key, tipo_data.label);
           }
         }else{
@@ -367,7 +378,10 @@
       var promise1 =  _instance.loadPopupOptions(baseFilter,tipo_name,label_field,uniq_name,prefix,label,index);
       promise1.then(function(){
       var newScope =$scope.$new();
-      var tipo_data = _instance[uniq_name].model;
+      if (_.isUndefined(_.get(_instance,uniq_name))) {
+        _.set(_instance,uniq_name,{});
+      };
+      var tipo_data = _.get(_instance,uniq_name + '.model');
       newScope.label_field = label_field;
       newScope.tipo_name = tipo_name;
       newScope.selectedTipos = [];
@@ -391,8 +405,9 @@
         {
           tipoDefinition: function(tipoDefinitionDataService, tipoManipulationService) {
             return tipoDefinitionDataService.getOne(tipo_name).then(function(definition){
-              var tiposWithDefinition = tipoManipulationService.mergeDefinitionAndDataArray(definition, _instance[uniq_name].tipos, label_field);
-              return {tipoDefinition: definition, tiposWithDefinition: tiposWithDefinition,tipos: _instance[uniq_name].tipos }
+              var tipos = _.get(_instance,uniq_name + '.tipos');
+              var tiposWithDefinition = tipoManipulationService.mergeDefinitionAndDataArray(definition, tipos, label_field);
+              return {tipoDefinition: definition, tiposWithDefinition: tiposWithDefinition,tipos: tipos }
             });
           }
         },
@@ -402,14 +417,15 @@
       });
       promise.then(function(selectedObjects){
           if (isArray) {
-            _instance[uniq_name].model = _.map(selectedObjects, function(each){
+            var objs = _.map(selectedObjects, function(each){
               return {
                 key: each.key,
                 label: each.label
               };
             });
+            _.set(_instance,uniq_name + '.model',objs);
           }else{
-            _instance[uniq_name].model = {key: selectedObjects[0].key, label: selectedObjects[0].label};
+            _.set(_instance,uniq_name + '.model',{key: selectedObjects[0].key, label: selectedObjects[0].label});
           } 
             _instance.cleanup(uniq_name,prefix,label,index);
       });
