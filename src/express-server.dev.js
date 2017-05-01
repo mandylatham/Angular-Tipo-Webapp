@@ -16,13 +16,13 @@ var pathMappings = [
   },
   {
     path: '/g/public',
-    // url: 'https://dev.tipotapp.com/app/d/tipotapp/constructionmanagement'
-    url: 'https://dev.tipotapp.com/app'
+    url: 'https://dev.tipotapp.com/app/d/tipotapp/constructionmanagement'
+    // url: 'https://dev.tipotapp.com/app'
   },
   {
     path: '/public',
-    // url: 'https://dev.tipotapp.com/app/d/tipotapp/constructionmanagement'
-    url: 'https://dev.tipotapp.com/app'
+    url: 'https://dev.tipotapp.com/app/d/tipotapp/constructionmanagement'
+    // url: 'https://dev.tipotapp.com/app'
   },
   // {
   //   path: '/app',

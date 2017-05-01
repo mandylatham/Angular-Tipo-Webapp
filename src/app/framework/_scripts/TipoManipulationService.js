@@ -352,7 +352,11 @@
 
     function getLabel(tipoDefinitionWithData){
       var labelField = getMeaningfulKey(tipoDefinitionWithData) || getPrimaryKey(tipoDefinitionWithData);
-      return labelField._value.key;
+      if (!_.isUndefined(labelField)) {
+        return labelField._value.key;
+      }else{
+        return tipoDefinitionWithData.tipo_id;
+      }
     }
 
     function getFieldMeta(field, key){
