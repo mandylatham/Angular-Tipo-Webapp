@@ -125,6 +125,7 @@
     tipoManipulationService,
     tipoInstanceDataService,
     tipoRouter,
+    tipoRegistry,
     $scope,
     $mdToast,
     $stateParams,
@@ -242,7 +243,12 @@
             if (_.isUndefined(prefix)) {
               _instance[uniq_name].model = {key: tipo_data, label: _instance.tipo[uniq_name + '_refs']['ref' + tipo_data] }
             }else{
-              _instance[uniq_name].model = {key: tipo_data, label: _instance.tipo[prefix][index][label + '_refs']['ref' + tipo_data] }
+              if (_instance.tipo[prefix][index][label + '_refs']) {
+              _instance[uniq_name].model = {key: tipo_data, label: _instance.tipo[prefix][index][label + '_refs']['ref' + tipo_data] }  
+              }else{
+                _instance.tipo[prefix][index][label + '_refs'] = {};
+              _instance[uniq_name].model = {key: tipo_data, label: _instance.tipo[prefix][index][label + '_refs']['ref' + tipo_data] }  
+              }
             }
           }
         };

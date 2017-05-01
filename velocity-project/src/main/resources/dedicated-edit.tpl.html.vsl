@@ -81,7 +81,7 @@ This is a velocity template to generate AngularJS list view template for any Tip
 	        	<span class="preformatted-text">{{tipoRootController.tipo.$field.fq_field_name}}</span>
 	        #end
 	    #elseif($field.field_type == "divider")
-	    	<span class="header>
+	    	<span class="header">
 	          <div layout="row" layout-align="end center">
 	            <h3 flex>
 	              <a class="plain" md-colors="{color: 'primary-700'}">
@@ -245,7 +245,7 @@ This is a velocity template to generate AngularJS list view template for any Tip
 						  <md-select-header class="search">
 						    <md-input-container md-no-float class="fullwidth">
 						      <input ng-model="tipoRootController.${field.fq_field_name}.searchTerm.text" type="search" placeholder="Search ..." ng-keydown="tipoRootController.stopBubbling($event)" ng-keyup="$event.keyCode == 13 ? tipoRootController.tipoSearch(tipoRootController.${field.fq_field_name}.searchTerm.text,$fieldbaseFilter,$fieldrelatedTipo,$field_label_field,$fieldlabel) : null" tp:auto-focus>
-						      <md-icon ng-if="!tipoRootController.${fieldlabel}.disablecreate" class="md-primary addtipo pointer" ng-click="tipoRootController.addTipo($fieldbaseFilter,$fieldrelatedTipo,$field_label_field,$fieldlabel)">add</md-icon>
+						      <md-icon ng-if="!tipoRootController.${field.fq_field_name}.disablecreate" class="md-primary addtipo pointer" ng-click="tipoRootController.addTipo($fieldbaseFilter,$fieldrelatedTipo,$field_label_field,$fieldlabel)">add</md-icon>
 						    </md-input-container>
 						    
 						  </md-select-header>
@@ -276,7 +276,7 @@ This is a velocity template to generate AngularJS list view template for any Tip
 						  <md-select-header class="search">
 						    <md-input-container md-no-float class="fullwidth">
 						      <input ng-model="tipoRootController.${field.fq_field_name}.searchTerm.text" type="search" placeholder="Search ..." ng-keydown="tipoRootController.stopBubbling($event)" ng-keyup="$event.keyCode == 13 ? tipoRootController.tipoSearch(tipoRootController.${field.fq_field_name}.searchTerm.text,$fieldbaseFilter,$fieldrelatedTipo,$field_label_field,$fieldlabel) : null" tp:auto-focus>
-						      <md-icon  ng-if="!tipoRootController.${fieldlabel}.disablecreate" class="md-primary addtipo pointer" ng-click="tipoRootController.addTipo($fieldbaseFilter,$fieldrelatedTipo,$field_label_field,$fieldlabel)">add</md-icon>
+						      <md-icon  ng-if="!tipoRootController.${field.fq_field_name}.disablecreate" class="md-primary addtipo pointer" ng-click="tipoRootController.addTipo($fieldbaseFilter,$fieldrelatedTipo,$field_label_field,$fieldlabel)">add</md-icon>
 						    </md-input-container>
 						  </md-select-header>
 						  <md-option ng-value="option" ng-repeat="option in tipoRootController.${field.fq_field_name}.options">{{ option.label }}</md-option>
@@ -451,7 +451,7 @@ This is a velocity template to generate AngularJS list view template for any Tip
 			    </span>
 	       	#end
 		#elseif($gfield.field_type == "divider")
-	    	<span class="header>
+	    	<span class="header">
 	          <div layout="row" layout-align="end center">
 	            <h3 flex>
 	              <a class="plain" md-colors="{color: 'primary-700'}">
@@ -640,7 +640,7 @@ This is a velocity template to generate AngularJS list view template for any Tip
 						  <md-select-header class="search">
 						    <md-input-container md-no-float class="fullwidth">
 						      <input ng-model="tipoRootController.tipo.${gfield.fq_field_name}.searchTerm.text" type="search" placeholder="Search ..." ng-keydown="tipoRootController.stopBubbling($event)" ng-keyup="$event.keyCode == 13 ? tipoRootController.tipoSearch(tipoRootController.tipo.${gfield.fq_field_name}.searchTerm.text,$gfieldbaseFilter,$gfieldrelatedTipo,$gfield_label_field,$gfieldlabel) : null" tp:auto-focus>
-						      <md-icon ng-if="!tipoRootController.${gfieldlabel}.disablecreate" class="md-primary addtipo pointer" ng-click="tipoRootController.addTipo($gfieldbaseFilter,$gfieldrelatedTipo,$gfield_label_field,$gfieldlabel)">add</md-icon>
+						      <md-icon ng-if="!tipoRootController.${field.fq_field_name}.disablecreate" class="md-primary addtipo pointer" ng-click="tipoRootController.addTipo($gfieldbaseFilter,$gfieldrelatedTipo,$gfield_label_field,$gfieldlabel)">add</md-icon>
 						    </md-input-container>
 						  </md-select-header>
 						  <md-option value="" ng-if="!fieldData.mandatory && !tipoRootController.searchTerm.text"></md-option>
@@ -692,7 +692,7 @@ This is a velocity template to generate AngularJS list view template for any Tip
 						  <md-select-header class="search">
 						    <md-input-container md-no-float class="fullwidth">
 						      <input ng-model="tipoRootController.tipo.${gfield.fq_field_name}.searchTerm.text" type="search" placeholder="Search ..." ng-keydown="tipoRootController.stopBubbling($event)" ng-keyup="$event.keyCode == 13 ? tipoRootController.tipoSearch(tipoRootController.tipo.${gfield.fq_field_name}.searchTerm.text,$gfieldbaseFilter,$gfieldrelatedTipo,$gfield_label_field,$gfieldlabel) : null" tp:auto-focus>
-						      <md-icon ng-if="!tipoRootController.${gfieldlabel}.disablecreate" class="md-primary addtipo pointer" ng-click="tipoRootController.addTipo($gfieldbaseFilter,$gfieldrelatedTipo,$gfield_label_field,$gfieldlabel)">add</md-icon>
+						      <md-icon ng-if="!tipoRootController.${gfield.fq_field_name}.disablecreate" class="md-primary addtipo pointer" ng-click="tipoRootController.addTipo($gfieldbaseFilter,$gfieldrelatedTipo,$gfield_label_field,$gfieldlabel)">add</md-icon>
 						    </md-input-container>
 						  </md-select-header>
 						  <md-option ng-value="option" ng-repeat="option in tipoRootController.${gfield.fq_field_name}.options">{{ option.label }}</md-option>
