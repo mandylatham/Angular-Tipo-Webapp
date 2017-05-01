@@ -228,7 +228,7 @@
               var objs = _.map(tipo_data, function(each){
                 return {
                   key: each,
-                  label: _instance.tipo[uniq_name + '_refs']['ref' + each]
+                  label: _.get(_instance.tipo, uniq_name + '_refs' + '.ref' + each)
                 };
               });
                _.set(_instance, uniq_name + '.model', objs);
@@ -243,7 +243,7 @@
             }
           }else{
             if (_.isUndefined(prefix)) {
-              _.set(_instance, uniq_name + '.model', {key: tipo_data, label: _instance.tipo[uniq_name + '_refs']['ref' + tipo_data] });
+              _.set(_instance, uniq_name + '.model', {key: tipo_data, label: _.get(_instance.tipo, uniq_name + '_refs' + '.ref' + tipo_data) });
               // _instance[uniq_name].model = {key: tipo_data, label: _instance.tipo[uniq_name + '_refs']['ref' + tipo_data] }
             }else{
               if (_instance.tipo[prefix][index][label + '_refs']) {
