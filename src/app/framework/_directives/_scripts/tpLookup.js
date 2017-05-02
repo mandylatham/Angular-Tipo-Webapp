@@ -11,7 +11,6 @@
     $mdDialog,
     tipoCache,
     tipoRouter,
-    tipoRegistry,
     tipoInstanceDataService) {
 
     var _instance = this;
@@ -22,8 +21,7 @@
     _instance.tipos = $scope.tipos;
     _instance.tipo_fields = $scope.tipo_fields;
     _instance.selectedTipos = $scope.selectedTipos;
-    var tipo_perm = tipoRegistry.get($scope.tipo_name + '_resdata');
-    _instance.perm = tipo_perm.perm;
+    _instance.perm = $scope.perm;
     $scope.fullscreen = true;
     if ($scope.selectedTipos.length > 0) {
       _.each(_instance.tiposWithDefinition, function(tipo){
@@ -119,6 +117,7 @@
     tipoInstanceDataService,
     tipoManipulationService,
     tipoRouter,
+    tipoRegistry,
     $mdDialog,
     $mdSelect) {
       return {
@@ -136,12 +135,7 @@
           var isArray = Boolean(field._ui.isArray);
           var isGroup = Boolean(field._ui.isGroup);
           var isMandatory = Boolean(field.mandatory);
-          scope.isPopup = false;
-          _.forEach(field.metadata, function(value) {
-            if (value.key_ === "popup.select") {
-              scope.isPopup = true;
-            };
-          });
+          scope.isPopup = field.popup_select;
           scope.isArray = isArray;
 
           var fieldTemplate;
@@ -214,6 +208,11 @@
                   field._value = scope.options[0];
                 }
               }
+              var tipo_perm = tipoRegistry.get(scope.tipo_name + '_resdata');
+              scope.perm = tipo_perm.perm;
+              if(tipo_perm.perm.substr(2,1) === 0){
+                scope.disablecreate = true;
+              }
             });
           };
 
@@ -252,6 +251,7 @@
             newScope.isArray = isArray;
             newScope.field = scope.context;
             newScope.tipo_name = scope.tipo_name;
+            newScope.perm = scope.perm;
             newScope.label_field = scope.label_field;
             if (scope.root) {
             newScope.tipo_fields = scope.root.tipo_fields}

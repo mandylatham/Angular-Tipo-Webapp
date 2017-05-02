@@ -102,9 +102,13 @@
           if(mode === 'view'){
             // only a single tipo
             tipo_id = scope.tipos.tipo_id;
-            var restrictedActions = tipos.restrictedActions.split(',');
+            if (!_.isUndefined(scope.tipos.restrictedActions)) {
+              var restrictedActions = scope.tipos.restrictedActions.split(',');
+            };
           }else{
-            var restrictedActions = scope.restrictedActions.split(',');
+            if (!_.isUndefined(scope.restrictedActions)) {
+              var restrictedActions = scope.restrictedActions.split(',');
+            }
           }
 
           function prepareActions(){
@@ -116,7 +120,11 @@
             }
             var actions = [];
             _.forEach(tipoActions, function(each){
-              var restriced = _.find(restrictedActions, function(o) { return o === each.tipo_action; });
+              if (restrictedActions) {
+                var restriced = _.find(restrictedActions, function(o) { return o === each.tipo_action; });
+              }else{
+                var restriced = false;
+              }
               if (!each.hidden_) {
                 actions.push({
                   name: each.tipo_action,

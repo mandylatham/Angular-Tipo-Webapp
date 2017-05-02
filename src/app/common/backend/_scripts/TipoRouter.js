@@ -13,6 +13,7 @@
     $mdColorUtil,
     $mdDialog,
     $mdToast,
+    $window,
     $location) {
 
     var _stateChanging = false;
@@ -78,7 +79,9 @@
         if(resetPerspective){
           parameters.perspective = undefined;
         }else{
-          parameters.perspective = perspectiveMetadata.perspective;
+          if (!parameters.perspective) {
+            parameters.perspective = perspectiveMetadata.perspective;
+          };
         }
       }
       stateOptions.inherit = false;
@@ -214,20 +217,27 @@
       if(menuItem.state){
         return to(menuItem.state, menuItem.state);
       }else if(menuItem.tipo_name){
+
         var parameters = {};
         if(menuItem.perspective){
           parameters = {
             perspective: menuItem.perspective
           };
         }
-        if(menuItem.isSingleton){
-          return toTipoView(menuItem.tipo_name, 'default', parameters);
+        if (menuItem.abstract) {
+          to('dashboard', 'layout', {perspective: menuItem.id}, false);
         }else{
-          if(menuItem.quickFilters){
-            parameters.filter = menuItem.quickFilters;
+          if(menuItem.isSingleton){
+            return toTipoView(menuItem.tipo_name, 'default', parameters);
+          }else{
+            if(menuItem.quickFilters){
+              parameters.filter = menuItem.quickFilters;
+            }
+            return toTipoList(menuItem.tipo_name, parameters);
           }
-          return toTipoList(menuItem.tipo_name, parameters);
         }
+      }else if(menuItem.url){
+        $window.location.href = menuItem.url;
       }
     }
 
