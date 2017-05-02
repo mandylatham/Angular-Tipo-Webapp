@@ -47,7 +47,7 @@
             }
           }
           filter.page = 1;
-          filter.per_page = 10;
+          filter.per_page = tipoDefinition.tipo_meta.default_page_size;
           return tipoInstanceDataService.search($stateParams.tipo_name, filter);
         },
         delay: function ($q, $timeout) {

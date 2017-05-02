@@ -58,6 +58,7 @@
           }else{
             var registryName = $stateParams.tipo_name + '_resdata';
             var resData = tipoRegistry.get(registryName);
+            tipoRegistry.pushData(tipo_name,result[0].tipo_id,result[0]);
             tipoRouter.toTipoResponse(resData,tipo_name,result[0].tipo_id,parameters);
           }
         }

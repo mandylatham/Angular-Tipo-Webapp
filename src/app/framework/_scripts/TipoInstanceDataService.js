@@ -114,6 +114,7 @@
       promise.then(function(){
         _instance.search(tipo_name, undefined, true);
       });
+
       return promise;
     };
 
@@ -124,7 +125,18 @@
       if(reload){
         headers['Cache-Control'] = 'max-age=0';
       }
-      return getDocumentResource(tipo_name, id).get(criteria, headers);
+      var result = tipoRegistry.getData(tipo_name,id);
+      if (result) {
+      var defer = $q.defer();
+      defer.resolve(result);
+      return defer.promise; 
+      }else{
+        var promise = getDocumentResource(tipo_name, id).get(criteria, headers);
+        promise.then(function(response){
+          tipoRegistry.pushData(tipo_name,id,response);
+        });
+        return getDocumentResource(tipo_name, id).get(criteria, headers);
+      }
     };
 
     _instance.updateOne = function(tipo_name, tipo, id){
@@ -184,7 +196,7 @@
       return promise;
     };
 
-    _instance.gettpObjectOptions = function(baseFilter,tipo_name,label_field,context,searchText){
+    _instance.gettpObjectOptions = function(baseFilter,tipo_name,label_field,context,searchText,page_size){
       var searchCriteria = {};
       var filter;
       var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
@@ -206,7 +218,7 @@
         }
       }
       searchCriteria.page = 1;
-      searchCriteria.per_page = 10;
+      searchCriteria.per_page = page_size;
       var options = [];
       return _instance.search(tipo_name, searchCriteria).then(function(results){
         options = _.map(results, function(each){

@@ -23,6 +23,25 @@
       }
     };
 
+    this.pushData = function(tipo_name,id,data){
+      var meta = tipo_name + id;
+      registry[meta] = data;
+    };
+
+    this.getData = function(tipo_name,id){
+      if(_.isUndefined(tipo_name) || _.isUndefined(id)){
+        return undefined;
+      }else{
+        var data = _.cloneDeep(registry[tipo_name + id]);
+        if (data) {
+          return data;
+        }else{
+          return undefined;
+        }
+        
+      }
+    };
+
   }
 
   angular.module('tipo.framework')

@@ -254,9 +254,9 @@
               if(isArray){
                 tipoData[fieldKey] = [];
                 _.each(fieldValue, function(each){
-                  finalValue = translateSimpleValue(field, each.key);
+                  finalValue = translateSimpleValue(field, each.key || each);
                   if(finalValue){
-                    tipoData[fieldKey].push(translateSimpleValue(field, each.key));
+                    tipoData[fieldKey].push(translateSimpleValue(field, each.key || each));
                   }
                 });
               } else {
@@ -459,6 +459,7 @@
         }else{
           var fieldName = tipoDefinition.tipo_meta.perspective_field_name || _.snakeCase(tipoName);
           metadata.fieldName = fieldName;
+          metadata.tipoId = tipoId;
           metadata.tipoFilter = '(' + fieldName + ':(' + tipoId + '))';
         }
       }else{

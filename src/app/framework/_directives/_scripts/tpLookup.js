@@ -22,6 +22,7 @@
     _instance.tipo_fields = $scope.tipo_fields;
     _instance.selectedTipos = $scope.selectedTipos;
     _instance.perm = $scope.perm;
+    _instance.disablecreate = $scope.disablecreate;
     $scope.fullscreen = true;
     if ($scope.selectedTipos.length > 0) {
       _.each(_instance.tiposWithDefinition, function(tipo){
@@ -101,7 +102,7 @@
       };
       var page = 1;
       filter.page = angular.copy(page);
-      filter.per_page = 10;
+      filter.per_page = _instance.tipoDefinition.tipo_meta.default_page_size;
       tipoRouter.startStateChange();
       tipoCache.evict($scope.tipo_name);
       tipoInstanceDataService.search($scope.tipo_name, filter).then(function(tiposData){
@@ -119,7 +120,8 @@
     tipoRouter,
     tipoRegistry,
     $mdDialog,
-    $mdSelect) {
+    $mdSelect,
+    tipoDefinitionDataService) {
       return {
         scope: {
           root: '=',
@@ -164,6 +166,12 @@
             }
           }
 
+          if(!field.allow_create){
+            scope.disablecreate = true;
+          }else{
+            scope.disablecreate = false;
+          }
+
           function optionsFormat(results){
             scope.optionSelected = _.map(results, function(each){
               return {
@@ -173,7 +181,7 @@
             });
           }
 
-          scope.loadOptions = function (searchText){
+          scope.loadOptions = function (searchText,page_size){
             delete scope.options;
             var searchCriteria = {};
             var filter;
@@ -189,7 +197,7 @@
               searchCriteria.tipo_filter = filter;
             }
             searchCriteria.page = 1;
-            searchCriteria.per_page = 10;
+            searchCriteria.per_page = page_size;
             if (!_.isUndefined(searchText)) {
               searchCriteria.tipo_filter = "(_all:(" + searchText + "*))";
             };
@@ -238,7 +246,11 @@
           };
 
           if (scope.isPopup) {
-            scope.loadOptions();
+            tipoDefinitionDataService.getOne(scope.tipo_name).then(function(definition){
+              var searchText;
+              scope.popupDefinition = definition;
+              scope.loadOptions(searchText,definition.tipo_meta.default_page_size);
+            });
           }else{
             if(isArray){
               scope.options = scope.field._value;
@@ -246,13 +258,15 @@
           }
 
           function openTipoObjectDialog(){
-            scope.loadOptions();
+            var searchText;
+            scope.loadOptions(searchText,scope.popupDefinition.tipo_meta.default_page_size);            
             var newScope = scope.$new();
             newScope.isArray = isArray;
             newScope.field = scope.context;
+            newScope.disablecreate = scope.disablecreate;
             newScope.tipo_name = scope.tipo_name;
             newScope.perm = scope.perm;
-            newScope.label_field = scope.label_field;
+            newScope.label_field = label_field;
             if (scope.root) {
             newScope.tipo_fields = scope.root.tipo_fields}
             newScope.selectedTipos = scope.selectedTipos;
@@ -263,11 +277,9 @@
               scope: newScope,
               resolve: /*@ngInject*/
               {
-                tipoDefinition: function(tipoDefinitionDataService, tipoManipulationService) {
-                  return tipoDefinitionDataService.getOne(scope.tipo_name).then(function(definition){
-                    var tiposWithDefinition = tipoManipulationService.mergeDefinitionAndDataArray(definition, scope.tipos, label_field);
-                    return {tipoDefinition: definition, tiposWithDefinition: tiposWithDefinition}
-                  });
+                tipoDefinition: function(tipoManipulationService) {
+                  var tiposWithDefinition = tipoManipulationService.mergeDefinitionAndDataArray(scope.popupDefinition, scope.tipos, label_field);
+                  return {tipoDefinition: scope.popupDefinition, tiposWithDefinition: tiposWithDefinition}
                 }
               },
               skipHide: true,

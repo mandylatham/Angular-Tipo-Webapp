@@ -127,15 +127,19 @@
       var perspective = $rootScope.perspective;
       $mdSidenav('left').close();
       _instance.activeItem = menuItem;
-      tipoDefinitionDataService.search(menuItem.tipo_name).then(function(response){
-        var data = response[0];
-        _.each(data.tipo_meta.tipo_type,function(type){
-          if (type === "abstract") {
-            menuItem.abstract = true;
-          };
-        });
+      if (menuItem.tipo_name) {
+        tipoDefinitionDataService.getOne(menuItem.tipo_name).then(function(response){
+          var data = response;
+          _.each(data.tipo_meta.tipo_type,function(type){
+            if (type === "abstract") {
+              menuItem.abstract = true;
+            };
+          });
+          tipoRouter.toMenuItem(menuItem);
+        }); 
+      }else{
         tipoRouter.toMenuItem(menuItem);
-      });      
+      }    
     };
 
     _instance.switchTipoPerspective = function(menuItem){
