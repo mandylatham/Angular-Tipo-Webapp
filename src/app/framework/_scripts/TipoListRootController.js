@@ -26,7 +26,7 @@
     _instance.busy = false;
     _instance.loading = false;
     var page = 2;
-    var per_page = 10;
+    var per_page = tipoDefinition.tipo_meta.default_page_size;
     var responseData = tipoRegistry.get($stateParams.tipo_name + '_resdata');
     _instance.perm = responseData.perm;
     _instance.restricted_actions = responseData.restricted_actions;

@@ -254,9 +254,9 @@
               if(isArray){
                 tipoData[fieldKey] = [];
                 _.each(fieldValue, function(each){
-                  finalValue = translateSimpleValue(field, each.key);
+                  finalValue = translateSimpleValue(field, each.key || each);
                   if(finalValue){
-                    tipoData[fieldKey].push(translateSimpleValue(field, each.key));
+                    tipoData[fieldKey].push(translateSimpleValue(field, each.key || each));
                   }
                 });
               } else {

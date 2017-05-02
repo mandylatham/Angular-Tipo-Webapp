@@ -184,7 +184,7 @@
       return promise;
     };
 
-    _instance.gettpObjectOptions = function(baseFilter,tipo_name,label_field,context,searchText){
+    _instance.gettpObjectOptions = function(baseFilter,tipo_name,label_field,context,searchText,page_size){
       var searchCriteria = {};
       var filter;
       var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
@@ -206,7 +206,7 @@
         }
       }
       searchCriteria.page = 1;
-      searchCriteria.per_page = 10;
+      searchCriteria.per_page = page_size;
       var options = [];
       return _instance.search(tipo_name, searchCriteria).then(function(results){
         options = _.map(results, function(each){
