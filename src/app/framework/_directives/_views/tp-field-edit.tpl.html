@@ -33,7 +33,7 @@
             </div>
             <div ng-if="field.allowed_values">
               <md-select ng-model="field._value.key" placeholder="{{field.field_description}}" name="{{field.display_name}}_{{field.field_type}}" ng-required="field.mandatory">
-                <md-select-header class="search">
+                <md-select-header class="search" ng-if="field.allow_create">
                   <md-input-container md-no-float class="fullwidth">
                     <input ng-model="allowed.value" type="search" placeholder="Add New" ng-keydown="$event.stopPropagation()" ng-keyup="$event.keyCode == 13 ? addValue() : null" tp:auto-focus>
                   </md-input-container>
@@ -52,7 +52,7 @@
           </span>
           <div ng-if="field.allowed_values">
             <md-select ng-model="field._value" multiple="true" placeholder="{{field.field_description}}" name="{{field.display_name}}_{{field.field_type}}" ng-required="field.mandatory">
-              <md-select-header class="search">
+              <md-select-header class="search" ng-if="field.allow_create">
                 <md-input-container md-no-float class="fullwidth">
                   <input ng-model="allowed.value" type="search" placeholder="Add New" ng-keydown="$event.stopPropagation()" ng-keyup="$event.keyCode == 13 ? addValue() : null" tp:auto-focus>
                 </md-input-container>

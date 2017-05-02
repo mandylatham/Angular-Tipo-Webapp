@@ -459,6 +459,7 @@
         }else{
           var fieldName = tipoDefinition.tipo_meta.perspective_field_name || _.snakeCase(tipoName);
           metadata.fieldName = fieldName;
+          metadata.tipoId = tipoId;
           metadata.tipoFilter = '(' + fieldName + ':(' + tipoId + '))';
         }
       }else{
