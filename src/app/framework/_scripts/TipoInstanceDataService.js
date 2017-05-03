@@ -126,7 +126,7 @@
         headers['Cache-Control'] = 'max-age=0';
       }
       var result = tipoRegistry.getData(tipo_name,id);
-      if (result) {
+      if (result && !reload) {
       var defer = $q.defer();
       defer.resolve(result);
       return defer.promise; 

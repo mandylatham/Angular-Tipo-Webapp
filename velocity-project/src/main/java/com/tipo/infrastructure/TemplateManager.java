@@ -75,13 +75,13 @@ public String renderTemplate(String template, Map<String, Object> objects)
       objs.put("definition", definitionObj);
       
       String result = new TemplateManager().renderTemplate(template, objs);
-      String editdefinition = readFile("src/main/resources/expandedDefinitionCustomization.json");
+      String editdefinition = readFile("src/main/resources/expandedDefinition.json");
       String edittemplate = readFile("src/main/resources/dedicated-edit.tpl.html.vsl");
       Map<String, Object> editobjs = new HashMap<String, Object>();
-			Map<String, Object> editjsonObj = JsonHelper.getHelper().getGson().fromJson(definition, Map.class);
+			Map<String, Object> editjsonObj = JsonHelper.getHelper().getGson().fromJson(editdefinition, Map.class);
       Map<String, Object> editdefinitionObj = (Map<String, Object>) editjsonObj.get("data");
       editobjs.put("definition", editdefinitionObj);
-      String editresult = new TemplateManager().renderTemplate(edittemplate, objs);
+      String editresult = new TemplateManager().renderTemplate(edittemplate, editobjs);
       System.out.println(editresult);
     }
     catch (Exception e)

@@ -47,7 +47,13 @@
             var fieldValue;
             delete tipoData[fieldKey];
           }else{
-            var fieldValue = tipoData[fieldKey];
+            try{
+                var fieldValue = tipoData[fieldKey];
+            } catch (e) {
+                console.log("Got an error!",e);
+                // throw e; // rethrow to not marked as handled
+            }
+            
           };
           if(resetExistingData){
             delete field._value;
@@ -117,10 +123,12 @@
                 if(item._ARRAY_META){
                   itemField._ui.hash = item._ARRAY_META._HASH;
                 }
-                mergeDefinitionAndData(itemField, item ,resetExistingData, copy);
+              mergeDefinitionAndData(itemField, item ,resetExistingData, copy);                
               });
             }else{
-              mergeDefinitionAndData(field, fieldValue,resetExistingData, copy);
+              if (!_.isNull(fieldValue)) {
+                mergeDefinitionAndData(field, fieldValue,resetExistingData, copy);
+              }
               // determine if the group has values for any field
               var hasValue = false;
               _.each(field.tipo_fields, function(each){
