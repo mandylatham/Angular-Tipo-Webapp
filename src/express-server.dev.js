@@ -18,11 +18,13 @@ var pathMappings = [
     path: '/g/public',
     // url: 'https://dev.tipotapp.com/app/d/tipotapp/constructionmanagement'
     url: 'https://dev.tipotapp.com/app'
+    // url: 'https://app.billionbases.com/app/d/deltagene/billionbases'
   },
   {
     path: '/public',
     // url: 'https://dev.tipotapp.com/app/d/tipotapp/constructionmanagement'
     url: 'https://dev.tipotapp.com/app'
+    // url: 'https://app.billionbases.com/app/d/deltagene/billionbases'
   },
   // {
   //   path: '/app',
@@ -34,6 +36,7 @@ var pathMappings = [
     //url: 'https://app.billionbases.com/dev'
     //url: 'https://dev.tipotapp.com/2000000001.1000000001.raj@tipotapp.com/2000000001'
     //url: 'https://dev.tipotapp.com/2000000001.1000000001.prasad.sid@deltagene.com/2000000002'
+    // url: 'https://app.billionbases.com'
     url: 'https://dev.tipotapp.com'
   }
 ];

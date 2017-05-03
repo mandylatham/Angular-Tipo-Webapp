@@ -35,6 +35,9 @@
 
     _instance.tiposWithDefinition = tipoManipulationService.mergeDefinitionAndDataArray(tipoDefinition,tipos);
     _instance.bulkedit = false;
+    if (_.isUndefined(_instance.tipoDefinition.tipo_meta.allow_search)) {
+      _instance.tipoDefinition.tipo_meta.allow_search = true;
+    };
 
     _instance.hasTipos = tipos.length > 0;
 

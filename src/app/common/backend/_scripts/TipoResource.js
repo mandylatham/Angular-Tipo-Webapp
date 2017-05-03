@@ -126,10 +126,12 @@
     if (_.startsWith(relativeUrl, '/app')) {
       // relativeUrl = '/api/d/tipotapp/constructionmanagement' + relativeUrl.substring(4);
       // relativeUrl = '/api/d/tipotapp/demo2' + relativeUrl.substring(4);
+      // relativeUrl = '/api/d/deltagene/billionbases' + relativeUrl.substring(4);
       relativeUrl = '/api' + relativeUrl.substring(4);
     } else {
       // relativeUrl = '/api/d/tipotapp/demo2';
       // relativeUrl = '/api/d/tipotapp/constructionmanagement';
+      // relativeUrl = '/api/d/deltagene/billionbases';
       relativeUrl = '/api';
     }
     var baseUrl = location.origin + relativeUrl;

@@ -430,7 +430,7 @@ This is a velocity template to generate AngularJS list view template for any Tip
     	#set($gsizeGtMd = 100)
   	#end 
 
-  	#if( !$gfield.hidden_ && !$gfield.underscore_ui.isGroup && $gfield.short_display && !$gfield.show_in_tab)
+  	#if( !$gfield.hidden_ && !$gfield.underscore_ui.isGroup && ($gfield.short_display || $field.disable_expansion) && !$gfield.show_in_tab)
   	
   	 <dl class="edit" 
 			    layout="column" 
