@@ -21,12 +21,12 @@
         _instance.perspectives = [{
           name: 'Home',
           icon: 'home',
-          disable: false,
+          disabled: false,
           perspective: 'Home'
         }, {
           name: 'Settings',
           icon: 'settings',
-          disable: false,
+          disabled: false,
           perspective: 'Settings'
         }
       ];
@@ -35,14 +35,14 @@
             _instance.perspectives.push({
                 name: 'Profile',
                 icon: 'account_box',
-                disable: false,
+                disabled: false,
                 perspective: 'ProfilePerspective'
               });
         } else {
             _instance.perspectives.push({
                 name: 'Profile',
                 icon: 'account_box',
-                disable: true,
+                disabled: true,
                 perspective: 'ProfilePerspective'
               });
         }
@@ -51,7 +51,7 @@
         _instance.perspectives.push({
           name: 'Develop',
           icon: 'build',
-          disable: false,
+          disabled: false,
           perspective: 'TipoApp.' + homeMeta.application
         });
       }
@@ -60,14 +60,14 @@
           _instance.perspectives.push({
               name: 'Log Out',
               icon: 'exit_to_app',
-              disable: false,
+              disabled: false,
               perspective: 'logout'
           });
       } else {
           _instance.perspectives.push({
               name: 'Log Out',
               icon: 'exit_to_app',
-              disable: true,
+              disabled: true,
               perspective: 'logout'
           });
       }
