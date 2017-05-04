@@ -7,7 +7,7 @@
     </div>
     <a ng-click="main.toPerspective(header.perspectives[0].perspective)" href=""><img src="g/public/assets/images/logo.png" hide-xs></img></a>
     <span flex></span>
-    <md-button ng-repeat="each in header.perspectives" ng-click="main.toPerspective(each.perspective)" class="md-icon-button">
+    <md-button ng-repeat="each in header.perspectives" ng-click="main.toPerspective(each.perspective)" class="md-icon-button" ng-disabled="each.disabled">
       <md-tooltip md-direction="bottom">{{each.name}}</md-tooltip>
       <md-icon>{{each.icon}}</md-icon>
     </md-button>

@@ -21,31 +21,56 @@
         _instance.perspectives = [{
           name: 'Home',
           icon: 'home',
+          disable: false,
           perspective: 'Home'
         }, {
           name: 'Settings',
           icon: 'settings',
+          disable: false,
           perspective: 'Settings'
-        },
-        {
-          name: 'Profile',
-          icon: 'account_box',
-          perspective: 'ProfilePerspective'
         }
       ];
-      if (homeMeta.application_owner_account === userMeta.account) {
+        
+        if (homeMeta.application === userMeta.application) {
+            _instance.perspectives.push({
+                name: 'Profile',
+                icon: 'account_box',
+                disable: false,
+                perspective: 'ProfilePerspective'
+              });
+        } else {
+            _instance.perspectives.push({
+                name: 'Profile',
+                icon: 'account_box',
+                disable: true,
+                perspective: 'ProfilePerspective'
+              });
+        }
+        
+      if (homeMeta.application_owner_account === userMeta.account ) {
         _instance.perspectives.push({
           name: 'Develop',
           icon: 'build',
+          disable: false,
           perspective: 'TipoApp.' + homeMeta.application
         });
-      };
-
-      _instance.perspectives.push({
-          name: 'Log Out',
-          icon: 'exit_to_app',
-          perspective: 'logout'
-      });
+      }
+      
+      if (homeMeta.application === userMeta.application) {
+          _instance.perspectives.push({
+              name: 'Log Out',
+              icon: 'exit_to_app',
+              disable: false,
+              perspective: 'logout'
+          });
+      } else {
+          _instance.perspectives.push({
+              name: 'Log Out',
+              icon: 'exit_to_app',
+              disable: true,
+              perspective: 'logout'
+          });
+      }
     }
 
     var userMeta = metadataService.userMetadata;
