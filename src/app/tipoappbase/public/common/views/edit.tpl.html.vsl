@@ -152,7 +152,7 @@ This is a velocity template to generate AngularJS list view template for any Tip
 		            #if($field.validations)
 		            	#set ($decoded = $tipo_utils.decodeBase64($field.validations))
 		            #end
-	            	<input ng-model="tipoRootController.tipo.$field.fq_field_name" aria-label="$field.display_name" placeholder="$!field_description" name="$field.display_name_$field.field_type" ng-required="$mandatory" ng-pattern="$decoded">
+	            	<input ng-model="tipoRootController.tipo.$field.fq_field_name" aria-label="$field.display_name" placeholder="$!field_description" name="$field.display_name_$field.field_type" ng-required="$mandatory" ng-pattern="/${decoded}/">
 				#end
 			#else
 				<span>{{tipoRootController.tipo.$field.fq_field_name}}</span>
@@ -549,7 +549,7 @@ This is a velocity template to generate AngularJS list view template for any Tip
 	            	#if($gfield.validations)
 		            	#set ($gdecoded = $tipo_utils.decodeBase64($gfield.validations))
 		            #end
-	            	<input ng-model="tipoRootController.tipo.${gfield.fq_field_name}" aria-label="$gfield.display_name" placeholder="$!field_description" name="$gfield.display_name_$gfield.field_type" ng-required="$gmandatory" ng-pattern="$gdecoded">
+	            	<input ng-model="tipoRootController.tipo.${gfield.fq_field_name}" aria-label="$gfield.display_name" placeholder="$!field_description" name="$gfield.display_name_$gfield.field_type" ng-required="$gmandatory" ng-pattern="/${gdecoded}/">
 				#end
 			#else
 				<span>{{tipoRootController.tipo.${gfield.fq_field_name}}}</span>
