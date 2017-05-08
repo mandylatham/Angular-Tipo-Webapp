@@ -294,7 +294,7 @@
 
     _instance.loadOptions = function (baseFilter,tipo_name,label_field,uniq_name,prefix,label,index,searchText){
       _.set(_instance, uniq_name, {});
-      tipoInstanceDataService.gettpObjectOptions(baseFilter,tipo_name,label_field,_instance.tipoDefinition,searchText).then(function(result){
+      tipoInstanceDataService.gettpObjectOptions(baseFilter,tipo_name,label_field,_instance.tipoDefinition,searchText,undefined,index,_instance.tipo).then(function(result){
         _instance.setInstance(uniq_name,result,prefix,label,index,tipo_name);
       });      
     };
@@ -321,7 +321,7 @@
 
     _instance.loadPopupOptions = function (baseFilter,tipo_name,label_field,uniq_name,prefix,label,index,page_size){
       var searchText;
-      return tipoInstanceDataService.gettpObjectOptions(baseFilter,tipo_name,label_field,_instance.tipoDefinition,searchText,page_size).then(function(result){
+      return tipoInstanceDataService.gettpObjectOptions(baseFilter,tipo_name,label_field,_instance.tipoDefinition,searchText,page_size,index,_instance.tipo).then(function(result){
         _instance.setInstance(uniq_name,result,prefix,label,index,tipo_name)
       });      
     };
@@ -503,6 +503,7 @@
       }
       var newScope = $scope.$new();
       newScope.definition = definition;
+      newScope.root = _instance.tipoDefinition;
       newScope.mode = "edit";
       var promise = $mdDialog.show({
         templateUrl: 'framework/_directives/_views/tp-view-dialog.tpl.html',
@@ -519,8 +520,8 @@
     _instance.lookupTipo = function(field_name){
       var definition = extractDatafromDefinition(field_name);
       var newScope = $scope.$new();
-      newScope.root = $scope.root;
-      newScope.context = $scope.context;
+      newScope.root = _instance.tipoDefinition;
+      newScope.context = definition;
       newScope.definition = $scope.group;
       newScope.target = definition;
       $mdDialog.show({

@@ -38,6 +38,8 @@
         filter.tipo_filter = perspectiveMetadata.tipoFilter;
       }
     }
+    filter.page = 1;
+    filter.per_page = 100;
     tipoInstanceDataService.search("TipoDefinition",filter).then(function(tipo_objects){
       _instance.tipo_objects = tipo_objects;
       _.each(tipo_objects,function(tipo_object){

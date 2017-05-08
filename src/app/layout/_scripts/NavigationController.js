@@ -134,6 +134,11 @@
             if (type === "abstract") {
               menuItem.abstract = true;
             };
+            if (!menuItem.ignore_singleton && _.startsWith(type, 'singleton')) {
+              menuItem.isSingleton = true;
+            }else{
+              menuItem.isSingleton = false;
+            }
           });
           tipoRouter.toMenuItem(menuItem);
         }); 
@@ -157,6 +162,13 @@
 
     $scope.$watch(function(){return $rootScope.perspective;}, function(newValue, oldValue){
       prepareMenu(newValue);
+    });
+    $scope.$watch(function(){return _instance.menu;}, function(newValue, oldValue){
+      console.log($state);
+      console.log($stateParams);
+      if (!_.isUndefined(newValue) && $state.current.name === "dashboard") {
+        _instance.navigate(newValue[0]);
+      };
     });
 
     $scope.$on('$stateChangeSuccess', function() {

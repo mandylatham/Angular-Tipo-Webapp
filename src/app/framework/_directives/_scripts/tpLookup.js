@@ -181,6 +181,32 @@
             });
           }
 
+          function extractDropdownList(tipo_data,options,startName,remName){
+            if (!startName) {
+              if (_.isArray(tipo_data[remName])) {
+                _.each(tipo_data[remName],function(each){
+                  options.push({
+                    key: each,
+                    label: each
+                  });
+                })
+              }else{
+                options.push({
+                  key: tipo_data[remName],
+                  label: tipo_data[remName]
+                });
+              }
+              return;
+            };
+            if (_.isArray(tipo_data[startName])) {
+              _.each(tipo_data[startName],function(each){
+                extractDropdownList(each,options,remName.substr(0,remName.indexOf('.')),remName.substr(remName.indexOf('.') + 1));
+              });
+            }else{
+              extractDropdownList(tipo_data[startName],options,remName.substr(0,remName.indexOf('.')),remName.substr(remName.indexOf('.') + 1));
+            }
+          }
+
           scope.loadOptions = function (searchText,page_size){
             delete scope.options;
             var searchCriteria = {};
@@ -190,25 +216,44 @@
               filter = perspectiveMetadata.tipoFilter;
             }*/
             if(!_.isUndefined(baseFilter)){
-              var baseFilterExpanded = tipoManipulationService.expandFilterExpression(baseFilter, scope.root, scope.context);
+              var baseFilterExpanded = tipoManipulationService.expandFilterExpression(baseFilter, scope.root, scope.context,field.arrayIndex);
               filter = baseFilterExpanded;
             }
             if(!_.isUndefined(filter)){
               searchCriteria.tipo_filter = filter;
             }
+            if (field.select_field && !_.isEmpty(field.select_field)) {
+              searchCriteria.tipo_fields = field.select_field + ',tipo_id';
+              label_field = field.select_field;
+            };
             searchCriteria.page = 1;
             searchCriteria.per_page = page_size;
-            if (!_.isUndefined(searchText)) {
-              searchCriteria.tipo_filter = "(_all:(" + searchText + "*))";
+            if(!_.isUndefined(searchCriteria.tipo_filter) && !_.isEmpty(searchCriteria.tipo_filter)  && !_.isUndefined(searchText)){
+              searchCriteria.tipo_filter += " AND (tipo_id:(" + searchText + "*) OR " + label_field + ":(" + searchText + "*))" ;
+            }else{
+              if (!_.isUndefined(searchText)) {
+                searchCriteria.tipo_filter = "(tipo_id:(" + searchText + "*) OR " + label_field + ":(" + searchText + "*))";
+              }
             };
+            searchCriteria.short_display = 'N';
             return tipoInstanceDataService.search(scope.tipo_name, searchCriteria).then(function(results){
               scope.tipos = results;
-              scope.options = _.map(results, function(each){
-                return {
-                  key: each.tipo_id,
-                  label: each[label_field]
+              
+              if (!field.select_field) {
+                scope.options = _.map(results, function(each){
+                  return {
+                    key: each.tipo_id,
+                    label: each[label_field]
+                  };
+                });
+              }else{
+                scope.options = [];
+                var remName = field.select_field.substr(field.select_field.indexOf('.') + 1);
+                var startName = field.select_field.substr(0,field.select_field.indexOf('.'));
+                if (results[0][startName] || results[0][remName]) {
+                  extractDropdownList(results[0],scope.options,startName,remName)
                 };
-              });
+              }
               if(isMandatory && !field._value){
                 if(isArray){
                   field._value = [scope.options[0]];

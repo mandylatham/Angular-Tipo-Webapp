@@ -327,14 +327,22 @@
     }
 
     function generateGroupItem(groupField){
+      groupField._items = groupField._items || [];
       var itemField = {
         display_name: groupField.display_name,
-        tipo_fields: _.cloneDeep(groupField.tipo_fields),
+        tipo_fields: _.cloneDeepWith(groupField.tipo_fields,function(value){
+          if (_.isObject(value) && !_.isArray(value)) {
+            if (!_.isUndefined(groupField.arrayIndex)) {
+              value.arrayIndex = groupField.arrayIndex + groupField._items.length.toString();
+            }else{
+              value.arrayIndex = groupField._items.length.toString();
+            }
+          };
+        }),
         _ui: {
           isGroupItem: true
-        }
+        },
       };
-      groupField._items = groupField._items || [];
       groupField._items.push(itemField);
       return itemField;
     }
@@ -392,7 +400,11 @@
       return contextualData;
     }
 
-    function expandFilterExpression(filterExpression, tipo, context){
+    function replaceIndexinExpression(filterExpression,tipoData){
+
+    }
+
+    function expandFilterExpression(filterExpression, tipo, context,arrayIndex){
       var tipoData = {};
       if(!_.isUndefined(tipo)){
         if(_.get(tipo, '_ui.isDefinition')){
@@ -407,6 +419,54 @@
             tipoData['this'] = contextData;
           }
         }
+        if (S(filterExpression).contains('@index')) {
+          var frontTags = filterExpression.split('[[');
+          var mustacheTags = [];
+          var mustachemodTags = [];
+          _.each(frontTags,function(tag){
+            if (!_.isEmpty(tag)) {
+              var backtags = tag.split(']]');
+              if (backtags[0] !== '.') {
+                mustacheTags.push(backtags[0]);
+              };
+            };
+          })
+          _.each(mustacheTags,function(tag){
+            var indexPaths = tag.split('.@index.');
+            _.each(indexPaths,function(value,index){
+              var nth = -1;
+              tag = tag.replace(/\@index/g, function (match, i, original) {
+                      nth++;
+                      return arrayIndex.toString().substr(nth,1);
+                  });
+            });      
+            mustachemodTags.push(tag);      
+          });
+          var fullExpression = "";
+          var frontModTags = [];
+          var nth = 0;
+          _.each(frontTags,function(tag){
+            if (!_.isEmpty(tag)) {
+              var backtags = tag.split(']]');
+              if (backtags[0] !== '.') {
+                backtags[0] = mustachemodTags[nth];
+                nth++;
+              };
+              frontModTags.push(backtags[0] + ']]' + backtags[1]);
+            }else{
+              frontModTags.push("");
+            }
+          });
+          _.each(frontModTags,function(tag,index){
+            if (frontModTags[index + 1]) {
+              fullExpression = fullExpression + tag + "[[";
+            }else{
+              fullExpression = fullExpression + tag;
+            }
+          });
+          filterExpression = fullExpression;
+        };
+        console.log(frontModTags);
         filterExpression = Mustache.render(filterExpression, tipoData);
       }
       return filterExpression;
@@ -416,9 +476,13 @@
 
       var menuItems = _.map(definition.tipo_menu, function(each){
         var menuItem = {};
-        var parts = each.type_.split('.');
+        var type = each.type_;
+        if (!_.startsWith(type, 'http') && !_.startsWith(type, 'Client') && !_.startsWith(type, 'Tipo.')) {
+          type = 'Tipo.' + type;
+        }
+        var parts = type.split('.');
         var isTipo = parts[0] === 'Tipo';
-        var isSingleton = parts.length > 2 && parts[2] === 'default';
+        // var isSingleton = parts.length > 2 && parts[2] === 'default';
         if (!S(each.type_).contains('http')) {
           menuItem.type = parts[0];
           menuItem.id = parts[1];
@@ -428,7 +492,7 @@
         menuItem.label = each.label;
         menuItem.icon = each.icon;
         menuItem.sequence = each.sequence;
-        menuItem.isSingleton = isSingleton;
+        menuItem.ignore_singleton = each.ignore_singleton;
         if(isTipo){
           menuItem.tipo_name = parts[1];
           menuItem.perspective = perspective;

@@ -107,7 +107,7 @@ This is a velocity template to generate AngularJS list view template for any Tip
 		#elseif($field.field_type == "s3explorer")
 	        <tp:s3-explorer name="$field.display_name_$field.field_type" ng-required="$mandatory"/>
 		#elseif($field.field_type == "file")
-	        <tp:file field="tipoRootController.tipo" mode="edit"/>
+	        <tp:file field="tipoRootController.tipoDefinition" fieldpath="'$field.fq_field_name'" mode="edit"/>
 		#elseif($field.field_type == "colour")
 	        <tp:colour-palette name="$field.display_name_$field.field_type" mode="edit" ng-model="tipoRootController.tipo.$field.fq_field_name" ng-required="$mandatory" />
 		#elseif($field.field_type == "htmlLink")
@@ -161,7 +161,7 @@ This is a velocity template to generate AngularJS list view template for any Tip
 	#elseif($field.underscore_ui.isArray && !$field.underscore_ui.isTipoRelationship)
 		#if($field.field_type == "file")
 			<span>
-          		<tp:file field="tipoRootController.tipo" mode="edit"/>
+          		<tp:file field="tipoRootController.tipoDefinition" fieldpath="'$field.fq_field_name'" mode="edit"/>
         	</span>
         #else
         	#if(!$field.read_only)
@@ -488,7 +488,7 @@ This is a velocity template to generate AngularJS list view template for any Tip
 		#elseif($gfield.field_type == "s3explorer")
 	        <tp:s3-explorer name="$gfield.display_name_$gfield.field_type" ng-required="$gmandatory"/>
 		#elseif($gfield.field_type == "file")
-	        <tp:file field="tipoRootController.tipo.$gfield.fq_field_name" mode="edit"/>
+	        <tp:file field="tipoRootController.tipoDefinition" fieldpath="'$gfield.fq_field_name'" mode="edit"/>
 		#elseif($gfield.field_type == "colour")
 	        <tp:colour-palette name="$gfield.display_name_$gfield.field_type" mode="edit" ng-model="tipoRootController.tipo.${gfield.fq_field_name}" ng-required="$gmandatory" />
 		#elseif($gfield.field_type == "htmlLink")
@@ -558,7 +558,7 @@ This is a velocity template to generate AngularJS list view template for any Tip
 	#elseif($gfield.underscore_ui.isArray && !$gfield.underscore_ui.isTipoRelationship)
 		#if($gfield.field_type == "file")
 			<span>
-          		<tp:file field="tipoRootController.tipo.$gfield.fq_field_name" mode="edit"/>
+          		<tp:file field="tipoRootController.tipoDefinition" fieldpath="'$gfield.fq_field_name'" mode="edit"/>
         	</span>
         #else
         	#if(!$gfield.read_only)

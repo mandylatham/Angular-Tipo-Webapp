@@ -88,7 +88,7 @@
         link: function(scope, element, attrs){
 
           var mode = scope.mode;
-          scope.action= {isOpen: false};
+          scope.mobaction= {isOpen: false};
           scope.deskaction= {isOpen: false};
 
           if(!mode){
@@ -125,7 +125,7 @@
               }else{
                 var restriced = false;
               }
-              if (!each.hidden_) {
+              if (!each.hidden_ && !restriced) {
                 actions.push({
                   name: each.tipo_action,
                   label: each.display_name,
@@ -162,6 +162,7 @@
 
           scope.performAction = function(action){
             scope.deskaction.isOpen = false;
+            scope.mobaction.isOpen = false;
             if(mode === 'view' || !action.bulk_select){
               if (mode === 'view') {
                 performSingleAction(action);
@@ -295,13 +296,13 @@
             return promise;
           }
 
-          scope.$watch('action.isOpen', function(newVal, oldVal) {
+          scope.$watch('mobaction.isOpen', function(newVal, oldVal) {
             if (newVal) {
               $timeout(function() {
-                scope.tooltip = scope.action.isOpen;
+                scope.tooltip = scope.mobaction.isOpen;
               }, 600);
             } else {
-              scope.tooltip = scope.action.isOpen;
+              scope.tooltip = scope.mobaction.isOpen;
             }
           }, true);
 

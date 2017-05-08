@@ -240,6 +240,7 @@
         $window.location.href = menuItem.url;
       }
     }
+    
 
     function toRegisterUser(parameters){
       var stateOptions = {reload: 'registerUser'};
