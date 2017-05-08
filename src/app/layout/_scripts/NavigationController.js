@@ -164,8 +164,6 @@
       prepareMenu(newValue);
     });
     $scope.$watch(function(){return _instance.menu;}, function(newValue, oldValue){
-      console.log($state);
-      console.log($stateParams);
       if (!_.isUndefined(newValue) && $state.current.name === "dashboard") {
         _instance.navigate(newValue[0]);
       };
