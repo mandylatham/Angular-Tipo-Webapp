@@ -223,7 +223,8 @@
         }
       }
       searchCriteria.page = 1;
-      searchCriteria.per_page = page_size;
+      // If for the dropdown we require custom page size then we can get from the page_size parameter
+      searchCriteria.per_page = 500;
       var options = [];
       return _instance.search(tipo_name, searchCriteria).then(function(results){
         options = _.map(results, function(each){

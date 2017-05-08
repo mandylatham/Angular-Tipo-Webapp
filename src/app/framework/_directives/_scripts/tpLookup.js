@@ -227,7 +227,8 @@
               label_field = field.select_field;
             };
             searchCriteria.page = 1;
-            searchCriteria.per_page = page_size;
+            // If for the dropdown we require custom page size then we can get from the page_size parameter
+            searchCriteria.per_page = 500;
             if(!_.isUndefined(searchCriteria.tipo_filter) && !_.isEmpty(searchCriteria.tipo_filter)  && !_.isUndefined(searchText)){
               searchCriteria.tipo_filter += " AND (tipo_id:(" + searchText + "*) OR " + label_field + ":(" + searchText + "*))" ;
             }else{

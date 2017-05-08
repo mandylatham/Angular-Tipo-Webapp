@@ -138,6 +138,7 @@
           return tipo;
         },
         tipoDefinition: function (tipoDefinitionDataService, tipoManipulationService, tipo, $stateParams) {
+          $stateParams.perspectiveTipo = tipo;
           var tipoDefinition = tipoDefinitionDataService.getOne($stateParams.tipo_name).then(function (definition) {
             if (!_.isUndefined(definition)) {
               tipoManipulationService.mergeDefinitionAndData(definition, tipo);

@@ -23,7 +23,7 @@
 
     function extractShortDisplayFieldsRecursive(definition, collection){
       var eligibleFields = _.filter(definition.tipo_fields, function(each){
-        return each.short_display && !each.hidden_;
+        return (each.short_display && !each.hidden_) || each.field_name === 'tipo_id';
       });
       _.each(eligibleFields, function(each){
         if(each._ui.isGroup){
@@ -370,8 +370,6 @@
       var labelField = getMeaningfulKey(tipoDefinitionWithData) || getPrimaryKey(tipoDefinitionWithData);
       if (!_.isUndefined(labelField)) {
         return labelField._value.key;
-      }else{
-        return tipoDefinitionWithData.tipo_id;
       }
     }
 
@@ -466,7 +464,6 @@
           });
           filterExpression = fullExpression;
         };
-        console.log(frontModTags);
         filterExpression = Mustache.render(filterExpression, tipoData);
       }
       return filterExpression;

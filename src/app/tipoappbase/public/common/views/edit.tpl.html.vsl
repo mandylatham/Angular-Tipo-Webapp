@@ -238,7 +238,11 @@ This is a velocity template to generate AngularJS list view template for any Tip
 		#else
 			#set($field_label_field = "'$field.key_field.field_name'")
 		#end
-		#set($fieldisPopup = $field.popup_select)
+		#if($field.popup_select)
+			#set($fieldisPopup = $field.popup_select)
+		#else
+			#set($fieldisPopup = false)
+		#end
 		#set($fieldlabel = "'$field.fq_field_name'")
 		#set($fieldJson= {"isArray": $fieldisArray,
 						 "isGroup": $fieldisGroup,
@@ -661,7 +665,11 @@ This is a velocity template to generate AngularJS list view template for any Tip
 		#else
 			#set($gfield_label_field = "'$gfield.key_field.field_name'")
 		#end
-		#set($gfieldisPopup = $gfield.popup_select)
+		#if($gfield.popup_select)
+			#set($gfieldisPopup = $gfield.popup_select)
+		#else
+			#set($gfieldisPopup = false)
+		#end
 		#set($gfieldlabel = "'$gfield.fq_field_name'")
 		#set($gfieldJson= {"isArray": $gfieldisArray,
 						 "isGroup": $gfieldisGroup,
