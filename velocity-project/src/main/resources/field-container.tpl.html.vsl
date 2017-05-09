@@ -1,5 +1,3 @@
-#parse( "src/main/resources/field-container.tpl.html.vsl" )
-
 #*
 This is a velocity template to generate AngularJS list view template for any Tipo Object. Input is an expanded definition.
 *#         

@@ -3,12 +3,14 @@
     "message": null,
     "status_code": "200",
     "data": {
-        "perm": "1111111",
+        "perm": "11111111",
         "application_refs": {},
         "tipo_name": "TipoDefinition",
         "tipo_id": "VelocityTest",
         "account_refs": {},
-        "tipo_edit": {},
+        "tipo_edit": {
+            "ui_template_url": "tipoapp.velocity-edit"
+        },
         "tipo_meta": {
             "icon": "sentiment_very_satisfied",
             "icon_refs": {
@@ -52,6 +54,38 @@
             ],
             "actions": [
                 {
+                    "tipo_action": "list_action_rest1",
+                    "display_name": "List Action Rest 1",
+                    "highlight": true,
+                    "icon": "airline_seat_legroom_reduced",
+                    "icon_refs": {
+                        "refskip_next": "skip next"
+                    },
+                    "tipo_function": "5291001589",
+                    "tipo_function_refs": {
+                        "ref5291001589": "CustomFunction"
+                    },
+                    "_ARRAY_META": {
+                        "_HASH": "4019113928"
+                    },
+                    "server_dependencies": [
+                        {
+                            "tipo_name": "TestingRequests",
+                            "filter_": "Test1",
+                            "_ARRAY_META": {
+                                "_HASH": "3352673039"
+                            }
+                        },
+                        {
+                            "tipo_name": "TesttingPerspective",
+                            "filter_": "Test2",
+                            "_ARRAY_META": {
+                                "_HASH": "7351172433"
+                            }
+                        }
+                    ]
+                },
+                {
                     "tipo_action": "action_non_highlight",
                     "tipo_function_refs": {
                         "ref5291001589": "CustomFunction"
@@ -65,6 +99,22 @@
                         "_HASH": "4326685772"
                     },
                     "display_name": "Action Bulk"
+                },
+                {
+                    "tipo_action": "list_action_rest2",
+                    "display_name": "List Action Rest 2",
+                    "highlight": true,
+                    "icon": "add_circle_outline",
+                    "icon_refs": {
+                        "refadd_circle_outline": "add circle outline"
+                    },
+                    "tipo_function": "5291001589",
+                    "tipo_function_refs": {
+                        "ref5291001589": "CustomFunction"
+                    },
+                    "_ARRAY_META": {
+                        "_HASH": "6501966273"
+                    }
                 },
                 {
                     "tipo_action": "action_non_highlight",
@@ -87,9 +137,10 @@
                         "ref5291001589": "CustomFunction"
                     },
                     "tipo_function": "5291001589",
-                    "icon": "skip_next",
+                    "icon": "airline_seat_legroom_reduced",
                     "icon_refs": {
-                        "refskip_next": "skip next"
+                        "refskip_next": "skip next",
+                        "refairline_seat_legroom_reduced": "airline seat legroom reduced"
                     },
                     "_ARRAY_META": {
                         "_HASH": "9998156291"
@@ -146,7 +197,8 @@
                     "display_name": "App Name",
                     "field_type": "string",
                     "mandatory": true,
-                    "field_name": "app_name"
+                    "field_name": "app_name",
+                    "transient": true
                 },
                 "fq_field_name": "tipoapp",
                 "_ui": {
@@ -167,7 +219,6 @@
                 "field_type_refs": {
                     "refstring": "Simple String"
                 },
-                "metadata": [],
                 "_ARRAY_META": {
                     "_HASH": "8814052217"
                 },
@@ -197,6 +248,36 @@
                 }
             },
             {
+                "sequence": "1.1",
+                "field_type_refs": {
+                    "refstring": "Simple String"
+                },
+                "display_name": "Role String",
+                "field_type": "string",
+                "field_name": "role_string",
+                "validations": "Kg==",
+                "validations_refs": {
+                    "ref5024097185": "Email",
+                    "refL14uK0AuKy4uKyQv": "Email",
+                    "refL14uK0AuK1wuLiskLw==": "Email",
+                    "refXi4rQC4rXC4uKyQ=": "Email",
+                    "refKg==": "String"
+                },
+                "short_display": true,
+                "_ARRAY_META": {
+                    "_HASH": "7035573101"
+                },
+                "fq_field_name": "role_string",
+                "_ui": {
+                    "isArray": false,
+                    "isSimple": true
+                },
+                "underscore_ui": {
+                    "isArray": false,
+                    "isSimple": true
+                }
+            },
+            {
                 "sequence": "2",
                 "field_type_refs": {
                     "refstring": "Simple String",
@@ -204,19 +285,16 @@
                 },
                 "metadata": [
                     {
-                        "key_": "transient",
                         "_ARRAY_META": {
                             "_HASH": "5999531332"
                         },
+                        "key_": "transient",
                         "value_": "Y"
                     }
                 ],
-                "_ARRAY_META": {
-                    "_HASH": "2575865057"
-                },
-                "display_name": "Para",
+                "display_name": "Paragraph",
                 "field_type": "string",
-                "field_name": "para",
+                "field_name": "paragraph",
                 "allowed_values": [
                     "tes2",
                     "test",
@@ -224,7 +302,10 @@
                 ],
                 "tipo_array": true,
                 "short_display": true,
-                "fq_field_name": "para",
+                "_ARRAY_META": {
+                    "_HASH": "7827056079"
+                },
+                "fq_field_name": "paragraph",
                 "_ui": {
                     "isArray": true,
                     "isSimple": true
@@ -360,6 +441,7 @@
                 "_ARRAY_META": {
                     "_HASH": "5135716791"
                 },
+                "allow_create": true,
                 "key_field": {
                     "sequence": "0",
                     "field_type_refs": {
@@ -447,7 +529,8 @@
                     "display_name": "App Name",
                     "field_type": "string",
                     "mandatory": true,
-                    "field_name": "app_name"
+                    "field_name": "app_name",
+                    "transient": true
                 },
                 "fq_field_name": "tipoarray",
                 "_ui": {
@@ -836,28 +919,38 @@
         "application": "1000000001",
         "updated_by": "santosh.subbarao@tipotapp.com",
         "created_date": "2017-03-25T11:57:48.246Z",
-        "updated_date": "2017-04-26T12:59:28.287Z",
+        "updated_date": "2017-05-09T08:32:15.309Z",
         "tipo_fields2field_type_refs": {
             "refstring": "Simple String"
         },
         "tipo_fields2field_type": "string",
         "account": "2000000001",
-        "tipo_create": {
-            "actions": []
-        },
-        "geo_latitude": 17.727654899999997,
-        "geo_longitude": 83.3130187,
+        "tipo_create": {},
+        "geo_latitude": 17.727659499999998,
+        "geo_longitude": 83.31300689999999,
         "el_index": true,
-        "updated_dt": 1493211568287,
+        "tipo_detail": {
+            "actions": [
+                {
+                    "tipo_action": "action_restricted",
+                    "display_name": "Action Restricted",
+                    "highlight": true,
+                    "_ARRAY_META": {
+                        "_HASH": "6161150102"
+                    }
+                }
+            ]
+        },
+        "updated_dt": 1494318735309,
         "_ui": {
-            "listTemplate": "g/public/gen_temp/common/views/list-fluid.tpl.html___VelocityTest",
-            "listTemplateUrl": "g/public/gen_temp/common/views/list-fluid.tpl.html___VelocityTest",
+            "listTemplate": "g/public/gen_temp/common/views/list-fluid.tpl.html.TipoUser___VelocityTest",
+            "listTemplateUrl": "g/public/gen_temp/common/views/list-fluid.tpl.html.TipoUser___VelocityTest",
             "detailTemplate": "framework/generic/_views/view.tpl.html",
             "detailTemplateUrl": "framework/generic/_views/view.tpl.html",
             "createTemplate": "framework/generic/_views/create.tpl.html",
             "createTemplateUrl": "framework/generic/_views/create.tpl.html",
-            "editTemplate": "g/public/gen_temp/common/views/edit.tpl.html___VelocityTest",
-            "editTemplateUrl": "g/public/gen_temp/common/views/edit.tpl.html___VelocityTest",
+            "editTemplate": "tipoapp.velocity-edit",
+            "editTemplateUrl": "tipoapp/_views/velocity-edit.tpl.html",
             "isDefinition": true,
             "isSingleton": false,
             "hierarchyPrepared": true
@@ -909,7 +1002,8 @@
                     "display_name": "App Name",
                     "field_type": "string",
                     "mandatory": true,
-                    "field_name": "app_name"
+                    "field_name": "app_name",
+                    "transient": true
                 },
                 "fq_field_name": "tipoapp",
                 "_ui": {
@@ -930,7 +1024,6 @@
                 "field_type_refs": {
                     "refstring": "Simple String"
                 },
-                "metadata": [],
                 "_ARRAY_META": {
                     "_HASH": "8814052217"
                 },
@@ -960,6 +1053,36 @@
                 }
             },
             {
+                "sequence": "1.1",
+                "field_type_refs": {
+                    "refstring": "Simple String"
+                },
+                "display_name": "Role String",
+                "field_type": "string",
+                "field_name": "role_string",
+                "validations": "Kg==",
+                "validations_refs": {
+                    "ref5024097185": "Email",
+                    "refL14uK0AuKy4uKyQv": "Email",
+                    "refL14uK0AuK1wuLiskLw==": "Email",
+                    "refXi4rQC4rXC4uKyQ=": "Email",
+                    "refKg==": "String"
+                },
+                "short_display": true,
+                "_ARRAY_META": {
+                    "_HASH": "7035573101"
+                },
+                "fq_field_name": "role_string",
+                "_ui": {
+                    "isArray": false,
+                    "isSimple": true
+                },
+                "underscore_ui": {
+                    "isArray": false,
+                    "isSimple": true
+                }
+            },
+            {
                 "sequence": "2",
                 "field_type_refs": {
                     "refstring": "Simple String",
@@ -967,19 +1090,16 @@
                 },
                 "metadata": [
                     {
-                        "key_": "transient",
                         "_ARRAY_META": {
                             "_HASH": "5999531332"
                         },
+                        "key_": "transient",
                         "value_": "Y"
                     }
                 ],
-                "_ARRAY_META": {
-                    "_HASH": "2575865057"
-                },
-                "display_name": "Para",
+                "display_name": "Paragraph",
                 "field_type": "string",
-                "field_name": "para",
+                "field_name": "paragraph",
                 "allowed_values": [
                     "tes2",
                     "test",
@@ -987,7 +1107,10 @@
                 ],
                 "tipo_array": true,
                 "short_display": true,
-                "fq_field_name": "para",
+                "_ARRAY_META": {
+                    "_HASH": "7827056079"
+                },
+                "fq_field_name": "paragraph",
                 "_ui": {
                     "isArray": true,
                     "isSimple": true
@@ -1043,5 +1166,5 @@
             }
         ]
     },
-    "perm": "1111111"
+    "perm": "11111111"
 }
