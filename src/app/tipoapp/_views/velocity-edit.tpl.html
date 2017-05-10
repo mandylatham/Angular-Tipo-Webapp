@@ -4,366 +4,339 @@
   <section class="fieldset no-header fluid-row-container">
     <div class="data" layout-padding layout="row" layout-wrap layout-align="start start">
  
-                              
-        
+ 
+ 
+
+                                          
      <dl class="edit" 
-          layout="column" 
-          layout-align="center stretch"
-          flex="100" 
-        flex-gt-sm="50" 
-        flex-gt-md="33">
-        <dt>
-                 TipoApp          </dt>
-        <dd>
-      <div class="tp-field">
-        <span>
-          <md-input-container md-no-float>
-                                                      <div layout="row">
-          <div flex>
-                      <md-select ng-model="tipoRootController.tipoapp.model" ng-model-options="{trackBy: '$value.key'}"  md-container-class="tp-field" placeholder="" md-on-open="tipoRootController.loadOptions('','TipoApp','app_name','tipoapp')" md-on-close="tipoRootController.cleanup('tipoapp')" ng-init="tipoRootController.loadOptions('','TipoApp','app_name','tipoapp')">
-              <md-select-header class="search">
-                <md-input-container md-no-float class="fullwidth">
-                  <input ng-model="tipoRootController.tipoapp.searchTerm.text" type="search" placeholder="Search ..." ng-keydown="tipoRootController.stopBubbling($event)" ng-keyup="$event.keyCode == 13 ? tipoRootController.tipoSearch(tipoRootController.tipoapp.searchTerm.text,'','TipoApp','app_name','tipoapp') : null" tp:auto-focus>
-                                  </md-input-container>
-                
-              </md-select-header>
-              <md-option value="" ng-if="!fieldData.mandatory && !tipoRootController.searchTerm.text"></md-option>
-              <md-option ng-value="option" ng-repeat="option in tipoRootController.tipoapp.options">{{ option.label }}</md-option>
-            </md-select>
-                    </div>
-                  </div>
+        layout="column" 
+        layout-align="center stretch"
+        flex="100" 
+      flex-gt-sm="50" 
+      flex-gt-md="33">
+    <dt>
+               TipoApp        </dt>
+    <dd>
+    <div class="tp-field">
+      <span>
+        <md-input-container md-no-float>
+                            <tp:lookup fieldvalue="tipoRootController.tipo.tipoapp" basefilter="''" realtedtipo="'TipoApp'" isarray="false" ispopup="" required="false" labelfield="'app_name'" allowcreate="" selectfield="">
               <div ng-messages="tipoForm['TipoApp_Tipo.TipoApp'].$error">
-          <div ng-message="required" >This is required.</div>
-          <div ng-message="pattern" >This field must be </div>
-    </div>        
-              </md-input-container>
-        </span>
-      </div>       
-        </dd>
-      </dl>
-                                  
-        
+              <div ng-message="required" >This is required.</div>
+              <div ng-message="pattern" >This field must be </div>
+          </div>        
+        </md-input-container>
+      </span>
+    </div>       
+    </dd>
+ </dl>
+     
+
+                                          
+         <dl class="edit" 
+        layout="column" 
+        layout-align="center stretch"
+        flex="100" 
+      flex-gt-sm="50" 
+      flex-gt-md="33">
+    <dt>
+               Simple String        </dt>
+    <dd>
+    <div class="tp-field">
+      <span>
+        <md-input-container md-no-float>
+                    <input ng-model="tipoRootController.tipo.simple_string" aria-label="Simple String" placeholder="" name="Simple String_string" ng-required="false" ng-pattern="/^.+@.+\..+$/">
+                  <div ng-messages="tipoForm['Simple String_string'].$error">
+              <div ng-message="required" >This is required.</div>
+              <div ng-message="pattern" >This field must be Email</div>
+          </div>        
+        </md-input-container>
+      </span>
+    </div>       
+    </dd>
+ </dl>
+     
+
+                                          
+         <dl class="edit" 
+        layout="column" 
+        layout-align="center stretch"
+        flex="100" 
+      flex-gt-sm="50" 
+      flex-gt-md="33">
+    <dt>
+               Role String        </dt>
+    <dd>
+    <div class="tp-field">
+      <span>
+        <md-input-container md-no-float>
+                    <input ng-model="tipoRootController.tipo.role_string" aria-label="Role String" placeholder="" name="Role String_string" ng-required="false" ng-pattern="/*/">
+                  <div ng-messages="tipoForm['Role String_string'].$error">
+              <div ng-message="required" >This is required.</div>
+              <div ng-message="pattern" >This field must be String</div>
+          </div>        
+        </md-input-container>
+      </span>
+    </div>       
+    </dd>
+ </dl>
+     
+
+                                          
      <dl class="edit" 
-          layout="column" 
-          layout-align="center stretch"
-          flex="100" 
-        flex-gt-sm="50" 
-        flex-gt-md="33">
-        <dt>
-                 Simple String          </dt>
-        <dd>
-      <div class="tp-field">
-        <span>
-          <md-input-container md-no-float>
-        
-                                                                    <input ng-model="tipoRootController.tipo.simple_string" aria-label="Simple String" placeholder="" name="Simple String_string" ng-required="false" ng-pattern="/^.+@.+\..+$/">
-                              </md-input-container>
-        </span>
-      </div>       
-        </dd>
-      </dl>
-                                  
-        
+        layout="column" 
+        layout-align="center stretch"
+        flex="100" 
+      flex-gt-sm="50" 
+      flex-gt-md="33">
+    <dt>
+               Paragraph        </dt>
+    <dd>
+    <div class="tp-field">
+      <span>
+        <md-input-container md-no-float>
+                                                                              <tp:simple-dropdown isArray="true" fieldValue="tipoRootController.tipo.paragraph" required="false" allowedValues="['tes2','test','test1']" alloweCreate="$field.allow_create" placeholder="" name="Paragraph_string" />
+                                  <div ng-messages="tipoForm['Paragraph_string'].$error">
+              <div ng-message="required" >This is required.</div>
+              <div ng-message="pattern" >This field must be </div>
+          </div>        
+        </md-input-container>
+      </span>
+    </div>       
+    </dd>
+ </dl>
+     
+
+                                          
      <dl class="edit" 
-          layout="column" 
-          layout-align="center stretch"
-          flex="100" 
-        flex-gt-sm="50" 
-        flex-gt-md="33">
-        <dt>
-                 Role String          </dt>
-        <dd>
-      <div class="tp-field">
-        <span>
-          <md-input-container md-no-float>
-        
-                                                                    <input ng-model="tipoRootController.tipo.role_string" aria-label="Role String" placeholder="" name="Role String_string" ng-required="false" ng-pattern="/*/">
-                              </md-input-container>
-        </span>
-      </div>       
-        </dd>
-      </dl>
-                                  
-        
+        layout="column" 
+        layout-align="center stretch"
+        flex="100" 
+      flex-gt-sm="50" 
+      flex-gt-md="33">
+    <dt>
+               Rich Text        </dt>
+    <dd>
+    <div class="tp-field">
+      <span>
+        <md-input-container md-no-float>
+                      <text-angular ng-model="tipoRootController.tipo.rich_text" style="z-index:1" name="Rich Text_richstring" data-ng-required="false"></text-angular>
+                  <div ng-messages="tipoForm['Rich Text_richstring'].$error">
+              <div ng-message="required" >This is required.</div>
+              <div ng-message="pattern" >This field must be </div>
+          </div>        
+        </md-input-container>
+      </span>
+    </div>       
+    </dd>
+ </dl>
+     
+
+                                          
      <dl class="edit" 
-          layout="column" 
-          layout-align="center stretch"
-          flex="100" 
-        flex-gt-sm="50" 
-        flex-gt-md="33">
-        <dt>
-                 Paragraph          </dt>
-        <dd>
-      <div class="tp-field">
-        <span>
-          <md-input-container md-no-float>
-                                                                                                                                                        <md-select ng-model="tipoRootController.tipo.paragraph" multiple="true" placeholder="" name="Paragraph_string" ng-required="false" ng-init="tipoRootController.initAllowedValues(['tes2','test','test1'],'paragraph')">
-                              <md-option ng-value="option" ng-repeat="option in tipoRootController.paragraph.allowed_values">{{ option }}</md-option>
-                  </md-select>
-                                  </md-input-container>
-        </span>
-      </div>       
-        </dd>
-      </dl>
-                                  
-        
+        layout="column" 
+        layout-align="center stretch"
+        flex="100" 
+      flex-gt-sm="50" 
+      flex-gt-md="33">
+    <dt>
+               HTML Link        </dt>
+    <dd>
+    <div class="tp-field">
+      <span>
+        <md-input-container md-no-float>
+                      <input ng-model="tipoRootController.tipo.html_link" aria-label="HTML Link" placeholder="" name="HTML Link_htmlLink" ng-required="false">
+                  <div ng-messages="tipoForm['HTML Link_htmlLink'].$error">
+              <div ng-message="required" >This is required.</div>
+              <div ng-message="pattern" >This field must be </div>
+          </div>        
+        </md-input-container>
+      </span>
+    </div>       
+    </dd>
+ </dl>
+     
+
+                                          
      <dl class="edit" 
-          layout="column" 
-          layout-align="center stretch"
-          flex="100" 
-        flex-gt-sm="50" 
-        flex-gt-md="33">
-        <dt>
-                 Rich Text          </dt>
-        <dd>
-      <div class="tp-field">
-        <span>
-          <md-input-container md-no-float>
-        
-                          <text-angular ng-model="tipoRootController.tipo.rich_text" style="z-index:1" name="Rich Text_richstring" data-ng-required="false"></text-angular>
-                          </md-input-container>
-        </span>
-      </div>       
-        </dd>
-      </dl>
-                                  
-        
+        layout="column" 
+        layout-align="center stretch"
+        flex="100" 
+      flex-gt-sm="50" 
+      flex-gt-md="33">
+    <dt>
+               Boolean        </dt>
+    <dd>
+    <div class="tp-field">
+      <span>
+        <md-input-container md-no-float>
+                      <div class="tp-switch" >
+            <md-switch class="md-primary" ng-model="tipoRootController.tipo.boolean_" aria-label="$display_name">
+              <span>{{ tipoRootController.tipo.boolean_ && 'Yes' || 'No' }}</span>
+            </md-switch>
+        </div>
+                  <div ng-messages="tipoForm['Boolean_boolean'].$error">
+              <div ng-message="required" >This is required.</div>
+              <div ng-message="pattern" >This field must be </div>
+          </div>        
+        </md-input-container>
+      </span>
+    </div>       
+    </dd>
+ </dl>
+     
+
+                                          
      <dl class="edit" 
-          layout="column" 
-          layout-align="center stretch"
-          flex="100" 
-        flex-gt-sm="50" 
-        flex-gt-md="33">
-        <dt>
-                 HTML Link          </dt>
-        <dd>
-      <div class="tp-field">
-        <span>
-          <md-input-container md-no-float>
-        
-                            <input ng-model="tipoRootController.tipo.html_link" aria-label="HTML Link" placeholder="" name="HTML Link_htmlLink" ng-required="false">
-                                </md-input-container>
-        </span>
-      </div>       
-        </dd>
-      </dl>
-                                  
-        
+        layout="column" 
+        layout-align="center stretch"
+        flex="100" 
+      flex-gt-sm="50" 
+      flex-gt-md="33">
+    <dt>
+               Date/Time        </dt>
+    <dd>
+    <div class="tp-field">
+      <span>
+        <md-input-container md-no-float>
+                      <md-datepicker ng-model="tipoRootController.tipo.date_time" md-placeholder="" name="Date/Time_date_time" ng-required="false" ng-init="tipoRootController.tipo.date_time = tipoRootController.Date(tipoRootController.tipo.date_time)">
+       </md-datepicker>
+                  <div ng-messages="tipoForm['Date/Time_date_time'].$error">
+              <div ng-message="required" >This is required.</div>
+              <div ng-message="pattern" >This field must be </div>
+          </div>        
+        </md-input-container>
+      </span>
+    </div>       
+    </dd>
+ </dl>
+     
+
+                                          
      <dl class="edit" 
-          layout="column" 
-          layout-align="center stretch"
-          flex="100" 
-        flex-gt-sm="50" 
-        flex-gt-md="33">
-        <dt>
-                 Boolean          </dt>
-        <dd>
-      <div class="tp-field">
-        <span>
-          <md-input-container md-no-float>
-        
-                              <div class="tp-switch" >
-        <md-switch class="md-primary" ng-model="tipoRootController.tipo.boolean_" aria-label="Boolean">
-          <span>{{ tipoRootController.tipo.boolean_ && 'Yes' || 'No' }}</span>
-        </md-switch>
-    </div>
-                        </md-input-container>
-        </span>
-      </div>       
-        </dd>
-      </dl>
-                                  
-        
+        layout="column" 
+        layout-align="center stretch"
+        flex="100" 
+      flex-gt-sm="50" 
+      flex-gt-md="33">
+    <dt>
+               Integer        </dt>
+    <dd>
+    <div class="tp-field">
+      <span>
+        <md-input-container md-no-float>
+                    <input ng-model="tipoRootController.tipo.integer_" aria-label="Integer" placeholder="" name="Integer_integer" ng-required="false" ng-pattern="/*/">
+                  <div ng-messages="tipoForm['Integer_integer'].$error">
+              <div ng-message="required" >This is required.</div>
+              <div ng-message="pattern" >This field must be </div>
+          </div>        
+        </md-input-container>
+      </span>
+    </div>       
+    </dd>
+ </dl>
+     
+
+                                            
      <dl class="edit" 
-          layout="column" 
-          layout-align="center stretch"
-          flex="100" 
-        flex-gt-sm="50" 
-        flex-gt-md="33">
-        <dt>
-                 Date/Time          </dt>
-        <dd>
-      <div class="tp-field">
-        <span>
-          <md-input-container md-no-float>
-        
-                              <md-datepicker ng-model="tipoRootController.tipo.date_time" md-placeholder="" name="Date/Time_date_time" ng-required="false" ng-init="tipoRootController.tipo.date_time = tipoRootController.Date(tipoRootController.tipo.date_time)">
-   </md-datepicker>
-                            </md-input-container>
-        </span>
-      </div>       
-        </dd>
-      </dl>
-                                  
-        
-     <dl class="edit" 
-          layout="column" 
-          layout-align="center stretch"
-          flex="100" 
-        flex-gt-sm="50" 
-        flex-gt-md="33">
-        <dt>
-                 Integer          </dt>
-        <dd>
-      <div class="tp-field">
-        <span>
-          <md-input-container md-no-float>
-        
-                                                    <input ng-model="tipoRootController.tipo.integer_" aria-label="Integer" placeholder="" name="Integer_integer" ng-required="false" ng-pattern="/*/">
-                              </md-input-container>
-        </span>
-      </div>       
-        </dd>
-      </dl>
-                                    
-        
-     <dl class="edit" 
-          layout="column" 
-          layout-align="center stretch"
-          flex="100" 
-        flex-gt-sm="50" 
-        flex-gt-md="33">
-        <dt>
-                 TipoDropdown         </dt>
-        <dd>
-      <div class="tp-field">
-        <span>
-          <md-input-container md-no-float>
-                                                      <div layout="row">
-          <div flex>
-                      <md-select ng-model="tipoRootController.tipodropdown.model" ng-model-options="{trackBy: '$value.key'}"  md-container-class="tp-field" placeholder="" md-on-open="tipoRootController.loadOptions('','TipoIcon','name_','tipodropdown')" md-on-close="tipoRootController.cleanup('tipodropdown')" ng-init="tipoRootController.loadOptions('','TipoIcon','name_','tipodropdown')">
-              <md-select-header class="search">
-                <md-input-container md-no-float class="fullwidth">
-                  <input ng-model="tipoRootController.tipodropdown.searchTerm.text" type="search" placeholder="Search ..." ng-keydown="tipoRootController.stopBubbling($event)" ng-keyup="$event.keyCode == 13 ? tipoRootController.tipoSearch(tipoRootController.tipodropdown.searchTerm.text,'','TipoIcon','name_','tipodropdown') : null" tp:auto-focus>
-                                      <md-icon ng-if="!tipoRootController.tipodropdown.disablecreate" class="md-primary addtipo pointer" ng-click="tipoRootController.addTipo('','TipoIcon','name_','tipodropdown')">add</md-icon>
-                                  </md-input-container>
-                
-              </md-select-header>
-              <md-option value="" ng-if="!fieldData.mandatory && !tipoRootController.searchTerm.text"></md-option>
-              <md-option ng-value="option" ng-repeat="option in tipoRootController.tipodropdown.options">{{ option.label }}</md-option>
-            </md-select>
-                    </div>
-                  </div>
+        layout="column" 
+        layout-align="center stretch"
+        flex="100" 
+      flex-gt-sm="50" 
+      flex-gt-md="33">
+    <dt>
+               TipoDropdown       </dt>
+    <dd>
+    <div class="tp-field">
+      <span>
+        <md-input-container md-no-float>
+                            <tp:lookup fieldvalue="tipoRootController.tipo.tipodropdown" basefilter="''" realtedtipo="'TipoIcon'" isarray="false" ispopup="" required="false" labelfield="'name_'" allowcreate="true" selectfield="">
               <div ng-messages="tipoForm['TipoDropdown_Tipo.TipoIcon'].$error">
-          <div ng-message="required" >This is required.</div>
-          <div ng-message="pattern" >This field must be </div>
-    </div>        
-              </md-input-container>
-        </span>
-      </div>       
-        </dd>
-      </dl>
-                                  
-        
+              <div ng-message="required" >This is required.</div>
+              <div ng-message="pattern" >This field must be </div>
+          </div>        
+        </md-input-container>
+      </span>
+    </div>       
+    </dd>
+ </dl>
+     
+
+                                          
      <dl class="edit" 
-          layout="column" 
-          layout-align="center stretch"
-          flex="100" 
-        flex-gt-sm="50" 
-        flex-gt-md="33">
-        <dt>
-                 TipoArray          </dt>
-        <dd>
-      <div class="tp-field">
-        <span>
-          <md-input-container md-no-float>
-                                                      <div layout="row">
-          <div flex>
-                      <md-select ng-model="tipoRootController.tipoarray.model" ng-model-options="{trackBy: '$value.key'}" md-container-class="tp-field" placeholder=""  md-on-open="tipoRootController.loadOptions('','TipoApp','app_name','tipoarray')" md-on-close="tipoRootController.cleanup('tipoarray')" md-selected-text="tipoRootController.renderSelection('tipoarray')" multiple="true" flex ng-init="tipoRootController.loadOptions('','TipoApp','app_name','tipoarray')">
-              <md-select-header class="search">
-                <md-input-container md-no-float class="fullwidth">
-                  <input ng-model="tipoRootController.tipoarray.searchTerm.text" type="search" placeholder="Search ..." ng-keydown="tipoRootController.stopBubbling($event)" ng-keyup="$event.keyCode == 13 ? tipoRootController.tipoSearch(tipoRootController.tipoarray.searchTerm.text,'','TipoApp','app_name','tipoarray') : null" tp:auto-focus>
-                                  </md-input-container>
-              </md-select-header>
-              <md-option ng-value="option" ng-repeat="option in tipoRootController.tipoarray.options">{{ option.label }}</md-option>
-            </md-select>
-                    </div>
-                  </div>
-            
-        <div ng-messages="tipoForm['TipoArray_Tipo.TipoApp'].$error">
-          <div ng-message="required" >This is required.</div>
-          <div ng-message="pattern" >This field must be </div>
-    </div>        
-              </md-input-container>
-        </span>
-      </div>       
-        </dd>
-      </dl>
-                                  
-        
+        layout="column" 
+        layout-align="center stretch"
+        flex="100" 
+      flex-gt-sm="50" 
+      flex-gt-md="33">
+    <dt>
+               TipoArray        </dt>
+    <dd>
+    <div class="tp-field">
+      <span>
+        <md-input-container md-no-float>
+                            <tp:lookup fieldvalue="tipoRootController.tipo.tipoarray" basefilter="''" realtedtipo="'TipoApp'" isarray="true" ispopup="" required="false" labelfield="'app_name'" allowcreate="" selectfield="">
+              <div ng-messages="tipoForm['TipoArray_Tipo.TipoApp'].$error">
+              <div ng-message="required" >This is required.</div>
+              <div ng-message="pattern" >This field must be </div>
+          </div>        
+        </md-input-container>
+      </span>
+    </div>       
+    </dd>
+ </dl>
+     
+
+                                          
      <dl class="edit" 
-          layout="column" 
-          layout-align="center stretch"
-          flex="100" 
-        flex-gt-sm="50" 
-        flex-gt-md="33">
-        <dt>
-                 TipoPopup          </dt>
-        <dd>
-      <div class="tp-field">
-        <span>
-          <md-input-container md-no-float>
-                                                      <div layout="row">
-          <div flex>
-                      <md-select ng-model="tipoRootController.tipopopup.model" ng-model-options="{trackBy: '$value.key'}"  md-container-class="tp-field" placeholder="" md-on-open="tipoRootController.loadOptions('','VelocityTest','$field.key_field.field_name','tipopopup')" md-on-close="tipoRootController.cleanup('tipopopup')" ng-init="tipoRootController.loadOptions('','VelocityTest','$field.key_field.field_name','tipopopup')">
-              <md-select-header class="search">
-                <md-input-container md-no-float class="fullwidth">
-                  <input ng-model="tipoRootController.tipopopup.searchTerm.text" type="search" placeholder="Search ..." ng-keydown="tipoRootController.stopBubbling($event)" ng-keyup="$event.keyCode == 13 ? tipoRootController.tipoSearch(tipoRootController.tipopopup.searchTerm.text,'','VelocityTest','$field.key_field.field_name','tipopopup') : null" tp:auto-focus>
-                                  </md-input-container>
-                
-              </md-select-header>
-              <md-option value="" ng-if="!fieldData.mandatory && !tipoRootController.searchTerm.text"></md-option>
-              <md-option ng-value="option" ng-repeat="option in tipoRootController.tipopopup.options">{{ option.label }}</md-option>
-            </md-select>
-                    </div>
-                  </div>
+        layout="column" 
+        layout-align="center stretch"
+        flex="100" 
+      flex-gt-sm="50" 
+      flex-gt-md="33">
+    <dt>
+               TipoPopup        </dt>
+    <dd>
+    <div class="tp-field">
+      <span>
+        <md-input-container md-no-float>
+                            <tp:lookup fieldvalue="tipoRootController.tipo.tipopopup" basefilter="''" realtedtipo="'VelocityTest'" isarray="false" ispopup="" required="false" labelfield="'$key_field.field_name'" allowcreate="" selectfield="">
               <div ng-messages="tipoForm['TipoPopup_Tipo.VelocityTest'].$error">
-          <div ng-message="required" >This is required.</div>
-          <div ng-message="pattern" >This field must be </div>
-    </div>        
-              </md-input-container>
-        </span>
-      </div>       
-        </dd>
-      </dl>
-                                  
-        
+              <div ng-message="required" >This is required.</div>
+              <div ng-message="pattern" >This field must be </div>
+          </div>        
+        </md-input-container>
+      </span>
+    </div>       
+    </dd>
+ </dl>
+     
+
+                                          
      <dl class="edit" 
-          layout="column" 
-          layout-align="center stretch"
-          flex="100" 
-        flex-gt-sm="50" 
-        flex-gt-md="33">
-        <dt>
-                 TipoArrayPop         </dt>
-        <dd>
-      <div class="tp-field">
-        <span>
-          <md-input-container md-no-float>
-                                                      <div layout="row">
-          <div flex>
-                      <md-select ng-model="tipoRootController.tipoarraypop.model" ng-model-options="{trackBy: '$value.key'}"  md-container-class="tp-field" placeholder="" md-on-open="tipoRootController.loadOptions('','VelocityTest','$field.key_field.field_name','tipoarraypop')" md-on-close="tipoRootController.cleanup('tipoarraypop')" ng-init="tipoRootController.loadOptions('','VelocityTest','$field.key_field.field_name','tipoarraypop')">
-              <md-select-header class="search">
-                <md-input-container md-no-float class="fullwidth">
-                  <input ng-model="tipoRootController.tipoarraypop.searchTerm.text" type="search" placeholder="Search ..." ng-keydown="tipoRootController.stopBubbling($event)" ng-keyup="$event.keyCode == 13 ? tipoRootController.tipoSearch(tipoRootController.tipoarraypop.searchTerm.text,'','VelocityTest','$field.key_field.field_name','tipoarraypop') : null" tp:auto-focus>
-                                  </md-input-container>
-                
-              </md-select-header>
-              <md-option value="" ng-if="!fieldData.mandatory && !tipoRootController.searchTerm.text"></md-option>
-              <md-option ng-value="option" ng-repeat="option in tipoRootController.tipoarraypop.options">{{ option.label }}</md-option>
-            </md-select>
-                    </div>
-                  </div>
+        layout="column" 
+        layout-align="center stretch"
+        flex="100" 
+      flex-gt-sm="50" 
+      flex-gt-md="33">
+    <dt>
+               TipoArrayPop       </dt>
+    <dd>
+    <div class="tp-field">
+      <span>
+        <md-input-container md-no-float>
+                            <tp:lookup fieldvalue="tipoRootController.tipo.tipoarraypop" basefilter="''" realtedtipo="'VelocityTest'" isarray="false" ispopup="" required="false" labelfield="'$key_field.field_name'" allowcreate="" selectfield="">
               <div ng-messages="tipoForm['TipoArrayPop_Tipo.VelocityTest'].$error">
-          <div ng-message="required" >This is required.</div>
-          <div ng-message="pattern" >This field must be </div>
-    </div>        
-              </md-input-container>
-        </span>
-      </div>       
-        </dd>
-      </dl>
-                                  
+              <div ng-message="required" >This is required.</div>
+              <div ng-message="pattern" >This field must be </div>
+          </div>        
+        </md-input-container>
+      </span>
+    </div>       
+    </dd>
+ </dl>
+     
+
         <section class="fieldset fluid-row-container" flex="100">
       <div class="header">
         <div layout="row" layout-align="end center">
@@ -390,11 +363,14 @@
       </div>
               <div class="data" flex layout-padding layout="row" layout-wrap layout-align="start start" ng-hide="fieldgrtest.collapsed">
                 
-                                          
-                                        
+             
+
+           
+
                         </div>
   </section>
-                                  
+    
+
         <section class="fieldset fluid-row-container" flex="100">
       <div class="header">
         <div layout="row" layout-align="end center">
@@ -421,11 +397,14 @@
       </div>
               <div class="data" flex layout-padding layout="row" layout-wrap layout-align="start start" ng-hide="fieldgarraytest.collapsed">
                 
-                                          
-                                        
+             
+
+           
+
                         </div>
   </section>
-                                  
+    
+
         <section class="fieldset fluid-row-container" flex="100">
       <div class="header">
         <div layout="row" layout-align="end center">
@@ -452,11 +431,14 @@
       </div>
               <div class="data" flex layout-padding layout="row" layout-wrap layout-align="start start" ng-hide="disabelexptest.collapsed">
                 
-                                          
-                                        
+             
+
+           
+
                         </div>
   </section>
-                                  
+    
+
         <section class="fieldset fluid-row-container" flex="100">
       <div class="header">
         <div layout="row" layout-align="end center">
@@ -483,11 +465,14 @@
       </div>
               <div class="data" flex layout-padding layout="row" layout-wrap layout-align="start start" ng-hide="disabearrayexptest.collapsed">
                 
-                                          
-                                        
+             
+
+           
+
                         </div>
   </section>
-                                    
+    
+
             
             
     </div>
@@ -495,4 +480,3 @@
 </div>
 
  
-

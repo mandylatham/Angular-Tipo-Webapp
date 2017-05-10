@@ -1,39 +1,82 @@
-#macro( fieldcontainer $field_type $field_name $field_description $display_name $mandatory $decoded)
-	#if( $field_type == "date_time")
-		<md-datepicker ng-model="tipoRootController.tipo.$field_name" md-placeholder="$!field_description" name="${display_name}_${field_type}" ng-required="$mandatory" ng-init="tipoRootController.tipo.$field_name = tipoRootController.Date(tipoRootController.tipo.$field_name)">
-		 </md-datepicker>
-	#elseif($field_type == "password")
-		<input type="$field_type" ng-model="tipoRootController.tipo.$field_name" aria-label="$display_name" placeholder="$!field_description" name="${display_name}_${field_type}" ng-required="$mandatory" >
-	#elseif($field_type == "longstring")
-		<textarea type="$field_type" ng-model="tipoRootController.tipo.$field_name" rows="2" md-select-on-focus aria-label="$display_name" placeholder="$!field_description" name="${display_name}_${field_type}" ng-required="$mandatory" />
-	#elseif($field_type == "richstring")
-		<text-angular ng-model="tipoRootController.tipo.$field_name" style="z-index:1" name="${display_name}_${field_type}" data-ng-required="$mandatory"></text-angular>
-	#elseif($field_type == "htmlLink")
-		<input ng-model="tipoRootController.tipo.$field_name" aria-label="$display_name" placeholder="$!field_description" name="${display_name}_${field_type}" ng-required="$mandatory">
-	#elseif($field_type == "divider")
-		<span class="header">
-          <div layout="row" layout-align="end center">
-            <h3 flex>
-              <a class="plain" md-colors="{color: 'primary-700'}">
-                $display_name
-              </a>
-            </h3>
-          </div>
-          <md-divider></md-divider>
-        </span>
-    #elseif($field_type == "s3explorer")
-    	<tp:s3-explorer name="${display_name}_${field_type}" ng-required="$mandatory"/>
-	#elseif($field_type == "file")
-		<tp:file field="tipoRootController.tipoDefinition" fieldpath="'$field_name'" mode="edit"/>
-	#elseif($field_type == "colour")
-		<tp:colour-palette name="${display_name}_${field_type}" mode="edit" ng-model="tipoRootController.tipo.$field_name" ng-required="$mandatory" />
-	#elseif($field_type == "boolean")
-		<div class="tp-switch" >
-	        <md-switch class="md-primary" ng-model="tipoRootController.tipo.$field_name" aria-label="$display_name">
-	          <span>{{ tipoRootController.tipo.$field_name && 'Yes' || 'No' }}</span>
-	        </md-switch>
-	    </div>
-	#else
-	<input ng-model="tipoRootController.tipo.$field_name" aria-label="$display_name" placeholder="$!field_description" name="${display_name}_${field_type}" ng-required="$mandatory" ng-pattern="$!decoded">
+#macro(calculateAllowedValues $values)
+	#set ($allowed_values = "['" )
+	#foreach($i in $values)
+		#if( $foreach.hasNext )
+			#set ($allowed_values = "$allowed_values$i','" )
+		#else
+			#set ($allowed_values = "$allowed_values$i']" )
+		#end
 	#end
 #end
+#macro(setlabelfield $label_field $key_field)
+	#if($label_field)
+		#set($field_label_field = "'$label_field.field_name'")
+	#else
+		#set($field_label_field = "'$key_field.field_name'")
+	#end
+#end
+#macro( fieldcontainer $field $field_description $mandatory $decoded)
+	#if(!$field.underscore_ui.isArray && !$field.underscore_ui.isTipoRelationship)
+		#if( $field.field_type == "date_time")
+			<md-datepicker ng-model="tipoRootController.tipo.$field.fq_field_name" md-placeholder="$!field_description" name="${field.display_name}_${field.field_type}" ng-required="$mandatory" ng-init="tipoRootController.tipo.$field.fq_field_name = tipoRootController.Date(tipoRootController.tipo.$field.fq_field_name)">
+			 </md-datepicker>
+		#elseif($field.field_type == "password")
+			<input type="$field_type" ng-model="tipoRootController.tipo.$field.fq_field_name" aria-label="$field.display_name" placeholder="$!field_description" name="${field.display_name}_${field.field_type}" ng-required="$mandatory" >
+		#elseif($field.field_type == "longstring")
+			<textarea type="$field_type" ng-model="tipoRootController.tipo.$field.fq_field_name" rows="2" md-select-on-focus aria-label="$field.display_name" placeholder="$!field_description" name="${field.display_name}_${field.field_type}" ng-required="$mandatory" />
+		#elseif($field.field_type == "richstring")
+			<text-angular ng-model="tipoRootController.tipo.$field.fq_field_name" style="z-index:1" name="${field.display_name}_${field.field_type}" data-ng-required="$mandatory"></text-angular>
+		#elseif($field.field_type == "htmlLink")
+			<input ng-model="tipoRootController.tipo.$field.fq_field_name" aria-label="$field.display_name" placeholder="$!field_description" name="${field.display_name}_${field.field_type}" ng-required="$mandatory">
+		#elseif($field.field_type == "divider")
+			<span class="header">
+	          <div layout="row" layout-align="end center">
+	            <h3 flex>
+	              <a class="plain" md-colors="{color: 'primary-700'}">
+	                $field.display_name
+	              </a>
+	            </h3>
+	          </div>
+	          <md-divider></md-divider>
+	        </span>
+	    #elseif($field.field_type == "s3explorer")
+	    	<tp:s3-explorer name="${field.display_name}_${field.field_type}" ng-required="$mandatory"/>
+		#elseif($field.field_type == "file")
+			<tp:file field="tipoRootController.tipoDefinition" fieldpath="'$field.fq_field_name'" mode="edit"/>
+		#elseif($field.field_type == "colour")
+			<tp:colour-palette name="${field.display_name}_${field.field_type}" mode="edit" ng-model="tipoRootController.tipo.$field.fq_field_name" ng-required="$mandatory" />
+		#elseif($field.field_type == "boolean")
+			<div class="tp-switch" >
+		        <md-switch class="md-primary" ng-model="tipoRootController.tipo.$field.fq_field_name" aria-label="$display_name">
+		          <span>{{ tipoRootController.tipo.$field.fq_field_name && 'Yes' || 'No' }}</span>
+		        </md-switch>
+		    </div>
+		#elseif($field.allowed_values)
+			#calculateAllowedValues($field.allowed_values)
+			<tp:simple-dropdown isArray="false" fieldValue="tipoRootController.tipo.$field.fq_field_name" required="$mandatory" allowedValues="$allowed_values" alloweCreate="$field.allow_create" placeholder="$!field_description" name="${field.display_name}_${field.field_type}" />
+		#else
+		<input ng-model="tipoRootController.tipo.$field.fq_field_name" aria-label="$field.display_name" placeholder="$!field_description" name="${field.display_name}_${field.field_type}" ng-required="$mandatory" ng-pattern="$!decoded">
+		#end
+	#elseif($field.underscore_ui.isArray && !$field.underscore_ui.isTipoRelationship)
+		#if($field.field_type == "file")
+			<span>
+          		<tp:file field="tipoRootController.tipoDefinition" fieldpath="'$field.fq_field_name'" mode="edit"/>
+        	</span>
+        #else
+        	#if(!$field.allowed_values)
+        		<md-chips ng-model="tipoRootController.tipo.$field.fq_field_name" md-transform-chip="wrapSimpleValue($chip)" class="tp-chips" placeholder="$!field_description" name="${field.display_name}_${field.field_type}" ng-required="$mandatory">
+		          <md-chip-template>
+		            <span>{{$chip}}</span>
+		          </md-chip-template>
+		        </md-chips>
+		    #else
+		    	#calculateAllowedValues($field.allowed_values)
+		    	<tp:simple-dropdown isArray="true" fieldValue="tipoRootController.tipo.$field.fq_field_name" required="$mandatory" allowedValues="$allowed_values" alloweCreate="$field.allow_create" placeholder="$!field_description" name="${field.display_name}_${field.field_type}" />
+        	#end
+        #end
+    #else
+    	#setlabelfield($!field.label_field $field.key_field)
+    	<tp:lookup fieldvalue="tipoRootController.tipo.$field.fq_field_name" basefilter="'$!field.relationship_filter'" realtedtipo="'$!field.underscore_ui.relatedTipo'" isarray="$!field.underscore_ui.isArray" ispopup="$!field.popup_select" required="$!mandatory" labelfield="$!field_label_field" allowcreate="$!field.allow_create" selectfield="$!field.select_field">
+	#end
+#end
+

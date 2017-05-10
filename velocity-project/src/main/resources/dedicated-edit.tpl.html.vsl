@@ -1,2 +1,30 @@
-#parse( "src/main/resources/field-container.tpl.html.vsl" )
+#*
+This is a velocity template to generate AngularJS list view template for any Tipo Object. Input is an expanded definition.
+*#         
+## Block of code between #[[ ]]# is not parsed, so it is safe to use all sorts of characters without escaping.
+#[[
+<div class="p-8">
+  <section class="fieldset no-header fluid-row-container">
+    <div class="data" layout-padding layout="row" layout-wrap layout-align="start start">
+]]# 
+##
+#parse("src/main/resources/field-container.tpl.html.vsl")
+#foreach( $field in $definition.tipo_fields)
+##
 
+
+  	#if( !$field.hidden_ && !$field.underscore_ui.isGroup && !$field.show_in_tab )
+  		#fieldwrapper($field)
+    #elseif( !$field.hidden_ && $field.underscore_ui.isGroup && !$field.show_in_tab)
+    	#parse("src/main/resources/groupWrapper.tpl.html.vsl")
+    #end
+#end
+##              
+##
+#[[        
+     				
+    </div>
+  </section>
+</div>
+
+]]# 
