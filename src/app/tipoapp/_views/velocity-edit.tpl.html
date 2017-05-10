@@ -3,8 +3,6 @@
 <div class="p-8">
   <section class="fieldset no-header fluid-row-container">
     <div class="data" layout-padding layout="row" layout-wrap layout-align="start start">
-      <!-- <tp:field-container root="root" context="definition" field="field" mode="{{mode}}" ng-repeat="field in definition.tipo_fields" ng-if="field._ui.isSimple && !field.hidden_ && (mode === 'edit' || field._value)"/> -->
-            
  
                               
         
@@ -58,7 +56,7 @@
         <span>
           <md-input-container md-no-float>
         
-                                                                    <input ng-model="tipoRootController.tipo.simple_string" aria-label="Simple String" placeholder="" name="$field.display_name_string" ng-required="false" ng-pattern="/^.+@.+\..+$/">
+                                                                    <input ng-model="tipoRootController.tipo.simple_string" aria-label="Simple String" placeholder="" name="Simple String_string" ng-required="false" ng-pattern="/^.+@.+\..+$/">
                               </md-input-container>
         </span>
       </div>       
@@ -79,7 +77,7 @@
         <span>
           <md-input-container md-no-float>
         
-                                                                    <input ng-model="tipoRootController.tipo.role_string" aria-label="Role String" placeholder="" name="$field.display_name_string" ng-required="false" ng-pattern="/*/">
+                                                                    <input ng-model="tipoRootController.tipo.role_string" aria-label="Role String" placeholder="" name="Role String_string" ng-required="false" ng-pattern="/*/">
                               </md-input-container>
         </span>
       </div>       
@@ -122,7 +120,7 @@
         <span>
           <md-input-container md-no-float>
         
-                        <text-angular ng-model="tipoRootController.tipo.rich_text" style="z-index:1" name="$field.display_name_richstring" data-ng-required="false"></text-angular>
+                          <text-angular ng-model="tipoRootController.tipo.rich_text" style="z-index:1" name="Rich Text_richstring" data-ng-required="false"></text-angular>
                           </md-input-container>
         </span>
       </div>       
@@ -143,7 +141,7 @@
         <span>
           <md-input-container md-no-float>
         
-                          <input ng-model="tipoRootController.tipo.html_link" aria-label="HTML Link" placeholder="" name="$field.display_name_htmlLink" ng-required="false">
+                            <input ng-model="tipoRootController.tipo.html_link" aria-label="HTML Link" placeholder="" name="HTML Link_htmlLink" ng-required="false">
                                 </md-input-container>
         </span>
       </div>       
@@ -164,11 +162,11 @@
         <span>
           <md-input-container md-no-float>
         
-                            <div class="tp-switch" >
-                <md-switch class="md-primary" ng-model="tipoRootController.tipo.boolean_" aria-label="">
-                  <span>{{ tipoRootController.tipo.boolean_ && 'Yes' || 'No' }}</span>
-                </md-switch>
-            </div>
+                              <div class="tp-switch" >
+        <md-switch class="md-primary" ng-model="tipoRootController.tipo.boolean_" aria-label="Boolean">
+          <span>{{ tipoRootController.tipo.boolean_ && 'Yes' || 'No' }}</span>
+        </md-switch>
+    </div>
                         </md-input-container>
         </span>
       </div>       
@@ -189,8 +187,8 @@
         <span>
           <md-input-container md-no-float>
         
-                          <md-datepicker ng-model="tipoRootController.tipo.date_time" md-placeholder="" name="$field.display_name_date_time" ng-required="false" ng-init="tipoRootController.tipo.date_time = tipoRootController.Date(tipoRootController.tipo.date_time)">
-              </md-datepicker>
+                              <md-datepicker ng-model="tipoRootController.tipo.date_time" md-placeholder="" name="Date/Time_date_time" ng-required="false" ng-init="tipoRootController.tipo.date_time = tipoRootController.Date(tipoRootController.tipo.date_time)">
+   </md-datepicker>
                             </md-input-container>
         </span>
       </div>       
@@ -211,7 +209,7 @@
         <span>
           <md-input-container md-no-float>
         
-                                                    <input ng-model="tipoRootController.tipo.integer_" aria-label="Integer" placeholder="" name="$field.display_name_integer" ng-required="false" ng-pattern="/*/">
+                                                    <input ng-model="tipoRootController.tipo.integer_" aria-label="Integer" placeholder="" name="Integer_integer" ng-required="false" ng-pattern="/*/">
                               </md-input-container>
         </span>
       </div>       
@@ -497,3 +495,4 @@
 </div>
 
  
+

@@ -8,6 +8,7 @@ This is a velocity template to generate AngularJS list view template for any Tip
     <div class="data" layout-padding layout="row" layout-wrap layout-align="start start">
 ]]# 
 ##
+#parse("src/main/resources/fieldcontainer.vm")
 #foreach( $field in $definition.tipo_fields)
 ##
 ##$field.field_name
@@ -68,20 +69,19 @@ This is a velocity template to generate AngularJS list view template for any Tip
   	
   		#if($field.field_type == "date_time")
   			#if(!$field.read_only)
-	         	<md-datepicker ng-model="tipoRootController.tipo.$field.fq_field_name" md-placeholder="$!field_description" name="$field.display_name_$field.field_type" ng-required="$mandatory" ng-init="tipoRootController.tipo.$field.fq_field_name = tipoRootController.Date(tipoRootController.tipo.$field.fq_field_name)">
-	          	</md-datepicker>
+	          	#fieldcontainer($field.field_type $field.fq_field_name $!field_description $field.display_name $mandatory  )
           	#else
           		<span>{{tipoRootController.tipo.$field.fq_field_name | date:'MM/dd/yyyy'}}</span>
           	#end
 		#elseif($field.field_type == "password")
 			#if(!$field.read_only)
-        		<input type="password" ng-model="tipoRootController.tipo.$field.fq_field_name" aria-label="$field.display_name" placeholder="$!field_description" name="$field.display_name_$field.field_type" ng-required="$mandatory" >
+        		#fieldcontainer($field.field_type $field.fq_field_name $!field_description $field.display_name $mandatory  )
         	#else
         		<span>*******</span>
         	#end		
 		#elseif($field.field_type == "longstring")
 			#if(!$field.read_only)
-	        	<textarea ng-model="tipoRootController.tipo.$field.fq_field_name" rows="2" md-select-on-focus aria-label="$field.display_name" placeholder="$!field_description" name="$field.display_name_$field.field_type" ng-required="$mandatory"  />
+	        	#fieldcontainer($field.field_type $field.fq_field_name $!field_description $field.display_name $mandatory  )
 	        #else
 	        	<span class="preformatted-text">{{tipoRootController.tipo.$field.fq_field_name}}</span>
 	        #end
@@ -98,7 +98,7 @@ This is a velocity template to generate AngularJS list view template for any Tip
 	        </span>
 		#elseif($field.field_type == "richstring")
 			#if(!$field.read_only)
-	        	<text-angular ng-model="tipoRootController.tipo.$field.fq_field_name" style="z-index:1" name="$field.display_name_$field.field_type" data-ng-required="$mandatory"></text-angular>
+	        	#fieldcontainer($field.field_type $field.fq_field_name $!field_description $field.display_name $mandatory  )
 	        #else
 	        	<span><div ng-bind-html="tipoRootController.tipo.$field.fq_field_name" class="richstring"></div></span>
 	        #end
@@ -110,17 +110,13 @@ This is a velocity template to generate AngularJS list view template for any Tip
 	        <tp:colour-palette name="$field.display_name_$field.field_type" mode="edit" ng-model="tipoRootController.tipo.$field.fq_field_name" ng-required="$mandatory" />
 		#elseif($field.field_type == "htmlLink")
 			#if(!$field.read_only)
-          		<input ng-model="tipoRootController.tipo.$field.fq_field_name" aria-label="$field.display_name" placeholder="$!field_description" name="$field.display_name_$field.field_type" ng-required="$mandatory">
+          		#fieldcontainer($field.field_type $field.fq_field_name $!field_description $field.display_name $mandatory  )
           	#else
           		<a ng-href="{{tipoRootController.tipo.$field.fq_field_name}}" target="_blank">{{tipoRootController.tipo.$field.fq_field_name}}</a>
           	#end
         #elseif($field.field_type == "boolean")
         	#if(!$field.read_only)
-		        <div class="tp-switch" >
-		            <md-switch class="md-primary" ng-model="tipoRootController.tipo.$field.fq_field_name" aria-label="$!field_description">
-		              <span>{{ tipoRootController.tipo.$field.fq_field_name && 'Yes' || 'No' }}</span>
-		            </md-switch>
-		        </div>
+		        #fieldcontainer($field.field_type $field.fq_field_name $!field_description $field.display_name $mandatory  )
 		    #else
 		    	<span>{{tipoRootController.tipo.$field.fq_field_name}}</span>
 		    #end  		
@@ -150,7 +146,7 @@ This is a velocity template to generate AngularJS list view template for any Tip
 		            #if($field.validations)
 		            	#set ($decoded = $tipo_utils.decodeBase64($field.validations))
 		            #end
-	            	<input ng-model="tipoRootController.tipo.$field.fq_field_name" aria-label="$field.display_name" placeholder="$!field_description" name="$field.display_name_$field.field_type" ng-required="$mandatory" ng-pattern="$!decoded">
+	            	#fieldcontainer($field.field_type $field.fq_field_name $!field_description $field.display_name $mandatory $decoded)
 				#end
 			#else
 				<span>{{tipoRootController.tipo.$field.fq_field_name}}</span>

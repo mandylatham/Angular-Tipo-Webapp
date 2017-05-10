@@ -1,0 +1,39 @@
+#macro( fieldcontainer $field_type $field_name $field_description $display_name $mandatory $decoded)
+	#if( $field_type == "date_time")
+		<md-datepicker ng-model="tipoRootController.tipo.$field_name" md-placeholder="$!field_description" name="${display_name}_${field_type}" ng-required="$mandatory" ng-init="tipoRootController.tipo.$field_name = tipoRootController.Date(tipoRootController.tipo.$field_name)">
+		 </md-datepicker>
+	#elseif($field_type == "password")
+		<input type="$field_type" ng-model="tipoRootController.tipo.$field_name" aria-label="$display_name" placeholder="$!field_description" name="${display_name}_${field_type}" ng-required="$mandatory" >
+	#elseif($field_type == "longstring")
+		<textarea type="$field_type" ng-model="tipoRootController.tipo.$field_name" rows="2" md-select-on-focus aria-label="$display_name" placeholder="$!field_description" name="${display_name}_${field_type}" ng-required="$mandatory" />
+	#elseif($field_type == "richstring")
+		<text-angular ng-model="tipoRootController.tipo.$field_name" style="z-index:1" name="${display_name}_${field_type}" data-ng-required="$mandatory"></text-angular>
+	#elseif($field_type == "htmlLink")
+		<input ng-model="tipoRootController.tipo.$field_name" aria-label="$display_name" placeholder="$!field_description" name="${display_name}_${field_type}" ng-required="$mandatory">
+	#elseif($field_type == "divider")
+		<span class="header">
+          <div layout="row" layout-align="end center">
+            <h3 flex>
+              <a class="plain" md-colors="{color: 'primary-700'}">
+                $display_name
+              </a>
+            </h3>
+          </div>
+          <md-divider></md-divider>
+        </span>
+    #elseif($field_type == "s3explorer")
+    	<tp:s3-explorer name="${display_name}_${field_type}" ng-required="$mandatory"/>
+	#elseif($field_type == "file")
+		<tp:file field="tipoRootController.tipoDefinition" fieldpath="'$field_name'" mode="edit"/>
+	#elseif($field_type == "colour")
+		<tp:colour-palette name="${display_name}_${field_type}" mode="edit" ng-model="tipoRootController.tipo.$field_name" ng-required="$mandatory" />
+	#elseif($field_type == "boolean")
+		<div class="tp-switch" >
+	        <md-switch class="md-primary" ng-model="tipoRootController.tipo.$field_name" aria-label="$display_name">
+	          <span>{{ tipoRootController.tipo.$field_name && 'Yes' || 'No' }}</span>
+	        </md-switch>
+	    </div>
+	#else
+	<input ng-model="tipoRootController.tipo.$field_name" aria-label="$display_name" placeholder="$!field_description" name="${display_name}_${field_type}" ng-required="$mandatory" ng-pattern="$!decoded">
+	#end
+#end

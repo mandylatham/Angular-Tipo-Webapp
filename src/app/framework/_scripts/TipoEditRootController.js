@@ -323,7 +323,7 @@
       var searchText;
       return tipoInstanceDataService.gettpObjectOptions(baseFilter,tipo_name,label_field,_instance.tipoDefinition,searchText,page_size,index,_instance.tipo).then(function(result){
         _instance.setInstance(uniq_name,result,prefix,label,index,tipo_name)
-      });      
+      });
     };
 
     _instance.renderSelection = function(tipo_name){
