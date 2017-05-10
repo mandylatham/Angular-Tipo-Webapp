@@ -229,6 +229,12 @@
             searchCriteria.page = 1;
             // If for the dropdown we require custom page size then we can get from the page_size parameter
             searchCriteria.per_page = 500;
+            if (!_.isEmpty(field.query_params)) {
+              _.each(field.query_params,function(query_param){
+                var baseParamExpanded = tipoManipulationService.expandFilterExpression(query_param.param_value, scope.root, scope.context,field.arrayIndex);
+                searchCriteria[query_param.param_name] = baseParamExpanded;
+              })
+            };
             if(!_.isUndefined(searchCriteria.tipo_filter) && !_.isEmpty(searchCriteria.tipo_filter)  && !_.isUndefined(searchText)){
               searchCriteria.tipo_filter += " AND (tipo_id:(" + searchText + "*) OR " + label_field + ":(" + searchText + "*))" ;
             }else{
