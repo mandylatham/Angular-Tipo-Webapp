@@ -587,7 +587,7 @@
         };
         return filter;
       });
-      return {filters: filters, currentExpression: expressionArray.join(" and ")};
+      return {filters: filters, currentExpression: expressionArray.join(" AND ")};
     }
 
     // Expose the functions that need to be consumed from outside
