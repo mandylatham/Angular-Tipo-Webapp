@@ -8,11 +8,21 @@
 		#end
 	#end
 #end
-#macro(setlabelfield $label_field $key_field)
-	#if($label_field)
-		#set($field_label_field = "'$label_field.field_name'")
+#macro(setlookupcontext $lookup_context)
+	#if($lookup_context.label_field)
+		#set($field_label_field = "'$lookup_context.label_field.field_name'")
 	#else
-		#set($field_label_field = "'$key_field.field_name'")
+		#set($field_label_field = "'$lookup_context.key_field.field_name'")
+	#end
+	#if($lookup_context.underscore_ui.isArray)
+		#set($isArray = $lookup_context.underscore_ui.isArray)
+	#else
+		#set($isArray = false)
+	#end
+	#if($lookup_context.popup_select)
+		#set($isPopup = $lookup_context.popup_select)
+	#else
+		#set($isPopup = false)
 	#end
 #end
 #macro( fieldcontainer $field $field_description $mandatory $decoded)
@@ -53,7 +63,7 @@
 		    </div>
 		#elseif($field.allowed_values)
 			#calculateAllowedValues($field.allowed_values)
-			<tp:simple-dropdown isArray="false" fieldValue="tipoRootController.tipo.$field.fq_field_name" required="$mandatory" allowedValues="$allowed_values" alloweCreate="$field.allow_create" placeholder="$!field_description" name="${field.display_name}_${field.field_type}" />
+			<tp:simple-dropdown isarray="false" fieldvalue="tipoRootController.tipo.$field.fq_field_name" required="$mandatory" allowedvalues="$allowed_values" allowcreate="$field.allow_create" placeholder="$!field_description" name="${field.display_name}_${field.field_type}" />
 		#else
 		<input ng-model="tipoRootController.tipo.$field.fq_field_name" aria-label="$field.display_name" placeholder="$!field_description" name="${field.display_name}_${field.field_type}" ng-required="$mandatory" ng-pattern="$!decoded">
 		#end
@@ -71,12 +81,14 @@
 		        </md-chips>
 		    #else
 		    	#calculateAllowedValues($field.allowed_values)
-		    	<tp:simple-dropdown isArray="true" fieldValue="tipoRootController.tipo.$field.fq_field_name" required="$mandatory" allowedValues="$allowed_values" alloweCreate="$field.allow_create" placeholder="$!field_description" name="${field.display_name}_${field.field_type}" />
+		    	<span>
+		    		<tp:simple-dropdown isarray="true" fieldvalue="tipoRootController.tipo.$field.fq_field_name" required="$mandatory" allowedvalues="$allowed_values" allowcreate="$!field.allow_create" placeholder="$!field_description" name="${field.display_name}_${field.field_type}" />
+		    	</span>
         	#end
         #end
     #else
-    	#setlabelfield($!field.label_field $field.key_field)
-    	<tp:lookup fieldvalue="tipoRootController.tipo.$field.fq_field_name" basefilter="'$!field.relationship_filter'" realtedtipo="'$!field.underscore_ui.relatedTipo'" isarray="$!field.underscore_ui.isArray" ispopup="$!field.popup_select" required="$!mandatory" labelfield="$!field_label_field" allowcreate="$!field.allow_create" selectfield="$!field.select_field">
+    	#setlookupcontext($field)
+    	<tp:lookup field="{key: tipoRootController.tipo.$field.fq_field_name, fieldlabel: tipoRootController.tipo.${field.fq_field_name}_refs}" fieldvalue="tipoRootController.tipo.$field.fq_field_name" fieldlabel= "tipoRootController.tipo.${field.fq_field_name}_refs" basefilter="'$!field.relationship_filter'" realtedtipo="'$!field.underscore_ui.relatedTipo'" isarray="$!field.underscore_ui.isArray" ispopup="$!field.popup_select" required="$!mandatory" labelfield="$!field_label_field" allowcreate="$!field.allow_create" selectfield="$!field.select_field" root="tipoRootController.tipo" ng-init="tipoRootController.tipo.$field.fq_field_name = tipoRootController.tipo.$field.fq_field_name || '';tipoRootController.tipo.${field.fq_field_name}_refs = tipoRootController.tipo.${field.fq_field_name}_refs || '' ">
 	#end
 #end
 

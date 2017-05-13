@@ -8,21 +8,21 @@
   return module.directive('tpSimpleDropdown', function () {
       return {
         scope: {
-          isArray: '=',
-          fieldValue: '=',
+          isarray: '=',
+          fieldvalue: '=',
           required: '=',
-          allowedValues: '=',
-          alloweCreate: '=',
-          placeholder: '=',
-          name: '='
+          allowedvalues: '=',
+          allowcreate: '=',
+          description: '=',
+          fieldname: '='
         },
-        restrict: 'EA',
+        restrict: 'E',
         replace: true,
-        template: 'framework/_directives/_views/tp-group-container.tpl.html',
+        templateUrl: 'framework/_directives/_views/tp-simple-dropdown.tpl.html',
         link: function(scope, element, attrs){         
           scope.searchTerm = {};
           scope.addValue = function(){
-            allowedValues.push(scope.searchTerm.text);
+            allowedvalues.push(scope.searchTerm.text);
             scope.searchTerm.text = "";
           }
 

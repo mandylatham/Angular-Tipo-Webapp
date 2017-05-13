@@ -143,8 +143,9 @@
     var clonedTipoId = $stateParams.copyFrom;
     _instance.tipo = tipo;
 
-    var tipo_name = tipoDefinition.tipo_meta.tipo_name;
-    var tipo_id = tipo.tipo_id;
+    // var tipo_name = tipoDefinition.tipo_meta.tipo_name;
+    var tipo_name = $stateParams.tipo_name;
+    var tipo_id = $stateParams.tipo_id;
 
     var perspective = $scope.perspective;
 
@@ -398,13 +399,15 @@
 
     function generateGroupItem(field_name,definition){
       var newObject = {};
-      _.each(definition.tipo_fields,function(field){
-        newObject[field.field_name] = null;
-      });
-      if (_.isUndefined(_instance.tipo[field_name])) {
-        _instance.tipo[field_name] = [];
+      // _.each(definition.tipo_fields,function(field){
+      //   newObject[field.field_name] = null;
+      // });
+      var array = _.get(_instance.tipo,field_name);
+      if (!array) {
+        array = [];
       };
-      _instance.tipo[field_name].push(newObject);
+      array.push(newObject);
+      _.set(_instance.tipo,field_name,array);
     }
 
 
@@ -489,25 +492,58 @@
       _instance.toView();
     };
 
-    _instance.showDetail = function(field_name,index){
-      var definition = extractDatafromDefinition(field_name);
-      if (!_.isUndefined(index)) {
-        definition = definition._items[index];
-        // if (!_.isUndefined(_instance.tipo[field_name][index])) {
-        //   tipoManipulationService.mergeDefinitionAndData(definition,_instance.tipo[field_name][index]);
-        // }
-      }else{
-        // if (!_.isUndefined(_instance.tipo[field_name])) {
-        //   tipoManipulationService.mergeDefinitionAndData(definition,_instance.tipo[field_name]);
-        // };
-      }
+    _instance.showDetail = function(htmltemplate,index,field_name){
+      // var definition = extractDatafromDefinition(field_name);
+      // if (!_.isUndefined(index)) {
+      //   definition = definition._items[index];
+      //   // if (!_.isUndefined(_instance.tipo[field_name][index])) {
+      //   //   tipoManipulationService.mergeDefinitionAndData(definition,_instance.tipo[field_name][index]);
+      //   // }
+      // }else{
+      //   // if (!_.isUndefined(_instance.tipo[field_name])) {
+      //   //   tipoManipulationService.mergeDefinitionAndData(definition,_instance.tipo[field_name]);
+      //   // };
+      // }
       var newScope = $scope.$new();
-      newScope.definition = definition;
-      newScope.root = _instance.tipoDefinition;
+      // newScope.definition = definition;
+      htmltemplate = atob(htmltemplate);
+      if (!_.isUndefined(index)) {
+        if (_.isUndefined($scope.recursiveGroupRef)) {
+          newScope.recursiveGroupRef = {};
+          newScope.recursiveGroupRef.field_names = field_name + "/";
+          newScope.recursiveGroupRef.arrayindex = index.toString();
+        }else{
+          newScope.recursiveGroupRef = {};
+          newScope.recursiveGroupRef.field_names = $scope.recursiveGroupRef.field_names + field_name + "/";
+          newScope.recursiveGroupRef.arrayindex = $scope.recursiveGroupRef.arrayindex + index.toString();
+        }
+        var nth = -1;
+        _.each(newScope.recursiveGroupRef.field_names.split('/'),function(stringVal){
+          if(!_.isEmpty(stringVal)){
+            nth++;
+            var regex = new RegExp(stringVal + "\\[\\$index", "g");
+            htmltemplate = htmltemplate.replace(regex,stringVal + "[" + newScope.recursiveGroupRef.arrayindex.toString().substr(nth,1));
+          }
+        });
+      };
+      // newScope.root = _instance.tipoDefinition;
       newScope.mode = "edit";
+      newScope.fullscreen = true;
       var promise = $mdDialog.show({
-        templateUrl: 'framework/_directives/_views/tp-view-dialog.tpl.html',
-        controller: 'TipoGroupDialogController',
+        template: '<md-dialog ng-cloak ng-class="{\'fullscreen\': fullscreen}"><md-toolbar class="tipo-toolbar"><div class="md-toolbar-tools"><h2>{{definition.display_name}}</h2><span flex></span><md-button class="md-icon-button" ng-click="maximize()" ng-if="!fullscreen"><md-icon aria-label="Maximize">crop_square</md-icon></md-button><md-button class="md-icon-button" ng-click="restore()" ng-if="fullscreen"><md-icon aria-label="Restore size">filter_none</md-icon></md-button><md-button class="md-icon-button" ng-click="cancel()"><md-icon aria-label="Close dialog">close</md-icon></md-button></div></md-toolbar><md-dialog-content><div class="tp-detail dialog">' + 
+                  htmltemplate +
+                  '</div>  </md-dialog-content><md-dialog-actions layout="row"><span flex></span><md-button ng-click="hide()" ng-if="!(mode === \'edit\')">Close</md-button><md-button md-theme="reverse" class="md-raised md-primary" ng-click="hide()" ng-if="mode === \'edit\'">Done</md-button></md-dialog-actions></md-dialog>',
+        controller: 'TipoEditRootController',
+        controllerAs: 'tipoRootController',
+        resolve: /*@ngInject*/
+        {
+          tipo: function() {
+                  return _instance.tipo;
+          },
+          tipoDefinition: function() {
+                  return _instance.tipoDefinition;
+          },
+        },
         scope: newScope,
         skipHide: true,
         clickOutsideToClose: true,
@@ -535,30 +571,32 @@
     }
 
     _instance.generateItem = function(field_name){
-      var definition = extractDatafromDefinition(field_name);
-      tipoManipulationService.generateGroupItem(definition);
-      generateGroupItem(field_name,definition);
+      // var definition = extractDatafromDefinition(field_name);
+      // tipoManipulationService.generateGroupItem(definition);
+      generateGroupItem(field_name);
     }
 
     _instance.deleteItem = function(field_name,index){
-      var group = extractDatafromDefinition(field_name);
-      var groupItem = group._items[index];
-      if(_.isUndefined(groupItem._ui.hash)){
-        // indicates that this item was never saved on the backend, hence just delete it
-        _.remove(group._items, function(each){
-          return each === groupItem;
+      // var group = extractDatafromDefinition(field_name);
+      // var groupItem = group._items[index];
+      // if(_.isUndefined(groupItem._ui.hash)){
+      //   // indicates that this item was never saved on the backend, hence just delete it
+      //   _.remove(group._items, function(each){
+      //     return each === groupItem;
+      //   });
+      // }else{
+      //   // indicates that this item already exists in the backend, hence flagging it for deletion
+      //   groupItem._ui.deleted = true;
+      // }
+      var delItem = _.get(_instance.tipo,field_name)
+      if (_.isUndefined(delItem[index]._ARRAY_META)) {
+        _.remove(delItem, function(each){
+          return each === delItem[index];
         });
       }else{
-        // indicates that this item already exists in the backend, hence flagging it for deletion
-        groupItem._ui.deleted = true;
+        delItem[index]._ARRAY_META._STATUS = 'DELETED';
       }
-      if (_.isUndefined(_instance.tipo[field_name][index]._ARRAY_META)) {
-        _.remove(_instance.tipo[field_name], function(each){
-          return each === _instance.tipo[field_name][index];
-        });
-      }else{
-        _instance.tipo[field_name][index]._ARRAY_META._STATUS = 'DELETED';
-      }
+      _.set(_instance.tipo,field_name,delItem);
     }
 
     _instance.cloneItem = function(field_name,index){
@@ -626,6 +664,21 @@
         delete _instance[prefix + index + label].allowed_value;
       }
     }
+
+    $scope.maximize = function(){
+      $scope.fullscreen = true;
+    };
+
+    $scope.restore = function(){
+      $scope.fullscreen = false;
+    };
+
+    $scope.hide = function() {
+      $mdDialog.hide();
+    };
+    $scope.cancel = function() {
+      $mdDialog.cancel();
+    };
 
   }
 

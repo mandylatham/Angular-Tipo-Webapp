@@ -9,6 +9,8 @@
   function TipoGroupDialogController($scope, $mdDialog) {
 
     this.mode = $scope.mode;
+    var _instance = this;
+    _instance.tipo = $scope.tipo;
     $scope.fullscreen = true;
 
     $scope.maximize = function(){

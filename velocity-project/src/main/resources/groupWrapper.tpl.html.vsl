@@ -1,3 +1,5 @@
+#parse("src/main/resources/templategenetaor.tpl.html.vsl")
+#macro(groupwrapper $field)
 <section class="fieldset fluid-row-container" flex="100">
     	<div class="header">
 		    <div layout="row" layout-align="end center">
@@ -20,7 +22,9 @@
 		          </div>
 		          <div flex="none">
 		          #if(!$field.disable_expansion)
-		            <md-button class="m0" ng-click="tipoRootController.showDetail('$field.fq_field_name')" aria-label="Edit">
+		          	#set($template = "#templategenerator1($field)") 
+		          	#set ($templateencoded = $tipo_utils.encodeBase64($template))
+		            <md-button class="m0" ng-click="tipoRootController.showDetail('$templateencoded')" aria-label="Edit">
 		              <md-tooltip md-direction="top">Edit</md-tooltip>
 		              <md-icon>launch</md-icon>
 		            </md-button>
@@ -74,7 +78,9 @@
         </div>
         #end
         #if(!$field.disable_expansion)
-        <md-button ng-click="tipoRootController.showDetail('$field.fq_field_name',$index)" ng-if="!group.disable_expansion" aria-label="Edit" class="md-icon-button">
+       	#set($template = "#templategenerator1($field)") 
+        #set ($templateencoded = $tipo_utils.encodeBase64($template))
+        <md-button ng-click="tipoRootController.showDetail('$templateencoded',$index,'${field.field_name}')" ng-if="!group.disable_expansion" aria-label="Edit" class="md-icon-button">
           <md-tooltip md-direction="left">Edit</md-tooltip>
           <md-icon>launch</md-icon>
         </md-button>
@@ -92,3 +98,4 @@
 		#end
 			  </div>
 	</section>
+#end

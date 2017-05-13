@@ -1,12 +1,13 @@
-         
 
 <div class="p-8">
   <section class="fieldset no-header fluid-row-container">
     <div class="data" layout-padding layout="row" layout-wrap layout-align="start start">
  
  
- 
-
+  
+  
+  
+       
                                           
      <dl class="edit" 
         layout="column" 
@@ -20,7 +21,7 @@
     <div class="tp-field">
       <span>
         <md-input-container md-no-float>
-                            <tp:lookup fieldvalue="tipoRootController.tipo.tipoapp" basefilter="''" realtedtipo="'TipoApp'" isarray="false" ispopup="" required="false" labelfield="'app_name'" allowcreate="" selectfield="">
+                                    <tp:lookup field="{key: tipoRootController.tipo.tipoapp, fieldlabel: tipoRootController.tipo.tipoapp_refs}" fieldvalue="tipoRootController.tipo.tipoapp" fieldlabel= "tipoRootController.tipo.tipoapp_refs" basefilter="''" realtedtipo="'TipoApp'" isarray="false" ispopup="" required="false" labelfield="'app_name'" allowcreate="" selectfield="" ng-init="tipoRootController.tipo.tipoapp = tipoRootController.tipo.tipoapp || '';tipoRootController.tipo.tipoapp_refs = tipoRootController.tipo.tipoapp_refs || null ">
               <div ng-messages="tipoForm['TipoApp_Tipo.TipoApp'].$error">
               <div ng-message="required" >This is required.</div>
               <div ng-message="pattern" >This field must be </div>
@@ -31,7 +32,6 @@
     </dd>
  </dl>
      
-
                                           
          <dl class="edit" 
         layout="column" 
@@ -56,7 +56,6 @@
     </dd>
  </dl>
      
-
                                           
          <dl class="edit" 
         layout="column" 
@@ -70,7 +69,7 @@
     <div class="tp-field">
       <span>
         <md-input-container md-no-float>
-                    <input ng-model="tipoRootController.tipo.role_string" aria-label="Role String" placeholder="" name="Role String_string" ng-required="false" ng-pattern="/*/">
+                    <input ng-model="tipoRootController.tipo.role_string" aria-label="Role String" placeholder="" name="Role String_string" ng-required="false" ng-pattern="/./">
                   <div ng-messages="tipoForm['Role String_string'].$error">
               <div ng-message="required" >This is required.</div>
               <div ng-message="pattern" >This field must be String</div>
@@ -81,7 +80,6 @@
     </dd>
  </dl>
      
-
                                           
      <dl class="edit" 
         layout="column" 
@@ -95,7 +93,9 @@
     <div class="tp-field">
       <span>
         <md-input-container md-no-float>
-                                                                              <tp:simple-dropdown isArray="true" fieldValue="tipoRootController.tipo.paragraph" required="false" allowedValues="['tes2','test','test1']" alloweCreate="$field.allow_create" placeholder="" name="Paragraph_string" />
+                                                                              <span>
+            <tp:simple-dropdown isarray="true" fieldvalue="tipoRootController.tipo.paragraph" required="false" allowedvalues="['tes2','test','test1']" allowcreate="" placeholder="" name="Paragraph_string" />
+          </span>
                                   <div ng-messages="tipoForm['Paragraph_string'].$error">
               <div ng-message="required" >This is required.</div>
               <div ng-message="pattern" >This field must be </div>
@@ -106,7 +106,6 @@
     </dd>
  </dl>
      
-
                                           
      <dl class="edit" 
         layout="column" 
@@ -131,7 +130,6 @@
     </dd>
  </dl>
      
-
                                           
      <dl class="edit" 
         layout="column" 
@@ -156,7 +154,6 @@
     </dd>
  </dl>
      
-
                                           
      <dl class="edit" 
         layout="column" 
@@ -185,7 +182,6 @@
     </dd>
  </dl>
      
-
                                           
      <dl class="edit" 
         layout="column" 
@@ -211,7 +207,6 @@
     </dd>
  </dl>
      
-
                                           
      <dl class="edit" 
         layout="column" 
@@ -225,7 +220,7 @@
     <div class="tp-field">
       <span>
         <md-input-container md-no-float>
-                    <input ng-model="tipoRootController.tipo.integer_" aria-label="Integer" placeholder="" name="Integer_integer" ng-required="false" ng-pattern="/*/">
+                    <input ng-model="tipoRootController.tipo.integer_" aria-label="Integer" placeholder="" name="Integer_integer" ng-required="false" ng-pattern="/./">
                   <div ng-messages="tipoForm['Integer_integer'].$error">
               <div ng-message="required" >This is required.</div>
               <div ng-message="pattern" >This field must be </div>
@@ -236,7 +231,6 @@
     </dd>
  </dl>
      
-
                                             
      <dl class="edit" 
         layout="column" 
@@ -250,7 +244,7 @@
     <div class="tp-field">
       <span>
         <md-input-container md-no-float>
-                            <tp:lookup fieldvalue="tipoRootController.tipo.tipodropdown" basefilter="''" realtedtipo="'TipoIcon'" isarray="false" ispopup="" required="false" labelfield="'name_'" allowcreate="true" selectfield="">
+                                    <tp:lookup field="{key: tipoRootController.tipo.tipodropdown, fieldlabel: tipoRootController.tipo.tipodropdown_refs}" fieldvalue="tipoRootController.tipo.tipodropdown" fieldlabel= "tipoRootController.tipo.tipodropdown_refs" basefilter="''" realtedtipo="'TipoIcon'" isarray="false" ispopup="" required="false" labelfield="'name_'" allowcreate="true" selectfield="" ng-init="tipoRootController.tipo.tipodropdown = tipoRootController.tipo.tipodropdown || '';tipoRootController.tipo.tipodropdown_refs = tipoRootController.tipo.tipodropdown_refs || null ">
               <div ng-messages="tipoForm['TipoDropdown_Tipo.TipoIcon'].$error">
               <div ng-message="required" >This is required.</div>
               <div ng-message="pattern" >This field must be </div>
@@ -261,7 +255,6 @@
     </dd>
  </dl>
      
-
                                           
      <dl class="edit" 
         layout="column" 
@@ -275,7 +268,7 @@
     <div class="tp-field">
       <span>
         <md-input-container md-no-float>
-                            <tp:lookup fieldvalue="tipoRootController.tipo.tipoarray" basefilter="''" realtedtipo="'TipoApp'" isarray="true" ispopup="" required="false" labelfield="'app_name'" allowcreate="" selectfield="">
+                                    <tp:lookup field="{key: tipoRootController.tipo.tipoarray, fieldlabel: tipoRootController.tipo.tipoarray_refs}" fieldvalue="tipoRootController.tipo.tipoarray" fieldlabel= "tipoRootController.tipo.tipoarray_refs" basefilter="''" realtedtipo="'TipoApp'" isarray="true" ispopup="" required="false" labelfield="'app_name'" allowcreate="" selectfield="" ng-init="tipoRootController.tipo.tipoarray = tipoRootController.tipo.tipoarray || '';tipoRootController.tipo.tipoarray_refs = tipoRootController.tipo.tipoarray_refs || null ">
               <div ng-messages="tipoForm['TipoArray_Tipo.TipoApp'].$error">
               <div ng-message="required" >This is required.</div>
               <div ng-message="pattern" >This field must be </div>
@@ -286,7 +279,6 @@
     </dd>
  </dl>
      
-
                                           
      <dl class="edit" 
         layout="column" 
@@ -300,7 +292,7 @@
     <div class="tp-field">
       <span>
         <md-input-container md-no-float>
-                            <tp:lookup fieldvalue="tipoRootController.tipo.tipopopup" basefilter="''" realtedtipo="'VelocityTest'" isarray="false" ispopup="" required="false" labelfield="'$key_field.field_name'" allowcreate="" selectfield="">
+                                    <tp:lookup field="{key: tipoRootController.tipo.tipopopup, fieldlabel: tipoRootController.tipo.tipopopup_refs}" fieldvalue="tipoRootController.tipo.tipopopup" fieldlabel= "tipoRootController.tipo.tipopopup_refs" basefilter="''" realtedtipo="'VelocityTest'" isarray="false" ispopup="" required="false" labelfield="'$lookup_context.key_field.field_name'" allowcreate="" selectfield="" ng-init="tipoRootController.tipo.tipopopup = tipoRootController.tipo.tipopopup || '';tipoRootController.tipo.tipopopup_refs = tipoRootController.tipo.tipopopup_refs || null ">
               <div ng-messages="tipoForm['TipoPopup_Tipo.VelocityTest'].$error">
               <div ng-message="required" >This is required.</div>
               <div ng-message="pattern" >This field must be </div>
@@ -311,7 +303,6 @@
     </dd>
  </dl>
      
-
                                           
      <dl class="edit" 
         layout="column" 
@@ -325,7 +316,7 @@
     <div class="tp-field">
       <span>
         <md-input-container md-no-float>
-                            <tp:lookup fieldvalue="tipoRootController.tipo.tipoarraypop" basefilter="''" realtedtipo="'VelocityTest'" isarray="false" ispopup="" required="false" labelfield="'$key_field.field_name'" allowcreate="" selectfield="">
+                                    <tp:lookup field="{key: tipoRootController.tipo.tipoarraypop, fieldlabel: tipoRootController.tipo.tipoarraypop_refs}" fieldvalue="tipoRootController.tipo.tipoarraypop" fieldlabel= "tipoRootController.tipo.tipoarraypop_refs" basefilter="''" realtedtipo="'VelocityTest'" isarray="false" ispopup="" required="false" labelfield="'$lookup_context.key_field.field_name'" allowcreate="" selectfield="" ng-init="tipoRootController.tipo.tipoarraypop = tipoRootController.tipo.tipoarraypop || '';tipoRootController.tipo.tipoarraypop_refs = tipoRootController.tipo.tipoarraypop_refs || null ">
               <div ng-messages="tipoForm['TipoArrayPop_Tipo.VelocityTest'].$error">
               <div ng-message="required" >This is required.</div>
               <div ng-message="pattern" >This field must be </div>
@@ -336,8 +327,7 @@
     </dd>
  </dl>
      
-
-        <section class="fieldset fluid-row-container" flex="100">
+          <section class="fieldset fluid-row-container" flex="100">
       <div class="header">
         <div layout="row" layout-align="end center">
           <h3 flex ng-init="tipoRootController.initCollapsed('fieldgrtest', '')">
@@ -351,7 +341,7 @@
               <div flex="none">
                             </div>
               <div flex="none">
-                              <md-button class="m0" ng-click="tipoRootController.showDetail('fieldgrtest')" aria-label="Edit">
+                              <md-button class="m0" ng-click="tipoRootController.showDetail('ICAgICAgICAgCgo8ZGl2IGNsYXNzPSJwLTgiPgogIDxzZWN0aW9uIGNsYXNzPSJmaWVsZHNldCBuby1oZWFkZXIgZmx1aWQtcm93LWNvbnRhaW5lciI+CiAgICA8ZGl2IGNsYXNzPSJkYXRhIiBsYXlvdXQtcGFkZGluZyBsYXlvdXQ9InJvdyIgbGF5b3V0LXdyYXAgbGF5b3V0LWFsaWduPSJzdGFydCBzdGFydCI+CiAKCgogIAkgIAkJICAgICAJCSAgCQkJICAgIAkgICAgCSAgICAKICAJIDxkbCBjbGFzcz0iZWRpdCIgCgkJICAgIGxheW91dD0iY29sdW1uIiAKCQkgICAgbGF5b3V0LWFsaWduPSJjZW50ZXIgc3RyZXRjaCIKCQkgICAgZmxleD0iMTAwIiAKCQkJZmxleC1ndC1zbT0iNTAiIAoJCQlmbGV4LWd0LW1kPSIzMyI+CiAgICA8ZHQ+CgkgICAgCQkJCSBEcm9kb3duICAJCQk8L2R0PgogICAgPGRkPgoJCTxkaXYgY2xhc3M9InRwLWZpZWxkIj4KCQkJPHNwYW4+CgkJCQk8bWQtaW5wdXQtY29udGFpbmVyIG1kLW5vLWZsb2F0PgoJCQkJCQkgICAgCQkJCQkJCSAgICAJPHRwOmxvb2t1cCBmaWVsZD0ie2tleTogdGlwb1Jvb3RDb250cm9sbGVyLnRpcG8uZmllbGRncnRlc3QuZHJvZG93biwgZmllbGRsYWJlbDogdGlwb1Jvb3RDb250cm9sbGVyLnRpcG8uZmllbGRncnRlc3QuZHJvZG93bl9yZWZzfSIgZmllbGR2YWx1ZT0idGlwb1Jvb3RDb250cm9sbGVyLnRpcG8uZmllbGRncnRlc3QuZHJvZG93biIgZmllbGRsYWJlbD0gInRpcG9Sb290Q29udHJvbGxlci50aXBvLmZpZWxkZ3J0ZXN0LmRyb2Rvd25fcmVmcyIgYmFzZWZpbHRlcj0iJyciIHJlYWx0ZWR0aXBvPSInRGVmaW5pdGlvbnMnIiBpc2FycmF5PSJmYWxzZSIgaXNwb3B1cD0iIiByZXF1aXJlZD0iZmFsc2UiIGxhYmVsZmllbGQ9IickbG9va3VwX2NvbnRleHQua2V5X2ZpZWxkLmZpZWxkX25hbWUnIiBhbGxvd2NyZWF0ZT0iIiBzZWxlY3RmaWVsZD0iIiBuZy1pbml0PSJ0aXBvUm9vdENvbnRyb2xsZXIudGlwby5maWVsZGdydGVzdC5kcm9kb3duID0gdGlwb1Jvb3RDb250cm9sbGVyLnRpcG8uZmllbGRncnRlc3QuZHJvZG93biB8fCAnJzt0aXBvUm9vdENvbnRyb2xsZXIudGlwby5maWVsZGdydGVzdC5kcm9kb3duX3JlZnMgPSB0aXBvUm9vdENvbnRyb2xsZXIudGlwby5maWVsZGdydGVzdC5kcm9kb3duX3JlZnMgfHwge30gIj4KCQkJCQkgIAk8ZGl2IG5nLW1lc3NhZ2VzPSJ0aXBvRm9ybVsnRHJvZG93bl9UaXBvLkRlZmluaXRpb25zJ10uJGVycm9yIj4KCQkJCSAgICAgIDxkaXYgbmctbWVzc2FnZT0icmVxdWlyZWQiID5UaGlzIGlzIHJlcXVpcmVkLjwvZGl2PgoJCQkJICAgICAgPGRpdiBuZy1tZXNzYWdlPSJwYXR0ZXJuIiA+VGhpcyBmaWVsZCBtdXN0IGJlIDwvZGl2PgoJCQkJCTwvZGl2PgkJCQkKCQkJCTwvbWQtaW5wdXQtY29udGFpbmVyPgoJCQk8L3NwYW4+CgkJPC9kaXY+ICAgICAgIAogICAgPC9kZD4KIDwvZGw+CiAgICAgCiAgCSAgCQkgICAgIAkJICAJCQkgICAgCSAgICAJICAgIAogIAkgPGRsIGNsYXNzPSJlZGl0IiAKCQkgICAgbGF5b3V0PSJjb2x1bW4iIAoJCSAgICBsYXlvdXQtYWxpZ249ImNlbnRlciBzdHJldGNoIgoJCSAgICBmbGV4PSIxMDAiIAoJCQlmbGV4LWd0LXNtPSI1MCIgCgkJCWZsZXgtZ3QtbWQ9IjMzIj4KICAgIDxkdD4KCSAgICAJCQkJIEZpZWxkMiAgCQkJPC9kdD4KICAgIDxkZD4KCQk8ZGl2IGNsYXNzPSJ0cC1maWVsZCI+CgkJCTxzcGFuPgoJCQkJPG1kLWlucHV0LWNvbnRhaW5lciBtZC1uby1mbG9hdD4KCQkJCQkJCQkJCTxpbnB1dCBuZy1tb2RlbD0idGlwb1Jvb3RDb250cm9sbGVyLnRpcG8uZmllbGRncnRlc3QuZmllbGQyIiBhcmlhLWxhYmVsPSJGaWVsZDIiIHBsYWNlaG9sZGVyPSIiIG5hbWU9IkZpZWxkMl9zdHJpbmciIG5nLXJlcXVpcmVkPSJmYWxzZSIgbmctcGF0dGVybj0iLyovIj4KCQkJCQkJCSAgCTxkaXYgbmctbWVzc2FnZXM9InRpcG9Gb3JtWydGaWVsZDJfc3RyaW5nJ10uJGVycm9yIj4KCQkJCSAgICAgIDxkaXYgbmctbWVzc2FnZT0icmVxdWlyZWQiID5UaGlzIGlzIHJlcXVpcmVkLjwvZGl2PgoJCQkJICAgICAgPGRpdiBuZy1tZXNzYWdlPSJwYXR0ZXJuIiA+VGhpcyBmaWVsZCBtdXN0IGJlIDwvZGl2PgoJCQkJCTwvZGl2PgkJCQkKCQkJCTwvbWQtaW5wdXQtY29udGFpbmVyPgoJCQk8L3NwYW4+CgkJPC9kaXY+ICAgICAgIAogICAgPC9kZD4KIDwvZGw+CiAgICAgCiAgCSAgCQkgICAgIAkJICAJCQkgICAgCSAgICAJICAgIAogIAkgPGRsIGNsYXNzPSJlZGl0IiAKCQkgICAgbGF5b3V0PSJjb2x1bW4iIAoJCSAgICBsYXlvdXQtYWxpZ249ImNlbnRlciBzdHJldGNoIgoJCSAgICBmbGV4PSIxMDAiIAoJCQlmbGV4LWd0LXNtPSI1MCIgCgkJCWZsZXgtZ3QtbWQ9IjMzIj4KICAgIDxkdD4KCSAgICAJCQkJIEZpZWxkMSAgCQkJPC9kdD4KICAgIDxkZD4KCQk8ZGl2IGNsYXNzPSJ0cC1maWVsZCI+CgkJCTxzcGFuPgoJCQkJPG1kLWlucHV0LWNvbnRhaW5lciBtZC1uby1mbG9hdD4KCQkJCQkJCQkJCTxpbnB1dCBuZy1tb2RlbD0idGlwb1Jvb3RDb250cm9sbGVyLnRpcG8uZmllbGRncnRlc3QuZmllbGQxIiBhcmlhLWxhYmVsPSJGaWVsZDEiIHBsYWNlaG9sZGVyPSIiIG5hbWU9IkZpZWxkMV9zdHJpbmciIG5nLXJlcXVpcmVkPSJmYWxzZSIgbmctcGF0dGVybj0iLyovIj4KCQkJCQkJCSAgCTxkaXYgbmctbWVzc2FnZXM9InRpcG9Gb3JtWydGaWVsZDFfc3RyaW5nJ10uJGVycm9yIj4KCQkJCSAgICAgIDxkaXYgbmctbWVzc2FnZT0icmVxdWlyZWQiID5UaGlzIGlzIHJlcXVpcmVkLjwvZGl2PgoJCQkJICAgICAgPGRpdiBuZy1tZXNzYWdlPSJwYXR0ZXJuIiA+VGhpcyBmaWVsZCBtdXN0IGJlIDwvZGl2PgoJCQkJCTwvZGl2PgkJCQkKCQkJCTwvbWQtaW5wdXQtY29udGFpbmVyPgoJCQk8L3NwYW4+CgkJPC9kaXY+ICAgICAgIAogICAgPC9kZD4KIDwvZGw+CiAgICAgCiAgCSAgICAJPHNlY3Rpb24gY2xhc3M9ImZpZWxkc2V0IGZsdWlkLXJvdy1jb250YWluZXIiIGZsZXg9IjEwMCI+CiAgICAJPGRpdiBjbGFzcz0iaGVhZGVyIj4KCQkgICAgPGRpdiBsYXlvdXQ9InJvdyIgbGF5b3V0LWFsaWduPSJlbmQgY2VudGVyIj4KCQkgICAgICA8aDMgZmxleCBuZy1pbml0PSJ0aXBvUm9vdENvbnRyb2xsZXIuaW5pdENvbGxhcHNlZCgnc3ViZ3JvdXAnLCAnJykiPgoJCSAgICAgICAgPGEgaHJlZj0iIiBuZy1jbGljaz0ic3ViZ3JvdXAuY29sbGFwc2VkID0gIXN1Ymdyb3VwLmNvbGxhcHNlZCIgY2xhc3M9InBsYWluIiBtZC1jb2xvcnM9Intjb2xvcjogJ3ByaW1hcnktNzAwJ30iPgoJCSAgICAgICAgICA8aSBjbGFzcz0iZmEiIG5nLWNsYXNzPSJ7J2ZhLWNhcmV0LWRvd24nOiAhc3ViZ3JvdXAuY29sbGFwc2VkICwgJ2ZhLWNhcmV0LXJpZ2h0Jzogc3ViZ3JvdXAuY29sbGFwc2VkfSI+PC9pPgoJCSAgICAgICAgICAgU3ViR3JvdXAKCQkgICAgICAgIDwvYT4KCQkgICAgICA8L2gzPgoJCSAgICAgIDxkaXYgY2xhc3M9ImFjdGlvbnMgaG9yaXpvbnRhbCIgbGF5b3V0PSJyb3ciIGxheW91dC1hbGlnbj0iY2VudGVyIGNlbnRlciI+CgkJICAgICAgCQkgICAgICAgIDxkaXYgbGF5b3V0PSJyb3ciPgoJCSAgICAgICAgICA8ZGl2IGZsZXg9Im5vbmUiPgoJCSAgICAgICAgICAJCSAgICAgICAgICA8L2Rpdj4KCQkgICAgICAgICAgPGRpdiBmbGV4PSJub25lIj4KCQkgICAgICAgICAgCQkgICAgICAgICAgICA8bWQtYnV0dG9uIGNsYXNzPSJtMCIgbmctY2xpY2s9InRpcG9Sb290Q29udHJvbGxlci5zaG93RGV0YWlsKCdJQ0FnSUNBZ0lDQWdDZ284WkdsMklHTnNZWE56UFNKd0xUZ2lQZ29nSUR4elpXTjBhVzl1SUdOc1lYTnpQU0ptYVdWc1pITmxkQ0J1Ynkxb1pXRmtaWElnWm14MWFXUXRjbTkzTFdOdmJuUmhhVzVsY2lJK0NpQWdJQ0E4WkdsMklHTnNZWE56UFNKa1lYUmhJaUJzWVhsdmRYUXRjR0ZrWkdsdVp5QnNZWGx2ZFhROUluSnZkeUlnYkdGNWIzVjBMWGR5WVhBZ2JHRjViM1YwTFdGc2FXZHVQU0p6ZEdGeWRDQnpkR0Z5ZENJK0NpQUtDZ29nSUFrZ0lBa0pJQ0FnSUNBSkNTQWdDUWtKSUNBZ0lBa2dJQ0FnQ1NBZ0lDQUtJQ0FKSUR4a2JDQmpiR0Z6Y3owaVpXUnBkQ0lnQ2drSklDQWdJR3hoZVc5MWREMGlZMjlzZFcxdUlpQUtDUWtnSUNBZ2JHRjViM1YwTFdGc2FXZHVQU0pqWlc1MFpYSWdjM1J5WlhSamFDSUtDUWtnSUNBZ1pteGxlRDBpTVRBd0lpQUtDUWtKWm14bGVDMW5kQzF6YlQwaU5UQWlJQW9KQ1FsbWJHVjRMV2QwTFcxa1BTSXpNeUkrQ2lBZ0lDQThaSFErQ2drZ0lDQWdDUWtKQ1NCVVpYTjBaSEp2Y0dSdmQyNGdJQWtKQ1R3dlpIUStDaUFnSUNBOFpHUStDZ2tKUEdScGRpQmpiR0Z6Y3owaWRIQXRabWxsYkdRaVBnb0pDUWs4YzNCaGJqNEtDUWtKQ1R4dFpDMXBibkIxZEMxamIyNTBZV2x1WlhJZ2JXUXRibTh0Wm14dllYUStDZ2tKQ1FrSkNTQWdJQ0FKQ1FrSkNRa0pJQ0FnSUFrOGRIQTZiRzl2YTNWd0lHWnBaV3hrUFNKN2EyVjVPaUIwYVhCdlVtOXZkRU52Ym5SeWIyeHNaWEl1ZEdsd2J5NW1hV1ZzWkdkeWRHVnpkQzV6ZFdKbmNtOTFjQzUwWlhOMFpISnZjR1J2ZDI0c0lHWnBaV3hrYkdGaVpXdzZJSFJwY0c5U2IyOTBRMjl1ZEhKdmJHeGxjaTUwYVhCdkxtWnBaV3hrWjNKMFpYTjBMbk4xWW1keWIzVndMblJsYzNSa2NtOXdaRzkzYmw5eVpXWnpmU0lnWm1sbGJHUjJZV3gxWlQwaWRHbHdiMUp2YjNSRGIyNTBjbTlzYkdWeUxuUnBjRzh1Wm1sbGJHUm5jblJsYzNRdWMzVmlaM0p2ZFhBdWRHVnpkR1J5YjNCa2IzZHVJaUJtYVdWc1pHeGhZbVZzUFNBaWRHbHdiMUp2YjNSRGIyNTBjbTlzYkdWeUxuUnBjRzh1Wm1sbGJHUm5jblJsYzNRdWMzVmlaM0p2ZFhBdWRHVnpkR1J5YjNCa2IzZHVYM0psWm5NaUlHSmhjMlZtYVd4MFpYSTlJaWNuSWlCeVpXRnNkR1ZrZEdsd2J6MGlKMVJwY0c5QmNIQW5JaUJwYzJGeWNtRjVQU0ptWVd4elpTSWdhWE53YjNCMWNEMGlJaUJ5WlhGMWFYSmxaRDBpWm1Gc2MyVWlJR3hoWW1Wc1ptbGxiR1E5SWlkaGNIQmZibUZ0WlNjaUlHRnNiRzkzWTNKbFlYUmxQU0lpSUhObGJHVmpkR1pwWld4a1BTSWlJRzVuTFdsdWFYUTlJblJwY0c5U2IyOTBRMjl1ZEhKdmJHeGxjaTUwYVhCdkxtWnBaV3hrWjNKMFpYTjBMbk4xWW1keWIzVndMblJsYzNSa2NtOXdaRzkzYmlBOUlIUnBjRzlTYjI5MFEyOXVkSEp2Ykd4bGNpNTBhWEJ2TG1acFpXeGtaM0owWlhOMExuTjFZbWR5YjNWd0xuUmxjM1JrY205d1pHOTNiaUI4ZkNBbkp6dDBhWEJ2VW05dmRFTnZiblJ5YjJ4c1pYSXVkR2x3Ynk1bWFXVnNaR2R5ZEdWemRDNXpkV0puY205MWNDNTBaWE4wWkhKdmNHUnZkMjVmY21WbWN5QTlJSFJwY0c5U2IyOTBRMjl1ZEhKdmJHeGxjaTUwYVhCdkxtWnBaV3hrWjNKMFpYTjBMbk4xWW1keWIzVndMblJsYzNSa2NtOXdaRzkzYmw5eVpXWnpJSHg4SUh0OUlDSStDZ2tKQ1FrSklDQUpQR1JwZGlCdVp5MXRaWE56WVdkbGN6MGlkR2x3YjBadmNtMWJKMVJsYzNSa2NtOXdaRzkzYmw5VWFYQnZMbFJwY0c5QmNIQW5YUzRrWlhKeWIzSWlQZ29KQ1FrSklDQWdJQ0FnUEdScGRpQnVaeTF0WlhOellXZGxQU0p5WlhGMWFYSmxaQ0lnUGxSb2FYTWdhWE1nY21WeGRXbHlaV1F1UEM5a2FYWStDZ2tKQ1FrZ0lDQWdJQ0E4WkdsMklHNW5MVzFsYzNOaFoyVTlJbkJoZEhSbGNtNGlJRDVVYUdseklHWnBaV3hrSUcxMWMzUWdZbVVnUEM5a2FYWStDZ2tKQ1FrSlBDOWthWFkrQ1FrSkNRb0pDUWtKUEM5dFpDMXBibkIxZEMxamIyNTBZV2x1WlhJK0Nna0pDVHd2YzNCaGJqNEtDUWs4TDJScGRqNGdJQ0FnSUNBZ0NpQWdJQ0E4TDJSa1Bnb2dQQzlrYkQ0S0lDQWdJQ0FLSUNBSklDQUpDU0FnSUNBZ0NRa2dJQWtKQ1NBZ0lDQUpJQ0FnSUFrZ0lDQWdDaUFnQ1NBOFpHd2dZMnhoYzNNOUltVmthWFFpSUFvSkNTQWdJQ0JzWVhsdmRYUTlJbU52YkhWdGJpSWdDZ2tKSUNBZ0lHeGhlVzkxZEMxaGJHbG5iajBpWTJWdWRHVnlJSE4wY21WMFkyZ2lDZ2tKSUNBZ0lHWnNaWGc5SWpFd01DSWdDZ2tKQ1dac1pYZ3RaM1F0YzIwOUlqVXdJaUFLQ1FrSlpteGxlQzFuZEMxdFpEMGlNek1pUGdvZ0lDQWdQR1IwUGdvSklDQWdJQWtKQ1FrZ1ZHVnpkRUZzYkc5M1pXUldZV3dnSUFrSkNUd3ZaSFErQ2lBZ0lDQThaR1ErQ2drSlBHUnBkaUJqYkdGemN6MGlkSEF0Wm1sbGJHUWlQZ29KQ1FrOGMzQmhiajRLQ1FrSkNUeHRaQzFwYm5CMWRDMWpiMjUwWVdsdVpYSWdiV1F0Ym04dFpteHZZWFErQ2drSkNRa0pDUWtKQ1FrSkNRa0pDUWtKQ1FrSkNRa0pDUWs4ZEhBNmMybHRjR3hsTFdSeWIzQmtiM2R1SUdselFYSnlZWGs5SW1aaGJITmxJaUJtYVdWc1pGWmhiSFZsUFNKMGFYQnZVbTl2ZEVOdmJuUnliMnhzWlhJdWRHbHdieTVtYVdWc1pHZHlkR1Z6ZEM1emRXSm5jbTkxY0M1MFpYTjBZV3hzYjNkbFpIWmhiQ0lnY21WeGRXbHlaV1E5SW1aaGJITmxJaUJoYkd4dmQyVmtWbUZzZFdWelBTSmJKM1JsYzNReEp5d25kR1Z6ZERJblhTSWdZV3hzYjNkbFEzSmxZWFJsUFNJa1ptbGxiR1F1WVd4c2IzZGZZM0psWVhSbElpQndiR0ZqWldodmJHUmxjajBpSWlCdVlXMWxQU0pVWlhOMFFXeHNiM2RsWkZaaGJGOXpkSEpwYm1jaUlDOCtDZ2tKQ1FrSkNRa2dJQWs4WkdsMklHNW5MVzFsYzNOaFoyVnpQU0owYVhCdlJtOXliVnNuVkdWemRFRnNiRzkzWldSV1lXeGZjM1J5YVc1bkoxMHVKR1Z5Y205eUlqNEtDUWtKQ1NBZ0lDQWdJRHhrYVhZZ2JtY3RiV1Z6YzJGblpUMGljbVZ4ZFdseVpXUWlJRDVVYUdseklHbHpJSEpsY1hWcGNtVmtMand2WkdsMlBnb0pDUWtKSUNBZ0lDQWdQR1JwZGlCdVp5MXRaWE56WVdkbFBTSndZWFIwWlhKdUlpQStWR2hwY3lCbWFXVnNaQ0J0ZFhOMElHSmxJRHd2WkdsMlBnb0pDUWtKQ1R3dlpHbDJQZ2tKQ1FrS0NRa0pDVHd2YldRdGFXNXdkWFF0WTI5dWRHRnBibVZ5UGdvSkNRazhMM053WVc0K0Nna0pQQzlrYVhZK0lDQWdJQ0FnSUFvZ0lDQWdQQzlrWkQ0S0lEd3ZaR3crQ2lBZ0lDQWdDaUFnSUNBZ0lDQWdJQ0FnQ2lBZ0lDQWdJQ0FnQ2lBZ0lDQWdDUWtKQ1FvZ0lDQWdQQzlrYVhZK0NpQWdQQzl6WldOMGFXOXVQZ284TDJScGRqNEtDZ289JykiIGFyaWEtbGFiZWw9IkVkaXQiPgoJCSAgICAgICAgICAgICAgPG1kLXRvb2x0aXAgbWQtZGlyZWN0aW9uPSJ0b3AiPkVkaXQ8L21kLXRvb2x0aXA+CgkJICAgICAgICAgICAgICA8bWQtaWNvbj5sYXVuY2g8L21kLWljb24+CgkJICAgICAgICAgICAgPC9tZC1idXR0b24+CgkJICAgICAgICAgIAkJICAgICAgICAgIDwvZGl2PgoJCSAgICAgICAgPC9kaXY+CgkJICAgICAgICAJCSAgICAgIDwvZGl2PgoJCSAgICA8L2Rpdj4KCQkgICAgPG1kLWRpdmlkZXI+PC9tZC1kaXZpZGVyPgoJCSAgPC9kaXY+CgkJICAJCQkgIDxkaXYgY2xhc3M9ImRhdGEiIGZsZXggbGF5b3V0LXBhZGRpbmcgbGF5b3V0PSJyb3ciIGxheW91dC13cmFwIGxheW91dC1hbGlnbj0ic3RhcnQgc3RhcnQiIG5nLWhpZGU9InN1Ymdyb3VwLmNvbGxhcHNlZCI+CgkJICAJCQkgICAgCgkJCSAgICAJIAoKICAJICAgICAJIAoKICAJICAgICAgICAgIAkJCQkgIDwvZGl2PgoJPC9zZWN0aW9uPgogICAgCiAgICAgICAgICAgCiAgICAgICAgCiAgICAgCQkJCQogICAgPC9kaXY+CiAgPC9zZWN0aW9uPgo8L2Rpdj4KCgo=')" aria-label="Edit">
                   <md-tooltip md-direction="top">Edit</md-tooltip>
                   <md-icon>launch</md-icon>
                 </md-button>
@@ -367,11 +357,38 @@
 
            
 
+           
+
+                                          
+     <dl class="edit" 
+        layout="column" 
+        layout-align="center stretch"
+        flex="100" 
+      flex-gt-sm="50" 
+      flex-gt-md="33">
+    <dt>
+               Field1       </dt>
+    <dd>
+    <div class="tp-field">
+      <span>
+        <md-input-container md-no-float>
+                    <input ng-model="tipoRootController.tipo.fieldgrtest.field1" aria-label="Field1" placeholder="" name="Field1_string" ng-required="false" ng-pattern="/./">
+                  <div ng-messages="tipoForm['Field1_string'].$error">
+              <div ng-message="required" >This is required.</div>
+              <div ng-message="pattern" >This field must be </div>
+          </div>        
+        </md-input-container>
+      </span>
+    </div>       
+    </dd>
+ </dl>
+    
+             
+
                         </div>
   </section>
     
-
-        <section class="fieldset fluid-row-container" flex="100">
+          <section class="fieldset fluid-row-container" flex="100">
       <div class="header">
         <div layout="row" layout-align="end center">
           <h3 flex ng-init="tipoRootController.initCollapsed('fieldgarraytest', '')">
@@ -381,31 +398,75 @@
             </a>
           </h3>
           <div class="actions horizontal" layout="row" layout-align="center center">
-                      <div layout="row">
+                      <div>
               <div flex="none">
-                            </div>
-              <div flex="none">
-                              <md-button class="m0" ng-click="tipoRootController.showDetail('fieldgarraytest')" aria-label="Edit">
-                  <md-tooltip md-direction="top">Edit</md-tooltip>
-                  <md-icon>launch</md-icon>
+                <md-button class="m0" ng-click="tipoRootController.generateItem('fieldgarraytest')" aria-label="New">
+                  <md-tooltip md-direction="top">New</md-tooltip>
+                  <md-icon>add</md-icon>
                 </md-button>
-                            </div>
+              </div>
             </div>
                       </div>
         </div>
         <md-divider></md-divider>
       </div>
-              <div class="data" flex layout-padding layout="row" layout-wrap layout-align="start start" ng-hide="fieldgarraytest.collapsed">
+            
+          <div class="data" style="margin-top: 10px;" ng-hide="fieldgarraytest.collapsed" >
+            <div layout="row" ng-repeat="groupItem in tipoRootController.tipo.fieldgarraytest" ng-if="!groupItem._ARRAY_META || groupItem._ARRAY_META._STATUS != 'DELETED'" md-whiteframe="2" class="fluid-row">
+              <div flex layout="row" layout-padding layout-wrap layout-align="start start" class="data">
                 
+               
+
              
 
-           
+             
 
-                        </div>
+                                          
+     <dl class="edit" 
+        layout="column" 
+        layout-align="center stretch"
+        flex="100" 
+      flex-gt-sm="50" 
+      flex-gt-md="33">
+    <dt>
+               Field1       </dt>
+    <dd>
+    <div class="tp-field">
+      <span>
+        <md-input-container md-no-float>
+                    <input ng-model="tipoRootController.tipo.fieldgarraytest[$index].field1" aria-label="Field1" placeholder="" name="Field1_string" ng-required="false" ng-pattern="/./">
+                  <div ng-messages="tipoForm['Field1_string'].$error">
+              <div ng-message="required" >This is required.</div>
+              <div ng-message="pattern" >This field must be </div>
+          </div>        
+        </md-input-container>
+      </span>
+    </div>       
+    </dd>
+ </dl>
+    
+               
+
+                           </div>
+    <div flex="none" layout="column" layout-align="center center" class="actions bg">
+                    <md-button ng-click="tipoRootController.showDetail('ICAgICAgICAgCgo8ZGl2IGNsYXNzPSJwLTgiPgogIDxzZWN0aW9uIGNsYXNzPSJmaWVsZHNldCBuby1oZWFkZXIgZmx1aWQtcm93LWNvbnRhaW5lciI+CiAgICA8ZGl2IGNsYXNzPSJkYXRhIiBsYXlvdXQtcGFkZGluZyBsYXlvdXQ9InJvdyIgbGF5b3V0LXdyYXAgbGF5b3V0LWFsaWduPSJzdGFydCBzdGFydCI+CiAKCgogIAkgIAkJICAgICAJCSAgCQkJICAgIAkgICAgCSAgICAKICAJIDxkbCBjbGFzcz0iZWRpdCIgCgkJICAgIGxheW91dD0iY29sdW1uIiAKCQkgICAgbGF5b3V0LWFsaWduPSJjZW50ZXIgc3RyZXRjaCIKCQkgICAgZmxleD0iMTAwIiAKCQkJZmxleC1ndC1zbT0iNTAiIAoJCQlmbGV4LWd0LW1kPSIzMyI+CiAgICA8ZHQ+CgkgICAgCQkJCSBEcm9kb3duICAJCQk8L2R0PgogICAgPGRkPgoJCTxkaXYgY2xhc3M9InRwLWZpZWxkIj4KCQkJPHNwYW4+CgkJCQk8bWQtaW5wdXQtY29udGFpbmVyIG1kLW5vLWZsb2F0PgoJCQkJCQkgICAgCQkJCQkJCSAgICAJPHRwOmxvb2t1cCBmaWVsZD0ie2tleTogdGlwb1Jvb3RDb250cm9sbGVyLnRpcG8uZmllbGRnYXJyYXl0ZXN0WyRpbmRleF0uZHJvZG93biwgZmllbGRsYWJlbDogdGlwb1Jvb3RDb250cm9sbGVyLnRpcG8uZmllbGRnYXJyYXl0ZXN0WyRpbmRleF0uZHJvZG93bl9yZWZzfSIgZmllbGR2YWx1ZT0idGlwb1Jvb3RDb250cm9sbGVyLnRpcG8uZmllbGRnYXJyYXl0ZXN0WyRpbmRleF0uZHJvZG93biIgZmllbGRsYWJlbD0gInRpcG9Sb290Q29udHJvbGxlci50aXBvLmZpZWxkZ2FycmF5dGVzdFskaW5kZXhdLmRyb2Rvd25fcmVmcyIgYmFzZWZpbHRlcj0iJyciIHJlYWx0ZWR0aXBvPSInRGVmaW5pdGlvbnMnIiBpc2FycmF5PSJmYWxzZSIgaXNwb3B1cD0iIiByZXF1aXJlZD0iZmFsc2UiIGxhYmVsZmllbGQ9IickbG9va3VwX2NvbnRleHQua2V5X2ZpZWxkLmZpZWxkX25hbWUnIiBhbGxvd2NyZWF0ZT0iIiBzZWxlY3RmaWVsZD0iIiBuZy1pbml0PSJ0aXBvUm9vdENvbnRyb2xsZXIudGlwby5maWVsZGdhcnJheXRlc3RbJGluZGV4XS5kcm9kb3duID0gdGlwb1Jvb3RDb250cm9sbGVyLnRpcG8uZmllbGRnYXJyYXl0ZXN0WyRpbmRleF0uZHJvZG93biB8fCAnJzt0aXBvUm9vdENvbnRyb2xsZXIudGlwby5maWVsZGdhcnJheXRlc3RbJGluZGV4XS5kcm9kb3duX3JlZnMgPSB0aXBvUm9vdENvbnRyb2xsZXIudGlwby5maWVsZGdhcnJheXRlc3RbJGluZGV4XS5kcm9kb3duX3JlZnMgfHwge30gIj4KCQkJCQkgIAk8ZGl2IG5nLW1lc3NhZ2VzPSJ0aXBvRm9ybVsnRHJvZG93bl9UaXBvLkRlZmluaXRpb25zJ10uJGVycm9yIj4KCQkJCSAgICAgIDxkaXYgbmctbWVzc2FnZT0icmVxdWlyZWQiID5UaGlzIGlzIHJlcXVpcmVkLjwvZGl2PgoJCQkJICAgICAgPGRpdiBuZy1tZXNzYWdlPSJwYXR0ZXJuIiA+VGhpcyBmaWVsZCBtdXN0IGJlIDwvZGl2PgoJCQkJCTwvZGl2PgkJCQkKCQkJCTwvbWQtaW5wdXQtY29udGFpbmVyPgoJCQk8L3NwYW4+CgkJPC9kaXY+ICAgICAgIAogICAgPC9kZD4KIDwvZGw+CiAgICAgCiAgCSAgCQkgICAgIAkJICAJCQkgICAgCSAgICAJICAgIAogIAkgPGRsIGNsYXNzPSJlZGl0IiAKCQkgICAgbGF5b3V0PSJjb2x1bW4iIAoJCSAgICBsYXlvdXQtYWxpZ249ImNlbnRlciBzdHJldGNoIgoJCSAgICBmbGV4PSIxMDAiIAoJCQlmbGV4LWd0LXNtPSI1MCIgCgkJCWZsZXgtZ3QtbWQ9IjMzIj4KICAgIDxkdD4KCSAgICAJCQkJIEZpZWxkMiAgCQkJPC9kdD4KICAgIDxkZD4KCQk8ZGl2IGNsYXNzPSJ0cC1maWVsZCI+CgkJCTxzcGFuPgoJCQkJPG1kLWlucHV0LWNvbnRhaW5lciBtZC1uby1mbG9hdD4KCQkJCQkJCQkJCTxpbnB1dCBuZy1tb2RlbD0idGlwb1Jvb3RDb250cm9sbGVyLnRpcG8uZmllbGRnYXJyYXl0ZXN0WyRpbmRleF0uZmllbGQyIiBhcmlhLWxhYmVsPSJGaWVsZDIiIHBsYWNlaG9sZGVyPSIiIG5hbWU9IkZpZWxkMl9zdHJpbmciIG5nLXJlcXVpcmVkPSJmYWxzZSIgbmctcGF0dGVybj0iLyovIj4KCQkJCQkJCSAgCTxkaXYgbmctbWVzc2FnZXM9InRpcG9Gb3JtWydGaWVsZDJfc3RyaW5nJ10uJGVycm9yIj4KCQkJCSAgICAgIDxkaXYgbmctbWVzc2FnZT0icmVxdWlyZWQiID5UaGlzIGlzIHJlcXVpcmVkLjwvZGl2PgoJCQkJICAgICAgPGRpdiBuZy1tZXNzYWdlPSJwYXR0ZXJuIiA+VGhpcyBmaWVsZCBtdXN0IGJlIDwvZGl2PgoJCQkJCTwvZGl2PgkJCQkKCQkJCTwvbWQtaW5wdXQtY29udGFpbmVyPgoJCQk8L3NwYW4+CgkJPC9kaXY+ICAgICAgIAogICAgPC9kZD4KIDwvZGw+CiAgICAgCiAgCSAgCQkgICAgIAkJICAJCQkgICAgCSAgICAJICAgIAogIAkgPGRsIGNsYXNzPSJlZGl0IiAKCQkgICAgbGF5b3V0PSJjb2x1bW4iIAoJCSAgICBsYXlvdXQtYWxpZ249ImNlbnRlciBzdHJldGNoIgoJCSAgICBmbGV4PSIxMDAiIAoJCQlmbGV4LWd0LXNtPSI1MCIgCgkJCWZsZXgtZ3QtbWQ9IjMzIj4KICAgIDxkdD4KCSAgICAJCQkJIEZpZWxkMSAgCQkJPC9kdD4KICAgIDxkZD4KCQk8ZGl2IGNsYXNzPSJ0cC1maWVsZCI+CgkJCTxzcGFuPgoJCQkJPG1kLWlucHV0LWNvbnRhaW5lciBtZC1uby1mbG9hdD4KCQkJCQkJCQkJCTxpbnB1dCBuZy1tb2RlbD0idGlwb1Jvb3RDb250cm9sbGVyLnRpcG8uZmllbGRnYXJyYXl0ZXN0WyRpbmRleF0uZmllbGQxIiBhcmlhLWxhYmVsPSJGaWVsZDEiIHBsYWNlaG9sZGVyPSIiIG5hbWU9IkZpZWxkMV9zdHJpbmciIG5nLXJlcXVpcmVkPSJmYWxzZSIgbmctcGF0dGVybj0iLyovIj4KCQkJCQkJCSAgCTxkaXYgbmctbWVzc2FnZXM9InRpcG9Gb3JtWydGaWVsZDFfc3RyaW5nJ10uJGVycm9yIj4KCQkJCSAgICAgIDxkaXYgbmctbWVzc2FnZT0icmVxdWlyZWQiID5UaGlzIGlzIHJlcXVpcmVkLjwvZGl2PgoJCQkJICAgICAgPGRpdiBuZy1tZXNzYWdlPSJwYXR0ZXJuIiA+VGhpcyBmaWVsZCBtdXN0IGJlIDwvZGl2PgoJCQkJCTwvZGl2PgkJCQkKCQkJCTwvbWQtaW5wdXQtY29udGFpbmVyPgoJCQk8L3NwYW4+CgkJPC9kaXY+ICAgICAgIAogICAgPC9kZD4KIDwvZGw+CiAgICAgCiAgCSAgICAJPHNlY3Rpb24gY2xhc3M9ImZpZWxkc2V0IGZsdWlkLXJvdy1jb250YWluZXIiIGZsZXg9IjEwMCI+CiAgICAJPGRpdiBjbGFzcz0iaGVhZGVyIj4KCQkgICAgPGRpdiBsYXlvdXQ9InJvdyIgbGF5b3V0LWFsaWduPSJlbmQgY2VudGVyIj4KCQkgICAgICA8aDMgZmxleCBuZy1pbml0PSJ0aXBvUm9vdENvbnRyb2xsZXIuaW5pdENvbGxhcHNlZCgnc3ViZ3JvdXAnLCAnJykiPgoJCSAgICAgICAgPGEgaHJlZj0iIiBuZy1jbGljaz0ic3ViZ3JvdXAuY29sbGFwc2VkID0gIXN1Ymdyb3VwLmNvbGxhcHNlZCIgY2xhc3M9InBsYWluIiBtZC1jb2xvcnM9Intjb2xvcjogJ3ByaW1hcnktNzAwJ30iPgoJCSAgICAgICAgICA8aSBjbGFzcz0iZmEiIG5nLWNsYXNzPSJ7J2ZhLWNhcmV0LWRvd24nOiAhc3ViZ3JvdXAuY29sbGFwc2VkICwgJ2ZhLWNhcmV0LXJpZ2h0Jzogc3ViZ3JvdXAuY29sbGFwc2VkfSI+PC9pPgoJCSAgICAgICAgICAgU3ViR3JvdXAKCQkgICAgICAgIDwvYT4KCQkgICAgICA8L2gzPgoJCSAgICAgIDxkaXYgY2xhc3M9ImFjdGlvbnMgaG9yaXpvbnRhbCIgbGF5b3V0PSJyb3ciIGxheW91dC1hbGlnbj0iY2VudGVyIGNlbnRlciI+CgkJICAgICAgCQkgICAgICAgIDxkaXYgbGF5b3V0PSJyb3ciPgoJCSAgICAgICAgICA8ZGl2IGZsZXg9Im5vbmUiPgoJCSAgICAgICAgICAJCSAgICAgICAgICA8L2Rpdj4KCQkgICAgICAgICAgPGRpdiBmbGV4PSJub25lIj4KCQkgICAgICAgICAgCQkgICAgICAgICAgICA8bWQtYnV0dG9uIGNsYXNzPSJtMCIgbmctY2xpY2s9InRpcG9Sb290Q29udHJvbGxlci5zaG93RGV0YWlsKCdJQ0FnSUNBZ0lDQWdDZ284WkdsMklHTnNZWE56UFNKd0xUZ2lQZ29nSUR4elpXTjBhVzl1SUdOc1lYTnpQU0ptYVdWc1pITmxkQ0J1Ynkxb1pXRmtaWElnWm14MWFXUXRjbTkzTFdOdmJuUmhhVzVsY2lJK0NpQWdJQ0E4WkdsMklHTnNZWE56UFNKa1lYUmhJaUJzWVhsdmRYUXRjR0ZrWkdsdVp5QnNZWGx2ZFhROUluSnZkeUlnYkdGNWIzVjBMWGR5WVhBZ2JHRjViM1YwTFdGc2FXZHVQU0p6ZEdGeWRDQnpkR0Z5ZENJK0NpQUtDZ29nSUFrZ0lBa0pJQ0FnSUNBSkNTQWdDUWtKSUNBZ0lBa2dJQ0FnQ1NBZ0lDQUtJQ0FKSUR4a2JDQmpiR0Z6Y3owaVpXUnBkQ0lnQ2drSklDQWdJR3hoZVc5MWREMGlZMjlzZFcxdUlpQUtDUWtnSUNBZ2JHRjViM1YwTFdGc2FXZHVQU0pqWlc1MFpYSWdjM1J5WlhSamFDSUtDUWtnSUNBZ1pteGxlRDBpTVRBd0lpQUtDUWtKWm14bGVDMW5kQzF6YlQwaU5UQWlJQW9KQ1FsbWJHVjRMV2QwTFcxa1BTSXpNeUkrQ2lBZ0lDQThaSFErQ2drZ0lDQWdDUWtKQ1NCVVpYTjBaSEp2Y0dSdmQyNGdJQWtKQ1R3dlpIUStDaUFnSUNBOFpHUStDZ2tKUEdScGRpQmpiR0Z6Y3owaWRIQXRabWxsYkdRaVBnb0pDUWs4YzNCaGJqNEtDUWtKQ1R4dFpDMXBibkIxZEMxamIyNTBZV2x1WlhJZ2JXUXRibTh0Wm14dllYUStDZ2tKQ1FrSkNTQWdJQ0FKQ1FrSkNRa0pJQ0FnSUFrOGRIQTZiRzl2YTNWd0lHWnBaV3hrUFNKN2EyVjVPaUIwYVhCdlVtOXZkRU52Ym5SeWIyeHNaWEl1ZEdsd2J5NW1hV1ZzWkdkaGNuSmhlWFJsYzNRdWMzVmlaM0p2ZFhBdWRHVnpkR1J5YjNCa2IzZHVMQ0JtYVdWc1pHeGhZbVZzT2lCMGFYQnZVbTl2ZEVOdmJuUnliMnhzWlhJdWRHbHdieTVtYVdWc1pHZGhjbkpoZVhSbGMzUXVjM1ZpWjNKdmRYQXVkR1Z6ZEdSeWIzQmtiM2R1WDNKbFpuTjlJaUJtYVdWc1pIWmhiSFZsUFNKMGFYQnZVbTl2ZEVOdmJuUnliMnhzWlhJdWRHbHdieTVtYVdWc1pHZGhjbkpoZVhSbGMzUXVjM1ZpWjNKdmRYQXVkR1Z6ZEdSeWIzQmtiM2R1SWlCbWFXVnNaR3hoWW1Wc1BTQWlkR2x3YjFKdmIzUkRiMjUwY205c2JHVnlMblJwY0c4dVptbGxiR1JuWVhKeVlYbDBaWE4wTG5OMVltZHliM1Z3TG5SbGMzUmtjbTl3Wkc5M2JsOXlaV1p6SWlCaVlYTmxabWxzZEdWeVBTSW5KeUlnY21WaGJIUmxaSFJwY0c4OUlpZFVhWEJ2UVhCd0p5SWdhWE5oY25KaGVUMGlabUZzYzJVaUlHbHpjRzl3ZFhBOUlpSWdjbVZ4ZFdseVpXUTlJbVpoYkhObElpQnNZV0psYkdacFpXeGtQU0luWVhCd1gyNWhiV1VuSWlCaGJHeHZkMk55WldGMFpUMGlJaUJ6Wld4bFkzUm1hV1ZzWkQwaUlpQnVaeTFwYm1sMFBTSjBhWEJ2VW05dmRFTnZiblJ5YjJ4c1pYSXVkR2x3Ynk1bWFXVnNaR2RoY25KaGVYUmxjM1F1YzNWaVozSnZkWEF1ZEdWemRHUnliM0JrYjNkdUlEMGdkR2x3YjFKdmIzUkRiMjUwY205c2JHVnlMblJwY0c4dVptbGxiR1JuWVhKeVlYbDBaWE4wTG5OMVltZHliM1Z3TG5SbGMzUmtjbTl3Wkc5M2JpQjhmQ0FuSnp0MGFYQnZVbTl2ZEVOdmJuUnliMnhzWlhJdWRHbHdieTVtYVdWc1pHZGhjbkpoZVhSbGMzUXVjM1ZpWjNKdmRYQXVkR1Z6ZEdSeWIzQmtiM2R1WDNKbFpuTWdQU0IwYVhCdlVtOXZkRU52Ym5SeWIyeHNaWEl1ZEdsd2J5NW1hV1ZzWkdkaGNuSmhlWFJsYzNRdWMzVmlaM0p2ZFhBdWRHVnpkR1J5YjNCa2IzZHVYM0psWm5NZ2ZId2dlMzBnSWo0S0NRa0pDUWtnSUFrOFpHbDJJRzVuTFcxbGMzTmhaMlZ6UFNKMGFYQnZSbTl5YlZzblZHVnpkR1J5YjNCa2IzZHVYMVJwY0c4dVZHbHdiMEZ3Y0NkZExpUmxjbkp2Y2lJK0Nna0pDUWtnSUNBZ0lDQThaR2wySUc1bkxXMWxjM05oWjJVOUluSmxjWFZwY21Wa0lpQStWR2hwY3lCcGN5QnlaWEYxYVhKbFpDNDhMMlJwZGo0S0NRa0pDU0FnSUNBZ0lEeGthWFlnYm1jdGJXVnpjMkZuWlQwaWNHRjBkR1Z5YmlJZ1BsUm9hWE1nWm1sbGJHUWdiWFZ6ZENCaVpTQThMMlJwZGo0S0NRa0pDUWs4TDJScGRqNEpDUWtKQ2drSkNRazhMMjFrTFdsdWNIVjBMV052Ym5SaGFXNWxjajRLQ1FrSlBDOXpjR0Z1UGdvSkNUd3ZaR2wyUGlBZ0lDQWdJQ0FLSUNBZ0lEd3ZaR1ErQ2lBOEwyUnNQZ29nSUNBZ0lBb2dJQWtnSUFrSklDQWdJQ0FKQ1NBZ0NRa0pJQ0FnSUFrZ0lDQWdDU0FnSUNBS0lDQUpJRHhrYkNCamJHRnpjejBpWldScGRDSWdDZ2tKSUNBZ0lHeGhlVzkxZEQwaVkyOXNkVzF1SWlBS0NRa2dJQ0FnYkdGNWIzVjBMV0ZzYVdkdVBTSmpaVzUwWlhJZ2MzUnlaWFJqYUNJS0NRa2dJQ0FnWm14bGVEMGlNVEF3SWlBS0NRa0pabXhsZUMxbmRDMXpiVDBpTlRBaUlBb0pDUWxtYkdWNExXZDBMVzFrUFNJek15SStDaUFnSUNBOFpIUStDZ2tnSUNBZ0NRa0pDU0JVWlhOMFFXeHNiM2RsWkZaaGJDQWdDUWtKUEM5a2RENEtJQ0FnSUR4a1pENEtDUWs4WkdsMklHTnNZWE56UFNKMGNDMW1hV1ZzWkNJK0Nna0pDVHh6Y0dGdVBnb0pDUWtKUEcxa0xXbHVjSFYwTFdOdmJuUmhhVzVsY2lCdFpDMXVieTFtYkc5aGRENEtDUWtKQ1FrSkNRa0pDUWtKQ1FrSkNRa0pDUWtKQ1FrSkNUeDBjRHB6YVcxd2JHVXRaSEp2Y0dSdmQyNGdhWE5CY25KaGVUMGlabUZzYzJVaUlHWnBaV3hrVm1Gc2RXVTlJblJwY0c5U2IyOTBRMjl1ZEhKdmJHeGxjaTUwYVhCdkxtWnBaV3hrWjJGeWNtRjVkR1Z6ZEM1emRXSm5jbTkxY0M1MFpYTjBZV3hzYjNkbFpIWmhiQ0lnY21WeGRXbHlaV1E5SW1aaGJITmxJaUJoYkd4dmQyVmtWbUZzZFdWelBTSmJKM1JsYzNReEp5d25kR1Z6ZERJblhTSWdZV3hzYjNkbFEzSmxZWFJsUFNJa1ptbGxiR1F1WVd4c2IzZGZZM0psWVhSbElpQndiR0ZqWldodmJHUmxjajBpSWlCdVlXMWxQU0pVWlhOMFFXeHNiM2RsWkZaaGJGOXpkSEpwYm1jaUlDOCtDZ2tKQ1FrSkNRa2dJQWs4WkdsMklHNW5MVzFsYzNOaFoyVnpQU0owYVhCdlJtOXliVnNuVkdWemRFRnNiRzkzWldSV1lXeGZjM1J5YVc1bkoxMHVKR1Z5Y205eUlqNEtDUWtKQ1NBZ0lDQWdJRHhrYVhZZ2JtY3RiV1Z6YzJGblpUMGljbVZ4ZFdseVpXUWlJRDVVYUdseklHbHpJSEpsY1hWcGNtVmtMand2WkdsMlBnb0pDUWtKSUNBZ0lDQWdQR1JwZGlCdVp5MXRaWE56WVdkbFBTSndZWFIwWlhKdUlpQStWR2hwY3lCbWFXVnNaQ0J0ZFhOMElHSmxJRHd2WkdsMlBnb0pDUWtKQ1R3dlpHbDJQZ2tKQ1FrS0NRa0pDVHd2YldRdGFXNXdkWFF0WTI5dWRHRnBibVZ5UGdvSkNRazhMM053WVc0K0Nna0pQQzlrYVhZK0lDQWdJQ0FnSUFvZ0lDQWdQQzlrWkQ0S0lEd3ZaR3crQ2lBZ0lDQWdDaUFnSUNBZ0lDQWdJQ0FnQ2lBZ0lDQWdJQ0FnQ2lBZ0lDQWdDUWtKQ1FvZ0lDQWdQQzlrYVhZK0NpQWdQQzl6WldOMGFXOXVQZ284TDJScGRqNEtDZ289JykiIGFyaWEtbGFiZWw9IkVkaXQiPgoJCSAgICAgICAgICAgICAgPG1kLXRvb2x0aXAgbWQtZGlyZWN0aW9uPSJ0b3AiPkVkaXQ8L21kLXRvb2x0aXA+CgkJICAgICAgICAgICAgICA8bWQtaWNvbj5sYXVuY2g8L21kLWljb24+CgkJICAgICAgICAgICAgPC9tZC1idXR0b24+CgkJICAgICAgICAgIAkJICAgICAgICAgIDwvZGl2PgoJCSAgICAgICAgPC9kaXY+CgkJICAgICAgICAJCSAgICAgIDwvZGl2PgoJCSAgICA8L2Rpdj4KCQkgICAgPG1kLWRpdmlkZXI+PC9tZC1kaXZpZGVyPgoJCSAgPC9kaXY+CgkJICAJCQkgIDxkaXYgY2xhc3M9ImRhdGEiIGZsZXggbGF5b3V0LXBhZGRpbmcgbGF5b3V0PSJyb3ciIGxheW91dC13cmFwIGxheW91dC1hbGlnbj0ic3RhcnQgc3RhcnQiIG5nLWhpZGU9InN1Ymdyb3VwLmNvbGxhcHNlZCI+CgkJICAJCQkgICAgCgkJCSAgICAJIAoKICAJICAgICAJIAoKICAJICAgICAgICAgIAkJCQkgIDwvZGl2PgoJPC9zZWN0aW9uPgogICAgCiAgICAgICAgICAgCiAgICAgICAgCiAgICAgCQkJCQogICAgPC9kaXY+CiAgPC9zZWN0aW9uPgo8L2Rpdj4KCgo=',$index)" ng-if="!group.disable_expansion" aria-label="Edit" class="md-icon-button">
+          <md-tooltip md-direction="left">Edit</md-tooltip>
+          <md-icon>launch</md-icon>
+        </md-button>
+                <md-button ng-click="tipoRootController.deleteItem('fieldgarraytest',$index)" aria-label="Delete" class="md-icon-button">
+          <md-tooltip md-direction="left">Delete</md-tooltip>
+          <md-icon>delete</md-icon>
+        </md-button>
+        <md-button ng-click="tipoRootController.cloneItem('fieldgarraytest',$index)" aria-label="Copy" class="md-icon-button">
+          <md-tooltip md-direction="left">Copy</md-tooltip>
+          <md-icon>content_copy</md-icon>
+        </md-button>
+      </div>
+          </div>
+            </div>
   </section>
     
-
-        <section class="fieldset fluid-row-container" flex="100">
+          <section class="fieldset fluid-row-container" flex="100">
       <div class="header">
         <div layout="row" layout-align="end center">
           <h3 flex ng-init="tipoRootController.initCollapsed('disabelexptest', '')">
@@ -419,7 +480,7 @@
               <div flex="none">
                             </div>
               <div flex="none">
-                              <md-button class="m0" ng-click="tipoRootController.showDetail('disabelexptest')" aria-label="Edit">
+                              <md-button class="m0" ng-click="tipoRootController.showDetail('ICAgICAgICAgCgo8ZGl2IGNsYXNzPSJwLTgiPgogIDxzZWN0aW9uIGNsYXNzPSJmaWVsZHNldCBuby1oZWFkZXIgZmx1aWQtcm93LWNvbnRhaW5lciI+CiAgICA8ZGl2IGNsYXNzPSJkYXRhIiBsYXlvdXQtcGFkZGluZyBsYXlvdXQ9InJvdyIgbGF5b3V0LXdyYXAgbGF5b3V0LWFsaWduPSJzdGFydCBzdGFydCI+CiAKCgogIAkgIAkJICAgICAJCSAgCQkJICAgIAkgICAgCSAgICAKICAJIDxkbCBjbGFzcz0iZWRpdCIgCgkJICAgIGxheW91dD0iY29sdW1uIiAKCQkgICAgbGF5b3V0LWFsaWduPSJjZW50ZXIgc3RyZXRjaCIKCQkgICAgZmxleD0iMTAwIiAKCQkJZmxleC1ndC1zbT0iNTAiIAoJCQlmbGV4LWd0LW1kPSIzMyI+CiAgICA8ZHQ+CgkgICAgCQkJCSBEcm9kb3duICAJCQk8L2R0PgogICAgPGRkPgoJCTxkaXYgY2xhc3M9InRwLWZpZWxkIj4KCQkJPHNwYW4+CgkJCQk8bWQtaW5wdXQtY29udGFpbmVyIG1kLW5vLWZsb2F0PgoJCQkJCQkgICAgCQkJCQkJCSAgICAJPHRwOmxvb2t1cCBmaWVsZD0ie2tleTogdGlwb1Jvb3RDb250cm9sbGVyLnRpcG8uZGlzYWJlbGV4cHRlc3QuZHJvZG93biwgZmllbGRsYWJlbDogdGlwb1Jvb3RDb250cm9sbGVyLnRpcG8uZGlzYWJlbGV4cHRlc3QuZHJvZG93bl9yZWZzfSIgZmllbGR2YWx1ZT0idGlwb1Jvb3RDb250cm9sbGVyLnRpcG8uZGlzYWJlbGV4cHRlc3QuZHJvZG93biIgZmllbGRsYWJlbD0gInRpcG9Sb290Q29udHJvbGxlci50aXBvLmRpc2FiZWxleHB0ZXN0LmRyb2Rvd25fcmVmcyIgYmFzZWZpbHRlcj0iJyciIHJlYWx0ZWR0aXBvPSInRGVmaW5pdGlvbnMnIiBpc2FycmF5PSJmYWxzZSIgaXNwb3B1cD0iIiByZXF1aXJlZD0iZmFsc2UiIGxhYmVsZmllbGQ9IickbG9va3VwX2NvbnRleHQua2V5X2ZpZWxkLmZpZWxkX25hbWUnIiBhbGxvd2NyZWF0ZT0iIiBzZWxlY3RmaWVsZD0iIiBuZy1pbml0PSJ0aXBvUm9vdENvbnRyb2xsZXIudGlwby5kaXNhYmVsZXhwdGVzdC5kcm9kb3duID0gdGlwb1Jvb3RDb250cm9sbGVyLnRpcG8uZGlzYWJlbGV4cHRlc3QuZHJvZG93biB8fCAnJzt0aXBvUm9vdENvbnRyb2xsZXIudGlwby5kaXNhYmVsZXhwdGVzdC5kcm9kb3duX3JlZnMgPSB0aXBvUm9vdENvbnRyb2xsZXIudGlwby5kaXNhYmVsZXhwdGVzdC5kcm9kb3duX3JlZnMgfHwge30gIj4KCQkJCQkgIAk8ZGl2IG5nLW1lc3NhZ2VzPSJ0aXBvRm9ybVsnRHJvZG93bl9UaXBvLkRlZmluaXRpb25zJ10uJGVycm9yIj4KCQkJCSAgICAgIDxkaXYgbmctbWVzc2FnZT0icmVxdWlyZWQiID5UaGlzIGlzIHJlcXVpcmVkLjwvZGl2PgoJCQkJICAgICAgPGRpdiBuZy1tZXNzYWdlPSJwYXR0ZXJuIiA+VGhpcyBmaWVsZCBtdXN0IGJlIDwvZGl2PgoJCQkJCTwvZGl2PgkJCQkKCQkJCTwvbWQtaW5wdXQtY29udGFpbmVyPgoJCQk8L3NwYW4+CgkJPC9kaXY+ICAgICAgIAogICAgPC9kZD4KIDwvZGw+CiAgICAgCiAgCSAgCQkgICAgIAkJICAJCQkgICAgCSAgICAJICAgIAogIAkgPGRsIGNsYXNzPSJlZGl0IiAKCQkgICAgbGF5b3V0PSJjb2x1bW4iIAoJCSAgICBsYXlvdXQtYWxpZ249ImNlbnRlciBzdHJldGNoIgoJCSAgICBmbGV4PSIxMDAiIAoJCQlmbGV4LWd0LXNtPSI1MCIgCgkJCWZsZXgtZ3QtbWQ9IjMzIj4KICAgIDxkdD4KCSAgICAJCQkJIEZpZWxkMiAgCQkJPC9kdD4KICAgIDxkZD4KCQk8ZGl2IGNsYXNzPSJ0cC1maWVsZCI+CgkJCTxzcGFuPgoJCQkJPG1kLWlucHV0LWNvbnRhaW5lciBtZC1uby1mbG9hdD4KCQkJCQkJCQkJCTxpbnB1dCBuZy1tb2RlbD0idGlwb1Jvb3RDb250cm9sbGVyLnRpcG8uZGlzYWJlbGV4cHRlc3QuZmllbGQyIiBhcmlhLWxhYmVsPSJGaWVsZDIiIHBsYWNlaG9sZGVyPSIiIG5hbWU9IkZpZWxkMl9zdHJpbmciIG5nLXJlcXVpcmVkPSJmYWxzZSIgbmctcGF0dGVybj0iLyovIj4KCQkJCQkJCSAgCTxkaXYgbmctbWVzc2FnZXM9InRpcG9Gb3JtWydGaWVsZDJfc3RyaW5nJ10uJGVycm9yIj4KCQkJCSAgICAgIDxkaXYgbmctbWVzc2FnZT0icmVxdWlyZWQiID5UaGlzIGlzIHJlcXVpcmVkLjwvZGl2PgoJCQkJICAgICAgPGRpdiBuZy1tZXNzYWdlPSJwYXR0ZXJuIiA+VGhpcyBmaWVsZCBtdXN0IGJlIDwvZGl2PgoJCQkJCTwvZGl2PgkJCQkKCQkJCTwvbWQtaW5wdXQtY29udGFpbmVyPgoJCQk8L3NwYW4+CgkJPC9kaXY+ICAgICAgIAogICAgPC9kZD4KIDwvZGw+CiAgICAgCiAgCSAgCQkgICAgIAkJICAJCQkgICAgCSAgICAJICAgIAogIAkgPGRsIGNsYXNzPSJlZGl0IiAKCQkgICAgbGF5b3V0PSJjb2x1bW4iIAoJCSAgICBsYXlvdXQtYWxpZ249ImNlbnRlciBzdHJldGNoIgoJCSAgICBmbGV4PSIxMDAiIAoJCQlmbGV4LWd0LXNtPSI1MCIgCgkJCWZsZXgtZ3QtbWQ9IjMzIj4KICAgIDxkdD4KCSAgICAJCQkJIEZpZWxkMSAgCQkJPC9kdD4KICAgIDxkZD4KCQk8ZGl2IGNsYXNzPSJ0cC1maWVsZCI+CgkJCTxzcGFuPgoJCQkJPG1kLWlucHV0LWNvbnRhaW5lciBtZC1uby1mbG9hdD4KCQkJCQkJCQkJCTxpbnB1dCBuZy1tb2RlbD0idGlwb1Jvb3RDb250cm9sbGVyLnRpcG8uZGlzYWJlbGV4cHRlc3QuZmllbGQxIiBhcmlhLWxhYmVsPSJGaWVsZDEiIHBsYWNlaG9sZGVyPSIiIG5hbWU9IkZpZWxkMV9zdHJpbmciIG5nLXJlcXVpcmVkPSJmYWxzZSIgbmctcGF0dGVybj0iLyovIj4KCQkJCQkJCSAgCTxkaXYgbmctbWVzc2FnZXM9InRpcG9Gb3JtWydGaWVsZDFfc3RyaW5nJ10uJGVycm9yIj4KCQkJCSAgICAgIDxkaXYgbmctbWVzc2FnZT0icmVxdWlyZWQiID5UaGlzIGlzIHJlcXVpcmVkLjwvZGl2PgoJCQkJICAgICAgPGRpdiBuZy1tZXNzYWdlPSJwYXR0ZXJuIiA+VGhpcyBmaWVsZCBtdXN0IGJlIDwvZGl2PgoJCQkJCTwvZGl2PgkJCQkKCQkJCTwvbWQtaW5wdXQtY29udGFpbmVyPgoJCQk8L3NwYW4+CgkJPC9kaXY+ICAgICAgIAogICAgPC9kZD4KIDwvZGw+CiAgICAgCiAgCSAgICAJPHNlY3Rpb24gY2xhc3M9ImZpZWxkc2V0IGZsdWlkLXJvdy1jb250YWluZXIiIGZsZXg9IjEwMCI+CiAgICAJPGRpdiBjbGFzcz0iaGVhZGVyIj4KCQkgICAgPGRpdiBsYXlvdXQ9InJvdyIgbGF5b3V0LWFsaWduPSJlbmQgY2VudGVyIj4KCQkgICAgICA8aDMgZmxleCBuZy1pbml0PSJ0aXBvUm9vdENvbnRyb2xsZXIuaW5pdENvbGxhcHNlZCgnc3ViZ3JvdXAnLCAnJykiPgoJCSAgICAgICAgPGEgaHJlZj0iIiBuZy1jbGljaz0ic3ViZ3JvdXAuY29sbGFwc2VkID0gIXN1Ymdyb3VwLmNvbGxhcHNlZCIgY2xhc3M9InBsYWluIiBtZC1jb2xvcnM9Intjb2xvcjogJ3ByaW1hcnktNzAwJ30iPgoJCSAgICAgICAgICA8aSBjbGFzcz0iZmEiIG5nLWNsYXNzPSJ7J2ZhLWNhcmV0LWRvd24nOiAhc3ViZ3JvdXAuY29sbGFwc2VkICwgJ2ZhLWNhcmV0LXJpZ2h0Jzogc3ViZ3JvdXAuY29sbGFwc2VkfSI+PC9pPgoJCSAgICAgICAgICAgU3ViR3JvdXAKCQkgICAgICAgIDwvYT4KCQkgICAgICA8L2gzPgoJCSAgICAgIDxkaXYgY2xhc3M9ImFjdGlvbnMgaG9yaXpvbnRhbCIgbGF5b3V0PSJyb3ciIGxheW91dC1hbGlnbj0iY2VudGVyIGNlbnRlciI+CgkJICAgICAgCQkgICAgICAgIDxkaXYgbGF5b3V0PSJyb3ciPgoJCSAgICAgICAgICA8ZGl2IGZsZXg9Im5vbmUiPgoJCSAgICAgICAgICAJCSAgICAgICAgICA8L2Rpdj4KCQkgICAgICAgICAgPGRpdiBmbGV4PSJub25lIj4KCQkgICAgICAgICAgCQkgICAgICAgICAgICA8bWQtYnV0dG9uIGNsYXNzPSJtMCIgbmctY2xpY2s9InRpcG9Sb290Q29udHJvbGxlci5zaG93RGV0YWlsKCdJQ0FnSUNBZ0lDQWdDZ284WkdsMklHTnNZWE56UFNKd0xUZ2lQZ29nSUR4elpXTjBhVzl1SUdOc1lYTnpQU0ptYVdWc1pITmxkQ0J1Ynkxb1pXRmtaWElnWm14MWFXUXRjbTkzTFdOdmJuUmhhVzVsY2lJK0NpQWdJQ0E4WkdsMklHTnNZWE56UFNKa1lYUmhJaUJzWVhsdmRYUXRjR0ZrWkdsdVp5QnNZWGx2ZFhROUluSnZkeUlnYkdGNWIzVjBMWGR5WVhBZ2JHRjViM1YwTFdGc2FXZHVQU0p6ZEdGeWRDQnpkR0Z5ZENJK0NpQUtDZ29nSUFrZ0lBa0pJQ0FnSUNBSkNTQWdDUWtKSUNBZ0lBa2dJQ0FnQ1NBZ0lDQUtJQ0FKSUR4a2JDQmpiR0Z6Y3owaVpXUnBkQ0lnQ2drSklDQWdJR3hoZVc5MWREMGlZMjlzZFcxdUlpQUtDUWtnSUNBZ2JHRjViM1YwTFdGc2FXZHVQU0pqWlc1MFpYSWdjM1J5WlhSamFDSUtDUWtnSUNBZ1pteGxlRDBpTVRBd0lpQUtDUWtKWm14bGVDMW5kQzF6YlQwaU5UQWlJQW9KQ1FsbWJHVjRMV2QwTFcxa1BTSXpNeUkrQ2lBZ0lDQThaSFErQ2drZ0lDQWdDUWtKQ1NCVVpYTjBaSEp2Y0dSdmQyNGdJQWtKQ1R3dlpIUStDaUFnSUNBOFpHUStDZ2tKUEdScGRpQmpiR0Z6Y3owaWRIQXRabWxsYkdRaVBnb0pDUWs4YzNCaGJqNEtDUWtKQ1R4dFpDMXBibkIxZEMxamIyNTBZV2x1WlhJZ2JXUXRibTh0Wm14dllYUStDZ2tKQ1FrSkNTQWdJQ0FKQ1FrSkNRa0pJQ0FnSUFrOGRIQTZiRzl2YTNWd0lHWnBaV3hrUFNKN2EyVjVPaUIwYVhCdlVtOXZkRU52Ym5SeWIyeHNaWEl1ZEdsd2J5NWthWE5oWW1Wc1pYaHdkR1Z6ZEM1emRXSm5jbTkxY0M1MFpYTjBaSEp2Y0dSdmQyNHNJR1pwWld4a2JHRmlaV3c2SUhScGNHOVNiMjkwUTI5dWRISnZiR3hsY2k1MGFYQnZMbVJwYzJGaVpXeGxlSEIwWlhOMExuTjFZbWR5YjNWd0xuUmxjM1JrY205d1pHOTNibDl5WldaemZTSWdabWxsYkdSMllXeDFaVDBpZEdsd2IxSnZiM1JEYjI1MGNtOXNiR1Z5TG5ScGNHOHVaR2x6WVdKbGJHVjRjSFJsYzNRdWMzVmlaM0p2ZFhBdWRHVnpkR1J5YjNCa2IzZHVJaUJtYVdWc1pHeGhZbVZzUFNBaWRHbHdiMUp2YjNSRGIyNTBjbTlzYkdWeUxuUnBjRzh1WkdsellXSmxiR1Y0Y0hSbGMzUXVjM1ZpWjNKdmRYQXVkR1Z6ZEdSeWIzQmtiM2R1WDNKbFpuTWlJR0poYzJWbWFXeDBaWEk5SWljbklpQnlaV0ZzZEdWa2RHbHdiejBpSjFScGNHOUJjSEFuSWlCcGMyRnljbUY1UFNKbVlXeHpaU0lnYVhOd2IzQjFjRDBpSWlCeVpYRjFhWEpsWkQwaVptRnNjMlVpSUd4aFltVnNabWxsYkdROUlpZGhjSEJmYm1GdFpTY2lJR0ZzYkc5M1kzSmxZWFJsUFNJaUlITmxiR1ZqZEdacFpXeGtQU0lpSUc1bkxXbHVhWFE5SW5ScGNHOVNiMjkwUTI5dWRISnZiR3hsY2k1MGFYQnZMbVJwYzJGaVpXeGxlSEIwWlhOMExuTjFZbWR5YjNWd0xuUmxjM1JrY205d1pHOTNiaUE5SUhScGNHOVNiMjkwUTI5dWRISnZiR3hsY2k1MGFYQnZMbVJwYzJGaVpXeGxlSEIwWlhOMExuTjFZbWR5YjNWd0xuUmxjM1JrY205d1pHOTNiaUI4ZkNBbkp6dDBhWEJ2VW05dmRFTnZiblJ5YjJ4c1pYSXVkR2x3Ynk1a2FYTmhZbVZzWlhod2RHVnpkQzV6ZFdKbmNtOTFjQzUwWlhOMFpISnZjR1J2ZDI1ZmNtVm1jeUE5SUhScGNHOVNiMjkwUTI5dWRISnZiR3hsY2k1MGFYQnZMbVJwYzJGaVpXeGxlSEIwWlhOMExuTjFZbWR5YjNWd0xuUmxjM1JrY205d1pHOTNibDl5WldaeklIeDhJSHQ5SUNJK0Nna0pDUWtKSUNBSlBHUnBkaUJ1WnkxdFpYTnpZV2RsY3owaWRHbHdiMFp2Y20xYkoxUmxjM1JrY205d1pHOTNibDlVYVhCdkxsUnBjRzlCY0hBblhTNGtaWEp5YjNJaVBnb0pDUWtKSUNBZ0lDQWdQR1JwZGlCdVp5MXRaWE56WVdkbFBTSnlaWEYxYVhKbFpDSWdQbFJvYVhNZ2FYTWdjbVZ4ZFdseVpXUXVQQzlrYVhZK0Nna0pDUWtnSUNBZ0lDQThaR2wySUc1bkxXMWxjM05oWjJVOUluQmhkSFJsY200aUlENVVhR2x6SUdacFpXeGtJRzExYzNRZ1ltVWdQQzlrYVhZK0Nna0pDUWtKUEM5a2FYWStDUWtKQ1FvSkNRa0pQQzl0WkMxcGJuQjFkQzFqYjI1MFlXbHVaWEkrQ2drSkNUd3ZjM0JoYmo0S0NRazhMMlJwZGo0Z0lDQWdJQ0FnQ2lBZ0lDQThMMlJrUGdvZ1BDOWtiRDRLSUNBZ0lDQUtJQ0FKSUNBSkNTQWdJQ0FnQ1FrZ0lBa0pDU0FnSUNBSklDQWdJQWtnSUNBZ0NpQWdDU0E4Wkd3Z1kyeGhjM005SW1Wa2FYUWlJQW9KQ1NBZ0lDQnNZWGx2ZFhROUltTnZiSFZ0YmlJZ0Nna0pJQ0FnSUd4aGVXOTFkQzFoYkdsbmJqMGlZMlZ1ZEdWeUlITjBjbVYwWTJnaUNna0pJQ0FnSUdac1pYZzlJakV3TUNJZ0Nna0pDV1pzWlhndFozUXRjMjA5SWpVd0lpQUtDUWtKWm14bGVDMW5kQzF0WkQwaU16TWlQZ29nSUNBZ1BHUjBQZ29KSUNBZ0lBa0pDUWtnVkdWemRFRnNiRzkzWldSV1lXd2dJQWtKQ1R3dlpIUStDaUFnSUNBOFpHUStDZ2tKUEdScGRpQmpiR0Z6Y3owaWRIQXRabWxsYkdRaVBnb0pDUWs4YzNCaGJqNEtDUWtKQ1R4dFpDMXBibkIxZEMxamIyNTBZV2x1WlhJZ2JXUXRibTh0Wm14dllYUStDZ2tKQ1FrSkNRa0pDUWtKQ1FrSkNRa0pDUWtKQ1FrSkNRazhkSEE2YzJsdGNHeGxMV1J5YjNCa2IzZHVJR2x6UVhKeVlYazlJbVpoYkhObElpQm1hV1ZzWkZaaGJIVmxQU0owYVhCdlVtOXZkRU52Ym5SeWIyeHNaWEl1ZEdsd2J5NWthWE5oWW1Wc1pYaHdkR1Z6ZEM1emRXSm5jbTkxY0M1MFpYTjBZV3hzYjNkbFpIWmhiQ0lnY21WeGRXbHlaV1E5SW1aaGJITmxJaUJoYkd4dmQyVmtWbUZzZFdWelBTSmJKM1JsYzNReEp5d25kR1Z6ZERJblhTSWdZV3hzYjNkbFEzSmxZWFJsUFNJa1ptbGxiR1F1WVd4c2IzZGZZM0psWVhSbElpQndiR0ZqWldodmJHUmxjajBpSWlCdVlXMWxQU0pVWlhOMFFXeHNiM2RsWkZaaGJGOXpkSEpwYm1jaUlDOCtDZ2tKQ1FrSkNRa2dJQWs4WkdsMklHNW5MVzFsYzNOaFoyVnpQU0owYVhCdlJtOXliVnNuVkdWemRFRnNiRzkzWldSV1lXeGZjM1J5YVc1bkoxMHVKR1Z5Y205eUlqNEtDUWtKQ1NBZ0lDQWdJRHhrYVhZZ2JtY3RiV1Z6YzJGblpUMGljbVZ4ZFdseVpXUWlJRDVVYUdseklHbHpJSEpsY1hWcGNtVmtMand2WkdsMlBnb0pDUWtKSUNBZ0lDQWdQR1JwZGlCdVp5MXRaWE56WVdkbFBTSndZWFIwWlhKdUlpQStWR2hwY3lCbWFXVnNaQ0J0ZFhOMElHSmxJRHd2WkdsMlBnb0pDUWtKQ1R3dlpHbDJQZ2tKQ1FrS0NRa0pDVHd2YldRdGFXNXdkWFF0WTI5dWRHRnBibVZ5UGdvSkNRazhMM053WVc0K0Nna0pQQzlrYVhZK0lDQWdJQ0FnSUFvZ0lDQWdQQzlrWkQ0S0lEd3ZaR3crQ2lBZ0lDQWdDaUFnSUNBZ0lDQWdJQ0FnQ2lBZ0lDQWdJQ0FnQ2lBZ0lDQWdDUWtKQ1FvZ0lDQWdQQzlrYVhZK0NpQWdQQzl6WldOMGFXOXVQZ284TDJScGRqNEtDZ289JykiIGFyaWEtbGFiZWw9IkVkaXQiPgoJCSAgICAgICAgICAgICAgPG1kLXRvb2x0aXAgbWQtZGlyZWN0aW9uPSJ0b3AiPkVkaXQ8L21kLXRvb2x0aXA+CgkJICAgICAgICAgICAgICA8bWQtaWNvbj5sYXVuY2g8L21kLWljb24+CgkJICAgICAgICAgICAgPC9tZC1idXR0b24+CgkJICAgICAgICAgIAkJICAgICAgICAgIDwvZGl2PgoJCSAgICAgICAgPC9kaXY+CgkJICAgICAgICAJCSAgICAgIDwvZGl2PgoJCSAgICA8L2Rpdj4KCQkgICAgPG1kLWRpdmlkZXI+PC9tZC1kaXZpZGVyPgoJCSAgPC9kaXY+CgkJICAJCQkgIDxkaXYgY2xhc3M9ImRhdGEiIGZsZXggbGF5b3V0LXBhZGRpbmcgbGF5b3V0PSJyb3ciIGxheW91dC13cmFwIGxheW91dC1hbGlnbj0ic3RhcnQgc3RhcnQiIG5nLWhpZGU9InN1Ymdyb3VwLmNvbGxhcHNlZCI+CgkJICAJCQkgICAgCgkJCSAgICAJIAoKICAJICAgICAJIAoKICAJICAgICAgICAgIAkJCQkgIDwvZGl2PgoJPC9zZWN0aW9uPgogICAgCiAgICAgICAgICAgCiAgICAgICAgCiAgICAgCQkJCQogICAgPC9kaXY+CiAgPC9zZWN0aW9uPgo8L2Rpdj4KCgo=')" aria-label="Edit">
                   <md-tooltip md-direction="top">Edit</md-tooltip>
                   <md-icon>launch</md-icon>
                 </md-button>
@@ -435,11 +496,38 @@
 
            
 
+           
+
+                                          
+     <dl class="edit" 
+        layout="column" 
+        layout-align="center stretch"
+        flex="100" 
+      flex-gt-sm="50" 
+      flex-gt-md="33">
+    <dt>
+               Field1       </dt>
+    <dd>
+    <div class="tp-field">
+      <span>
+        <md-input-container md-no-float>
+                    <input ng-model="tipoRootController.tipo.disabelexptest.field1" aria-label="Field1" placeholder="" name="Field1_string" ng-required="false" ng-pattern="/./">
+                  <div ng-messages="tipoForm['Field1_string'].$error">
+              <div ng-message="required" >This is required.</div>
+              <div ng-message="pattern" >This field must be </div>
+          </div>        
+        </md-input-container>
+      </span>
+    </div>       
+    </dd>
+ </dl>
+    
+             
+
                         </div>
   </section>
     
-
-        <section class="fieldset fluid-row-container" flex="100">
+          <section class="fieldset fluid-row-container" flex="100">
       <div class="header">
         <div layout="row" layout-align="end center">
           <h3 flex ng-init="tipoRootController.initCollapsed('disabearrayexptest', '')">
@@ -453,7 +541,7 @@
               <div flex="none">
                             </div>
               <div flex="none">
-                              <md-button class="m0" ng-click="tipoRootController.showDetail('disabearrayexptest')" aria-label="Edit">
+                              <md-button class="m0" ng-click="tipoRootController.showDetail('ICAgICAgICAgCgo8ZGl2IGNsYXNzPSJwLTgiPgogIDxzZWN0aW9uIGNsYXNzPSJmaWVsZHNldCBuby1oZWFkZXIgZmx1aWQtcm93LWNvbnRhaW5lciI+CiAgICA8ZGl2IGNsYXNzPSJkYXRhIiBsYXlvdXQtcGFkZGluZyBsYXlvdXQ9InJvdyIgbGF5b3V0LXdyYXAgbGF5b3V0LWFsaWduPSJzdGFydCBzdGFydCI+CiAKCgogIAkgIAkJICAgICAJCSAgCQkJICAgIAkgICAgCSAgICAKICAJIDxkbCBjbGFzcz0iZWRpdCIgCgkJICAgIGxheW91dD0iY29sdW1uIiAKCQkgICAgbGF5b3V0LWFsaWduPSJjZW50ZXIgc3RyZXRjaCIKCQkgICAgZmxleD0iMTAwIiAKCQkJZmxleC1ndC1zbT0iNTAiIAoJCQlmbGV4LWd0LW1kPSIzMyI+CiAgICA8ZHQ+CgkgICAgCQkJCSBEcm9kb3duICAJCQk8L2R0PgogICAgPGRkPgoJCTxkaXYgY2xhc3M9InRwLWZpZWxkIj4KCQkJPHNwYW4+CgkJCQk8bWQtaW5wdXQtY29udGFpbmVyIG1kLW5vLWZsb2F0PgoJCQkJCQkgICAgCQkJCQkJCSAgICAJPHRwOmxvb2t1cCBmaWVsZD0ie2tleTogdGlwb1Jvb3RDb250cm9sbGVyLnRpcG8uZGlzYWJlYXJyYXlleHB0ZXN0LmRyb2Rvd24sIGZpZWxkbGFiZWw6IHRpcG9Sb290Q29udHJvbGxlci50aXBvLmRpc2FiZWFycmF5ZXhwdGVzdC5kcm9kb3duX3JlZnN9IiBmaWVsZHZhbHVlPSJ0aXBvUm9vdENvbnRyb2xsZXIudGlwby5kaXNhYmVhcnJheWV4cHRlc3QuZHJvZG93biIgZmllbGRsYWJlbD0gInRpcG9Sb290Q29udHJvbGxlci50aXBvLmRpc2FiZWFycmF5ZXhwdGVzdC5kcm9kb3duX3JlZnMiIGJhc2VmaWx0ZXI9IicnIiByZWFsdGVkdGlwbz0iJ0RlZmluaXRpb25zJyIgaXNhcnJheT0iZmFsc2UiIGlzcG9wdXA9IiIgcmVxdWlyZWQ9ImZhbHNlIiBsYWJlbGZpZWxkPSInJGxvb2t1cF9jb250ZXh0LmtleV9maWVsZC5maWVsZF9uYW1lJyIgYWxsb3djcmVhdGU9IiIgc2VsZWN0ZmllbGQ9IiIgbmctaW5pdD0idGlwb1Jvb3RDb250cm9sbGVyLnRpcG8uZGlzYWJlYXJyYXlleHB0ZXN0LmRyb2Rvd24gPSB0aXBvUm9vdENvbnRyb2xsZXIudGlwby5kaXNhYmVhcnJheWV4cHRlc3QuZHJvZG93biB8fCAnJzt0aXBvUm9vdENvbnRyb2xsZXIudGlwby5kaXNhYmVhcnJheWV4cHRlc3QuZHJvZG93bl9yZWZzID0gdGlwb1Jvb3RDb250cm9sbGVyLnRpcG8uZGlzYWJlYXJyYXlleHB0ZXN0LmRyb2Rvd25fcmVmcyB8fCB7fSAiPgoJCQkJCSAgCTxkaXYgbmctbWVzc2FnZXM9InRpcG9Gb3JtWydEcm9kb3duX1RpcG8uRGVmaW5pdGlvbnMnXS4kZXJyb3IiPgoJCQkJICAgICAgPGRpdiBuZy1tZXNzYWdlPSJyZXF1aXJlZCIgPlRoaXMgaXMgcmVxdWlyZWQuPC9kaXY+CgkJCQkgICAgICA8ZGl2IG5nLW1lc3NhZ2U9InBhdHRlcm4iID5UaGlzIGZpZWxkIG11c3QgYmUgPC9kaXY+CgkJCQkJPC9kaXY+CQkJCQoJCQkJPC9tZC1pbnB1dC1jb250YWluZXI+CgkJCTwvc3Bhbj4KCQk8L2Rpdj4gICAgICAgCiAgICA8L2RkPgogPC9kbD4KICAgICAKICAJICAJCSAgICAgCQkgIAkJCSAgICAJICAgIAkgICAgCiAgCSA8ZGwgY2xhc3M9ImVkaXQiIAoJCSAgICBsYXlvdXQ9ImNvbHVtbiIgCgkJICAgIGxheW91dC1hbGlnbj0iY2VudGVyIHN0cmV0Y2giCgkJICAgIGZsZXg9IjEwMCIgCgkJCWZsZXgtZ3Qtc209IjUwIiAKCQkJZmxleC1ndC1tZD0iMzMiPgogICAgPGR0PgoJICAgIAkJCQkgRmllbGQyICAJCQk8L2R0PgogICAgPGRkPgoJCTxkaXYgY2xhc3M9InRwLWZpZWxkIj4KCQkJPHNwYW4+CgkJCQk8bWQtaW5wdXQtY29udGFpbmVyIG1kLW5vLWZsb2F0PgoJCQkJCQkJCQkJPGlucHV0IG5nLW1vZGVsPSJ0aXBvUm9vdENvbnRyb2xsZXIudGlwby5kaXNhYmVhcnJheWV4cHRlc3QuZmllbGQyIiBhcmlhLWxhYmVsPSJGaWVsZDIiIHBsYWNlaG9sZGVyPSIiIG5hbWU9IkZpZWxkMl9zdHJpbmciIG5nLXJlcXVpcmVkPSJmYWxzZSIgbmctcGF0dGVybj0iLyovIj4KCQkJCQkJCSAgCTxkaXYgbmctbWVzc2FnZXM9InRpcG9Gb3JtWydGaWVsZDJfc3RyaW5nJ10uJGVycm9yIj4KCQkJCSAgICAgIDxkaXYgbmctbWVzc2FnZT0icmVxdWlyZWQiID5UaGlzIGlzIHJlcXVpcmVkLjwvZGl2PgoJCQkJICAgICAgPGRpdiBuZy1tZXNzYWdlPSJwYXR0ZXJuIiA+VGhpcyBmaWVsZCBtdXN0IGJlIDwvZGl2PgoJCQkJCTwvZGl2PgkJCQkKCQkJCTwvbWQtaW5wdXQtY29udGFpbmVyPgoJCQk8L3NwYW4+CgkJPC9kaXY+ICAgICAgIAogICAgPC9kZD4KIDwvZGw+CiAgICAgCiAgCSAgCQkgICAgIAkJICAJCQkgICAgCSAgICAJICAgIAogIAkgPGRsIGNsYXNzPSJlZGl0IiAKCQkgICAgbGF5b3V0PSJjb2x1bW4iIAoJCSAgICBsYXlvdXQtYWxpZ249ImNlbnRlciBzdHJldGNoIgoJCSAgICBmbGV4PSIxMDAiIAoJCQlmbGV4LWd0LXNtPSI1MCIgCgkJCWZsZXgtZ3QtbWQ9IjMzIj4KICAgIDxkdD4KCSAgICAJCQkJIEZpZWxkMSAgCQkJPC9kdD4KICAgIDxkZD4KCQk8ZGl2IGNsYXNzPSJ0cC1maWVsZCI+CgkJCTxzcGFuPgoJCQkJPG1kLWlucHV0LWNvbnRhaW5lciBtZC1uby1mbG9hdD4KCQkJCQkJCQkJCTxpbnB1dCBuZy1tb2RlbD0idGlwb1Jvb3RDb250cm9sbGVyLnRpcG8uZGlzYWJlYXJyYXlleHB0ZXN0LmZpZWxkMSIgYXJpYS1sYWJlbD0iRmllbGQxIiBwbGFjZWhvbGRlcj0iIiBuYW1lPSJGaWVsZDFfc3RyaW5nIiBuZy1yZXF1aXJlZD0iZmFsc2UiIG5nLXBhdHRlcm49Ii8qLyI+CgkJCQkJCQkgIAk8ZGl2IG5nLW1lc3NhZ2VzPSJ0aXBvRm9ybVsnRmllbGQxX3N0cmluZyddLiRlcnJvciI+CgkJCQkgICAgICA8ZGl2IG5nLW1lc3NhZ2U9InJlcXVpcmVkIiA+VGhpcyBpcyByZXF1aXJlZC48L2Rpdj4KCQkJCSAgICAgIDxkaXYgbmctbWVzc2FnZT0icGF0dGVybiIgPlRoaXMgZmllbGQgbXVzdCBiZSA8L2Rpdj4KCQkJCQk8L2Rpdj4JCQkJCgkJCQk8L21kLWlucHV0LWNvbnRhaW5lcj4KCQkJPC9zcGFuPgoJCTwvZGl2PiAgICAgICAKICAgIDwvZGQ+CiA8L2RsPgogICAgIAogIAkgICAgCTxzZWN0aW9uIGNsYXNzPSJmaWVsZHNldCBmbHVpZC1yb3ctY29udGFpbmVyIiBmbGV4PSIxMDAiPgogICAgCTxkaXYgY2xhc3M9ImhlYWRlciI+CgkJICAgIDxkaXYgbGF5b3V0PSJyb3ciIGxheW91dC1hbGlnbj0iZW5kIGNlbnRlciI+CgkJICAgICAgPGgzIGZsZXggbmctaW5pdD0idGlwb1Jvb3RDb250cm9sbGVyLmluaXRDb2xsYXBzZWQoJ3N1Ymdyb3VwJywgJycpIj4KCQkgICAgICAgIDxhIGhyZWY9IiIgbmctY2xpY2s9InN1Ymdyb3VwLmNvbGxhcHNlZCA9ICFzdWJncm91cC5jb2xsYXBzZWQiIGNsYXNzPSJwbGFpbiIgbWQtY29sb3JzPSJ7Y29sb3I6ICdwcmltYXJ5LTcwMCd9Ij4KCQkgICAgICAgICAgPGkgY2xhc3M9ImZhIiBuZy1jbGFzcz0ieydmYS1jYXJldC1kb3duJzogIXN1Ymdyb3VwLmNvbGxhcHNlZCAsICdmYS1jYXJldC1yaWdodCc6IHN1Ymdyb3VwLmNvbGxhcHNlZH0iPjwvaT4KCQkgICAgICAgICAgIFN1Ykdyb3VwCgkJICAgICAgICA8L2E+CgkJICAgICAgPC9oMz4KCQkgICAgICA8ZGl2IGNsYXNzPSJhY3Rpb25zIGhvcml6b250YWwiIGxheW91dD0icm93IiBsYXlvdXQtYWxpZ249ImNlbnRlciBjZW50ZXIiPgoJCSAgICAgIAkJICAgICAgICA8ZGl2IGxheW91dD0icm93Ij4KCQkgICAgICAgICAgPGRpdiBmbGV4PSJub25lIj4KCQkgICAgICAgICAgCQkgICAgICAgICAgPC9kaXY+CgkJICAgICAgICAgIDxkaXYgZmxleD0ibm9uZSI+CgkJICAgICAgICAgIAkJICAgICAgICAgICAgPG1kLWJ1dHRvbiBjbGFzcz0ibTAiIG5nLWNsaWNrPSJ0aXBvUm9vdENvbnRyb2xsZXIuc2hvd0RldGFpbCgnSUNBZ0lDQWdJQ0FnQ2dvOFpHbDJJR05zWVhOelBTSndMVGdpUGdvZ0lEeHpaV04wYVc5dUlHTnNZWE56UFNKbWFXVnNaSE5sZENCdWJ5MW9aV0ZrWlhJZ1pteDFhV1F0Y205M0xXTnZiblJoYVc1bGNpSStDaUFnSUNBOFpHbDJJR05zWVhOelBTSmtZWFJoSWlCc1lYbHZkWFF0Y0dGa1pHbHVaeUJzWVhsdmRYUTlJbkp2ZHlJZ2JHRjViM1YwTFhkeVlYQWdiR0Y1YjNWMExXRnNhV2R1UFNKemRHRnlkQ0J6ZEdGeWRDSStDaUFLQ2dvZ0lBa2dJQWtKSUNBZ0lDQUpDU0FnQ1FrSklDQWdJQWtnSUNBZ0NTQWdJQ0FLSUNBSklEeGtiQ0JqYkdGemN6MGlaV1JwZENJZ0Nna0pJQ0FnSUd4aGVXOTFkRDBpWTI5c2RXMXVJaUFLQ1FrZ0lDQWdiR0Y1YjNWMExXRnNhV2R1UFNKalpXNTBaWElnYzNSeVpYUmphQ0lLQ1FrZ0lDQWdabXhsZUQwaU1UQXdJaUFLQ1FrSlpteGxlQzFuZEMxemJUMGlOVEFpSUFvSkNRbG1iR1Y0TFdkMExXMWtQU0l6TXlJK0NpQWdJQ0E4WkhRK0Nna2dJQ0FnQ1FrSkNTQlVaWE4wWkhKdmNHUnZkMjRnSUFrSkNUd3ZaSFErQ2lBZ0lDQThaR1ErQ2drSlBHUnBkaUJqYkdGemN6MGlkSEF0Wm1sbGJHUWlQZ29KQ1FrOGMzQmhiajRLQ1FrSkNUeHRaQzFwYm5CMWRDMWpiMjUwWVdsdVpYSWdiV1F0Ym04dFpteHZZWFErQ2drSkNRa0pDU0FnSUNBSkNRa0pDUWtKSUNBZ0lBazhkSEE2Ykc5dmEzVndJR1pwWld4a1BTSjdhMlY1T2lCMGFYQnZVbTl2ZEVOdmJuUnliMnhzWlhJdWRHbHdieTVrYVhOaFltVmhjbkpoZVdWNGNIUmxjM1F1YzNWaVozSnZkWEF1ZEdWemRHUnliM0JrYjNkdUxDQm1hV1ZzWkd4aFltVnNPaUIwYVhCdlVtOXZkRU52Ym5SeWIyeHNaWEl1ZEdsd2J5NWthWE5oWW1WaGNuSmhlV1Y0Y0hSbGMzUXVjM1ZpWjNKdmRYQXVkR1Z6ZEdSeWIzQmtiM2R1WDNKbFpuTjlJaUJtYVdWc1pIWmhiSFZsUFNKMGFYQnZVbTl2ZEVOdmJuUnliMnhzWlhJdWRHbHdieTVrYVhOaFltVmhjbkpoZVdWNGNIUmxjM1F1YzNWaVozSnZkWEF1ZEdWemRHUnliM0JrYjNkdUlpQm1hV1ZzWkd4aFltVnNQU0FpZEdsd2IxSnZiM1JEYjI1MGNtOXNiR1Z5TG5ScGNHOHVaR2x6WVdKbFlYSnlZWGxsZUhCMFpYTjBMbk4xWW1keWIzVndMblJsYzNSa2NtOXdaRzkzYmw5eVpXWnpJaUJpWVhObFptbHNkR1Z5UFNJbkp5SWdjbVZoYkhSbFpIUnBjRzg5SWlkVWFYQnZRWEJ3SnlJZ2FYTmhjbkpoZVQwaVptRnNjMlVpSUdsemNHOXdkWEE5SWlJZ2NtVnhkV2x5WldROUltWmhiSE5sSWlCc1lXSmxiR1pwWld4a1BTSW5ZWEJ3WDI1aGJXVW5JaUJoYkd4dmQyTnlaV0YwWlQwaUlpQnpaV3hsWTNSbWFXVnNaRDBpSWlCdVp5MXBibWwwUFNKMGFYQnZVbTl2ZEVOdmJuUnliMnhzWlhJdWRHbHdieTVrYVhOaFltVmhjbkpoZVdWNGNIUmxjM1F1YzNWaVozSnZkWEF1ZEdWemRHUnliM0JrYjNkdUlEMGdkR2x3YjFKdmIzUkRiMjUwY205c2JHVnlMblJwY0c4dVpHbHpZV0psWVhKeVlYbGxlSEIwWlhOMExuTjFZbWR5YjNWd0xuUmxjM1JrY205d1pHOTNiaUI4ZkNBbkp6dDBhWEJ2VW05dmRFTnZiblJ5YjJ4c1pYSXVkR2x3Ynk1a2FYTmhZbVZoY25KaGVXVjRjSFJsYzNRdWMzVmlaM0p2ZFhBdWRHVnpkR1J5YjNCa2IzZHVYM0psWm5NZ1BTQjBhWEJ2VW05dmRFTnZiblJ5YjJ4c1pYSXVkR2x3Ynk1a2FYTmhZbVZoY25KaGVXVjRjSFJsYzNRdWMzVmlaM0p2ZFhBdWRHVnpkR1J5YjNCa2IzZHVYM0psWm5NZ2ZId2dlMzBnSWo0S0NRa0pDUWtnSUFrOFpHbDJJRzVuTFcxbGMzTmhaMlZ6UFNKMGFYQnZSbTl5YlZzblZHVnpkR1J5YjNCa2IzZHVYMVJwY0c4dVZHbHdiMEZ3Y0NkZExpUmxjbkp2Y2lJK0Nna0pDUWtnSUNBZ0lDQThaR2wySUc1bkxXMWxjM05oWjJVOUluSmxjWFZwY21Wa0lpQStWR2hwY3lCcGN5QnlaWEYxYVhKbFpDNDhMMlJwZGo0S0NRa0pDU0FnSUNBZ0lEeGthWFlnYm1jdGJXVnpjMkZuWlQwaWNHRjBkR1Z5YmlJZ1BsUm9hWE1nWm1sbGJHUWdiWFZ6ZENCaVpTQThMMlJwZGo0S0NRa0pDUWs4TDJScGRqNEpDUWtKQ2drSkNRazhMMjFrTFdsdWNIVjBMV052Ym5SaGFXNWxjajRLQ1FrSlBDOXpjR0Z1UGdvSkNUd3ZaR2wyUGlBZ0lDQWdJQ0FLSUNBZ0lEd3ZaR1ErQ2lBOEwyUnNQZ29nSUNBZ0lBb2dJQWtnSUFrSklDQWdJQ0FKQ1NBZ0NRa0pJQ0FnSUFrZ0lDQWdDU0FnSUNBS0lDQUpJRHhrYkNCamJHRnpjejBpWldScGRDSWdDZ2tKSUNBZ0lHeGhlVzkxZEQwaVkyOXNkVzF1SWlBS0NRa2dJQ0FnYkdGNWIzVjBMV0ZzYVdkdVBTSmpaVzUwWlhJZ2MzUnlaWFJqYUNJS0NRa2dJQ0FnWm14bGVEMGlNVEF3SWlBS0NRa0pabXhsZUMxbmRDMXpiVDBpTlRBaUlBb0pDUWxtYkdWNExXZDBMVzFrUFNJek15SStDaUFnSUNBOFpIUStDZ2tnSUNBZ0NRa0pDU0JVWlhOMFFXeHNiM2RsWkZaaGJDQWdDUWtKUEM5a2RENEtJQ0FnSUR4a1pENEtDUWs4WkdsMklHTnNZWE56UFNKMGNDMW1hV1ZzWkNJK0Nna0pDVHh6Y0dGdVBnb0pDUWtKUEcxa0xXbHVjSFYwTFdOdmJuUmhhVzVsY2lCdFpDMXVieTFtYkc5aGRENEtDUWtKQ1FrSkNRa0pDUWtKQ1FrSkNRa0pDUWtKQ1FrSkNUeDBjRHB6YVcxd2JHVXRaSEp2Y0dSdmQyNGdhWE5CY25KaGVUMGlabUZzYzJVaUlHWnBaV3hrVm1Gc2RXVTlJblJwY0c5U2IyOTBRMjl1ZEhKdmJHeGxjaTUwYVhCdkxtUnBjMkZpWldGeWNtRjVaWGh3ZEdWemRDNXpkV0puY205MWNDNTBaWE4wWVd4c2IzZGxaSFpoYkNJZ2NtVnhkV2x5WldROUltWmhiSE5sSWlCaGJHeHZkMlZrVm1Gc2RXVnpQU0piSjNSbGMzUXhKeXduZEdWemRESW5YU0lnWVd4c2IzZGxRM0psWVhSbFBTSWtabWxsYkdRdVlXeHNiM2RmWTNKbFlYUmxJaUJ3YkdGalpXaHZiR1JsY2owaUlpQnVZVzFsUFNKVVpYTjBRV3hzYjNkbFpGWmhiRjl6ZEhKcGJtY2lJQzgrQ2drSkNRa0pDUWtnSUFrOFpHbDJJRzVuTFcxbGMzTmhaMlZ6UFNKMGFYQnZSbTl5YlZzblZHVnpkRUZzYkc5M1pXUldZV3hmYzNSeWFXNW5KMTB1SkdWeWNtOXlJajRLQ1FrSkNTQWdJQ0FnSUR4a2FYWWdibWN0YldWemMyRm5aVDBpY21WeGRXbHlaV1FpSUQ1VWFHbHpJR2x6SUhKbGNYVnBjbVZrTGp3dlpHbDJQZ29KQ1FrSklDQWdJQ0FnUEdScGRpQnVaeTF0WlhOellXZGxQU0p3WVhSMFpYSnVJaUErVkdocGN5Qm1hV1ZzWkNCdGRYTjBJR0psSUR3dlpHbDJQZ29KQ1FrSkNUd3ZaR2wyUGdrSkNRa0tDUWtKQ1R3dmJXUXRhVzV3ZFhRdFkyOXVkR0ZwYm1WeVBnb0pDUWs4TDNOd1lXNCtDZ2tKUEM5a2FYWStJQ0FnSUNBZ0lBb2dJQ0FnUEM5a1pENEtJRHd2Wkd3K0NpQWdJQ0FnQ2lBZ0lDQWdJQ0FnSUNBZ0NpQWdJQ0FnSUNBZ0NpQWdJQ0FnQ1FrSkNRb2dJQ0FnUEM5a2FYWStDaUFnUEM5elpXTjBhVzl1UGdvOEwyUnBkajRLQ2dvPScpIiBhcmlhLWxhYmVsPSJFZGl0Ij4KCQkgICAgICAgICAgICAgIDxtZC10b29sdGlwIG1kLWRpcmVjdGlvbj0idG9wIj5FZGl0PC9tZC10b29sdGlwPgoJCSAgICAgICAgICAgICAgPG1kLWljb24+bGF1bmNoPC9tZC1pY29uPgoJCSAgICAgICAgICAgIDwvbWQtYnV0dG9uPgoJCSAgICAgICAgICAJCSAgICAgICAgICA8L2Rpdj4KCQkgICAgICAgIDwvZGl2PgoJCSAgICAgICAgCQkgICAgICA8L2Rpdj4KCQkgICAgPC9kaXY+CgkJICAgIDxtZC1kaXZpZGVyPjwvbWQtZGl2aWRlcj4KCQkgIDwvZGl2PgoJCSAgCQkJICA8ZGl2IGNsYXNzPSJkYXRhIiBmbGV4IGxheW91dC1wYWRkaW5nIGxheW91dD0icm93IiBsYXlvdXQtd3JhcCBsYXlvdXQtYWxpZ249InN0YXJ0IHN0YXJ0IiBuZy1oaWRlPSJzdWJncm91cC5jb2xsYXBzZWQiPgoJCSAgCQkJICAgIAoJCQkgICAgCSAKCiAgCSAgICAgCSAKCiAgCSAgICAgICAgICAJCQkJICA8L2Rpdj4KCTwvc2VjdGlvbj4KICAgIAogICAgICAgICAgIAogICAgICAgIAogICAgIAkJCQkKICAgIDwvZGl2PgogIDwvc2VjdGlvbj4KPC9kaXY+CgoK')" aria-label="Edit">
                   <md-tooltip md-direction="top">Edit</md-tooltip>
                   <md-icon>launch</md-icon>
                 </md-button>
@@ -469,14 +557,41 @@
 
            
 
+           
+
+                                          
+     <dl class="edit" 
+        layout="column" 
+        layout-align="center stretch"
+        flex="100" 
+      flex-gt-sm="50" 
+      flex-gt-md="33">
+    <dt>
+               Field1       </dt>
+    <dd>
+    <div class="tp-field">
+      <span>
+        <md-input-container md-no-float>
+                    <input ng-model="tipoRootController.tipo.disabearrayexptest.field1" aria-label="Field1" placeholder="" name="Field1_string" ng-required="false" ng-pattern="/./">
+                  <div ng-messages="tipoForm['Field1_string'].$error">
+              <div ng-message="required" >This is required.</div>
+              <div ng-message="pattern" >This field must be </div>
+          </div>        
+        </md-input-container>
+      </span>
+    </div>       
+    </dd>
+ </dl>
+    
+             
+
                         </div>
   </section>
     
-
             
             
     </div>
   </section>
 </div>
 
- 
+

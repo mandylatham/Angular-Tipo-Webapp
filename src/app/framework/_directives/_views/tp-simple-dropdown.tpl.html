@@ -1,8 +1,12 @@
-<md-select ng-model="fieldValue" multiple="isArray" placeholder="placeholder" name="name" ng-required="required">
-	<md-select-header class="search" ng-if="alloweCreate">
-		<md-input-container md-no-float class="fullwidth">
-		    <input ng-model="searchTerm.text" type="search" placeholder="Add New" ng-keydown="$event.stopPropagation()" ng-keyup="$event.keyCode == 13 ? addValue() : null" tp:auto-focus>
-		</md-input-container>
-	</md-select-header>
-	<md-option ng-value="option" ng-repeat="option in allowedValues">{{ option }}</md-option>
-</md-select>
+<div layout="row">
+	<div flex>
+		<md-select ng-model="fieldvalue" multiple="isarray" placeholder="description" name="fieldname" ng-required="required">
+			<md-select-header class="search" ng-if="allowcreate">
+				<md-input-container md-no-float class="fullwidth">
+				    <input ng-model="searchTerm.text" type="search" placeholder="Add New" ng-keydown="$event.stopPropagation()" ng-keyup="$event.keyCode == 13 ? addValue() : null" tp:auto-focus>
+				</md-input-container>
+			</md-select-header>
+			<md-option ng-value="option" ng-repeat="option in allowedvalues">{{ option }}</md-option>
+		</md-select>
+	</div>
+</div>

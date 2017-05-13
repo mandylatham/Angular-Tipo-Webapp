@@ -129,6 +129,7 @@
           parent: '=',
           field: '=',
           fieldvalue: '=',
+          fieldlabel: '=',
           basefilter: '=',
           realtedtipo: '=',
           isarray: '=',
@@ -142,11 +143,13 @@
         replace: true,
         template: '<ng-include src="fieldTemplate" tp-include-replace/>',
         link: function(scope, element, attrs){
-           var fieldvalue = scope.fieldvalue;
+          var field = scope.field;
+          scope.model = {};
+          scope.model.field = scope.field;
           var isarray = Boolean(scope.isarray);
           // var isGroup = Boolean(field._ui.isGroup);
           var isMandatory = Boolean(scope.required);
-          scope.ispopup = scope.ispopup;
+          scope.isPopup = scope.ispopup;
 
           var fieldTemplate;
           if(isarray){
@@ -163,9 +166,16 @@
 
           scope.selectedTipos = [];
           if(isarray){
-            scope.selectedTipos = fieldvalue;
+            scope.selectedTipos = field.key;
           }else{
-            scope.selectedTipos = [fieldvalue];
+            if (!_.isUndefined(field.key) && !_.isUndefined(field.fieldlabel)) {
+              field.label = _.get(field.fieldlabel,'ref' + field.key) || angular.copy(field.key);
+            }else{
+              field.key = "";
+              field.label = "";
+              field.fieldlabel = {};
+            }
+            scope.selectedTipos = [field];
           }
 
           if(scope.allowcreate){
@@ -257,11 +267,11 @@
                   extractDropdownList(results[0],scope.options,startName,remName)
                 };
               }
-              if(isMandatory && !fieldvalue){
+              if(isMandatory && !field.key){
                 if(isarray){
-                  fieldvalue = [scope.options[0]];
+                  field = [scope.options[0]];
                 }else{
-                  fieldvalue = scope.options[0];
+                  field = scope.options[0];
                 }
               }
               var tipo_perm = tipoRegistry.get(scope.tipo_name + '_resdata');
@@ -283,9 +293,9 @@
 
           scope.renderSelection = function(){
             var text = '<div class="placeholder"> </div>';
-            if (fieldvalue && fieldvalue.length){
+            if (field.key && field.length){
               text = '<div class="multiple-list">';
-              _.each(fieldvalue, function(each){
+              _.each(field, function(each){
                 text += '<div>' +each.label + '</div>';
               });
               text += '</div>';
@@ -300,9 +310,7 @@
               scope.loadOptions(searchText,definition.tipo_meta.default_page_size);
             });
           }else{
-            if(isarray){
-              scope.options = scope.fieldvalue;
-            }
+            scope.loadOptions()
           }
 
           function openTipoObjectDialog(){
@@ -316,7 +324,7 @@
             newScope.perm = scope.perm;
             newScope.label_field = label_field;
             if (scope.root) {
-            newScope.tipo_fields = scope.root.tipo_fields}
+            newScope.tipo_fields = scope.root.tipo_field_groups}
             newScope.selectedTipos = scope.selectedTipos;
             var promise = $mdDialog.show({
               templateUrl: 'framework/_directives/_views/tp-lookup-popup-select.tpl.html',
@@ -374,14 +382,24 @@
             promise.then(function(selectedObjects){
               optionsFormat(selectedObjects);
               if(isarray){
-                fieldvalue = scope.optionSelected;
-                scope.selectedTipos = fieldvalue;
+                field.fieldvalue = scope.optionSelected;
+                scope.selectedTipos = field.fieldvalue;
               }else{
-                fieldvalue = scope.optionSelected[0];
-                scope.selectedTipos = [fieldvalue];
+                field.fieldvalue = scope.optionSelected[0];
+                scope.selectedTipos = [field.fieldvalue];
               }
             });
           }
+
+          scope.$watch(function(){return scope.model.field},function(){
+            if (!_.isUndefined(scope.fieldvalue)) {
+              scope.fieldvalue = scope.model.field.key;
+              if (_.isUndefined(scope.fieldlabel)) {
+                scope.fieldlabel = {};
+              }
+              _.set(scope.fieldlabel,'ref' + scope.fieldvalue,scope.model.field.label);
+            };
+          }, true)
 
         }
       };

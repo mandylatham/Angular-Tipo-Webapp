@@ -81,7 +81,7 @@ public String renderTemplate(String template, Map<String, Object> objects)
 			Map<String, Object> editjsonObj = JsonHelper.getHelper().getGson().fromJson(editdefinition, Map.class);
       Map<String, Object> editdefinitionObj = (Map<String, Object>) editjsonObj.get("data");
       editobjs.put("definition", editdefinitionObj);
-      String editresult = new TemplateManager().renderTemplate(edittemplate, objs);
+      String editresult = new TemplateManager().renderTemplate(edittemplate, editobjs);
       System.out.println(editresult);
     }
     catch (Exception e)

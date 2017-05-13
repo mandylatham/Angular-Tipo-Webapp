@@ -7,13 +7,13 @@
     #else
     #set($sizing = 1)
 	#end
-	#if ($sizing == 1)
+	#if ($sizing == 1 && $field.field_type != "divider")
         #set($sizeGtSm = 50)
     	#set($sizeGtMd = 33)
-  	#elseif($sizing == 2)
+  	#elseif($sizing == 2 && $field.field_type != "divider")
         #set($sizeGtSm = 100)
     	#set($sizeGtMd = 66)
-  	#elseif($sizing == 3)
+  	#elseif($sizing == 3 || $field.field_type == "divider")
         #set($sizeGtSm = 100)
     	#set($sizeGtMd = 100)
   	#end
@@ -41,6 +41,7 @@
 ## Validations  	
   	#if($field.validations)
     	#set ($decoded = $tipo_utils.decodeBase64($field.validations))
+    	#set ($decoded = "/" + $decoded + "/")
     #end
  <dl class="edit" 
 		    layout="column" 

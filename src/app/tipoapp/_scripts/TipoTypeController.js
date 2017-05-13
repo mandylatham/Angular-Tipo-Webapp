@@ -17,16 +17,11 @@
     var tipo_name = $scope.tipoRootController.tipoDefinition.tipo_meta.tipo_name;
     var tipo_types = angular.copy(TipoTypeService.gettipo_types());
     var application = $scope.tipoRootController.tipoDefinition.application;
-    var tipo_groups = _.find($scope.tipoRootController.tipo_fields,function(field){
-      return field.field_name === "tipo_field_groups"
-    });
+    var tipo_groups = $scope.tipoRootController.tipo_fields;
     if (!_.isUndefined(tipo_groups)) {
-      _.each(tipo_groups._items,function(tipo_group){
-        var group_name = _.find(tipo_group.tipo_fields,function(group){
-        return group.field_name === "tipo_group_name"
-      });
-        tipo_types.push({ key: "FieldGroup." + group_name._value.key,
-                          label: group_name._value.key,
+      _.each(tipo_groups,function(tipo_group){
+        tipo_types.push({ key: "FieldGroup." + tipo_group.tipo_group_name,
+                          label: tipo_group.tipo_group_name,
                           icon: "group_work",
                           field_group: true});
       });
