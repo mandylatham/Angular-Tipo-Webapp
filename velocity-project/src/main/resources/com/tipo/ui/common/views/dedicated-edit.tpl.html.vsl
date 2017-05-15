@@ -4,16 +4,16 @@
     <div class="data" layout-padding layout="row" layout-wrap layout-align="start start">
 ]]# 
 ##
-#parse("src/main/resources/field-wrapper.tpl.html.vsl")
-#parse("src/main/resources/groupWrapper.tpl.html.vsl")
+#parse("src/main/resources/com/tipo/ui/common/views/field-wrapper.tpl.html.vsl")
+#parse("src/main/resources/com/tipo/ui/common/views/groupWrapper.tpl.html.vsl")
 #foreach( $field in $definition.tipo_fields)
 ##
 		          #set($field_definiton = $field)
 
   	#if( !$field.hidden_ && !$field.underscore_ui.isGroup && !$field.show_in_tab )
-  		#fieldwrapper($field_definiton)
+  		#fieldwrapper($field_definiton "edit")
     #elseif( !$field.hidden_ && $field.underscore_ui.isGroup && !$field.show_in_tab)
-    	#groupwrapper($field_definiton)
+    	#groupwrapper($field_definiton "edit")
     #end
 #end
 ##              

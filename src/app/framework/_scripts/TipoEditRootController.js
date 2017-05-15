@@ -135,7 +135,8 @@
     $mdDialog,
     $templateCache,
     tipoDefinitionDataService,
-    $mdSelect) {
+    $mdSelect,
+    $sce) {
     
     var _instance = this;
     _instance.tipoDefinition = tipoDefinition;
@@ -340,6 +341,28 @@
     };
 
     _instance.searchTerm = {};
+    _instance.delete = function(){
+      var confirmation = $mdDialog.confirm()
+          .title('Delete Confirmation')
+          .textContent('Are you sure that you want to delete ' + tipo_name + ' ' + tipo_id + '?')
+          .ariaLabel('Delete Confirmation')
+          .ok('Yes')
+          .cancel('No');
+      $mdDialog.show(confirmation).then(function(){
+        tipoRouter.startStateChange();
+        // handle application perspective
+        var filter = {};
+        getPerspective(filter);
+        // ends here
+        tipoInstanceDataService.deleteOne(tipo_name, tipo_id, filter).then(function(){
+          if(tipoRouter.stickyExists()){
+            tipoRouter.toStickyAndReset();
+          }else{
+            tipoRouter.toTipoList(tipo_name);
+          }
+        });
+      });
+    };
     _instance.cleanup = function(uniq_name,prefix,label,index){
       var tipo_data = _.get(_instance,uniq_name + '.model');
       if (!_.isUndefined(tipo_data)) {
@@ -396,6 +419,11 @@
         }
       // });
     }
+
+    _instance.edit = function(){
+      tipoRouter.startStateChange();
+      tipoRouter.toTipoEdit(tipo_name, tipo_id);
+    };
 
     function generateGroupItem(field_name,definition){
       var newObject = {};
@@ -550,7 +578,7 @@
         fullscreen: true
       });
       promise.then(function(){
-        updateDatafromDefinition(definition,index,field_name);
+        // updateDatafromDefinition(definition,index,field_name);
       });
     }
     _instance.lookupTipo = function(field_name){
@@ -568,6 +596,10 @@
         clickOutsideToClose: true,
         fullscreen: true
       });
+    }
+
+    _instance.trustHtml = function(html){
+      return $sce.trustAsHtml(html);
     }
 
     _instance.generateItem = function(field_name){

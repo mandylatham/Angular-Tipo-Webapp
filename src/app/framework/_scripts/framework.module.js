@@ -107,7 +107,7 @@
       views: {
         'content@layout': {
           templateUrl: 'framework/_views/tipo-new-root.tpl.html',
-          controller: 'TipoCreateRootController',
+          controller: 'TipoEditRootController',
           controllerAs: 'tipoRootController'
         }
       }
@@ -154,7 +154,7 @@
       views: {
         'content@layout': {
           templateUrl: 'framework/_views/tipo-view-root.tpl.html',
-          controller: 'TipoViewRootController',
+          controller: 'TipoEditRootController',
           controllerAs: 'tipoRootController'
         }
       },

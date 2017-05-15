@@ -1,0 +1,122 @@
+#parse("src/main/resources/com/tipo/ui/common/views/templategenetaor.tpl.html.vsl")
+#macro(groupwrapper $field $mode)
+<section class="fieldset fluid-row-container" flex="100">
+    	<div class="header">
+		    <div layout="row" layout-align="end center">
+		      <h3 flex ng-init="tipoRootController.initCollapsed('${field.field_name}', '$!{field.underscore_ui.collapsed}')">
+		        <a href="" ng-click="${field.field_name}.collapsed = !${field.field_name}.collapsed" class="plain" md-colors="{color: 'primary-700'}">
+		          <i class="fa" ng-class="{'fa-caret-down': !${field.field_name}.collapsed , 'fa-caret-right': ${field.field_name}.collapsed}"></i>
+		           $field.display_name
+		        </a>
+		      </h3>
+		      <div class="actions horizontal" layout="row" layout-align="center center">
+		      #if(!$field.underscore_ui.isArray)
+		        <div layout="row">
+			        <div flex="none">
+			          #if($field.underscore_ui.isTipoRelationship && $mode !="edit")
+			            <md-button class="m0" ng-click="tipoRootController.showDetail('$templateencoded')" aria-label="Lookup">
+			              <md-tooltip md-direction="top">Details</md-tooltip>
+			              <md-icon>fullscreen</md-icon>
+			            </md-button>
+			          #end
+			        </div>
+		          <div flex="none">
+		          #if($field.underscore_ui.isTipoRelationship && $mode =="edit")
+		            <md-button class="m0" ng-click="tipoRootController.lookupTipo('$field.fq_field_name')" aria-label="Lookup">
+		              <md-tooltip md-direction="top">Copy from existing</md-tooltip>
+		              <md-icon>search</md-icon>
+		            </md-button>
+		          #end
+		          </div>
+		          <div flex="none">
+		          #if(!$field.disable_expansion && $mode =="edit")
+		          	#set($template = "#templategenerator1($field)") 
+		          	#set ($templateencoded = $tipo_utils.encodeBase64($template))
+		            <md-button class="m0" ng-click="tipoRootController.showDetail('$templateencoded')" aria-label="Edit">
+		              <md-tooltip md-direction="top">Edit</md-tooltip>
+		              <md-icon>launch</md-icon>
+		            </md-button>
+		          #end
+		          </div>
+		        </div>
+		        #else
+		        <div>
+		          <div flex="none">
+			          #if($mode =="edit")
+			            <md-button class="m0" ng-click="tipoRootController.generateItem('$field.fq_field_name')" aria-label="New">
+			              <md-tooltip md-direction="top">New</md-tooltip>
+			              <md-icon>add</md-icon>
+			            </md-button>
+			          #end
+		          </div>
+		        </div>
+		        #end
+		      </div>
+		    </div>
+		    <md-divider></md-divider>
+		  </div>
+		  #if(!$field.underscore_ui.isArray)
+			  <div class="data" flex layout-padding layout="row" layout-wrap layout-align="start start" ng-hide="${field.field_name}.collapsed">
+		  #else
+		  
+		  	  <div class="data" style="margin-top: 10px;" ng-hide="${field.field_name}.collapsed" >
+		  	  	<div layout="row" ng-repeat="groupItem in tipoRootController.tipo.${field.fq_field_name}" ng-if="!groupItem._ARRAY_META || groupItem._ARRAY_META._STATUS != 'DELETED'" md-whiteframe="2" class="fluid-row">
+      				<div flex layout="row" layout-padding layout-wrap layout-align="start start" class="data">
+		  #end
+			    
+			    #foreach( $gfield in $field.tipo_fields)
+	#if($field.underscore_ui.isArray)
+		#set($gfield.fq_field_name = "${field.fq_field_name}[$index].${gfield.field_name}" )
+	#end
+	#set($tmp = 0) 
+ 
+
+  	#if( !$gfield.hidden_ && !$gfield.underscore_ui.isGroup && ($gfield.short_display || $field.disable_expansion) && !$gfield.show_in_tab)
+  		#fieldwrapper($gfield $mode)
+      #end
+     #end
+     	#if($field.underscore_ui.isArray)
+			</div>
+			<div flex="none" layout="column" layout-align="center center" class="actions bg">
+				#if(!$field.disable_expansion && $mode != "edit")
+			       	#set($template = "#templategenerator1($field $mode)") 
+			        #set ($templateencoded = $tipo_utils.encodeBase64($template))
+			        <md-button ng-click="tipoRootController.showDetail('$templateencoded',$index,'${field.field_name}')"  aria-label="Edit" class="md-icon-button">
+			          <md-tooltip md-direction="left">Details</md-tooltip>
+			          <md-icon>fullscreen</md-icon>
+			        </md-button>
+		        #end
+	        </div>
+	        #if($mode == "edit")
+			<div flex="none" layout="column" layout-align="center center" class="actions bg">
+		#if($field.underscore_ui.isTipoRelationship)
+	        <div flex="none">
+	          <md-button  ng-click="lookupTipo(groupItem)" aria-label="Lookup">
+	            <md-tooltip md-direction="left">Copy from existing</md-tooltip>
+	            <md-icon>search</md-icon>
+	          </md-button>
+	        </div>
+        #end
+        #if(!$field.disable_expansion)
+	       	#set($template = "#templategenerator1($field $mode)") 
+	        #set ($templateencoded = $tipo_utils.encodeBase64($template))
+	        <md-button ng-click="tipoRootController.showDetail('$templateencoded',$index,'${field.field_name}')"  aria-label="Edit" class="md-icon-button">
+	          <md-tooltip md-direction="left">Edit</md-tooltip>
+	          <md-icon>launch</md-icon>
+	        </md-button>
+        #end
+		        <md-button ng-click="tipoRootController.deleteItem('$field.fq_field_name',$index)" aria-label="Delete" class="md-icon-button">
+		          <md-tooltip md-direction="left">Delete</md-tooltip>
+		          <md-icon>delete</md-icon>
+		        </md-button>
+		        <md-button ng-click="tipoRootController.cloneItem('$field.fq_field_name',$index)" aria-label="Copy" class="md-icon-button">
+		          <md-tooltip md-direction="left">Copy</md-tooltip>
+		          <md-icon>content_copy</md-icon>
+		        </md-button>
+      		</div>
+      		#end
+		</div>
+		#end
+		</div>
+	</section>
+#end

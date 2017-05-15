@@ -299,9 +299,9 @@
 
           scope.renderSelection = function(){
             var text = '<div class="placeholder"> </div>';
-            if (field.key && field.length){
+            if (scope.model.field && scope.model.field.length){
               text = '<div class="multiple-list">';
-              _.each(field, function(each){
+              _.each(scope.model.field, function(each){
                 text += '<div>' +each.label + '</div>';
               });
               text += '</div>';
@@ -388,11 +388,11 @@
             promise.then(function(selectedObjects){
               optionsFormat(selectedObjects);
               if(isarray){
-                field.fieldvalue = scope.optionSelected;
-                scope.selectedTipos = field.fieldvalue;
+                scope.model.field = scope.optionSelected;
+                scope.selectedTipos = scope.model.field;
               }else{
-                field.fieldvalue = scope.optionSelected[0];
-                scope.selectedTipos = [field.fieldvalue];
+                scope.model.field = scope.optionSelected[0];
+                scope.selectedTipos = [scope.model.field];
               }
             });
           }

@@ -1,5 +1,5 @@
- #parse("src/main/resources/fieldcontainer.vm")
- #macro(fieldwrapper $field)
+ #parse("src/main/resources/com/tipo/ui/common/views/fieldcontainer.vm")
+ #macro(fieldwrapper $field $mode)
  ##$field.field_name
 ## Sizing ##
     #if($field.sizing)
@@ -43,12 +43,21 @@
     	#set ($decoded = $tipo_utils.decodeBase64($field.validations))
     	#set ($decoded = "/" + $decoded + "/")
     #end
- <dl class="edit" 
+    #if($mode != "edit")
+    <dl class="edit" 
+		    layout="column" 
+		    layout-align="center stretch"
+		    flex="100" 
+			flex-gt-sm="$sizeGtSm" 
+			flex-gt-md="$sizeGtMd" ng-if="tipoRootController.tipo.$field.fq_field_name">
+    #else
+    <dl class="edit" 
 		    layout="column" 
 		    layout-align="center stretch"
 		    flex="100" 
 			flex-gt-sm="$sizeGtSm" 
 			flex-gt-md="$sizeGtMd">
+    #end
     <dt>
 	    #if($field.field_type != "divider")
 				 $field.display_name  #if($mandatory) <span>*</span> #end
@@ -58,11 +67,15 @@
 		<div class="tp-field">
 			<span>
 				<md-input-container md-no-float>
+					#if(!$field.read_only && $mode == "edit")
 					#fieldcontainer($field $field_description $mandatory $decoded)
 				  	<div ng-messages="tipoForm['${field.display_name}_${field.field_type}'].$error">
 				      <div ng-message="required" >This is required.</div>
 				      <div ng-message="pattern" >This field must be $!field.validations_refs["ref$field.validations"]</div>
-					</div>				
+					</div>
+					#else
+					#fieldviewcontainer($field $field_description $mandatory $decoded)
+					#end			
 ##        
 				</md-input-container>
 			</span>
