@@ -140,7 +140,7 @@
     
     var _instance = this;
     _instance.tipoDefinition = tipoDefinition;
-    _instance.tipoDefinition.tipo_field_groups = tipo.tipo_field_groups;
+    // _instance.tipoDefinition.tipo_field_groups = tipo.tipo_field_groups;
     var clonedTipoId = $stateParams.copyFrom;
     _instance.tipo = tipo;
 
@@ -179,13 +179,13 @@
         });
       }else if (action === 'create') {
         var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
-          if(perspectiveMetadata.fieldName && !data[perspectiveMetadata.fieldName]){
-            data[perspectiveMetadata.fieldName] = perspectiveMetadata.tipoId;
+          if(perspectiveMetadata.fieldName && !_instance.tipo[perspectiveMetadata.fieldName]){
+            _instance.tipo[perspectiveMetadata.fieldName] = perspectiveMetadata.tipoId;
           }
           if(!_.isUndefined(clonedTipoId)){
-            data.copy_from_tipo_id = clonedTipoId;
+            _instance.tipo.copy_from_tipo_id = clonedTipoId;
           }
-          tipoInstanceDataService.upsertAll(tipo_name, [data]).then(function(result){
+          tipoInstanceDataService.upsertAll(tipo_name, [_instance.tipo]).then(function(result){
             if(tipoRouter.stickyExists()){
               tipoRouter.toStickyAndReset();
             }else{

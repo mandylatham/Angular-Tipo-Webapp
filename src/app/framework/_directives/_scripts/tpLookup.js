@@ -134,7 +134,7 @@
           realtedtipo: '=',
           isarray: '=',
           ispopup: '=',
-          required: '=',
+          isrequired: '=',
           labelfield: '=',
           allowcreate: '=',
           selectfield: '='
@@ -148,7 +148,7 @@
           scope.model.field = scope.field;
           var isarray = Boolean(scope.isarray);
           // var isGroup = Boolean(field._ui.isGroup);
-          var isMandatory = Boolean(scope.required);
+          scope.isMandatory = Boolean(scope.isrequired);
           scope.isPopup = scope.ispopup;
 
           var fieldTemplate;
@@ -273,7 +273,7 @@
                   extractDropdownList(results[0],scope.options,startName,remName)
                 };
               }
-              if(isMandatory && !field.key){
+              if(scope.isMandatory && !field.key){
                 if(isarray){
                   field = [scope.options[0]];
                 }else{
