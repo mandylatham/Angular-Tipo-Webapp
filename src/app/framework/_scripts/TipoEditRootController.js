@@ -136,6 +136,7 @@
     $templateCache,
     tipoDefinitionDataService,
     $mdSelect,
+    tipoCache,
     $sce) {
     
     var _instance = this;
@@ -292,6 +293,26 @@
             }
           }
         };
+    }
+
+    function getPerspective(filter){
+      var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
+      // TODO: Hack - Sushil as this is supposed to work only for applications
+      if (perspectiveMetadata.fieldName === 'application') {
+        filter.tipo_filter = perspectiveMetadata.tipoFilter;
+      }
+    }
+
+    _instance.refresh = function(){
+      var filter = {};
+      tipoRouter.startStateChange();
+      getPerspective(filter);
+      tipoCache.evict($stateParams.tipo_name, $stateParams.tipo_id);
+      tipoInstanceDataService.getOne($stateParams.tipo_name, $stateParams.tipo_id, filter, true).then(function (data) {
+        data.tipo_id = data.tipo_id || $stateParams.tipo_id;
+        _instance.tipo = data;
+        tipoRouter.endStateChange();
+      });
     }
 
     _instance.loadOptions = function (baseFilter,tipo_name,label_field,uniq_name,prefix,label,index,searchText){
@@ -520,6 +541,10 @@
       _instance.toView();
     };
 
+    function numDigits(x) {
+      return (Math.log10((x ^ (x >> 31)) - (x >> 31)) | 0) + 1;
+    }
+
     _instance.showDetail = function(htmltemplate,index,field_name){
       // var definition = extractDatafromDefinition(field_name);
       // if (!_.isUndefined(index)) {
@@ -540,17 +565,22 @@
           newScope.recursiveGroupRef = {};
           newScope.recursiveGroupRef.field_names = field_name + "/";
           newScope.recursiveGroupRef.arrayindex = index.toString();
+          newScope.recursiveGroupRef.digits = numDigits(index).toString();
         }else{
           newScope.recursiveGroupRef = {};
           newScope.recursiveGroupRef.field_names = $scope.recursiveGroupRef.field_names + field_name + "/";
           newScope.recursiveGroupRef.arrayindex = $scope.recursiveGroupRef.arrayindex + index.toString();
+          newScope.recursiveGroupRef.digits = $scope.recursiveGroupRef.digits + numDigits(index).toString();
         }
-        var nth = -1;
+        var nth = 0;
+        var loop = 0;
         _.each(newScope.recursiveGroupRef.field_names.split('/'),function(stringVal){
           if(!_.isEmpty(stringVal)){
-            nth++;
+            var digits = newScope.recursiveGroupRef.digits.substr(loop,1);
             var regex = new RegExp(stringVal + "\\[\\$index", "g");
-            htmltemplate = htmltemplate.replace(regex,stringVal + "[" + newScope.recursiveGroupRef.arrayindex.toString().substr(nth,1));
+            htmltemplate = htmltemplate.replace(regex,stringVal + "[" + newScope.recursiveGroupRef.arrayindex.toString().substr(nth,digits));
+            nth = nth + digits;
+            loop++;
           }
         });
       };

@@ -134,7 +134,7 @@
           realtedtipo: '=',
           isarray: '=',
           ispopup: '=',
-          isrequired: '=',
+          ismandatory: '=',
           labelfield: '=',
           allowcreate: '=',
           selectfield: '='
@@ -148,7 +148,7 @@
           scope.model.field = scope.field;
           var isarray = Boolean(scope.isarray);
           // var isGroup = Boolean(field._ui.isGroup);
-          scope.isMandatory = Boolean(scope.isrequired);
+          scope.isMandatory = Boolean(scope.ismandatory);
           scope.isPopup = scope.ispopup;
 
           var fieldTemplate;
@@ -178,7 +178,7 @@
             scope.selectedTipos = [field];
           }
 
-          if(scope.allowcreate){
+          if(!scope.allowcreate){
             scope.disablecreate = true;
           }else{
             scope.disablecreate = false;
@@ -240,7 +240,7 @@
             };
             searchCriteria.page = 1;
             // If for the dropdown we require custom page size then we can get from the page_size parameter
-            searchCriteria.per_page = 500;
+            searchCriteria.per_page = 1000;
             if (!_.isEmpty(field.query_params)) {
               _.each(field.query_params,function(query_param){
                 var baseParamExpanded = tipoManipulationService.expandFilterExpression(query_param.param_value, scope.root, scope.context,field.arrayIndex);
