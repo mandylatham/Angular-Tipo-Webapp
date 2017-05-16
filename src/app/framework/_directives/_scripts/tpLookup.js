@@ -145,7 +145,6 @@
         link: function(scope, element, attrs){
           var field = scope.field;
           scope.model = {};
-          scope.model.field = scope.field;
           var isarray = Boolean(scope.isarray);
           // var isGroup = Boolean(field._ui.isGroup);
           scope.isMandatory = Boolean(scope.ismandatory);
@@ -166,8 +165,18 @@
 
           scope.selectedTipos = [];
           if(isarray){
-            scope.selectedTipos = field.key;
+            if (!_.isUndefined(field.key)) {
+              scope.model.field = [];
+              _.each(field.key,function(val){
+                scope.model.field.push({key: val});
+              });
+              scope.selectedTipos = scope.model.field;
+            }else{
+              scope.selectedTipos = [];
+              field.key = [];
+            }            
           }else{
+            scope.model.field = scope.field;
             if (!_.isUndefined(field.key) && !_.isUndefined(field.fieldlabel)) {
               field.label = _.get(field.fieldlabel,'ref' + field.key) || angular.copy(field.key);
             }else{
@@ -398,13 +407,25 @@
           }
 
           scope.$watch(function(){return scope.model.field},function(){
-            if (!_.isUndefined(scope.fieldvalue)) {
+            if (!isarray) {
+              if (!_.isUndefined(scope.fieldvalue)) {
               scope.fieldvalue = scope.model.field.key;
               if (_.isUndefined(scope.fieldlabel)) {
                 scope.fieldlabel = {};
               }
               _.set(scope.fieldlabel,'ref' + scope.fieldvalue,scope.model.field.label);
             };
+          }else{
+            scope.fieldvalue = [];
+            if (!_.isUndefined(scope.fieldvalue)) {
+              _.each(scope.model.field,function(val){
+                scope.fieldvalue.push(val.key);
+                _.set(scope.fieldlabel,'ref' + val.key,val.label);
+              });
+            }
+
+          }
+            
           }, true)
 
         }

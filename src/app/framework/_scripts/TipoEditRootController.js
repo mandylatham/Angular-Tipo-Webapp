@@ -163,6 +163,7 @@
     _instance.save = function(form,action){
       tipoRouter.startStateChange();
       var data = {};
+      var parameters = {};
       tipoManipulationService.extractDataFromMergedDefinition(_instance.tipoDefinition, data);
       tipoManipulationService.modifyTipoData(_instance.tipo);
       if (action === 'edit') {
