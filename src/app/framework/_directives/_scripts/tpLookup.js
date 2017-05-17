@@ -128,6 +128,7 @@
           context: '=',
           parent: '=',
           field: '=',
+          index: '=',
           fieldvalue: '=',
           fieldlabel: '=',
           basefilter: '=',
@@ -149,7 +150,6 @@
           // var isGroup = Boolean(field._ui.isGroup);
           scope.isMandatory = Boolean(scope.ismandatory);
           scope.isPopup = scope.ispopup;
-
           var fieldTemplate;
           if(isarray){
             fieldTemplate = 'framework/_directives/_views/tp-lookup-multiple.tpl.html';
@@ -177,7 +177,7 @@
             }            
           }else{
             scope.model.field = scope.field;
-            if (!_.isUndefined(field.key) && !_.isUndefined(field.fieldlabel)) {
+            if (!_.isUndefined(field.key)) {
               field.label = _.get(field.fieldlabel,'ref' + field.key) || angular.copy(field.key);
             }else{
               field.key = "";
@@ -236,8 +236,19 @@
             /*if(tipo_name !== perspectiveMetadata.tipoName){
               filter = perspectiveMetadata.tipoFilter;
             }*/
+            var arrayIndex;
+            if (!_.isUndefined(scope.$parent.recursiveGroupRef) && !_.isUndefined(scope.index)) {
+              var arrayIndex = scope.$parent.recursiveGroupRef.arrayIndex + scope.index.toString();
+            }else{
+              if (!_.isUndefined(scope.index)) {
+                var arrayIndex = scope.index.toString();  
+              }
+              else if (!_.isUndefined(scope.$parent.recursiveGroupRef)) {
+                var arrayIndex = scope.$parent.recursiveGroupRef.arrayIndex;  
+              }
+            }
             if(!_.isUndefined(basefilter)){
-              var basefilterExpanded = tipoManipulationService.expandFilterExpression(basefilter, scope.root, scope.context);
+              var basefilterExpanded = tipoManipulationService.expandFilterExpression(basefilter, scope.root, scope.context,arrayIndex);
               filter = basefilterExpanded;
             }
             if(!_.isUndefined(filter)){
@@ -410,7 +421,7 @@
             if (!isarray) {
               if (!_.isUndefined(scope.fieldvalue)) {
               scope.fieldvalue = scope.model.field.key;
-              if (_.isUndefined(scope.fieldlabel)) {
+              if (_.isUndefined(scope.fieldlabel) || _.isEmpty(scope.fieldlabel)) {
                 scope.fieldlabel = {};
               }
               _.set(scope.fieldlabel,'ref' + scope.fieldvalue,scope.model.field.label);
@@ -426,7 +437,7 @@
 
           }
             
-          }, true)
+          }, true);
 
         }
       };

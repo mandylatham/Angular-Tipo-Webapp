@@ -663,16 +663,12 @@
     }
 
     _instance.cloneItem = function(field_name,index){
-      var group = extractDatafromDefinition(field_name);
-      var groupItem = group._items[index];
-      var clonedItem = angular.copy(groupItem);
+      // var group = extractDatafromDefinition(field_name);
+      var groupItem = _.get(_instance.tipo,field_name)
+      var clonedItem = angular.copy(groupItem[index]);
       delete clonedItem._ARRAY_META;
-      delete clonedItem._ui.hash;
-      group._items.push(clonedItem);
-      var cloneObj = angular.copy(_instance.tipo[field_name][index]);
-      delete cloneObj._ARRAY_META;
-      // cloneObj._ARRAY_META = {};
-      _instance.tipo[field_name].push(cloneObj);
+      groupItem.push(clonedItem);
+      _.set(_instance.tipo,field_name,groupItem);
     }
 
       var val = false;

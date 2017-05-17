@@ -1,6 +1,6 @@
 <div layout="row">
 	<div flex>
-		<md-select ng-model="fieldvalue" ng-if="isarray" multiple="true" placeholder="description" name="fieldname" ng-required="required">
+		<md-select ng-model="model.field" ng-if="isarray" multiple="true" placeholder="description" name="fieldname" ng-required="required">
 			<md-select-header class="search" ng-if="allowcreate">
 				<md-input-container md-no-float class="fullwidth">
 				    <input ng-model="searchTerm.text" type="search" placeholder="Add New" ng-keydown="$event.stopPropagation()" ng-keyup="$event.keyCode == 13 ? addValue() : null" tp:auto-focus>
@@ -8,7 +8,7 @@
 			</md-select-header>
 			<md-option ng-value="option" ng-repeat="option in allowedvalues">{{ option }}</md-option>
 		</md-select>
-		<md-select ng-model="fieldvalue" ng-if="!isarray" placeholder="description" name="fieldname" ng-required="required">
+		<md-select ng-model="model.field" ng-if="!isarray" placeholder="description" name="fieldname" ng-required="required">
 			<md-select-header class="search" ng-if="allowcreate">
 				<md-input-container md-no-float class="fullwidth">
 				    <input ng-model="searchTerm.text" type="search" placeholder="Add New" ng-keydown="$event.stopPropagation()" ng-keyup="$event.keyCode == 13 ? addValue() : null" tp:auto-focus>
