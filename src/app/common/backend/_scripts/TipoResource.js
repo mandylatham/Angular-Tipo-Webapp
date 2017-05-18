@@ -131,8 +131,8 @@
     } else {
       // relativeUrl = '/api/d/tipotapp/demo2';
       // relativeUrl = '/api/d/tipotapp/constructionmanagement';
-      // relativeUrl = '/api/d/deltagene/billionbases';
-      relativeUrl = '/api';
+      relativeUrl = '/api/d/deltagene/billionbases';
+      // relativeUrl = '/api';
     }
     var baseUrl = location.origin + relativeUrl;
     console.info('API Url - ' + baseUrl);
