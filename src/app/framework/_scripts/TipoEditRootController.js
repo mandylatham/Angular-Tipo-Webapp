@@ -726,6 +726,24 @@
       }
     }
 
+    _instance.toSubTipoList = function(relatedTipo,tipo_filter){
+      tipoRouter.to('subTipoListState', undefined, {related_tipo: relatedTipo,tipo_filter: tipo_filter}, true);
+    };
+
+    function setCurrentActiveTab(name){
+      if(_.isUndefined(name)){
+        var currentStateName = tipoRouter.getCurrent().name;
+        if(_.startsWith(currentStateName, 'subTipo')){
+          name = $state.params.sub_tipo_field_name;
+        }else{
+          name = 'main';
+        }
+      }
+      _instance.activeTab = name;
+    }
+
+    setCurrentActiveTab();
+
     $scope.maximize = function(){
       $scope.fullscreen = true;
     };

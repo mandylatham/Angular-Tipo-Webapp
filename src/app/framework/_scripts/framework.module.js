@@ -191,14 +191,10 @@
 
     var subTipoListState = {
       name: 'subTipoListState',
-      url: '/{sub_tipo_field_name}',
+      url: '/{related_tipo}?tipo_filter',
       parent: viewState,
       resolve: /*@ngInject*/ {
         subTipos: function (tipoDefinition, tipoInstanceDataService, tipoManipulationService, $stateParams) {
-          var subTipoFieldName = $stateParams.sub_tipo_field_name;
-          var subTipoField = _.find(tipoDefinition.tipo_fields, {
-            field_name: subTipoFieldName
-          });
 
           var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
 
@@ -207,21 +203,18 @@
           if (perspectiveMetadata.tipoFilter) {
             filter.tipo_filter = perspectiveMetadata.tipoFilter;
           }
-          if (subTipoField.relationship_filter) {
+          if (!_.isUndefined($stateParams.tipo_filter) && !_.isEmpty($stateParams.tipo_filter)){
+            var sub_filter = atob($stateParams.tipo_filter);
             if (filter.tipo_filter) {
-              filter.tipo_filter += " and " + tipoManipulationService.expandFilterExpression(subTipoField.relationship_filter, tipoDefinition);
+              filter.tipo_filter += " AND " + tipoManipulationService.expandFilterExpression(sub_filter, tipoDefinition);
             } else {
-              filter.tipo_filter = tipoManipulationService.expandFilterExpression(subTipoField.relationship_filter, tipoDefinition);
+              filter.tipo_filter = tipoManipulationService.expandFilterExpression(sub_filter, tipoDefinition);
             }
           }
-          return tipoInstanceDataService.search(subTipoField._ui.relatedTipo, filter);
+          return tipoInstanceDataService.search($stateParams.related_tipo, filter);
         },
         subTipoDefinition: function (tipoDefinition, tipoDefinitionDataService, tipoManipulationService, $stateParams) {
-          var subTipoFieldName = $stateParams.sub_tipo_field_name;
-          var subTipoField = _.find(tipoDefinition.tipo_fields, {
-            field_name: subTipoFieldName
-          });
-          return tipoDefinitionDataService.getOne(subTipoField._ui.relatedTipo);
+          return tipoDefinitionDataService.getOne($stateParams.related_tipo);
         },
         delay: function ($q, $timeout) {
           return falseDelay($q, $timeout);
