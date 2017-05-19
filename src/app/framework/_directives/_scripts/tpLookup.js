@@ -430,8 +430,15 @@
                 scope.model.field = scope.optionSelected[0];
                 scope.selectedTipos = [scope.model.field];
               }
+              scope.cleanup();
             });
           }
+          scope.$watch(function(){return scope.fieldvalue},function(){
+            if (scope.model.field.key !== scope.fieldvalue) {
+              scope.model.field.key = scope.fieldvalue;
+              scope.model.field.label = _.get(scope.fieldlabel,'ref' + scope.fieldvalue) || angular.copy(scope.fieldvalue);;
+            };
+          })
         }
       };
     }
