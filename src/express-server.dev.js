@@ -17,15 +17,15 @@ var pathMappings = [
   {
     path: '/g/public',
     // url: 'https://dev.tipotapp.com/app/d/tipotapp/constructionmanagement'
-    // url: 'https://dev.tipotapp.com/app'
-    url: 'https://dev.tipotapp.com/app/d/deltagene/billionbases'
+    url: 'https://dev.tipotapp.com/app'
+    // url: 'https://dev.tipotapp.com/app/d/deltagene/billionbases'
     // url: 'https://app.billionbases.com/app/d/deltagene/billionbases'
   },
   {
     path: '/public',
     // url: 'https://dev.tipotapp.com/app/d/tipotapp/constructionmanagement'
-    // url: 'https://dev.tipotapp.com/app'
-    url: 'https://dev.tipotapp.com/app/d/deltagene/billionbases'
+    url: 'https://dev.tipotapp.com/app'
+    // url: 'https://dev.tipotapp.com/app/d/deltagene/billionbases'
     // url: 'https://app.billionbases.com/app/d/deltagene/billionbases'
   },
   // {
