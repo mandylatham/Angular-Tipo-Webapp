@@ -476,14 +476,14 @@
 
       var menuItems = _.map(definition.tipo_menu, function(each){
         var menuItem = {};
-        var type = each.type_;
+        var type = each.type_ || each.navigate_to;
         if (!_.startsWith(type, 'http') && !_.startsWith(type, 'Client') && !_.startsWith(type, 'Tipo.')) {
           type = 'Tipo.' + type;
         }
         var parts = type.split('.');
         var isTipo = parts[0] === 'Tipo';
         // var isSingleton = parts.length > 2 && parts[2] === 'default';
-        if (!S(each.type_).contains('http')) {
+        if (!S(type).contains('http')) {
           menuItem.type = parts[0];
           menuItem.id = parts[1];
         }else{

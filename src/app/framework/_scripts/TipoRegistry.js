@@ -29,7 +29,7 @@
     };
 
     this.getData = function(tipo_name,id){
-      if(_.isUndefined(tipo_name) || _.isUndefined(id)){
+      if(_.isUndefined(tipo_name) || _.isUndefined(id) || _.isEmpty(id) || _.isEmpty(tipo_name)){
         return undefined;
       }else{
         var data = _.cloneDeep(registry[tipo_name + id]);
