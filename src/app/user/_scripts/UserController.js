@@ -117,9 +117,11 @@
       });
     };
 
-    _instance.login = function(){
+    _instance.login = function(username, password){
       markProgress();
-      cognitoService.authenticate(user.fullName(), user.password).then(function(result){
+      username = username || user.fullName();
+      password = password || user.password;
+      cognitoService.authenticate(username, password).then(function(result){
         if ($stateParams.retry) {
           $stateParams.retry.resolve();
         }
@@ -130,7 +132,13 @@
           tipoCache.clearMemoryCache();
           _instance.gotoPreviousView();
         }
-      }, raiseError);
+      }, function(err) {
+        if (appMetadata.application !== '1000000001' && err.message && err.message.indexOf('User does not exist') !== -1) {
+          username = '2000000001.1000000001.' + _instance.user.email;
+          return _instance.login(username);
+        }
+        raiseError(err);
+      });
     };
 
     _instance.onForgotPassword = function(){
