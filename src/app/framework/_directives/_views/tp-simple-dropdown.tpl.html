@@ -14,6 +14,7 @@
 				    <input ng-model="searchTerm.text" type="search" placeholder="Add New" ng-keydown="$event.stopPropagation()" ng-keyup="$event.keyCode == 13 ? addValue() : null" tp:auto-focus>
 				</md-input-container>
 			</md-select-header>
+			<md-option value="" ng-if="!required">-- Clear --</md-option>
 			<md-option ng-value="option" ng-repeat="option in allowedvalues">{{ option }}</md-option>
 		</md-select>
 	</div>

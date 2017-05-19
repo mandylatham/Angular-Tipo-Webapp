@@ -612,20 +612,22 @@
         // updateDatafromDefinition(definition,index,field_name);
       });
     }
-    _instance.lookupTipo = function(field_name){
-      var definition = extractDatafromDefinition(field_name);
+    _instance.lookupTipo = function(relatedTipo,labelfield,prefix){
       var newScope = $scope.$new();
       newScope.root = _instance.tipoDefinition;
-      newScope.context = definition;
-      newScope.definition = $scope.group;
-      newScope.target = definition;
-      $mdDialog.show({
+      newScope.relatedTipo = relatedTipo;
+      newScope.labelfield = labelfield;
+      newScope.tipo = _instance.tipo[prefix];
+      var promise = $mdDialog.show({
         templateUrl: 'framework/_directives/_views/tp-lookup-dialog.tpl.html',
         controller: 'TipoLookupDialogController',
         scope: newScope,
         skipHide: true,
         clickOutsideToClose: true,
         fullscreen: true
+      });
+      promise.then(function(tipo){
+        _instance.tipo[prefix] = tipo;
       });
     }
 

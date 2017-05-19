@@ -29,6 +29,25 @@
       _instance.fullscreen = false;
     };
 
+    _instance.lookupTipo = function(relatedTipo,labelfield,prefix){
+      var newScope = $scope.$new();
+      newScope.root = _instance.tipoDefinition;
+      newScope.relatedTipo = relatedTipo;
+      newScope.labelfield = labelfield;
+      newScope.tipo = _instance.tipo[prefix];
+      var promise = $mdDialog.show({
+        templateUrl: 'framework/_directives/_views/tp-lookup-dialog.tpl.html',
+        controller: 'TipoLookupDialogController',
+        scope: newScope,
+        skipHide: true,
+        clickOutsideToClose: true,
+        fullscreen: true
+      });
+      promise.then(function(tipo){
+        _instance.tipo[prefix] = tipo;
+      });
+    }
+
     _instance.finish = function() {
       var tipoData = _instance.tipo;
       if(_instance.hooks.preFinish){

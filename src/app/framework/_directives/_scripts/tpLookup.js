@@ -144,7 +144,6 @@
         replace: true,
         template: '<ng-include src="fieldTemplate" tp-include-replace/>',
         link: function(scope, element, attrs){
-          var field = scope.field;
           scope.model = {};
           var isarray = Boolean(scope.isarray);
           // var isGroup = Boolean(field._ui.isGroup);
@@ -165,26 +164,25 @@
 
           scope.selectedTipos = [];
           if(isarray){
-            if (!_.isUndefined(field.key)) {
-              scope.model.field = [];
-              _.each(field.key,function(val){
+            scope.model.field = [];
+            if (!_.isUndefined(scope.fieldvalue)) {
+              _.each(scope.fieldvalue,function(val){
                 scope.model.field.push({key: val});
               });
               scope.selectedTipos = scope.model.field;
             }else{
               scope.selectedTipos = [];
-              field.key = [];
             }            
           }else{
-            scope.model.field = scope.field;
-            if (!_.isUndefined(field.key)) {
-              field.label = _.get(field.fieldlabel,'ref' + field.key) || angular.copy(field.key);
+            scope.model.field = {key: scope.fieldvalue};
+            if (!_.isUndefined(scope.fieldvalue)) {
+              scope.model.field.label = _.get(scope.fieldlabel,'ref' + scope.fieldvalue) || angular.copy(scope.fieldvalue);
             }else{
-              field.key = "";
-              field.label = "";
-              field.fieldlabel = {};
+              scope.model.field.key = "";
+              scope.model.field.label = "";
+              scope.fieldlabel = {};
             }
-            scope.selectedTipos = [field];
+            scope.selectedTipos = [scope.model.field];
           }
 
           if(!scope.allowcreate){
@@ -261,12 +259,12 @@
             searchCriteria.page = 1;
             // If for the dropdown we require custom page size then we can get from the page_size parameter
             searchCriteria.per_page = 1000;
-            if (!_.isEmpty(field.query_params)) {
-              _.each(field.query_params,function(query_param){
-                var baseParamExpanded = tipoManipulationService.expandFilterExpression(query_param.param_value, scope.root, scope.context,field.arrayIndex);
-                searchCriteria[query_param.param_name] = baseParamExpanded;
-              })
-            };
+            // if (!_.isEmpty(field.query_params)) {
+            //   _.each(field.query_params,function(query_param){
+            //     var baseParamExpanded = tipoManipulationService.expandFilterExpression(query_param.param_value, scope.root, scope.context,field.arrayIndex);
+            //     searchCriteria[query_param.param_name] = baseParamExpanded;
+            //   })
+            // };
             if(!_.isUndefined(searchCriteria.tipo_filter) && !_.isEmpty(searchCriteria.tipo_filter)  && !_.isUndefined(searchText)){
               searchCriteria.tipo_filter += " AND (tipo_id:(" + searchText + "*) OR " + label_field + ":(" + searchText + "*))" ;
             }else{
@@ -311,6 +309,24 @@
           scope.searchTerm = {};
           scope.cleanup = function(){
             delete scope.searchTerm.text;
+              if (!isarray) {
+                if (!_.isUndefined(scope.fieldvalue)) {
+                scope.fieldvalue = scope.model.field.key;
+                if (_.isUndefined(scope.fieldlabel) || _.isEmpty(scope.fieldlabel)) {
+                  scope.fieldlabel = {};
+                }
+                _.set(scope.fieldlabel,'ref' + scope.fieldvalue,scope.model.field.label);
+              };
+            }else{
+              scope.fieldvalue = [];
+              if (!_.isUndefined(scope.fieldvalue)) {
+                _.each(scope.model.field,function(val){
+                  scope.fieldvalue.push(val.key);
+                  _.set(scope.fieldlabel,'ref' + val.key,val.label);
+                });
+              }
+
+            }
           };
 
           scope.stopBubbling = function(event){
@@ -416,29 +432,6 @@
               }
             });
           }
-
-          scope.$watch(function(){return scope.model.field},function(){
-            if (!isarray) {
-              if (!_.isUndefined(scope.fieldvalue)) {
-              scope.fieldvalue = scope.model.field.key;
-              if (_.isUndefined(scope.fieldlabel) || _.isEmpty(scope.fieldlabel)) {
-                scope.fieldlabel = {};
-              }
-              _.set(scope.fieldlabel,'ref' + scope.fieldvalue,scope.model.field.label);
-            };
-          }else{
-            scope.fieldvalue = [];
-            if (!_.isUndefined(scope.fieldvalue)) {
-              _.each(scope.model.field,function(val){
-                scope.fieldvalue.push(val.key);
-                _.set(scope.fieldlabel,'ref' + val.key,val.label);
-              });
-            }
-
-          }
-            
-          }, true);
-
         }
       };
     }
