@@ -107,10 +107,7 @@
           });
         }, raiseError);
       }, function (err) {
-        if (attemptCnt < 3 && err.message && err.message.indexOf('Account already exists') !== -1) {
-          _instance.signUp(attemptCnt + 1);
-          return;
-        } else if (err.message && err.message.indexOf('PreSignUp failed with error') === 0) {
+        if (err.message && err.message.indexOf('PreSignUp failed with error') === 0) {
           return raiseError({ message: err.message.substring('PreSignUp failed with error'.length) });
         }
         raiseError(err);
