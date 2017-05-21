@@ -108,6 +108,20 @@
         <groupId>org.codehaus.mojo</groupId>
         <executions>
 
+          <!--<execution>
+            <id>upload-compressed-dist-to-s3</id>
+            <phase>deploy</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>sh</executable>
+              <arguments>
+                <argument>${basedir}/s3upload.bash</argument>
+              </arguments>
+            </configuration>
+          </execution>-->
+
           <execution>
             <id>upload-dist-to-s3</id>
             <phase>deploy</phase>
