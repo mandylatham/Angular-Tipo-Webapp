@@ -22,14 +22,12 @@
       </div>
       <div layout="row">
         <div flex="15"><strong>Message:</strong></div>
-        <div flex class="longtext">{{controller.exception.detailMessage}}</div>
+        <div flex class="longtext"><span style="white-space: pre-wrap;">{{controller.exception.detailMessage}}</span></div>
       </div>
       <div layout="row" ng-if="controller.exception.detailStackTrace">
         <div flex="15"><strong>Stack trace:</strong></div>
         <div flex>
-          <code>
-            <pre>{{controller.exception.detailStackTrace}}</pre>
-          </code>
+          <code><pre><span style="white-space: pre-wrap;">{{controller.exception.detailStackTrace}}</span></pre></code>
         </div>
       </div>
     </div>
