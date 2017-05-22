@@ -121,8 +121,12 @@
       label: "Divider",
       icon: "remove",
     },{
+      key: "empty",
+      label: "Empty",
+      icon: "remove_circle_outline",
+    },{
       key: "s3explorer",
-      label: "DO NOT USE - S3 Browser",
+      label: "S3 Browser",
       icon: "open_in_browser",
     }];
 
