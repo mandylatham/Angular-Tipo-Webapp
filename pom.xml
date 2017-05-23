@@ -109,6 +109,23 @@
         <executions>
 
           <execution>
+            <id>remove-s3-files</id>
+            <phase>deploy</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>aws</executable>
+              <arguments>
+                <argument>s3</argument>
+                <argument>rm</argument>
+                <argument>s3://${S3_BUCKET}</argument>
+                <argument>--recursive</argument>
+              </arguments>
+            </configuration>
+          </execution>
+
+          <execution>
             <id>upload-compressed-dist-to-s3</id>
             <phase>deploy</phase>
             <goals>
@@ -121,23 +138,6 @@
               </arguments>
             </configuration>
           </execution>
-
-          <!--<execution>
-            <id>upload-dist-to-s3</id>
-            <phase>deploy</phase>
-            <goals>
-              <goal>exec</goal>
-            </goals>
-            <configuration>
-              <executable>aws</executable>
-              <arguments>
-                <argument>s3</argument>
-                <argument>sync</argument>
-                <argument>${basedir}/target-grunt/dist</argument>
-                <argument>s3://${S3_BUCKET}/</argument>
-              </arguments>
-            </configuration>
-          </execution>-->
 
           <execution>
             <id>upload-tipoapp-public-s3</id>

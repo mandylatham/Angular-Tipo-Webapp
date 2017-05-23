@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-# 1. Compress and upload project's' content 
+# 1. Compress and upload `tipo-ui/target-grunt/dist` 
 # 2. Add Content-Encoding gzip metadata key-value
+# 3. Add Cache-Control: max-age=86400
 
-# find ./target-grunt/dist -name "*" | cut -c 21- | xargs -I {} sh -c "gzip -c ./target-grunt/dist/{} | aws s3 cp - s3://${S3_BUCKET}/{} --content-encoding gzip"
 function processFile() {
     fname=${1}
     content_type="$(mime ${SOURCE_PATH}/${fname})"
