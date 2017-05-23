@@ -1,0 +1,114 @@
+
+ 
+ 
+<div class="tp-list">
+  <div class="fluid-row-container" infinite-scroll='tipoRootController.nextPage(tipoRootController.searchText)' infinite-scroll-container="'#inf-wrapper'" infinite-scroll-disabled='tipoRootController.busy'>
+    <div layout="row" tp:perm ng-click="!tipo.disableclick && tipoRootController.toDetail(tipo.tipo_id)" ng-repeat="tipo in tipoRootController.tipos | filter:tipoRootController.searchText" class="fluid-row" md-whiteframe="2">
+      <md-checkbox ng-if="tipoRootController.bulkedit" ng-model="tipo.selected" ng-click="$event.stopPropagation();" id="listcheckbox"></md-checkbox>
+      <div flex layout="row" layout-padding layout-wrap layout-align="start start" class="data pointer layout-row" ng-class="{'selected': tipo.selected}" ng-click="!tipo.disableclick && tipoRootController.selectTipo(tipo,$event,tipoRootController.tipos)">
+ 
+  			     		  	    	    	  	
+	    <dl class="view" 
+			    layout="column" 
+		    layout-align="center stretch"
+		    flex="100" 
+			flex-gt-sm="50" 
+			flex-gt-md="33">
+    <dt>
+	    	    					<span>Folder(?)</span>
+									</dt>
+    <dd>
+		<div class="tp-field">
+			<span>
+				<md-input-container md-no-float>
+										
+			<span>
+		
+				
+					{{tipo.is_folder || '-N/A-'}}
+				
+	</span>
+	
+	
+									</md-input-container>
+			</span>
+		</div>       
+    </dd>
+ </dl>
+       			     		  	    	    	  	
+	    <dl class="view" 
+			    layout="column" 
+		    layout-align="center stretch"
+		    flex="100" 
+			flex-gt-sm="50" 
+			flex-gt-md="33">
+    <dt>
+	    	    					<span>Last Modified</span>
+									</dt>
+    <dd>
+		<div class="tp-field">
+			<span>
+				<md-input-container md-no-float>
+										
+			<span>
+		
+				
+						<span>{{(tipo.last_modified | date:'MM/dd/yyyy') || '-N/A-'}}</span>
+				
+	</span>
+	
+	
+									</md-input-container>
+			</span>
+		</div>       
+    </dd>
+ </dl>
+       			     		  	    	    	  	
+	    <dl class="view" 
+			    layout="column" 
+		    layout-align="center stretch"
+		    flex="100" 
+			flex-gt-sm="50" 
+			flex-gt-md="33">
+    <dt>
+	    	    					<span>Filename</span>
+									</dt>
+    <dd>
+		<div class="tp-field">
+			<span>
+				<md-input-container md-no-float>
+										
+			<span>
+		
+				
+					{{tipo.filename || '-N/A-'}}
+				
+	</span>
+	
+	
+									</md-input-container>
+			</span>
+		</div>       
+    </dd>
+ </dl>
+             
+      </div>
+      <div flex="none" layout="column" layout-align="center center" class="actions bg" ng-if="!tipoRootController.popup">
+        <md-button ng-if="!tipo.disableclick" ng-click="tipoRootController.toDetail(tipo.tipo_id)" aria-label="View details">
+          <md-tooltip md-direction="left">Details</md-tooltip>
+          <md-icon>fullscreen</md-icon>
+        </md-button>
+        <md-button ng-click="tipoRootController.clone(tipo.tipo_id);$event.stopPropagation();"  ng-if="!tipoRootController.tipoDefinition._ui.isSingleton" aria-label="Copy" class="md-icon-button">
+          <md-tooltip md-direction="left">Copy</md-tooltip>
+          <md-icon>content_copy</md-icon>
+        </md-button>
+        <md-button ng-click="tipoRootController.delete(tipo.tipo_id);$event.stopPropagation();"  ng-if="!tipoRootController.tipoDefinition._ui.isSingleton" aria-label="Copy" class="md-icon-button">
+          <md-tooltip md-direction="left">Delete</md-tooltip>
+          <md-icon>delete</md-icon>
+        </md-button>
+      </div>
+    </div>
+  </div>
+</div>
+
+ 

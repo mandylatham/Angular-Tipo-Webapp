@@ -28,9 +28,9 @@
             scope.searchTerm.text = "";
           }
 
-          // scope.$watch(function(){return scope.model.field},function(){
-          //   scope.fieldvalue = scope.model.field;
-          // }, true)
+          scope.$watch(function(){return scope.model.field},function(){
+            scope.fieldvalue = scope.model.field;
+          }, true)
 
         }
       };
