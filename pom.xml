@@ -108,7 +108,7 @@
         <groupId>org.codehaus.mojo</groupId>
         <executions>
 
-          <!--<execution>
+          <execution>
             <id>upload-compressed-dist-to-s3</id>
             <phase>deploy</phase>
             <goals>
@@ -120,9 +120,9 @@
                 <argument>${basedir}/s3upload.bash</argument>
               </arguments>
             </configuration>
-          </execution>-->
+          </execution>
 
-          <execution>
+          <!--<execution>
             <id>upload-dist-to-s3</id>
             <phase>deploy</phase>
             <goals>
@@ -137,7 +137,7 @@
                 <argument>s3://${S3_BUCKET}/</argument>
               </arguments>
             </configuration>
-          </execution>
+          </execution>-->
 
           <execution>
             <id>upload-tipoapp-public-s3</id>

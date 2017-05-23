@@ -6,7 +6,7 @@
 # find ./target-grunt/dist -name "*" | cut -c 21- | xargs -I {} sh -c "gzip -c ./target-grunt/dist/{} | aws s3 cp - s3://${S3_BUCKET}/{} --content-encoding gzip"
 function processFile() {
     fname=${1}
-    content_type="$(file -b --mime-type ${SOURCE_PATH}/${fname})"
+    content_type="$(mime ${SOURCE_PATH}/${fname})"
 
     gzip -c ${SOURCE_PATH}/${1} | aws s3 cp - s3://${S3_BUCKET}/${1} --content-encoding gzip --content-type ${content_type} --cache-control "max-age=86400"
     echo "Uploaded ${fname}. Content-Type: ${content_type}"
