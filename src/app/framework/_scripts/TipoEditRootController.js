@@ -527,7 +527,9 @@
     }
 
     _instance.Date = function(date){
-      return new Date(date);
+      if (date) {
+        return new Date(date);
+      };
     }
 
     _instance.toList = function(){
