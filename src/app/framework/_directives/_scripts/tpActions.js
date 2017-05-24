@@ -99,6 +99,7 @@
           tipos: '=',
           mode: '@?',
           bulkedit: '=',
+          singleedit: '=',
           restrictedActions: '='
         },
         restrict: 'EA',
@@ -150,6 +151,7 @@
                   label: each.display_name,
                   highlight: each.highlight,
                   bulk_select: each.bulk_select,
+                  single_select: each.single_select,
                   restriced: restriced,
                   icon: each.icon,
                   additionalTipo: _.get(each, 'client_dependency.tipo_name')
@@ -167,8 +169,13 @@
             menuOpenFunction(event);
           };
 
-          scope.updateBulkEdit = function(){
-            scope.bulkedit = !scope.bulkedit;
+          scope.updateBulkEdit = function(action){
+            if (action.bulk_select) {
+              scope.bulkedit = !scope.bulkedit;
+            };
+            if (action.single_select) {
+              scope.singleedit = !scope.singleedit;
+            };
           }
 
           scope.triggeractions = function(){
@@ -182,18 +189,25 @@
           scope.performAction = function(action){
             scope.deskaction.isOpen = false;
             scope.mobaction.isOpen = false;
-            if(mode === 'view' || !action.bulk_select){
-              if (mode === 'view') {
+            if(mode === 'view'){
                 performSingleAction(action);
+            }else{
+              if (action.bulk_select) {
+                if (scope.bulkedit) {
+                  performBulkAction(action);
+                }else{
+                  scope.selectedAction = action;
+                  scope.bulkedit = !scope.bulkedit;
+                }
+              }else if(action.single_select){
+                if (scope.singleedit) {
+                  performBulkAction(action);
+                }else{
+                  scope.selectedAction = action;
+                  scope.singleedit = !scope.singleedit;
+                }
               }else{
                 performBulkAction(action);
-              }
-            }else{
-              if (scope.bulkedit) {
-                performBulkAction(action);  
-              }else{
-                scope.selectedAction = action;
-                scope.bulkedit = !scope.bulkedit;
               }
               
             }
@@ -266,7 +280,7 @@
           function performBulkAction(action){
             var selected_tipo_ids = _.filter(scope.tipos, 'selected');
             selected_tipo_ids = _.map(selected_tipo_ids, function(each){
-              return each.key;
+              return each.tipo_id;
             });
             // if(!_.isEmpty(selected_tipo_ids)){
               if(action.additionalTipo){

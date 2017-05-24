@@ -35,6 +35,7 @@
 
     _instance.tiposWithDefinition = tipoManipulationService.mergeDefinitionAndDataArray(tipoDefinition,tipos);
     _instance.bulkedit = false;
+    _instance.singleedit = false;
     if (_.isUndefined(_instance.tipoDefinition.tipo_meta.allow_search)) {
       _instance.tipoDefinition.tipo_meta.allow_search = true;
     };
@@ -120,8 +121,15 @@
     };
 
     _instance.selectTipo = function(tipo,event){
+      if (_instance.singleedit) {
+        _.each(_instance.tipos,function(tp){
+          if(tp !== tipo){
+            tp.selected = false;
+          }
+        });
+      };
       tipo.selected = !tipo.selected;
-      if (_instance.bulkedit) {
+      if (_instance.bulkedit || _instance.singleedit) {
         event.stopPropagation();
       }
     }
