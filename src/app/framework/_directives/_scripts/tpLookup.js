@@ -194,8 +194,8 @@
           function optionsFormat(results){
             scope.optionSelected = _.map(results, function(each){
               return {
-                key: each.tipo_id,
-                label: each[label_field]
+                key: each.tipo_id || each.key,
+                label: each[label_field] || each.label
               };
             });
           }
