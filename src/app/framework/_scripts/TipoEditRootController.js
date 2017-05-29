@@ -541,7 +541,11 @@
     };
 
     _instance.cancel = function(){
-      _instance.toView();
+      if (tipo_id) {
+        _instance.toView();
+      }else{
+        _instance.toList();
+      }
     };
 
     function numDigits(x) {

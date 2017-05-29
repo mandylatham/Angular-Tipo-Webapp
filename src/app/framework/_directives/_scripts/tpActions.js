@@ -100,7 +100,8 @@
           mode: '@?',
           bulkedit: '=',
           singleedit: '=',
-          restrictedActions: '='
+          restrictedActions: '=',
+          refresh: '&'
         },
         restrict: 'EA',
         replace: true,
@@ -266,14 +267,25 @@
               promise.then(function(response){
                   response.message = response.user_message;
                   tipoRouter.toTipoResponse(response);
-                  tipoRouter.endStateChange();});
+                  tipoInstanceDataService.getOne(tipo_name, tipo_id, "" , true).then(function(tipoData){
+                    scope.tipos = tipoData;
+                    tipoRouter.toTipoView(tipo_name, tipo_id);
+                    tipoRouter.toTipoResponse(response);
+                    tipoRouter.endStateChange();
+                    });
+                  });
             }else{
               tipoRouter.startStateChange();
               tipoInstanceDataService.performSingleAction(tipo_name, tipo_id, action.name)
                 .then(function(response){
                   response.message = response.user_message;
-                  tipoRouter.toTipoResponse(response);
-                  tipoRouter.endStateChange();});
+                  tipoInstanceDataService.getOne(tipo_name, tipo_id, "" , true).then(function(tipoData){
+                    scope.tipos = tipoData;
+                    tipoRouter.toTipoView(tipo_name, tipo_id);
+                    tipoRouter.toTipoResponse(response);
+                    tipoRouter.endStateChange();                  
+                  });
+                });
             }
           }
 

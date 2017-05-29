@@ -7,359 +7,289 @@
   
  
 
-  	  		     		  	    	    	  	
+
+  	  		     		  	    	    		
+			
+			
+  	
 	    <dl class="edit" 
-			    layout="column" 
+				    layout="column" 
 		    layout-align="center stretch"
-		    flex="100" 
+			    flex="100" 
 			flex-gt-sm="50" 
-			flex-gt-md="33">
+			flex-gt-md="33" style="display:none;">
     <dt>
-	    	    					<span>TipoApp</span>
+	    	    					<span>VelocityTest1 ID</span>
 									</dt>
-    <dd>
-		<div class="tp-field">
+	    <dd>
+    		<div class="tp-field">
 			<span>
 				<md-input-container md-no-float>
-											    							    	    	<tp:lookup field="{key: tipoRootController.tipo.tipoapp, fieldlabel: tipoRootController.tipo.tipoapp_refs}" fieldvalue="tipoRootController.tipo.tipoapp" fieldlabel= "tipoRootController.tipo.tipoapp_refs" basefilter="''" realtedtipo="'TipoApp'" isarray="false" ispopup="" istipomandatory="false" labelfield="'app_name'" allowcreate="" selectfield="" root="tipoRootController.tipo" ng-init="tipoRootController.tipo.tipoapp = tipoRootController.tipo.tipoapp || '';tipoRootController.tipo.tipoapp_refs = tipoRootController.tipo.tipoapp_refs || '' ">
-    																</md-input-container>
+																							<input ng-model="tipoRootController.tipo.tipo_id" ng-disabled="false" aria-label="VelocityTest1 ID" placeholder="" name="VelocityTest1 ID_string" ng-required="false" ng-pattern=""  >
+																			</md-input-container>
 			</span>
 		</div>       
     </dd>
  </dl>
      
-  	  		     		  	    	    	  	    
+  	  		     		  	    	    		
+			
+		
+  	
 	    <dl class="edit" 
-			    layout="column" 
-		    layout-align="center stretch"
-		    flex="100" 
+					layout="row" 
+		    layout-align="start end"
+			    flex="100" 
 			flex-gt-sm="50" 
-			flex-gt-md="33">
+			flex-gt-md="33" style="">
     <dt>
-	    	    					<span>Simple String</span>
+	    	    					<span>Field 1 Some String</span>
 									</dt>
-    <dd>
-		<div class="tp-field">
+	    <dd class="dd-side">
+    		<div class="tp-field">
 			<span>
 				<md-input-container md-no-float>
-																			<input ng-model="tipoRootController.tipo.simple_string" aria-label="Simple String" placeholder="" name="Simple String_string" ng-required="false" ng-pattern="/^.+@.+\..+$/" ng-init = "tipoRootController.tipo.simple_string = 'Nooo'" >
-												  	<div ng-messages="tipoForm['Simple String_string'].$error">
-				  					    				      <div ng-message="pattern" >This field must be Email</div>
-				    					</div>
-														</md-input-container>
+																							<input ng-model="tipoRootController.tipo.some_string" ng-disabled="false" aria-label="Field 1 Some String" placeholder="" name="Field 1 Some String_string" ng-required="false" ng-pattern=""  >
+																			</md-input-container>
 			</span>
 		</div>       
     </dd>
  </dl>
      
-  	  		     		  	    	    	  	    
+  	  		     		  	    	    		
+			
+		
+  	
 	    <dl class="edit" 
-			    layout="column" 
+				    layout="column" 
 		    layout-align="center stretch"
-		    flex="100" 
+			    flex="100" 
 			flex-gt-sm="50" 
-			flex-gt-md="33">
-    <dt>
-	    	    					<span>Role String</span>
-									</dt>
-    <dd>
-		<div class="tp-field">
-			<span>
-				<md-input-container md-no-float>
-																			<input ng-model="tipoRootController.tipo.role_string" aria-label="Role String" placeholder="" name="Role String_string" ng-required="false" ng-pattern="/*/"  >
-												  	<div ng-messages="tipoForm['Role String_string'].$error">
-				  					    				      <div ng-message="pattern" >This field must be String</div>
-				    					</div>
-														</md-input-container>
-			</span>
-		</div>       
-    </dd>
- </dl>
-     
-  	  		     		  	    	    	  	
-	    <dl class="edit" 
-			    layout="column" 
-		    layout-align="center stretch"
-		    flex="100" 
-			flex-gt-sm="50" 
-			flex-gt-md="33">
-    <dt>
-	    	    					<span>Paragraph</span>
-									</dt>
-    <dd>
-		<div class="tp-field">
-			<span>
-				<md-input-container md-no-float>
-													        				        			    																			    	<span>
-		    		<tp:simple-dropdown isarray="true" fieldvalue="tipoRootController.tipo.paragraph" required="false" allowedvalues="['tes2','test','test1']" allowcreate="" placeholder="" name="Paragraph_string" ng-init = "tipoRootController.tipo.paragraph = ['$field.default_value']" />
-		    	</span>
-        	            														</md-input-container>
-			</span>
-		</div>       
-    </dd>
- </dl>
-     
-  	  		     		  	    	    	  	
-	    <dl class="edit" 
-			    layout="column" 
-		    layout-align="center stretch"
-		    flex="100" 
-			flex-gt-sm="50" 
-			flex-gt-md="33">
+			flex-gt-md="33" style="">
     <dt>
 	    	</dt>
-    <dd>
-		<div class="tp-field">
+	    <dd>
+    		<div class="tp-field">
 			<span>
 				<md-input-container md-no-float>
-																				<text-angular ng-model="tipoRootController.tipo.rich_text" style="z-index:1" name="Rich Text_richstring" data-ng-required="false" ></text-angular>
-																	</md-input-container>
+																							<input ng-model="tipoRootController.tipo.noheading" ng-disabled="false" aria-label="NoHeading" placeholder="" name="NoHeading_string" ng-required="false" ng-pattern=""  >
+																			</md-input-container>
 			</span>
 		</div>       
     </dd>
  </dl>
      
-  	  		     		  	    	    	  	
+  	  		     		  	    	    		
+			
+		
+  	
 	    <dl class="edit" 
-			    layout="column" 
+				    layout="column" 
 		    layout-align="center stretch"
-		    flex="100" 
+			    flex="100" 
 			flex-gt-sm="50" 
-			flex-gt-md="33">
+			flex-gt-md="33" style="">
     <dt>
-	    	    					<span>HTML Link</span>
+	    	    					<span>Sample Set</span>
 									</dt>
-    <dd>
-		<div class="tp-field">
+	    <dd>
+    		<div class="tp-field">
 			<span>
 				<md-input-container md-no-float>
-																				<input ng-model="tipoRootController.tipo.html_link" aria-label="HTML Link" placeholder="" name="HTML Link_htmlLink" ng-required="false" >
-																	</md-input-container>
-			</span>
-		</div>       
-    </dd>
- </dl>
-     
-  	  		     		  	    	    	  	
-	    <dl class="edit" 
-			    layout="column" 
-		    layout-align="center stretch"
-		    flex="100" 
-			flex-gt-sm="50" 
-			flex-gt-md="33">
-    <dt>
-	    	    					<span>Boolean</span>
-									</dt>
-    <dd>
-		<div class="tp-field">
-			<span>
-				<md-input-container md-no-float>
-																				<div class="tp-switch" >
-		        <md-switch class="md-primary" ng-model="tipoRootController.tipo.boolean_" aria-label="$display_name" ng-init = "tipoRootController.tipo.boolean_ = 'true'">
-		          <span>{{ tipoRootController.tipo.boolean_ && 'Yes' || 'No' }}</span>
-		        </md-switch>
-		    </div>
-																	</md-input-container>
-			</span>
-		</div>       
-    </dd>
- </dl>
-     
-  	  		     		  	    	    	  	
-	    <dl class="edit" 
-			    layout="column" 
-		    layout-align="center stretch"
-		    flex="100" 
-			flex-gt-sm="50" 
-			flex-gt-md="33">
-    <dt>
-	    	    					<span>Date/Time</span>
-									</dt>
-    <dd>
-		<div class="tp-field">
-			<span>
-				<md-input-container md-no-float>
-																				<md-datepicker ng-model="tipoRootController.tipo.date_time" md-placeholder="" name="Date/Time_date_time" ng-required="false" ng-init="tipoRootController.tipo.date_time = tipoRootController.Date(tipoRootController.tipo.date_time)">
-			 </md-datepicker>
-																	</md-input-container>
-			</span>
-		</div>       
-    </dd>
- </dl>
-     
-  	  		     		  	    	    	  	
-	    <dl class="edit" 
-			    layout="column" 
-		    layout-align="center stretch"
-		    flex="100" 
-			flex-gt-sm="50" 
-			flex-gt-md="33">
-    <dt>
-	    	    					<span>Integer</span>
-									</dt>
-    <dd>
-		<div class="tp-field">
-			<span>
-				<md-input-container md-no-float>
-																			<input ng-model="tipoRootController.tipo.integer_" aria-label="Integer" placeholder="" name="Integer_integer" ng-required="false" ng-pattern=""  >
-																	</md-input-container>
-			</span>
-		</div>       
-    </dd>
- </dl>
-     
-  	  		     		  	    	          	
-	    <dl class="edit" 
-			    layout="column" 
-		    layout-align="center stretch"
-		    flex="100" 
-			flex-gt-sm="50" 
-			flex-gt-md="33">
-    <dt>
-	    	    					<span>TipoDropdown</span>
-									</dt>
-    <dd>
-		<div class="tp-field">
-			<span>
-				<md-input-container md-no-float>
-											    							    	    	<tp:lookup field="{key: tipoRootController.tipo.tipodropdown, fieldlabel: tipoRootController.tipo.tipodropdown_refs}" fieldvalue="tipoRootController.tipo.tipodropdown" fieldlabel= "tipoRootController.tipo.tipodropdown_refs" basefilter="''" realtedtipo="'TipoIcon'" isarray="false" ispopup="" istipomandatory="false" labelfield="'name_'" allowcreate="true" selectfield="" root="tipoRootController.tipo" ng-init="tipoRootController.tipo.tipodropdown = tipoRootController.tipo.tipodropdown || '';tipoRootController.tipo.tipodropdown_refs = tipoRootController.tipo.tipodropdown_refs || '' ">
+											    							    	    	<tp:lookup field="{key: tipoRootController.tipo.sample_set, fieldlabel: tipoRootController.tipo.sample_set_refs}" fieldvalue="tipoRootController.tipo.sample_set" fieldlabel= "tipoRootController.tipo.sample_set_refs" basefilter="''" realtedtipo="'S3Browser'" isarray="true" ispopup="true" istipomandatory="false" labelfield="'tipo_id'" allowcreate="" selectfield="" root="tipoRootController.tipo" ng-init="tipoRootController.tipo.sample_set = tipoRootController.tipo.sample_set || '';tipoRootController.tipo.sample_set_refs = tipoRootController.tipo.sample_set_refs || '' ">
     																</md-input-container>
 			</span>
 		</div>       
     </dd>
  </dl>
      
-  	  		     		  	    	    	  	
+  	  		     		  	    	    		
+			
+		
+  	    
 	    <dl class="edit" 
-			    layout="column" 
+				    layout="column" 
 		    layout-align="center stretch"
-		    flex="100" 
+			    flex="100" 
 			flex-gt-sm="50" 
-			flex-gt-md="33">
+			flex-gt-md="33" style="">
     <dt>
-	    	    					<span>TipoArray</span>
+	    	    					<span style="{color: red;}">2 Some Other String</span>
 									</dt>
-    <dd>
-		<div class="tp-field">
+	    <dd>
+    		<div class="tp-field">
 			<span>
 				<md-input-container md-no-float>
-											    							    	    	<tp:lookup field="{key: tipoRootController.tipo.tipoarray, fieldlabel: tipoRootController.tipo.tipoarray_refs}" fieldvalue="tipoRootController.tipo.tipoarray" fieldlabel= "tipoRootController.tipo.tipoarray_refs" basefilter="''" realtedtipo="'TipoApp'" isarray="true" ispopup="" istipomandatory="false" labelfield="'app_name'" allowcreate="" selectfield="" root="tipoRootController.tipo" ng-init="tipoRootController.tipo.tipoarray = tipoRootController.tipo.tipoarray || '';tipoRootController.tipo.tipoarray_refs = tipoRootController.tipo.tipoarray_refs || '' ">
-    																</md-input-container>
+																							<input ng-model="tipoRootController.tipo.some_other_string" ng-disabled="false" aria-label="2 Some Other String" placeholder="" name="2 Some Other String_string" ng-required="false" ng-pattern="/[a-zA-Z0-9]+/"  >
+														  	<div ng-messages="tipoForm['2 Some Other String_string'].$error">
+				  					    				      <div ng-message="pattern" >This field must be Alphanumeric</div>
+				    					</div>
+														</md-input-container>
 			</span>
 		</div>       
     </dd>
  </dl>
      
-  	  		     		  	    	    	  	
+  	  		     		  	    	    		
+			
+		
+  	    
 	    <dl class="edit" 
-			    layout="column" 
+				    layout="column" 
 		    layout-align="center stretch"
-		    flex="100" 
+			    flex="100" 
 			flex-gt-sm="50" 
-			flex-gt-md="33">
+			flex-gt-md="33" style="">
     <dt>
-	    	    					<span>TipoPopup</span>
+	    	    					<span>3 Some Other</span>
 									</dt>
-    <dd>
-		<div class="tp-field">
+	    <dd>
+    		<div class="tp-field">
 			<span>
 				<md-input-container md-no-float>
-											    							    	    	<tp:lookup field="{key: tipoRootController.tipo.tipopopup, fieldlabel: tipoRootController.tipo.tipopopup_refs}" fieldvalue="tipoRootController.tipo.tipopopup" fieldlabel= "tipoRootController.tipo.tipopopup_refs" basefilter="''" realtedtipo="'VelocityTest'" isarray="false" ispopup="" istipomandatory="false" labelfield="'tipo_id'" allowcreate="" selectfield="" root="tipoRootController.tipo" ng-init="tipoRootController.tipo.tipopopup = tipoRootController.tipo.tipopopup || '';tipoRootController.tipo.tipopopup_refs = tipoRootController.tipo.tipopopup_refs || '' ">
-    																</md-input-container>
+																							<input ng-model="tipoRootController.tipo.some_other_string_3" ng-disabled="false" aria-label="3 Some Other" placeholder="" name="3 Some Other_string" ng-required="false" ng-pattern="/^[a-zA-Z0-9]+$/"  >
+														  	<div ng-messages="tipoForm['3 Some Other_string'].$error">
+				  					    				      <div ng-message="pattern" >This field must be Alphanumeric-1</div>
+				    					</div>
+														</md-input-container>
 			</span>
 		</div>       
     </dd>
  </dl>
      
-  	  		     		  	    	    	  	
+  	  		     		  	    	    		
+			
+		
+  	
 	    <dl class="edit" 
-			    layout="column" 
+				    layout="column" 
 		    layout-align="center stretch"
-		    flex="100" 
+			    flex="100" 
 			flex-gt-sm="50" 
-			flex-gt-md="33">
+			flex-gt-md="33" style="">
     <dt>
-	    	    					<span>TipoArrayPop</span>
+	    	    					<span>Integer 1</span>
 									</dt>
-    <dd>
-		<div class="tp-field">
+	    <dd>
+    		<div class="tp-field">
 			<span>
 				<md-input-container md-no-float>
-											    							    	    	<tp:lookup field="{key: tipoRootController.tipo.tipoarraypop, fieldlabel: tipoRootController.tipo.tipoarraypop_refs}" fieldvalue="tipoRootController.tipo.tipoarraypop" fieldlabel= "tipoRootController.tipo.tipoarraypop_refs" basefilter="''" realtedtipo="'VelocityTest'" isarray="false" ispopup="" istipomandatory="false" labelfield="'tipo_id'" allowcreate="" selectfield="" root="tipoRootController.tipo" ng-init="tipoRootController.tipo.tipoarraypop = tipoRootController.tipo.tipoarraypop || '';tipoRootController.tipo.tipoarraypop_refs = tipoRootController.tipo.tipoarraypop_refs || '' ">
-    																</md-input-container>
+																									<input type="number" ng-model="tipoRootController.tipo.integer_1" ng-disabled="false" aria-label="Integer 1" placeholder="" name="Integer 1_integer" ng-required="false" ng-pattern=""  >
+																				</md-input-container>
 			</span>
 		</div>       
     </dd>
  </dl>
      
-  	    	<section class="fieldset fluid-row-container" flex="100">
-    	<div class="header">
+  	  		     		  	    	    		
+			
+		
+  	
+	    <dl class="edit" 
+				    layout="column" 
+		    layout-align="center stretch"
+			    flex="100" 
+			flex-gt-sm="50" 
+			flex-gt-md="33" style="">
+    <dt>
+	    	    					<span style="font-weight: bold;  text-decoration: underline;">StyleExample</span>
+									</dt>
+	    <dd>
+    		<div class="tp-field">
+			<span>
+				<md-input-container md-no-float>
+																							<input ng-model="tipoRootController.tipo.style_example" ng-disabled="false" aria-label="StyleExample" placeholder="" name="StyleExample_string" ng-required="false" ng-pattern=""  >
+																			</md-input-container>
+			</span>
+		</div>       
+    </dd>
+ </dl>
+     
+  	  		     		  	    	    		
+			
+		
+  	
+	    <dl class="edit" 
+				    layout="column" 
+		    layout-align="center stretch"
+			    flex="100" 
+			flex-gt-sm="50" 
+			flex-gt-md="33" style="">
+    <dt>
+	    	    					<span>Integer 2</span>
+									</dt>
+	    <dd>
+    		<div class="tp-field">
+			<span>
+				<md-input-container md-no-float>
+																									<input type="number" ng-model="tipoRootController.tipo.integer_2" ng-disabled="false" aria-label="Integer 2" placeholder="" name="Integer 2_integer" ng-required="false" ng-pattern=""  >
+																				</md-input-container>
+			</span>
+		</div>       
+    </dd>
+ </dl>
+     
+  	  		     		  	    	    		
+			
+		
+  	
+	    <dl class="edit" 
+				    layout="column" 
+		    layout-align="center stretch"
+			    flex="100" 
+			flex-gt-sm="50" 
+			flex-gt-md="33" style="">
+    <dt>
+	    	    					<span>Integer 3</span>
+									</dt>
+	    <dd>
+    		<div class="tp-field">
+			<span>
+				<md-input-container md-no-float>
+																									<input type="number" ng-model="tipoRootController.tipo.integer_3" ng-disabled="false" aria-label="Integer 3" placeholder="" name="Integer 3_integer" ng-required="false" ng-pattern=""  >
+																				</md-input-container>
+			</span>
+		</div>       
+    </dd>
+ </dl>
+     
+  	  		     		  	    	    		
+			
+			
+  	
+	    <dl class="edit" 
+				    layout="column" 
+		    layout-align="center stretch"
+			    flex="100" 
+			flex-gt-sm="50" 
+			flex-gt-md="33" style="display:none;">
+    <dt>
+	    	    					<span>Integer 4</span>
+									</dt>
+	    <dd>
+    		<div class="tp-field">
+			<span>
+				<md-input-container md-no-float>
+																											<tp:expressions expression="(tipoRootController.tipo.integer_1 + tipoRootController.tipo.integer_2 ) * tipoRootController.tipo.integer_3" bindvalue="tipoRootController.tipo.integer_4" readonly="false"/>
+																				</md-input-container>
+			</span>
+		</div>       
+    </dd>
+ </dl>
+     
+  	    																			<section class="fieldset fluid-row-container" style="$field_wrapper.style" flex="100"  show-gt-md show-md show-sm show-xs>
+						    	<div class="header">
 		    <div layout="row" layout-align="end center">
-		      <h3 flex ng-init="tipoRootController.initCollapsed('fieldgrtest', '')">
-		        <a href="" ng-click="fieldgrtest.collapsed = !fieldgrtest.collapsed" class="plain" md-colors="{color: 'primary-700'}">
-		          <i class="fa" ng-class="{'fa-caret-down': !fieldgrtest.collapsed , 'fa-caret-right': fieldgrtest.collapsed}"></i>
-		           FieldGrtest
-		        </a>
-		      </h3>
-		      <div class="actions horizontal" layout="row" layout-align="center center">
-		      		        <div layout="row">
-		        				         		          			          <div flex="none">
-		          			            <md-button class="m0" ng-click="tipoRootController.showDetail('ICAgICAgICAgCgo8ZGl2IGNsYXNzPSJwLTgiPgogIDxzZWN0aW9uIGNsYXNzPSJmaWVsZHNldCBuby1oZWFkZXIgZmx1aWQtcm93LWNvbnRhaW5lciI+CiAgICA8ZGl2IGNsYXNzPSJkYXRhIiBsYXlvdXQtcGFkZGluZyBsYXlvdXQ9InJvdyIgbGF5b3V0LXdyYXAgbGF5b3V0LWFsaWduPSJzdGFydCBzdGFydCI+CiAKCgogIAkgICAgCTxzZWN0aW9uIGNsYXNzPSJmaWVsZHNldCBmbHVpZC1yb3ctY29udGFpbmVyIiBmbGV4PSIxMDAiPgogICAgCTxkaXYgY2xhc3M9ImhlYWRlciI+CgkJICAgIDxkaXYgbGF5b3V0PSJyb3ciIGxheW91dC1hbGlnbj0iZW5kIGNlbnRlciI+CgkJICAgICAgPGgzIGZsZXggbmctaW5pdD0idGlwb1Jvb3RDb250cm9sbGVyLmluaXRDb2xsYXBzZWQoJ3N1Ymdyb3VwJywgJycpIj4KCQkgICAgICAgIDxhIGhyZWY9IiIgbmctY2xpY2s9InN1Ymdyb3VwLmNvbGxhcHNlZCA9ICFzdWJncm91cC5jb2xsYXBzZWQiIGNsYXNzPSJwbGFpbiIgbWQtY29sb3JzPSJ7Y29sb3I6ICdwcmltYXJ5LTcwMCd9Ij4KCQkgICAgICAgICAgPGkgY2xhc3M9ImZhIiBuZy1jbGFzcz0ieydmYS1jYXJldC1kb3duJzogIXN1Ymdyb3VwLmNvbGxhcHNlZCAsICdmYS1jYXJldC1yaWdodCc6IHN1Ymdyb3VwLmNvbGxhcHNlZH0iPjwvaT4KCQkgICAgICAgICAgIFN1Ykdyb3VwCgkJICAgICAgICA8L2E+CgkJICAgICAgPC9oMz4KCQkgICAgICA8ZGl2IGNsYXNzPSJhY3Rpb25zIGhvcml6b250YWwiIGxheW91dD0icm93IiBsYXlvdXQtYWxpZ249ImNlbnRlciBjZW50ZXIiPgoJCSAgICAgIAkJICAgICAgICA8ZGl2IGxheW91dD0icm93Ij4KCQkgICAgICAgIAkJCQkgICAgICAgICAJCSAgICAgICAgICAJCQkgICAgICAgICAgPGRpdiBmbGV4PSJub25lIj4KCQkgICAgICAgICAgCQkJICAgICAgICAgICAgPG1kLWJ1dHRvbiBjbGFzcz0ibTAiIG5nLWNsaWNrPSJ0aXBvUm9vdENvbnRyb2xsZXIuc2hvd0RldGFpbCgnSUNBZ0lDQWdJQ0FnQ2dvOFpHbDJJR05zWVhOelBTSndMVGdpUGdvZ0lEeHpaV04wYVc5dUlHTnNZWE56UFNKbWFXVnNaSE5sZENCdWJ5MW9aV0ZrWlhJZ1pteDFhV1F0Y205M0xXTnZiblJoYVc1bGNpSStDaUFnSUNBOFpHbDJJR05zWVhOelBTSmtZWFJoSWlCc1lYbHZkWFF0Y0dGa1pHbHVaeUJzWVhsdmRYUTlJbkp2ZHlJZ2JHRjViM1YwTFhkeVlYQWdiR0Y1YjNWMExXRnNhV2R1UFNKemRHRnlkQ0J6ZEdGeWRDSStDaUFLQ2dvZ0lBa2dJQWtKSUNBZ0lDQUpDU0FnQ1NBZ0lDQUpJQ0FnSUFrZ0lBa0tDU0FnSUNBOFpHd2dZMnhoYzNNOUltVmthWFFpSUFvSkNRa2dJQ0FnYkdGNWIzVjBQU0pqYjJ4MWJXNGlJQW9KQ1NBZ0lDQnNZWGx2ZFhRdFlXeHBaMjQ5SW1ObGJuUmxjaUJ6ZEhKbGRHTm9JZ29KQ1NBZ0lDQm1iR1Y0UFNJeE1EQWlJQW9KQ1FsbWJHVjRMV2QwTFhOdFBTSTFNQ0lnQ2drSkNXWnNaWGd0WjNRdGJXUTlJak16SWo0S0lDQWdJRHhrZEQ0S0NTQWdJQ0FKSUNBZ0lBa0pDUWtKUEhOd1lXNCtWR1Z6ZEVGc2JHOTNaV1JXWVd3OEwzTndZVzQrQ2drSkNRa0pDUWtKQ1R3dlpIUStDaUFnSUNBOFpHUStDZ2tKUEdScGRpQmpiR0Z6Y3owaWRIQXRabWxsYkdRaVBnb0pDUWs4YzNCaGJqNEtDUWtKQ1R4dFpDMXBibkIxZEMxamIyNTBZV2x1WlhJZ2JXUXRibTh0Wm14dllYUStDZ2tKQ1FrSkNRa0pDUWtKQ1FrSkNRa0pDUWtKQ1FrSkNRa0pDUWtKQ1FrSkNRazhkSEE2YzJsdGNHeGxMV1J5YjNCa2IzZHVJR2x6WVhKeVlYazlJbVpoYkhObElpQm1hV1ZzWkhaaGJIVmxQU0owYVhCdlVtOXZkRU52Ym5SeWIyeHNaWEl1ZEdsd2J5NW1hV1ZzWkdkeWRHVnpkQzV6ZFdKbmNtOTFjQzUwWlhOMFlXeHNiM2RsWkhaaGJDSWdjbVZ4ZFdseVpXUTlJbVpoYkhObElpQmhiR3h2ZDJWa2RtRnNkV1Z6UFNKYkozUmxjM1F4Snl3bmRHVnpkREluWFNJZ1lXeHNiM2RqY21WaGRHVTlJaVJtYVdWc1pDNWhiR3h2ZDE5amNtVmhkR1VpSUhCc1lXTmxhRzlzWkdWeVBTSWlJRzVoYldVOUlsUmxjM1JCYkd4dmQyVmtWbUZzWDNOMGNtbHVaeUlnSUM4K0Nna0pDUWtKQ1FrSkNRa0pDUWtKQ1FrSlBDOXRaQzFwYm5CMWRDMWpiMjUwWVdsdVpYSStDZ2tKQ1R3dmMzQmhiajRLQ1FrOEwyUnBkajRnSUNBZ0lDQWdDaUFnSUNBOEwyUmtQZ29nUEM5a2JENEtJQ0FnSUNBS0lDQUpJQ0FKQ1NBZ0lDQWdDUWtnSUFrZ0lDQWdDU0FnSUNBSklDQUpDZ2tnSUNBZ1BHUnNJR05zWVhOelBTSmxaR2wwSWlBS0NRa0pJQ0FnSUd4aGVXOTFkRDBpWTI5c2RXMXVJaUFLQ1FrZ0lDQWdiR0Y1YjNWMExXRnNhV2R1UFNKalpXNTBaWElnYzNSeVpYUmphQ0lLQ1FrZ0lDQWdabXhsZUQwaU1UQXdJaUFLQ1FrSlpteGxlQzFuZEMxemJUMGlOVEFpSUFvSkNRbG1iR1Y0TFdkMExXMWtQU0l6TXlJK0NpQWdJQ0E4WkhRK0Nna2dJQ0FnQ1NBZ0lDQUpDUWtKQ1R4emNHRnVQbFJsYzNSa2NtOXdaRzkzYmp3dmMzQmhiajRLQ1FrSkNRa0pDUWtKUEM5a2RENEtJQ0FnSUR4a1pENEtDUWs4WkdsMklHTnNZWE56UFNKMGNDMW1hV1ZzWkNJK0Nna0pDVHh6Y0dGdVBnb0pDUWtKUEcxa0xXbHVjSFYwTFdOdmJuUmhhVzVsY2lCdFpDMXVieTFtYkc5aGRENEtDUWtKQ1FrSkNRa0pDUWtnSUNBZ0NRa0pDUWtKQ1NBZ0lDQUpJQ0FnSUFrOGRIQTZiRzl2YTNWd0lHWnBaV3hrUFNKN2EyVjVPaUIwYVhCdlVtOXZkRU52Ym5SeWIyeHNaWEl1ZEdsd2J5NW1hV1ZzWkdkeWRHVnpkQzV6ZFdKbmNtOTFjQzUwWlhOMFpISnZjR1J2ZDI0c0lHWnBaV3hrYkdGaVpXdzZJSFJwY0c5U2IyOTBRMjl1ZEhKdmJHeGxjaTUwYVhCdkxtWnBaV3hrWjNKMFpYTjBMbk4xWW1keWIzVndMblJsYzNSa2NtOXdaRzkzYmw5eVpXWnpmU0lnWm1sbGJHUjJZV3gxWlQwaWRHbHdiMUp2YjNSRGIyNTBjbTlzYkdWeUxuUnBjRzh1Wm1sbGJHUm5jblJsYzNRdWMzVmlaM0p2ZFhBdWRHVnpkR1J5YjNCa2IzZHVJaUJtYVdWc1pHeGhZbVZzUFNBaWRHbHdiMUp2YjNSRGIyNTBjbTlzYkdWeUxuUnBjRzh1Wm1sbGJHUm5jblJsYzNRdWMzVmlaM0p2ZFhBdWRHVnpkR1J5YjNCa2IzZHVYM0psWm5NaUlHSmhjMlZtYVd4MFpYSTlJaWNuSWlCeVpXRnNkR1ZrZEdsd2J6MGlKMVJwY0c5QmNIQW5JaUJwYzJGeWNtRjVQU0ptWVd4elpTSWdhWE53YjNCMWNEMGlJaUJwYzNScGNHOXRZVzVrWVhSdmNuazlJbVpoYkhObElpQnNZV0psYkdacFpXeGtQU0luWVhCd1gyNWhiV1VuSWlCaGJHeHZkMk55WldGMFpUMGlJaUJ6Wld4bFkzUm1hV1ZzWkQwaUlpQnliMjkwUFNKMGFYQnZVbTl2ZEVOdmJuUnliMnhzWlhJdWRHbHdieUlnYm1jdGFXNXBkRDBpZEdsd2IxSnZiM1JEYjI1MGNtOXNiR1Z5TG5ScGNHOHVabWxsYkdSbmNuUmxjM1F1YzNWaVozSnZkWEF1ZEdWemRHUnliM0JrYjNkdUlEMGdkR2x3YjFKdmIzUkRiMjUwY205c2JHVnlMblJwY0c4dVptbGxiR1JuY25SbGMzUXVjM1ZpWjNKdmRYQXVkR1Z6ZEdSeWIzQmtiM2R1SUh4OElDY25PM1JwY0c5U2IyOTBRMjl1ZEhKdmJHeGxjaTUwYVhCdkxtWnBaV3hrWjNKMFpYTjBMbk4xWW1keWIzVndMblJsYzNSa2NtOXdaRzkzYmw5eVpXWnpJRDBnZEdsd2IxSnZiM1JEYjI1MGNtOXNiR1Z5TG5ScGNHOHVabWxsYkdSbmNuUmxjM1F1YzNWaVozSnZkWEF1ZEdWemRHUnliM0JrYjNkdVgzSmxabk1nZkh3Z0p5Y2dJajRLSUNBZ0lBa0pDUWtKQ1FrSkNRa0pDUWtKQ1FrOEwyMWtMV2x1Y0hWMExXTnZiblJoYVc1bGNqNEtDUWtKUEM5emNHRnVQZ29KQ1R3dlpHbDJQaUFnSUNBZ0lDQUtJQ0FnSUR3dlpHUStDaUE4TDJSc1Bnb2dJQ0FnSUFvZ0lDQWdJQ0FnSUNBZ0lBb2dJQ0FnSUNBZ0lBb2dJQ0FnSUFrSkNRa0tJQ0FnSUR3dlpHbDJQZ29nSUR3dmMyVmpkR2x2Ymo0S1BDOWthWFkrQ2dvSycpIiBhcmlhLWxhYmVsPSJFZGl0Ij4KCQkgICAgICAgICAgICAgIDxtZC10b29sdGlwIG1kLWRpcmVjdGlvbj0idG9wIj5FZGl0PC9tZC10b29sdGlwPgoJCSAgICAgICAgICAgICAgPG1kLWljb24+bGF1bmNoPC9tZC1pY29uPgoJCSAgICAgICAgICAgIDwvbWQtYnV0dG9uPgoJCSAgICAgICAgICA8L2Rpdj4KCQkgICAgICAgICAgCQkgICAgICAgIDwvZGl2PgoJCSAgICAgICAgCQkgICAgICA8L2Rpdj4KCQkgICAgPC9kaXY+CgkJICAgIDxtZC1kaXZpZGVyPjwvbWQtZGl2aWRlcj4KCQkgIDwvZGl2PgoJCSAgCQkJICA8ZGl2IGNsYXNzPSJkYXRhIiBmbGV4IGxheW91dC1wYWRkaW5nIGxheW91dD0icm93IiBsYXlvdXQtd3JhcCBsYXlvdXQtYWxpZ249InN0YXJ0IHN0YXJ0IiBuZy1oaWRlPSJzdWJncm91cC5jb2xsYXBzZWQiPgoJCSAgCQkJICAgIAoJCQkgICAgCQkgCgogIAkgICAgIAkJIAoKICAJICAgICAgICAgIAkJCTwvZGl2PgoJPC9zZWN0aW9uPgogICAgCiAgCSAgCQkgICAgIAkJICAJICAgIAkgICAgCSAgCQoJICAgIDxkbCBjbGFzcz0iZWRpdCIgCgkJCSAgICBsYXlvdXQ9ImNvbHVtbiIgCgkJICAgIGxheW91dC1hbGlnbj0iY2VudGVyIHN0cmV0Y2giCgkJICAgIGZsZXg9IjEwMCIgCgkJCWZsZXgtZ3Qtc209IjUwIiAKCQkJZmxleC1ndC1tZD0iMzMiPgogICAgPGR0PgoJICAgIAkgICAgCQkJCQk8c3Bhbj5GaWVsZDE8L3NwYW4+CgkJCQkJCQkJCTwvZHQ+CiAgICA8ZGQ+CgkJPGRpdiBjbGFzcz0idHAtZmllbGQiPgoJCQk8c3Bhbj4KCQkJCTxtZC1pbnB1dC1jb250YWluZXIgbWQtbm8tZmxvYXQ+CgkJCQkJCQkJCQkJCQkJCQkJCQk8aW5wdXQgbmctbW9kZWw9InRpcG9Sb290Q29udHJvbGxlci50aXBvLmZpZWxkZ3J0ZXN0LmZpZWxkMSIgYXJpYS1sYWJlbD0iRmllbGQxIiBwbGFjZWhvbGRlcj0iIiBuYW1lPSJGaWVsZDFfc3RyaW5nIiBuZy1yZXF1aXJlZD0iZmFsc2UiIG5nLXBhdHRlcm49IiIgID4KCQkJCQkJCQkJCQkJCQkJCQk8L21kLWlucHV0LWNvbnRhaW5lcj4KCQkJPC9zcGFuPgoJCTwvZGl2PiAgICAgICAKICAgIDwvZGQ+CiA8L2RsPgogICAgIAogIAkgIAkJICAgICAJCSAgCSAgICAJICAgIAkgIAkKCSAgICA8ZGwgY2xhc3M9ImVkaXQiIAoJCQkgICAgbGF5b3V0PSJjb2x1bW4iIAoJCSAgICBsYXlvdXQtYWxpZ249ImNlbnRlciBzdHJldGNoIgoJCSAgICBmbGV4PSIxMDAiIAoJCQlmbGV4LWd0LXNtPSI1MCIgCgkJCWZsZXgtZ3QtbWQ9IjMzIj4KICAgIDxkdD4KCSAgICAJICAgIAkJCQkJPHNwYW4+RmllbGQyPC9zcGFuPgoJCQkJCQkJCQk8L2R0PgogICAgPGRkPgoJCTxkaXYgY2xhc3M9InRwLWZpZWxkIj4KCQkJPHNwYW4+CgkJCQk8bWQtaW5wdXQtY29udGFpbmVyIG1kLW5vLWZsb2F0PgoJCQkJCQkJCQkJCQkJCQkJCQkJPGlucHV0IG5nLW1vZGVsPSJ0aXBvUm9vdENvbnRyb2xsZXIudGlwby5maWVsZGdydGVzdC5maWVsZDIiIGFyaWEtbGFiZWw9IkZpZWxkMiIgcGxhY2Vob2xkZXI9IiIgbmFtZT0iRmllbGQyX3N0cmluZyIgbmctcmVxdWlyZWQ9ImZhbHNlIiBuZy1wYXR0ZXJuPSIiICA+CgkJCQkJCQkJCQkJCQkJCQkJPC9tZC1pbnB1dC1jb250YWluZXI+CgkJCTwvc3Bhbj4KCQk8L2Rpdj4gICAgICAgCiAgICA8L2RkPgogPC9kbD4KICAgICAKICAJICAJCSAgICAgCQkgIAkgICAgCSAgICAJICAJCgkgICAgPGRsIGNsYXNzPSJlZGl0IiAKCQkJICAgIGxheW91dD0iY29sdW1uIiAKCQkgICAgbGF5b3V0LWFsaWduPSJjZW50ZXIgc3RyZXRjaCIKCQkgICAgZmxleD0iMTAwIiAKCQkJZmxleC1ndC1zbT0iNTAiIAoJCQlmbGV4LWd0LW1kPSIzMyI+CiAgICA8ZHQ+CgkgICAgCSAgICAJCQkJCTxzcGFuPkRyb2Rvd248L3NwYW4+CgkJCQkJCQkJCTwvZHQ+CiAgICA8ZGQ+CgkJPGRpdiBjbGFzcz0idHAtZmllbGQiPgoJCQk8c3Bhbj4KCQkJCTxtZC1pbnB1dC1jb250YWluZXIgbWQtbm8tZmxvYXQ+CgkJCQkJCQkJCQkJICAgIAkJCQkJCQkgICAgCSAgICAJPHRwOmxvb2t1cCBmaWVsZD0ie2tleTogdGlwb1Jvb3RDb250cm9sbGVyLnRpcG8uZmllbGRncnRlc3QuZHJvZG93biwgZmllbGRsYWJlbDogdGlwb1Jvb3RDb250cm9sbGVyLnRpcG8uZmllbGRncnRlc3QuZHJvZG93bl9yZWZzfSIgZmllbGR2YWx1ZT0idGlwb1Jvb3RDb250cm9sbGVyLnRpcG8uZmllbGRncnRlc3QuZHJvZG93biIgZmllbGRsYWJlbD0gInRpcG9Sb290Q29udHJvbGxlci50aXBvLmZpZWxkZ3J0ZXN0LmRyb2Rvd25fcmVmcyIgYmFzZWZpbHRlcj0iJyciIHJlYWx0ZWR0aXBvPSInRGVmaW5pdGlvbnMnIiBpc2FycmF5PSJmYWxzZSIgaXNwb3B1cD0iIiBpc3RpcG9tYW5kYXRvcnk9ImZhbHNlIiBsYWJlbGZpZWxkPSInJGxvb2t1cF9jb250ZXh0LmtleV9maWVsZC5maWVsZF9uYW1lJyIgYWxsb3djcmVhdGU9IiIgc2VsZWN0ZmllbGQ9IiIgcm9vdD0idGlwb1Jvb3RDb250cm9sbGVyLnRpcG8iIG5nLWluaXQ9InRpcG9Sb290Q29udHJvbGxlci50aXBvLmZpZWxkZ3J0ZXN0LmRyb2Rvd24gPSB0aXBvUm9vdENvbnRyb2xsZXIudGlwby5maWVsZGdydGVzdC5kcm9kb3duIHx8ICcnO3RpcG9Sb290Q29udHJvbGxlci50aXBvLmZpZWxkZ3J0ZXN0LmRyb2Rvd25fcmVmcyA9IHRpcG9Sb290Q29udHJvbGxlci50aXBvLmZpZWxkZ3J0ZXN0LmRyb2Rvd25fcmVmcyB8fCAnJyAiPgogICAgCQkJCQkJCQkJCQkJCQkJCTwvbWQtaW5wdXQtY29udGFpbmVyPgoJCQk8L3NwYW4+CgkJPC9kaXY+ICAgICAgIAogICAgPC9kZD4KIDwvZGw+CiAgICAgCiAgICAgICAgICAgCiAgICAgICAgCiAgICAgCQkJCQogICAgPC9kaXY+CiAgPC9zZWN0aW9uPgo8L2Rpdj4KCgo=')" aria-label="Edit">
-		              <md-tooltip md-direction="top">Edit</md-tooltip>
-		              <md-icon>launch</md-icon>
-		            </md-button>
-		          </div>
-		          		        </div>
-		        		      </div>
-		    </div>
-		    <md-divider></md-divider>
-		  </div>
-		  			  <div class="data" flex layout-padding layout="row" layout-wrap layout-align="start start" ng-hide="fieldgrtest.collapsed">
-		  			    
-			    		 
-
-  	     		 
-
-  	  		         	  	    	    	  	
-	    <dl class="edit" 
-			    layout="column" 
-		    layout-align="center stretch"
-		    flex="100" 
-			flex-gt-sm="50" 
-			flex-gt-md="33">
-    <dt>
-	    	    					<span>Field1</span>
-									</dt>
-    <dd>
-		<div class="tp-field">
-			<span>
-				<md-input-container md-no-float>
-																			<input ng-model="tipoRootController.tipo.fieldgrtest.field1" aria-label="Field1" placeholder="" name="Field1_string" ng-required="false" ng-pattern=""  >
-																	</md-input-container>
-			</span>
-		</div>       
-    </dd>
- </dl>
-            		 
-
-  	     		 
-
-  	          			</div>
-	</section>
-    
-  	    	<section class="fieldset fluid-row-container" flex="100">
-    	<div class="header">
-		    <div layout="row" layout-align="end center">
-		      <h3 flex ng-init="tipoRootController.initCollapsed('fieldgarraytest', '')">
-		        <a href="" ng-click="fieldgarraytest.collapsed = !fieldgarraytest.collapsed" class="plain" md-colors="{color: 'primary-700'}">
-		          <i class="fa" ng-class="{'fa-caret-down': !fieldgarraytest.collapsed , 'fa-caret-right': fieldgarraytest.collapsed}"></i>
-		           FieldGArrayTest
+		      <h3 flex ng-init="tipoRootController.initCollapsed('Testgroup', '')">
+		        <a href="" ng-click="Testgroup.collapsed = !Testgroup.collapsed" class="plain" md-colors="{color: 'primary-700'}">
+		          <i class="fa" ng-class="{'fa-caret-down': !Testgroup.collapsed , 'fa-caret-right': Testgroup.collapsed}"></i>
+		           Testgroup
 		        </a>
 		      </h3>
 		      <div class="actions horizontal" layout="row" layout-align="center center">
 		      		        <div>
 		          <div flex="none">
-			          			            <md-button class="m0" ng-click="tipoRootController.generateItem('fieldgarraytest')" aria-label="New">
+			          			            <md-button class="m0" ng-click="tipoRootController.generateItem('Testgroup')" aria-label="New">
 			              <md-tooltip md-direction="top">New</md-tooltip>
 			              <md-icon>add</md-icon>
 			            </md-button>
@@ -369,170 +299,76 @@
 		    </div>
 		    <md-divider></md-divider>
 		  </div>
-		  		  
-		  	  <div class="data" style="margin-top: 10px;" ng-hide="fieldgarraytest.collapsed" >
-		  	  	<div layout="row" ng-repeat="groupItem in tipoRootController.tipo.fieldgarraytest" ng-if="!groupItem._ARRAY_META || groupItem._ARRAY_META._STATUS != 'DELETED'" md-whiteframe="2" class="fluid-row">
+		  		  	  <div class="data" style="margin-top: 10px;" ng-hide="Testgroup.collapsed" >
+		  	  		  	  	<div layout="row" ng-repeat="groupItem in tipoRootController.tipo.Testgroup" ng-if="!groupItem._ARRAY_META || groupItem._ARRAY_META._STATUS != 'DELETED'" md-whiteframe="2" class="fluid-row">
       				<div flex layout="row" layout-padding layout-wrap layout-align="start start" class="data">
-		  			    
-			    		 
-
-  	     		 
-
-  	  		     		  	    	    	  	
-	    <dl class="edit" 
-			    layout="column" 
-		    layout-align="center stretch"
-		    flex="100" 
-			flex-gt-sm="50" 
-			flex-gt-md="33">
-    <dt>
-	    	    					<span>Field1</span>
-									</dt>
-    <dd>
-		<div class="tp-field">
-			<span>
-				<md-input-container md-no-float>
-																			<input ng-model="tipoRootController.tipo.fieldgarraytest[$index].field1" aria-label="Field1" placeholder="" name="Field1_string" ng-required="false" ng-pattern=""  >
-																	</md-input-container>
-			</span>
-		</div>       
-    </dd>
- </dl>
-            		 
-
-  	     		 
-
-  	          				</div>
-				        			<div flex="none" layout="column" layout-align="center center" class="actions bg">
-		        	        <md-button ng-click="tipoRootController.showDetail('ICAgICAgICAgCgo8ZGl2IGNsYXNzPSJwLTgiPgogIDxzZWN0aW9uIGNsYXNzPSJmaWVsZHNldCBuby1oZWFkZXIgZmx1aWQtcm93LWNvbnRhaW5lciI+CiAgICA8ZGl2IGNsYXNzPSJkYXRhIiBsYXlvdXQtcGFkZGluZyBsYXlvdXQ9InJvdyIgbGF5b3V0LXdyYXAgbGF5b3V0LWFsaWduPSJzdGFydCBzdGFydCI+CiAKCgogIAkgICAgCTxzZWN0aW9uIGNsYXNzPSJmaWVsZHNldCBmbHVpZC1yb3ctY29udGFpbmVyIiBmbGV4PSIxMDAiPgogICAgCTxkaXYgY2xhc3M9ImhlYWRlciI+CgkJICAgIDxkaXYgbGF5b3V0PSJyb3ciIGxheW91dC1hbGlnbj0iZW5kIGNlbnRlciI+CgkJICAgICAgPGgzIGZsZXggbmctaW5pdD0idGlwb1Jvb3RDb250cm9sbGVyLmluaXRDb2xsYXBzZWQoJ3N1Ymdyb3VwJywgJycpIj4KCQkgICAgICAgIDxhIGhyZWY9IiIgbmctY2xpY2s9InN1Ymdyb3VwLmNvbGxhcHNlZCA9ICFzdWJncm91cC5jb2xsYXBzZWQiIGNsYXNzPSJwbGFpbiIgbWQtY29sb3JzPSJ7Y29sb3I6ICdwcmltYXJ5LTcwMCd9Ij4KCQkgICAgICAgICAgPGkgY2xhc3M9ImZhIiBuZy1jbGFzcz0ieydmYS1jYXJldC1kb3duJzogIXN1Ymdyb3VwLmNvbGxhcHNlZCAsICdmYS1jYXJldC1yaWdodCc6IHN1Ymdyb3VwLmNvbGxhcHNlZH0iPjwvaT4KCQkgICAgICAgICAgIFN1Ykdyb3VwCgkJICAgICAgICA8L2E+CgkJICAgICAgPC9oMz4KCQkgICAgICA8ZGl2IGNsYXNzPSJhY3Rpb25zIGhvcml6b250YWwiIGxheW91dD0icm93IiBsYXlvdXQtYWxpZ249ImNlbnRlciBjZW50ZXIiPgoJCSAgICAgIAkJICAgICAgICA8ZGl2IGxheW91dD0icm93Ij4KCQkgICAgICAgIAkJCQkgICAgICAgICAJCSAgICAgICAgICAJCQkgICAgICAgICAgPGRpdiBmbGV4PSJub25lIj4KCQkgICAgICAgICAgCQkJICAgICAgICAgICAgPG1kLWJ1dHRvbiBjbGFzcz0ibTAiIG5nLWNsaWNrPSJ0aXBvUm9vdENvbnRyb2xsZXIuc2hvd0RldGFpbCgnSUNBZ0lDQWdJQ0FnQ2dvOFpHbDJJR05zWVhOelBTSndMVGdpUGdvZ0lEeHpaV04wYVc5dUlHTnNZWE56UFNKbWFXVnNaSE5sZENCdWJ5MW9aV0ZrWlhJZ1pteDFhV1F0Y205M0xXTnZiblJoYVc1bGNpSStDaUFnSUNBOFpHbDJJR05zWVhOelBTSmtZWFJoSWlCc1lYbHZkWFF0Y0dGa1pHbHVaeUJzWVhsdmRYUTlJbkp2ZHlJZ2JHRjViM1YwTFhkeVlYQWdiR0Y1YjNWMExXRnNhV2R1UFNKemRHRnlkQ0J6ZEdGeWRDSStDaUFLQ2dvZ0lBa2dJQWtKSUNBZ0lDQUpDU0FnQ1NBZ0lDQUpJQ0FnSUFrZ0lBa0tDU0FnSUNBOFpHd2dZMnhoYzNNOUltVmthWFFpSUFvSkNRa2dJQ0FnYkdGNWIzVjBQU0pqYjJ4MWJXNGlJQW9KQ1NBZ0lDQnNZWGx2ZFhRdFlXeHBaMjQ5SW1ObGJuUmxjaUJ6ZEhKbGRHTm9JZ29KQ1NBZ0lDQm1iR1Y0UFNJeE1EQWlJQW9KQ1FsbWJHVjRMV2QwTFhOdFBTSTFNQ0lnQ2drSkNXWnNaWGd0WjNRdGJXUTlJak16SWo0S0lDQWdJRHhrZEQ0S0NTQWdJQ0FKSUNBZ0lBa0pDUWtKUEhOd1lXNCtWR1Z6ZEVGc2JHOTNaV1JXWVd3OEwzTndZVzQrQ2drSkNRa0pDUWtKQ1R3dlpIUStDaUFnSUNBOFpHUStDZ2tKUEdScGRpQmpiR0Z6Y3owaWRIQXRabWxsYkdRaVBnb0pDUWs4YzNCaGJqNEtDUWtKQ1R4dFpDMXBibkIxZEMxamIyNTBZV2x1WlhJZ2JXUXRibTh0Wm14dllYUStDZ2tKQ1FrSkNRa0pDUWtKQ1FrSkNRa0pDUWtKQ1FrSkNRa0pDUWtKQ1FrSkNRazhkSEE2YzJsdGNHeGxMV1J5YjNCa2IzZHVJR2x6WVhKeVlYazlJbVpoYkhObElpQm1hV1ZzWkhaaGJIVmxQU0owYVhCdlVtOXZkRU52Ym5SeWIyeHNaWEl1ZEdsd2J5NW1hV1ZzWkdkaGNuSmhlWFJsYzNRdWMzVmlaM0p2ZFhBdWRHVnpkR0ZzYkc5M1pXUjJZV3dpSUhKbGNYVnBjbVZrUFNKbVlXeHpaU0lnWVd4c2IzZGxaSFpoYkhWbGN6MGlXeWQwWlhOME1TY3NKM1JsYzNReUoxMGlJR0ZzYkc5M1kzSmxZWFJsUFNJa1ptbGxiR1F1WVd4c2IzZGZZM0psWVhSbElpQndiR0ZqWldodmJHUmxjajBpSWlCdVlXMWxQU0pVWlhOMFFXeHNiM2RsWkZaaGJGOXpkSEpwYm1jaUlDQXZQZ29KQ1FrSkNRa0pDUWtKQ1FrSkNRa0pDVHd2YldRdGFXNXdkWFF0WTI5dWRHRnBibVZ5UGdvSkNRazhMM053WVc0K0Nna0pQQzlrYVhZK0lDQWdJQ0FnSUFvZ0lDQWdQQzlrWkQ0S0lEd3ZaR3crQ2lBZ0lDQWdDaUFnQ1NBZ0NRa2dJQ0FnSUFrSklDQUpJQ0FnSUFrZ0lDQWdDU0FnQ1FvSklDQWdJRHhrYkNCamJHRnpjejBpWldScGRDSWdDZ2tKQ1NBZ0lDQnNZWGx2ZFhROUltTnZiSFZ0YmlJZ0Nna0pJQ0FnSUd4aGVXOTFkQzFoYkdsbmJqMGlZMlZ1ZEdWeUlITjBjbVYwWTJnaUNna0pJQ0FnSUdac1pYZzlJakV3TUNJZ0Nna0pDV1pzWlhndFozUXRjMjA5SWpVd0lpQUtDUWtKWm14bGVDMW5kQzF0WkQwaU16TWlQZ29nSUNBZ1BHUjBQZ29KSUNBZ0lBa2dJQ0FnQ1FrSkNRazhjM0JoYmo1VVpYTjBaSEp2Y0dSdmQyNDhMM053WVc0K0Nna0pDUWtKQ1FrSkNUd3ZaSFErQ2lBZ0lDQThaR1ErQ2drSlBHUnBkaUJqYkdGemN6MGlkSEF0Wm1sbGJHUWlQZ29KQ1FrOGMzQmhiajRLQ1FrSkNUeHRaQzFwYm5CMWRDMWpiMjUwWVdsdVpYSWdiV1F0Ym04dFpteHZZWFErQ2drSkNRa0pDUWtKQ1FrSklDQWdJQWtKQ1FrSkNRa2dJQ0FnQ1NBZ0lDQUpQSFJ3T214dmIydDFjQ0JtYVdWc1pEMGllMnRsZVRvZ2RHbHdiMUp2YjNSRGIyNTBjbTlzYkdWeUxuUnBjRzh1Wm1sbGJHUm5ZWEp5WVhsMFpYTjBMbk4xWW1keWIzVndMblJsYzNSa2NtOXdaRzkzYml3Z1ptbGxiR1JzWVdKbGJEb2dkR2x3YjFKdmIzUkRiMjUwY205c2JHVnlMblJwY0c4dVptbGxiR1JuWVhKeVlYbDBaWE4wTG5OMVltZHliM1Z3TG5SbGMzUmtjbTl3Wkc5M2JsOXlaV1p6ZlNJZ1ptbGxiR1IyWVd4MVpUMGlkR2x3YjFKdmIzUkRiMjUwY205c2JHVnlMblJwY0c4dVptbGxiR1JuWVhKeVlYbDBaWE4wTG5OMVltZHliM1Z3TG5SbGMzUmtjbTl3Wkc5M2JpSWdabWxsYkdSc1lXSmxiRDBnSW5ScGNHOVNiMjkwUTI5dWRISnZiR3hsY2k1MGFYQnZMbVpwWld4a1oyRnljbUY1ZEdWemRDNXpkV0puY205MWNDNTBaWE4wWkhKdmNHUnZkMjVmY21WbWN5SWdZbUZ6WldacGJIUmxjajBpSnljaUlISmxZV3gwWldSMGFYQnZQU0luVkdsd2IwRndjQ2NpSUdsellYSnlZWGs5SW1aaGJITmxJaUJwYzNCdmNIVndQU0lpSUdsemRHbHdiMjFoYm1SaGRHOXllVDBpWm1Gc2MyVWlJR3hoWW1Wc1ptbGxiR1E5SWlkaGNIQmZibUZ0WlNjaUlHRnNiRzkzWTNKbFlYUmxQU0lpSUhObGJHVmpkR1pwWld4a1BTSWlJSEp2YjNROUluUnBjRzlTYjI5MFEyOXVkSEp2Ykd4bGNpNTBhWEJ2SWlCdVp5MXBibWwwUFNKMGFYQnZVbTl2ZEVOdmJuUnliMnhzWlhJdWRHbHdieTVtYVdWc1pHZGhjbkpoZVhSbGMzUXVjM1ZpWjNKdmRYQXVkR1Z6ZEdSeWIzQmtiM2R1SUQwZ2RHbHdiMUp2YjNSRGIyNTBjbTlzYkdWeUxuUnBjRzh1Wm1sbGJHUm5ZWEp5WVhsMFpYTjBMbk4xWW1keWIzVndMblJsYzNSa2NtOXdaRzkzYmlCOGZDQW5KenQwYVhCdlVtOXZkRU52Ym5SeWIyeHNaWEl1ZEdsd2J5NW1hV1ZzWkdkaGNuSmhlWFJsYzNRdWMzVmlaM0p2ZFhBdWRHVnpkR1J5YjNCa2IzZHVYM0psWm5NZ1BTQjBhWEJ2VW05dmRFTnZiblJ5YjJ4c1pYSXVkR2x3Ynk1bWFXVnNaR2RoY25KaGVYUmxjM1F1YzNWaVozSnZkWEF1ZEdWemRHUnliM0JrYjNkdVgzSmxabk1nZkh3Z0p5Y2dJajRLSUNBZ0lBa0pDUWtKQ1FrSkNRa0pDUWtKQ1FrOEwyMWtMV2x1Y0hWMExXTnZiblJoYVc1bGNqNEtDUWtKUEM5emNHRnVQZ29KQ1R3dlpHbDJQaUFnSUNBZ0lDQUtJQ0FnSUR3dlpHUStDaUE4TDJSc1Bnb2dJQ0FnSUFvZ0lDQWdJQ0FnSUNBZ0lBb2dJQ0FnSUNBZ0lBb2dJQ0FnSUFrSkNRa0tJQ0FnSUR3dlpHbDJQZ29nSUR3dmMyVmpkR2x2Ymo0S1BDOWthWFkrQ2dvSycpIiBhcmlhLWxhYmVsPSJFZGl0Ij4KCQkgICAgICAgICAgICAgIDxtZC10b29sdGlwIG1kLWRpcmVjdGlvbj0idG9wIj5FZGl0PC9tZC10b29sdGlwPgoJCSAgICAgICAgICAgICAgPG1kLWljb24+bGF1bmNoPC9tZC1pY29uPgoJCSAgICAgICAgICAgIDwvbWQtYnV0dG9uPgoJCSAgICAgICAgICA8L2Rpdj4KCQkgICAgICAgICAgCQkgICAgICAgIDwvZGl2PgoJCSAgICAgICAgCQkgICAgICA8L2Rpdj4KCQkgICAgPC9kaXY+CgkJICAgIDxtZC1kaXZpZGVyPjwvbWQtZGl2aWRlcj4KCQkgIDwvZGl2PgoJCSAgCQkJICA8ZGl2IGNsYXNzPSJkYXRhIiBmbGV4IGxheW91dC1wYWRkaW5nIGxheW91dD0icm93IiBsYXlvdXQtd3JhcCBsYXlvdXQtYWxpZ249InN0YXJ0IHN0YXJ0IiBuZy1oaWRlPSJzdWJncm91cC5jb2xsYXBzZWQiPgoJCSAgCQkJICAgIAoJCQkgICAgCQkgCgogIAkgICAgIAkJIAoKICAJICAgICAgICAgIAkJCTwvZGl2PgoJPC9zZWN0aW9uPgogICAgCiAgCSAgCQkgICAgICAgICAJICAJICAgIAkgICAgCSAgCQoJICAgIDxkbCBjbGFzcz0iZWRpdCIgCgkJCSAgICBsYXlvdXQ9ImNvbHVtbiIgCgkJICAgIGxheW91dC1hbGlnbj0iY2VudGVyIHN0cmV0Y2giCgkJICAgIGZsZXg9IjEwMCIgCgkJCWZsZXgtZ3Qtc209IjUwIiAKCQkJZmxleC1ndC1tZD0iMzMiPgogICAgPGR0PgoJICAgIAkgICAgCQkJCQk8c3Bhbj5GaWVsZDE8L3NwYW4+CgkJCQkJCQkJCTwvZHQ+CiAgICA8ZGQ+CgkJPGRpdiBjbGFzcz0idHAtZmllbGQiPgoJCQk8c3Bhbj4KCQkJCTxtZC1pbnB1dC1jb250YWluZXIgbWQtbm8tZmxvYXQ+CgkJCQkJCQkJCQkJCQkJCQkJCQk8aW5wdXQgbmctbW9kZWw9InRpcG9Sb290Q29udHJvbGxlci50aXBvLmZpZWxkZ2FycmF5dGVzdFskaW5kZXhdLmZpZWxkMSIgYXJpYS1sYWJlbD0iRmllbGQxIiBwbGFjZWhvbGRlcj0iIiBuYW1lPSJGaWVsZDFfc3RyaW5nIiBuZy1yZXF1aXJlZD0iZmFsc2UiIG5nLXBhdHRlcm49IiIgID4KCQkJCQkJCQkJCQkJCQkJCQk8L21kLWlucHV0LWNvbnRhaW5lcj4KCQkJPC9zcGFuPgoJCTwvZGl2PiAgICAgICAKICAgIDwvZGQ+CiA8L2RsPgogICAgIAogIAkgIAkJICAgICAJCSAgCSAgICAJICAgIAkgIAkKCSAgICA8ZGwgY2xhc3M9ImVkaXQiIAoJCQkgICAgbGF5b3V0PSJjb2x1bW4iIAoJCSAgICBsYXlvdXQtYWxpZ249ImNlbnRlciBzdHJldGNoIgoJCSAgICBmbGV4PSIxMDAiIAoJCQlmbGV4LWd0LXNtPSI1MCIgCgkJCWZsZXgtZ3QtbWQ9IjMzIj4KICAgIDxkdD4KCSAgICAJICAgIAkJCQkJPHNwYW4+RmllbGQyPC9zcGFuPgoJCQkJCQkJCQk8L2R0PgogICAgPGRkPgoJCTxkaXYgY2xhc3M9InRwLWZpZWxkIj4KCQkJPHNwYW4+CgkJCQk8bWQtaW5wdXQtY29udGFpbmVyIG1kLW5vLWZsb2F0PgoJCQkJCQkJCQkJCQkJCQkJCQkJPGlucHV0IG5nLW1vZGVsPSJ0aXBvUm9vdENvbnRyb2xsZXIudGlwby5maWVsZGdhcnJheXRlc3RbJGluZGV4XS5maWVsZDIiIGFyaWEtbGFiZWw9IkZpZWxkMiIgcGxhY2Vob2xkZXI9IiIgbmFtZT0iRmllbGQyX3N0cmluZyIgbmctcmVxdWlyZWQ9ImZhbHNlIiBuZy1wYXR0ZXJuPSIiICA+CgkJCQkJCQkJCQkJCQkJCQkJPC9tZC1pbnB1dC1jb250YWluZXI+CgkJCTwvc3Bhbj4KCQk8L2Rpdj4gICAgICAgCiAgICA8L2RkPgogPC9kbD4KICAgICAKICAJICAJCSAgICAgCQkgIAkgICAgCSAgICAJICAJCgkgICAgPGRsIGNsYXNzPSJlZGl0IiAKCQkJICAgIGxheW91dD0iY29sdW1uIiAKCQkgICAgbGF5b3V0LWFsaWduPSJjZW50ZXIgc3RyZXRjaCIKCQkgICAgZmxleD0iMTAwIiAKCQkJZmxleC1ndC1zbT0iNTAiIAoJCQlmbGV4LWd0LW1kPSIzMyI+CiAgICA8ZHQ+CgkgICAgCSAgICAJCQkJCTxzcGFuPkRyb2Rvd248L3NwYW4+CgkJCQkJCQkJCTwvZHQ+CiAgICA8ZGQ+CgkJPGRpdiBjbGFzcz0idHAtZmllbGQiPgoJCQk8c3Bhbj4KCQkJCTxtZC1pbnB1dC1jb250YWluZXIgbWQtbm8tZmxvYXQ+CgkJCQkJCQkJCQkJICAgIAkJCQkJCQkgICAgCSAgICAJIDx0cDpsb29rdXAgZmllbGQ9IntrZXk6IHRpcG9Sb290Q29udHJvbGxlci50aXBvLmZpZWxkZ2FycmF5dGVzdFskaW5kZXhdLmRyb2Rvd24sIGZpZWxkbGFiZWw6IHRpcG9Sb290Q29udHJvbGxlci50aXBvLmZpZWxkZ2FycmF5dGVzdFskaW5kZXhdLmRyb2Rvd25fcmVmc30iIGluZGV4PSIkaW5kZXgiIGZpZWxkdmFsdWU9InRpcG9Sb290Q29udHJvbGxlci50aXBvLmZpZWxkZ2FycmF5dGVzdFskaW5kZXhdLmRyb2Rvd24iIGZpZWxkbGFiZWw9ICJ0aXBvUm9vdENvbnRyb2xsZXIudGlwby5maWVsZGdhcnJheXRlc3RbJGluZGV4XS5kcm9kb3duX3JlZnMiIGJhc2VmaWx0ZXI9IicnIiByZWFsdGVkdGlwbz0iJ0RlZmluaXRpb25zJyIgaXNhcnJheT0iZmFsc2UiIGlzcG9wdXA9IiIgaXN0aXBvbWFuZGF0b3J5PSJmYWxzZSIgbGFiZWxmaWVsZD0iJyRsb29rdXBfY29udGV4dC5rZXlfZmllbGQuZmllbGRfbmFtZSciIGFsbG93Y3JlYXRlPSIiIHNlbGVjdGZpZWxkPSIiIHJvb3Q9InRpcG9Sb290Q29udHJvbGxlci50aXBvIiBuZy1pbml0PSJ0aXBvUm9vdENvbnRyb2xsZXIudGlwby5maWVsZGdhcnJheXRlc3RbJGluZGV4XS5kcm9kb3duID0gdGlwb1Jvb3RDb250cm9sbGVyLnRpcG8uZmllbGRnYXJyYXl0ZXN0WyRpbmRleF0uZHJvZG93biB8fCAnJzt0aXBvUm9vdENvbnRyb2xsZXIudGlwby5maWVsZGdhcnJheXRlc3RbJGluZGV4XS5kcm9kb3duX3JlZnMgPSB0aXBvUm9vdENvbnRyb2xsZXIudGlwby5maWVsZGdhcnJheXRlc3RbJGluZGV4XS5kcm9kb3duX3JlZnMgfHwgJycgIj4KICAgIAkJCQkJCQkJCQkJCQkJCQk8L21kLWlucHV0LWNvbnRhaW5lcj4KCQkJPC9zcGFuPgoJCTwvZGl2PiAgICAgICAKICAgIDwvZGQ+CiA8L2RsPgogICAgIAogICAgICAgICAgIAogICAgICAgIAogICAgIAkJCQkKICAgIDwvZGl2PgogIDwvc2VjdGlvbj4KPC9kaXY+CgoK',$index,'fieldgarraytest')"  aria-label="Edit" class="md-icon-button">
-	          <md-tooltip md-direction="left">Edit</md-tooltip>
-	          <md-icon>launch</md-icon>
-	        </md-button>
-        		        <md-button ng-click="tipoRootController.deleteItem('fieldgarraytest',$index)" aria-label="Delete" class="md-icon-button">
-		          <md-tooltip md-direction="left">Delete</md-tooltip>
-		          <md-icon>delete</md-icon>
-		        </md-button>
-		        <md-button ng-click="tipoRootController.cloneItem('fieldgarraytest',$index)" aria-label="Copy" class="md-icon-button">
-		          <md-tooltip md-direction="left">Copy</md-tooltip>
-		          <md-icon>content_copy</md-icon>
-		        </md-button>
-      		</div>
-      				</div>
-				</div>
-	</section>
-    
-  	    	<section class="fieldset fluid-row-container" flex="100">
-    	<div class="header">
-		    <div layout="row" layout-align="end center">
-		      <h3 flex ng-init="tipoRootController.initCollapsed('disabelexptest', '')">
-		        <a href="" ng-click="disabelexptest.collapsed = !disabelexptest.collapsed" class="plain" md-colors="{color: 'primary-700'}">
-		          <i class="fa" ng-class="{'fa-caret-down': !disabelexptest.collapsed , 'fa-caret-right': disabelexptest.collapsed}"></i>
-		           Disabelexptest
-		        </a>
-		      </h3>
-		      <div class="actions horizontal" layout="row" layout-align="center center">
-		      		        <div layout="row">
-		        				         		          			          <div flex="none">
-		          			            <md-button class="m0" ng-click="tipoRootController.showDetail('ICAgICAgICAgCgo8ZGl2IGNsYXNzPSJwLTgiPgogIDxzZWN0aW9uIGNsYXNzPSJmaWVsZHNldCBuby1oZWFkZXIgZmx1aWQtcm93LWNvbnRhaW5lciI+CiAgICA8ZGl2IGNsYXNzPSJkYXRhIiBsYXlvdXQtcGFkZGluZyBsYXlvdXQ9InJvdyIgbGF5b3V0LXdyYXAgbGF5b3V0LWFsaWduPSJzdGFydCBzdGFydCI+CiAKCgogIAkgICAgCTxzZWN0aW9uIGNsYXNzPSJmaWVsZHNldCBmbHVpZC1yb3ctY29udGFpbmVyIiBmbGV4PSIxMDAiPgogICAgCTxkaXYgY2xhc3M9ImhlYWRlciI+CgkJICAgIDxkaXYgbGF5b3V0PSJyb3ciIGxheW91dC1hbGlnbj0iZW5kIGNlbnRlciI+CgkJICAgICAgPGgzIGZsZXggbmctaW5pdD0idGlwb1Jvb3RDb250cm9sbGVyLmluaXRDb2xsYXBzZWQoJ3N1Ymdyb3VwJywgJycpIj4KCQkgICAgICAgIDxhIGhyZWY9IiIgbmctY2xpY2s9InN1Ymdyb3VwLmNvbGxhcHNlZCA9ICFzdWJncm91cC5jb2xsYXBzZWQiIGNsYXNzPSJwbGFpbiIgbWQtY29sb3JzPSJ7Y29sb3I6ICdwcmltYXJ5LTcwMCd9Ij4KCQkgICAgICAgICAgPGkgY2xhc3M9ImZhIiBuZy1jbGFzcz0ieydmYS1jYXJldC1kb3duJzogIXN1Ymdyb3VwLmNvbGxhcHNlZCAsICdmYS1jYXJldC1yaWdodCc6IHN1Ymdyb3VwLmNvbGxhcHNlZH0iPjwvaT4KCQkgICAgICAgICAgIFN1Ykdyb3VwCgkJICAgICAgICA8L2E+CgkJICAgICAgPC9oMz4KCQkgICAgICA8ZGl2IGNsYXNzPSJhY3Rpb25zIGhvcml6b250YWwiIGxheW91dD0icm93IiBsYXlvdXQtYWxpZ249ImNlbnRlciBjZW50ZXIiPgoJCSAgICAgIAkJICAgICAgICA8ZGl2IGxheW91dD0icm93Ij4KCQkgICAgICAgIAkJCQkgICAgICAgICAJCSAgICAgICAgICAJCQkgICAgICAgICAgPGRpdiBmbGV4PSJub25lIj4KCQkgICAgICAgICAgCQkJICAgICAgICAgICAgPG1kLWJ1dHRvbiBjbGFzcz0ibTAiIG5nLWNsaWNrPSJ0aXBvUm9vdENvbnRyb2xsZXIuc2hvd0RldGFpbCgnSUNBZ0lDQWdJQ0FnQ2dvOFpHbDJJR05zWVhOelBTSndMVGdpUGdvZ0lEeHpaV04wYVc5dUlHTnNZWE56UFNKbWFXVnNaSE5sZENCdWJ5MW9aV0ZrWlhJZ1pteDFhV1F0Y205M0xXTnZiblJoYVc1bGNpSStDaUFnSUNBOFpHbDJJR05zWVhOelBTSmtZWFJoSWlCc1lYbHZkWFF0Y0dGa1pHbHVaeUJzWVhsdmRYUTlJbkp2ZHlJZ2JHRjViM1YwTFhkeVlYQWdiR0Y1YjNWMExXRnNhV2R1UFNKemRHRnlkQ0J6ZEdGeWRDSStDaUFLQ2dvZ0lBa2dJQWtKSUNBZ0lDQUpDU0FnQ1NBZ0lDQUpJQ0FnSUFrZ0lBa0tDU0FnSUNBOFpHd2dZMnhoYzNNOUltVmthWFFpSUFvSkNRa2dJQ0FnYkdGNWIzVjBQU0pqYjJ4MWJXNGlJQW9KQ1NBZ0lDQnNZWGx2ZFhRdFlXeHBaMjQ5SW1ObGJuUmxjaUJ6ZEhKbGRHTm9JZ29KQ1NBZ0lDQm1iR1Y0UFNJeE1EQWlJQW9KQ1FsbWJHVjRMV2QwTFhOdFBTSTFNQ0lnQ2drSkNXWnNaWGd0WjNRdGJXUTlJak16SWo0S0lDQWdJRHhrZEQ0S0NTQWdJQ0FKSUNBZ0lBa0pDUWtKUEhOd1lXNCtWR1Z6ZEVGc2JHOTNaV1JXWVd3OEwzTndZVzQrQ2drSkNRa0pDUWtKQ1R3dlpIUStDaUFnSUNBOFpHUStDZ2tKUEdScGRpQmpiR0Z6Y3owaWRIQXRabWxsYkdRaVBnb0pDUWs4YzNCaGJqNEtDUWtKQ1R4dFpDMXBibkIxZEMxamIyNTBZV2x1WlhJZ2JXUXRibTh0Wm14dllYUStDZ2tKQ1FrSkNRa0pDUWtKQ1FrSkNRa0pDUWtKQ1FrSkNRa0pDUWtKQ1FrSkNRazhkSEE2YzJsdGNHeGxMV1J5YjNCa2IzZHVJR2x6WVhKeVlYazlJbVpoYkhObElpQm1hV1ZzWkhaaGJIVmxQU0owYVhCdlVtOXZkRU52Ym5SeWIyeHNaWEl1ZEdsd2J5NWthWE5oWW1Wc1pYaHdkR1Z6ZEM1emRXSm5jbTkxY0M1MFpYTjBZV3hzYjNkbFpIWmhiQ0lnY21WeGRXbHlaV1E5SW1aaGJITmxJaUJoYkd4dmQyVmtkbUZzZFdWelBTSmJKM1JsYzNReEp5d25kR1Z6ZERJblhTSWdZV3hzYjNkamNtVmhkR1U5SWlSbWFXVnNaQzVoYkd4dmQxOWpjbVZoZEdVaUlIQnNZV05sYUc5c1pHVnlQU0lpSUc1aGJXVTlJbFJsYzNSQmJHeHZkMlZrVm1Gc1gzTjBjbWx1WnlJZ0lDOCtDZ2tKQ1FrSkNRa0pDUWtKQ1FrSkNRa0pQQzl0WkMxcGJuQjFkQzFqYjI1MFlXbHVaWEkrQ2drSkNUd3ZjM0JoYmo0S0NRazhMMlJwZGo0Z0lDQWdJQ0FnQ2lBZ0lDQThMMlJrUGdvZ1BDOWtiRDRLSUNBZ0lDQUtJQ0FKSUNBSkNTQWdJQ0FnQ1FrZ0lBa2dJQ0FnQ1NBZ0lDQUpJQ0FKQ2drZ0lDQWdQR1JzSUdOc1lYTnpQU0psWkdsMElpQUtDUWtKSUNBZ0lHeGhlVzkxZEQwaVkyOXNkVzF1SWlBS0NRa2dJQ0FnYkdGNWIzVjBMV0ZzYVdkdVBTSmpaVzUwWlhJZ2MzUnlaWFJqYUNJS0NRa2dJQ0FnWm14bGVEMGlNVEF3SWlBS0NRa0pabXhsZUMxbmRDMXpiVDBpTlRBaUlBb0pDUWxtYkdWNExXZDBMVzFrUFNJek15SStDaUFnSUNBOFpIUStDZ2tnSUNBZ0NTQWdJQ0FKQ1FrSkNUeHpjR0Z1UGxSbGMzUmtjbTl3Wkc5M2Jqd3ZjM0JoYmo0S0NRa0pDUWtKQ1FrSlBDOWtkRDRLSUNBZ0lEeGtaRDRLQ1FrOFpHbDJJR05zWVhOelBTSjBjQzFtYVdWc1pDSStDZ2tKQ1R4emNHRnVQZ29KQ1FrSlBHMWtMV2x1Y0hWMExXTnZiblJoYVc1bGNpQnRaQzF1YnkxbWJHOWhkRDRLQ1FrSkNRa0pDUWtKQ1FrZ0lDQWdDUWtKQ1FrSkNTQWdJQ0FKSUNBZ0lBazhkSEE2Ykc5dmEzVndJR1pwWld4a1BTSjdhMlY1T2lCMGFYQnZVbTl2ZEVOdmJuUnliMnhzWlhJdWRHbHdieTVrYVhOaFltVnNaWGh3ZEdWemRDNXpkV0puY205MWNDNTBaWE4wWkhKdmNHUnZkMjRzSUdacFpXeGtiR0ZpWld3NklIUnBjRzlTYjI5MFEyOXVkSEp2Ykd4bGNpNTBhWEJ2TG1ScGMyRmlaV3hsZUhCMFpYTjBMbk4xWW1keWIzVndMblJsYzNSa2NtOXdaRzkzYmw5eVpXWnpmU0lnWm1sbGJHUjJZV3gxWlQwaWRHbHdiMUp2YjNSRGIyNTBjbTlzYkdWeUxuUnBjRzh1WkdsellXSmxiR1Y0Y0hSbGMzUXVjM1ZpWjNKdmRYQXVkR1Z6ZEdSeWIzQmtiM2R1SWlCbWFXVnNaR3hoWW1Wc1BTQWlkR2x3YjFKdmIzUkRiMjUwY205c2JHVnlMblJwY0c4dVpHbHpZV0psYkdWNGNIUmxjM1F1YzNWaVozSnZkWEF1ZEdWemRHUnliM0JrYjNkdVgzSmxabk1pSUdKaGMyVm1hV3gwWlhJOUlpY25JaUJ5WldGc2RHVmtkR2x3YnowaUoxUnBjRzlCY0hBbklpQnBjMkZ5Y21GNVBTSm1ZV3h6WlNJZ2FYTndiM0IxY0QwaUlpQnBjM1JwY0c5dFlXNWtZWFJ2Y25rOUltWmhiSE5sSWlCc1lXSmxiR1pwWld4a1BTSW5ZWEJ3WDI1aGJXVW5JaUJoYkd4dmQyTnlaV0YwWlQwaUlpQnpaV3hsWTNSbWFXVnNaRDBpSWlCeWIyOTBQU0owYVhCdlVtOXZkRU52Ym5SeWIyeHNaWEl1ZEdsd2J5SWdibWN0YVc1cGREMGlkR2x3YjFKdmIzUkRiMjUwY205c2JHVnlMblJwY0c4dVpHbHpZV0psYkdWNGNIUmxjM1F1YzNWaVozSnZkWEF1ZEdWemRHUnliM0JrYjNkdUlEMGdkR2x3YjFKdmIzUkRiMjUwY205c2JHVnlMblJwY0c4dVpHbHpZV0psYkdWNGNIUmxjM1F1YzNWaVozSnZkWEF1ZEdWemRHUnliM0JrYjNkdUlIeDhJQ2NuTzNScGNHOVNiMjkwUTI5dWRISnZiR3hsY2k1MGFYQnZMbVJwYzJGaVpXeGxlSEIwWlhOMExuTjFZbWR5YjNWd0xuUmxjM1JrY205d1pHOTNibDl5WldaeklEMGdkR2x3YjFKdmIzUkRiMjUwY205c2JHVnlMblJwY0c4dVpHbHpZV0psYkdWNGNIUmxjM1F1YzNWaVozSnZkWEF1ZEdWemRHUnliM0JrYjNkdVgzSmxabk1nZkh3Z0p5Y2dJajRLSUNBZ0lBa0pDUWtKQ1FrSkNRa0pDUWtKQ1FrOEwyMWtMV2x1Y0hWMExXTnZiblJoYVc1bGNqNEtDUWtKUEM5emNHRnVQZ29KQ1R3dlpHbDJQaUFnSUNBZ0lDQUtJQ0FnSUR3dlpHUStDaUE4TDJSc1Bnb2dJQ0FnSUFvZ0lDQWdJQ0FnSUNBZ0lBb2dJQ0FnSUNBZ0lBb2dJQ0FnSUFrSkNRa0tJQ0FnSUR3dlpHbDJQZ29nSUR3dmMyVmpkR2x2Ymo0S1BDOWthWFkrQ2dvSycpIiBhcmlhLWxhYmVsPSJFZGl0Ij4KCQkgICAgICAgICAgICAgIDxtZC10b29sdGlwIG1kLWRpcmVjdGlvbj0idG9wIj5FZGl0PC9tZC10b29sdGlwPgoJCSAgICAgICAgICAgICAgPG1kLWljb24+bGF1bmNoPC9tZC1pY29uPgoJCSAgICAgICAgICAgIDwvbWQtYnV0dG9uPgoJCSAgICAgICAgICA8L2Rpdj4KCQkgICAgICAgICAgCQkgICAgICAgIDwvZGl2PgoJCSAgICAgICAgCQkgICAgICA8L2Rpdj4KCQkgICAgPC9kaXY+CgkJICAgIDxtZC1kaXZpZGVyPjwvbWQtZGl2aWRlcj4KCQkgIDwvZGl2PgoJCSAgCQkJICA8ZGl2IGNsYXNzPSJkYXRhIiBmbGV4IGxheW91dC1wYWRkaW5nIGxheW91dD0icm93IiBsYXlvdXQtd3JhcCBsYXlvdXQtYWxpZ249InN0YXJ0IHN0YXJ0IiBuZy1oaWRlPSJzdWJncm91cC5jb2xsYXBzZWQiPgoJCSAgCQkJICAgIAoJCQkgICAgCQkgCgogIAkgICAgIAkJIAoKICAJICAgICAgICAgIAkJCTwvZGl2PgoJPC9zZWN0aW9uPgogICAgCiAgCSAgCQkgICAgIAkJICAJICAgIAkgICAgCSAgCQoJICAgIDxkbCBjbGFzcz0iZWRpdCIgCgkJCSAgICBsYXlvdXQ9ImNvbHVtbiIgCgkJICAgIGxheW91dC1hbGlnbj0iY2VudGVyIHN0cmV0Y2giCgkJICAgIGZsZXg9IjEwMCIgCgkJCWZsZXgtZ3Qtc209IjUwIiAKCQkJZmxleC1ndC1tZD0iMzMiPgogICAgPGR0PgoJICAgIAkgICAgCQkJCQk8c3Bhbj5GaWVsZDE8L3NwYW4+CgkJCQkJCQkJCTwvZHQ+CiAgICA8ZGQ+CgkJPGRpdiBjbGFzcz0idHAtZmllbGQiPgoJCQk8c3Bhbj4KCQkJCTxtZC1pbnB1dC1jb250YWluZXIgbWQtbm8tZmxvYXQ+CgkJCQkJCQkJCQkJCQkJCQkJCQk8aW5wdXQgbmctbW9kZWw9InRpcG9Sb290Q29udHJvbGxlci50aXBvLmRpc2FiZWxleHB0ZXN0LmZpZWxkMSIgYXJpYS1sYWJlbD0iRmllbGQxIiBwbGFjZWhvbGRlcj0iIiBuYW1lPSJGaWVsZDFfc3RyaW5nIiBuZy1yZXF1aXJlZD0iZmFsc2UiIG5nLXBhdHRlcm49IiIgID4KCQkJCQkJCQkJCQkJCQkJCQk8L21kLWlucHV0LWNvbnRhaW5lcj4KCQkJPC9zcGFuPgoJCTwvZGl2PiAgICAgICAKICAgIDwvZGQ+CiA8L2RsPgogICAgIAogIAkgIAkJICAgICAJCSAgCSAgICAJICAgIAkgIAkKCSAgICA8ZGwgY2xhc3M9ImVkaXQiIAoJCQkgICAgbGF5b3V0PSJjb2x1bW4iIAoJCSAgICBsYXlvdXQtYWxpZ249ImNlbnRlciBzdHJldGNoIgoJCSAgICBmbGV4PSIxMDAiIAoJCQlmbGV4LWd0LXNtPSI1MCIgCgkJCWZsZXgtZ3QtbWQ9IjMzIj4KICAgIDxkdD4KCSAgICAJICAgIAkJCQkJPHNwYW4+RmllbGQyPC9zcGFuPgoJCQkJCQkJCQk8L2R0PgogICAgPGRkPgoJCTxkaXYgY2xhc3M9InRwLWZpZWxkIj4KCQkJPHNwYW4+CgkJCQk8bWQtaW5wdXQtY29udGFpbmVyIG1kLW5vLWZsb2F0PgoJCQkJCQkJCQkJCQkJCQkJCQkJPGlucHV0IG5nLW1vZGVsPSJ0aXBvUm9vdENvbnRyb2xsZXIudGlwby5kaXNhYmVsZXhwdGVzdC5maWVsZDIiIGFyaWEtbGFiZWw9IkZpZWxkMiIgcGxhY2Vob2xkZXI9IiIgbmFtZT0iRmllbGQyX3N0cmluZyIgbmctcmVxdWlyZWQ9ImZhbHNlIiBuZy1wYXR0ZXJuPSIiICA+CgkJCQkJCQkJCQkJCQkJCQkJPC9tZC1pbnB1dC1jb250YWluZXI+CgkJCTwvc3Bhbj4KCQk8L2Rpdj4gICAgICAgCiAgICA8L2RkPgogPC9kbD4KICAgICAKICAJICAJCSAgICAgCQkgIAkgICAgCSAgICAJICAJCgkgICAgPGRsIGNsYXNzPSJlZGl0IiAKCQkJICAgIGxheW91dD0iY29sdW1uIiAKCQkgICAgbGF5b3V0LWFsaWduPSJjZW50ZXIgc3RyZXRjaCIKCQkgICAgZmxleD0iMTAwIiAKCQkJZmxleC1ndC1zbT0iNTAiIAoJCQlmbGV4LWd0LW1kPSIzMyI+CiAgICA8ZHQ+CgkgICAgCSAgICAJCQkJCTxzcGFuPkRyb2Rvd248L3NwYW4+CgkJCQkJCQkJCTwvZHQ+CiAgICA8ZGQ+CgkJPGRpdiBjbGFzcz0idHAtZmllbGQiPgoJCQk8c3Bhbj4KCQkJCTxtZC1pbnB1dC1jb250YWluZXIgbWQtbm8tZmxvYXQ+CgkJCQkJCQkJCQkJICAgIAkJCQkJCQkgICAgCSAgICAJPHRwOmxvb2t1cCBmaWVsZD0ie2tleTogdGlwb1Jvb3RDb250cm9sbGVyLnRpcG8uZGlzYWJlbGV4cHRlc3QuZHJvZG93biwgZmllbGRsYWJlbDogdGlwb1Jvb3RDb250cm9sbGVyLnRpcG8uZGlzYWJlbGV4cHRlc3QuZHJvZG93bl9yZWZzfSIgZmllbGR2YWx1ZT0idGlwb1Jvb3RDb250cm9sbGVyLnRpcG8uZGlzYWJlbGV4cHRlc3QuZHJvZG93biIgZmllbGRsYWJlbD0gInRpcG9Sb290Q29udHJvbGxlci50aXBvLmRpc2FiZWxleHB0ZXN0LmRyb2Rvd25fcmVmcyIgYmFzZWZpbHRlcj0iJyciIHJlYWx0ZWR0aXBvPSInRGVmaW5pdGlvbnMnIiBpc2FycmF5PSJmYWxzZSIgaXNwb3B1cD0iIiBpc3RpcG9tYW5kYXRvcnk9ImZhbHNlIiBsYWJlbGZpZWxkPSInJGxvb2t1cF9jb250ZXh0LmtleV9maWVsZC5maWVsZF9uYW1lJyIgYWxsb3djcmVhdGU9IiIgc2VsZWN0ZmllbGQ9IiIgcm9vdD0idGlwb1Jvb3RDb250cm9sbGVyLnRpcG8iIG5nLWluaXQ9InRpcG9Sb290Q29udHJvbGxlci50aXBvLmRpc2FiZWxleHB0ZXN0LmRyb2Rvd24gPSB0aXBvUm9vdENvbnRyb2xsZXIudGlwby5kaXNhYmVsZXhwdGVzdC5kcm9kb3duIHx8ICcnO3RpcG9Sb290Q29udHJvbGxlci50aXBvLmRpc2FiZWxleHB0ZXN0LmRyb2Rvd25fcmVmcyA9IHRpcG9Sb290Q29udHJvbGxlci50aXBvLmRpc2FiZWxleHB0ZXN0LmRyb2Rvd25fcmVmcyB8fCAnJyAiPgogICAgCQkJCQkJCQkJCQkJCQkJCTwvbWQtaW5wdXQtY29udGFpbmVyPgoJCQk8L3NwYW4+CgkJPC9kaXY+ICAgICAgIAogICAgPC9kZD4KIDwvZGw+CiAgICAgCiAgICAgICAgICAgCiAgICAgICAgCiAgICAgCQkJCQogICAgPC9kaXY+CiAgPC9zZWN0aW9uPgo8L2Rpdj4KCgo=')" aria-label="Edit">
-		              <md-tooltip md-direction="top">Edit</md-tooltip>
-		              <md-icon>launch</md-icon>
-		            </md-button>
-		          </div>
-		          		        </div>
-		        		      </div>
-		    </div>
-		    <md-divider></md-divider>
-		  </div>
-		  			  <div class="data" flex layout-padding layout="row" layout-wrap layout-align="start start" ng-hide="disabelexptest.collapsed">
-		  			    
-			    		 
-
-  	     		 
-
-  	  		         	  	    	    	  	
-	    <dl class="edit" 
-			    layout="column" 
-		    layout-align="center stretch"
-		    flex="100" 
-			flex-gt-sm="50" 
-			flex-gt-md="33">
-    <dt>
-	    	    					<span>Field1</span>
-									</dt>
-    <dd>
-		<div class="tp-field">
-			<span>
-				<md-input-container md-no-float>
-																			<input ng-model="tipoRootController.tipo.disabelexptest.field1" aria-label="Field1" placeholder="" name="Field1_string" ng-required="false" ng-pattern=""  >
-																	</md-input-container>
-			</span>
-		</div>       
-    </dd>
- </dl>
-            		 
-
-  	     		 
-
-  	          			</div>
-	</section>
-    
-  	    	<section class="fieldset fluid-row-container" flex="100">
-    	<div class="header">
-		    <div layout="row" layout-align="end center">
-		      <h3 flex ng-init="tipoRootController.initCollapsed('disabearrayexptest', '')">
-		        <a href="" ng-click="disabearrayexptest.collapsed = !disabearrayexptest.collapsed" class="plain" md-colors="{color: 'primary-700'}">
-		          <i class="fa" ng-class="{'fa-caret-down': !disabearrayexptest.collapsed , 'fa-caret-right': disabearrayexptest.collapsed}"></i>
-		           Disabearrayexptest
-		        </a>
-		      </h3>
-		      <div class="actions horizontal" layout="row" layout-align="center center">
-		      		        <div layout="row">
-		        				         		          			          <div flex="none">
-		          			            <md-button class="m0" ng-click="tipoRootController.showDetail('ICAgICAgICAgCgo8ZGl2IGNsYXNzPSJwLTgiPgogIDxzZWN0aW9uIGNsYXNzPSJmaWVsZHNldCBuby1oZWFkZXIgZmx1aWQtcm93LWNvbnRhaW5lciI+CiAgICA8ZGl2IGNsYXNzPSJkYXRhIiBsYXlvdXQtcGFkZGluZyBsYXlvdXQ9InJvdyIgbGF5b3V0LXdyYXAgbGF5b3V0LWFsaWduPSJzdGFydCBzdGFydCI+CiAKCgogIAkgICAgCTxzZWN0aW9uIGNsYXNzPSJmaWVsZHNldCBmbHVpZC1yb3ctY29udGFpbmVyIiBmbGV4PSIxMDAiPgogICAgCTxkaXYgY2xhc3M9ImhlYWRlciI+CgkJICAgIDxkaXYgbGF5b3V0PSJyb3ciIGxheW91dC1hbGlnbj0iZW5kIGNlbnRlciI+CgkJICAgICAgPGgzIGZsZXggbmctaW5pdD0idGlwb1Jvb3RDb250cm9sbGVyLmluaXRDb2xsYXBzZWQoJ3N1Ymdyb3VwJywgJycpIj4KCQkgICAgICAgIDxhIGhyZWY9IiIgbmctY2xpY2s9InN1Ymdyb3VwLmNvbGxhcHNlZCA9ICFzdWJncm91cC5jb2xsYXBzZWQiIGNsYXNzPSJwbGFpbiIgbWQtY29sb3JzPSJ7Y29sb3I6ICdwcmltYXJ5LTcwMCd9Ij4KCQkgICAgICAgICAgPGkgY2xhc3M9ImZhIiBuZy1jbGFzcz0ieydmYS1jYXJldC1kb3duJzogIXN1Ymdyb3VwLmNvbGxhcHNlZCAsICdmYS1jYXJldC1yaWdodCc6IHN1Ymdyb3VwLmNvbGxhcHNlZH0iPjwvaT4KCQkgICAgICAgICAgIFN1Ykdyb3VwCgkJICAgICAgICA8L2E+CgkJICAgICAgPC9oMz4KCQkgICAgICA8ZGl2IGNsYXNzPSJhY3Rpb25zIGhvcml6b250YWwiIGxheW91dD0icm93IiBsYXlvdXQtYWxpZ249ImNlbnRlciBjZW50ZXIiPgoJCSAgICAgIAkJICAgICAgICA8ZGl2IGxheW91dD0icm93Ij4KCQkgICAgICAgIAkJCQkgICAgICAgICAJCSAgICAgICAgICAJCQkgICAgICAgICAgPGRpdiBmbGV4PSJub25lIj4KCQkgICAgICAgICAgCQkJICAgICAgICAgICAgPG1kLWJ1dHRvbiBjbGFzcz0ibTAiIG5nLWNsaWNrPSJ0aXBvUm9vdENvbnRyb2xsZXIuc2hvd0RldGFpbCgnSUNBZ0lDQWdJQ0FnQ2dvOFpHbDJJR05zWVhOelBTSndMVGdpUGdvZ0lEeHpaV04wYVc5dUlHTnNZWE56UFNKbWFXVnNaSE5sZENCdWJ5MW9aV0ZrWlhJZ1pteDFhV1F0Y205M0xXTnZiblJoYVc1bGNpSStDaUFnSUNBOFpHbDJJR05zWVhOelBTSmtZWFJoSWlCc1lYbHZkWFF0Y0dGa1pHbHVaeUJzWVhsdmRYUTlJbkp2ZHlJZ2JHRjViM1YwTFhkeVlYQWdiR0Y1YjNWMExXRnNhV2R1UFNKemRHRnlkQ0J6ZEdGeWRDSStDaUFLQ2dvZ0lBa2dJQWtKSUNBZ0lDQUpDU0FnQ1NBZ0lDQUpJQ0FnSUFrZ0lBa0tDU0FnSUNBOFpHd2dZMnhoYzNNOUltVmthWFFpSUFvSkNRa2dJQ0FnYkdGNWIzVjBQU0pqYjJ4MWJXNGlJQW9KQ1NBZ0lDQnNZWGx2ZFhRdFlXeHBaMjQ5SW1ObGJuUmxjaUJ6ZEhKbGRHTm9JZ29KQ1NBZ0lDQm1iR1Y0UFNJeE1EQWlJQW9KQ1FsbWJHVjRMV2QwTFhOdFBTSTFNQ0lnQ2drSkNXWnNaWGd0WjNRdGJXUTlJak16SWo0S0lDQWdJRHhrZEQ0S0NTQWdJQ0FKSUNBZ0lBa0pDUWtKUEhOd1lXNCtWR1Z6ZEVGc2JHOTNaV1JXWVd3OEwzTndZVzQrQ2drSkNRa0pDUWtKQ1R3dlpIUStDaUFnSUNBOFpHUStDZ2tKUEdScGRpQmpiR0Z6Y3owaWRIQXRabWxsYkdRaVBnb0pDUWs4YzNCaGJqNEtDUWtKQ1R4dFpDMXBibkIxZEMxamIyNTBZV2x1WlhJZ2JXUXRibTh0Wm14dllYUStDZ2tKQ1FrSkNRa0pDUWtKQ1FrSkNRa0pDUWtKQ1FrSkNRa0pDUWtKQ1FrSkNRazhkSEE2YzJsdGNHeGxMV1J5YjNCa2IzZHVJR2x6WVhKeVlYazlJbVpoYkhObElpQm1hV1ZzWkhaaGJIVmxQU0owYVhCdlVtOXZkRU52Ym5SeWIyeHNaWEl1ZEdsd2J5NWthWE5oWW1WaGNuSmhlV1Y0Y0hSbGMzUXVjM1ZpWjNKdmRYQXVkR1Z6ZEdGc2JHOTNaV1IyWVd3aUlISmxjWFZwY21Wa1BTSm1ZV3h6WlNJZ1lXeHNiM2RsWkhaaGJIVmxjejBpV3lkMFpYTjBNU2NzSjNSbGMzUXlKMTBpSUdGc2JHOTNZM0psWVhSbFBTSWtabWxsYkdRdVlXeHNiM2RmWTNKbFlYUmxJaUJ3YkdGalpXaHZiR1JsY2owaUlpQnVZVzFsUFNKVVpYTjBRV3hzYjNkbFpGWmhiRjl6ZEhKcGJtY2lJQ0F2UGdvSkNRa0pDUWtKQ1FrSkNRa0pDUWtKQ1R3dmJXUXRhVzV3ZFhRdFkyOXVkR0ZwYm1WeVBnb0pDUWs4TDNOd1lXNCtDZ2tKUEM5a2FYWStJQ0FnSUNBZ0lBb2dJQ0FnUEM5a1pENEtJRHd2Wkd3K0NpQWdJQ0FnQ2lBZ0NTQWdDUWtnSUNBZ0lBa0pJQ0FKSUNBZ0lBa2dJQ0FnQ1NBZ0NRb0pJQ0FnSUR4a2JDQmpiR0Z6Y3owaVpXUnBkQ0lnQ2drSkNTQWdJQ0JzWVhsdmRYUTlJbU52YkhWdGJpSWdDZ2tKSUNBZ0lHeGhlVzkxZEMxaGJHbG5iajBpWTJWdWRHVnlJSE4wY21WMFkyZ2lDZ2tKSUNBZ0lHWnNaWGc5SWpFd01DSWdDZ2tKQ1dac1pYZ3RaM1F0YzIwOUlqVXdJaUFLQ1FrSlpteGxlQzFuZEMxdFpEMGlNek1pUGdvZ0lDQWdQR1IwUGdvSklDQWdJQWtnSUNBZ0NRa0pDUWs4YzNCaGJqNVVaWE4wWkhKdmNHUnZkMjQ4TDNOd1lXNCtDZ2tKQ1FrSkNRa0pDVHd2WkhRK0NpQWdJQ0E4WkdRK0Nna0pQR1JwZGlCamJHRnpjejBpZEhBdFptbGxiR1FpUGdvSkNRazhjM0JoYmo0S0NRa0pDVHh0WkMxcGJuQjFkQzFqYjI1MFlXbHVaWElnYldRdGJtOHRabXh2WVhRK0Nna0pDUWtKQ1FrSkNRa0pJQ0FnSUFrSkNRa0pDUWtnSUNBZ0NTQWdJQ0FKUEhSd09teHZiMnQxY0NCbWFXVnNaRDBpZTJ0bGVUb2dkR2x3YjFKdmIzUkRiMjUwY205c2JHVnlMblJwY0c4dVpHbHpZV0psWVhKeVlYbGxlSEIwWlhOMExuTjFZbWR5YjNWd0xuUmxjM1JrY205d1pHOTNiaXdnWm1sbGJHUnNZV0psYkRvZ2RHbHdiMUp2YjNSRGIyNTBjbTlzYkdWeUxuUnBjRzh1WkdsellXSmxZWEp5WVhsbGVIQjBaWE4wTG5OMVltZHliM1Z3TG5SbGMzUmtjbTl3Wkc5M2JsOXlaV1p6ZlNJZ1ptbGxiR1IyWVd4MVpUMGlkR2x3YjFKdmIzUkRiMjUwY205c2JHVnlMblJwY0c4dVpHbHpZV0psWVhKeVlYbGxlSEIwWlhOMExuTjFZbWR5YjNWd0xuUmxjM1JrY205d1pHOTNiaUlnWm1sbGJHUnNZV0psYkQwZ0luUnBjRzlTYjI5MFEyOXVkSEp2Ykd4bGNpNTBhWEJ2TG1ScGMyRmlaV0Z5Y21GNVpYaHdkR1Z6ZEM1emRXSm5jbTkxY0M1MFpYTjBaSEp2Y0dSdmQyNWZjbVZtY3lJZ1ltRnpaV1pwYkhSbGNqMGlKeWNpSUhKbFlXeDBaV1IwYVhCdlBTSW5WR2x3YjBGd2NDY2lJR2x6WVhKeVlYazlJbVpoYkhObElpQnBjM0J2Y0hWd1BTSWlJR2x6ZEdsd2IyMWhibVJoZEc5eWVUMGlabUZzYzJVaUlHeGhZbVZzWm1sbGJHUTlJaWRoY0hCZmJtRnRaU2NpSUdGc2JHOTNZM0psWVhSbFBTSWlJSE5sYkdWamRHWnBaV3hrUFNJaUlISnZiM1E5SW5ScGNHOVNiMjkwUTI5dWRISnZiR3hsY2k1MGFYQnZJaUJ1WnkxcGJtbDBQU0owYVhCdlVtOXZkRU52Ym5SeWIyeHNaWEl1ZEdsd2J5NWthWE5oWW1WaGNuSmhlV1Y0Y0hSbGMzUXVjM1ZpWjNKdmRYQXVkR1Z6ZEdSeWIzQmtiM2R1SUQwZ2RHbHdiMUp2YjNSRGIyNTBjbTlzYkdWeUxuUnBjRzh1WkdsellXSmxZWEp5WVhsbGVIQjBaWE4wTG5OMVltZHliM1Z3TG5SbGMzUmtjbTl3Wkc5M2JpQjhmQ0FuSnp0MGFYQnZVbTl2ZEVOdmJuUnliMnhzWlhJdWRHbHdieTVrYVhOaFltVmhjbkpoZVdWNGNIUmxjM1F1YzNWaVozSnZkWEF1ZEdWemRHUnliM0JrYjNkdVgzSmxabk1nUFNCMGFYQnZVbTl2ZEVOdmJuUnliMnhzWlhJdWRHbHdieTVrYVhOaFltVmhjbkpoZVdWNGNIUmxjM1F1YzNWaVozSnZkWEF1ZEdWemRHUnliM0JrYjNkdVgzSmxabk1nZkh3Z0p5Y2dJajRLSUNBZ0lBa0pDUWtKQ1FrSkNRa0pDUWtKQ1FrOEwyMWtMV2x1Y0hWMExXTnZiblJoYVc1bGNqNEtDUWtKUEM5emNHRnVQZ29KQ1R3dlpHbDJQaUFnSUNBZ0lDQUtJQ0FnSUR3dlpHUStDaUE4TDJSc1Bnb2dJQ0FnSUFvZ0lDQWdJQ0FnSUNBZ0lBb2dJQ0FnSUNBZ0lBb2dJQ0FnSUFrSkNRa0tJQ0FnSUR3dlpHbDJQZ29nSUR3dmMyVmpkR2x2Ymo0S1BDOWthWFkrQ2dvSycpIiBhcmlhLWxhYmVsPSJFZGl0Ij4KCQkgICAgICAgICAgICAgIDxtZC10b29sdGlwIG1kLWRpcmVjdGlvbj0idG9wIj5FZGl0PC9tZC10b29sdGlwPgoJCSAgICAgICAgICAgICAgPG1kLWljb24+bGF1bmNoPC9tZC1pY29uPgoJCSAgICAgICAgICAgIDwvbWQtYnV0dG9uPgoJCSAgICAgICAgICA8L2Rpdj4KCQkgICAgICAgICAgCQkgICAgICAgIDwvZGl2PgoJCSAgICAgICAgCQkgICAgICA8L2Rpdj4KCQkgICAgPC9kaXY+CgkJICAgIDxtZC1kaXZpZGVyPjwvbWQtZGl2aWRlcj4KCQkgIDwvZGl2PgoJCSAgCQkJICA8ZGl2IGNsYXNzPSJkYXRhIiBmbGV4IGxheW91dC1wYWRkaW5nIGxheW91dD0icm93IiBsYXlvdXQtd3JhcCBsYXlvdXQtYWxpZ249InN0YXJ0IHN0YXJ0IiBuZy1oaWRlPSJzdWJncm91cC5jb2xsYXBzZWQiPgoJCSAgCQkJICAgIAoJCQkgICAgCQkgCgogIAkgICAgIAkJIAoKICAJICAgICAgICAgIAkJCTwvZGl2PgoJPC9zZWN0aW9uPgogICAgCiAgCSAgCQkgICAgIAkJICAJICAgIAkgICAgCSAgCQoJICAgIDxkbCBjbGFzcz0iZWRpdCIgCgkJCSAgICBsYXlvdXQ9ImNvbHVtbiIgCgkJICAgIGxheW91dC1hbGlnbj0iY2VudGVyIHN0cmV0Y2giCgkJICAgIGZsZXg9IjEwMCIgCgkJCWZsZXgtZ3Qtc209IjUwIiAKCQkJZmxleC1ndC1tZD0iMzMiPgogICAgPGR0PgoJICAgIAkgICAgCQkJCQk8c3Bhbj5GaWVsZDE8L3NwYW4+CgkJCQkJCQkJCTwvZHQ+CiAgICA8ZGQ+CgkJPGRpdiBjbGFzcz0idHAtZmllbGQiPgoJCQk8c3Bhbj4KCQkJCTxtZC1pbnB1dC1jb250YWluZXIgbWQtbm8tZmxvYXQ+CgkJCQkJCQkJCQkJCQkJCQkJCQk8aW5wdXQgbmctbW9kZWw9InRpcG9Sb290Q29udHJvbGxlci50aXBvLmRpc2FiZWFycmF5ZXhwdGVzdC5maWVsZDEiIGFyaWEtbGFiZWw9IkZpZWxkMSIgcGxhY2Vob2xkZXI9IiIgbmFtZT0iRmllbGQxX3N0cmluZyIgbmctcmVxdWlyZWQ9ImZhbHNlIiBuZy1wYXR0ZXJuPSIiICA+CgkJCQkJCQkJCQkJCQkJCQkJPC9tZC1pbnB1dC1jb250YWluZXI+CgkJCTwvc3Bhbj4KCQk8L2Rpdj4gICAgICAgCiAgICA8L2RkPgogPC9kbD4KICAgICAKICAJICAJCSAgICAgCQkgIAkgICAgCSAgICAJICAJCgkgICAgPGRsIGNsYXNzPSJlZGl0IiAKCQkJICAgIGxheW91dD0iY29sdW1uIiAKCQkgICAgbGF5b3V0LWFsaWduPSJjZW50ZXIgc3RyZXRjaCIKCQkgICAgZmxleD0iMTAwIiAKCQkJZmxleC1ndC1zbT0iNTAiIAoJCQlmbGV4LWd0LW1kPSIzMyI+CiAgICA8ZHQ+CgkgICAgCSAgICAJCQkJCTxzcGFuPkZpZWxkMjwvc3Bhbj4KCQkJCQkJCQkJPC9kdD4KICAgIDxkZD4KCQk8ZGl2IGNsYXNzPSJ0cC1maWVsZCI+CgkJCTxzcGFuPgoJCQkJPG1kLWlucHV0LWNvbnRhaW5lciBtZC1uby1mbG9hdD4KCQkJCQkJCQkJCQkJCQkJCQkJCTxpbnB1dCBuZy1tb2RlbD0idGlwb1Jvb3RDb250cm9sbGVyLnRpcG8uZGlzYWJlYXJyYXlleHB0ZXN0LmZpZWxkMiIgYXJpYS1sYWJlbD0iRmllbGQyIiBwbGFjZWhvbGRlcj0iIiBuYW1lPSJGaWVsZDJfc3RyaW5nIiBuZy1yZXF1aXJlZD0iZmFsc2UiIG5nLXBhdHRlcm49IiIgID4KCQkJCQkJCQkJCQkJCQkJCQk8L21kLWlucHV0LWNvbnRhaW5lcj4KCQkJPC9zcGFuPgoJCTwvZGl2PiAgICAgICAKICAgIDwvZGQ+CiA8L2RsPgogICAgIAogIAkgIAkJICAgICAJCSAgCSAgICAJICAgIAkgIAkKCSAgICA8ZGwgY2xhc3M9ImVkaXQiIAoJCQkgICAgbGF5b3V0PSJjb2x1bW4iIAoJCSAgICBsYXlvdXQtYWxpZ249ImNlbnRlciBzdHJldGNoIgoJCSAgICBmbGV4PSIxMDAiIAoJCQlmbGV4LWd0LXNtPSI1MCIgCgkJCWZsZXgtZ3QtbWQ9IjMzIj4KICAgIDxkdD4KCSAgICAJICAgIAkJCQkJPHNwYW4+RHJvZG93bjwvc3Bhbj4KCQkJCQkJCQkJPC9kdD4KICAgIDxkZD4KCQk8ZGl2IGNsYXNzPSJ0cC1maWVsZCI+CgkJCTxzcGFuPgoJCQkJPG1kLWlucHV0LWNvbnRhaW5lciBtZC1uby1mbG9hdD4KCQkJCQkJCQkJCQkgICAgCQkJCQkJCSAgICAJICAgIAk8dHA6bG9va3VwIGZpZWxkPSJ7a2V5OiB0aXBvUm9vdENvbnRyb2xsZXIudGlwby5kaXNhYmVhcnJheWV4cHRlc3QuZHJvZG93biwgZmllbGRsYWJlbDogdGlwb1Jvb3RDb250cm9sbGVyLnRpcG8uZGlzYWJlYXJyYXlleHB0ZXN0LmRyb2Rvd25fcmVmc30iIGZpZWxkdmFsdWU9InRpcG9Sb290Q29udHJvbGxlci50aXBvLmRpc2FiZWFycmF5ZXhwdGVzdC5kcm9kb3duIiBmaWVsZGxhYmVsPSAidGlwb1Jvb3RDb250cm9sbGVyLnRpcG8uZGlzYWJlYXJyYXlleHB0ZXN0LmRyb2Rvd25fcmVmcyIgYmFzZWZpbHRlcj0iJyciIHJlYWx0ZWR0aXBvPSInRGVmaW5pdGlvbnMnIiBpc2FycmF5PSJmYWxzZSIgaXNwb3B1cD0iIiBpc3RpcG9tYW5kYXRvcnk9ImZhbHNlIiBsYWJlbGZpZWxkPSInJGxvb2t1cF9jb250ZXh0LmtleV9maWVsZC5maWVsZF9uYW1lJyIgYWxsb3djcmVhdGU9IiIgc2VsZWN0ZmllbGQ9IiIgcm9vdD0idGlwb1Jvb3RDb250cm9sbGVyLnRpcG8iIG5nLWluaXQ9InRpcG9Sb290Q29udHJvbGxlci50aXBvLmRpc2FiZWFycmF5ZXhwdGVzdC5kcm9kb3duID0gdGlwb1Jvb3RDb250cm9sbGVyLnRpcG8uZGlzYWJlYXJyYXlleHB0ZXN0LmRyb2Rvd24gfHwgJyc7dGlwb1Jvb3RDb250cm9sbGVyLnRpcG8uZGlzYWJlYXJyYXlleHB0ZXN0LmRyb2Rvd25fcmVmcyA9IHRpcG9Sb290Q29udHJvbGxlci50aXBvLmRpc2FiZWFycmF5ZXhwdGVzdC5kcm9kb3duX3JlZnMgfHwgJycgIj4KICAgIAkJCQkJCQkJCQkJCQkJCQk8L21kLWlucHV0LWNvbnRhaW5lcj4KCQkJPC9zcGFuPgoJCTwvZGl2PiAgICAgICAKICAgIDwvZGQ+CiA8L2RsPgogICAgIAogICAgICAgICAgIAogICAgICAgIAogICAgIAkJCQkKICAgIDwvZGl2PgogIDwvc2VjdGlvbj4KPC9kaXY+CgoK')" aria-label="Edit">
-		              <md-tooltip md-direction="top">Edit</md-tooltip>
-		              <md-icon>launch</md-icon>
-		            </md-button>
-		          </div>
-		          		        </div>
-		        		      </div>
-		    </div>
-		    <md-divider></md-divider>
-		  </div>
-		  			  <div class="data" flex layout-padding layout="row" layout-wrap layout-align="start start" ng-hide="disabearrayexptest.collapsed">
-		  			    
-			    		 
-
-  	     		 
-
-  	  		         	  	    	    	  	
-	    <dl class="edit" 
-			    layout="column" 
-		    layout-align="center stretch"
-		    flex="100" 
-			flex-gt-sm="50" 
-			flex-gt-md="33">
-    <dt>
-	    	    					<span>Field1</span>
-									</dt>
-    <dd>
-		<div class="tp-field">
-			<span>
-				<md-input-container md-no-float>
-																			<input ng-model="tipoRootController.tipo.disabearrayexptest.field1" aria-label="Field1" placeholder="" name="Field1_string" ng-required="false" ng-pattern=""  >
-																	</md-input-container>
-			</span>
-		</div>       
-    </dd>
- </dl>
-            		 
-
-  	     		 
-
-  	          			</div>
-	</section>
-    
+      		  		  			    			    		 
+	  	  		  		     		  	    	    		
+			
+		
   	
-  	        
+	    <dl class="edit" 
+				    layout="column" 
+		    layout-align="center stretch"
+			    flex="100" 
+			flex-gt-sm="50" 
+			flex-gt-md="33" style="">
+    <dt>
+	    	    					<span>Sequence</span>
+									</dt>
+	    <dd>
+    		<div class="tp-field">
+			<span>
+				<md-input-container md-no-float>
+																											<tp:expressions expression="tipoRootController.tipo.Testgroup.length" bindvalue="tipoRootController.tipo.Testgroup[$index].sequece" readonly="false"/>
+																				</md-input-container>
+			</span>
+		</div>       
+    </dd>
+ </dl>
+   		                     				</div>
+										<div flex="none" layout="column" layout-align="center center" class="actions bg">
+									<md-button ng-click="tipoRootController.showDetail('ICAgICAgICAgCgo8ZGl2IGNsYXNzPSJwLTgiPgogIDxzZWN0aW9uIGNsYXNzPSJmaWVsZHNldCBuby1oZWFkZXIgZmx1aWQtcm93LWNvbnRhaW5lciI+CiAgICA8ZGl2IGNsYXNzPSJkYXRhIiBsYXlvdXQtcGFkZGluZyBsYXlvdXQ9InJvdyIgbGF5b3V0LXdyYXAgbGF5b3V0LWFsaWduPSJzdGFydCBzdGFydCI+CiAKCgogIAkgIAkJICAgICAgICAgCSAgCSAgICAJICAgIAkJCgkJCQoJCQogIAkKCSAgICA8ZGwgY2xhc3M9ImVkaXQiIAoJCQkJICAgIGxheW91dD0iY29sdW1uIiAKCQkgICAgbGF5b3V0LWFsaWduPSJjZW50ZXIgc3RyZXRjaCIKCQkJICAgIGZsZXg9IjEwMCIgCgkJCWZsZXgtZ3Qtc209IjUwIiAKCQkJZmxleC1ndC1tZD0iMzMiIHN0eWxlPSIiPgogICAgPGR0PgoJICAgIAkgICAgCQkJCQk8c3Bhbj5TZXF1ZW5jZTwvc3Bhbj4KCQkJCQkJCQkJPC9kdD4KCSAgICA8ZGQ+CiAgICAJCTxkaXYgY2xhc3M9InRwLWZpZWxkIj4KCQkJPHNwYW4+CgkJCQk8bWQtaW5wdXQtY29udGFpbmVyIG1kLW5vLWZsb2F0PgoJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQk8dHA6ZXhwcmVzc2lvbnMgZXhwcmVzc2lvbj0idGlwb1Jvb3RDb250cm9sbGVyLnRpcG8uVGVzdGdyb3VwLmxlbmd0aCIgYmluZHZhbHVlPSJ0aXBvUm9vdENvbnRyb2xsZXIudGlwby5UZXN0Z3JvdXBbJGluZGV4XS5zZXF1ZWNlIiByZWFkb25seT0iZmFsc2UiLz4KCQkJCQkJCQkJCQkJCQkJCQkJCQk8L21kLWlucHV0LWNvbnRhaW5lcj4KCQkJPC9zcGFuPgoJCTwvZGl2PiAgICAgICAKICAgIDwvZGQ+CiA8L2RsPgogICAgIAogICAgICAgICAgIAogICAgICAgIAogICAgIAkJCQkKICAgIDwvZGl2PgogIDwvc2VjdGlvbj4KPC9kaXY+CgoK',$index,'Testgroup')"  aria-label="Edit" class="md-icon-button">
+			  <md-tooltip md-direction="left">Edit</md-tooltip>
+			      <md-icon>launch</md-icon>
+			    </md-button>
+					<md-button ng-click="tipoRootController.deleteItem('Testgroup',$index)" aria-label="Delete" class="md-icon-button">
+			  <md-tooltip md-direction="left">Delete</md-tooltip>
+			  <md-icon>delete</md-icon>
+			</md-button>
+			<md-button ng-click="tipoRootController.cloneItem('Testgroup',$index)" aria-label="Copy" class="md-icon-button">
+			  <md-tooltip md-direction="left">Copy</md-tooltip>
+			  <md-icon>content_copy</md-icon>
+			</md-button>
+	</div>
+			</div>
+				</div>
+		</section>
+	    
+  	  		     		  	    	    		
+			
+		
+  	
+	    <dl class="edit" 
+				    layout="column" 
+		    layout-align="center stretch"
+			    flex="100" 
+			flex-gt-sm="50" 
+			flex-gt-md="33" style="">
+    <dt>
+	    	    					<span>Integer 4</span>
+									</dt>
+	    <dd>
+    		<div class="tp-field">
+			<span>
+				<md-input-container md-no-float>
+																									<input type="number" ng-model="tipoRootController.tipo.integer_4" ng-disabled="false" aria-label="Integer 4" placeholder="" name="Integer 4_integer" ng-required="false" ng-pattern=""  >
+																				</md-input-container>
+			</span>
+		</div>       
+    </dd>
+ </dl>
+             
      				
     </div>
   </section>

@@ -23,6 +23,7 @@
     _instance.selectedTipos = $scope.selectedTipos;
     _instance.perm = $scope.perm;
     _instance.disablecreate = $scope.disablecreate;
+    _instance.bulkedit = true;
     $scope.fullscreen = true;
     if ($scope.selectedTipos.length > 0) {
       _.each(_instance.tiposWithDefinition, function(tipo){

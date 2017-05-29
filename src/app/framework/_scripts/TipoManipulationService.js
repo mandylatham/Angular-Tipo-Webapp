@@ -544,7 +544,7 @@
     function modifyTipoData(tipoData){
       _.forOwn(tipoData, function(value, key){
         if (!_.isArray(value) && !_.isObject(value)) {
-          if( _.isEmpty(value) && value!== false && value !== true){
+          if( _.isEmpty(value) && value!== false && value !== true && !_.isNumber(value)){
             tipoData[key] = null;
           }else{
             if (_.isUndefined(value)) {

@@ -17,7 +17,8 @@
     $mdDialog,
     $window,
     $rootScope,
-    $scope) {
+    $scope,
+    tipoClientJavascript) {
 
     var _instance = this;
     _instance.tipoDefinition = tipoDefinition;
@@ -112,8 +113,12 @@
       }
     };
 
-    _instance.toDetail = function(id){
-      tipoRouter.toTipoView(tipo_name, id);
+    _instance.toDetail = function(id,tipo){
+      // if(typeof tipoClientJavascript[tipo_name + '_List_OnClick'] === 'function'){
+      //   tipoClientJavascript[tipo_name + '_List_OnClick'](tipo,tipo_name);
+      // }else{
+        tipoRouter.toTipoView(tipo_name, id);
+      // }
     };
 
     _instance.clone = function(id){
