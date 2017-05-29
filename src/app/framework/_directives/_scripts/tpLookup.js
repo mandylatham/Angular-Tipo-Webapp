@@ -136,6 +136,7 @@
           realtedtipo: '=',
           isarray: '=',
           ispopup: '=',
+          queryparams: '=',
           ismandatory: '=',
           labelfield: '=',
           allowcreate: '=',
@@ -260,12 +261,12 @@
             searchCriteria.page = 1;
             // If for the dropdown we require custom page size then we can get from the page_size parameter
             searchCriteria.per_page = 1000;
-            // if (!_.isEmpty(field.query_params)) {
-            //   _.each(field.query_params,function(query_param){
-            //     var baseParamExpanded = tipoManipulationService.expandFilterExpression(query_param.param_value, scope.root, scope.context,field.arrayIndex);
-            //     searchCriteria[query_param.param_name] = baseParamExpanded;
-            //   })
-            // };
+            if (!_.isEmpty(scope.queryparams)) {
+              _.forOwn(scope.queryparams,function(value,key){
+                var baseParamExpanded = tipoManipulationService.expandFilterExpression(value, scope.root, scope.context,arrayIndex);
+                searchCriteria[key] = baseParamExpanded;
+              })
+            };
             if(!_.isUndefined(searchCriteria.tipo_filter) && !_.isEmpty(searchCriteria.tipo_filter)  && !_.isUndefined(searchText)){
               searchCriteria.tipo_filter += " AND (tipo_id:(" + searchText + "*) OR " + label_field + ":(" + searchText + "*))" ;
             }else{

@@ -95,8 +95,7 @@
 	    <dd>
     		<div class="tp-field">
 			<span>
-				<md-input-container md-no-float>
-											    							    	    	<tp:lookup field="{key: tipoRootController.tipo.sample_set, fieldlabel: tipoRootController.tipo.sample_set_refs}" fieldvalue="tipoRootController.tipo.sample_set" fieldlabel= "tipoRootController.tipo.sample_set_refs" basefilter="''" realtedtipo="'S3Browser'" isarray="true" ispopup="true" istipomandatory="false" labelfield="'tipo_id'" allowcreate="" selectfield="" root="tipoRootController.tipo" ng-init="tipoRootController.tipo.sample_set = tipoRootController.tipo.sample_set || '';tipoRootController.tipo.sample_set_refs = tipoRootController.tipo.sample_set_refs || '' ">
+				<md-input-container md-no-float>											    																			    	    	<tp:lookup field="{key: tipoRootController.tipo.sample_set, fieldlabel: tipoRootController.tipo.sample_set_refs}" fieldvalue="tipoRootController.tipo.sample_set" fieldlabel= "tipoRootController.tipo.sample_set_refs" basefilter="''" realtedtipo="'TipoS3Browser'" isarray="true" ispopup="true" istipomandatory="false" labelfield="'tipo_id'" queryparams="{ 'folder': 'public',  'bucket_name': 'user.tipotapp.com',  'bucket_name_from_user_settings': 'yes',  'base_path': 'g/tipotapp/tipoapp', }" allowcreate="" selectfield="" root="tipoRootController.tipo" ng-init="tipoRootController.tipo.sample_set = tipoRootController.tipo.sample_set || '';tipoRootController.tipo.sample_set_refs = tipoRootController.tipo.sample_set_refs || '' ">
     																</md-input-container>
 			</span>
 		</div>       
