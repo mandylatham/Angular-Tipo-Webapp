@@ -30,7 +30,7 @@
       var definition = _instance.getDefinition(tipo_name);
     }
 
-    _instance.routeTo = function(String url){
+    _instance.routeTo = function(url){
 
     }
 
