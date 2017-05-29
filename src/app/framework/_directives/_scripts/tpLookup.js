@@ -11,7 +11,8 @@
     $mdDialog,
     tipoCache,
     tipoRouter,
-    tipoInstanceDataService) {
+    tipoInstanceDataService,
+    tipoClientJavascript) {
 
     var _instance = this;
 
@@ -22,6 +23,9 @@
     _instance.tipo_fields = $scope.tipo_fields;
     _instance.selectedTipos = $scope.selectedTipos;
     _instance.perm = $scope.perm;
+    _instance.queryparams = $scope.queryparams;
+    _instance.tipo_name = $scope.tipo_name;
+    _instance.url = "/g/public/gen_temp/common/views/list.tpl.html.TipoUser___TipoS3Browser";
     _instance.disablecreate = $scope.disablecreate;
     _instance.bulkedit = true;
     $scope.fullscreen = true;
@@ -29,6 +33,13 @@
       _.each(_instance.tiposWithDefinition, function(tipo){
           _.each($scope.selectedTipos,function(selected){
             if(tipo.key === selected.key){
+              tipo.selected = true;
+            }
+          })
+        });
+      _.each(_instance.tipos, function(tipo){
+          _.each($scope.selectedTipos,function(selected){
+            if(tipo.tipo_id === selected.key){
               tipo.selected = true;
             }
           })
@@ -43,21 +54,29 @@
     };
 
     _instance.selectTipo = function(tipoSelected,event,tiposData){
-      if (!$scope.isarray) {
-        _.each(tiposData, function(tipo){
-          tipo.selected = false;
-          $scope.selectedTipos = [];
-        });
+      if(typeof tipoClientJavascript[$scope.tipo_name + '_List_OnClick'] === 'function'){
+        var proceed = tipoClientJavascript[$scope.tipo_name + '_List_OnClick'](_instance,tipoSelected,$scope.tipo_name,$scope.queryparams,event);
       }
-      tipoSelected.selected = !tipoSelected.selected;
-      if(tipoSelected.selected){
-        $scope.selectedTipos.push(tipoSelected);
-      }else{
-        _.remove($scope.selectedTipos,function(tipo){
-          return tipo.key === tipoSelected.key;
-        });
+      else{
+        var proceed = true;
       }
-      event.stopPropagation();
+      if (proceed) {
+        if (!$scope.isarray) {
+          _.each(tiposData, function(tipo){
+            tipo.selected = false;
+            $scope.selectedTipos = [];
+          });
+        }
+        tipoSelected.selected = !tipoSelected.selected;
+        if(tipoSelected.selected){
+          $scope.selectedTipos.push(tipoSelected);
+        }else{
+          _.remove($scope.selectedTipos,function(tipo){
+            return (tipo.key === tipoSelected.key) || (tipo.tipo_id === tipoSelected.tipo_id) || (tipo.key === tipoSelected.tipo_id);
+          });
+        }
+        event.stopPropagation();
+      };
     }
     _instance.finish = function() {      
       $mdDialog.hide($scope.selectedTipos);
@@ -122,7 +141,8 @@
     tipoRegistry,
     $mdDialog,
     $mdSelect,
-    tipoDefinitionDataService) {
+    tipoDefinitionDataService,
+    tipoClientJavascript) {
       return {
         scope: {
           root: '=',
@@ -275,6 +295,10 @@
               }
             };
             searchCriteria.short_display = 'N';
+            scope.searchCriteria = searchCriteria;
+            if(typeof tipoClientJavascript[scope.tipo_name + '_List_OnLoad'] === 'function'){
+              tipoClientJavascript[scope.tipo_name + '_List_OnLoad'](scope.selectedTipos,scope.searchCriteria);
+            }
             return tipoInstanceDataService.search(scope.tipo_name, searchCriteria).then(function(results){
               scope.tipos = results;
               
@@ -366,6 +390,7 @@
             newScope.disablecreate = scope.disablecreate;
             newScope.tipo_name = scope.tipo_name;
             newScope.perm = scope.perm;
+            newScope.queryparams = scope.searchCriteria;
             newScope.label_field = label_field;
             if (scope.root) {
             newScope.tipo_fields = scope.root.tipo_field_groups}

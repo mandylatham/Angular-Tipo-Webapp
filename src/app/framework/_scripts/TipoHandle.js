@@ -51,7 +51,7 @@
     }
 
     _instance.getTipos = function(tipo_name, query_params){
-
+      return tipoInstanceDataService.search(tipo_name,query_params);
     }
 
     _instance.modifyTipoConfig = function(tipo_name){

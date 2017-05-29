@@ -1,0 +1,10 @@
+<div>
+<div ng-controller="TipoS3Browser as controller" layout="row" class="tp-list">
+	<div ng-repeat="folder in controller.folder_path" style="color:#00A6B4;">
+		<a href="" ng-click="controller.goto(folder,$index)">{{folder}}</a><span style="margin: 0 3px;">></span>
+	</div>
+</div>
+<div>
+<ng-include src="tipoRootController.url" tp-include-replace/>
+</div>
+</div>
