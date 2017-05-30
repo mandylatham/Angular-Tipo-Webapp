@@ -25,7 +25,7 @@
     _instance.perm = $scope.perm;
     _instance.queryparams = $scope.queryparams;
     _instance.tipo_name = $scope.tipo_name;
-    _instance.url = "/g/public/gen_temp/common/views/list.tpl.html.TipoUser___TipoS3Browser";
+    _instance.url = "g/public/gen_temp/common/views/list.tpl.html.TipoUser___TipoS3Browser";
     _instance.disablecreate = $scope.disablecreate;
     _instance.bulkedit = true;
     $scope.fullscreen = true;
