@@ -618,11 +618,15 @@
         // updateDatafromDefinition(definition,index,field_name);
       });
     }
-    _instance.lookupTipo = function(relatedTipo,labelfield,prefix){
+    _instance.lookupTipo = function(relatedTipo,labelfield,prefix,baseFilter,queryparams,key_field,label_field){
       var newScope = $scope.$new();
       newScope.root = _instance.tipoDefinition;
       newScope.relatedTipo = relatedTipo;
       newScope.labelfield = labelfield;
+      newScope.baseFilter = baseFilter;
+      newScope.queryparams = queryparams;
+      newScope.key_field = key_field;
+      newScope.label_field = label_field;
       newScope.tipo = _instance.tipo[prefix];
       var promise = $mdDialog.show({
         templateUrl: 'framework/_directives/_views/tp-lookup-dialog.tpl.html',

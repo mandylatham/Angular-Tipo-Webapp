@@ -1,10 +1,17 @@
 <div>
 <div ng-controller="TipoS3Browser as controller" layout="row" class="tp-list">
-	<div ng-repeat="folder in controller.folder_path" style="color:#00A6B4;">
+	<div ng-repeat="folder in controller.folder_path" style="color:#00A6B4;font-size:20px">
 		<a href="" ng-click="controller.goto(folder,$index)">{{folder}}</a><span style="margin: 0 3px;">></span>
 	</div>
 </div>
 <div>
 <ng-include src="tipoRootController.tipoDefinition._ui.listTemplate" tp-include-replace/>
+</div>
+<div>
+	<md-chips ng-model="selectedTipos" md-on-remove="$chip.selected = !$chip.selected">
+      <md-chip-template>
+        <span>{{$chip[label_field] || $chip[key_field] || $chip['tipo_id'] || $chip['label'] || $chip['key']}}</span>
+      </md-chip-template>
+    </md-chips>
 </div>
 </div>

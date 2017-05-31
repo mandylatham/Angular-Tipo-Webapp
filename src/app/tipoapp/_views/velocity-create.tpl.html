@@ -25,7 +25,7 @@
     		<div class="tp-field">
 			<span>
 				<md-input-container md-no-float>
-																							<input ng-model="tipoRootController.tipo.tipo_id" ng-disabled="false" aria-label="VelocityTest1 ID" placeholder="" name="VelocityTest1 ID_string" ng-required="false" ng-pattern=""  >
+																									<input ng-model="tipoRootController.tipo.tipo_id" ng-disabled="false" aria-label="VelocityTest1 ID" placeholder="" name="VelocityTest1 ID_string" ng-required="false" ng-pattern=""  >
 																			</md-input-container>
 			</span>
 		</div>       
@@ -49,7 +49,7 @@
     		<div class="tp-field">
 			<span>
 				<md-input-container md-no-float>
-																							<input ng-model="tipoRootController.tipo.some_string" ng-disabled="false" aria-label="Field 1 Some String" placeholder="" name="Field 1 Some String_string" ng-required="false" ng-pattern=""  >
+																									<input ng-model="tipoRootController.tipo.some_string" ng-disabled="false" aria-label="Field 1 Some String" placeholder="" name="Field 1 Some String_string" ng-required="false" ng-pattern=""  >
 																			</md-input-container>
 			</span>
 		</div>       
@@ -72,7 +72,7 @@
     		<div class="tp-field">
 			<span>
 				<md-input-container md-no-float>
-																							<input ng-model="tipoRootController.tipo.noheading" ng-disabled="false" aria-label="NoHeading" placeholder="" name="NoHeading_string" ng-required="false" ng-pattern=""  >
+																									<input ng-model="tipoRootController.tipo.noheading" ng-disabled="false" aria-label="NoHeading" placeholder="" name="NoHeading_string" ng-required="false" ng-pattern=""  >
 																			</md-input-container>
 			</span>
 		</div>       
@@ -95,7 +95,8 @@
 	    <dd>
     		<div class="tp-field">
 			<span>
-				<md-input-container md-no-float>											    																			    	    	<tp:lookup field="{key: tipoRootController.tipo.sample_set, fieldlabel: tipoRootController.tipo.sample_set_refs}" fieldvalue="tipoRootController.tipo.sample_set" fieldlabel= "tipoRootController.tipo.sample_set_refs" basefilter="''" realtedtipo="'TipoS3Browser'" isarray="true" ispopup="true" istipomandatory="false" labelfield="'tipo_id'" queryparams="{ 'folder': 'public',  'bucket_name': 'user.tipotapp.com',  'bucket_name_from_user_settings': 'yes',  'base_path': 'g/tipotapp/tipoapp', }" allowcreate="" selectfield="" root="tipoRootController.tipo" ng-init="tipoRootController.tipo.sample_set = tipoRootController.tipo.sample_set || '';tipoRootController.tipo.sample_set_refs = tipoRootController.tipo.sample_set_refs || '' ">
+				<md-input-container md-no-float>
+											    															    	    	<tp:lookup field="{key: tipoRootController.tipo.sample_set, fieldlabel: tipoRootController.tipo.sample_set_refs}" fieldvalue="tipoRootController.tipo.sample_set" fieldlabel= "tipoRootController.tipo.sample_set_refs" basefilter="''" realtedtipo="'TipoS3Browser'" isarray="true" ispopup="true" istipomandatory="false" labelfield="'tipo_id'" queryparams="{ 'folder': 'public',  'base_path': 'g/tipotapp/tipoapp', }" allowcreate="" selectfield="''" root="tipoRootController.tipo" ng-init="tipoRootController.tipo.sample_set = tipoRootController.tipo.sample_set || '';tipoRootController.tipo.sample_set_refs = tipoRootController.tipo.sample_set_refs || '' ">
     																</md-input-container>
 			</span>
 		</div>       
@@ -119,7 +120,7 @@
     		<div class="tp-field">
 			<span>
 				<md-input-container md-no-float>
-																							<input ng-model="tipoRootController.tipo.some_other_string" ng-disabled="false" aria-label="2 Some Other String" placeholder="" name="2 Some Other String_string" ng-required="false" ng-pattern="/[a-zA-Z0-9]+/"  >
+																										 																																																																																																												 		<input ng-model="tipoRootController.tipo.some_other_string" ng-disabled="false" aria-label="2 Some Other String" placeholder="" name="2 Some Other String_string" ng-required="false" ng-pattern="/[a-zA-Z0-9]+/"  cleave = "{ delimiters: ['(',')','.','.',], blocks: [0,3,0,3,2] }">
 														  	<div ng-messages="tipoForm['2 Some Other String_string'].$error">
 				  					    				      <div ng-message="pattern" >This field must be Alphanumeric</div>
 				    					</div>
@@ -146,7 +147,7 @@
     		<div class="tp-field">
 			<span>
 				<md-input-container md-no-float>
-																							<input ng-model="tipoRootController.tipo.some_other_string_3" ng-disabled="false" aria-label="3 Some Other" placeholder="" name="3 Some Other_string" ng-required="false" ng-pattern="/^[a-zA-Z0-9]+$/"  >
+																									<input ng-model="tipoRootController.tipo.some_other_string_3" ng-disabled="false" aria-label="3 Some Other" placeholder="" name="3 Some Other_string" ng-required="false" ng-pattern="/^[a-zA-Z0-9]+$/"  >
 														  	<div ng-messages="tipoForm['3 Some Other_string'].$error">
 				  					    				      <div ng-message="pattern" >This field must be Alphanumeric-1</div>
 				    					</div>
@@ -173,7 +174,8 @@
     		<div class="tp-field">
 			<span>
 				<md-input-container md-no-float>
-																									<input type="number" ng-model="tipoRootController.tipo.integer_1" ng-disabled="false" aria-label="Integer 1" placeholder="" name="Integer 1_integer" ng-required="false" ng-pattern=""  >
+																									 			 																																													
+				 			<input ng-model="tipoRootController.tipo.integer_1" ng-disabled="false" aria-label="Integer 1" placeholder="" name="Integer 1_integer" ng-required="false" ng-pattern=""  cleave = "{numeral: true,prefix: '$', numeralDecimalScale: 2, numeralThousandsGroupStyle: 'lakh' }">
 																				</md-input-container>
 			</span>
 		</div>       
@@ -197,7 +199,7 @@
     		<div class="tp-field">
 			<span>
 				<md-input-container md-no-float>
-																							<input ng-model="tipoRootController.tipo.style_example" ng-disabled="false" aria-label="StyleExample" placeholder="" name="StyleExample_string" ng-required="false" ng-pattern=""  >
+																									<input ng-model="tipoRootController.tipo.style_example" ng-disabled="false" aria-label="StyleExample" placeholder="" name="StyleExample_string" ng-required="false" ng-pattern=""  >
 																			</md-input-container>
 			</span>
 		</div>       
@@ -221,7 +223,7 @@
     		<div class="tp-field">
 			<span>
 				<md-input-container md-no-float>
-																									<input type="number" ng-model="tipoRootController.tipo.integer_2" ng-disabled="false" aria-label="Integer 2" placeholder="" name="Integer 2_integer" ng-required="false" ng-pattern=""  >
+																									 			<input ng-model="tipoRootController.tipo.integer_2" ng-disabled="false" aria-label="Integer 2" placeholder="" name="Integer 2_integer" ng-required="false" ng-pattern=""  >
 																				</md-input-container>
 			</span>
 		</div>       
@@ -245,7 +247,7 @@
     		<div class="tp-field">
 			<span>
 				<md-input-container md-no-float>
-																									<input type="number" ng-model="tipoRootController.tipo.integer_3" ng-disabled="false" aria-label="Integer 3" placeholder="" name="Integer 3_integer" ng-required="false" ng-pattern=""  >
+																									 			<input ng-model="tipoRootController.tipo.integer_3" ng-disabled="false" aria-label="Integer 3" placeholder="" name="Integer 3_integer" ng-required="false" ng-pattern=""  >
 																				</md-input-container>
 			</span>
 		</div>       
@@ -361,7 +363,7 @@
     		<div class="tp-field">
 			<span>
 				<md-input-container md-no-float>
-																									<input type="number" ng-model="tipoRootController.tipo.integer_4" ng-disabled="false" aria-label="Integer 4" placeholder="" name="Integer 4_integer" ng-required="false" ng-pattern=""  >
+																									 			<input ng-model="tipoRootController.tipo.integer_4" ng-disabled="false" aria-label="Integer 4" placeholder="" name="Integer 4_integer" ng-required="false" ng-pattern=""  >
 																				</md-input-container>
 			</span>
 		</div>       
