@@ -31,11 +31,13 @@
     function startStateChange(){
       // _stateChanging = true;
       $rootScope.progressbar.start();
+      document.body.style.cursor='wait';
     }
 
     function endStateChange(){
       // _stateChanging = false;
       $rootScope.progressbar.complete();
+      document.body.style.cursor='default';
     }
 
     function getCurrent(){
@@ -240,6 +242,7 @@
         $window.location.href = menuItem.url;
       }
     }
+    
 
     function toRegisterUser(parameters){
       var stateOptions = {reload: 'registerUser'};

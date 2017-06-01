@@ -17,7 +17,8 @@
     $mdDialog,
     $window,
     $rootScope,
-    $scope) {
+    $scope,
+    tipoClientJavascript) {
 
     var _instance = this;
     _instance.tipoDefinition = tipoDefinition;
@@ -35,6 +36,7 @@
 
     _instance.tiposWithDefinition = tipoManipulationService.mergeDefinitionAndDataArray(tipoDefinition,tipos);
     _instance.bulkedit = false;
+    _instance.singleedit = false;
     if (_.isUndefined(_instance.tipoDefinition.tipo_meta.allow_search)) {
       _instance.tipoDefinition.tipo_meta.allow_search = true;
     };
@@ -111,8 +113,12 @@
       }
     };
 
-    _instance.toDetail = function(id){
-      tipoRouter.toTipoView(tipo_name, id);
+    _instance.toDetail = function(id,tipo){
+      // if(typeof tipoClientJavascript[tipo_name + '_List_OnClick'] === 'function'){
+      //   tipoClientJavascript[tipo_name + '_List_OnClick'](tipo,tipo_name);
+      // }else{
+        tipoRouter.toTipoView(tipo_name, id);
+      // }
     };
 
     _instance.clone = function(id){
@@ -120,8 +126,15 @@
     };
 
     _instance.selectTipo = function(tipo,event){
+      if (_instance.singleedit) {
+        _.each(_instance.tipos,function(tp){
+          if(tp !== tipo){
+            tp.selected = false;
+          }
+        });
+      };
       tipo.selected = !tipo.selected;
-      if (_instance.bulkedit) {
+      if (_instance.bulkedit || _instance.singleedit) {
         event.stopPropagation();
       }
     }

@@ -1,0 +1,296 @@
+
+<div>
+
+
+<div class="p-8" ng-if="tipoRootController.activeTab === 'main'">
+  <section class="fieldset no-header fluid-row-container">
+    <div class="data" layout-padding layout="row" layout-wrap layout-align="start start">
+ 
+ 
+  
+ 
+
+
+  	    																<section class="fieldset fluid-row-container" flex="100"  show-gt-md hide-md show-sm show-xs> 
+						    	<div class="header">
+		    <div layout="row" layout-align="end center">
+		      <h3 flex ng-init="tipoRootController.initCollapsed('testinggroupgrid', '')">
+		        <a href="" ng-click="testinggroupgrid.collapsed = !testinggroupgrid.collapsed" class="plain" md-colors="{color: 'primary-700'}">
+		          <i class="fa" ng-class="{'fa-caret-down': !testinggroupgrid.collapsed , 'fa-caret-right': testinggroupgrid.collapsed}"></i>
+		           TestingGroupGrid
+		        </a>
+		      </h3>
+		      <div class="actions horizontal" layout="row" layout-align="center center">
+		      		        <div>
+		          <div flex="none">
+			          		          </div>
+		        </div>
+		        		      </div>
+		    </div>
+		    <md-divider></md-divider>
+		  </div>
+		  		  	  <div class="data" style="margin-top: 10px;" ng-hide="testinggroupgrid.collapsed" >
+		  	        		  	<md-table-container md-whiteframe="2">
+		    	<table md-table md-row-select multiple ng-model="selected" md-progress="promise">
+		    		<thead md-head>
+		    		<tr md-row md-colors="{background: 'primary-400'}">
+      		  		  			         	  	  	  		<th md-column>
+		Test1
+		</th>
+	      	  	  		<th md-column>
+		Test2
+		</th>
+	    <th md-column>
+	Actions
+</th>
+    	</tr>
+    		</thead>
+    		<tbody md-body>
+    		<tr md-row md-select="groupItem" md-select-id="tipo_id" md-auto-select ng-repeat="groupItem in tipoRootController.tipo.testinggroupgrid" ng-if="!groupItem._ARRAY_META || groupItem._ARRAY_META._STATUS != 'DELETED'">	
+     			    		 
+	  	  		  	  		<td md-cell >
+  		<div class="tp-field">
+			<span>
+				<md-input-container md-no-float>
+									
+			<span>
+		
+					
+					{{tipoRootController.tipo.testinggroupgrid[$index].test1 || '-N/A-'}}
+				
+	</span>
+	
+	
+								</md-input-container>
+			</span>
+		</div>
+		</td>
+		 
+  		           		 
+	  	  		  	  		<td md-cell >
+  		<div class="tp-field">
+			<span>
+				<md-input-container md-no-float>
+									
+			<span>
+		
+				
+					{{tipoRootController.tipo.testinggroupgrid[$index].test2 || '-N/A-'}}
+				
+	</span>
+	
+	
+								</md-input-container>
+			</span>
+		</div>
+		</td>
+		 
+  		                     <td md-cell >
+  					<div flex="none" layout="row" layout-align="start center" >
+						<md-button ng-click="tipoRootController.showDetail('ICAgICAgICAgCgo8ZGl2IGNsYXNzPSJwLTgiPgogIDxzZWN0aW9uIGNsYXNzPSJmaWVsZHNldCBuby1oZWFkZXIgZmx1aWQtcm93LWNvbnRhaW5lciI+CiAgICA8ZGl2IGNsYXNzPSJkYXRhIiBsYXlvdXQtcGFkZGluZyBsYXlvdXQ9InJvdyIgbGF5b3V0LXdyYXAgbGF5b3V0LWFsaWduPSJzdGFydCBzdGFydCI+CiAKCgogIAkgIAkJICAgICAJCSAgCSAgICAJICAgIAkJCgkJCQogIAkKCSAgICA8ZGwgY2xhc3M9InZpZXciIAoJCQkgICAgbGF5b3V0PSJjb2x1bW4iIAoJCSAgICBsYXlvdXQtYWxpZ249ImNlbnRlciBzdHJldGNoIgoJCSAgICBmbGV4PSIxMDAiIAoJCQlmbGV4LWd0LXNtPSI1MCIgCgkJCWZsZXgtZ3QtbWQ9IjMzIj4KICAgIDxkdD4KCSAgICAJICAgIAkJCQkJPHNwYW4+VGVzdDE8L3NwYW4+CgkJCQkJCQkJCTwvZHQ+CiAgICA8ZGQ+CgkJPGRpdiBjbGFzcz0idHAtZmllbGQiPgoJCQk8c3Bhbj4KCQkJCTxtZC1pbnB1dC1jb250YWluZXIgbWQtbm8tZmxvYXQ+CgkJCQkJCQkJCQkKCQkJPHNwYW4+CgkJCgkJCQkKCQkJCQl7e3RpcG9Sb290Q29udHJvbGxlci50aXBvLnRlc3Rpbmdncm91cGdyaWRbJGluZGV4XS50ZXN0MSB8fCAnLU4vQS0nfX0KCQkJCQoJPC9zcGFuPgoJCgkKCQkJCQkJCQkJPC9tZC1pbnB1dC1jb250YWluZXI+CgkJCTwvc3Bhbj4KCQk8L2Rpdj4gICAgICAgCiAgICA8L2RkPgogPC9kbD4KICAgICAKICAJICAJCSAgICAgCQkgIAkgICAgCSAgICAJCQoJCQkKICAJCgkgICAgPGRsIGNsYXNzPSJ2aWV3IiAKCQkJICAgIGxheW91dD0iY29sdW1uIiAKCQkgICAgbGF5b3V0LWFsaWduPSJjZW50ZXIgc3RyZXRjaCIKCQkgICAgZmxleD0iMTAwIiAKCQkJZmxleC1ndC1zbT0iNTAiIAoJCQlmbGV4LWd0LW1kPSIzMyI+CiAgICA8ZHQ+CgkgICAgCSAgICAJCQkJCTxzcGFuPlRlc3QyPC9zcGFuPgoJCQkJCQkJCQk8L2R0PgogICAgPGRkPgoJCTxkaXYgY2xhc3M9InRwLWZpZWxkIj4KCQkJPHNwYW4+CgkJCQk8bWQtaW5wdXQtY29udGFpbmVyIG1kLW5vLWZsb2F0PgoJCQkJCQkJCQkJCgkJCTxzcGFuPgoJCQoJCQkJCgkJCQkJe3t0aXBvUm9vdENvbnRyb2xsZXIudGlwby50ZXN0aW5nZ3JvdXBncmlkWyRpbmRleF0udGVzdDIgfHwgJy1OL0EtJ319CgkJCQkKCTwvc3Bhbj4KCQoJCgkJCQkJCQkJCTwvbWQtaW5wdXQtY29udGFpbmVyPgoJCQk8L3NwYW4+CgkJPC9kaXY+ICAgICAgIAogICAgPC9kZD4KIDwvZGw+CiAgICAgCiAgICAgICAgICAgCiAgICAgICAgCiAgICAgCQkJCQogICAgPC9kaXY+CiAgPC9zZWN0aW9uPgo8L2Rpdj4KCgo=',$index,'testinggroupgrid')"  aria-label="Edit" class="md-icon-button">
+			  <md-tooltip md-direction="left">Details</md-tooltip>
+			  <md-icon>fullscreen</md-icon>
+			</md-button>		        
+		</div>
+			 </td>
+     </tr>
+		</tbody>
+		</table>
+      </md-table-container>
+          			</div>
+		</section>
+						<section class="fieldset fluid-row-container" flex="100"  hide-gt-md show-md hide-sm hide-xs>
+						    	<div class="header">
+		    <div layout="row" layout-align="end center">
+		      <h3 flex ng-init="tipoRootController.initCollapsed('testinggroupgrid', '')">
+		        <a href="" ng-click="testinggroupgrid.collapsed = !testinggroupgrid.collapsed" class="plain" md-colors="{color: 'primary-700'}">
+		          <i class="fa" ng-class="{'fa-caret-down': !testinggroupgrid.collapsed , 'fa-caret-right': testinggroupgrid.collapsed}"></i>
+		           TestingGroupGrid
+		        </a>
+		      </h3>
+		      <div class="actions horizontal" layout="row" layout-align="center center">
+		      		        <div>
+		          <div flex="none">
+			          		          </div>
+		        </div>
+		        		      </div>
+		    </div>
+		    <md-divider></md-divider>
+		  </div>
+		  		  	  <div class="data" style="margin-top: 10px;" ng-hide="testinggroupgrid.collapsed" >
+		  	  		  	  	<div layout="row" ng-repeat="groupItem in tipoRootController.tipo.testinggroupgrid" ng-if="!groupItem._ARRAY_META || groupItem._ARRAY_META._STATUS != 'DELETED'" md-whiteframe="2" class="fluid-row">
+      				<div flex layout="row" layout-padding layout-wrap layout-align="start start" class="data">
+      		  		  			    			    		 
+	  	  		  		         	  	    	    		
+			
+  	
+	    <dl class="view" 
+			    layout="column" 
+		    layout-align="center stretch"
+		    flex="100" 
+			flex-gt-sm="50" 
+			flex-gt-md="33">
+    <dt>
+	    	    					<span>Test1</span>
+									</dt>
+    <dd>
+		<div class="tp-field">
+			<span>
+				<md-input-container md-no-float>
+										
+			<span>
+		
+				
+					{{tipoRootController.tipo.testinggroupgrid[$index].test1 || '-N/A-'}}
+				
+	</span>
+	
+	
+									</md-input-container>
+			</span>
+		</div>       
+    </dd>
+ </dl>
+   		           		 
+	  	  		  		         	  	    	    		
+			
+  	
+	    <dl class="view" 
+			    layout="column" 
+		    layout-align="center stretch"
+		    flex="100" 
+			flex-gt-sm="50" 
+			flex-gt-md="33">
+    <dt>
+	    	    					<span>Test2</span>
+									</dt>
+    <dd>
+		<div class="tp-field">
+			<span>
+				<md-input-container md-no-float>
+										
+			<span>
+		
+				
+					{{tipoRootController.tipo.testinggroupgrid[$index].test2 || '-N/A-'}}
+				
+	</span>
+	
+	
+									</md-input-container>
+			</span>
+		</div>       
+    </dd>
+ </dl>
+   		                     				</div>
+						<div flex="none" layout="row" layout-align="start center" >
+						<md-button ng-click="tipoRootController.showDetail('ICAgICAgICAgCgo8ZGl2IGNsYXNzPSJwLTgiPgogIDxzZWN0aW9uIGNsYXNzPSJmaWVsZHNldCBuby1oZWFkZXIgZmx1aWQtcm93LWNvbnRhaW5lciI+CiAgICA8ZGl2IGNsYXNzPSJkYXRhIiBsYXlvdXQtcGFkZGluZyBsYXlvdXQ9InJvdyIgbGF5b3V0LXdyYXAgbGF5b3V0LWFsaWduPSJzdGFydCBzdGFydCI+CiAKCgogIAkgIAkJICAgICAgICAgCSAgCSAgICAJICAgIAkJCgkJCQogIAkKCSAgICA8ZGwgY2xhc3M9InZpZXciIAoJCQkgICAgbGF5b3V0PSJjb2x1bW4iIAoJCSAgICBsYXlvdXQtYWxpZ249ImNlbnRlciBzdHJldGNoIgoJCSAgICBmbGV4PSIxMDAiIAoJCQlmbGV4LWd0LXNtPSI1MCIgCgkJCWZsZXgtZ3QtbWQ9IjMzIj4KICAgIDxkdD4KCSAgICAJICAgIAkJCQkJPHNwYW4+VGVzdDE8L3NwYW4+CgkJCQkJCQkJCTwvZHQ+CiAgICA8ZGQ+CgkJPGRpdiBjbGFzcz0idHAtZmllbGQiPgoJCQk8c3Bhbj4KCQkJCTxtZC1pbnB1dC1jb250YWluZXIgbWQtbm8tZmxvYXQ+CgkJCQkJCQkJCQkKCQkJPHNwYW4+CgkJCgkJCQkKCQkJCQl7e3RpcG9Sb290Q29udHJvbGxlci50aXBvLnRlc3Rpbmdncm91cGdyaWRbJGluZGV4XS50ZXN0MSB8fCAnLU4vQS0nfX0KCQkJCQoJPC9zcGFuPgoJCgkKCQkJCQkJCQkJPC9tZC1pbnB1dC1jb250YWluZXI+CgkJCTwvc3Bhbj4KCQk8L2Rpdj4gICAgICAgCiAgICA8L2RkPgogPC9kbD4KICAgICAKICAJICAJCSAgICAgICAgIAkgIAkgICAgCSAgICAJCQoJCQkKICAJCgkgICAgPGRsIGNsYXNzPSJ2aWV3IiAKCQkJICAgIGxheW91dD0iY29sdW1uIiAKCQkgICAgbGF5b3V0LWFsaWduPSJjZW50ZXIgc3RyZXRjaCIKCQkgICAgZmxleD0iMTAwIiAKCQkJZmxleC1ndC1zbT0iNTAiIAoJCQlmbGV4LWd0LW1kPSIzMyI+CiAgICA8ZHQ+CgkgICAgCSAgICAJCQkJCTxzcGFuPlRlc3QyPC9zcGFuPgoJCQkJCQkJCQk8L2R0PgogICAgPGRkPgoJCTxkaXYgY2xhc3M9InRwLWZpZWxkIj4KCQkJPHNwYW4+CgkJCQk8bWQtaW5wdXQtY29udGFpbmVyIG1kLW5vLWZsb2F0PgoJCQkJCQkJCQkJCgkJCTxzcGFuPgoJCQoJCQkJCgkJCQkJe3t0aXBvUm9vdENvbnRyb2xsZXIudGlwby50ZXN0aW5nZ3JvdXBncmlkWyRpbmRleF0udGVzdDIgfHwgJy1OL0EtJ319CgkJCQkKCTwvc3Bhbj4KCQoJCgkJCQkJCQkJCTwvbWQtaW5wdXQtY29udGFpbmVyPgoJCQk8L3NwYW4+CgkJPC9kaXY+ICAgICAgIAogICAgPC9kZD4KIDwvZGw+CiAgICAgCiAgICAgICAgICAgCiAgICAgICAgCiAgICAgCQkJCQogICAgPC9kaXY+CiAgPC9zZWN0aW9uPgo8L2Rpdj4KCgo=',$index,'testinggroupgrid')"  aria-label="Edit" class="md-icon-button">
+			  <md-tooltip md-direction="left">Details</md-tooltip>
+			  <md-icon>fullscreen</md-icon>
+			</md-button>		        
+		</div>
+				</div>
+				</div>
+		</section>
+	    
+  	  		     		  	    	    		
+			
+  	
+	    <dl class="view" 
+			    layout="column" 
+		    layout-align="center stretch"
+		    flex="100" 
+			flex-gt-sm="50" 
+			flex-gt-md="33">
+    <dt>
+	    	    					<span>Folder(?)</span>
+									</dt>
+    <dd>
+		<div class="tp-field">
+			<span>
+				<md-input-container md-no-float>
+										
+			<span>
+		
+				
+					{{tipoRootController.tipo.is_folder || '-N/A-'}}
+				
+	</span>
+	
+	
+									</md-input-container>
+			</span>
+		</div>       
+    </dd>
+ </dl>
+     
+  	  		     		  	    	    		
+			
+  	
+	    <dl class="view" 
+			    layout="column" 
+		    layout-align="center stretch"
+		    flex="100" 
+			flex-gt-sm="50" 
+			flex-gt-md="33">
+    <dt>
+	    	    					<span>Last Modified</span>
+									</dt>
+    <dd>
+		<div class="tp-field">
+			<span>
+				<md-input-container md-no-float>
+										
+			<span>
+		
+				
+						<span>{{(tipoRootController.tipo.last_modified | date:'MM/dd/yyyy') || '-N/A-'}}</span>
+				
+	</span>
+	
+	
+									</md-input-container>
+			</span>
+		</div>       
+    </dd>
+ </dl>
+     
+  	  		     		  	    	    		
+			
+  	
+	    <dl class="view" 
+			    layout="column" 
+		    layout-align="center stretch"
+		    flex="100" 
+			flex-gt-sm="50" 
+			flex-gt-md="33">
+    <dt>
+	    	    					<span>Filename</span>
+									</dt>
+    <dd>
+		<div class="tp-field">
+			<span>
+				<md-input-container md-no-float>
+										
+			<span>
+		
+				
+					{{tipoRootController.tipo.filename ? "Yep" : "Nope" || '-N/A-'}}
+				
+	</span>
+	
+	
+									</md-input-container>
+			</span>
+		</div>       
+    </dd>
+ </dl>
+     
+  	        
+     				
+    </div>
+  </section>
+</div>
+<div ng-if="tipoRootController.activeTab !== 'main'" ui-view="child"></div>
+</div>
+

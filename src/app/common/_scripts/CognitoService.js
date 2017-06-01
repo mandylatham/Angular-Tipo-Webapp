@@ -119,7 +119,6 @@
       
       cognitoUser.authenticateUser(authenticationDetails, {
         onSuccess: function (result) {
-          console.log('Identity token: ', result.getIdToken().getJwtToken());
           var securityContext = {
             'tokenDetails.id_token': result.getIdToken().getJwtToken(),
             'tokenDetails.access_token': result.getAccessToken().getJwtToken(),

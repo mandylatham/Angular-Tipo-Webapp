@@ -9,6 +9,8 @@
   function TipoGroupDialogController($scope, $mdDialog) {
 
     this.mode = $scope.mode;
+    var _instance = this;
+    _instance.tipo = $scope.tipo;
     $scope.fullscreen = true;
 
     $scope.maximize = function(){
@@ -35,20 +37,18 @@
 
     var target = $scope.target;
 
-    var relatedTipoName = $scope.group._ui.relatedTipo;
+    var relatedTipoName = $scope.relatedTipo;
 
     $scope.tipoDisplayName = relatedTipoName;
+    $scope.fieldlabel = {};
 
-    var definition = angular.copy($scope.definition);
-    delete definition._value;
-    $scope.definition = definition;
+    $scope.tipoId = "";
 
     $scope.populateData = function() {
-      var tipoId = _.get(definition, '_value.key');
+      var tipoId = $scope.tipoId;
       if(!_.isUndefined(tipoId)){
         tipoInstanceDataService.getOne(relatedTipoName, tipoId).then(function(tipo){
-          tipoManipulationService.mergeDefinitionAndData(target, tipo, true);
-          $mdDialog.hide();
+          $mdDialog.hide(tipo);
         });
       }
     };

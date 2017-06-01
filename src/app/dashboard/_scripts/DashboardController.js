@@ -39,7 +39,7 @@
 
     verifyConfirmationCode();
 
-    tipoRouter.toMenuItem(menu[0]);
+    // tipoRouter.toMenuItem(menu[0]);
 
   }
   angular.module('tipo.dashboard')

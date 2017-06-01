@@ -107,7 +107,7 @@
       views: {
         'content@layout': {
           templateUrl: 'framework/_views/tipo-new-root.tpl.html',
-          controller: 'TipoCreateRootController',
+          controller: 'TipoEditRootController',
           controllerAs: 'tipoRootController'
         }
       }
@@ -138,6 +138,7 @@
           return tipo;
         },
         tipoDefinition: function (tipoDefinitionDataService, tipoManipulationService, tipo, $stateParams) {
+          $stateParams.perspectiveTipo = tipo;
           var tipoDefinition = tipoDefinitionDataService.getOne($stateParams.tipo_name).then(function (definition) {
             if (!_.isUndefined(definition)) {
               tipoManipulationService.mergeDefinitionAndData(definition, tipo);
@@ -153,7 +154,7 @@
       views: {
         'content@layout': {
           templateUrl: 'framework/_views/tipo-view-root.tpl.html',
-          controller: 'TipoViewRootController',
+          controller: 'TipoEditRootController',
           controllerAs: 'tipoRootController'
         }
       },
@@ -161,6 +162,7 @@
         var type = tipoDefinition.tipo_meta.tipo_ui_type;
         if (type === 'perspective') {
           $rootScope.perspective = tipoDefinition.tipo_meta.tipo_name + '.' + tipo.tipo_id;
+          $stateParams.perspective = tipoDefinition.tipo_meta.tipo_name + '.' + tipo.tipo_id;
         }
       }
     };
@@ -189,14 +191,10 @@
 
     var subTipoListState = {
       name: 'subTipoListState',
-      url: '/{sub_tipo_field_name}',
+      url: '/{related_tipo}?tipo_filter',
       parent: viewState,
       resolve: /*@ngInject*/ {
         subTipos: function (tipoDefinition, tipoInstanceDataService, tipoManipulationService, $stateParams) {
-          var subTipoFieldName = $stateParams.sub_tipo_field_name;
-          var subTipoField = _.find(tipoDefinition.tipo_fields, {
-            field_name: subTipoFieldName
-          });
 
           var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
 
@@ -205,21 +203,18 @@
           if (perspectiveMetadata.tipoFilter) {
             filter.tipo_filter = perspectiveMetadata.tipoFilter;
           }
-          if (subTipoField.relationship_filter) {
+          if (!_.isUndefined($stateParams.tipo_filter) && !_.isEmpty($stateParams.tipo_filter)){
+            var sub_filter = atob($stateParams.tipo_filter);
             if (filter.tipo_filter) {
-              filter.tipo_filter += " and " + tipoManipulationService.expandFilterExpression(subTipoField.relationship_filter, tipoDefinition);
+              filter.tipo_filter += " AND " + tipoManipulationService.expandFilterExpression(sub_filter, tipoDefinition);
             } else {
-              filter.tipo_filter = tipoManipulationService.expandFilterExpression(subTipoField.relationship_filter, tipoDefinition);
+              filter.tipo_filter = tipoManipulationService.expandFilterExpression(sub_filter, tipoDefinition);
             }
           }
-          return tipoInstanceDataService.search(subTipoField._ui.relatedTipo, filter);
+          return tipoInstanceDataService.search($stateParams.related_tipo, filter);
         },
         subTipoDefinition: function (tipoDefinition, tipoDefinitionDataService, tipoManipulationService, $stateParams) {
-          var subTipoFieldName = $stateParams.sub_tipo_field_name;
-          var subTipoField = _.find(tipoDefinition.tipo_fields, {
-            field_name: subTipoFieldName
-          });
-          return tipoDefinitionDataService.getOne(subTipoField._ui.relatedTipo);
+          return tipoDefinitionDataService.getOne($stateParams.related_tipo);
         },
         delay: function ($q, $timeout) {
           return falseDelay($q, $timeout);

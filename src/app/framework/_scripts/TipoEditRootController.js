@@ -135,16 +135,19 @@
     $mdDialog,
     $templateCache,
     tipoDefinitionDataService,
-    $mdSelect) {
+    $mdSelect,
+    tipoCache,
+    $sce) {
     
     var _instance = this;
     _instance.tipoDefinition = tipoDefinition;
-    _instance.tipoDefinition.tipo_field_groups = tipo.tipo_field_groups;
+    // _instance.tipoDefinition.tipo_field_groups = tipo.tipo_field_groups;
     var clonedTipoId = $stateParams.copyFrom;
     _instance.tipo = tipo;
 
-    var tipo_name = tipoDefinition.tipo_meta.tipo_name;
-    var tipo_id = tipo.tipo_id;
+    // var tipo_name = tipoDefinition.tipo_meta.tipo_name;
+    var tipo_name = $stateParams.tipo_name;
+    var tipo_id = $stateParams.tipo_id;
 
     var perspective = $scope.perspective;
 
@@ -160,6 +163,7 @@
     _instance.save = function(form,action){
       tipoRouter.startStateChange();
       var data = {};
+      var parameters = {};
       tipoManipulationService.extractDataFromMergedDefinition(_instance.tipoDefinition, data);
       tipoManipulationService.modifyTipoData(_instance.tipo);
       if (action === 'edit') {
@@ -177,13 +181,13 @@
         });
       }else if (action === 'create') {
         var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
-          if(perspectiveMetadata.fieldName && !data[perspectiveMetadata.fieldName]){
-            data[perspectiveMetadata.fieldName] = perspectiveMetadata.tipoId;
+          if(perspectiveMetadata.fieldName && !_instance.tipo[perspectiveMetadata.fieldName]){
+            _instance.tipo[perspectiveMetadata.fieldName] = perspectiveMetadata.tipoId;
           }
           if(!_.isUndefined(clonedTipoId)){
-            data.copy_from_tipo_id = clonedTipoId;
+            _instance.tipo.copy_from_tipo_id = clonedTipoId;
           }
-          tipoInstanceDataService.upsertAll(tipo_name, [data]).then(function(result){
+          tipoInstanceDataService.upsertAll(tipo_name, [_instance.tipo]).then(function(result){
             if(tipoRouter.stickyExists()){
               tipoRouter.toStickyAndReset();
             }else{
@@ -292,9 +296,29 @@
         };
     }
 
+    function getPerspective(filter){
+      var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
+      // TODO: Hack - Sushil as this is supposed to work only for applications
+      if (perspectiveMetadata.fieldName === 'application') {
+        filter.tipo_filter = perspectiveMetadata.tipoFilter;
+      }
+    }
+
+    _instance.refresh = function(){
+      var filter = {};
+      tipoRouter.startStateChange();
+      getPerspective(filter);
+      tipoCache.evict($stateParams.tipo_name, $stateParams.tipo_id);
+      tipoInstanceDataService.getOne($stateParams.tipo_name, $stateParams.tipo_id, filter, true).then(function (data) {
+        data.tipo_id = data.tipo_id || $stateParams.tipo_id;
+        _instance.tipo = data;
+        tipoRouter.endStateChange();
+      });
+    }
+
     _instance.loadOptions = function (baseFilter,tipo_name,label_field,uniq_name,prefix,label,index,searchText){
       _.set(_instance, uniq_name, {});
-      tipoInstanceDataService.gettpObjectOptions(baseFilter,tipo_name,label_field,_instance.tipoDefinition,searchText).then(function(result){
+      tipoInstanceDataService.gettpObjectOptions(baseFilter,tipo_name,label_field,_instance.tipoDefinition,searchText,undefined,index,_instance.tipo).then(function(result){
         _instance.setInstance(uniq_name,result,prefix,label,index,tipo_name);
       });      
     };
@@ -321,9 +345,9 @@
 
     _instance.loadPopupOptions = function (baseFilter,tipo_name,label_field,uniq_name,prefix,label,index,page_size){
       var searchText;
-      return tipoInstanceDataService.gettpObjectOptions(baseFilter,tipo_name,label_field,_instance.tipoDefinition,searchText,page_size).then(function(result){
+      return tipoInstanceDataService.gettpObjectOptions(baseFilter,tipo_name,label_field,_instance.tipoDefinition,searchText,page_size,index,_instance.tipo).then(function(result){
         _instance.setInstance(uniq_name,result,prefix,label,index,tipo_name)
-      });      
+      });
     };
 
     _instance.renderSelection = function(tipo_name){
@@ -339,6 +363,28 @@
     };
 
     _instance.searchTerm = {};
+    _instance.delete = function(){
+      var confirmation = $mdDialog.confirm()
+          .title('Delete Confirmation')
+          .textContent('Are you sure that you want to delete ' + tipo_name + ' ' + tipo_id + '?')
+          .ariaLabel('Delete Confirmation')
+          .ok('Yes')
+          .cancel('No');
+      $mdDialog.show(confirmation).then(function(){
+        tipoRouter.startStateChange();
+        // handle application perspective
+        var filter = {};
+        getPerspective(filter);
+        // ends here
+        tipoInstanceDataService.deleteOne(tipo_name, tipo_id, filter).then(function(){
+          if(tipoRouter.stickyExists()){
+            tipoRouter.toStickyAndReset();
+          }else{
+            tipoRouter.toTipoList(tipo_name);
+          }
+        });
+      });
+    };
     _instance.cleanup = function(uniq_name,prefix,label,index){
       var tipo_data = _.get(_instance,uniq_name + '.model');
       if (!_.isUndefined(tipo_data)) {
@@ -396,15 +442,22 @@
       // });
     }
 
+    _instance.edit = function(){
+      tipoRouter.startStateChange();
+      tipoRouter.toTipoEdit(tipo_name, tipo_id);
+    };
+
     function generateGroupItem(field_name,definition){
       var newObject = {};
-      _.each(definition.tipo_fields,function(field){
-        newObject[field.field_name] = null;
-      });
-      if (_.isUndefined(_instance.tipo[field_name])) {
-        _instance.tipo[field_name] = [];
+      // _.each(definition.tipo_fields,function(field){
+      //   newObject[field.field_name] = null;
+      // });
+      var array = _.get(_instance.tipo,field_name);
+      if (!array) {
+        array = [];
       };
-      _instance.tipo[field_name].push(newObject);
+      array.push(newObject);
+      _.set(_instance.tipo,field_name,array);
     }
 
 
@@ -474,7 +527,9 @@
     }
 
     _instance.Date = function(date){
-      return new Date(date);
+      if (date) {
+        return new Date(date);
+      };
     }
 
     _instance.toList = function(){
@@ -486,44 +541,94 @@
     };
 
     _instance.cancel = function(){
-      _instance.toView();
+      if (tipo_id) {
+        _instance.toView();
+      }else{
+        _instance.toList();
+      }
     };
 
-    _instance.showDetail = function(field_name,index){
-      var definition = extractDatafromDefinition(field_name);
-      if (!_.isUndefined(index)) {
-        definition = definition._items[index];
-        // if (!_.isUndefined(_instance.tipo[field_name][index])) {
-        //   tipoManipulationService.mergeDefinitionAndData(definition,_instance.tipo[field_name][index]);
-        // }
-      }else{
-        // if (!_.isUndefined(_instance.tipo[field_name])) {
-        //   tipoManipulationService.mergeDefinitionAndData(definition,_instance.tipo[field_name]);
-        // };
-      }
+    function numDigits(x) {
+      return (Math.log10((x ^ (x >> 31)) - (x >> 31)) | 0) + 1;
+    }
+
+    _instance.showDetail = function(htmltemplate,index,field_name){
+      // var definition = extractDatafromDefinition(field_name);
+      // if (!_.isUndefined(index)) {
+      //   definition = definition._items[index];
+      //   // if (!_.isUndefined(_instance.tipo[field_name][index])) {
+      //   //   tipoManipulationService.mergeDefinitionAndData(definition,_instance.tipo[field_name][index]);
+      //   // }
+      // }else{
+      //   // if (!_.isUndefined(_instance.tipo[field_name])) {
+      //   //   tipoManipulationService.mergeDefinitionAndData(definition,_instance.tipo[field_name]);
+      //   // };
+      // }
       var newScope = $scope.$new();
-      newScope.definition = definition;
+      // newScope.definition = definition;
+      htmltemplate = atob(htmltemplate);
+      if (!_.isUndefined(index)) {
+        if (_.isUndefined($scope.recursiveGroupRef)) {
+          newScope.recursiveGroupRef = {};
+          newScope.recursiveGroupRef.field_names = field_name + "/";
+          newScope.recursiveGroupRef.arrayindex = index.toString();
+          newScope.recursiveGroupRef.digits = numDigits(index).toString();
+        }else{
+          newScope.recursiveGroupRef = {};
+          newScope.recursiveGroupRef.field_names = $scope.recursiveGroupRef.field_names + field_name + "/";
+          newScope.recursiveGroupRef.arrayindex = $scope.recursiveGroupRef.arrayindex + index.toString();
+          newScope.recursiveGroupRef.digits = $scope.recursiveGroupRef.digits + numDigits(index).toString();
+        }
+        var nth = 0;
+        var loop = 0;
+        _.each(newScope.recursiveGroupRef.field_names.split('/'),function(stringVal){
+          if(!_.isEmpty(stringVal)){
+            var digits = newScope.recursiveGroupRef.digits.substr(loop,1);
+            var regex = new RegExp(stringVal + "\\[\\$index", "g");
+            htmltemplate = htmltemplate.replace(regex,stringVal + "[" + newScope.recursiveGroupRef.arrayindex.toString().substr(nth,digits));
+            nth = nth + digits;
+            loop++;
+          }
+        });
+      };
+      // newScope.root = _instance.tipoDefinition;
       newScope.mode = "edit";
+      newScope.fullscreen = true;
       var promise = $mdDialog.show({
-        templateUrl: 'framework/_directives/_views/tp-view-dialog.tpl.html',
-        controller: 'TipoGroupDialogController',
+        template: '<md-dialog ng-cloak ng-class="{\'fullscreen\': fullscreen}"><md-toolbar class="tipo-toolbar"><div class="md-toolbar-tools"><h2>{{definition.display_name}}</h2><span flex></span><md-button class="md-icon-button" ng-click="maximize()" ng-if="!fullscreen"><md-icon aria-label="Maximize">crop_square</md-icon></md-button><md-button class="md-icon-button" ng-click="restore()" ng-if="fullscreen"><md-icon aria-label="Restore size">filter_none</md-icon></md-button><md-button class="md-icon-button" ng-click="cancel()"><md-icon aria-label="Close dialog">close</md-icon></md-button></div></md-toolbar><md-dialog-content><div class="tp-detail dialog">' + 
+                  htmltemplate +
+                  '</div>  </md-dialog-content><md-dialog-actions layout="row"><span flex></span><md-button ng-click="hide()" ng-if="!(mode === \'edit\')">Close</md-button><md-button md-theme="reverse" class="md-raised md-primary" ng-click="hide()" ng-if="mode === \'edit\'">Done</md-button></md-dialog-actions></md-dialog>',
+        controller: 'TipoEditRootController',
+        controllerAs: 'tipoRootController',
+        resolve: /*@ngInject*/
+        {
+          tipo: function() {
+                  return _instance.tipo;
+          },
+          tipoDefinition: function() {
+                  return _instance.tipoDefinition;
+          },
+        },
         scope: newScope,
         skipHide: true,
         clickOutsideToClose: true,
         fullscreen: true
       });
       promise.then(function(){
-        updateDatafromDefinition(definition,index,field_name);
+        // updateDatafromDefinition(definition,index,field_name);
       });
     }
-    _instance.lookupTipo = function(field_name){
-      var definition = extractDatafromDefinition(field_name);
+    _instance.lookupTipo = function(relatedTipo,labelfield,prefix,baseFilter,queryparams,key_field,label_field){
       var newScope = $scope.$new();
-      newScope.root = $scope.root;
-      newScope.context = $scope.context;
-      newScope.definition = $scope.group;
-      newScope.target = definition;
-      $mdDialog.show({
+      newScope.root = _instance.tipoDefinition;
+      newScope.relatedTipo = relatedTipo;
+      newScope.labelfield = labelfield;
+      newScope.baseFilter = baseFilter;
+      newScope.queryparams = queryparams;
+      newScope.key_field = key_field;
+      newScope.label_field = label_field;
+      newScope.tipo = _instance.tipo[prefix];
+      var promise = $mdDialog.show({
         templateUrl: 'framework/_directives/_views/tp-lookup-dialog.tpl.html',
         controller: 'TipoLookupDialogController',
         scope: newScope,
@@ -531,46 +636,51 @@
         clickOutsideToClose: true,
         fullscreen: true
       });
+      promise.then(function(tipo){
+        _instance.tipo[prefix] = tipo;
+      });
+    }
+
+    _instance.trustHtml = function(html){
+      return $sce.trustAsHtml(html);
     }
 
     _instance.generateItem = function(field_name){
-      var definition = extractDatafromDefinition(field_name);
-      tipoManipulationService.generateGroupItem(definition);
-      generateGroupItem(field_name,definition);
+      // var definition = extractDatafromDefinition(field_name);
+      // tipoManipulationService.generateGroupItem(definition);
+      generateGroupItem(field_name);
     }
 
     _instance.deleteItem = function(field_name,index){
-      var group = extractDatafromDefinition(field_name);
-      var groupItem = group._items[index];
-      if(_.isUndefined(groupItem._ui.hash)){
-        // indicates that this item was never saved on the backend, hence just delete it
-        _.remove(group._items, function(each){
-          return each === groupItem;
+      // var group = extractDatafromDefinition(field_name);
+      // var groupItem = group._items[index];
+      // if(_.isUndefined(groupItem._ui.hash)){
+      //   // indicates that this item was never saved on the backend, hence just delete it
+      //   _.remove(group._items, function(each){
+      //     return each === groupItem;
+      //   });
+      // }else{
+      //   // indicates that this item already exists in the backend, hence flagging it for deletion
+      //   groupItem._ui.deleted = true;
+      // }
+      var delItem = _.get(_instance.tipo,field_name)
+      if (_.isUndefined(delItem[index]._ARRAY_META)) {
+        _.remove(delItem, function(each){
+          return each === delItem[index];
         });
       }else{
-        // indicates that this item already exists in the backend, hence flagging it for deletion
-        groupItem._ui.deleted = true;
+        delItem[index]._ARRAY_META._STATUS = 'DELETED';
       }
-      if (_.isUndefined(_instance.tipo[field_name][index]._ARRAY_META)) {
-        _.remove(_instance.tipo[field_name], function(each){
-          return each === _instance.tipo[field_name][index];
-        });
-      }else{
-        _instance.tipo[field_name][index]._ARRAY_META._STATUS = 'DELETED';
-      }
+      _.set(_instance.tipo,field_name,delItem);
     }
 
     _instance.cloneItem = function(field_name,index){
-      var group = extractDatafromDefinition(field_name);
-      var groupItem = group._items[index];
-      var clonedItem = angular.copy(groupItem);
+      // var group = extractDatafromDefinition(field_name);
+      var groupItem = _.get(_instance.tipo,field_name)
+      var clonedItem = angular.copy(groupItem[index]);
       delete clonedItem._ARRAY_META;
-      delete clonedItem._ui.hash;
-      group._items.push(clonedItem);
-      var cloneObj = angular.copy(_instance.tipo[field_name][index]);
-      delete cloneObj._ARRAY_META;
-      // cloneObj._ARRAY_META = {};
-      _instance.tipo[field_name].push(cloneObj);
+      groupItem.push(clonedItem);
+      _.set(_instance.tipo,field_name,groupItem);
     }
 
       var val = false;
@@ -625,6 +735,39 @@
         delete _instance[prefix + index + label].allowed_value;
       }
     }
+
+    _instance.toSubTipoList = function(relatedTipo,tipo_filter){
+      tipoRouter.to('subTipoListState', undefined, {related_tipo: relatedTipo,tipo_filter: tipo_filter}, true);
+    };
+
+    function setCurrentActiveTab(name){
+      if(_.isUndefined(name)){
+        var currentStateName = tipoRouter.getCurrent().name;
+        if(_.startsWith(currentStateName, 'subTipo')){
+          name = $state.params.sub_tipo_field_name;
+        }else{
+          name = 'main';
+        }
+      }
+      _instance.activeTab = name;
+    }
+
+    setCurrentActiveTab();
+
+    $scope.maximize = function(){
+      $scope.fullscreen = true;
+    };
+
+    $scope.restore = function(){
+      $scope.fullscreen = false;
+    };
+
+    $scope.hide = function() {
+      $mdDialog.hide();
+    };
+    $scope.cancel = function() {
+      $mdDialog.cancel();
+    };
 
   }
 

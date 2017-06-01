@@ -8,10 +8,12 @@
     tipoDefinition,
     tipoManipulationService,
     $scope,
+    $timeout,
     $mdDialog,
     tipoCache,
     tipoRouter,
-    tipoInstanceDataService) {
+    tipoInstanceDataService,
+    tipoClientJavascript) {
 
     var _instance = this;
 
@@ -22,17 +24,31 @@
     _instance.tipo_fields = $scope.tipo_fields;
     _instance.selectedTipos = $scope.selectedTipos;
     _instance.perm = $scope.perm;
+    _instance.queryparams = $scope.queryparams;
+    _instance.tipo_name = $scope.tipo_name;
     _instance.disablecreate = $scope.disablecreate;
+    _instance.bulkedit = true;
     $scope.fullscreen = true;
-    if ($scope.selectedTipos.length > 0) {
-      _.each(_instance.tiposWithDefinition, function(tipo){
-          _.each($scope.selectedTipos,function(selected){
-            if(tipo.key === selected.key){
-              tipo.selected = true;
-            }
-          })
-        });
+
+    function initselectedTipos(){
+      if ($scope.selectedTipos.length > 0) {
+        _.each(_instance.tiposWithDefinition, function(tipo){
+            _.each($scope.selectedTipos,function(selected){
+              if(tipo.key === selected.key){
+                tipo.selected = true;
+              }
+            })
+          });
+        _.each(_instance.tipos, function(tipo){
+            _.each($scope.selectedTipos,function(selected){
+              if(tipo[$scope.key_field] === selected.key){
+                tipo.selected = true;
+              }
+            })
+          });
+      };
     };
+    initselectedTipos();
     _instance.maximize = function(){
       $scope.fullscreen = true;
     };
@@ -42,21 +58,36 @@
     };
 
     _instance.selectTipo = function(tipoSelected,event,tiposData){
-      if (!$scope.isArray) {
-        _.each(tiposData, function(tipo){
-          tipo.selected = false;
-          $scope.selectedTipos = [];
-        });
+      if(typeof tipoClientJavascript[$scope.tipo_name + '_List_OnClick'] === 'function'){
+        tipoRouter.startStateChange();
+        var instance = {};
+        instance.tipos = _instance.tipos;
+        var proceed = tipoClientJavascript[$scope.tipo_name + '_List_OnClick'](instance,tipoSelected,$scope.tipo_name,$scope.queryparams,event);
+        $timeout(function() {
+          _instance.tipos = instance.tipos;
+          tipoRouter.endStateChange();
+        }, 1000);
       }
-      tipoSelected.selected = !tipoSelected.selected;
-      if(tipoSelected.selected){
-        $scope.selectedTipos.push(tipoSelected);
-      }else{
-        _.remove($scope.selectedTipos,function(tipo){
-          return tipo.key === tipoSelected.key;
-        });
+      else{
+        var proceed = true;
       }
-      event.stopPropagation();
+      if (proceed) {
+        if (!$scope.isarray) {
+          _.each(tiposData, function(tipo){
+            tipo.selected = false;
+            $scope.selectedTipos = [];
+          });
+        }
+        tipoSelected.selected = !tipoSelected.selected;
+        if(tipoSelected.selected){
+          $scope.selectedTipos.push(tipoSelected);
+        }else{
+          _.remove($scope.selectedTipos,function(tipo){
+            return (tipo.key === tipoSelected.key) || (tipo[$scope.key_field] === tipoSelected[$scope.key_field]) || (tipo.key === tipoSelected[$scope.key_field]);
+          });
+        }
+        event.stopPropagation();
+      };
     }
     _instance.finish = function() {      
       $mdDialog.hide($scope.selectedTipos);
@@ -86,7 +117,7 @@
         fullscreen: true
       });
       promise.then(function(tipos){
-        if (_.isArray(tipos)) {
+        if (_.isarray(tipos)) {
           _instance.tipos = tipos;
           _instance.tiposWithDefinition = tipoManipulationService.mergeDefinitionAndDataArray(_instance.tipoDefinition, tipos, $scope.label_field);
         };
@@ -113,6 +144,10 @@
         tipoRouter.endStateChange();
       });
     }
+
+    $scope.$watch(function(){return _instance.tipos;},function(){
+      initselectedTipos();
+    })
   }
   return module.directive('tpLookup', function (
     tipoInstanceDataService,
@@ -121,52 +156,76 @@
     tipoRegistry,
     $mdDialog,
     $mdSelect,
-    tipoDefinitionDataService) {
+    tipoDefinitionDataService,
+    tipoClientJavascript) {
       return {
         scope: {
           root: '=',
           context: '=',
           parent: '=',
-          field: '='
+          field: '=',
+          index: '=',
+          fieldvalue: '=',
+          fieldlabel: '=',
+          basefilter: '=',
+          realtedtipo: '=',
+          isarray: '=',
+          ispopup: '=',
+          queryparams: '=',
+          ismandatory: '=',
+          labelfield: '=',
+          allowcreate: '=',
+          selectfield: '=',
+          selectkeyfield: '=',
+          selectlabelfield: '=',
         },
         restrict: 'EA',
         replace: true,
         template: '<ng-include src="fieldTemplate" tp-include-replace/>',
         link: function(scope, element, attrs){
-          var field = scope.field;
-          var isArray = Boolean(field._ui.isArray);
-          var isGroup = Boolean(field._ui.isGroup);
-          var isMandatory = Boolean(field.mandatory);
-          scope.isPopup = field.popup_select;
-          scope.isArray = isArray;
-
+          scope.model = {};
+          var isarray = Boolean(scope.isarray);
+          // var isGroup = Boolean(field._ui.isGroup);
+          scope.isMandatory = Boolean(scope.ismandatory);
+          scope.isPopup = scope.ispopup;
           var fieldTemplate;
-          if(isArray && !isGroup){
+          if(isarray){
             fieldTemplate = 'framework/_directives/_views/tp-lookup-multiple.tpl.html';
           }else{
             fieldTemplate = 'framework/_directives/_views/tp-lookup-single.tpl.html';
           }
           scope.fieldTemplate = fieldTemplate;
 
-          var baseFilter = field.relationship_filter;
-          scope.tipo_name = field._ui.relatedTipo;
-          var label_field;
-          if(_.isUndefined(field.label_field)){
-            label_field = field.key_field.field_name;
-          }else{
-            label_field = field.label_field.field_name;
-          }
+          var basefilter = scope.basefilter;
+          scope.tipo_name = scope.realtedtipo;
+          var key_field = scope.selectkeyfield || 'tipo_id';
+          var label_field = scope.selectlabelfield || scope.labelfield || 'tipo_id';
+          
 
           scope.selectedTipos = [];
-          if(isArray){
-            scope.selectedTipos = field._value;
+          if(isarray){
+            scope.model.field = [];
+            if (!_.isUndefined(scope.fieldvalue)) {
+              _.each(scope.fieldvalue,function(val){
+                scope.model.field.push({key: val});
+              });
+              scope.selectedTipos = scope.model.field;
+            }else{
+              scope.selectedTipos = [];
+            }            
           }else{
-            if(_.get(field, '_value.key')){
-              scope.selectedTipos = [field._value];
+            scope.model.field = {key: scope.fieldvalue};
+            if (!_.isUndefined(scope.fieldvalue)) {
+              scope.model.field.label = _.get(scope.fieldlabel,'ref' + scope.fieldvalue) || angular.copy(scope.fieldvalue);
+            }else{
+              scope.model.field.key = "";
+              scope.model.field.label = "";
+              scope.fieldlabel = {};
             }
+            scope.selectedTipos = [scope.model.field];
           }
 
-          if(!field.allow_create){
+          if(!scope.allowcreate){
             scope.disablecreate = true;
           }else{
             scope.disablecreate = false;
@@ -175,10 +234,36 @@
           function optionsFormat(results){
             scope.optionSelected = _.map(results, function(each){
               return {
-                key: each.key,
-                label: each.label
+                key: each[key_field] || each.key,
+                label: each[label_field] || each.label
               };
             });
+          }
+
+          function extractDropdownList(tipo_data,options,startName,remName){
+            if (!startName) {
+              if (_.isArray(tipo_data[remName])) {
+                _.each(tipo_data[remName],function(each){
+                  options.push({
+                    key: each,
+                    label: each
+                  });
+                })
+              }else{
+                options.push({
+                  key: tipo_data[remName],
+                  label: tipo_data[remName]
+                });
+              }
+              return;
+            };
+            if (_.isArray(tipo_data[startName])) {
+              _.each(tipo_data[startName],function(each){
+                extractDropdownList(each,options,remName.substr(0,remName.indexOf('.')),remName.substr(remName.indexOf('.') + 1));
+              });
+            }else{
+              extractDropdownList(tipo_data[startName],options,remName.substr(0,remName.indexOf('.')),remName.substr(remName.indexOf('.') + 1));
+            }
           }
 
           scope.loadOptions = function (searchText,page_size){
@@ -189,31 +274,71 @@
             /*if(tipo_name !== perspectiveMetadata.tipoName){
               filter = perspectiveMetadata.tipoFilter;
             }*/
-            if(!_.isUndefined(baseFilter)){
-              var baseFilterExpanded = tipoManipulationService.expandFilterExpression(baseFilter, scope.root, scope.context);
-              filter = baseFilterExpanded;
+            var arrayIndex;
+            if (!_.isUndefined(scope.$parent.recursiveGroupRef) && !_.isUndefined(scope.index)) {
+              var arrayIndex = scope.$parent.recursiveGroupRef.arrayIndex + scope.index.toString();
+            }else{
+              if (!_.isUndefined(scope.index)) {
+                var arrayIndex = scope.index.toString();  
+              }
+              else if (!_.isUndefined(scope.$parent.recursiveGroupRef)) {
+                var arrayIndex = scope.$parent.recursiveGroupRef.arrayIndex;  
+              }
+            }
+            if(!_.isUndefined(basefilter)){
+              var basefilterExpanded = tipoManipulationService.expandFilterExpression(basefilter, scope.root, scope.context,arrayIndex);
+              filter = basefilterExpanded;
             }
             if(!_.isUndefined(filter)){
               searchCriteria.tipo_filter = filter;
             }
-            searchCriteria.page = 1;
-            searchCriteria.per_page = page_size;
-            if (!_.isUndefined(searchText)) {
-              searchCriteria.tipo_filter = "(_all:(" + searchText + "*))";
+            if ((scope.selectkeyfield && !_.isEmpty(scope.selectkeyfield)) || (scope.selectlabelfield && !_.isEmpty(scope.selectlabelfield)) ) {
+              // searchCriteria.tipo_fields = key_field + ',' + label_field;
             };
+            searchCriteria.page = 1;
+            // If for the dropdown we require custom page size then we can get from the page_size parameter
+            searchCriteria.per_page = 1000;
+            if (!_.isEmpty(scope.queryparams)) {
+              _.forOwn(scope.queryparams,function(value,key){
+                var baseParamExpanded = tipoManipulationService.expandFilterExpression(value, scope.root, scope.context,arrayIndex);
+                searchCriteria[key] = baseParamExpanded;
+              })
+            };
+            if(!_.isUndefined(searchCriteria.tipo_filter) && !_.isEmpty(searchCriteria.tipo_filter)  && !_.isUndefined(searchText)){
+              searchCriteria.tipo_filter += " AND ("+key_field+":(" + searchText + "*) OR " + label_field + ":(" + searchText + "*))" ;
+            }else{
+              if (!_.isUndefined(searchText)) {
+                searchCriteria.tipo_filter = "("+key_field+":(" + searchText + "*) OR " + label_field + ":(" + searchText + "*))";
+              }
+            };
+            searchCriteria.short_display = 'N';
+            scope.searchCriteria = searchCriteria;
+            if(typeof tipoClientJavascript[scope.tipo_name + '_List_OnLoad'] === 'function'){
+              tipoClientJavascript[scope.tipo_name + '_List_OnLoad'](scope.selectedTipos,scope.searchCriteria);
+            }
             return tipoInstanceDataService.search(scope.tipo_name, searchCriteria).then(function(results){
               scope.tipos = results;
-              scope.options = _.map(results, function(each){
-                return {
-                  key: each.tipo_id,
-                  label: each[label_field]
+              
+              if (!scope.selectfield) {
+                scope.options = _.map(results, function(each){
+                  return {
+                    key: each[key_field],
+                    label: each[label_field]
+                  };
+                });
+              }else{
+                scope.options = [];
+                var remName = scope.selectfield.substr(scope.selectfield.indexOf('.') + 1);
+                var startName = scope.selectfield.substr(0,scope.selectfield.indexOf('.'));
+                if (results[0][startName] || results[0][remName]) {
+                  extractDropdownList(results[0],scope.options,startName,remName)
                 };
-              });
-              if(isMandatory && !field._value){
-                if(isArray){
-                  field._value = [scope.options[0]];
+              }
+              if(scope.isMandatory && !field.key){
+                if(isarray){
+                  field = [scope.options[0]];
                 }else{
-                  field._value = scope.options[0];
+                  field = scope.options[0];
                 }
               }
               var tipo_perm = tipoRegistry.get(scope.tipo_name + '_resdata');
@@ -227,6 +352,24 @@
           scope.searchTerm = {};
           scope.cleanup = function(){
             delete scope.searchTerm.text;
+              if (!isarray) {
+                if (!_.isUndefined(scope.fieldvalue)) {
+                scope.fieldvalue = scope.model.field.key;
+                if (_.isUndefined(scope.fieldlabel) || _.isEmpty(scope.fieldlabel)) {
+                  scope.fieldlabel = {};
+                }
+                _.set(scope.fieldlabel,'ref' + scope.fieldvalue,scope.model.field.label);
+              };
+            }else{
+              scope.fieldvalue = [];
+              if (!_.isUndefined(scope.fieldvalue)) {
+                _.each(scope.model.field,function(val){
+                  scope.fieldvalue.push(val.key);
+                  _.set(scope.fieldlabel,'ref' + val.key,val.label);
+                });
+              }
+
+            }
           };
 
           scope.stopBubbling = function(event){
@@ -234,10 +377,10 @@
           };
 
           scope.renderSelection = function(){
-            var text = '<div class="placeholder">' + field.field_description + '</div>';
-            if (field._value && field._value.length){
+            var text = '<div class="placeholder"> </div>';
+            if (scope.model.field && scope.model.field.length){
               text = '<div class="multiple-list">';
-              _.each(field._value, function(each){
+              _.each(scope.model.field, function(each){
                 text += '<div>' +each.label + '</div>';
               });
               text += '</div>';
@@ -245,30 +388,30 @@
             return text;
           };
 
-          if (scope.isPopup) {
+          if (scope.ispopup) {
             tipoDefinitionDataService.getOne(scope.tipo_name).then(function(definition){
               var searchText;
               scope.popupDefinition = definition;
               scope.loadOptions(searchText,definition.tipo_meta.default_page_size);
             });
           }else{
-            if(isArray){
-              scope.options = scope.field._value;
-            }
+            scope.loadOptions()
           }
 
           function openTipoObjectDialog(){
             var searchText;
             scope.loadOptions(searchText,scope.popupDefinition.tipo_meta.default_page_size);            
             var newScope = scope.$new();
-            newScope.isArray = isArray;
+            newScope.isarray = isarray;
             newScope.field = scope.context;
             newScope.disablecreate = scope.disablecreate;
             newScope.tipo_name = scope.tipo_name;
             newScope.perm = scope.perm;
+            newScope.queryparams = scope.searchCriteria;
             newScope.label_field = label_field;
+            newScope.key_field = label_field;
             if (scope.root) {
-            newScope.tipo_fields = scope.root.tipo_fields}
+            newScope.tipo_fields = scope.root.tipo_field_groups}
             newScope.selectedTipos = scope.selectedTipos;
             var promise = $mdDialog.show({
               templateUrl: 'framework/_directives/_views/tp-lookup-popup-select.tpl.html',
@@ -313,7 +456,7 @@
               clickOutsideToClose: true
             });
             promise.then(function(tipos){
-              if (_.isArray(tipos)) {
+              if (_.isarray(tipos)) {
                 scope.loadOptions();
               };
               tipoRouter.endStateChange();
@@ -325,16 +468,22 @@
             var promise = openTipoObjectDialog();
             promise.then(function(selectedObjects){
               optionsFormat(selectedObjects);
-              if(isArray){
-                field._value = scope.optionSelected;
-                scope.selectedTipos = field._value;
+              if(isarray){
+                scope.model.field = scope.optionSelected;
+                scope.selectedTipos = scope.model.field;
               }else{
-                field._value = scope.optionSelected[0];
-                scope.selectedTipos = [field._value];
+                scope.model.field = scope.optionSelected[0];
+                scope.selectedTipos = [scope.model.field];
               }
+              scope.cleanup();
             });
           }
-
+          scope.$watch(function(){return scope.fieldvalue},function(){
+            if (scope.model.field.key !== scope.fieldvalue) {
+              scope.model.field.key = scope.fieldvalue;
+              scope.model.field.label = _.get(scope.fieldlabel,'ref' + scope.fieldvalue) || angular.copy(scope.fieldvalue);;
+            };
+          })
         }
       };
     }

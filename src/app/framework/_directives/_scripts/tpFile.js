@@ -14,7 +14,8 @@
     return {
       scope: {
         field: '=',
-        mode: '@?'
+        mode: '@?',
+        fieldpath: '='
       },
       restrict: 'EA',
       replace: true,
@@ -22,6 +23,18 @@
       link: function (scope, element, attrs) {
         var mode = scope.mode || 'view';
         scope.isEdit = mode === 'edit';
+
+        // function getFieldDefiniton(){
+
+        // };
+        if (!_.isUndefined(scope.fieldpath)) {
+          _.each(scope.field.tipo_fields,function(tpField){
+            if (tpField.field_name === scope.fieldpath) {
+              scope.field = tpField;
+              return;
+            };
+          });
+        };
         var field = scope.field;
         scope.hasValue = !_.isUndefined(field._value);
         scope.isArray = Boolean(field._ui.isArray);

@@ -17,6 +17,7 @@
     'cgBusy',
     'ngProgress',
     'ngPageTitle',
+    'cleave.js',
     'infinite-scroll'
   ]);
 

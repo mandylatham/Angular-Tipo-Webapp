@@ -53,7 +53,9 @@
 
     _instance.search = function(tipo_name, criteria, reload){
       criteria = criteria || {};
-      criteria.short_display = 'Y';
+      if (!criteria.short_display) {
+        criteria.short_display = 'Y';
+      };
       criteria.cckey = metadataService.cckey;
       var headers = {};
       if(reload){
@@ -196,29 +198,33 @@
       return promise;
     };
 
-    _instance.gettpObjectOptions = function(baseFilter,tipo_name,label_field,context,searchText,page_size){
+    _instance.gettpObjectOptions = function(baseFilter,tipo_name,label_field,context,searchText,page_size,index,tipo_data){
       var searchCriteria = {};
       var filter;
       var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
       /*if(tipo_name !== perspectiveMetadata.tipoName){
         filter = perspectiveMetadata.tipoFilter;
       }*/
+      if (_.isUndefined(tipo_data)) {
+        tipo_data = context;
+      };
       if(!_.isUndefined(baseFilter)){
-        var baseFilterExpanded = tipoManipulationService.expandFilterExpression(baseFilter, context, context);
+        var baseFilterExpanded = tipoManipulationService.expandFilterExpression(baseFilter, tipo_data, context,index);
         filter = baseFilterExpanded;
       }
       if(!_.isUndefined(filter)){
         searchCriteria.tipo_filter = filter;
       }
       if(!_.isUndefined(searchCriteria.tipo_filter) && !_.isEmpty(searchCriteria.tipo_filter)  && !_.isUndefined(searchText)){
-        searchCriteria.tipo_filter += "AND (_all:(" + searchText + "*))";
+        searchCriteria.tipo_filter += " AND (tipo_id:(" + searchText + "*) OR " + label_field + ":(" + searchText + "*))" ;
       }else{
         if (!_.isUndefined(searchText)) {
-          searchCriteria.tipo_filter = "(_all:(" + searchText + "*))";
+          searchCriteria.tipo_filter = "(tipo_id:(" + searchText + "*) OR " + label_field + ":(" + searchText + "*))";
         }
       }
       searchCriteria.page = 1;
-      searchCriteria.per_page = page_size;
+      // If for the dropdown we require custom page size then we can get from the page_size parameter
+      searchCriteria.per_page = 500;
       var options = [];
       return _instance.search(tipo_name, searchCriteria).then(function(results){
         options = _.map(results, function(each){

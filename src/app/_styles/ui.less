@@ -224,10 +224,21 @@ html{
         dt{
           margin: 0;
           margin-bottom: 5px;
-          font-size: 0.9em;
-          font-weight: 400;
+          font-size: 1em;
+          font-weight: 700;
+          line-heigh: 1.5em;
         }
-        margin-bottom: 10px;
+        margin-bottom: 1px;
+      }
+      dl.view{
+        dt{
+          margin: 0;
+          margin-bottom: 5px;
+          font-size: 1em;
+          font-weight: 400;
+          line-heigh: 1.5em;
+        }
+        margin-bottom: 1px;
       }
     }
     .actions{
@@ -466,6 +477,11 @@ md-fab-speed-dial.md-fab-top-right{
   border-width: 1px;
   padding: 17px 5px;
 }
+// For Field Value beside Label
+.dd-side{
+  margin-left: 5% !important;
+  margin-bottom: 2.5px !important;
+}
  // For Rich Text
 .btn-group,
 .btn-group-vertical {
@@ -515,7 +531,14 @@ md-fab-speed-dial.md-fab-top-right{
     z-index: 99999;
 }
 
-
+// For Gridview
+table.md-table td.md-cell{
+  font-size: 1.0em;
+}
+table.md-table th.md-column{
+  font-size: 0.9em;
+  color: white;
+}
 // For S3 component
 .gridStyle {
   td, p {
