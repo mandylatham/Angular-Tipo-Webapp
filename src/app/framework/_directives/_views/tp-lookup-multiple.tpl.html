@@ -10,9 +10,12 @@
 		  <md-option ng-value="option" ng-repeat="option in options | filter: {label: searchTerm.text}">{{ option.label }}</md-option>
 		</md-select>
 	</div>
-	<div flex="none" class="actions" ng-if="isPopup">
+	<div flex="25" class="actions" ng-if="isPopup" layout="row">
 		<md-button class="m0" ng-click="tipoObjecSelectiontDialog()">
 			<md-icon>search</md-icon>
+		</md-button>
+		<md-button class="m0" ng-click="clearModel()">
+			<md-icon>clear</md-icon>
 		</md-button>
 	</div>
 </div>

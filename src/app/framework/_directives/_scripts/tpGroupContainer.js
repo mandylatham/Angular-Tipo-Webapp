@@ -36,6 +36,7 @@
     $mdDialog) {
 
     var target = $scope.target;
+    $scope.fullscreen = true;
 
     var relatedTipoName = $scope.relatedTipo;
 

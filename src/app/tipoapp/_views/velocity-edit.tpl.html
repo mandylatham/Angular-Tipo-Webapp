@@ -114,13 +114,13 @@
       flex-gt-sm="50" 
       flex-gt-md="33" style="">
     <dt>
-                      <span style="{color: red;}">2 Some Other String</span>
+                      <span ng-style="color: blue;">2 Some Other String</span>
                   </dt>
       <dd>
         <div class="tp-field">
       <span>
         <md-input-container md-no-float>
-                                                                                                                                                                                                                                                                                <input ng-model="tipoRootController.tipo.some_other_string" ng-disabled="false" aria-label="2 Some Other String" placeholder="" name="2 Some Other String_string" ng-required="false" ng-pattern="/[a-zA-Z0-9]+/"  cleave = "{ delimiters: ['(',')','.','.',], blocks: [0,3,0,3,2] }">
+                                                                                                                                                                                                                                                                                                                                                                                                        <input ng-model="tipoRootController.tipo.some_other_string" ng-disabled="false" aria-label="2 Some Other String" placeholder="" name="2 Some Other String_string" ng-required="false" ng-pattern="/[a-zA-Z0-9]+/"  cleave = "{ delimiters: [' ',' ',' ',], blocks: [4,4,4,4] }">
                                 <div ng-messages="tipoForm['2 Some Other String_string'].$error">
                                       <div ng-message="pattern" >This field must be Alphanumeric</div>
                       </div>
@@ -175,7 +175,7 @@
       <span>
         <md-input-container md-no-float>
                                                                                                                                   
-              <input ng-model="tipoRootController.tipo.integer_1" ng-disabled="false" aria-label="Integer 1" placeholder="" name="Integer 1_integer" ng-required="false" ng-pattern=""  cleave = "{numeral: true,prefix: '$', numeralDecimalScale: 0, }">
+              <input ng-model="tipoRootController.tipo.integer_1" ng-disabled="false" aria-label="Integer 1" placeholder="" name="Integer 1_integer" ng-required="false" ng-pattern=""  cleave = "{numeral: true,prefix: '$', numeralDecimalScale: 3, }">
                                         </md-input-container>
       </span>
     </div>       
@@ -193,7 +193,7 @@
       flex-gt-sm="50" 
       flex-gt-md="33" style="">
     <dt>
-                      <span style="font-weight: bold;  text-decoration: underline;">StyleExample</span>
+                      <span ng-style="color:blue;">StyleExample</span>
                   </dt>
       <dd>
         <div class="tp-field">
@@ -278,7 +278,7 @@
     </dd>
  </dl>
      
-                                              <section class="fieldset fluid-row-container" style="$field_wrapper.style" flex="100"  show-gt-md show-md show-sm show-xs>
+                                              <section class="fieldset fluid-row-container" flex="100"  show-gt-md show-md show-sm show-xs>
                   <div class="header">
         <div layout="row" layout-align="end center">
           <h3 flex ng-init="tipoRootController.initCollapsed('Testgroup', '')">
@@ -389,6 +389,30 @@
         <md-input-container md-no-float>
                                                       <tp:lookup field="{key: tipoRootController.tipo.tipo, fieldlabel: tipoRootController.tipo.tipo_refs}" fieldvalue="tipoRootController.tipo.tipo" fieldlabel= "tipoRootController.tipo.tipo_refs" basefilter="''" realtedtipo="'Customer'" isarray="false" ispopup="" istipomandatory="false" labelfield="'tipo_id'" queryparams="" allowcreate="" selectkeyfield="'title'" selectlabelfield="'name_'" root="tipoRootController.tipo" ng-init="tipoRootController.tipo.tipo = tipoRootController.tipo.tipo || '';tipoRootController.tipo.tipo_refs = tipoRootController.tipo.tipo_refs || '' ">
                                     </md-input-container>
+      </span>
+    </div>       
+    </dd>
+ </dl>
+     
+                                    
+      
+    
+    
+      <dl class="edit" 
+            layout="column" 
+        layout-align="center stretch"
+          flex="100" 
+      flex-gt-sm="50" 
+      flex-gt-md="33" style="">
+    <dt>
+                      <span>Testngstyle</span>
+                  </dt>
+      <dd>
+        <div class="tp-field">
+      <span>
+        <md-input-container md-no-float>
+                                                                                  <tp:simple-dropdown isarray="false" fieldvalue="tipoRootController.tipo.device_status" required="false" allowedvalues="['Available','Leased','Repair']" allowcreate="$field.allow_create" placeholder="" name="Testngstyle_string"  />
+                                  </md-input-container>
       </span>
     </div>       
     </dd>

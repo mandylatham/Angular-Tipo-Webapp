@@ -4,6 +4,7 @@
 
   function TipoS3Browser(
     $scope,
+    $filter,
     tipoHandle) {
 
     var _instance = this;
@@ -23,6 +24,11 @@
       tipoHandle.getTipos(tipo_name,queryparams).then(function(response){
         $scope.tipoRootController.tipos = response;
       });
+    }
+
+    _instance.removeTipo = function(chip){
+      var tipoSelected = $filter('filter')($scope.tipoRootController.tipos,function(tipo){ return tipo.tipo_id === chip.tipo_id || tipo.tipo_id === chip.key});
+      $scope.tipoRootController.selectTipo(tipoSelected[0],event,$scope.tipoRootController.tipos);
     }
 
 

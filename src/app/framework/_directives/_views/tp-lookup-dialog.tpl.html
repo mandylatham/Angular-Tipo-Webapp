@@ -1,4 +1,4 @@
-<md-dialog ng-cloak aria-label="Lookup">
+<md-dialog ng-cloak aria-label="Lookup" ng-class="{'fullscreen': fullscreen}">
   <md-toolbar>
     <div class="md-toolbar-tools">
       <h2>Lookup - {{tipoDisplayName}}</h2>
@@ -10,7 +10,7 @@
   </md-toolbar>
   <md-dialog-content>
     <div class="md-dialog-content tp-field tp-lookup-dialog" layout="center center" layout-padding>
-      <tp:lookup realtedtipo="relatedTipo" labelfield="labelfield" fieldlabel="fieldlabel" fieldvalue="tipoId" basefilter="baseFilter" queryparams="queryparams" selectkeyfield="key_field" selectlabelfield="label_field"/>
+      <tp:lookup realtedtipo="relatedTipo" labelfield="labelfield" fieldlabel="fieldlabel" fieldvalue="tipoId" basefilter="baseFilter" queryparams="queryparams" selectlabelfield="label_field"/>
     </div>
   </md-dialog-content>
   <md-dialog-actions layout="row">

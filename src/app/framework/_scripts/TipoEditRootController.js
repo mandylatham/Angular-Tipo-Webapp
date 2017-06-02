@@ -526,7 +526,12 @@
       var promise = openTipoObjectDialog(allow_create,baseFilter,tipo_name,label_field,uniq_name,isArray,prefix,label,index);
     }
 
-    _instance.Date = function(date){
+    _instance.Date = function(date,init){
+      if(init){
+        console.log(eval(init));
+        console.log(new Date(eval(init)));
+        return new Date(eval(init));
+      }
       if (date) {
         return new Date(date);
       };
@@ -625,7 +630,8 @@
       newScope.labelfield = labelfield;
       newScope.baseFilter = baseFilter;
       newScope.queryparams = queryparams;
-      newScope.key_field = key_field;
+      //Not passing key_field because tipo_id is key_field for Embed relation
+      // newScope.key_field = key_field;
       newScope.label_field = label_field;
       newScope.tipo = _instance.tipo[prefix];
       var promise = $mdDialog.show({
