@@ -102,9 +102,8 @@
     _instance.addTipo = function() {
       var promise = $mdDialog.show({
         templateUrl: 'framework/_directives/_views/tp-lookup-popup-select-new.tpl.html',
-        controller: 'TipoCreateRootController',
+        controller: 'TipoEditRootController',
         controllerAs: 'tipoRootController',
-        fullscreen: true,
         resolve: /*@ngInject*/
         {
           tipo: function() {

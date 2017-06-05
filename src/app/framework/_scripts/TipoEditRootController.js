@@ -180,6 +180,7 @@
           }
         });
       }else if (action === 'create') {
+        tipo_name = tipoDefinition.tipo_meta.tipo_name;
         var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
           if(perspectiveMetadata.fieldName && !_instance.tipo[perspectiveMetadata.fieldName]){
             _instance.tipo[perspectiveMetadata.fieldName] = perspectiveMetadata.tipoId;
