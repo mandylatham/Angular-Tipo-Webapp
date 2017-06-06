@@ -386,17 +386,33 @@
       return tipo;
     }
 
+    function recursiveContextualData(tipoDefinition,parentTipoName){
+      var associationField;
+      _.each(tipoDefinition.tipo_fields, function(each){
+        if (each._ui.isGroup) {
+          associationField = recursiveContextualData(each,parentTipoName);
+          if (associationField) {
+            return false;
+          };
+        }else{
+          if (each.field_type === 'Tipo.' + parentTipoName) {
+            associationField = each;
+            return false;
+          };
+        }
+      });
+      return associationField;
+    }
+
     function extractContextualData(tipoDefinition, subTipoDefinition){
       var parentTipoName = tipoDefinition.tipo_meta.tipo_name;
       var keyField = getPrimaryKey(tipoDefinition);
       var labelField = getMeaningfulKey(tipoDefinition);
-      var associationField = _.find(subTipoDefinition.tipo_fields, function(each){
-        return each.field_type === 'Tipo.' + parentTipoName;
-      });
+      var associationField = recursiveContextualData(subTipoDefinition,parentTipoName)
       var contextualData = {};
-      contextualData[associationField.field_name] = keyField._value.key;
+      _.set(contextualData, associationField.fq_field_name, keyField._value.key);
       if(!_.isUndefined(labelField)){
-        _.set(contextualData, associationField.field_name + '_refs.ref' + keyField._value.key, labelField._value.key);
+        _.set(contextualData, associationField.fq_field_name + '_labels', labelField._value.key);
       }
       return contextualData;
     }
