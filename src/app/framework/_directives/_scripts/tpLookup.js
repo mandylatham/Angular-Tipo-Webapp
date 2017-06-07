@@ -174,7 +174,7 @@
           isarray: '=',
           ispopup: '=',
           queryparams: '=',
-          ismandatory: '=',
+          istipomandatory: '=',
           labelfield: '=',
           allowcreate: '=',
           selectfield: '=',
@@ -188,7 +188,7 @@
           scope.model = {};
           var isarray = Boolean(scope.isarray);
           // var isGroup = Boolean(field._ui.isGroup);
-          scope.isMandatory = Boolean(scope.ismandatory);
+          scope.isMandatory = Boolean(scope.istipomandatory);
           scope.isPopup = scope.ispopup;
           var fieldTemplate;
           if(isarray){
@@ -345,11 +345,11 @@
                   extractDropdownList(results[0],scope.options,startName,remName)
                 };
               }
-              if(scope.isMandatory && !field.key){
+              if(scope.isMandatory && (!scope.model.field || scope.model.field.length>0)){
                 if(isarray){
-                  field = [scope.options[0]];
+                  scope.model.field = [scope.options[0]];
                 }else{
-                  field = scope.options[0];
+                  scope.model.field = scope.options[0];
                 }
               }
               var tipo_perm = tipoRegistry.get(scope.tipo_name + '_resdata');

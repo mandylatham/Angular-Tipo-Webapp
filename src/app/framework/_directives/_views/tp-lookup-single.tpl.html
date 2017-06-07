@@ -1,6 +1,6 @@
 <div layout="row">
 	<div flex>
-		<md-select ng-model="model.field" aria-label="realtedtipo"  ng-model-options="{trackBy: '$value.key'}" md-container-class="tp-field"  md-on-open="loadOptions()" md-on-close="cleanup()" ng-if="!isPopup">
+		<md-select ng-model="model.field" aria-label="realtedtipo"  ng-model-options="{trackBy: '$value.key'}" md-container-class="tp-field"  md-on-open="loadOptions()" md-on-close="cleanup()" ng-if="!isPopup" ng-required="istipomandatory">
 		  <md-select-header class="search">
 		    <md-input-container md-no-float class="fullwidth">
 		      <input ng-model="searchTerm.text" type="search" placeholder="Search ..." ng-keydown="stopBubbling($event)" ng-keyup="$event.keyCode == 13 ? tipoSearch(searchTerm.text) : null" tp:auto-focus>
@@ -10,7 +10,7 @@
 		  <md-option value="" ng-if="!required && !searchTerm.text"></md-option>
 		  <md-option ng-value="option" ng-repeat="option in options">{{ option.label }}</md-option>
 		</md-select>
-		<input ng-if="isPopup" ng-model="model.field.label" ng-disabled="isPopup">
+		<input ng-if="isPopup" ng-model="model.field.label" ng-disabled="isPopup" ng-required="istipomandatory">
 	</div>
 	<div flex="25" class="actions" ng-if="isPopup" layout="row">
 		<md-button class="m0" ng-click="tipoObjecSelectiontDialog()">
