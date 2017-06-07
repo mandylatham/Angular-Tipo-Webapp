@@ -245,6 +245,10 @@
   var module = angular.module('tipo.framework', [
     'tipo.common'
   ]);
+  
+  module.run(function ($rootScope) {
+    $rootScope._ = window._;
+  })
 
   module.config(function ($stateProvider) {
     configureModule($stateProvider);
