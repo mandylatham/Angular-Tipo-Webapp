@@ -15,7 +15,7 @@
   <div ng-if="!tipoRootController.hasTipos" flex layout="row" layout-align="center center">
     <tp-no-content message="No records found" />
   </div>
-  <div ng-if="tipoRootController.hasTipos" layout="column">
+  <div ng-if="tipoRootController.hasTipos"  id="search" layout="column">
     <md-input-container flex class="tp-list" ng-if="tipoRootController.showsearch">
       <label>&nbsp;</label>
       <input ng-model="tipoRootController.searchText" class="searchbar" placeholder="enter search" ng-keyup="$event.keyCode == 13 ? tipoRootController.search() : null">

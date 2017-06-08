@@ -161,6 +161,12 @@
     };
 
     _instance.save = function(form,action){
+      if (!form.$valid) {
+        var container = angular.element(document.getElementById('inf-wrapper'));
+        var invalidElement = document.getElementsByClassName("ng-invalid");
+        container.scrollToElement(invalidElement[1],150,100);
+        return false;
+      }
       tipoRouter.startStateChange();
       var data = {};
       var parameters = {};
@@ -460,6 +466,15 @@
       };
       array.push(newObject);
       _.set(_instance.tipo,field_name,array);
+      if (array.length > 1) {
+        if (_instance.popupno > 0) {
+          var container = angular.element(document.getElementById('dialogContent_dialog' + _instance.popupno));
+        }else{
+          var container = angular.element(document.getElementById('inf-wrapper'));
+        }
+        var scrollto = angular.element(document.getElementById(field_name + (array.length - 2)));
+        container.scrollToElement(scrollto,150,100);
+      };
     }
 
 
@@ -559,6 +574,8 @@
       return (Math.log10((x ^ (x >> 31)) - (x >> 31)) | 0) + 1;
     }
 
+    _instance.popupno = $scope.popupno || 0;
+
     _instance.showDetail = function(htmltemplate,index,field_name){
       // var definition = extractDatafromDefinition(field_name);
       // if (!_.isUndefined(index)) {
@@ -573,6 +590,8 @@
       // }
       var newScope = $scope.$new();
       // newScope.definition = definition;
+      _instance.popupno++;
+      newScope.popupno = _instance.popupno;
       htmltemplate = atob(htmltemplate);
       if (!_.isUndefined(index)) {
         if (_.isUndefined($scope.recursiveGroupRef)) {
@@ -602,7 +621,7 @@
       newScope.mode = "edit";
       newScope.fullscreen = true;
       var promise = $mdDialog.show({
-        template: '<md-dialog ng-cloak ng-class="{\'fullscreen\': fullscreen}"><md-toolbar class="tipo-toolbar"><div class="md-toolbar-tools"><h2>{{definition.display_name}}</h2><span flex></span><md-button class="md-icon-button" ng-click="maximize()" ng-if="!fullscreen"><md-icon aria-label="Maximize">crop_square</md-icon></md-button><md-button class="md-icon-button" ng-click="restore()" ng-if="fullscreen"><md-icon aria-label="Restore size">filter_none</md-icon></md-button><md-button class="md-icon-button" ng-click="cancel()"><md-icon aria-label="Close dialog">close</md-icon></md-button></div></md-toolbar><md-dialog-content><div class="tp-detail dialog">' + 
+        template: '<md-dialog id="dialog' + _instance.popupno +  '" ng-cloak ng-class="{\'fullscreen\': fullscreen}"><md-toolbar class="tipo-toolbar"><div class="md-toolbar-tools"><h2>{{definition.display_name}}</h2><span flex></span><md-button class="md-icon-button" ng-click="maximize()" ng-if="!fullscreen"><md-icon aria-label="Maximize">crop_square</md-icon></md-button><md-button class="md-icon-button" ng-click="restore()" ng-if="fullscreen"><md-icon aria-label="Restore size">filter_none</md-icon></md-button><md-button class="md-icon-button" ng-click="cancel()"><md-icon aria-label="Close dialog">close</md-icon></md-button></div></md-toolbar><md-dialog-content><div class="tp-detail dialog">' + 
                   htmltemplate +
                   '</div>  </md-dialog-content><md-dialog-actions layout="row"><span flex></span><md-button ng-click="hide()" ng-if="!(mode === \'edit\')">Close</md-button><md-button md-theme="reverse" class="md-raised md-primary" ng-click="hide()" ng-if="mode === \'edit\'">Done</md-button></md-dialog-actions></md-dialog>',
         controller: 'TipoEditRootController',
@@ -622,7 +641,10 @@
         fullscreen: true
       });
       promise.then(function(){
+        _instance.popupno--;
         // updateDatafromDefinition(definition,index,field_name);
+      },function(){
+        _instance.popupno--;
       });
     }
     _instance.lookupTipo = function(relatedTipo,labelfield,prefix,baseFilter,queryparams,key_field,label_field){
