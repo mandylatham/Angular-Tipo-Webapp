@@ -18,6 +18,7 @@
     _instance.tipoAction = tipoAction;
 
     _instance.tipo = {};
+    _instance.context = $scope.context;
 
     _instance.hooks = {};
     _instance.fullscreen = true;
@@ -320,6 +321,7 @@
             var newScope = scope.$new();
             newScope.parentTipo = parentTipo;
             newScope.tipoids = tipoids;
+            newScope.context = scope.tipos;
             var promise = $mdDialog.show({
               templateUrl: 'framework/_directives/_views/tp-action-dialog.tpl.html',
               controller: TipoActionDialogController,

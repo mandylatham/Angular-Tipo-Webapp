@@ -20,6 +20,7 @@ var pathMappings = [
     url: 'https://dev.tipotapp.com/app'
     // url: 'https://dev.tipotapp.com/app/d/collab/sdm'
     // url: 'https://app.billionbases.com/app/d/deltagene/billionbases'
+    // url: 'https://dev.tipotapp.com/app/d/deltagene/billionbases'
   },
   {
     path: '/public',
@@ -27,6 +28,7 @@ var pathMappings = [
     url: 'https://dev.tipotapp.com/app'
     // url: 'https://dev.tipotapp.com/app/d/collab/sdm'
     // url: 'https://app.billionbases.com/app/d/deltagene/billionbases'
+    // url: 'https://dev.tipotapp.com/app/d/deltagene/billionbases'
   },
   // {
   //   path: '/app',

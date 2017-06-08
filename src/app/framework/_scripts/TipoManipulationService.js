@@ -434,6 +434,8 @@
             var contextData = {};
             extractDataFromMergedDefinition(context, contextData);
             tipoData['this'] = contextData;
+          }else{
+            tipoData['this'] = context;
           }
         }
         if (S(filterExpression).contains('@index')) {
