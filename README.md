@@ -40,3 +40,17 @@ This document attempts to outline some setup instructions to get the code buildi
     - Less files. You would need to run `grunt dev` from the 'target-grunt' folder and launch the UI again using `grunt serve-dev`
     - bower.json & package.json. You would need to run `mvn clean install -Dall` from the root and launch the UI again using `grunt serve-dev`
 7. Any JavaScript dependencies should normally be managed by Bower. For exceptions, add the scripts to the `_scripts/non-bower-managed` directory.
+
+
+
+
+```flow
+st=>start: Login
+op=>operation: Login operation
+cond=>condition: Successful Yes or No?
+e=>end: To admin
+
+st->op->cond
+cond(yes)->e
+cond(no)->op
+```
