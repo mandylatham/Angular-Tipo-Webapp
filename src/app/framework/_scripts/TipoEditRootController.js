@@ -466,6 +466,10 @@
       };
       array.push(newObject);
       _.set(_instance.tipo,field_name,array);
+      scrollToNewItem(array,field_name);
+    }
+
+    function scrollToNewItem(array,field_name){
       if (array.length > 1) {
         if (_instance.popupno > 0) {
           var container = angular.element(document.getElementById('dialogContent_dialog' + _instance.popupno));
@@ -711,6 +715,7 @@
       delete clonedItem._ARRAY_META;
       groupItem.push(clonedItem);
       _.set(_instance.tipo,field_name,groupItem);
+      scrollToNewItem(groupItem,field_name);
     }
 
       var val = false;
