@@ -53,50 +53,50 @@
       #if($tipo_customization.appearance_settings.material_theme.primary_)
       	#set($str = $tipo_customization.appearance_settings.material_theme.primary_)
       	$str
-      	#set($primary = $str.substring($str.indexOf("'"), $str.indexOf("'", $str.indexOf("'") + 1 ))
+##      	#set($primary = $str.substring($str.indexOf("'"), $str.indexOf("'", $str.indexOf("'") + 1 ))
       #end
 
       #if($tipo_customization.appearance_settings.material_theme.accent)
       	#set($str = $tipo_customization.appearance_settings.material_theme.accent)
       	$str
-      	#set($accent = $str.substring($str.indexOf("'"), $str.indexOf("'", $str.indexOf("'") + 1 ))
+##      	#set($accent = $str.substring($str.indexOf("'"), $str.indexOf("'", $str.indexOf("'") + 1 ))
       #end
       
       #if($tipo_customization.appearance_settings.material_theme.warn)
       	#set($str = $tipo_customization.appearance_settings.material_theme.warn)
       	$str
-      	#set($warn = $str.substring($str.indexOf("'"), $str.indexOf("'", $str.indexOf("'") + 1 ))
+##      	#set($warn = $str.substring($str.indexOf("'"), $str.indexOf("'", $str.indexOf("'") + 1 ))
      #end      
       
       #if($tipo_customization.appearance_settings.material_theme.background)
       	#set($str = $tipo_customization.appearance_settings.material_theme.background)
       	$str
-      	#set($background = $str.substring($str.indexOf("'"), $str.indexOf("'", $str.indexOf("'") + 1 ))
+##      	#set($background = $str.substring($str.indexOf("'"), $str.indexOf("'", $str.indexOf("'") + 1 ))
       #end
       
       $mdThemingProvider
       .theme('default')
       #if($primary)
-      .primaryPalette('$primary')
+      .primaryPalette('primary')
       #elseif ($tipo_customization.appearance_settings.primary_colour)
       .primaryPalette('$tipo_customization.appearance_settings.primary_colour')
       #else
       .primaryPalette('tipoprimary')
       #end
       #if($accent)
-      .accentPalette('$accent')
+      .accentPalette('accent')
       #elseif ($tipo_customization.appearance_settings.secondary_colour)
       .accentPalette('$tipo_customization.appearance_settings.secondary_colour')
       #else
       .accentPalette('tipoaccent')
       #end
       #if($warn)
-      .warnPalette('$warn')
+      .warnPalette('warn')
       #else
       .warnPalette('red')
       #end
       #if($background)
-      .backgroundPalette('$background');
+      .backgroundPalette('background');
       #else
       .backgroundPalette('grey');
 	  #end
