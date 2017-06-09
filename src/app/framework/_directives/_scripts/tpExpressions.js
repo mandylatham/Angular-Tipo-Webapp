@@ -14,7 +14,7 @@
         },
         restrict: 'E',
         replace: false,
-        template: '<span>{{(+expression)}}</span>',
+        template: '<span>{{(expression)}}</span>',
         link: function(scope, element, attrs){       
           scope.bindvalue = scope.expression;
           scope.$watch(function(){return scope.expression},function(){
