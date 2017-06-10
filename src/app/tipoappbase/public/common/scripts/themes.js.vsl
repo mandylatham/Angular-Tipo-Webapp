@@ -51,51 +51,43 @@
       });
       
       #if($tipo_customization.appearance_settings.material_theme.primary_)
-      	#set($str = $tipo_customization.appearance_settings.material_theme.primary_)
-      	$str
-##      	#set($primary = $str.substring($str.indexOf("'"), $str.indexOf("'", $str.indexOf("'") + 1 ))
+      	$tipo_customization.appearance_settings.material_theme.primary_
       #end
 
       #if($tipo_customization.appearance_settings.material_theme.accent)
-      	#set($str = $tipo_customization.appearance_settings.material_theme.accent)
-      	$str
-##      	#set($accent = $str.substring($str.indexOf("'"), $str.indexOf("'", $str.indexOf("'") + 1 ))
+      	$tipo_customization.appearance_settings.material_theme.accent
       #end
       
       #if($tipo_customization.appearance_settings.material_theme.warn)
-      	#set($str = $tipo_customization.appearance_settings.material_theme.warn)
-      	$str
-##      	#set($warn = $str.substring($str.indexOf("'"), $str.indexOf("'", $str.indexOf("'") + 1 ))
+      	$tipo_customization.appearance_settings.material_theme.warn
      #end      
       
       #if($tipo_customization.appearance_settings.material_theme.background)
-      	#set($str = $tipo_customization.appearance_settings.material_theme.background)
-      	$str
-##      	#set($background = $str.substring($str.indexOf("'"), $str.indexOf("'", $str.indexOf("'") + 1 ))
+      	$tipo_customization.appearance_settings.material_theme.background
       #end
       
       $mdThemingProvider
       .theme('default')
-      #if($primary)
+      #if($tipo_customization.appearance_settings.material_theme.primary_)
       .primaryPalette('primary')
       #elseif ($tipo_customization.appearance_settings.primary_colour)
       .primaryPalette('$tipo_customization.appearance_settings.primary_colour')
       #else
       .primaryPalette('tipoprimary')
       #end
-      #if($accent)
+      #if($tipo_customization.appearance_settings.material_theme.accent)
       .accentPalette('accent')
       #elseif ($tipo_customization.appearance_settings.secondary_colour)
       .accentPalette('$tipo_customization.appearance_settings.secondary_colour')
       #else
       .accentPalette('tipoaccent')
       #end
-      #if($warn)
+      #if($tipo_customization.appearance_settings.material_theme.warn)
       .warnPalette('warn')
       #else
       .warnPalette('red')
       #end
-      #if($background)
+      #if($tipo_customization.appearance_settings.material_theme.background)
       .backgroundPalette('background');
       #else
       .backgroundPalette('grey');
@@ -103,27 +95,27 @@
 	  
 	  $mdThemingProvider
       .theme('reverse')
-      #if($primary)
-      .primaryPalette('$accent')
+      #if($tipo_customization.appearance_settings.material_theme.primary_)
+      .primaryPalette('accent')
       #elseif ($tipo_customization.appearance_settings.secondary_colour)
       .primaryPalette('$tipo_customization.appearance_settings.secondary_colour')
       #else
       .primaryPalette('tipoaccent')
       #end
-      #if($accent)
-      .accentPalette('$primary')
+      #if($tipo_customization.appearance_settings.material_theme.accent)
+      .accentPalette('primary')
       #elseif ($tipo_customization.appearance_settings.primary_colour)
       .accentPalette('$tipo_customization.appearance_settings.primary_colour')
       #else
       .accentPalette('tipoprimary')
       #end
-      #if($warn)
-      .warnPalette('$warn')
+      #if($tipo_customization.appearance_settings.material_theme.warn)
+      .warnPalette('warn')
       #else
       .warnPalette('red')
       #end
-      #if($background)
-      .backgroundPalette('$background');
+      #if($tipo_customization.appearance_settings.material_theme.background)
+      .backgroundPalette('background');
       #else
       .backgroundPalette('grey');
 	  #end
