@@ -245,9 +245,13 @@
   var module = angular.module('tipo.framework', [
     'tipo.common'
   ]);
-  
-  module.run(function ($rootScope) {
+
+  module.run(function ($rootScope,$interval) {
+    $rootScope.AssignedDate = Date;
     $rootScope._ = window._;
+    $interval(function(){
+        // nothing is required here, interval triggers digest automaticaly
+    },1000)
   })
 
   module.config(function ($stateProvider) {

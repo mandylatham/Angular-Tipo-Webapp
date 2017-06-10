@@ -547,7 +547,7 @@
       var promise = openTipoObjectDialog(allow_create,baseFilter,tipo_name,label_field,uniq_name,isArray,prefix,label,index);
     }
 
-    _instance.Date = function(date,init){
+    _instance.toDate = function(date,init){
       if(init){
         console.log(eval(init));
         console.log(new Date(eval(init)));

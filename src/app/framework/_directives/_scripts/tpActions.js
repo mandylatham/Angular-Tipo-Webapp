@@ -19,6 +19,7 @@
 
     _instance.tipo = {};
     _instance.context = $scope.context;
+    $scope.Date = Date;
 
     _instance.hooks = {};
     _instance.fullscreen = true;
