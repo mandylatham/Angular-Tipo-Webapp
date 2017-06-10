@@ -247,7 +247,7 @@
   ]);
 
   module.run(function ($rootScope,$interval) {
-    $rootScope.AssignedDate = Date;
+    $rootScope.Date = Date;
     $rootScope._ = window._;
     $interval(function(){
         // nothing is required here, interval triggers digest automaticaly
