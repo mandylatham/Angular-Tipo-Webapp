@@ -5,25 +5,33 @@
   var module = angular.module('tipo.framework');
 
 
-  return module.directive('tpExpressions', function () {
+  return module.directive('tpExpressions', function ($filter) {
       return {
         scope: {
           expression: '=',
           bindvalue: '=',
           readonly: '=',
+          fieldtype: '=',
           context: '=',
           tipo: '='
         },
         restrict: 'E',
         replace: false,
-        template: '<span>{{(expression)}}</span>',
+        template: '<span ng-if="fieldtype">{{(expression | date:"MM/dd/yyyy")}}</span><span ng-if="!fieldtype">{{(expression)}}</span>',
         link: function(scope, element, attrs){
 
           // scope.jsFunction = "function doeval(context,tipo){ return "+ scope.expression + ";}; doeval(" + JSON.stringify(scope.context) + "," + JSON.stringify(scope.tipo) + ");"
           // scope.bindvalue = eval(scope.jsFunction);
-          scope.bindvalue = scope.expression;
+          function initValue(){
+            if (scope.fieldtype === "date") {
+              scope.bindvalue = $filter('date')(scope.expression,'yyyy-MM-ddTHH:mm:ssZ');
+            }else{
+              scope.bindvalue = scope.expression;
+            }
+          }
+          initValue();
           scope.$watch(function(){return scope.expression},function(){
-            scope.bindvalue = scope.expression;
+            initValue();
           }, true)
         }
       };
