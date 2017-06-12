@@ -208,6 +208,16 @@
       });
     }
 
+    _instance.toogleSearch = function(){
+      _instance.showsearch = !_instance.showsearch;
+      if (_instance.showsearch) {
+        var container = angular.element(document.getElementById('inf-wrapper'));
+        var scrollto = angular.element(document.getElementById('search'));
+        container.scrollToElement(scrollto,150,100);
+        return false;
+      };
+    }
+
     
   }
 

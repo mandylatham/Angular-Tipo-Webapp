@@ -30,7 +30,11 @@
 
           scope.$watch(function(){return scope.model.field},function(){
             scope.fieldvalue = scope.model.field;
-          }, true)
+          }, true);
+
+          scope.$watch(function(){return scope.fieldvalue},function(){
+              scope.model.field = scope.fieldvalue;
+          });
 
         }
       };

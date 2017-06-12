@@ -125,11 +125,11 @@
     var relativeUrl = location.pathname;
     if (_.startsWith(relativeUrl, '/app')) {
       // relativeUrl = '/api/d/tipotapp/constructionmanagement' + relativeUrl.substring(4);
-      // relativeUrl = '/api/d/collab/sdm' + relativeUrl.substring(4);
+      // relativeUrl = '/api/d/8501472954/sdm' + relativeUrl.substring(4);
       // relativeUrl = '/api/d/deltagene/billionbases' + relativeUrl.substring(4);
       relativeUrl = '/api' + relativeUrl.substring(4);
     } else {
-      // relativeUrl = '/api/d/collab/sdm';
+      // relativeUrl = '/api/d/8501472954/sdm';
       // relativeUrl = '/api/d/tipotapp/constructionmanagement';
       // relativeUrl = '/api/d/deltagene/billionbases';
       relativeUrl = '/api';

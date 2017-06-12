@@ -18,6 +18,7 @@
     'ngProgress',
     'ngPageTitle',
     'cleave.js',
+    'duScroll',
     'infinite-scroll'
   ]);
 

@@ -246,6 +246,14 @@
     'tipo.common'
   ]);
 
+  module.run(function ($rootScope,$interval) {
+    $rootScope.Date = Date;
+    $rootScope._ = window._;
+    $interval(function(){
+        // nothing is required here, interval triggers digest automaticaly
+    },1000)
+  })
+
   module.config(function ($stateProvider) {
     configureModule($stateProvider);
   });

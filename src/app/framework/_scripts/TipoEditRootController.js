@@ -161,6 +161,12 @@
     };
 
     _instance.save = function(form,action){
+      if (!form.$valid) {
+        var container = angular.element(document.getElementById('inf-wrapper'));
+        var invalidElement = document.getElementsByClassName("ng-invalid");
+        container.scrollToElement(invalidElement[1],150,100);
+        return false;
+      }
       tipoRouter.startStateChange();
       var data = {};
       var parameters = {};
@@ -175,11 +181,13 @@
             if (tipo_name === "TipoDefinition") {
               $templateCache.remove(_instance.tipoDefinition._ui.editTemplateUrl.replace(/___TipoDefinition/g,"___" + tipo_id));
               $templateCache.remove(_instance.tipoDefinition._ui.listTemplateUrl.replace(/___TipoDefinition/g,"___" + tipo_id));
+              $templateCache.remove(_instance.tipoDefinition._ui.createTemplateUrl.replace(/___TipoDefinition/g,"___" + tipo_id));
             }
             tipoRouter.toTipoView(tipo_name, tipo_id);
           }
         });
       }else if (action === 'create') {
+        tipo_name = tipoDefinition.tipo_meta.tipo_name;
         var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
           if(perspectiveMetadata.fieldName && !_instance.tipo[perspectiveMetadata.fieldName]){
             _instance.tipo[perspectiveMetadata.fieldName] = perspectiveMetadata.tipoId;
@@ -458,6 +466,19 @@
       };
       array.push(newObject);
       _.set(_instance.tipo,field_name,array);
+      scrollToNewItem(array,field_name);
+    }
+
+    function scrollToNewItem(array,field_name){
+      if (array.length > 1) {
+        if (_instance.popupno > 0) {
+          var container = angular.element(document.getElementById('dialogContent_dialog' + _instance.popupno));
+        }else{
+          var container = angular.element(document.getElementById('inf-wrapper'));
+        }
+        var scrollto = angular.element(document.getElementById(field_name + (array.length - 2)));
+        container.scrollToElement(scrollto,150,100);
+      };
     }
 
 
@@ -526,7 +547,12 @@
       var promise = openTipoObjectDialog(allow_create,baseFilter,tipo_name,label_field,uniq_name,isArray,prefix,label,index);
     }
 
-    _instance.Date = function(date){
+    _instance.toDate = function(date,init){
+      if(init){
+        console.log(eval(init));
+        console.log(new Date(eval(init)));
+        return new Date(eval(init));
+      }
       if (date) {
         return new Date(date);
       };
@@ -552,6 +578,8 @@
       return (Math.log10((x ^ (x >> 31)) - (x >> 31)) | 0) + 1;
     }
 
+    _instance.popupno = $scope.popupno || 0;
+
     _instance.showDetail = function(htmltemplate,index,field_name){
       // var definition = extractDatafromDefinition(field_name);
       // if (!_.isUndefined(index)) {
@@ -566,6 +594,8 @@
       // }
       var newScope = $scope.$new();
       // newScope.definition = definition;
+      _instance.popupno++;
+      newScope.popupno = _instance.popupno;
       htmltemplate = atob(htmltemplate);
       if (!_.isUndefined(index)) {
         if (_.isUndefined($scope.recursiveGroupRef)) {
@@ -590,12 +620,24 @@
             loop++;
           }
         });
-      };
+      }else{
+        if (newScope.recursiveGroupRef) {
+          _.each(newScope.recursiveGroupRef.field_names.split('/'),function(stringVal){
+            if(!_.isEmpty(stringVal)){
+              var digits = newScope.recursiveGroupRef.digits.substr(loop,1);
+              var regex = new RegExp(stringVal, "g");
+              htmltemplate = htmltemplate.replace(regex,stringVal + "[" + newScope.recursiveGroupRef.arrayindex.toString().substr(nth,digits) + "]");
+              nth = nth + digits;
+              loop++;
+            }
+          });
+        };
+      }
       // newScope.root = _instance.tipoDefinition;
       newScope.mode = "edit";
       newScope.fullscreen = true;
       var promise = $mdDialog.show({
-        template: '<md-dialog ng-cloak ng-class="{\'fullscreen\': fullscreen}"><md-toolbar class="tipo-toolbar"><div class="md-toolbar-tools"><h2>{{definition.display_name}}</h2><span flex></span><md-button class="md-icon-button" ng-click="maximize()" ng-if="!fullscreen"><md-icon aria-label="Maximize">crop_square</md-icon></md-button><md-button class="md-icon-button" ng-click="restore()" ng-if="fullscreen"><md-icon aria-label="Restore size">filter_none</md-icon></md-button><md-button class="md-icon-button" ng-click="cancel()"><md-icon aria-label="Close dialog">close</md-icon></md-button></div></md-toolbar><md-dialog-content><div class="tp-detail dialog">' + 
+        template: '<md-dialog id="dialog' + _instance.popupno +  '" ng-cloak ng-class="{\'fullscreen\': fullscreen}"><md-toolbar class="tipo-toolbar"><div class="md-toolbar-tools"><h2>{{definition.display_name}}</h2><span flex></span><md-button class="md-icon-button" ng-click="maximize()" ng-if="!fullscreen"><md-icon aria-label="Maximize">crop_square</md-icon></md-button><md-button class="md-icon-button" ng-click="restore()" ng-if="fullscreen"><md-icon aria-label="Restore size">filter_none</md-icon></md-button><md-button class="md-icon-button" ng-click="cancel()"><md-icon aria-label="Close dialog">close</md-icon></md-button></div></md-toolbar><md-dialog-content><div class="tp-detail dialog">' + 
                   htmltemplate +
                   '</div>  </md-dialog-content><md-dialog-actions layout="row"><span flex></span><md-button ng-click="hide()" ng-if="!(mode === \'edit\')">Close</md-button><md-button md-theme="reverse" class="md-raised md-primary" ng-click="hide()" ng-if="mode === \'edit\'">Done</md-button></md-dialog-actions></md-dialog>',
         controller: 'TipoEditRootController',
@@ -615,17 +657,21 @@
         fullscreen: true
       });
       promise.then(function(){
+        _instance.popupno--;
         // updateDatafromDefinition(definition,index,field_name);
+      },function(){
+        _instance.popupno--;
       });
     }
     _instance.lookupTipo = function(relatedTipo,labelfield,prefix,baseFilter,queryparams,key_field,label_field){
       var newScope = $scope.$new();
-      newScope.root = _instance.tipoDefinition;
+      newScope.root = _instance.tipo;
       newScope.relatedTipo = relatedTipo;
       newScope.labelfield = labelfield;
       newScope.baseFilter = baseFilter;
       newScope.queryparams = queryparams;
-      newScope.key_field = key_field;
+      //Not passing key_field because tipo_id is key_field for Embed relation
+      // newScope.key_field = key_field;
       newScope.label_field = label_field;
       newScope.tipo = _instance.tipo[prefix];
       var promise = $mdDialog.show({
@@ -637,7 +683,7 @@
         fullscreen: true
       });
       promise.then(function(tipo){
-        _instance.tipo[prefix] = tipo;
+        _.set(_instance.tipo,prefix,tipo);
       });
     }
 
@@ -681,6 +727,7 @@
       delete clonedItem._ARRAY_META;
       groupItem.push(clonedItem);
       _.set(_instance.tipo,field_name,groupItem);
+      scrollToNewItem(groupItem,field_name);
     }
 
       var val = false;
@@ -768,6 +815,10 @@
     $scope.cancel = function() {
       $mdDialog.cancel();
     };
+
+    $scope.$watch(function(){return _instance.tipo.tipo_id},function(){
+             console.log(_instance);
+          });
 
   }
 
