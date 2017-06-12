@@ -620,7 +620,17 @@
             loop++;
           }
         });
-      };
+      }else{
+        _.each(newScope.recursiveGroupRef.field_names.split('/'),function(stringVal){
+          if(!_.isEmpty(stringVal)){
+            var digits = newScope.recursiveGroupRef.digits.substr(loop,1);
+            var regex = new RegExp(stringVal, "g");
+            htmltemplate = htmltemplate.replace(regex,stringVal + "[" + newScope.recursiveGroupRef.arrayindex.toString().substr(nth,digits) + "]");
+            nth = nth + digits;
+            loop++;
+          }
+        });
+      }
       // newScope.root = _instance.tipoDefinition;
       newScope.mode = "edit";
       newScope.fullscreen = true;
@@ -653,7 +663,7 @@
     }
     _instance.lookupTipo = function(relatedTipo,labelfield,prefix,baseFilter,queryparams,key_field,label_field){
       var newScope = $scope.$new();
-      newScope.root = _instance.tipoDefinition;
+      newScope.root = _instance.tipo;
       newScope.relatedTipo = relatedTipo;
       newScope.labelfield = labelfield;
       newScope.baseFilter = baseFilter;
@@ -671,7 +681,7 @@
         fullscreen: true
       });
       promise.then(function(tipo){
-        _instance.tipo[prefix] = tipo;
+        _.set(_instance.tipo,prefix,tipo);
       });
     }
 
