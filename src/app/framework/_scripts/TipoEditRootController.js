@@ -621,15 +621,17 @@
           }
         });
       }else{
-        _.each(newScope.recursiveGroupRef.field_names.split('/'),function(stringVal){
-          if(!_.isEmpty(stringVal)){
-            var digits = newScope.recursiveGroupRef.digits.substr(loop,1);
-            var regex = new RegExp(stringVal, "g");
-            htmltemplate = htmltemplate.replace(regex,stringVal + "[" + newScope.recursiveGroupRef.arrayindex.toString().substr(nth,digits) + "]");
-            nth = nth + digits;
-            loop++;
-          }
-        });
+        if (newScope.recursiveGroupRef) {
+          _.each(newScope.recursiveGroupRef.field_names.split('/'),function(stringVal){
+            if(!_.isEmpty(stringVal)){
+              var digits = newScope.recursiveGroupRef.digits.substr(loop,1);
+              var regex = new RegExp(stringVal, "g");
+              htmltemplate = htmltemplate.replace(regex,stringVal + "[" + newScope.recursiveGroupRef.arrayindex.toString().substr(nth,digits) + "]");
+              nth = nth + digits;
+              loop++;
+            }
+          });
+        };
       }
       // newScope.root = _instance.tipoDefinition;
       newScope.mode = "edit";
