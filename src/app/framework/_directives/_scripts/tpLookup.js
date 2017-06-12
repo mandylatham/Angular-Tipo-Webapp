@@ -506,6 +506,9 @@
           }
           scope.$watch(function(){return scope.fieldvalue},function(){
             if (scope.model.field.key !== scope.fieldvalue) {
+              if (!scope.model.field.key) {
+                scope.loadOptions();
+              };
               scope.model.field.key = scope.fieldvalue;
               scope.model.field.label = scope.fieldlabel || angular.copy(scope.fieldvalue);;
             };

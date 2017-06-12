@@ -814,6 +814,10 @@
       $mdDialog.cancel();
     };
 
+    $scope.$watch(function(){return _instance.tipo.tipo_id},function(){
+             console.log(_instance);
+          });
+
   }
 
   angular.module('tipo.framework')
