@@ -1,4 +1,4 @@
-baseurl = "https://example.org/"
+baseurl = "https://s3.amazonaws.com/user.tipotapp.com/g/tipotapp/tipoapp/public/docs/"
 languageCode = "en-us"
 title = "Material Docs"
 theme = "hugo-material-docs"
