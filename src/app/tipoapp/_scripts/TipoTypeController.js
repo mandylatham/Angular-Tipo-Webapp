@@ -125,6 +125,10 @@
       label: "Empty",
       icon: "remove_circle_outline",
     },{
+      key: "simpleimage",
+      label: "Simple Image",
+      icon: "photo_size_select_actual",
+    },{
       key: "s3explorer",
       label: "S3 Browser",
       icon: "open_in_browser",

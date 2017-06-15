@@ -209,6 +209,9 @@
             scope.model.field = [];
             if (!_.isUndefined(scope.fieldvalue)) {
               angular.forEach(scope.fieldvalue,function(val,inx){
+                if (!scope.fieldlabel) {
+                  scope.fieldlabel = [];
+                };
                 scope.model.field.push({key: val, label: scope.fieldlabel[inx]});
               });
               scope.selectedTipos = scope.model.field;
@@ -455,7 +458,7 @@
             $mdSelect.hide();
             var promise = $mdDialog.show({
               templateUrl: 'framework/_directives/_views/tp-lookup-popup-select-new.tpl.html',
-              controller: 'TipoCreateRootController',
+              controller: 'TipoEditRootController',
               controllerAs: 'tipoRootController',
               fullscreen: true,
               resolve: /*@ngInject*/
