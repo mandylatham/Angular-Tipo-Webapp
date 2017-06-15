@@ -3,3 +3,4 @@ target-grunt
 .vscode/
 node_modules/
 .*~
+.DS_Store

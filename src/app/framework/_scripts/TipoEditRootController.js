@@ -161,7 +161,7 @@
     };
 
     _instance.save = function(form,action){
-      if (!form.$valid) {
+      if (!form.$valid && form !== 'dialog') {
         var container = angular.element(document.getElementById('inf-wrapper'));
         var invalidElement = document.getElementsByClassName("ng-invalid");
         container.scrollToElement(invalidElement[1],150,100);
@@ -783,15 +783,15 @@
       }
     }
 
-    _instance.toSubTipoList = function(relatedTipo,tipo_filter){
-      tipoRouter.to('subTipoListState', undefined, {related_tipo: relatedTipo,tipo_filter: tipo_filter}, true);
+    _instance.toSubTipoList = function(relatedTipo,tipo_filter,sub_tipo_field_name){
+      tipoRouter.to('subTipoListState', undefined, {related_tipo: relatedTipo,tipo_filter: tipo_filter,sub_tipo_field_name: sub_tipo_field_name}, true);
     };
 
     function setCurrentActiveTab(name){
       if(_.isUndefined(name)){
         var currentStateName = tipoRouter.getCurrent().name;
         if(_.startsWith(currentStateName, 'subTipo')){
-          name = $state.params.sub_tipo_field_name;
+          name = $stateParams.sub_tipo_field_name;
         }else{
           name = 'main';
         }
@@ -815,10 +815,6 @@
     $scope.cancel = function() {
       $mdDialog.cancel();
     };
-
-    $scope.$watch(function(){return _instance.tipo.tipo_id},function(){
-             console.log(_instance);
-          });
 
   }
 
