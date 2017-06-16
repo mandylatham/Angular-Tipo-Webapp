@@ -17,7 +17,7 @@
         },
         restrict: 'E',
         replace: false,
-        template: '<span ng-if="fieldtype">{{(expression | date:"MM/dd/yyyy")}}</span><span ng-if="!fieldtype">{{(expression)}}</span>',
+        template: '<span ng-if="fieldtype">{{(expression || "-N/A-" | date:"MM/dd/yyyy")}}</span><span ng-if="!fieldtype">{{(expression || "-N/A-")}}</span>',
         link: function(scope, element, attrs){
 
           // scope.jsFunction = "function doeval(context,tipo){ return "+ scope.expression + ";}; doeval(" + JSON.stringify(scope.context) + "," + JSON.stringify(scope.tipo) + ");"
