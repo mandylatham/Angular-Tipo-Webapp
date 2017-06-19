@@ -56,6 +56,11 @@ googleAnalytics = ""
 	weight = 10
 
 [[menu.main]]
+	name   = "Tipo Functions"
+	url    = "tipo-functions/"
+	weight = 10
+
+[[menu.main]]
 	name   = "Get Authentication"
 	url    = "20.get-auth/"
 	weight = 20
