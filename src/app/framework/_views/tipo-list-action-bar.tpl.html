@@ -3,6 +3,14 @@
     <tp:filters definition="tipoRootController.tipoDefinition" filterslist="tipoRootController.tipoFilters" ng-if="tipoRootController.hasTipos || tipoRootController.tipoFilters.currentExpression"/>
   </div>
   <div layout="row">
+    <md-button class="md-primary md-fab md-mini" ng-if="tipoRootController.tipoDefinition.tipo_meta.allow_edit_in_list_view && !tipoRootController.bulkupdate" ng-click="tipoRootController.bulkupdate = !tipoRootController.bulkupdate">
+      <md-icon>edit</md-icon>
+      <md-tooltip md-direction="top">Bulk Update</md-tooltip>
+    </md-button>
+    <md-button class="md-primary md-fab md-mini" ng-if="tipoRootController.tipoDefinition.tipo_meta.allow_edit_in_list_view && tipoRootController.bulkupdate" ng-click="tipoRootController.save(tipoRootController.tipos)">
+      <md-icon>done</md-icon>
+      <md-tooltip md-direction="top">Bulk Update</md-tooltip>
+    </md-button>
     <md-button class="md-primary md-fab md-mini" ng-if="tipoRootController.tipoDefinition.tipo_meta.allow_search" ng-click="tipoRootController.toogleSearch()">
       <md-icon>search</md-icon>
       <md-tooltip md-direction="top">Search</md-tooltip>

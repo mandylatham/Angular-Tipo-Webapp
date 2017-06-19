@@ -25,6 +25,7 @@
     _instance.tipoFilters = tipoFilters;
     _instance.tipos = tipos;
     _instance.busy = false;
+    _instance.updatetipo = {};
     _instance.loading = false;
     var page = 2;
     var per_page = tipoDefinition.tipo_meta.default_page_size;
@@ -102,14 +103,19 @@
     }
 
     _instance.createNew = function(){
-      var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
-      if(perspectiveMetadata.fieldName){
-        var data = {};
-        data[perspectiveMetadata.fieldName] = perspectiveMetadata.tipoId;
-        data = encodeURIComponent(angular.toJson(data));
-        tipoRouter.toTipoCreate(tipo_name, {data: data});
+      if (tipoDefinition.tipo_meta.allow_edit_in_list_view) {
+        var newObject = {edit: true};
+        _instance.tipos.push(newObject);
       }else{
-        tipoRouter.toTipoCreate(tipo_name);
+        var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
+        if(perspectiveMetadata.fieldName){
+          var data = {};
+          data[perspectiveMetadata.fieldName] = perspectiveMetadata.tipoId;
+          data = encodeURIComponent(angular.toJson(data));
+          tipoRouter.toTipoCreate(tipo_name, {data: data});
+        }else{
+          tipoRouter.toTipoCreate(tipo_name);
+        }
       }
     };
 
@@ -138,6 +144,73 @@
         event.stopPropagation();
       }
     }
+
+    _instance.updateSelected = function(field_name){
+      _.each(_instance.tipos,function(tp){
+        if (!tp.selected) {
+          _.set(tp,field_name,_.get(_instance.updatetipo,field_name)); 
+        };
+      });
+      console.log(_instance.tipos);
+    }
+
+    _instance.save = function(tipo,action){
+      tipoRouter.startStateChange();
+      var data = {};
+      var parameters = {};
+      tipoManipulationService.modifyTipoData(tipo);
+      if (tipo.tipo_id || _.isArray(tipo)) {
+        if (_.isArray(tipo)) {
+          tipoInstanceDataService.updateAll(tipo_name, tipo).then(function(result){
+            if(tipoRouter.stickyExists()){
+              tipoRouter.toStickyAndReset();
+            }else{
+              if (tipo_name === "TipoDefinition") {
+                $templateCache.remove(_instance.tipoDefinition._ui.editTemplateUrl.replace(/___TipoDefinition/g,"___" + tipo_id));
+                $templateCache.remove(_instance.tipoDefinition._ui.listTemplateUrl.replace(/___TipoDefinition/g,"___" + tipo_id));
+                $templateCache.remove(_instance.tipoDefinition._ui.createTemplateUrl.replace(/___TipoDefinition/g,"___" + tipo_id));
+              }
+              tipoRouter.toTipoList(tipo_name);
+            }
+          });
+        }else{
+          data.copy_from_tipo_id = tipo.copy_from_tipo_id;
+          tipoInstanceDataService.updateOne(tipo_name, tipo, tipo.tipo_id).then(function(result){
+            if(tipoRouter.stickyExists()){
+              tipoRouter.toStickyAndReset();
+            }else{
+              if (tipo_name === "TipoDefinition") {
+                $templateCache.remove(_instance.tipoDefinition._ui.editTemplateUrl.replace(/___TipoDefinition/g,"___" + tipo_id));
+                $templateCache.remove(_instance.tipoDefinition._ui.listTemplateUrl.replace(/___TipoDefinition/g,"___" + tipo_id));
+                $templateCache.remove(_instance.tipoDefinition._ui.createTemplateUrl.replace(/___TipoDefinition/g,"___" + tipo_id));
+              }
+              tipoRouter.toTipoList(tipo_name);
+            }
+          });
+        }
+      }else {
+        var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
+          if(perspectiveMetadata.fieldName && !tipo[perspectiveMetadata.fieldName]){
+            tipo[perspectiveMetadata.fieldName] = perspectiveMetadata.tipoId;
+          }
+          tipoInstanceDataService.upsertAll(tipo_name, [tipo]).then(function(result){
+            if(tipoRouter.stickyExists()){
+              tipoRouter.toStickyAndReset();
+            }else{
+              if (tipo === 'dialog') {
+                tipoInstanceDataService.search(tipo_name).then(function(tipos){
+                  $mdDialog.hide(tipos);
+                });            
+              }else{
+                var registryName = $stateParams.tipo_name + '_resdata';
+                var resData = tipoRegistry.get(registryName);
+                tipoRegistry.pushData(tipo_name,result[0].tipo_id,result[0]);
+                tipoRouter.toTipoList(tipo_name);
+              }
+            }
+          });
+      };
+    };
 
     _instance.delete = function(tipo_id){
       var confirmation = $mdDialog.confirm()

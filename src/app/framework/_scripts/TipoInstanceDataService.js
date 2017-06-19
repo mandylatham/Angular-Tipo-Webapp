@@ -157,6 +157,25 @@
       });
     };
 
+    _instance.updateAll = function(tipo_name, tipos){
+      tipoCache.evict(tipo_name);
+      tipos = _.map(tipos, function(each){
+        var tipo = {
+          tipo_name: tipo_name,
+          data: angular.copy(each)
+        };
+        populateGeolocation(tipo);
+        return tipo;
+      });
+      var promise = getCollectionResource(tipo_name).doPUT(tipos).then(unwrapAndSort);
+      // load list again in background
+      promise.then(function(){
+        _instance.search(tipo_name, undefined, true);
+      });
+
+      return promise;
+    };
+
     _instance.performSingleAction = function(tipo_name, tipo_id, action, additional_tipo_name, additional_tipo){
       tipoCache.evict(tipo_name, tipo_id);
       var tipo = {};

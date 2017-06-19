@@ -7,6 +7,7 @@
 
   return module.directive('tpSimpleDropdown', function () {
       return {
+        require: 'ngModel',
         scope: {
           isarray: '=',
           fieldvalue: '=',
@@ -19,7 +20,7 @@
         restrict: 'E',
         replace: true,
         templateUrl: 'framework/_directives/_views/tp-simple-dropdown.tpl.html',
-        link: function(scope, element, attrs){         
+        link: function(scope, element, attrs, ctrl){         
           scope.searchTerm = {};
           scope.model = {};
           scope.model.field = scope.fieldvalue;
@@ -28,12 +29,19 @@
             scope.searchTerm.text = "";
           }
 
-          scope.$watch(function(){return scope.model.field},function(){
+          ctrl.$viewChangeListeners.push(function() {
+            scope.$eval(attrs.ngChange);
+          });
+
+          scope.$watch(function(){return scope.model.field},function(newValue, oldValue){
             scope.fieldvalue = scope.model.field;
+            ctrl.$setViewValue(scope.fieldvalue);
           }, true);
 
-          scope.$watch(function(){return scope.fieldvalue},function(){
-              scope.model.field = scope.fieldvalue;
+          scope.$watch(function(){return scope.fieldvalue},function(newValue, oldValue){
+              if (scope.model.field !== scope.fieldvalue) {
+                scope.model.field = scope.fieldvalue;
+              };
           });
 
         }
