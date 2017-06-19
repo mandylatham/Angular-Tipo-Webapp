@@ -348,13 +348,6 @@
                   extractDropdownList(results[0],scope.options,startName,remName)
                 };
               }
-              if(scope.isMandatory && (!scope.model.field || scope.model.field.length>0)){
-                if(isarray){
-                  scope.model.field = [scope.options[0]];
-                }else{
-                  scope.model.field = scope.options[0];
-                }
-              }
               var tipo_perm = tipoRegistry.get(scope.tipo_name + '_resdata');
               scope.perm = tipo_perm.perm;
               if(tipo_perm.perm.substr(2,1) === 0){
