@@ -1,6 +1,6 @@
-baseurl = "https://s3.amazonaws.com/user.tipotapp.com/g/tipotapp/tipoapp/public/docs/"
+baseurl = "https://app.tipotapp.com/app/docs/"
 languageCode = "en-us"
-title = "Material Docs"
+title = "TipoTapp Docs"
 theme = "hugo-material-docs"
 metadataformat = "yaml"
 canonifyurls = true
@@ -11,14 +11,14 @@ googleAnalytics = ""
 	# General information
 	author = "Digitalcraftsman"
 	description = "A material design theme for documentations."
-	copyright = "Released under the MIT license"
+	copyright = "TipoTapp Inc"
 
 	# Repository
 	provider = "GitHub"
 	repo_url = "https://github.com/digitalcraftsman/hugo-material-docs"
 
 	version = "1.0.0"
-	logo = "images/logo.png"
+	logo = "../assets/images/logo.png"
 	favicon = ""
 
 	permalink = "#"
@@ -31,8 +31,8 @@ googleAnalytics = ""
 	highlight_css  = ""
 
 	[params.palette]
-    	primary = "red"
-    	accent  = "teal"
+    	primary = "teal"
+    	accent  = "red"
 
     [params.font]
     	text = "Ubuntu"
@@ -50,30 +50,31 @@ googleAnalytics = ""
 	url    = "/"
 	weight = 0
 
-[[menu.main]]
-	name   = "Custom Functions"
-	url    = "10.custom-functions/"
-	weight = 10
 
 [[menu.main]]
 	name   = "Tipo Functions"
-	url    = "tipo-functions/"
+	url    = "tipo_functions/index.html"
 	weight = 10
 
 [[menu.main]]
-	name   = "Get Authentication"
-	url    = "20.get-auth/"
+	name   = "Tipo Authentication API"
+	url    = "tipo_authentication_api/index.html"
 	weight = 20
 
 [[menu.main]]
 	name   = "Tipo Definitions"
-	url    = "30.tipo-defs/"
+	url    = "tipo_definitions/index.html"
 	weight = 30
 
 [[menu.main]]
 	name   = "Tipo Filters"
-	url    = "40.tipo-filters/"
+	url    = "tipo_filters/index.html"
 	weight = 40
+
+[[menu.main]]
+	name   = "Tipo JavaScript SDK"
+	url    = "tipo_javascript_sdk/index.html"
+	weight = 50
 
 
 [blackfriday]
