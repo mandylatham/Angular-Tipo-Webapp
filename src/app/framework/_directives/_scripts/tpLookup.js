@@ -157,7 +157,6 @@
     tipoRegistry,
     $mdDialog,
     $mdSelect,
-    $timeout,
     tipoDefinitionDataService,
     tipoClientJavascript) {
       return {
@@ -384,6 +383,9 @@
               }
 
             }
+            if (attrs.ngChange) {
+              _.set(scope.root, scope.fqfieldname + "_labels", scope.fieldlabel);
+            };
             ctrl.$setViewValue(scope.fieldvalue);
           };
 
@@ -506,9 +508,7 @@
           }
 
           ctrl.$viewChangeListeners.push(function() {
-            $timeout(function() {
-              scope.$eval(attrs.ngChange);
-            });
+            scope.$eval(attrs.ngChange);
           });
 
           scope.$watch(function(){return scope.fieldvalue},function(){

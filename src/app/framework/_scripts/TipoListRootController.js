@@ -180,13 +180,13 @@
       }
     }
 
-    _instance.updateSelected = function(field_name){
+    _instance.updateSelected = function(field_name,label_){
       _.each(_instance.tipos,function(tp){
         if (tp.selected) {
           _.set(tp,field_name,_.get(_instance.updatetipo,field_name));
           var label = _.get(_instance.updatetipo,field_name + "_labels");
           if (label) {
-            _.set(tp,field_name + "_labels",_.get(_instance.updatetipo,field_name));
+            _.set(tp,field_name + "_labels",_.get(_instance.updatetipo,field_name + "_labels"));
           };
         };
       });
