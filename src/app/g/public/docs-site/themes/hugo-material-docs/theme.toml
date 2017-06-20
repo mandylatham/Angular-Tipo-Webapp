@@ -1,9 +1,9 @@
-name = "Material Docs"
-license = "MIT"
-licenselink = "https://github.com/digitalcraftsman/hugo-material-docs/blob/master/LICENSE.md"
+name = "TipoTapp Docs"
+license = "TipoTapp License"
+licenselink = "https://app.tipotapp.com/license"
 description = "A material design theme for documentations."
-homepage = "https://github.com/digitalcraftsman/hugo-material-docs"
-tags = ["material", "documentation", "docs", "google analytics", "responsive"]
+homepage = "https://app.tipotapp.com"
+tags = ["tipotapp", "documentation", "docs", "tutorial", "how to", "getting started guide"]
 features = []
 min_version = 0.20
 

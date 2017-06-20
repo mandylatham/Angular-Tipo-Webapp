@@ -1,10 +1,5 @@
 {{ partial "head" . }}
 
-{{ if (eq (trim .Site.Params.provider " " | lower) "github") | and (isset .Site.Params "repo_url") }}
-	{{ $repo_id := replace .Site.Params.repo_url "https://github.com/" ""}}
-	{{ .Scratch.Set "repo_id" $repo_id }}
-{{ end }}
-
 <div class="backdrop">
 	<div class="backdrop-paper"></div>
 </div>
@@ -32,12 +27,8 @@
 
 			<aside class="copyright" role="note">
 				{{ with .Site.Params.copyright }}
-				&copy; {{ now.Format "2006" }} {{ . }} &ndash;
+				&copy; {{ now.Format "2006" }} {{ . }}
 				{{ end }}
-				Documentation built with
-				<a href="https://www.gohugo.io" target="_blank">Hugo</a>
-				using the
-				<a href="http://github.com/digitalcraftsman/hugo-material-docs" target="_blank">Material</a> theme.
 			</aside>
 
 			<footer class="footer">
