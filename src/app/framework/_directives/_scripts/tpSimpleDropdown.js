@@ -11,13 +11,13 @@
         scope: {
           isarray: '=',
           fieldvalue: '=',
-          required: '=',
+          istiporequired: '=',
           allowedvalues: '=',
           allowcreate: '=',
           description: '=',
           fieldname: '='
         },
-        restrict: 'E',
+        restrict: 'EA',
         replace: true,
         templateUrl: 'framework/_directives/_views/tp-simple-dropdown.tpl.html',
         link: function(scope, element, attrs, ctrl){         

@@ -11,6 +11,14 @@
       <md-icon>done</md-icon>
       <md-tooltip md-direction="top">Bulk Update</md-tooltip>
     </md-button>
+    <md-button ng-if="tipoRootController.tipoDefinition.tipo_meta.allow_edit_in_list_view && tipoRootController.bulkupdate" ng-click="tipoRootController.selectall()" class="md-fab md-mini md-primary">
+        <md-tooltip md-direction="top">{{tipoRootController.tooltip}}</md-tooltip>
+        <md-icon>{{tipoRootController.icon}}</md-icon>
+    </md-button>
+    <md-button class="md-primary md-fab md-mini" ng-if="tipoRootController.tipoDefinition.tipo_meta.allow_edit_in_list_view && tipoRootController.bulkupdate" ng-click="tipoRootController.undoEdit()">
+      <md-icon>clear</md-icon>
+      <md-tooltip md-direction="top">List View</md-tooltip>
+    </md-button>
     <md-button class="md-primary md-fab md-mini" ng-if="tipoRootController.tipoDefinition.tipo_meta.allow_search" ng-click="tipoRootController.toogleSearch()">
       <md-icon>search</md-icon>
       <md-tooltip md-direction="top">Search</md-tooltip>

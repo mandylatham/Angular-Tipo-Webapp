@@ -157,9 +157,11 @@
     tipoRegistry,
     $mdDialog,
     $mdSelect,
+    $timeout,
     tipoDefinitionDataService,
     tipoClientJavascript) {
       return {
+        require: 'ngModel',
         scope: {
           root: '=',
           context: '=',
@@ -180,13 +182,11 @@
           selectfield: '=',
           selectkeyfield: '=',
           selectlabelfield: '=',
-          ngModel: '=',
-          ngChange: '&',
         },
         restrict: 'EA',
         replace: true,
         template: '<ng-include src="fieldTemplate" tp-include-replace/>',
-        link: function(scope, element, attrs){
+        link: function(scope, element, attrs, ctrl){
           scope.model = {};
           var isarray = Boolean(scope.isarray);
           // var isGroup = Boolean(field._ui.isGroup);
@@ -372,7 +372,6 @@
                   scope.fieldlabel = "";
                 }
                 scope.fieldlabel = scope.model.field.label;
-                scope.ngModel = scope.model.field.key;
               };
             }else{
               scope.fieldvalue = [];
@@ -382,10 +381,10 @@
                   scope.fieldvalue.push(val.key);
                   scope.fieldlabel.push(val.label);
                 });
-                scope.ngModel = scope.fieldvalue;
               }
 
             }
+            ctrl.$setViewValue(scope.fieldvalue);
           };
 
           scope.stopBubbling = function(event){
@@ -505,14 +504,19 @@
               scope.cleanup();
             });
           }
+
+          ctrl.$viewChangeListeners.push(function() {
+            $timeout(function() {
+              scope.$eval(attrs.ngChange);
+            });
+          });
+
           scope.$watch(function(){return scope.fieldvalue},function(){
             if (scope.model.field.key !== scope.fieldvalue) {
-              if (!scope.model.field.key) {
-                scope.loadOptions();
-              };
+              scope.loadOptions();
               if (!isarray) {
                 scope.model.field.key = scope.fieldvalue;
-                scope.model.field.label = scope.fieldlabel || angular.copy(scope.fieldvalue);;
+                scope.model.field.label = scope.fieldlabel || angular.copy(scope.fieldvalue);
               };
             };
           })

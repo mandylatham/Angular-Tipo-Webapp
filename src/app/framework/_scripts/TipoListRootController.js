@@ -21,6 +21,7 @@
     tipoClientJavascript) {
 
     var _instance = this;
+    var initTipos = angular.copy(tipos);
     _instance.tipoDefinition = tipoDefinition;
     _instance.tipoFilters = tipoFilters;
     _instance.tipos = tipos;
@@ -102,28 +103,62 @@
       }
     }
 
-    _instance.createNew = function(){
-      if (tipoDefinition.tipo_meta.allow_edit_in_list_view) {
-        var newObject = {edit: true};
-        _instance.tipos.push(newObject);
-      }else{
-        var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
-        if(perspectiveMetadata.fieldName){
-          var data = {};
-          data[perspectiveMetadata.fieldName] = perspectiveMetadata.tipoId;
-          data = encodeURIComponent(angular.toJson(data));
-          tipoRouter.toTipoCreate(tipo_name, {data: data});
-        }else{
-          tipoRouter.toTipoCreate(tipo_name);
+    function bulkUpdateTipos(tipo){
+      tipoInstanceDataService.updateAll(tipo_name, tipo).then(function(result){
+          if(tipoRouter.stickyExists()){
+            tipoRouter.toStickyAndReset();
+          }else{
+            if (tipo_name === "TipoDefinition") {
+              $templateCache.remove(_instance.tipoDefinition._ui.editTemplateUrl.replace(/___TipoDefinition/g,"___" + tipo_id));
+              $templateCache.remove(_instance.tipoDefinition._ui.listTemplateUrl.replace(/___TipoDefinition/g,"___" + tipo_id));
+              $templateCache.remove(_instance.tipoDefinition._ui.createTemplateUrl.replace(/___TipoDefinition/g,"___" + tipo_id));
+            }
+            tipoRouter.toTipoList(tipo_name);
+          }
+        });
+    }
+
+    function bulkCreateTipos(tipo){
+      var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
+      if(perspectiveMetadata.fieldName && !tipo[perspectiveMetadata.fieldName]){
+        tipo[perspectiveMetadata.fieldName] = perspectiveMetadata.tipoId;
+      }
+      tipoInstanceDataService.upsertAll(tipo_name, tipo).then(function(result){
+        if(tipoRouter.stickyExists()){
+          tipoRouter.toStickyAndReset();
+        }else{ 
+          var registryName = $stateParams.tipo_name + '_resdata';
+          var resData = tipoRegistry.get(registryName);
+          tipoRegistry.pushData(tipo_name,result[0].tipo_id,result[0]);
+          tipoRouter.toTipoList(tipo_name);
         }
+      });
+    }
+
+    _instance.quickAdd = function(){
+      var newObject = {edit: true};
+      _instance.tipos.push(newObject);
+    }
+
+    _instance.createNew = function(){
+      var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
+      if(perspectiveMetadata.fieldName){
+        var data = {};
+        data[perspectiveMetadata.fieldName] = perspectiveMetadata.tipoId;
+        data = encodeURIComponent(angular.toJson(data));
+        tipoRouter.toTipoCreate(tipo_name, {data: data});
+      }else{
+        tipoRouter.toTipoCreate(tipo_name);
       }
     };
 
-    _instance.toDetail = function(id,tipo){
+    _instance.toDetail = function(id,tipos,tipo){
       // if(typeof tipoClientJavascript[tipo_name + '_List_OnClick'] === 'function'){
       //   tipoClientJavascript[tipo_name + '_List_OnClick'](tipo,tipo_name);
       // }else{
-        tipoRouter.toTipoView(tipo_name, id);
+        if (!tipo.edit) {
+          tipoRouter.toTipoView(tipo_name, id);
+        };
       // }
     };
 
@@ -140,15 +175,19 @@
         });
       };
       tipo.selected = !tipo.selected;
-      if (_instance.bulkedit || _instance.singleedit) {
+      if (_instance.bulkedit || _instance.singleedit || _instance.bulkupdate) {
         event.stopPropagation();
       }
     }
 
     _instance.updateSelected = function(field_name){
       _.each(_instance.tipos,function(tp){
-        if (!tp.selected) {
-          _.set(tp,field_name,_.get(_instance.updatetipo,field_name)); 
+        if (tp.selected) {
+          _.set(tp,field_name,_.get(_instance.updatetipo,field_name));
+          var label = _.get(_instance.updatetipo,field_name + "_labels");
+          if (label) {
+            _.set(tp,field_name + "_labels",_.get(_instance.updatetipo,field_name));
+          };
         };
       });
       console.log(_instance.tipos);
@@ -156,82 +195,49 @@
 
     _instance.save = function(tipo,action){
       tipoRouter.startStateChange();
-      var data = {};
+      var data = tipo;
       var parameters = {};
       tipoManipulationService.modifyTipoData(tipo);
-      if (tipo.tipo_id || _.isArray(tipo)) {
-        if (_.isArray(tipo)) {
-          tipoInstanceDataService.updateAll(tipo_name, tipo).then(function(result){
-            if(tipoRouter.stickyExists()){
-              tipoRouter.toStickyAndReset();
-            }else{
-              if (tipo_name === "TipoDefinition") {
-                $templateCache.remove(_instance.tipoDefinition._ui.editTemplateUrl.replace(/___TipoDefinition/g,"___" + tipo_id));
-                $templateCache.remove(_instance.tipoDefinition._ui.listTemplateUrl.replace(/___TipoDefinition/g,"___" + tipo_id));
-                $templateCache.remove(_instance.tipoDefinition._ui.createTemplateUrl.replace(/___TipoDefinition/g,"___" + tipo_id));
-              }
-              tipoRouter.toTipoList(tipo_name);
-            }
-          });
+      if (!_.isArray(tipo)) {
+        if (data.tipo_id) {
+          bulkUpdateTipos([data]);
         }else{
-          data.copy_from_tipo_id = tipo.copy_from_tipo_id;
-          tipoInstanceDataService.updateOne(tipo_name, tipo, tipo.tipo_id).then(function(result){
-            if(tipoRouter.stickyExists()){
-              tipoRouter.toStickyAndReset();
-            }else{
-              if (tipo_name === "TipoDefinition") {
-                $templateCache.remove(_instance.tipoDefinition._ui.editTemplateUrl.replace(/___TipoDefinition/g,"___" + tipo_id));
-                $templateCache.remove(_instance.tipoDefinition._ui.listTemplateUrl.replace(/___TipoDefinition/g,"___" + tipo_id));
-                $templateCache.remove(_instance.tipoDefinition._ui.createTemplateUrl.replace(/___TipoDefinition/g,"___" + tipo_id));
-              }
-              tipoRouter.toTipoList(tipo_name);
-            }
-          });
+          bulkCreateTipos([data]);
         }
-      }else {
-        var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
-          if(perspectiveMetadata.fieldName && !tipo[perspectiveMetadata.fieldName]){
-            tipo[perspectiveMetadata.fieldName] = perspectiveMetadata.tipoId;
-          }
-          tipoInstanceDataService.upsertAll(tipo_name, [tipo]).then(function(result){
-            if(tipoRouter.stickyExists()){
-              tipoRouter.toStickyAndReset();
-            }else{
-              if (tipo === 'dialog') {
-                tipoInstanceDataService.search(tipo_name).then(function(tipos){
-                  $mdDialog.hide(tipos);
-                });            
-              }else{
-                var registryName = $stateParams.tipo_name + '_resdata';
-                var resData = tipoRegistry.get(registryName);
-                tipoRegistry.pushData(tipo_name,result[0].tipo_id,result[0]);
-                tipoRouter.toTipoList(tipo_name);
-              }
-            }
-          });
-      };
+      }else{
+        var createTipos = _.filter(data, function(tp){return !tp.tipo_id; });
+        var updateTipos = _.filter(data, function(tp){return tp.tipo_id; });
+        bulkCreateTipos(createTipos);
+        bulkUpdateTipos(updateTipos);
+      }
     };
 
-    _instance.delete = function(tipo_id){
-      var confirmation = $mdDialog.confirm()
-          .title('Delete Confirmation')
-          .textContent('Are you sure that you want to delete ' + tipo_name + ' ' + tipo_id + '?')
-          .ariaLabel('Delete Confirmation')
-          .ok('Yes')
-          .cancel('No');
-      $mdDialog.show(confirmation).then(function(){
-        tipoRouter.startStateChange();
-        // handle application perspective
-        var filter = {};
-        var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
-        if(perspectiveMetadata.fieldName === 'application'){
-          filter.tipo_filter = perspectiveMetadata.tipoFilter;
-        }
-        // ends here
-        tipoInstanceDataService.deleteOne(tipo_name, tipo_id, filter).then(function(){
-          tipoRouter.toTipoList(tipo_name);
+    _instance.delete = function(tipo_id,index){
+      if (!tipo_id) {
+        _.remove(_instance.tipos,function(val,inx){
+          return inx === index;
         });
-      });
+      }else{
+        var confirmation = $mdDialog.confirm()
+            .title('Delete Confirmation')
+            .textContent('Are you sure that you want to delete ' + tipo_name + ' ' + tipo_id + '?')
+            .ariaLabel('Delete Confirmation')
+            .ok('Yes')
+            .cancel('No');
+        $mdDialog.show(confirmation).then(function(){
+          tipoRouter.startStateChange();
+          // handle application perspective
+          var filter = {};
+          var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
+          if(perspectiveMetadata.fieldName === 'application'){
+            filter.tipo_filter = perspectiveMetadata.tipoFilter;
+          }
+          // ends here
+          tipoInstanceDataService.deleteOne(tipo_name, tipo_id, filter).then(function(){
+            tipoRouter.toTipoList(tipo_name);
+          });
+        });
+      }
     };
 
     _instance.refresh = function(){
@@ -281,6 +287,11 @@
       });
     }
 
+    _instance.undoEdit = function(){
+      _instance.tipos = initTipos;
+      _instance.bulkupdate = !_instance.bulkupdate
+    } 
+
     _instance.toogleSearch = function(){
       _instance.showsearch = !_instance.showsearch;
       if (_instance.showsearch) {
@@ -290,6 +301,23 @@
         return false;
       };
     }
+
+    _instance.icon = "check_box_outline_blank";
+    _instance.tooltip = "Select All";
+    _instance.selectall = function(){
+      _instance.selectedall = !_instance.selectedall;
+      if (!_instance.selectedall) {
+        _instance.icon = "check_box_outline_blank";
+        _instance.tooltip = "Select All";
+      }else{
+        _instance.icon = "check_box";
+        _instance.tooltip = "Deselect All";
+      }
+      _.map(_instance.tipos,function(tipo){
+        tipo.selected = _instance.selectedall;
+      });
+    }
+
 
     
   }
