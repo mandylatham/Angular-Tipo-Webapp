@@ -1,4 +1,3 @@
-baseurl = "https://app.tipotapp.com/app/docs/"
 languageCode = "en-us"
 title = "TipoTapp Docs"
 theme = "hugo-material-docs"
