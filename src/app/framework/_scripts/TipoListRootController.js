@@ -141,6 +141,7 @@
     }
 
     _instance.createNew = function(){
+      //Clientside Javascript for OnCreate 
       var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
       if(perspectiveMetadata.fieldName){
         var data = {};
@@ -153,6 +154,8 @@
     };
 
     _instance.toDetail = function(id,tipos,tipo){
+      //Clientside Javascript for OnClick
+      
       // if(typeof tipoClientJavascript[tipo_name + '_List_OnClick'] === 'function'){
       //   tipoClientJavascript[tipo_name + '_List_OnClick'](tipo,tipo_name);
       // }else{
@@ -163,6 +166,7 @@
     };
 
     _instance.clone = function(id){
+      //Clientside Javascript for OnClone
       tipoRouter.toTipoCreate(tipo_name, {copyFrom: id});
     };
 

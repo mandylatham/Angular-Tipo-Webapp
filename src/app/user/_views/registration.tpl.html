@@ -13,9 +13,14 @@
         <input ng-model="controller.user.password" type="password" required>
       </md-input-container>
       <md-input-container class="md-icon-float md-block" ng-show="controller.captureAccountNameDuringSignup">
+        <label>Company Name</label>
+        <md-icon>person</md-icon>
+        <input ng-model="controller.user.companyName" type="text" ng-blur="controller.user.accountName = _.snakeCase(controller.user.companyName)" ng-required="controller.captureAccountNameDuringSignup">
+      </md-input-container>
+      <md-input-container class="md-icon-float md-block" ng-show="controller.captureAccountNameDuringSignup">
         <label>Account</label>
         <md-icon>person</md-icon>
-        <input ng-model="controller.user.accountName" type="text" ng-required="controller.captureAccountNameDuringSignup">
+        <input ng-model="controller.user.accountName" ng-disabled="true" type="text" ng-required="controller.captureAccountNameDuringSignup">
       </md-input-container>
       <div class="recaptcha" vc-recaptcha ng-model="controller.user.recaptcha" key="'${googleRecaptchaSitekey}'" layout="row" layout-align="center center"></div>
       <div class="error with-margin" ng-show="controller.lastError"><i class="fa fa-exclamation-circle fa-fw"></i> {{controller.lastError}}</div>

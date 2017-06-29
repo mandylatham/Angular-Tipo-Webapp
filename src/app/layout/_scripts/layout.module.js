@@ -32,11 +32,20 @@
     var layoutState = {
       name: 'layout',
       abstract: true,
-      url: '?perspective',
+      url: '?perspective&mobile_auth',
       parent: 'root',
       resolve: /*@ngInject*/
       {
-        userMetadata: function(metadataService){
+        userMetadata: function(metadataService, $stateParams, securityContextService){
+          if ($stateParams.mobile_auth) {
+            var auth = decodeURIComponent($stateParams.mobile_auth);
+            var authArray = auth.split(';');
+            securityContextService.saveContext({
+              'tokenDetails.id_token': authArray[2],
+              'tokenDetails.access_token': authArray[1],
+              'loggedInUser': authArray[0]
+            });
+          };
           return metadataService.loadUserMetadata();
         },
         parentPromise: function(tipoDefinitionDataService, tipoManipulationService, userMetadata, $stateParams, $rootScope){

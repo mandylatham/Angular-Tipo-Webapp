@@ -3,8 +3,36 @@
   'use strict';
 
 
-  function TipoHandle(tipoCache,tipoInstanceDataService,tipoDefinitionDataService){
+  function TipoHandle(tipoCache,
+                      tipoInstanceDataService,
+                      tipoDefinitionDataService,
+                      $mdToast,
+                      $mdDialog){
     var _instance = this;
+
+
+    _instance.showMessage = function(user_heading,user_message){
+      var toast = $mdToast.tpToast();
+      toast._options.locals = {
+        header: user_heading,
+        body: user_message
+      };
+      $mdToast.show(toast);
+    };
+
+    _instance.getConfirmation = function(title, user_message){
+      var confirmation = $mdDialog.confirm()
+            .title(title)
+            .textContent(user_message)
+            .ariaLabel(title)
+            .ok('Yes')
+            .cancel('No');
+      $mdDialog.show(confirmation).then(function(){
+        return true;
+      },function(){
+        return false;
+      });
+    }
 
     _instance.getTipos = function(tipo_name,tipoData,query_params){
       tipoCache.evict(tipo_name);

@@ -168,6 +168,7 @@
         return false;
       }
       tipoRouter.startStateChange();
+      //Clientside Javascript for OnSave
       var data = {};
       var parameters = {};
       tipoManipulationService.extractDataFromMergedDefinition(_instance.tipoDefinition, data);

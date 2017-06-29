@@ -48,6 +48,7 @@
           }
           filter.page = 1;
           filter.per_page = tipoDefinition.tipo_meta.default_page_size;
+          //Clientside Javascript for OnList 
           return tipoInstanceDataService.search($stateParams.tipo_name, filter);
         },
         delay: function ($q, $timeout) {
@@ -130,6 +131,7 @@
             filter.tipo_filter = perspectiveMetadata.tipoFilter;
           }
 
+          //Clientside Javascript for OnView 
           var tipo = tipoInstanceDataService.getOne($stateParams.tipo_name, $stateParams.tipo_id, filter).then(function (data) {
             data.tipo_id = data.tipo_id || $stateParams.tipo_id;
             return data;

@@ -37,8 +37,9 @@
 
     function populateGeolocation(tipo){
       if(metadataService.geoLocation){
-        tipo.data.geo_latitude = metadataService.geoLocation.latitude;
-        tipo.data.geo_longitude = metadataService.geoLocation.longitude;
+        tipo.data.underscore_location = {};
+        tipo.data.underscore_location.lat = metadataService.geoLocation.latitude;
+        tipo.data.underscore_location.lon = metadataService.geoLocation.longitude;
       }
     }
 
@@ -207,6 +208,7 @@
     };
 
     _instance.deleteOne = function(tipo_name, id, queryParams){
+      //Clientside Javascript for OnDelete
       tipoCache.evict(tipo_name, id);
       tipoCache.evict(tipo_name);
       var promise = getDocumentResource(tipo_name, id).remove(queryParams);
