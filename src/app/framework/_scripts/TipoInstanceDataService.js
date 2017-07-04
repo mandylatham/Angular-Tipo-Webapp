@@ -219,6 +219,35 @@
       return promise;
     };
 
+    _instance.xAndYAxisData = function(report_config){
+      var criteria = {};
+      criteria.short_display = 'N';
+      criteria.per_page = '1000';
+      return report_config.reduce(function(promise,config){
+        return promise.then(function(){
+          return _instance.search(config.tipo_name, criteria)
+        })
+      }, $q.when())
+    };
+
+    _instance.aggegrationData = function(report_config){
+      var criteria = {};
+      criteria.short_display = 'N';
+      criteria.per_page = '1000';
+      criteria.aggs = {"count_category": {
+          "terms":{
+            "field": "category"
+          }
+        }
+      };
+      return report_config.reduce(function(promise,config){
+        return promise.then(function(){
+          criteria.tipo_name = config.tipo_name;
+          return getCollectionResource(config.tipo_name).post(criteria).then(unwrapAndSort);
+        })
+      }, $q.when())
+    }
+
     _instance.gettpObjectOptions = function(baseFilter,tipo_name,label_field,context,searchText,page_size,index,tipo_data){
       var searchCriteria = {};
       var filter;

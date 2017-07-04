@@ -1,10 +1,10 @@
 <div layout="row">
 	<div flex ng-if="!isarray">
-		<input type="file" ng-model="model" class="ng-hide" onload="onLoad" id="fileInput" base-sixty-four-input accept="image/*">
+		<input type="file" ng-model="model" class="ng-hide" onload="onLoad" id="{{modId}}" base-sixty-four-input accept="image/*">
 		<div layout="row" layout-align="space-between end" style="margin-bottom: 10px;">
 			<span class="md-input" style="order: inherit;" flex="65">{{model.filename}}</span>
-			<label for="fileInput" class="md-button md-raised md-primary md-container-ignore">Choose Files</label>
+			<label for="{{modId}}" class="md-button md-raised md-primary md-container-ignore">Choose Files</label>
 		</div>
-		<img ng-src="{{'data:image/*;base64, ' + model.base64}}">
+		<img ng-src="{{'data:image/*;base64, ' + model.base64}}" ng-style="{'width': clientWidth}">
 	</div>
 </div>

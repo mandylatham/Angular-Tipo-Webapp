@@ -1,0 +1,118 @@
+
+<div class="p-8">
+  <section class="fieldset no-header fluid-row-container">
+    <div class="data" layout-padding layout="row" layout-wrap layout-align="start start">
+ 
+ 
+  
+ 
+
+
+  	  		     		
+			
+			
+			
+	  	  	  	  	  	  	  	  	  	  	
+    	    		
+			
+			
+  	
+	    <dl class="edit" 
+				    layout="column" 
+		    layout-align="center stretch"
+			    flex="100" 
+			flex-gt-sm="50" 
+			flex-gt-md="33" style="display:none;">
+    <dt style="min-height: 16px;">
+	    	    					<span>TestingGeo1 ID</span>
+									</dt>
+	    <dd>
+    		<div class="tp-field">
+			<span>
+				<md-input-container md-no-float>
+																											<input ng-model="tipoRootController.tipo.tipo_id" ng-disabled="false" aria-label="TestingGeo1 ID" placeholder="" name="TestingGeo1 ID_string" ng-required="false" ng-pattern=""   >
+																			</md-input-container>
+			</span>
+		</div>       
+    </dd>
+ </dl>
+     
+  	  		     		
+			
+			
+			
+	  	  	  	  	  	  	  	  	  	  	  	
+    	    		
+			
+		
+  	
+	    <dl class="edit" 
+				    layout="column" 
+		    layout-align="center stretch"
+			    flex="100" 
+			flex-gt-sm="50" 
+			flex-gt-md="100" style="">
+    <dt style="min-height: 16px;">
+	    	    					<span>Maps</span>
+									</dt>
+	    <dd>
+    		<div class="tp-field">
+			<span>
+				<md-input-container md-no-float>																																	<tp:google-maps mapjson="[{'tipo_name': 'TipoDefinition', 'field_name': 'underscore_location'} ,]" root="tipoRootController.tipo" />
+		    																	</md-input-container>
+			</span>
+		</div>       
+    </dd>
+ </dl>
+     
+  	  		     		
+			
+			
+			
+	  	  	  	  	  	  	  	  	  	  	
+    	 <dl class="edit" 
+				    layout="column" 
+		    layout-align="center stretch"
+			    flex="100" 
+			flex-gt-sm="50" 
+			flex-gt-md="33" style="">
+    <dt style="min-height: 16px;">
+	    	    					<span>Test Images Slider</span>
+									</dt>
+	    <dd>
+    		<div class="tp-field">
+			<span>
+				<md-input-container md-no-float>																									    					    	<tp:swiper />
+																				</md-input-container>
+			</span>
+		</div>       
+    </dd>
+ </dl>   		
+			
+		
+  <!-- 	
+	    <dl class="edit" 
+				    layout="column" 
+		    layout-align="center stretch"
+			    flex="100" 
+			flex-gt-sm="50" 
+			flex-gt-md="33" style="">
+    <dt style="min-height: 16px;">
+	    	    					<span>Pie Chart</span>
+									</dt>
+	    <dd>
+    		<div class="tp-field">
+			<span>
+				<md-input-container md-no-float>																									    					    	<tp:d3 chartType="pieChart" data="[{'tipo_name': 'TipoStandingData', 'field_name': 'category'} ,]" agrregation="count" />
+																				</md-input-container>
+			</span>
+		</div>       
+    </dd>
+ </dl> -->
+             
+     				
+    </div>
+  </section>
+</div>
+
+

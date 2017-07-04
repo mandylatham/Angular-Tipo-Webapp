@@ -188,6 +188,7 @@
         link: function(scope, element, attrs, ctrl){
           scope.model = {};
           var isarray = Boolean(scope.isarray);
+          var fqfieldname = scope.fqfieldname.replace("$index", scope.index);
           // var isGroup = Boolean(field._ui.isGroup);
           scope.isMandatory = Boolean(scope.istipomandatory);
           scope.isPopup = scope.ispopup;
@@ -302,7 +303,7 @@
               }
             }
             if(!_.isUndefined(basefilter)){
-              var basefilterExpanded = tipoManipulationService.expandFilterExpression(basefilter, scope.root, scope.context,scope.arrayindex);
+              var basefilterExpanded = tipoManipulationService.expandFilterExpression(basefilter, scope.root, _.get(scope.root,_.join(_.dropRight(fqfieldname.split(".")),".")),scope.arrayindex);
               filter = basefilterExpanded;
             }
             if(!_.isUndefined(filter)){
@@ -362,7 +363,7 @@
           scope.cleanup = function(){
             delete scope.searchTerm.text;
             if(typeof tipoClientJavascript[scope.tipo_name + '_Lookup_OnChange'] === 'function'){
-              tipoClientJavascript[scope.tipo_name + '_Lookup_OnChange'](scope.model.field,scope.options,scope.root,_.join(_.dropRight(scope.fqfieldname.split(".")),"."));
+              tipoClientJavascript[scope.tipo_name + '_Lookup_OnChange'](scope.model.field,scope.options,scope.root,_.join(_.dropRight(fqfieldname.split(".")),"."));
             }
               if (!isarray) {
                 if (!_.isUndefined(scope.fieldvalue)) {
@@ -384,7 +385,7 @@
 
             }
             if (attrs.ngChange) {
-              _.set(scope.root, scope.fqfieldname + "_labels", scope.fieldlabel);
+              _.set(scope.root, fqfieldname + "_labels", scope.fieldlabel);
             };
             ctrl.$setViewValue(scope.fieldvalue);
           };

@@ -2,7 +2,7 @@
 
   'use strict';
 
-  function TipoManipulationService(tipoRegistry, $rootScope) {
+  function TipoManipulationService(tipoRegistry, $rootScope, $q) {
 
     function setupMustacheOverrides(){
       Mustache.tags = ['[[', ']]'];

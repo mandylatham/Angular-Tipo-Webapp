@@ -15,7 +15,9 @@
         restrict: 'E',
         replace: true,
         templateUrl: 'framework/_directives/_views/tp-simple-image-upload.tpl.html',
-        link: function(scope, element, attrs){ 
+        link: function(scope, element, attrs){
+          scope.modId = _.camelCase(attrs.name);
+          scope.clientWidth = element[0].clientWidth;
           if (!scope.model) {
             scope.model = {};
           };

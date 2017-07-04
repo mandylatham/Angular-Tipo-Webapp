@@ -20,6 +20,7 @@
     'cleave.js',
     'naif.base64',
     'duScroll',
+    'ngMap',
     'infinite-scroll'
   ]);
 
