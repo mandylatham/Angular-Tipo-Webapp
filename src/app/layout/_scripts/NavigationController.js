@@ -22,6 +22,9 @@
 
     var currentPerspective;
 
+    if ($state.params.openSidenav) {
+      $mdSidenav('left').open();
+    };
     // TODO: Hacky way to mark the active menu item. Need to improve this
     function markActiveItem(menu, perspectiveTipoId){
       if(!_.isUndefined(perspectiveTipoId)){

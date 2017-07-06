@@ -1,5 +1,5 @@
-<md-sidenav layout="column" md-component-id="left" class="md-sidenav-left" md-is-locked-open="$mdMedia('gt-md')" role="navigation" md-whiteframe="6" md-colors="{background: 'primary-50'}">
-  <div ng-controller="NavigationController as navigation" class="tp-navigation">
+<md-sidenav layout="column" md-component-id="left" class="md-sidenav-left" md-is-locked-open="$mdMedia('gt-md')" role="navigation" md-whiteframe="6" md-colors="{background: 'primary-50'}" md-is-open="header.opensidenav">
+  <div class="tp-navigation" ng-controller="NavigationController as navigation">
     <md-list>
     <!-- <md-divider></md-divider> -->
       <md-list-item ng-if="navigation.perspectiveMenu" class="menu-header" >

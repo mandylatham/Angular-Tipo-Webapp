@@ -17,6 +17,7 @@
 
     var _instance = this;
 
+
     function addPerspectives(userMeta,homeMeta){
         _instance.perspectives = [{
           name: 'Home',
