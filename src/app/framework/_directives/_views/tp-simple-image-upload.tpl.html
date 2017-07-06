@@ -4,7 +4,17 @@
 		<div layout="row" layout-align="space-between end" style="margin-bottom: 10px;">
 			<span class="md-input" style="order: inherit;" flex="65">{{model.filename}}</span>
 			<label for="{{modId}}" class="md-button md-raised md-primary md-container-ignore">Choose Files</label>
+			<md-button class="m0 md-icon-button" ng-click="model={}"><md-icon>clear</md-icon></md-button>
 		</div>
 		<img ng-src="{{'data:image/*;base64, ' + model.base64}}" ng-style="{'width': clientWidth}">
+	</div>
+	<div flex ng-if="isarray">
+		<input type="file" ng-model="model" class="ng-hide" onload="onLoad" id="{{modId}}" base-sixty-four-input multiple accept="image/*">
+		<div layout="row" layout-align="space-between end" style="margin-bottom: 10px;">
+			<span class="md-input" style="order: inherit;" flex="65"><span ng-repeat="name in model">{{name.filename}}<span ng-if="model.length>1 && $index !== model.length-1">,</span></span></span>
+			<label for="{{modId}}" class="md-button md-raised md-primary md-container-ignore">Choose Files</label>
+			<md-button class="m0 md-icon-button" ng-click="model=[]"><md-icon>clear</md-icon></md-button>
+		</div>
+		<tp:swiper image-array="model" direction="direction" effect="effect" pagination-type="paginationType" pagination-hide="paginationHide" mouse-wheel-control="mouseWheelControl" loop="loop" ng-if="model.length>0"/>
 	</div>
 </div>

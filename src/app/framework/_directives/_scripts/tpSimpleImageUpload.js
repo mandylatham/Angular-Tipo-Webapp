@@ -10,7 +10,13 @@
         scope: {
           isarray: '=',
           isrequired: '=',
-          model: '='
+          model: '=',
+          direction: '=',
+          effect: '=',
+          paginationType: '=',
+          paginationHide: '=',
+          mouseWheelControl: '=',
+          loop: '=',
         },
         restrict: 'E',
         replace: true,
@@ -18,12 +24,18 @@
         link: function(scope, element, attrs){
           scope.modId = _.camelCase(attrs.name);
           scope.clientWidth = element[0].clientWidth;
-          if (!scope.model) {
+          if (scope.isarray && !scope.model) {
+            scope.model = [];
+          }else if (!scope.model) {
             scope.model = {};
           };
 
           scope.onLoad= function(e, fileList,File,FileList,FileObjects,Object){
-            scope.model = Object;
+            if (scope.isarray) {
+              scope.model.push(Object);
+            }else{
+              scope.model = Object;
+            }
           };
         }
       };

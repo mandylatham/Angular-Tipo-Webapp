@@ -21,6 +21,7 @@
     'naif.base64',
     'duScroll',
     'ngMap',
+    'google.places',
     'infinite-scroll'
   ]);
 
