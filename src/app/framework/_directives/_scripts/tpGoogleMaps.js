@@ -7,7 +7,7 @@
 
   return module.directive('tpGoogleMaps', function (
     NgMap,
-    tipoInstanceDataService,) {
+    tipoInstanceDataService) {
       return {
         scope: {
           mapjson: "=",
