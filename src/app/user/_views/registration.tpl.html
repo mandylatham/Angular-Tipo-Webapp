@@ -15,7 +15,7 @@
       <md-input-container class="md-icon-float md-block" ng-show="controller.captureAccountNameDuringSignup">
         <label>Company Name</label>
         <md-icon>person</md-icon>
-        <input ng-model="controller.user.companyName" type="text" ng-blur="controller.user.accountName = _.snakeCase(controller.user.companyName)" ng-required="controller.captureAccountNameDuringSignup">
+        <input ng-model="controller.user.companyName" type="text" ng-change="controller.user.accountName = _.camelCase(controller.user.companyName)" ng-required="controller.captureAccountNameDuringSignup">
       </md-input-container>
       <md-input-container class="md-icon-float md-block" ng-show="controller.captureAccountNameDuringSignup">
         <label>Account</label>

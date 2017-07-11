@@ -27,6 +27,7 @@
             route: 'long_name',
             neighborhood: 'long_name',
             sublocality_level_1: 'long_name',
+            sublocality_level_2: 'long_name',
             locality: 'long_name',
             administrative_area_level_2: 'long_name',
             administrative_area_level_1: 'long_name',
@@ -47,6 +48,7 @@
               });
               scope.context.street_address = _.trim((scope.address.street_number || "") + " " + (scope.address.route || "")) ;
               scope.context.address_line_1 = _.trim((scope.address.neighborhood || "")+ " " + (scope.address.sublocality_level_1 || ""));
+              scope.context.address_line_2 = scope.address.sublocality_level_2;
               scope.context.suburb = scope.address.locality;
               scope.context.state_region = scope.address.administrative_area_level_2;
               scope.context.state_ = scope.address.administrative_area_level_1;

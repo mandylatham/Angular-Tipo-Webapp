@@ -22,9 +22,6 @@
 
     var currentPerspective;
 
-    if ($state.params.openSidenav) {
-      $mdSidenav('left').open();
-    };
     // TODO: Hacky way to mark the active menu item. Need to improve this
     function markActiveItem(menu, perspectiveTipoId){
       if(!_.isUndefined(perspectiveTipoId)){
@@ -52,7 +49,6 @@
       }else{
         delete _instance.activeItem;
       }
-
     }
 
     function prepareMenuItems(tipo,definition,perspectiveMenuItems){
@@ -124,6 +120,9 @@
           }
         });
       }
+      if ($state.params.openSidenav) {
+        $mdSidenav('left').toggle();
+      };
     }
 
     _instance.navigate = function(menuItem){
@@ -136,7 +135,9 @@
         return;
       }
       var perspective = $rootScope.perspective;
-      $mdSidenav('left').close();
+      if (!$state.params.openSidenav) {
+        $mdSidenav('left').close();
+      }
       _instance.activeItem = menuItem;
       if (menuItem.tipo_name) {
         tipoDefinitionDataService.getOne(menuItem.tipo_name).then(function(response){

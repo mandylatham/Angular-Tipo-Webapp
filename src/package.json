@@ -43,6 +43,7 @@
     "body-parser": "1.15.2 ",
     "uuid": "2.0.2",
     "jsonfile": "2.3.1",
+    "text-mask-addons": ">=3.6.0",
     "aws-sdk": "2.7.7"
   },
   "engines": {

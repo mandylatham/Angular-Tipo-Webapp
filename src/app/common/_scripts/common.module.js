@@ -22,6 +22,7 @@
     'duScroll',
     'ngMap',
     'google.places',
+    'text-mask',
     'infinite-scroll'
   ]);
 
