@@ -19,7 +19,7 @@
     var perspectives;
 
     _instance.showNavigation = function(){
-      $mdSidenav('left').open();
+      $mdSidenav('left').toggle();
     };
 
     _instance.toPerspective = function(name) {
