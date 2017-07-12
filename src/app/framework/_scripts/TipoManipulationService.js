@@ -585,8 +585,7 @@
       });
     }
 
-    function convertToFilterExpression(tipoDefinition, filterName){
-      var tipoFilters = _.get(tipoDefinition, 'tipo_list.filters');
+    function convertToFilterExpression(tipoFilters, filterName){
       if (!_.isUndefined(filterName)) {
         var filterArray = filterName.split("&&");
       }

@@ -129,6 +129,7 @@
     tipoInstanceDataService,
     tipoRouter,
     tipoRegistry,
+    metadataService,
     $scope,
     $mdToast,
     $stateParams,
@@ -140,6 +141,10 @@
     $sce) {
     
     var _instance = this;
+    var role = metadataService.userMetadata.role;
+    _instance.updateUrl = "g/public/gen_temp/common/views/update.tpl.html." + role + "___" + $stateParams.tipo_name;
+    _instance.createUrl = "g/public/gen_temp/common/views/create.tpl.html." + role + "___" + $stateParams.tipo_name;
+    _instance.detailUrl = "g/public/gen_temp/common/views/view.tpl.html." + role + "___" + $stateParams.tipo_name;
     _instance.tipoDefinition = tipoDefinition;
     // _instance.tipoDefinition.tipo_field_groups = tipo.tipo_field_groups;
     var clonedTipoId = $stateParams.copyFrom;

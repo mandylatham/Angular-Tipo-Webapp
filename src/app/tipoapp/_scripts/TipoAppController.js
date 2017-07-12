@@ -11,7 +11,7 @@
 
     var _instance = this;
 
-    var tipo_name = $scope.tipoRootController.tipoDefinition.tipo_meta.tipo_name;
+    var tipo_name = $scope.tipoRootController.tipo_name;
     // var hooks = $scope.tipoRootController.hooks;
 
     // hooks.postFinish = function() {

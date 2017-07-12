@@ -97,8 +97,9 @@
     $location) {
       return {
         scope: {
-          definition: '=',
           tipos: '=',
+          tipoName: '=',
+          tipoActions: '=',
           mode: '@?',
           bulkedit: '=',
           singleedit: '=',
@@ -120,7 +121,7 @@
 
           scope.mode = mode;
 
-          var tipo_name = scope.definition.tipo_meta.tipo_name;
+          var tipo_name = scope.tipoName;
           var tipo_id;
           if(mode === 'view'){
             // only a single tipo
@@ -135,12 +136,7 @@
           }
 
           function prepareActions(){
-            var tipoActions;
-            if(mode === 'view'){
-              tipoActions = _.get(scope.definition, 'tipo_detail.actions');
-            }else{
-              tipoActions = _.get(scope.definition, 'tipo_list.actions');
-            }
+            var tipoActions = scope.tipoActions;
             var actions = [];
             _.forEach(tipoActions, function(each){
               if (restrictedActions) {
@@ -148,7 +144,7 @@
               }else{
                 var restriced = false;
               }
-              if (!each.hidden_ && !restriced) {
+              if (!restriced) {
                 actions.push({
                   name: each.tipo_action,
                   label: each.display_name,

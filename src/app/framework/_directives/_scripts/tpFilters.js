@@ -11,15 +11,15 @@
     $stateParams) {
       return {
         scope: {
-          definition: '=',
-          filterslist: '='
+          tipoName: '=',
+          tipoFilters: '='
         },
         restrict: 'EA',
         replace: true,
         templateUrl: 'framework/_directives/_views/tp-filters.tpl.html',
         link: function(scope, element, attrs){
 
-          var tipo_name = scope.definition.tipo_meta.tipo_name;
+          var tipo_name = scope.tipoName;
 
           scope.search = function(){
             if(!_.isEmpty(scope.currentFilters)){
@@ -28,11 +28,10 @@
               tipoRouter.toTipoList(tipo_name);
             }
           };
-          scope.filters = _.filter(scope.filterslist.filters,function(filter){ return !filter.hidden });
 
           if($stateParams.filter){
             scope.currentFilters = $stateParams.filter;
-            scope.selectedArray = _.filter(scope.filters, 'selected')
+            scope.selectedArray = _.filter(scope.tipoFilters, 'selected')
           }else{
             scope.selectedArray = [];
           }
