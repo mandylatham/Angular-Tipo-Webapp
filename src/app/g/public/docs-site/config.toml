@@ -54,36 +54,41 @@ googleAnalytics = ""
 	name   = "Creating an Application"
 	url    = "creating_an_application/index.html"
 	weight = 2
+	
+[[menu.main]]
+	name   = "TipoTapp's Interface"
+	url   = "tipotapp_interface/index.html"
+	weight = 3
 
 [[menu.main]]
 	name   = "Tipo Functions"
 	url    = "tipo_functions/index.html"
-	weight = 3
+	weight = 4
 
 [[menu.main]]
 	name   = "Tipo Authentication API"
 	url    = "tipo_authentication_api/index.html"
-	weight = 4
+	weight = 5
 
 [[menu.main]]
 	name   = "Tipo Definitions"
 	url    = "tipo_definitions/index.html"
-	weight = 5
+	weight = 6
 
 [[menu.main]]
 	name   = "Tipo Filters"
 	url    = "tipo_filters/index.html"
-	weight = 6
+	weight = 7
 
 [[menu.main]]
 	name   = "Tipo JavaScript SDK"
 	url    = "tipo_javascript_sdk/index.html"
-	weight = 7
+	weight = 8
 	
 [[menu.main]]
 	name   = "Material"
 	url    = "/"
-	weight = 8
+	weight = 9
 
 
 [blackfriday]
