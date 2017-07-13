@@ -59,6 +59,7 @@
 
     _instance.initTiposData = function(tipoFilters,page_size,allow_search){
       var filter = {};
+      _instance.hasTipos = true;
       _instance.allow_search = allow_search;
       if ($stateParams.filter) {
         _instance.tipoFilters = tipoManipulationService.convertToFilterExpression(tipoFilters,$stateParams.filter);

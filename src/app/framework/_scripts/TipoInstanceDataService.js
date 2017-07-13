@@ -102,8 +102,9 @@
 
     }
 
-    _instance.upsertAll = function(tipo_name, tipos){
+    _instance.upsertAll = function(tipo_name, tipos, criteria){
       tipoCache.evict(tipo_name);
+      criteria = criteria || {};
       tipos = _.map(tipos, function(each){
         var tipo = {
           tipo_name: tipo_name,
@@ -112,7 +113,7 @@
         populateGeolocation(tipo);
         return tipo;
       });
-      var promise = getCollectionResource(tipo_name).post(tipos).then(unwrapAndSort);
+      var promise = getCollectionResource(tipo_name).post(tipos,criteria).then(unwrapAndSort);
       // load list again in background
       promise.then(function(){
         _instance.search(tipo_name, undefined, true);

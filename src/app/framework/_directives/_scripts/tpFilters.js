@@ -12,7 +12,7 @@
       return {
         scope: {
           tipoName: '=',
-          tipoFilters: '='
+          tipoFilters: '=',
         },
         restrict: 'EA',
         replace: true,
@@ -28,16 +28,17 @@
               tipoRouter.toTipoList(tipo_name);
             }
           };
+          scope.filters = _.filter(scope.tipoFilters,function(filter){ return !filter.hidden_ });
 
           if($stateParams.filter){
             scope.currentFilters = $stateParams.filter;
-            scope.selectedArray = _.filter(scope.tipoFilters, 'selected')
+            scope.selectedArray = _.filter(scope.filters, 'selected')
           }else{
             scope.selectedArray = [];
           }
 
           scope.removeFromCurrentExpression = function(){
-            scope.currentFilters = _.map(scope.selectedArray,'name').join("&&");
+            scope.currentFilters = _.map(scope.selectedArray,'display_name').join("&&");
             scope.search();
           } 
 
@@ -47,9 +48,9 @@
               scope.removeFromCurrentExpression();
             }else{
               if ($stateParams.filter) {
-              scope.currentFilters = scope.currentFilters + "&&" + filter.name;
+              scope.currentFilters = scope.currentFilters + "&&" + filter.display_name;
               }else{
-                scope.currentFilters = filter.name;
+                scope.currentFilters = filter.display_name;
               }
               scope.search();
             }
