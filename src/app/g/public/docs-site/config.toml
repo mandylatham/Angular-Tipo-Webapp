@@ -92,7 +92,7 @@ googleAnalytics = ""
 
 [[menu.main]]
 	name   = "Reference Manual"
-	url    = "Reference/index.html"
+	url    = "reference_manual/index.html"
 	weight = 10
 
 
