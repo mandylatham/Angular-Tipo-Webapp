@@ -19,38 +19,6 @@
         pageTitle: "{{$stateParams.tipo_name}} - List",
       },
       resolve: /*@ngInject*/ {
-        tipoDefinition: function (tipoDefinitionDataService, tipoManipulationService, $stateParams) {
-          return tipoDefinitionDataService.getOne($stateParams.tipo_name);
-        },
-        tipoFilters: function (tipoDefinition, tipoManipulationService, $stateParams) {
-          var expression = tipoManipulationService.convertToFilterExpression(tipoDefinition, $stateParams.filter);
-          return expression;
-        },
-        tipos: function (tipoDefinition, tipoFilters, tipoInstanceDataService, tipoManipulationService, parentPromise, $stateParams, $rootScope) {
-
-          var filter = {};
-          var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
-
-          if (perspectiveMetadata.tipoName) {
-            if (perspectiveMetadata.tipoName !== tipoDefinition.tipo_meta.tipo_name) {
-              filter.tipo_filter = perspectiveMetadata.tipoFilter;
-            } else {
-              $rootScope.perspective = 'Home';
-            }
-          }
-
-          if ($stateParams.filter) {
-            if (filter.tipo_filter) {
-              filter.tipo_filter += " AND " + tipoManipulationService.expandFilterExpression(tipoFilters.currentExpression);
-            } else {
-              filter.tipo_filter = tipoManipulationService.expandFilterExpression(tipoFilters.currentExpression);
-            }
-          }
-          filter.page = 1;
-          filter.per_page = tipoDefinition.tipo_meta.default_page_size;
-          //Clientside Javascript for OnList 
-          return tipoInstanceDataService.search($stateParams.tipo_name, filter);
-        },
         delay: function ($q, $timeout) {
           return falseDelay($q, $timeout);
         }

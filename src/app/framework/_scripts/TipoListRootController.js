@@ -3,14 +3,12 @@
   'use strict';
 
   function TipoListRootController(
-    tipoDefinition,
-    tipoFilters,
-    tipos,
     tipoManipulationService,
     tipoInstanceDataService,
     tipoRouter,
     tipoRegistry,
     tipoCache,
+    metadataService,
     $state,
     $stateParams,
     $mdToast,
@@ -21,29 +19,10 @@
     tipoClientJavascript) {
 
     var _instance = this;
-    var initTipos = angular.copy(tipos);
-    _instance.tipoDefinition = tipoDefinition;
-    _instance.tipoFilters = tipoFilters;
-    _instance.tipos = tipos;
-    _instance.busy = false;
-    _instance.updatetipo = {};
-    _instance.loading = false;
-    var page = 2;
-    var per_page = tipoDefinition.tipo_meta.default_page_size;
-    var responseData = tipoRegistry.get($stateParams.tipo_name + '_resdata');
-    _instance.perm = responseData.perm;
-    _instance.restricted_actions = responseData.restricted_actions;
-
-    var tipo_name = tipoDefinition.tipo_meta.tipo_name;
-
-    _instance.tiposWithDefinition = tipoManipulationService.mergeDefinitionAndDataArray(tipoDefinition,tipos);
-    _instance.bulkedit = false;
-    _instance.singleedit = false;
-    if (_.isUndefined(_instance.tipoDefinition.tipo_meta.allow_search)) {
-      _instance.tipoDefinition.tipo_meta.allow_search = true;
-    };
-
-    _instance.hasTipos = tipos.length > 0;
+    var role = metadataService.userMetadata.role;
+    var tipo_name = $stateParams.tipo_name;
+    _instance.tipo_name = $stateParams.tipo_name;
+    _instance.listUrl = "g/public/gen_temp/common/views/list.tpl.html." + role + "___" + $stateParams.tipo_name;
 
     if ($stateParams.tab_url) {
       var resData = tipoRegistry.get($stateParams.tab_url);
@@ -78,6 +57,33 @@
       };
     };
 
+    _instance.initTiposData = function(tipoFilters,page_size,allow_search){
+      var filter = {};
+      _instance.hasTipos = true;
+      _instance.allow_search = allow_search;
+      if ($stateParams.filter) {
+        _instance.tipoFilters = tipoManipulationService.convertToFilterExpression(tipoFilters,$stateParams.filter);
+        getPerspective(filter);
+      };
+      filter.page = 1;
+      _instance.per_page = page_size || 10;
+      filter.per_page = _instance.per_page;
+      tipoInstanceDataService.search($stateParams.tipo_name, filter).then(function(tipos){
+        _instance.tipos = tipos;
+        _instance.hasTipos = tipos.length > 0;
+        var initTipos = angular.copy(tipos);
+        _instance.busy = false;
+        _instance.updatetipo = {};
+        _instance.loading = false;
+        _instance.page = 2;
+        var per_page = _instance.per_page;
+        var responseData = tipoRegistry.get($stateParams.tipo_name + '_resdata');
+        _instance.perm = responseData.perm;
+        _instance.restricted_actions = responseData.restricted_actions;
+        _instance.bulkedit = false;
+        _instance.singleedit = false;
+      });
+    }
     function getPerspective(filter){
       var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
       // TODO: Hack - Sushil as this is supposed to work only for applications
@@ -85,7 +91,7 @@
           filter.tipo_filter = "(_all:(" + _instance.searchText + "*))";
       };
       if (perspectiveMetadata.tipoName) {
-        if (perspectiveMetadata.tipoName !== tipoDefinition.tipo_meta.tipo_name && perspectiveMetadata.tipoFilter) {
+        if (perspectiveMetadata.tipoName !== $stateParams.tipo_name && perspectiveMetadata.tipoFilter) {
           if (filter.tipo_filter) {
             filter.tipo_filter += " AND " + perspectiveMetadata.tipoFilter;
           }else{
@@ -96,9 +102,9 @@
 
       if ($stateParams.filter) {
         if (filter.tipo_filter) {
-          filter.tipo_filter += " AND " + tipoManipulationService.expandFilterExpression(tipoFilters.currentExpression);
+          filter.tipo_filter += " AND " + tipoManipulationService.expandFilterExpression(_instance.tipoFilters.currentExpression);
         } else {
-          filter.tipo_filter = tipoManipulationService.expandFilterExpression(tipoFilters.currentExpression);
+          filter.tipo_filter = tipoManipulationService.expandFilterExpression(_instance.tipoFilters.currentExpression);
         }
       }
     }
@@ -261,14 +267,14 @@
       _instance.loading = true;
       var filter = {};
       getPerspective(filter);
-      filter.page = angular.copy(page);
-      filter.per_page = per_page;
+      filter.page = angular.copy(_instance.page);
+      filter.per_page = _instance.per_page;
       tipoRouter.startStateChange();
       tipoInstanceDataService.search($stateParams.tipo_name, filter).then(function(tiposData){
         if (!_.isEmpty(tiposData)) {
           _instance.tipos = _.union(_instance.tipos,tiposData);
           _instance.busy = false;
-          page++;
+          _instance.page++;
         };
         _instance.loading = false;
         tipoRouter.endStateChange();

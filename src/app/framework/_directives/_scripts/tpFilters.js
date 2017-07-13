@@ -11,15 +11,15 @@
     $stateParams) {
       return {
         scope: {
-          definition: '=',
-          filterslist: '='
+          tipoName: '=',
+          tipoFilters: '=',
         },
         restrict: 'EA',
         replace: true,
         templateUrl: 'framework/_directives/_views/tp-filters.tpl.html',
         link: function(scope, element, attrs){
 
-          var tipo_name = scope.definition.tipo_meta.tipo_name;
+          var tipo_name = scope.tipoName;
 
           scope.search = function(){
             if(!_.isEmpty(scope.currentFilters)){
@@ -28,7 +28,7 @@
               tipoRouter.toTipoList(tipo_name);
             }
           };
-          scope.filters = _.filter(scope.filterslist.filters,function(filter){ return !filter.hidden });
+          scope.filters = _.filter(scope.tipoFilters,function(filter){ return !filter.hidden_ });
 
           if($stateParams.filter){
             scope.currentFilters = $stateParams.filter;
@@ -38,7 +38,7 @@
           }
 
           scope.removeFromCurrentExpression = function(){
-            scope.currentFilters = _.map(scope.selectedArray,'name').join("&&");
+            scope.currentFilters = _.map(scope.selectedArray,'display_name').join("&&");
             scope.search();
           } 
 
@@ -48,9 +48,9 @@
               scope.removeFromCurrentExpression();
             }else{
               if ($stateParams.filter) {
-              scope.currentFilters = scope.currentFilters + "&&" + filter.name;
+              scope.currentFilters = scope.currentFilters + "&&" + filter.display_name;
               }else{
-                scope.currentFilters = filter.name;
+                scope.currentFilters = filter.display_name;
               }
               scope.search();
             }

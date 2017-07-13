@@ -8,6 +8,7 @@
     tipoResource,
     cognitoService,
     tipoCache,
+    tipoInstanceDataService,
     $state,
     $stateParams,
     $mdToast,
@@ -97,9 +98,20 @@
           tipouser: user.fullName()
         };
         // Authenticate
+        var criteria = {bare_event: 'Y',post_event: 'Y'};
         cognitoService.authenticate(user.fullName(), user.password).then(function() {
           cognitoService.resendCode().then(function() {
             tipoCache.clearMemoryCache();
+            tipoInstanceDataService.upsertAll('TipoAccount',[{account:account ,application:appMetadata.application ,tipo_id:account ,account_name:user.accountName ,application_owner_account:appMetadata.owner ,company_name:user.companyName }],criteria).then(function(res){
+            },
+            function(err){
+              raiseError(err);
+            });
+            tipoInstanceDataService.upsertAll('TipoUser',[{account:account ,application:appMetadata.application ,tipo_id:user.email ,application_owner_account:appMetadata.owner,role: "Admin" }],criteria).then(function(res){
+            },
+            function(err){
+              raiseError(err);
+            });
             tipoRouter.to('dashboard');
           }, function(err) {
             console.error(err);

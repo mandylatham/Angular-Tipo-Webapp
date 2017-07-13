@@ -16,7 +16,9 @@
     tipoRegistry) {
 
     var _instance = this;
-
+    if ($stateParams.hideheader) {
+      _instance.hideheader = true;
+    };
 
     function addPerspectives(userMeta,homeMeta){
         _instance.perspectives = [{

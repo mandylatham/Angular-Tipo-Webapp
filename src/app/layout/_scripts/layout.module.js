@@ -32,7 +32,7 @@
     var layoutState = {
       name: 'layout',
       abstract: true,
-      url: '?perspective&mobile_auth&openSidenav',
+      url: '?perspective&mobile_auth&hideheader',
       parent: 'root',
       resolve: /*@ngInject*/
       {
