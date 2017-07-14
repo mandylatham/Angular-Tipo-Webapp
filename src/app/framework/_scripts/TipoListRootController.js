@@ -284,14 +284,14 @@
     _instance.search = function(){
       var filter = {};
       getPerspective(filter);
-      page = 1;
-      filter.page = angular.copy(page);
-      filter.per_page = per_page;
+      _instance.page = 1;
+      filter.page = angular.copy(_instance.page);
+      filter.per_page = _instance.per_page;
       tipoRouter.startStateChange();
       tipoCache.evict($stateParams.tipo_name);
       tipoInstanceDataService.search($stateParams.tipo_name, filter).then(function(tiposData){
         _instance.tipos = tiposData;
-        page++;
+        _instance.page++;
         _instance.busy = false;
         tipoRouter.endStateChange();
       });
