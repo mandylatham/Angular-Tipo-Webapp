@@ -16,7 +16,7 @@
     var _instance = this;
     _instance.tipoDefinition = tipoDefinition;
     _instance.tipoAction = tipoAction;
-
+    _instance.hide_actions = true;
     _instance.tipo = {};
     _instance.context = $scope.context;
     $scope.Date = Date;
