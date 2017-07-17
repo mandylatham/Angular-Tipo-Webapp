@@ -90,6 +90,12 @@ googleAnalytics = ""
 	url    = "/"
 	weight = 9
 
+[[menu.main]]
+	name   = "Reference Manual"
+	url    = "reference_manual/index.html"
+	weight = 10
+
+
 
 [blackfriday]
 	smartypants	= true
