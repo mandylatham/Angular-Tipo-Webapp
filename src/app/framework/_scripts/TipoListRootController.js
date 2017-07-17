@@ -66,6 +66,7 @@
         getPerspective(filter);
       };
       filter.page = 1;
+      _instance.page = 2;
       _instance.per_page = page_size || 10;
       filter.per_page = _instance.per_page;
       tipoInstanceDataService.search($stateParams.tipo_name, filter).then(function(tipos){
@@ -75,7 +76,6 @@
         _instance.busy = false;
         _instance.updatetipo = {};
         _instance.loading = false;
-        _instance.page = 2;
         var per_page = _instance.per_page;
         var responseData = tipoRegistry.get($stateParams.tipo_name + '_resdata');
         _instance.perm = responseData.perm;
