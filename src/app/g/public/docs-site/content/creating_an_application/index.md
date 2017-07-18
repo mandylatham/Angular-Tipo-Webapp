@@ -6,7 +6,7 @@ weight: 2
 ## Introduction
 When you log in to your TipoTapp account, the first view that you'll see is the Home Page of the Dashboard with the `My Apps` tab selected. This is where you'll be able to access your created apps.
 
-![My Apps](../assets/images/creating_an_application_01.png)
+![My Apps](/images/creating_an_application_01.png)
 
 TipoTapp allows you to create several applications. Each application that you create will own its data and it will also be isolated from other applications.
 
@@ -67,7 +67,7 @@ To create an application, click on the + button on the bottom right side of the 
 
 On the page that appears, fill in the details for the application.
 
-![My Apps](../../assets/images/creating_an_application_02.png)
+![My Apps](/images/creating_an_application_02.png)
 
 The App Name is the only required field here. You must ensure that the name entered is unique to your account. A user account cannot have apps sharing the same name. You can also add a Description of the app and select an Icon from a list of available Material Design icons.
 
@@ -75,13 +75,13 @@ The `App Link` will be automatically generated. As the name implies, this will b
 
 If you publish an app as a Sample App, it will be publicly available and accessible via the `Sample Apps` tab of the Home Page.
 
-![Sample Apps](../../../assets/images/creating_an_application_03.png)
+![Sample Apps](/images/creating_an_application_03.png)
 
 Here you'll find other apps that you can take a look at to see what's possible to build with TipoTapp. You can copy these and play around with them to get a feel of the system.
 
 After creating an app, it will be visible on the Dashboard. Below, you can see the app I created with a custom Description and App Icon.
 
-![Student Management System](../../../../assets/images/creating_an_application_04.png)
+![Student Management System](/images/creating_an_application_04.png)
 
 ## Modelling App Data
 You just created an application and it's immediately available for use, but without any useful data, it is not that useful to you. In this section, we'll take a look at how you can model your app's data.
