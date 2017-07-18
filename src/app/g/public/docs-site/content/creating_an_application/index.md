@@ -6,7 +6,7 @@ weight: 2
 ## Introduction
 When you log in to your TipoTapp account, the first view that you'll see is the Home Page of the Dashboard with the `My Apps` tab selected. This is where you'll be able to access your created apps.
 
-![My Apps](../../../assets/images/creating_an_application/creating_an_application_01.png)
+![My Apps](/images/creating_an_application_01.png)
 
 TipoTapp allows you to create several applications. Each application that you create will own its data and it will also be isolated from other applications.
 
