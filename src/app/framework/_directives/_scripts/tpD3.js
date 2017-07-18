@@ -23,9 +23,9 @@
           scope.options = {};
           scope.options.chart = {type: scope.chart_type};
           // if (scope.agrregation === "count") {
-            // tipoInstanceDataService.aggegrationData(scope.data).then(function(results){
-            //   console.log(results);
-            // });
+          //   tipoInstanceDataService.aggegrationData(scope.data).then(function(results){
+          //     console.log(results);
+          //   });
           // };          
         }
       };

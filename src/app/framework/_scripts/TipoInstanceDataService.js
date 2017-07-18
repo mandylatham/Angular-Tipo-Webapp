@@ -37,9 +37,9 @@
 
     function populateGeolocation(tipo){
       if(metadataService.geoLocation){
-        tipo.data.underscore_location = {};
-        tipo.data.underscore_location.lat = metadataService.geoLocation.latitude;
-        tipo.data.underscore_location.lon = metadataService.geoLocation.longitude;
+        tipo.data.tipo_location = {};
+        tipo.data.tipo_location.lat = metadataService.geoLocation.latitude;
+        tipo.data.tipo_location.lon = metadataService.geoLocation.longitude;
       }
     }
 
