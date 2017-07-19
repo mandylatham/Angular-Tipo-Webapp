@@ -535,11 +535,14 @@
       var parts = perspective.split('.');
       var tipoName = parts[0];
       var tipoDefinition = tipoRegistry.get(tipoName);
-
+      var displayName;
+      if (tipoDefinition) {
+        displayName = tipoDefinition.tipo_meta.display_name;
+      };
       var metadata = {
         perspective: perspective,
         tipoName: tipoName,
-        displayName: tipoDefinition.tipo_meta.display_name
+        displayName: displayName
       };
 
       if(parts.length > 1){
