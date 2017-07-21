@@ -50,6 +50,7 @@
     "swiper": "3.4.2",
     "quill-bower": "1.2.5",
     "angular-google-places-autocomplete": "0.2.7",
+    "angular-flatpickr": "2.0.0",
     "angular-truncate": "git://github.com/sparkalow/angular-truncate.git#master",
     "JSONPath": "git://github.com/clementlamoureux/JSONPath.git#master"
   },
