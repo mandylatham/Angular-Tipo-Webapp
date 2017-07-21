@@ -323,6 +323,9 @@
       tipoRouter.startStateChange();
       getPerspective(filter);
       tipoCache.evict($stateParams.tipo_name, $stateParams.tipo_id);
+      $templateCache.remove(_instance.createUrl);
+      $templateCache.remove(_instance.detailUrl);
+      $templateCache.remove(_instance.updateUrl);
       tipoInstanceDataService.getOne($stateParams.tipo_name, $stateParams.tipo_id, filter, true).then(function (data) {
         data.tipo_id = data.tipo_id || $stateParams.tipo_id;
         _instance.tipo = data;
