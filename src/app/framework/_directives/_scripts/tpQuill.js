@@ -8,7 +8,7 @@
       return {
         scope: {
           fieldValue: "=",
-          mode: "=",
+          mode: "="
         },
         restrict: 'EA',
         replace: true,
