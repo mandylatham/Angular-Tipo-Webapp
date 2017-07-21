@@ -16,6 +16,7 @@
     $window,
     $rootScope,
     $scope,
+    $templateCache,
     tipoClientJavascript) {
 
     var _instance = this;
@@ -255,6 +256,7 @@
       tipoRouter.startStateChange();
       getPerspective(filter);
       tipoCache.evict($stateParams.tipo_name);
+      $templateCache.remove(_instance.listUrl);
       tipoInstanceDataService.search($stateParams.tipo_name, filter).then(function(tiposData){
         _instance.tipos = tiposData;
         tipoRouter.endStateChange();
