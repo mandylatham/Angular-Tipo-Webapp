@@ -69,7 +69,7 @@
             });
             editor.setContents(scope.fieldValue);
           };
-          editor.on('editor-change', function(eventName, ...args) {
+          editor.on('editor-change', function(eventName) {
             var quill_content = editor.getContents();
             _.each(quill_content.ops,function(each){
               if (_.isObject(each.insert)) {
