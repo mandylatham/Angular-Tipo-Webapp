@@ -21,12 +21,16 @@
     _instance.tipoDefinition = tipoDefinition.tipoDefinition;
     _instance.popup = true;
     _instance.tipos = $scope.tipos;
+    if (_instance.tipos.length>0) {
+      _instance.hasTipos = true;
+    };
     _instance.tipo_fields = $scope.tipo_fields;
     _instance.selectedTipos = $scope.selectedTipos;
     _instance.perm = $scope.perm;
     _instance.queryparams = $scope.queryparams;
     _instance.tipo_name = $scope.tipo_name;
     _instance.disablecreate = $scope.disablecreate;
+    _instance.hideActions = true;
     _instance.bulkedit = true;
     $scope.fullscreen = true;
 
