@@ -22,7 +22,7 @@ body,button, select, html, textarea, input{
 
 #if ($tipo_customization.appearance_settings.material_theme.primary_)
 #set($colorindex = $tipo_customization.appearance_settings.material_theme.primary_.indexOf("'500': '"))
-#set($color = "#" + $tipo_customization.appearance_settings.material_theme.primary_.substring($colorindex + 6,6))
+#set($color = "#" + "$tipo_customization.appearance_settings.material_theme.primary_.substring($colorindex + 6,6)")
 #else
 #set($colorindex = $tipo_customization.appearance_settings.theme_colour.split(','))
 #set($color = $colorindex[0])
