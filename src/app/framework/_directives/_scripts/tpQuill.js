@@ -14,6 +14,30 @@
         replace: true,
         templateUrl: 'framework/_directives/_views/tp-quill.tpl.html',
         link: function(scope, element, attrs, ctrl){
+          var Clipboard = Quill.import('modules/clipboard');
+          var Delta = Quill.import('delta');
+
+          class PlainClipboard extends Clipboard {
+            convert(html = null) {
+              if (typeof html === 'string') {
+                this.container.innerHTML = html;
+              }
+              let text = this.container.innerText;
+              this.container.innerHTML = '';
+              if (S(text).contains('<iframe')) {
+                let doc = new DOMParser().parseFromString(text,'text/html');
+                let iframe = doc.body.firstChild;
+                return new Delta([{insert: { video: iframe.src },
+                                  attributes: {
+                                    width: iframe.width,
+                                    height: iframe.height
+                                  }}]);
+              };
+              return new Delta().insert(text);
+            }
+          }
+
+          Quill.register('modules/clipboard', PlainClipboard, true);
           if (scope.mode !== "view") {
               var toolbarOptions = [
                 ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
@@ -33,6 +57,8 @@
                 ['clean']                                        // remove formatting button
 
               ];
+
+              
               var options = {
                 debug: 'info',
                 modules: {
@@ -44,6 +70,7 @@
                 placeholder: 'Compose an epic...',
                 theme: 'snow'
               };
+
             }else{
               var options = {
                 debug: 'info',
@@ -58,23 +85,12 @@
           var editor = new Quill(element[0], options);
           var toolbar = editor.getModule('toolbar');
           if (scope.fieldValue) {
-             _.each(scope.fieldValue.ops,function(each){
-              if (_.isObject(each.insertArray)) {
-                each.insert = each.insertArray;
-                delete each.insertArray;
-              };
-            });
-            editor.setContents(scope.fieldValue);
+            editor.setContents(JSON.parse(scope.fieldValue));
           };
+          let pasteDelta = null;
           editor.on('editor-change', function(eventName) {
             var quill_content = editor.getContents();
-            _.each(quill_content.ops,function(each){
-              if (_.isObject(each.insert)) {
-                each.insertArray = each.insert;
-                delete each.insert;
-              };
-            });
-            scope.fieldValue = quill_content;
+            scope.fieldValue = JSON.stringify(quill_content);
           });
 
         }
