@@ -14,33 +14,34 @@
         replace: true,
         templateUrl: 'framework/_directives/_views/tp-quill.tpl.html',
         link: function(scope, element, attrs, ctrl){
-          // var Clipboard = Quill.import('modules/clipboard');
-          // var Delta = Quill.import('delta');
-          // class PlainClipboard extends Clipboard {
-          //   convert(html = null) {
-          //     if (typeof html === 'string') {
-          //       this.container.innerHTML = html;
-          //     }
-          //     let text = this.container.innerText;
-          //     this.container.innerHTML = '';
-          //     if (S(text).contains('<iframe')) {
-          //       let doc = new DOMParser().parseFromString(text,'text/html');
-          //       let iframe = doc.body.firstChild;
-          //       return new Delta([{insert: { video: iframe.src },
-          //                         attributes: {
-          //                           width: iframe.width,
-          //                           height: iframe.height
-          //                         }}]);
-          //     };
-          //     return new Delta().insert(text);
-          //   }
-          // }
-
-          // Quill.register('modules/clipboard', PlainClipboard, true);
+          function customizeQuillVideo(){
+            var Video = Quill.import('formats/video');
+            var AddHeight = function(node, val){
+              Video.call(this,node,val);
+            };
+            AddHeight.prototype = Object.create(Video.prototype);
+            $.extend(AddHeight, Object.create(Video));
+            AddHeight.prototype.constructor = AddHeight;
+            AddHeight.create = function create(value){
+              var node;
+              if (S(value).contains(",")) {
+                var inpVal = value.split(",");
+                node = Video.create(inpVal[1]);
+                node.setAttribute('height', inpVal[0]);
+              }else{
+                node = Video.create(value);
+                var height = (element[0].offsetWidth)/1.77;
+                node.setAttribute('height', height);
+              }
+              return node;
+            }
+            Quill.register('formats/video', AddHeight, true);
+          }
+          customizeQuillVideo();
           if (scope.mode !== "view") {
               var toolbarOptions = [
                 ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-                ['blockquote', 'code-block'],
+                ['blockquote', 'code-block','link'],
 
                 [{ 'list': 'ordered'}, { 'list': 'bullet' }],
                 [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
@@ -82,7 +83,6 @@
               };
             }
           var editor = new Quill(element[0], options);
-          var toolbar = editor.getModule('toolbar');
           if (scope.fieldValue) {
             editor.setContents(JSON.parse(scope.fieldValue));
           };
