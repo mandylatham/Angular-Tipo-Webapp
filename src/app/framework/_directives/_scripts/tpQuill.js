@@ -22,17 +22,12 @@
             AddHeight.prototype = Object.create(Video.prototype);
             $.extend(AddHeight, Object.create(Video));
             AddHeight.prototype.constructor = AddHeight;
-            AddHeight.create = function create(value){
-              var node;
-              if (S(value).contains(",")) {
-                var inpVal = value.split(",");
-                node = Video.create(inpVal[1]);
-                node.setAttribute('height', inpVal[0]);
-              }else{
-                node = Video.create(value);
-                var height = (element[0].offsetWidth)/1.77;
-                node.setAttribute('height', height);
-              }
+            AddHeight.value = Video.value;
+            AddHeight.formats = Video.formats;
+            AddHeight.create = function create(val){
+              var node = Video.create(val);
+              var height = (element[0].offsetWidth)/1.77;
+              node.setAttribute('height', height);
               return node;
             }
             Quill.register('formats/video', AddHeight, true);
