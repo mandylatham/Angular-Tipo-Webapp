@@ -6,17 +6,17 @@
 
 body,button, select, html, textarea, input{
 	#if ($tipo_customization.appearance_settings.font_family)
-	font-family:'$tipo_customization.appearance_settings.font_family';
+	font-family:'$tipo_customization.appearance_settings.font_family' !important;
 	#else
-	font-family:'Questrial';
+	font-family:'Questrial' !important;
 	#end
 }
 
 .ql-container{
 	#if ($tipo_customization.appearance_settings.font_family)
-	font-family:'$tipo_customization.appearance_settings.font_family';
+	font-family:'$tipo_customization.appearance_settings.font_family' !important;
 	#else
-	font-family:'Questrial';
+	font-family:'Questrial' !important;
 	#end
 }
 
