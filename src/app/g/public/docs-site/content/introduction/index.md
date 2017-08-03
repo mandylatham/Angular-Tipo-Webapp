@@ -1,5 +1,6 @@
 ---
 title: Introduction
+type: index
 weight: 1
 ---
 
