@@ -47,32 +47,32 @@ googleAnalytics = ""
 
 [[menu.main]]
 	name   = "Introduction"
-	url    = "introduction/index.html"
+	url    = "introduction/"
 	weight = 1
 	
 [[menu.main]]
 	name   = "Creating an Application - Basic"
-	url    = "creating_an_application_basic/index.html"
+	url    = "creating_an_application_basic/"
 	weight = 2
 	
 [[menu.main]]
 	name   = "Creating an Application - Intermediate"
-	url    = "creating_an_application_intermediate/index.html"
+	url    = "creating_an_application_intermediate/"
 	weight = 3
 	
 [[menu.main]]
 	name   = "Creating an Application - Advanced"
-	url    = "creating_an_application_advanced/index.html"
+	url    = "creating_an_application_advanced/"
 	weight = 4
 	
 [[menu.main]]
 	name   = "TipoTapp's Interface"
-	url   = "tipotapp_interface/index.html"
+	url   = "tipotapp_interface/"
 	weight = 5
 	
 [[menu.main]]
 	name   = "Reference Manual"
-	url    = "reference_manual/index.html"
+	url    = "reference_manual/"
 	weight = 6
 
 
