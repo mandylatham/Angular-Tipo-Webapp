@@ -80,7 +80,7 @@ Get tipo data for `tipo_name` with ID specified in `tipo_id`.
 	- tipo_name
 	- tipo_id
 	- query_params
-	// return tipo;
+	// return tipo as a promise;
 
 ### ``` getTipos(tipo_name, query_params) ```
 

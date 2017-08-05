@@ -6,9 +6,13 @@
   function TipoHandle(tipoCache,
                       tipoInstanceDataService,
                       tipoDefinitionDataService,
+                      metadataService,
                       $location,
                       $mdToast,
-                      $mdDialog){
+                      $mdDialog,
+                      $stateParams){
+
+    var role = metadataService.userMetadata.role;
      
      function getConfirmation(title, user_message){
        var confirmation = $mdDialog.confirm()
@@ -56,24 +60,30 @@
       });
      }
 
+     function saveTipos(tipo_name, tipo_data){
+      return tipoInstanceDataService.updateAll(tipo_name,tipo_data);
+     }
+
+     function createTipo(tipo_name, tipo_data, query_params){
+      return tipoInstanceDataService.upsertAll([tipo_name],tipo_data);
+     }
+
+     function createTipos(tipo_name, tipo_data, query_params){
+      return tipoInstanceDataService.upsertAll(tipo_name,tipo_data);
+     }
+
      function deleteTipo(tipo_name,tipo_id){
-      tipoInstanceDataService.deleteOne(tipo_name,tipo_id).then(function(tipoResponse){
-        return true;
-      });
+      return tipoInstanceDataService.deleteOne(tipo_name,tipo_id);
      }
 
      function getTipo(tipo_name, tipo_id, query_params){
       tipoCache.evict(tipo_name, tipo_id);
-      tipoInstanceDataService.getOne(tipo_name, tipo_id, query_params).then(function(tipo){
-        return tipo;
-      });
+      return tipoInstanceDataService.getOne(tipo_name, tipo_id, query_params);
      }
 
      function getTipos(tipo_name, query_params){
       tipoCache.evict(tipo_name);
-      tipoInstanceDataService.search(tipo_name).then(function(tipos){
-        return tipos;
-      });
+      return tipoInstanceDataService.search(tipo_name);
      }
 
      function presentForm(tipo_name, tipo, submit_label, show_cancel){
@@ -89,6 +99,32 @@
       $mdToast.show(toast);
      };
 
+     function updateUrl(tipo_name){
+      return "g/public/gen_temp/common/views/update.tpl.html." + role + "___" + tipo_name;
+     }
+
+     function createUrl(tipo_name){
+      return "g/public/gen_temp/common/views/create.tpl.html." + role + "___" + tipo_name;
+     }
+
+     function detailUrl(tipo_name){
+      return "g/public/gen_temp/common/views/view.tpl.html." + role + "___" + tipo_name;
+     }
+
+     this.getConfirmation = getConfirmation;
+     this.hideElement = hideElement;
+     this.showElement = showElement;
+     this.getTipoDefinition = getTipoDefinition;
+     this.routeTo = routeTo;
+     this.saveTipo = saveTipo;
+     this.deleteTipo = deleteTipo;
+     this.getTipo = getTipo;
+     this.getTipos = getTipos;
+     this.presentForm = presentForm;
+     this.showMessage = showMessage;
+     this.updateUrl = updateUrl;
+     this.createUrl = createUrl;
+     this.detailUrl = detailUrl;
 
 
 

@@ -4,7 +4,7 @@
 
   function TipoListRootController(
     tipoManipulationService,
-    tipoInstanceDataService,
+    tipoHandle,
     tipoRouter,
     tipoRegistry,
     tipoCache,
@@ -70,7 +70,7 @@
       _instance.page = 2;
       _instance.per_page = page_size || 10;
       filter.per_page = _instance.per_page;
-      tipoInstanceDataService.search($stateParams.tipo_name, filter).then(function(tipos){
+      tipoHandle.getTipos($stateParams.tipo_name, filter).then(function(tipos){
         _instance.tipos = tipos;
         _instance.hasTipos = tipos.length > 0;
         var initTipos = angular.copy(tipos);
@@ -111,7 +111,7 @@
     }
 
     function bulkUpdateTipos(tipo){
-      tipoInstanceDataService.updateAll(tipo_name, tipo).then(function(result){
+      tipoHandle.saveTipos(tipo_name, tipo).then(function(result){
           if(tipoRouter.stickyExists()){
             tipoRouter.toStickyAndReset();
           }else{
@@ -130,7 +130,7 @@
       if(perspectiveMetadata.fieldName && !tipo[perspectiveMetadata.fieldName]){
         tipo[perspectiveMetadata.fieldName] = perspectiveMetadata.tipoId;
       }
-      tipoInstanceDataService.upsertAll(tipo_name, tipo).then(function(result){
+      tipoHandle.createTipos(tipo_name, tipo).then(function(result){
         if(tipoRouter.stickyExists()){
           tipoRouter.toStickyAndReset();
         }else{ 
@@ -244,7 +244,7 @@
             filter.tipo_filter = perspectiveMetadata.tipoFilter;
           }
           // ends here
-          tipoInstanceDataService.deleteOne(tipo_name, tipo_id, filter).then(function(){
+          tipoHandle.deleteTipo(tipo_name, tipo_id, filter).then(function(){
             tipoRouter.toTipoList(tipo_name);
           });
         });
@@ -257,7 +257,7 @@
       getPerspective(filter);
       tipoCache.evict($stateParams.tipo_name);
       $templateCache.remove(_instance.listUrl);
-      tipoInstanceDataService.search($stateParams.tipo_name, filter).then(function(tiposData){
+      tipoHandle.getTipos($stateParams.tipo_name, filter).then(function(tiposData){
         _instance.tipos = tiposData;
         tipoRouter.endStateChange();
       });
@@ -272,7 +272,7 @@
       filter.page = angular.copy(_instance.page);
       filter.per_page = _instance.per_page;
       tipoRouter.startStateChange();
-      tipoInstanceDataService.search($stateParams.tipo_name, filter).then(function(tiposData){
+      tipoHandle.getTipos($stateParams.tipo_name, filter).then(function(tiposData){
         if (!_.isEmpty(tiposData)) {
           _instance.tipos = _.union(_instance.tipos,tiposData);
           _instance.busy = false;
@@ -291,7 +291,7 @@
       filter.per_page = _instance.per_page;
       tipoRouter.startStateChange();
       tipoCache.evict($stateParams.tipo_name);
-      tipoInstanceDataService.search($stateParams.tipo_name, filter).then(function(tiposData){
+      tipoHandle.getTipos($stateParams.tipo_name, filter).then(function(tiposData){
         _instance.tipos = tiposData;
         _instance.page++;
         _instance.busy = false;
