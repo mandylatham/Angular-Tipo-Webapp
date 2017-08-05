@@ -1,6 +1,5 @@
-baseurl = "https://dev.tipotapp.com/app/docs/"
 languageCode = "en-us"
-title = "TipoTapp Docs"
+title = "TipoTapp Documentation"
 theme = "hugo-material-docs"
 metadataformat = "yaml"
 canonifyurls = true
@@ -9,16 +8,16 @@ googleAnalytics = ""
 
 [params]
 	# General information
-	author = "Digitalcraftsman"
-	description = "A material design theme for documentations."
+	author = "TipoTapp"
+	description = "TipoTapp - Documentation"
 	copyright = "TipoTapp Inc"
 
 	# Repository
-	provider = "GitHub"
-	repo_url = "https://github.com/digitalcraftsman/hugo-material-docs"
+	# provider = "GitHub"
+	# repo_url = "https://github.com/digitalcraftsman/hugo-material-docs"
 
 	version = "1.0.0"
-	logo = "../assets/images/logo.png"
+	logo = "/g/public/assets/images/logo.png"
 	favicon = ""
 
 	permalink = "#"
