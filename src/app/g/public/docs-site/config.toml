@@ -1,3 +1,4 @@
+baseurl = "https://dev.tipotapp.com/docs/"
 languageCode = "en-us"
 title = "TipoTapp Documentation"
 theme = "hugo-material-docs"
