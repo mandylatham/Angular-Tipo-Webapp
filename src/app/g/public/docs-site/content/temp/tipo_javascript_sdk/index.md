@@ -65,6 +65,32 @@ Save tipo on server with the data supplied in `tipo_data`.
 	- tipo_data
 	// return boolean; If true save tipo is successful.
 
+### ``` saveTipos(tipo_name, tipo_data) ```
+
+Save array tipo on server with the data supplied in `tipo_data`.
+
+	- tipo_name
+	- tipo_data
+	// return boolean; If true save tipo is successful.
+	
+### ``` createTipo(	tipo_name, tipo_data, query_params) ```
+
+Create tipo on server with the data supplied in `tipo_data`.
+
+	- tipo_name
+	- tipo_data
+	- query_params
+	// return boolean; If true save tipo is successful.
+
+### ``` createTipos(tipo_name, tipo_data, query_params) ```
+
+Create array of tipos on server with the array data supplied in `tipo_data`.
+
+	- tipo_name
+	- tipo_data
+	- query_params
+	// return boolean; If true save tipo is successful.
+
 ### ``` deleteTipo(tipo_name,tipo_id) ```
 
 Delete tipo with name specified in `tipo_name` and ID specified in `tipo_id`.
@@ -80,7 +106,7 @@ Get tipo data for `tipo_name` with ID specified in `tipo_id`.
 	- tipo_name
 	- tipo_id
 	- query_params
-	// return tipo as a promise;
+	// return promise;
 
 ### ``` getTipos(tipo_name, query_params) ```
 
@@ -88,9 +114,9 @@ Get tipo data for `tipo_name` with query parameters specified in `query_params`.
 
 	- tipo_name
 	- query_params
-	// return tipos;
+	// return promise;
 	
-### ``` presentForm(tipo_name, tipo, submit_label, show_cancel) ```
+### ``` presentForm(tipo_name, tipo, context, submit_label, show_cancel) ```
 
 Present create form using the structure of the tipo definition specified in `tipo_name` and the `submit_label` is displayed to the user. This function does not save the data collected on the server, instead it will simply save data in `tipo_data`.
 	
@@ -98,6 +124,7 @@ Present create form using the structure of the tipo definition specified in `tip
 	- tipo: once user submits data is saved in this object
 	- submit_label: Name to the submit button
 	- show_cancel: boolean to indicate if the cancel button should be displayed
+	- context: If an action is performed on a tipo, and if the client side dependency form presented requires base tipo data use this object. 
 	// return void;
 	
 
