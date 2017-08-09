@@ -2,86 +2,99 @@
 
   'use strict';
 
-  function TipoActionDialogController(
-    tipoDefinition,
-    tipoAction,
+  function TipoLookupDialogController(
+    tipoInstanceDataService,
     tipoManipulationService,
     $scope,
-    tipoRouter,
-    tipoInstanceDataService,
     $mdDialog) {
-    
-    var _instance = this;
-    _instance.tipoDefinition = tipoDefinition;
-    _instance.tipoAction = tipoAction;
-    _instance.hide_actions = true;
-    _instance.tipo = {};
-    _instance.context = $scope.context;
-    $scope.Date = Date;
 
-    _instance.hooks = {};
-    _instance.fullscreen = true;
-    _instance.maximize = function(){
-      _instance.fullscreen = true;
-    };
+    var target = $scope.target;
+    $scope.fullscreen = true;
 
-    _instance.restore = function(){
-      _instance.fullscreen = false;
-    };
+    var relatedTipoName = $scope.relatedTipo;
 
-    _instance.lookupTipo = function(relatedTipo,labelfield,prefix){
-      var newScope = $scope.$new();
-      newScope.root = _instance.tipoDefinition;
-      newScope.relatedTipo = relatedTipo;
-      newScope.labelfield = labelfield;
-      newScope.tipo = _instance.tipo[prefix];
-      var promise = $mdDialog.show({
-        templateUrl: 'framework/_directives/_views/tp-lookup-dialog.tpl.html',
-        controller: 'TipoLookupDialogController',
-        scope: newScope,
-        skipHide: true,
-        clickOutsideToClose: true,
-        fullscreen: true
-      });
-      promise.then(function(tipo){
-        _instance.tipo[prefix] = tipo;
-      });
-    }
+    $scope.tipoDisplayName = relatedTipoName;
+    $scope.fieldlabel = {};
 
-    _instance.finish = function() {
-      var tipoData = _instance.tipo;
-      if(_instance.hooks.preFinish){
-        var result = _instance.hooks.preFinish();
-        if(!result){
-          return;
-        }
-        tipoData = _instance.data;
-      }
-      if(_.isEmpty(tipoData)) {
-        tipoManipulationService.extractDataFromMergedDefinition(tipoDefinition, tipoData);
-      }
-      tipoRouter.startStateChange();
-      if(_.isArray($scope.tipoids)){
-        tipoInstanceDataService.performBulkAction($scope.parentTipo, tipoAction.name, $scope.tipoids, tipoDefinition.tipo_meta.tipo_name, tipoData)
-          .then(function(response){
-            $mdDialog.hide(response);
-          },function(error){
-            tipoRouter.endStateChange();
-          });
-      }else{
-        tipoInstanceDataService.performSingleAction($scope.parentTipo, $scope.tipoids, tipoAction.name, tipoDefinition.tipo_meta.tipo_name, tipoData)
-          .then(function(response){
-            $mdDialog.hide(response);
-          },function(error){
-            tipoRouter.endStateChange();
-          });
+    $scope.tipoId = "";
+
+    $scope.populateData = function() {
+      var tipoId = $scope.tipoId;
+      if(!_.isUndefined(tipoId)){
+        tipoInstanceDataService.getOne(relatedTipoName, tipoId).then(function(tipo){
+          $mdDialog.hide(tipo);
+        });
       }
     };
 
-    _instance.cancel = function() {
+    $scope.cancel = function() {
       $mdDialog.cancel();
     };
   }
+
+  // function TipoActionDialogController(
+  //   tipoDefinition,
+  //   tipoAction,
+  //   tipoManipulationService,
+  //   $scope,
+  //   tipoRouter,
+  //   tipoInstanceDataService,
+  //   $mdDialog) {
+    
+  //   var _instance = this;
+  //   _instance.tipoDefinition = tipoDefinition;
+  //   _instance.tipoAction = tipoAction;
+  //   _instance.hide_actions = true;
+  //   _instance.tipo = {};
+  //   _instance.context = $scope.context;
+  //   $scope.Date = Date;
+
+  //   _instance.hooks = {};
+  //   _instance.fullscreen = true;
+  //   _instance.maximize = function(){
+  //     _instance.fullscreen = true;
+  //   };
+
+  //   _instance.restore = function(){
+  //     _instance.fullscreen = false;
+  //   };
+
+  //   _instance.lookupTipo = function(relatedTipo,labelfield,prefix){
+  //     var newScope = $scope.$new();
+  //     newScope.root = _instance.tipoDefinition;
+  //     newScope.relatedTipo = relatedTipo;
+  //     newScope.labelfield = labelfield;
+  //     newScope.tipo = _instance.tipo[prefix];
+  //     var promise = $mdDialog.show({
+  //       templateUrl: 'framework/_directives/_views/tp-lookup-dialog.tpl.html',
+  //       controller: 'TipoLookupDialogController',
+  //       scope: newScope,
+  //       skipHide: true,
+  //       clickOutsideToClose: true,
+  //       fullscreen: true
+  //     });
+  //     promise.then(function(tipo){
+  //       _instance.tipo[prefix] = tipo;
+  //     });
+  //   }
+
+  //   _instance.finish = function() {
+  //     var tipoData = _instance.tipo;
+  //     if(_instance.hooks.preFinish){
+  //       var result = _instance.hooks.preFinish();
+  //       if(!result){
+  //         return;
+  //       }
+  //       tipoData = _instance.data;
+  //     }
+  //     return tipoData;
+  //     $mdDialog.hide(tipoData);
+  //   };
+
+  //   _instance.cancel = function() {
+  //     $mdDialog.cancel();
+  //   };
+  // }
 
 
   function TipoHandle(tipoCache,
@@ -91,7 +104,6 @@
                       metadataService,
                       $location,
                       $mdToast,
-                      $mdDialog,
                       $mdDialog,
                       $stateParams){
 
@@ -170,6 +182,7 @@
      function presentForm(tipo_name, tipo, submit_label, show_cancel){
       var newScope = scope.$new();
       newScope.parentTipo = tipo;
+      newScope.tipo_name = tipo_name;
       var promise = $mdDialog.show({
         templateUrl: 'framework/_directives/_views/tp-action-dialog.tpl.html',
         controller: TipoActionDialogController,
@@ -177,8 +190,8 @@
         scope: newScope,
         resolve: /*@ngInject*/
         {
-          tipoDefinition: function(tipoDefinitionDataService, tipoManipulationService) {
-            return tipoDefinitionDataService.getOne(tipo_name);
+          tipoDefinition: function(tipoManipulationService) {
+            return getTipoDefinition(tipo_name);
           },
           tipoAction: function(){
             return action;
