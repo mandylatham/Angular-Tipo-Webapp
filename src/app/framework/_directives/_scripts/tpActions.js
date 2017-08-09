@@ -104,6 +104,7 @@
           bulkedit: '=',
           singleedit: '=',
           restrictedActions: '=',
+          visibilityExpression: '=',
           refresh: '&'
         },
         restrict: 'EA',

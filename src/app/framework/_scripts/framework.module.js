@@ -98,6 +98,16 @@
           $stateParams.perspectiveTipo = tipo;
           return tipo;
         },
+      tipoDefinition: function (tipoHandle, tipoManipulationService, tipo, $stateParams) {
+          $stateParams.perspectiveTipo = tipo;
+          var tipoDefinition = tipoHandle.getTipoDefinition($stateParams.tipo_name).then(function (definition) {
+            if (!_.isUndefined(definition)) {
+              tipoManipulationService.mergeDefinitionAndData(definition, tipo);
+            }
+            return definition;
+          });
+          return tipoDefinition;
+        },
         delay: function ($q, $timeout) {
           return falseDelay($q, $timeout);
         }
@@ -108,14 +118,14 @@
           controller: 'TipoEditRootController',
           controllerAs: 'tipoRootController'
         }
+      },
+      onEnter: /*@ngInject*/ function (tipoDefinition, tipo, $stateParams, $rootScope) {
+        var type = tipoDefinition.tipo_meta.tipo_ui_type;
+        if (type === 'perspective') {
+          $rootScope.perspective = tipoDefinition.tipo_meta.tipo_name + '.' + tipo.tipo_id;
+          $stateParams.perspective = tipoDefinition.tipo_meta.tipo_name + '.' + tipo.tipo_id;
+        }
       }
-      // onEnter: /*@ngInject*/ function (tipo, $stateParams, $rootScope) {
-      //   var type = tipoDefinition.tipo_meta.tipo_ui_type;
-      //   if (type === 'perspective') {
-      //     $rootScope.perspective = tipoDefinition.tipo_meta.tipo_name + '.' + tipo.tipo_id;
-      //     $stateParams.perspective = tipoDefinition.tipo_meta.tipo_name + '.' + tipo.tipo_id;
-      //   }
-      // }
     };
 
     var editState = {
