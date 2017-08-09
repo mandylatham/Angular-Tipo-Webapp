@@ -61,14 +61,14 @@
       }
       tipoRouter.startStateChange();
       if(_.isArray($scope.tipoids)){
-        tipoInstanceDataService.performBulkAction($scope.parentTipo, tipoAction.name, $scope.tipoids, tipoDefinition.tipo_meta.tipo_name, tipoData)
+        tipoInstanceDataService.performBulkAction($scope.parentTipo, tipoAction.name, $scope.tipoids, $scope.tipo_name, tipoData)
           .then(function(response){
             $mdDialog.hide(response);
           },function(error){
             tipoRouter.endStateChange();
           });
       }else{
-        tipoInstanceDataService.performSingleAction($scope.parentTipo, $scope.tipoids, tipoAction.name, tipoDefinition.tipo_meta.tipo_name, tipoData)
+        tipoInstanceDataService.performSingleAction($scope.parentTipo, $scope.tipoids, tipoAction.name, $scope.tipo_name, tipoData)
           .then(function(response){
             $mdDialog.hide(response);
           },function(error){
@@ -317,6 +317,7 @@
             newScope.parentTipo = parentTipo;
             newScope.tipoids = tipoids;
             newScope.context = scope.tipos;
+            newScope.tipo_name = tipo_name;
             var promise = $mdDialog.show({
               templateUrl: 'framework/_directives/_views/tp-action-dialog.tpl.html',
               controller: TipoActionDialogController,
