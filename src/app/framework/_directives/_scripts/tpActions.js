@@ -59,9 +59,6 @@
         }
         tipoData = _instance.data;
       }
-      if(_.isEmpty(tipoData)) {
-        tipoManipulationService.extractDataFromMergedDefinition(tipoDefinition, tipoData);
-      }
       tipoRouter.startStateChange();
       if(_.isArray($scope.tipoids)){
         tipoInstanceDataService.performBulkAction($scope.parentTipo, tipoAction.name, $scope.tipoids, tipoDefinition.tipo_meta.tipo_name, tipoData)
