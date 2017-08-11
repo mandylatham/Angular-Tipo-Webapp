@@ -70,10 +70,11 @@
       _instance.page = 2;
       _instance.per_page = page_size || 10;
       filter.per_page = _instance.per_page;
+      _instance.busy = true;
       tipoHandle.getTipos($stateParams.tipo_name, filter).then(function(tipos){
         _instance.tipos = tipos;
         _instance.hasTipos = tipos.length > 0;
-        var initTipos = angular.copy(tipos);
+        _instance.initTipos = angular.copy(tipos);
         _instance.busy = false;
         _instance.updatetipo = {};
         _instance.loading = false;
@@ -300,7 +301,7 @@
     }
 
     _instance.undoEdit = function(){
-      _instance.tipos = initTipos;
+      _instance.tipos = _instance.initTipos;
       _instance.bulkupdate = !_instance.bulkupdate
     } 
 

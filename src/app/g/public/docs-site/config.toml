@@ -75,6 +75,12 @@ googleAnalytics = ""
 	url    = "reference_manual/"
 	weight = 6
 
+[[menu.main]]
+	name   = "Tipo Javascript SDK"
+	url    = "tipo_javascript_sdk/"
+	weight = 6
+
+
 
 [blackfriday]
 	smartypants	= true
