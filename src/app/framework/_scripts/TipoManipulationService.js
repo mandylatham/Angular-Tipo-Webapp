@@ -551,6 +551,7 @@
           metadata.singleton = true;
         }else{
           var fieldName = tipoDefinition.tipo_meta.perspective_field_name || _.snakeCase(tipoName);
+          // var fieldName = _.snakeCase(tipoName);
           metadata.fieldName = fieldName;
           metadata.tipoId = tipoId;
           metadata.tipoFilter = '(' + fieldName + ':(' + tipoId + '))';
@@ -613,6 +614,17 @@
       return {filters: filters, currentExpression: expressionArray.join(" AND ")};
     }
 
+    function checkQueryParams(query_params){
+      var params = {};
+      _.forEach(query_params, function(value, key) {
+        if (key && (!value && !_.isBoolean(value))) {
+          value = "__NA__";
+        };
+        params[key] = value;
+      });
+      return params;
+    }
+
     // Expose the functions that need to be consumed from outside
     this.extractShortDisplayFields = extractShortDisplayFields;
     this.getFieldValue = getFieldValue;
@@ -632,6 +644,7 @@
     this.convertToFilterExpression = convertToFilterExpression;
     this.getFieldMeta = getFieldMeta;
     this.modifyTipoData = modifyTipoData;
+    this.checkQueryParams = checkQueryParams;
 
   }
 

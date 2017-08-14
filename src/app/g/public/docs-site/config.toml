@@ -1,6 +1,6 @@
-baseurl = "https://dev.tipotapp.com/app/docs/"
+baseurl = "https://dev.tipotapp.com/docs/"
 languageCode = "en-us"
-title = "TipoTapp Docs"
+title = "TipoTapp Documentation"
 theme = "hugo-material-docs"
 metadataformat = "yaml"
 canonifyurls = true
@@ -9,16 +9,16 @@ googleAnalytics = ""
 
 [params]
 	# General information
-	author = "Digitalcraftsman"
-	description = "A material design theme for documentations."
+	author = "TipoTapp"
+	description = "TipoTapp - Documentation"
 	copyright = "TipoTapp Inc"
 
 	# Repository
-	provider = "GitHub"
-	repo_url = "https://github.com/digitalcraftsman/hugo-material-docs"
+	# provider = "GitHub"
+	# repo_url = "https://github.com/digitalcraftsman/hugo-material-docs"
 
 	version = "1.0.0"
-	logo = "../assets/images/logo.png"
+	logo = "/g/public/assets/images/logo.png"
 	favicon = ""
 
 	permalink = "#"
@@ -47,33 +47,39 @@ googleAnalytics = ""
 
 [[menu.main]]
 	name   = "Introduction"
-	url    = "introduction/index.html"
+	url    = "introduction/"
 	weight = 1
 	
 [[menu.main]]
 	name   = "Creating an Application - Basic"
-	url    = "creating_an_application_basic/index.html"
+	url    = "creating_an_application_basic/"
 	weight = 2
 	
 [[menu.main]]
 	name   = "Creating an Application - Intermediate"
-	url    = "creating_an_application_intermediate/index.html"
+	url    = "creating_an_application_intermediate/"
 	weight = 3
 	
 [[menu.main]]
 	name   = "Creating an Application - Advanced"
-	url    = "creating_an_application_advanced/index.html"
+	url    = "creating_an_application_advanced/"
 	weight = 4
 	
 [[menu.main]]
 	name   = "TipoTapp's Interface"
-	url   = "tipotapp_interface/index.html"
+	url   = "tipotapp_interface/"
 	weight = 5
 	
 [[menu.main]]
 	name   = "Reference Manual"
-	url    = "reference_manual/index.html"
+	url    = "reference_manual/"
 	weight = 6
+
+[[menu.main]]
+	name   = "Tipo Javascript SDK"
+	url    = "tipo_javascript_sdk/"
+	weight = 6
+
 
 
 [blackfriday]

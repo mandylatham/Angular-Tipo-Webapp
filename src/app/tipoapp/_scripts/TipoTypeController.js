@@ -140,6 +140,10 @@
       key: "visualisation",
       label: "Visualisation",
       icon: "insert_chart",
+    },{
+      key: "action",
+      label: "Action",
+      icon: "alarm_add",
     }];
 
     return{

@@ -17,7 +17,7 @@
         <md-icon>close</md-icon>
       </md-button>
     </div>
-    <md-button hide-xs md-theme="reverse" ng-repeat="action in actions | filter:{highlight: true}" aria-label="action.label" ng-click="performAction(action)" ng-class="{'md-fab md-mini': action.icon}" class="md-raised md-primary" ng-if="!bulkedit">
+    <md-button hide-xs md-theme="reverse" ng-repeat="action in actions | filter:{highlight: true}" aria-label="action.label" ng-click="performAction(action)" ng-class="{'md-fab md-mini': action.icon}" class="md-raised md-primary" ng-if="!bulkedit && (action.visibility_expression || visibilityExpression)">
     <md-icon ng-if="action.icon">{{action.icon}}</md-icon>
     <md-tooltip ng-if="action.icon" md-direction="top">{{action.label}}</md-tooltip>
       <span ng-if="!action.icon">{{action.label}}</span>

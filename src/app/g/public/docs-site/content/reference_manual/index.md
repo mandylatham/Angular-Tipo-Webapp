@@ -99,8 +99,34 @@ Actions can be configured under List & Details Customization
 
 ## Color Customization
 
-Choosing colors outside of the palatte 
+Choosing colors outside of the palatte
 
+## Advanced Datatypes
+
+### Rich Text
+- Embed videos
+- Embed images
+
+
+### Image Type
+
+- Embed simple images as base64 encoded string and store in database. In case of an array, images are shown in slide-show.
+
+### Actions - as Field Type
+
+TipoActions can be added on a screen anywhere by simply adding them as field types and positioning them in a given location. This is to allow users to perform contextual actions with data within a field group as an example.
+
+
+## Client Side Actions
+
+For applications where serverside cloud functions is not required for simple businesss logic, the client side actions can be used. And these actions will allow user to provide javascript and specifiy if the current object should be saved after the javascript code is executed.
+
+### JavaScript code behind actions along with Lambda function support
+
+### Conditional visibility for actions
+e.g. $tipo.`field_name` > 100 or any such javascript expressions resulting in boolean can be supplied. 
+$tipo gives the object data that is in context in the detail view.
+This feature is not to be used in list view.
 
 
 

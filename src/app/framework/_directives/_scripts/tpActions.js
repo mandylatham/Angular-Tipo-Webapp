@@ -59,19 +59,16 @@
         }
         tipoData = _instance.data;
       }
-      if(_.isEmpty(tipoData)) {
-        tipoManipulationService.extractDataFromMergedDefinition(tipoDefinition, tipoData);
-      }
       tipoRouter.startStateChange();
       if(_.isArray($scope.tipoids)){
-        tipoInstanceDataService.performBulkAction($scope.parentTipo, tipoAction.name, $scope.tipoids, tipoDefinition.tipo_meta.tipo_name, tipoData)
+        tipoInstanceDataService.performBulkAction($scope.parentTipo, tipoAction.name, $scope.tipoids, $scope.tipo_name, tipoData)
           .then(function(response){
             $mdDialog.hide(response);
           },function(error){
             tipoRouter.endStateChange();
           });
       }else{
-        tipoInstanceDataService.performSingleAction($scope.parentTipo, $scope.tipoids, tipoAction.name, tipoDefinition.tipo_meta.tipo_name, tipoData)
+        tipoInstanceDataService.performSingleAction($scope.parentTipo, $scope.tipoids, tipoAction.name, $scope.tipo_name, tipoData)
           .then(function(response){
             $mdDialog.hide(response);
           },function(error){
@@ -88,6 +85,7 @@
   return module.directive('tpActions', function (
     tipoManipulationService,
     tipoInstanceDataService,
+    tipoHandle,
     tipoRouter,
     $mdDialog,
     $mdMedia,
@@ -104,6 +102,7 @@
           bulkedit: '=',
           singleedit: '=',
           restrictedActions: '=',
+          visibilityExpression: '=',
           refresh: '&'
         },
         restrict: 'EA',
@@ -145,6 +144,11 @@
                 var restriced = false;
               }
               if (!restriced) {
+                console.log(scope.$eval("tipos.status_ === 'New'"));
+                var visibility_expression = scope.$eval(atob(each.visibility_expression));
+                if (_.isUndefined(visibility_expression)) {
+                  visibility_expression = true;
+                };
                 actions.push({
                   name: each.tipo_action,
                   label: each.display_name,
@@ -152,6 +156,7 @@
                   bulk_select: each.bulk_select,
                   single_select: each.single_select,
                   restriced: restriced,
+                  visibility_expression: visibility_expression,
                   icon: each.icon,
                   additionalTipo: _.get(each, 'client_dependency.tipo_name')
                 });
@@ -189,24 +194,24 @@
             scope.deskaction.isOpen = false;
             scope.mobaction.isOpen = false;
             if(mode === 'view'){
-                performSingleAction(action);
+                performAction(action);
             }else{
               if (action.bulk_select) {
                 if (scope.bulkedit) {
-                  performBulkAction(action);
+                  performAction(action);
                 }else{
                   scope.selectedAction = action;
                   scope.bulkedit = !scope.bulkedit;
                 }
               }else if(action.single_select){
                 if (scope.singleedit) {
-                  performBulkAction(action);
+                  performAction(action);
                 }else{
                   scope.selectedAction = action;
                   scope.singleedit = !scope.singleedit;
                 }
               }else{
-                performBulkAction(action);
+                performAction(action);
               }
               
             }
@@ -277,39 +282,42 @@
               tipoInstanceDataService.performSingleAction(tipo_name, tipo_id, action.name)
                 .then(function(response){
                   response.message = response.user_message;
-                  tipoInstanceDataService.getOne(tipo_name, tipo_id, "" , true).then(function(tipoData){
-                    scope.tipos = tipoData;
-                    tipoRouter.toTipoView(tipo_name, tipo_id);
-                    tipoRouter.toTipoResponse(response);
-                    tipoRouter.endStateChange();                  
-                  });
+                  
                 });
             }
           }
 
-          function performBulkAction(action){
-            var selected_tipo_ids = _.filter(scope.tipos, 'selected');
-            selected_tipo_ids = _.map(selected_tipo_ids, function(each){
-              return each.tipo_id;
-            });
+          function callAction(tipo_name, action_name, selected_tipo_ids,additional_tipo_name,additional_tipo){
+            tipoHandle.callAction(tipo_name, action_name, selected_tipo_ids,additional_tipo_name,additional_tipo)
+                  .then(function(response){
+                    tipoHandle.getTipo(tipo_name, tipo_id).then(function(tipoData){
+                      scope.tipos = tipoData;
+                      tipoRouter.toTipoView(tipo_name, tipo_id);
+                      tipoRouter.toTipoResponse(response);
+                      tipoRouter.endStateChange();                  
+                    });
+                  });
+          }
+
+          function performAction(action){
+            if (tipo_id) {
+              var selected_tipo_ids = [tipo_id];
+            }else{
+              var selected_tipo_ids = _.filter(scope.tipos, 'selected');
+              selected_tipo_ids = _.map(selected_tipo_ids, function(each){
+                return each.tipo_id;
+              });
+            }
             // if(!_.isEmpty(selected_tipo_ids)){
               if(action.additionalTipo){
                 var additionalTipo = action.additionalTipo;
-                var promise = openAdditionalTipoDialog(additionalTipo, action,tipo_name,selected_tipo_ids);
+                var promise = tipoHandle.presentForm(additionalTipo,scope.tipos,action.label);
                 promise.then(function(response){
-                    response[0].message = response[0].user_message;
-                    tipoRouter.toTipoResponse(response[0]);
-                    // performResponseActions(response[0].message,response[0].return_url,response[0].return_url,action.label);
-                    tipoRouter.endStateChange();});
-              }else{
+                    callAction(tipo_name,action.name,selected_tipo_ids,response.tipo_name,response.tipo);
+              });}else{
                 console.log('Will just perform the action without opening any dialogs');
                 tipoRouter.startStateChange();
-                tipoInstanceDataService.performBulkAction(tipo_name, action.name, selected_tipo_ids)
-                  .then(function(response){
-                    response[0].message = response[0].user_message;
-                    tipoRouter.toTipoResponse(response[0]);
-                    // performResponseActions(response[0].message,response[0].return_url,response[0].return_url,action.label);
-                    tipoRouter.endStateChange();});
+                callAction(tipo_name,action.name,selected_tipo_ids)
               }
             // }
           }
@@ -319,6 +327,7 @@
             newScope.parentTipo = parentTipo;
             newScope.tipoids = tipoids;
             newScope.context = scope.tipos;
+            newScope.tipo_name = tipo_name;
             var promise = $mdDialog.show({
               templateUrl: 'framework/_directives/_views/tp-action-dialog.tpl.html',
               controller: TipoActionDialogController,

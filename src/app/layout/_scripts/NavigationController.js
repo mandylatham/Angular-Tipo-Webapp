@@ -4,7 +4,7 @@
 
   function NavigationController(
     tipoRouter,
-    tipoDefinitionDataService,
+    tipoHandle,
     tipoInstanceDataService,
     tipoManipulationService,
     metadataService,
@@ -88,7 +88,7 @@
       }else{
         var perspectiveMenu = {};
         _instance.perspectiveMenuItems = [];
-        tipoDefinitionDataService.getOne(tipoName).then(function(definition){
+        tipoHandle.getTipoDefinition(tipoName).then(function(definition){
 
           _instance.menu = tipoManipulationService.prepareMenu(perspective, definition);
 
@@ -140,7 +140,7 @@
       }
       _instance.activeItem = menuItem;
       if (menuItem.tipo_name) {
-        tipoDefinitionDataService.getOne(menuItem.tipo_name).then(function(response){
+        tipoHandle.getTipoDefinition(menuItem.tipo_name).then(function(response){
           var data = response;
           _.each(data.tipo_meta.tipo_type,function(type){
             if (type === "abstract") {

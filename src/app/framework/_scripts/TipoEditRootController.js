@@ -10,7 +10,7 @@
     tipoRouter,
     tipoCache,
     tipoRegistry,
-    tipoInstanceDataService,
+    tipoHandle,
     $mdSelect) {
 
     var _instance = this;
@@ -112,7 +112,7 @@
       filter.per_page = _instance.tipoDefinition.tipo_meta.default_page_size;
       tipoRouter.startStateChange();
       tipoCache.evict($scope.tipo_name);
-      tipoInstanceDataService.search($scope.tipo_name, filter).then(function(tiposData){
+      tipoHandle.getTipos($scope.tipo_name, filter).then(function(tiposData){
         _instance.tipos = tiposData;
         var tiposWithDefinition = tipoManipulationService.mergeDefinitionAndDataArray(_instance.tipoDefinition, tiposData, label_field);
         _instance.tiposWithDefinition = tiposWithDefinition;
@@ -123,10 +123,9 @@
   }
 
   function TipoEditRootController(
-    tipoDefinition,
     tipo,
     tipoManipulationService,
-    tipoInstanceDataService,
+    tipoHandle,
     tipoRouter,
     tipoRegistry,
     metadataService,
@@ -141,11 +140,9 @@
     $sce) {
     
     var _instance = this;
-    var role = metadataService.userMetadata.role;
-    _instance.updateUrl = "g/public/gen_temp/common/views/update.tpl.html." + role + "___" + $stateParams.tipo_name;
-    _instance.createUrl = "g/public/gen_temp/common/views/create.tpl.html." + role + "___" + $stateParams.tipo_name;
-    _instance.detailUrl = "g/public/gen_temp/common/views/view.tpl.html." + role + "___" + $stateParams.tipo_name;
-    _instance.tipoDefinition = tipoDefinition;
+    _instance.updateUrl = tipoHandle.updateUrl($stateParams.tipo_name);
+    _instance.createUrl = tipoHandle.createUrl($stateParams.tipo_name);
+    _instance.detailUrl = tipoHandle.detailUrl($stateParams.tipo_name);
     // _instance.tipoDefinition.tipo_field_groups = tipo.tipo_field_groups;
     var clonedTipoId = $stateParams.copyFrom;
     _instance.tipo = tipo;
@@ -176,11 +173,10 @@
       //Clientside Javascript for OnSave
       var data = {};
       var parameters = {};
-      tipoManipulationService.extractDataFromMergedDefinition(_instance.tipoDefinition, data);
       tipoManipulationService.modifyTipoData(_instance.tipo);
       if (action === 'edit') {
         data.copy_from_tipo_id = tipo.copy_from_tipo_id;
-        tipoInstanceDataService.updateOne(tipo_name, _instance.tipo, tipo_id).then(function(result){
+        tipoHandle.saveTipo(tipo_name, tipo_id ,_instance.tipo).then(function(result){
           if(tipoRouter.stickyExists()){
             tipoRouter.toStickyAndReset();
           }else{
@@ -189,11 +185,14 @@
             //   $templateCache.remove(_instance.tipoDefinition._ui.listTemplateUrl.replace(/___TipoDefinition/g,"___" + tipo_id));
             //   $templateCache.remove(_instance.tipoDefinition._ui.createTemplateUrl.replace(/___TipoDefinition/g,"___" + tipo_id));
             // }
+            var registryName = $stateParams.tipo_name + '_resdata';
+            var resData = tipoRegistry.get(registryName);
+            tipoRegistry.pushData(tipo_name,result.tipo_id,result);
             tipoRouter.toTipoView(tipo_name, tipo_id);
           }
         });
       }else if (action === 'create') {
-        tipo_name = tipoDefinition.tipo_meta.tipo_name;
+        tipo_name = tipo_name;
         var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
           if(perspectiveMetadata.fieldName && !_instance.tipo[perspectiveMetadata.fieldName]){
             _instance.tipo[perspectiveMetadata.fieldName] = perspectiveMetadata.tipoId;
@@ -201,12 +200,12 @@
           if(!_.isUndefined(clonedTipoId)){
             _instance.tipo.copy_from_tipo_id = clonedTipoId;
           }
-          tipoInstanceDataService.upsertAll(tipo_name, [_instance.tipo]).then(function(result){
+          tipoHandle.createTipo(tipo_name, _instance.tipo).then(function(result){
             if(tipoRouter.stickyExists()){
               tipoRouter.toStickyAndReset();
             }else{
               if (form === 'dialog') {
-                tipoInstanceDataService.search(tipo_name).then(function(tipos){
+                tipoHandle.getTipos(tipo_name).then(function(tipos){
                   $mdDialog.hide(tipos);
                 });            
               }else{
@@ -326,19 +325,12 @@
       $templateCache.remove(_instance.createUrl);
       $templateCache.remove(_instance.detailUrl);
       $templateCache.remove(_instance.updateUrl);
-      tipoInstanceDataService.getOne($stateParams.tipo_name, $stateParams.tipo_id, filter, true).then(function (data) {
+      tipoHandle.getTipo($stateParams.tipo_name, $stateParams.tipo_id, filter, true).then(function (data) {
         data.tipo_id = data.tipo_id || $stateParams.tipo_id;
         _instance.tipo = data;
         tipoRouter.endStateChange();
       });
     }
-
-    _instance.loadOptions = function (baseFilter,tipo_name,label_field,uniq_name,prefix,label,index,searchText){
-      _.set(_instance, uniq_name, {});
-      tipoInstanceDataService.gettpObjectOptions(baseFilter,tipo_name,label_field,_instance.tipoDefinition,searchText,undefined,index,_instance.tipo).then(function(result){
-        _instance.setInstance(uniq_name,result,prefix,label,index,tipo_name);
-      });      
-    };
 
     _instance.initCollapsed = function(uniq_name,collapsed){
       if (!_.isNil(collapsed)) {
@@ -359,13 +351,6 @@
         _instance[prefix + index + label].model={key: tipo_data , label: _.get(_instance.tipo[prefix][index],label + '_refs.ref' + tipo_data )}
       }
     }
-
-    _instance.loadPopupOptions = function (baseFilter,tipo_name,label_field,uniq_name,prefix,label,index,page_size){
-      var searchText;
-      return tipoInstanceDataService.gettpObjectOptions(baseFilter,tipo_name,label_field,_instance.tipoDefinition,searchText,page_size,index,_instance.tipo).then(function(result){
-        _instance.setInstance(uniq_name,result,prefix,label,index,tipo_name)
-      });
-    };
 
     _instance.renderSelection = function(tipo_name){
       var text = '<div class="placeholder"></div>';
@@ -393,7 +378,7 @@
         var filter = {};
         getPerspective(filter);
         // ends here
-        tipoInstanceDataService.deleteOne(tipo_name, tipo_id, filter).then(function(){
+        tipoHandle.deleteTipo(tipo_name, tipo_id, filter).then(function(){
           if(tipoRouter.stickyExists()){
             tipoRouter.toStickyAndReset();
           }else{
@@ -434,29 +419,6 @@
         }
       }
       delete _instance.searchTerm.text;
-    }
-
-    function extractDatafromDefinition(field_name,index){
-      var definition = _.find(_instance.tipoDefinition.tipo_fields,{field_name: field_name})
-      return definition;
-    }
-
-    function updateDatafromDefinition(definition,index,field_name){
-      // _.each(definition.tipo_fields,function(field){
-        if (_.isUndefined(index)) {
-          if (_.isUndefined (_instance.tipo[field_name])){
-            _instance.tipo[field_name] = {};
-          }
-          tipoManipulationService.extractDataFromMergedDefinition(definition,_instance.tipo[field_name])
-         // _.set(_instance.tipo,field.fq_field_name,field._value.key);
-        }else{
-          if (_.isUndefined (_instance.tipo[field_name])){
-            _instance.tipo[field_name] = [];
-          }
-          // _.set(_instance.tipo[field_name][index],field.field_name,field._value.key);
-          tipoManipulationService.extractDataFromMergedDefinition(definition,_instance.tipo[field_name][index])
-        }
-      // });
     }
 
     _instance.edit = function(){
