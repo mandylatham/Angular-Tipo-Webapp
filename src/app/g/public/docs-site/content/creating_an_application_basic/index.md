@@ -390,7 +390,7 @@ By default the data shown in list views is displayed in a Flow Layout that has 3
 
 ![Student records](/images/creating_an_application_17.png)
 
-With the flow layout, all the fields of a Tipo whose `Show Display` switch was turned on are shown in the list view.
+With the flow layout, all the fields of a Tipo (including any embeded Tipos) whose `Show Display` switch was turned on are shown in the list view.
 
 If you select one of the records and view it in the detail view, by default, its data is also shown in three columns.
 
@@ -406,19 +406,94 @@ The default for desktop and tablet is 3 columns while for mobile, it is 1 column
 
 We are going to change the number of columns for the Student Tipo in Flow Layout to be 5 on the desktop. Select `5` from the dropdown menu of the `Desktop Max Columns` field. Save the changes and go back to the home dashboard and take a look at the Student records.
 
-![5 columns](/images/creating_an_application_30.png)
+![5 column flow layout](/images/creating_an_application_30.png)
 
 You can see the 5 columns in the image above. If you had set the `Form Width` of a particular field previously, you might want to re-adjust the value you set for it to accomodate the increase in columns. In the above, we changed the `Form Width` of the First Name column to `3` so now it takes up 3 of the 5 columns.
 
 {{< note title="Note" >}}
-Remember that the `X Max Columns` value sets the maximum number of columns that can be shown for a particular screen size. It doesn't set a strict number of columns that will be shown for a particular device. Just because you set 5 columns for desktop doesn't mean all users using a computer to access the app will see the data in 5 columns. The TipoTapp UI is responsive and so the data will adjusted according to the browser size. If a user is viewing the data on a smaller screen or browser window, then they will see a fewer number of columns.
+Remember that the `X Max Columns` value sets the maximum number of columns that can be shown for a particular screen size. It doesn't set a strict number of columns that will be shown for a particular device. Just because you set 5 columns for desktop doesn't mean all users using a computer to access the app will see the data in 5 columns. The TipoTapp UI is responsive and so the data will be adjusted according to the browser size. If a user is viewing the data on a smaller screen or browser window, then they will see a fewer number of columns.
 {{< /note >}}
 
+Setting the `X Max Columns` of a Tipo affects the following: list views that are in Flow Layout, forms and detail views.
+
 ### Grid Layout
-### Flow/Grid Layout, Which Should You Use
+
+The other way data can be displayed on TipoTapp is via a Grid Layout. With the Grid Layout records are displayed on a Grid, with each record taking up a single row on the grid. By default, the grid has 3 columns, but you can change this depending on the number of fields you want displayed in the list views.
+
+To demonstrate this, we'll change the Student list view from a Flow Layout to a Grid Layout. Head over to `App Definitions`, select the Student Tipo and get into Edit mode. Scroll down to the `List Customization` section and open the Advanced Editor. You should see the fields shown below.
+
+![List custimization](/images/creating_an_application_31.png)
+
+Turn on `Desktop Grid` and click on `Done`. By default, the list view grid will have 3 columns. Let's increase this so that it shows more data. Scroll up to the `Meta Data` section and open the Advanced Editor. Set the `Grid Max Columns` to `6`. Below, we've left the previous setting of `Desktop Max Columns` to `5`. Since we've switched the list view to the Grid Layout, the `Desktop Max Columns` value will only affect the views that use Flow Layout i.e. detail views and forms.
+
+![Grid max columns](/images/creating_an_application_32.png)
+
+Save the changes and go back to the Home menu to take a look at the list view's new look.
+
+![6 column grid layout](/images/creating_an_application_33.png)
+
+Other than list views, TipoTapp also supports Grid Layouts for Field Groups. Right now, if you take a detailed view of a Student record, you will see the following Field Group for `Extra Curricular Activities`. It's data is displayed in a flow layout.
+
+![Field group flow layout](/images/creating_an_application_34.png)
+
+To change the field group to a grid layout, go to `App Definitions` and edit the Student Tipo. Scroll down to the `Fields` section and open the Advanced Editor of the `Extra Curricular Activities` field. From the `Group Settings` section, you can switch on the Grid Layout for desktop, tablet or mobile.
+
+![Group settings](/images/creating_an_application_35.png)
+
+### Flow/Grid Layout, Which Should You Use?
+
+With the Flow Layout, a list view shows all the Displayed fields of a record. The Flow Layout is best used when you want a large amount of data to be viewable when scrolling through your data, without requiring you to go into the detail view of a record to view the data.
+
+A Grid Layout on the other hand, is suitable for when you only need the list view to show you just enough fields of a record for you to make a decision on picking the right one. Grid views are more compact and thus display more records on screen.
+
 ### Multiple Field Meaningful Key
+
+When creating the Unit and Course Tipos, we looked at setting a field as the `Meaningful Key`. As mentioned, only one field can be the Meaningful Key. If yo set several fields as the Meaningful Key, then only the first occurnce of a field set as Meanigful Key will be considered. This could be ideal and sufficient in identifying a Tipo record. For instance, for our Unit and Course Tipos, having their Name field as the Meaningful Key is enough to identify a unit or course since these usually have a unique name. For some other types of data, having only one field as the Meaningful Key isn't that useful. Let's take the Student Tipo for example. Imagine you had a `Department` Tipo that had a `Students` field that held students belonging to that department. Now if you set either the Student `First Name` or `Last Name` as the Meaningful Key, you would have trouble picking the correct students that belong to a department when creating or editing a Department's record since students will most probably have similar first (or last) names.
+
+To mitigate this and make it easier to identify a student, you can add a field to the Student Tipo which holds a value that is the combination of two or more other fields. For instance, you can have a Student field named `Key` that will hold a combination of a student's first, middle and last names. You can then set this field as the Meaningful Key which will make it easier to identify the correct student. If you want even more uniqueness to the `Key` field, you can add in the Student `Admission Number` to the other fields. Let's take a look at how you would go about implementing this.
+
+Head over to `App Definitions`, select the Student Tipo and go into Edit mode. Add a field named `Key` to the Tipo and set its Type to `Simple String`. Open the Advanced Editor of the field and scroll down to `Data Settings`. Set the following for the `Expression` field.
+
+```
+($tipo.first_name + ' ' + $tipo.middle_name + ' ' + $tipo.last_name)
+```
+
+The `Expression` field takes a JavaScript expression and executes it to determine the value of the field. In the above expression, we concatenate the values of the three variables that hold the first, middle and last names of the particular instance of the Student Tipo.
+
 ## Customizing the App
 
-Choose colour from palette & choose from available fonts
-uploading your logo
-default email templates (TODO: Ask Raj)
+Other than changing how data is displayed, TipoTapp allows you to change the complete look-and-feel of the app. Instead of using the app as it is, you can customize it so that it is more in line with your organization's branding.
+
+To change how the app looks, select `Develop` from the navigation bar and then from the menu on the left, select `Customizations`.
+
+![Customization menu](/images/creating_an_application_36.png)
+
+In the next three sections, we'll be using the Editor found here.
+
+### Setting the App's Logo and Font
+
+If you look at your app's naviagtion bar, you will see a default logo on the left side of the bar. To change this, get into Edit mode and scroll down to `Appearance Settings`. Go down to the `Logo` field and use the control on the left (with the clip icon) to select an image.
+
+![Change logo](/images/creating_an_application_37.png)
+
+TODO: Ask Raj about the image types allowed as well as the dimensions.
+
+To change the app's Font, you can select one from the dropdown on the `Font` field.
+
+![Change font](/images/creating_an_application_38.png)
+
+TODO: Ask Raj if you can use yor own fonts or if it's restricted to available options.
+
+### Changing the App's Color
+
+TipoTapp uses Material Design on its interface. You can change the default primary and accent colors of your app by either selecting from the available color themes, or you can use your own custom palette. We'll look at the latter option in the second part of this guide. Right now, let's look at the available palette.
+
+![Change color](/images/creating_an_application_39.png)
+
+From `Appearance Settings`, you will find a `Choose Colour Theme` section shown above. The first time you click on a color, that color will be set as the Primary color. If you click on another color, this color will be set as the Accent. Each time you change colors, a preview of the resulting UI is shown below the palette.
+
+### Customizing Email Templates
+
+TipoTapp provides templates for the following types of emails: `Reset Password Email`, `User Registration Email`, `User Registration Confirmation Email` and `Welcome Email`. You can use the default message in these, or you can change it as well as the formatting. You can change this from the `Email Templates` section. Select the email you want to change and open its Advanced Editor. Here, you can enter the HTML markup of the email. Make sure to use the correct variable names for the various fields in your app. These are seen as the values inside curly braces e.g. `{applicationName}`
+
+![Change email template](/images/creating_an_application_40.png)
