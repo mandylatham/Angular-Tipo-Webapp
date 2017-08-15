@@ -144,7 +144,6 @@
                 var restriced = false;
               }
               if (!restriced) {
-                console.log(scope.$eval("tipos.status_ === 'New'"));
                 var visibility_expression = scope.$eval(atob(each.visibility_expression));
                 if (_.isUndefined(visibility_expression)) {
                   visibility_expression = true;
