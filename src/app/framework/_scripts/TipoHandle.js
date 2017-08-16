@@ -239,6 +239,7 @@
      this.getTipos = getTipos;
      this.presentForm = presentForm;
      this.showMessage = showMessage;
+     this.callAction = callAction;
      this.updateUrl = updateUrl;
      this.createUrl = createUrl;
      this.detailUrl = detailUrl;

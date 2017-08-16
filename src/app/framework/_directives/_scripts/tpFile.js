@@ -12,9 +12,12 @@
     $timeout
   ) {
     return {
+      require: 'ngModel',
       scope: {
         field: '=',
         mode: '@?',
+        isarray: "=",
+        metaData: "=",
         fieldpath: '='
       },
       restrict: 'EA',
@@ -27,22 +30,22 @@
         // function getFieldDefiniton(){
 
         // };
-        if (!_.isUndefined(scope.fieldpath)) {
-          _.each(scope.field.tipo_fields,function(tpField){
-            if (tpField.field_name === scope.fieldpath) {
-              scope.field = tpField;
-              return;
-            };
-          });
-        };
+        // if (!_.isUndefined(scope.fieldpath)) {
+        //   _.each(scope.field.tipo_fields,function(tpField){
+        //     if (tpField.field_name === scope.fieldpath) {
+        //       scope.field = tpField;
+        //       return;
+        //     };
+        //   });
+        // };
         var field = scope.field;
-        scope.hasValue = !_.isUndefined(field._value);
-        scope.isArray = Boolean(field._ui.isArray);
+        scope.hasValue = !_.isUndefined(field);
+        scope.isArray = Boolean(scope.isarray);
         scope.isSingle = !scope.isArray;
         scope.tempPath = {
           
         };
-        var fileTarget = tipoManipulationService.getFieldMeta(field, 'file.target');
+        var fileTarget = scope.metaData;
         if (fileTarget) {
           scope.isTargetSet = true;
           var parts = fileTarget.split('/');
@@ -50,7 +53,7 @@
           if (scope.isTargetFile) {
             // cannot be an array if an exact file name is specified, hence treating as a single file
             scope.isSingle = true;
-            field._value = {
+            field = {
               key: fileTarget
             };
           }
@@ -63,8 +66,8 @@
         if(!scope.isTargetFile){
           if (scope.isSingle) {
             var path;
-            if (field._value) {
-              path = field._value.key;
+            if (field) {
+              path = field.key;
               if (fileTarget) {
                 path = path.replace(fileTarget, '');
               }
@@ -75,8 +78,8 @@
           }else{
             // for arrays
             scope.multiplePaths = [];
-            if(!_.isEmpty(field._value)){
-              scope.multiplePaths = _.map(field._value, function(each){
+            if(!_.isEmpty(field)){
+              scope.multiplePaths = _.map(field, function(each){
                 var eachPath = each.key;
                 if(fileTarget){
                   eachPath = eachPath.replace(fileTarget, '');
@@ -91,15 +94,15 @@
 
         scope.onSinglePathChange = function () {
           if (_.isEmpty(scope.singlePath.value)) {
-            delete field._value;
+            field = {};
             return;
           }
           if (scope.isTargetSet) {
-            field._value = {
+            field = {
               key: scope.fileTarget + scope.singlePath.value
             };
           } else {
-            field._value = {
+            field = {
               key: scope.singlePath.value
             };
           }
@@ -107,7 +110,7 @@
 
         scope.onMultiPathChange = function (index, path) {
           scope.multiplePaths[index].value = path;
-          field._value[index].key = scope.fileTarget + path;
+          field[index].key = scope.fileTarget + path;
         };
 
         scope.addMultiPathEntry = function(){
@@ -115,25 +118,25 @@
             scope.multiplePaths.push({
               value: path
             });
-            field._value = field._value || [];
-            field._value.push({
+            field = field || [];
+            field.push({
               key: scope.fileTarget + path
             });
             delete scope.tempPath.value;
-            scope.openContentDialog(field._value.length - 1);
+            scope.openContentDialog(field.length - 1);
         };
 
         scope.removeMultiPathEntry = function(index){
           scope.multiplePaths.splice(index, 1);
-          field._value.splice(index, 1);
+          field.splice(index, 1);
         };
 
         scope.openContentDialog = function (index) {
           var initialPath;
           if(!_.isUndefined(index)){
-            initialPath = field._value[index].key || scope.fileTarget;
+            initialPath = field[index].key || scope.fileTarget;
           }else{
-            initialPath = _.get(field, '_value.key') || scope.fileTarget;
+            initialPath = _.get(field, 'key') || scope.fileTarget;
           }
           var promise = $mdDialog.show({
             controller: function FileContentController($scope) {
