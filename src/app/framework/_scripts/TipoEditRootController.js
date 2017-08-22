@@ -135,6 +135,7 @@
     $mdDialog,
     $templateCache,
     tipoDefinitionDataService,
+    tipoClientJavascript,
     $mdSelect,
     tipoCache,
     $sce) {
@@ -437,6 +438,11 @@
       };
       array.push(newObject);
       _.set(_instance.tipo,field_name,array);
+      var context = setContext(field_name);
+      var function_name = $stateParams.tipo_name + '_' + field_name + '_OnArrayItemAdd'
+      if(typeof tipoClientJavascript[function_name] === 'function'){
+        tipoClientJavascript[function_name](_instance.tipo,context,array,newObject);
+      }
       scrollToNewItem(array,field_name);
     }
 
@@ -520,8 +526,6 @@
 
     _instance.toDate = function(date,init){
       if(init){
-        console.log(eval(init));
-        console.log(new Date(eval(init)));
         return new Date(eval(init));
       }
       if (date) {
@@ -689,6 +693,11 @@
         delItem[index]._ARRAY_META._STATUS = 'DELETED';
       }
       _.set(_instance.tipo,field_name,delItem);
+      var context = setContext(field_name);
+      var function_name = $stateParams.tipo_name + '_' + field_name + '_OnArrayItemRemove';
+      if(typeof tipoClientJavascript[function_name] === 'function'){
+        tipoClientJavascript[function_name](_instance.tipo,context,delItem,delItem[index]);
+      }
     }
 
     _instance.cloneItem = function(field_name,index){
@@ -757,6 +766,37 @@
     _instance.toSubTipoList = function(relatedTipo,tipo_filter,sub_tipo_field_name){
       tipoRouter.to('subTipoListState', undefined, {related_tipo: relatedTipo,tipo_filter: tipo_filter,sub_tipo_field_name: sub_tipo_field_name}, true);
     };
+
+    _instance.fieldChange = function(function_name,context,new_value,field_name){
+      if(typeof tipoClientJavascript[function_name] === 'function'){
+        tipoClientJavascript[function_name](_instance.tipo,context,_.get(_instance.tipo,field_name + "_old"),new_value)
+      }
+    }
+
+    _instance.OnArrayItemAdd = function(field_name,item,array,context){
+      var function_name = $stateParams.tipo_name + '_' + field_name + '_OnArrayItemAdd';
+      if(typeof tipoClientJavascript[function_name] === 'function'){
+        tipoClientJavascript[function_name](_instance.tipo,context,array,item);
+      }
+    }
+
+    _instance.OnArrayItemRemove = function(field_name,item,array,context){
+      var function_name = $stateParams.tipo_name + '_' + field_name + '_OnArrayItemRemove';
+      if(typeof tipoClientJavascript[function_name] === 'function'){
+        tipoClientJavascript[function_name](_instance.tipo,context,array,item);
+      }
+    }
+
+    function setContext(field_name){
+      var fields = field_name.split(".");
+      var ctx = field_name.indexOf("." + fields[fields.length - 1]);
+      if (ctx > -1) {
+        var context = _.get(_instance.tipo,field_name.substr(0,ctx));
+      }else{
+        var context = _instance.tipo;
+      }
+      return context;
+    }
 
     function setCurrentActiveTab(name){
       if(_.isUndefined(name)){

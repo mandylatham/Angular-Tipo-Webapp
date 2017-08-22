@@ -312,7 +312,7 @@
                 var additionalTipo = action.additionalTipo;
                 var promise = tipoHandle.presentForm(additionalTipo,scope.tipos,action.label);
                 promise.then(function(response){
-                    callAction(tipo_name,action.name,selected_tipo_ids,response.tipo_name,response.tipo);
+                    callAction(tipo_name,action.name,selected_tipo_ids,action.additionalTipo,response);
               });}else{
                 console.log('Will just perform the action without opening any dialogs');
                 tipoRouter.startStateChange();

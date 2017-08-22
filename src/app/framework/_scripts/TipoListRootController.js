@@ -202,7 +202,6 @@
           };
         };
       });
-      console.log(_instance.tipos);
     }
 
     _instance.save = function(tipo,action){

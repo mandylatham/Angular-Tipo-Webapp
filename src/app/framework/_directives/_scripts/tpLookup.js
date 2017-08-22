@@ -161,6 +161,7 @@
     tipoRegistry,
     $mdDialog,
     $mdSelect,
+    $stateParams,
     tipoDefinitionDataService,
     tipoClientJavascript) {
       return {
@@ -171,6 +172,7 @@
           parent: '=',
           field: '=',
           index: '=',
+          fieldname: '=',
           fqfieldname: '=',
           fieldvalue: '=',
           fieldlabel: '=',
@@ -334,8 +336,8 @@
             };
             searchCriteria.short_display = 'N';
             scope.searchCriteria = searchCriteria;
-            if(typeof tipoClientJavascript[scope.tipo_name + '_List_OnLoad'] === 'function'){
-              tipoClientJavascript[scope.tipo_name + '_List_OnLoad'](scope.selectedTipos,scope.searchCriteria);
+            if(typeof tipoClientJavascript[$stateParams.tipo_name + '_' + scope.fieldname + '_BeforeLookup'] === 'function'){
+              tipoClientJavascript[$stateParams.tipo_name + '_' + scope.fieldname + '_BeforeLookup'](scope.root,scope.context,scope.searchCriteria);
             }
             return tipoInstanceDataService.search(scope.tipo_name, searchCriteria).then(function(results){
               scope.tipos = results;
@@ -360,15 +362,16 @@
               if(tipo_perm.perm.substr(2,1) === 0){
                 scope.disablecreate = true;
               }
+              if(typeof tipoClientJavascript[$stateParams.tipo_name + '_' + scope.fieldname + '_AfterLookup'] === 'function'){
+              // _.join(_.dropRight(fqfieldname.split(".")),".") used for initial client side js
+                tipoClientJavascript[$stateParams.tipo_name + '_' + scope.fieldname + '_AfterLookup'](scope.root,scope.context,scope.model.field,scope.options);
+              }
             });
           };
 
           scope.searchTerm = {};
           scope.cleanup = function(){
             delete scope.searchTerm.text;
-            if(typeof tipoClientJavascript[scope.tipo_name + '_Lookup_OnChange'] === 'function'){
-              tipoClientJavascript[scope.tipo_name + '_Lookup_OnChange'](scope.model.field,scope.options,scope.root,_.join(_.dropRight(fqfieldname.split(".")),"."));
-            }
               if (!isarray) {
                 if (!_.isUndefined(scope.fieldvalue)) {
                 scope.fieldvalue = scope.model.field.key;

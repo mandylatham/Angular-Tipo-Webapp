@@ -29,7 +29,6 @@
                   google.maps.event.addListener(marker, 'click', function (event) {
                         // Reference to the DIV which receives the contents of the infowindow using jQuery
                      var iwOuter = $('.gm-style-iw');
-                     console.log(marker);
 
                      /* The DIV we want to change is above the .gm-style-iw DIV.
                       * So, we use jQuery and create a iwBackground variable,

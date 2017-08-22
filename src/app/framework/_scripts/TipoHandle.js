@@ -89,7 +89,6 @@
         }
         tipoData = _instance.data;
       }
-      return tipoData;
       $mdDialog.hide(tipoData);
     };
 

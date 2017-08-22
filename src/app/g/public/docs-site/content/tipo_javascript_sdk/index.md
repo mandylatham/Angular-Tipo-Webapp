@@ -206,7 +206,7 @@ OnSave is fired when a new tipo is created or edited. In both cases, before send
 
 //TODO for Murali. The following still needs to be documented properly.
 
-### OnChange:	``` `<Tipo Name>`_`<FieldName>`_OnChange(tipo_handle,tipo,this, old_value, new_value)```
+### OnChange:	``` `<Tipo Name>`_`<FieldName>`_OnChange(tipo, context, old_value, new_value)```
 
 This is applicable only in create or edit forms. This event is triggered when user changes the value of a field.
 
@@ -218,7 +218,7 @@ This is applicable only in create or edit forms. This event is triggered when us
 	// return boolean; If true change is propogated, if false change is not propagated.
     
 
-### OnArrayItemAdd:	``` `<Tipo Name>`_`<FieldName>`_OnArrayItemAdd(tipo_handle, tipo, this, array , item)```
+### OnArrayItemAdd:	``` `<Tipo Name>`_`<FieldName>`_OnArrayItemAdd(tipo, context, array , item)```
 
 	- tipo_handle: handle to the utility service.
 	- tipo: contains data for the tipo.
@@ -227,7 +227,7 @@ This is applicable only in create or edit forms. This event is triggered when us
 	- item: newly added item.
 	// return boolean; If true add will continue;
 	
-### OnArrayItemRemove: ``` `<Tipo Name>`_`<FieldName>`_OnArrayItemRemove(tipo_handle, tipo, this, array , item)```
+### OnArrayItemRemove: ``` `<Tipo Name>`_`<FieldName>`_OnArrayItemRemove(tipo, context, array , item)```
 
 	- tipo_handle: handle to the utility service.
 	- tipo: contains data for the tipo.
@@ -236,7 +236,7 @@ This is applicable only in create or edit forms. This event is triggered when us
 	- item: removed item.
 	// return boolean; If true delete will continue;
 
-### BeforeLookup: ``` `<Tipo Name>`_`<FieldName>`_BeforeLookup(tipo_handle,tipo,this, query_params)```
+### BeforeLookup: ``` `<Tipo Name>`_`<FieldName>`_BeforeLookup(tipo,context, query_params)```
 
 	- tipo_handle: handle to the utility service.
 	- tipo: contains data for the tipo.
@@ -244,7 +244,7 @@ This is applicable only in create or edit forms. This event is triggered when us
 	- query_params: is an array of objects with two fields `param_name` and `param_value`. Important key is `tipo_filter` that contains the filter used on the serverside for lookups. By altering this, the lookup behaviour can be altered.
 	// return void;
 
-### AftereLookup: ``` `<Tipo Name>`_`<FieldName>`_AfterLookup(tipo_handle, tipo, this, tipo_list, options)```
+### AftereLookup: ``` `<Tipo Name>`_`<FieldName>`_AfterLookup(tipo, context, tipo_list, options)```
 
 	- tipo_handle: handle to the utility service.
 	- tipo: contains data for the tipo.

@@ -40,7 +40,8 @@
     'tipo.framework',
     'tipo.dashboard',
     'tipo.tipoapp',
-    'tipo.custom'
+    'tipo.custom',
+    'tipo.custom.gen'
   ]);
 
   module.config(function($stateProvider) {
