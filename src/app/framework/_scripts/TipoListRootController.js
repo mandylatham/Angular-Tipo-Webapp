@@ -72,6 +72,10 @@
       filter.per_page = _instance.per_page;
       _instance.busy = true;
       tipoHandle.getTipos($stateParams.tipo_name, filter).then(function(tipos){
+        var function_name = $stateParams.tipo_name + "_OnList";
+        if(typeof tipoClientJavascript[function_name] === 'function'){
+          tipoClientJavascript[function_name](tipos);
+        }
         _instance.tipos = tipos;
         _instance.hasTipos = tipos.length > 0;
         _instance.initTipos = angular.copy(tipos);
@@ -151,6 +155,10 @@
     _instance.createNew = function(){
       //Clientside Javascript for OnCreate 
       var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
+      var function_name = $stateParams.tipo_name + "_OnCreate";
+      if(typeof tipoClientJavascript[function_name] === 'function'){
+        tipoClientJavascript[function_name](_instance.tipos);
+      }
       if(perspectiveMetadata.fieldName){
         var data = {};
         data[perspectiveMetadata.fieldName] = perspectiveMetadata.tipoId;
@@ -163,7 +171,6 @@
 
     _instance.toDetail = function(id,tipos,tipo){
       //Clientside Javascript for OnClick
-      
       // if(typeof tipoClientJavascript[tipo_name + '_List_OnClick'] === 'function'){
       //   tipoClientJavascript[tipo_name + '_List_OnClick'](tipo,tipo_name);
       // }else{
@@ -173,9 +180,13 @@
       // }
     };
 
-    _instance.clone = function(id){
+    _instance.clone = function(tipo){
       //Clientside Javascript for OnClone
-      tipoRouter.toTipoCreate(tipo_name, {copyFrom: id});
+      var function_name = $stateParams.tipo_name + "_OnCreate";
+      if(typeof tipoClientJavascript[function_name] === 'function'){
+        tipoClientJavascript[function_name](_instance.tipos,tipo);
+      }
+      tipoRouter.toTipoCreate(tipo_name, {copyFrom: tipo.tipo_id});
     };
 
     _instance.selectTipo = function(tipo,event){
@@ -187,7 +198,12 @@
         });
       };
       tipo.selected = !tipo.selected;
-      if (_instance.bulkedit || _instance.singleedit || _instance.bulkupdate) {
+      var function_name = $stateParams.tipo_name + "_OnClick";
+      var res = false;
+      if(typeof tipoClientJavascript[function_name] === 'function'){
+         res = tipoClientJavascript[function_name](_instance.tipos,tipo,event);
+      }
+      if (_instance.bulkedit || _instance.singleedit || _instance.bulkupdate || res) {
         event.stopPropagation();
       }
     }
@@ -223,8 +239,8 @@
       }
     };
 
-    _instance.delete = function(tipo_id,index){
-      if (!tipo_id) {
+    _instance.delete = function(tipo,index){
+      if (!tipo.tipo_id) {
         _.remove(_instance.tipos,function(val,inx){
           return inx === index;
         });
@@ -244,9 +260,18 @@
             filter.tipo_filter = perspectiveMetadata.tipoFilter;
           }
           // ends here
-          tipoHandle.deleteTipo(tipo_name, tipo_id, filter).then(function(){
-            tipoRouter.toTipoList(tipo_name);
-          });
+          var function_name = $stateParams.tipo_name + "_OnDelete";
+          var res = true;
+          if(typeof tipoClientJavascript[function_name] === 'function'){
+             res = tipoClientJavascript[function_name](tipo);
+          }
+          if (res) {
+            tipoHandle.deleteTipo(tipo_name, tipo.tipo_id, filter).then(function(){
+              tipoRouter.toTipoList(tipo_name);
+            });
+          }else{
+            tipoRouter.endStateChange();
+          }
         });
       }
     };

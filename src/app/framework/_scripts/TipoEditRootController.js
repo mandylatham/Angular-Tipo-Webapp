@@ -175,6 +175,10 @@
       var data = {};
       var parameters = {};
       tipoManipulationService.modifyTipoData(_instance.tipo);
+      var function_name = $stateParams.tipo_name + "_OnSave";
+      if(typeof tipoClientJavascript[function_name] === 'function'){
+        tipoClientJavascript[function_name](_instance.tipo,action);
+      }
       if (action === 'edit') {
         data.copy_from_tipo_id = tipo.copy_from_tipo_id;
         tipoHandle.saveTipo(tipo_name, tipo_id ,_instance.tipo).then(function(result){

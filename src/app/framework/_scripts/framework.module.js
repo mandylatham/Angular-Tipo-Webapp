@@ -98,7 +98,7 @@
           $stateParams.perspectiveTipo = tipo;
           return tipo;
         },
-      tipoDefinition: function (tipoHandle, tipoManipulationService, tipo, $stateParams) {
+      tipoDefinition: function (tipoHandle, tipoManipulationService, tipo, tipoClientJavascript, $stateParams) {
           $stateParams.perspectiveTipo = tipo;
           var tipoDefinition = tipoHandle.getTipoDefinition($stateParams.tipo_name).then(function (definition) {
             if (!_.isUndefined(definition)) {
@@ -106,6 +106,10 @@
             }
             return definition;
           });
+          var function_name = $stateParams.tipo_name + "_OnView";
+          if(typeof tipoClientJavascript[function_name] === 'function'){
+            tipoClientJavascript[function_name](tipo);
+          }
           return tipoDefinition;
         },
         delay: function ($q, $timeout) {
