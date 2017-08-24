@@ -3,42 +3,34 @@ title: Reference Manual
 weight: 6
 ---
 
-# Reference Manual
-
 ## Tipo Types
 
 Available Types |  Description 
 ------------ | ------------
-Abstract | An abstract tipo is similar to an abstract class in Object Orientation. You cannot create an instance of an abstract tipo but can link menu items to an abstract tipo. Astract Tipos will be available under Menu Definitions.
-Singleton.Account | There is only instance of this tipo for every account. e.g. Subscription is an account level singleton
-Singleton.Application | There is only one instance of this tipo for every application. 
-Singleton.User | There is only one instance of this tipo for every user with an account. e.g. My Profile is a user level singleton
+Abstract | An abstract Tipo is similar to an abstract class in Object Oriented Design. You cannot create an instance of an abstract tipo but can link menu items to it. Abstract Tipos are available under Menu Definitions.
+Singleton.Account | There is only one instance of this Tipo for each account e.g. `Subscription` is an account level singleton.
+Singleton.Application | There is only one instance of this Tipo for each application. 
+Singleton.User | There is only one instance of this tipo for every user within an account. e.g. `My Profile` is a user level singleton.
 
-Example - 
+For example, let us consider a School Management App created by a Developer. Below are some of its core functionalities:
 
-Let us consider a School Management App created by a Developer. Below is the requirement - 
+ - **School Management**: Schools subscribe to the application and would like to maintain details such as `School Name`, `Address` e.t.c.
 
-School Management: The schools subscribe to the application and would like to maintain School Details, Address etc..
+ - **Staff, Parents and Students**: Teachers and Students will be invited into the application where they will be able to view and edit their personal details.
 
-Staff & Parents & Students: The teachers & Students will be invited into the application and will fill in their personal details.
+ - **Department**: A school will have different departments and each department would prefer to have its data to be self-contained and easily accessed e.g. the Social Sciences department might want to see all the teachers belonging to the department, relevant scorecards e.t.c.
 
-Department: The Social Sciences department would like to see all the teachers belonging to their department, relevant scorecards etc..
+ - **Admin**: The school might have an Admin department that would prefer to have a separate space in the app where all admin activities are stored e.g. setting up school holidays e.t.c.
 
-Admin: The Admin department likes a seperate space where all admin activities will be grouped e.g. set up school holidays etc..
+Let us now examine how each of these scenarios, can be addressed using the available Tipo Types.
 
-Lets us now examine how each of these scenarios, can be addressed using the available Tipo Types
+ - **School**: The `School` object will be marked as an `account.singleton` meaning that there will be only one instance of this Tipo for every account.
 
-School: The school object will be marked as a 'account.singleton' meaning there will be only one instance of this tipo for every account
+ - **Staff, Parents and Students (all users of the system)**: The `Staff, Parents and Student` object will be marked as `Singleton.User`.
 
-Staff & Parents & Students (all users of the system): The staff, parents & student object will be marked as 'Singleton.User'
+ - **Application**: This will be of type `Singelton.Application`. At the app level, the developer will be able to do such things as set backup time e.t.c.
 
-
-Singelton.Application: At the app level, the developer would like to set backup time etc..
-
-
-Abstract: Because the admin team in the school, a abstract tipo will be created and add objects related to the admin functions will be added under the abstract tipo
-
-
+ - **Admin**: For this, an `Abstract` tipo will be created and other Objects related to the Admin functions will be added under this Tipo.
 
 ## Relationship
 
@@ -47,7 +39,7 @@ Abstract: Because the admin team in the school, a abstract tipo will be created 
 Available Types |  Description 
 ------------ | ------------
 Reference | Only the Tipo's key will be stored against this Tipo
-Embed | The tipo will be embedded into the current Tipo. This is used in cases where a copy of another object is required instead of a reference. 
+Embed | The Tipo will be embedded into the current Tipo. This is used in cases where a copy of another object is required instead of a reference. 
 
 
 ### Relationship filter
@@ -75,7 +67,7 @@ In the above case, patient id will the prespective key
 
 ## Meaningful Key
 
-
+When a Tipo is part of another Tipo (i.e. they share a relationship), whenever this Tipo is shown as part of the containing Tipo, by default only its Id is displayed. This might not be the best identifier for a Tipo; if you just see its Id, you wouldn't know what Tipo record you are looking at. TipoTapp enables you to set one field of a Tipo as the Meaningful Key so that whenever a record of that Tipo is displayed as part of another Tipo, this field will be displayed instead of the record's Id. For example, let's say we had a `Course` Tipo that contains a field named `Units` that held `Unit` records associated with that Course. Without setting one of the Unit's fields as the Meaningful Key, then if you looked at a Course record, its Units would appear as a list of Ids. This wouldn't be useful as you wouldn't be able to easily identify the different units. To counter this, you can set a field of the Unit Tipo as the Meaningful Key, for instance the `Name` field. With this set, if you take a look at a Course record, its Unit's names will be listed. You can mark several fields of a Tipo as the Meaningful Key, but if you do this, only the first field that has been marked as Meaningful Key will be considered.
 
 ## Transient 
 
@@ -99,34 +91,8 @@ Actions can be configured under List & Details Customization
 
 ## Color Customization
 
-Choosing colors outside of the palatte
+Choosing colors outside of the palatte 
 
-## Advanced Datatypes
-
-### Rich Text
-- Embed videos
-- Embed images
-
-
-### Image Type
-
-- Embed simple images as base64 encoded string and store in database. In case of an array, images are shown in slide-show.
-
-### Actions - as Field Type
-
-TipoActions can be added on a screen anywhere by simply adding them as field types and positioning them in a given location. This is to allow users to perform contextual actions with data within a field group as an example.
-
-
-## Client Side Actions
-
-For applications where serverside cloud functions is not required for simple businesss logic, the client side actions can be used. And these actions will allow user to provide javascript and specifiy if the current object should be saved after the javascript code is executed.
-
-### JavaScript code behind actions along with Lambda function support
-
-### Conditional visibility for actions
-e.g. $tipo.`field_name` > 100 or any such javascript expressions resulting in boolean can be supplied. 
-$tipo gives the object data that is in context in the detail view.
-This feature is not to be used in list view.
 
 
 
