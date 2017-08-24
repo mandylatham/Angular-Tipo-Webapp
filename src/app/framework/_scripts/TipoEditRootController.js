@@ -146,8 +146,12 @@
     _instance.detailUrl = tipoHandle.detailUrl($stateParams.tipo_name);
     // _instance.tipoDefinition.tipo_field_groups = tipo.tipo_field_groups;
     var clonedTipoId = $stateParams.copyFrom;
-    _instance.tipo = tipo;
-
+    var function_name = $stateParams.tipo_name + "_OnView";
+    var data_handle = {tipo: tipo};
+    _instance.tipo = data_handle.tipo;
+    if(typeof tipoClientJavascript[function_name] === 'function'){
+      tipoClientJavascript[function_name](data_handle);
+    }
     // var tipo_name = tipoDefinition.tipo_meta.tipo_name;
     var tipo_name = $stateParams.tipo_name;
     var tipo_id = $stateParams.tipo_id;
@@ -177,6 +181,9 @@
       tipoManipulationService.modifyTipoData(_instance.tipo);
       var function_name = $stateParams.tipo_name + "_OnSave";
       if(typeof tipoClientJavascript[function_name] === 'function'){
+        var data_handle = {};
+        data_handle.tipo = tipo;
+        data_handle.action = action;
         tipoClientJavascript[function_name](_instance.tipo,action);
       }
       if (action === 'edit') {
@@ -830,6 +837,9 @@
     $scope.cancel = function() {
       $mdDialog.cancel();
     };
+    $scope.$watch(function(){return data_handle},function(new_value,old_value){
+      _instance.tipo = new_value.tipo;
+    })
 
   }
 

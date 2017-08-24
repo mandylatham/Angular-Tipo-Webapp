@@ -81,7 +81,7 @@
         pageTitle: "{{$stateParams.tipo_name}} - View",
       },
       resolve: /*@ngInject*/ {
-        tipo: function (tipoHandle, tipoManipulationService, parentPromise, $stateParams) {
+        tipo: function (tipoHandle, tipoManipulationService, parentPromise, tipoClientJavascript, $stateParams) {
 
           var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
           var filter = {};
@@ -98,7 +98,7 @@
           $stateParams.perspectiveTipo = tipo;
           return tipo;
         },
-      tipoDefinition: function (tipoHandle, tipoManipulationService, tipo, tipoClientJavascript, $stateParams) {
+      tipoDefinition: function (tipoHandle, tipoManipulationService, tipo, $stateParams) {
           $stateParams.perspectiveTipo = tipo;
           var tipoDefinition = tipoHandle.getTipoDefinition($stateParams.tipo_name).then(function (definition) {
             if (!_.isUndefined(definition)) {
@@ -106,10 +106,6 @@
             }
             return definition;
           });
-          var function_name = $stateParams.tipo_name + "_OnView";
-          if(typeof tipoClientJavascript[function_name] === 'function'){
-            tipoClientJavascript[function_name](tipo);
-          }
           return tipoDefinition;
         },
         delay: function ($q, $timeout) {

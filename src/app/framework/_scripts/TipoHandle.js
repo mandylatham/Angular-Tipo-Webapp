@@ -109,7 +109,7 @@
                       $stateParams){
 
     var role = metadataService.userMetadata.role;
-     
+    
      function getConfirmation(title, user_message){
        var confirmation = $mdDialog.confirm()
               .title(title)
@@ -224,6 +224,8 @@
       return "g/public/gen_temp/common/views/view.tpl.html." + role + "___" + tipo_name;
      }
 
+
+     this.applicationMetadata = metadataService.applicationMetadata;
      this.getConfirmation = getConfirmation;
      this.hideElement = hideElement;
      this.showElement = showElement;

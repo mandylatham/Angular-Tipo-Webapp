@@ -74,7 +74,9 @@
       tipoHandle.getTipos($stateParams.tipo_name, filter).then(function(tipos){
         var function_name = $stateParams.tipo_name + "_OnList";
         if(typeof tipoClientJavascript[function_name] === 'function'){
-          tipoClientJavascript[function_name](tipos);
+          var data_handle = {};
+          data_handle.tipos = tipos;
+          tipoClientJavascript[function_name](data_handle);
         }
         _instance.tipos = tipos;
         _instance.hasTipos = tipos.length > 0;
@@ -157,7 +159,9 @@
       var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
       var function_name = $stateParams.tipo_name + "_OnCreate";
       if(typeof tipoClientJavascript[function_name] === 'function'){
-        tipoClientJavascript[function_name](_instance.tipos);
+        var data_handle = {};
+        data_handle.tipos = _instance.tipos;
+        tipoClientJavascript[function_name](data_handle);
       }
       if(perspectiveMetadata.fieldName){
         var data = {};
@@ -201,6 +205,10 @@
       var function_name = $stateParams.tipo_name + "_OnClick";
       var res = false;
       if(typeof tipoClientJavascript[function_name] === 'function'){
+         var data_handle = {};
+         data_handle.tipos = _instance.tipos;
+         data_handle.tipo = tipo;
+         data_handle.event = event;
          res = tipoClientJavascript[function_name](_instance.tipos,tipo,event);
       }
       if (_instance.bulkedit || _instance.singleedit || _instance.bulkupdate || res) {
@@ -263,6 +271,8 @@
           var function_name = $stateParams.tipo_name + "_OnDelete";
           var res = true;
           if(typeof tipoClientJavascript[function_name] === 'function'){
+            var data_handle = {};
+            data_handle.tipo = tipo;
              res = tipoClientJavascript[function_name](tipo);
           }
           if (res) {
