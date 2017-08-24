@@ -148,56 +148,57 @@ Provide a JSON file to generate TipoDefinition from JSON data sample.
 Tipo lovel events are fired when a new instance of a tipo is created/cloned, updated, deleted, listed and clicked in a list.
 
 
-### OnList: ``` `<Tipo Name>`_OnList(tipo_list) ```
+### OnList: ``` `<Tipo Name>`_OnList(data_handle) ```
 
 This is triggered before presenting the list of tipos in a list view. The can be useful to suppress certain items or add some addtional items to the list returned by the server.
 
     - tipoHandle: handle to the utility service
-    - tipo_list: list of tipos,  
+    - data_handle.tipo_list: list of tipos,  
     // return void;
 
-### OnCreate: ``` `<Tipo Name>`_OnCreate(tipo_list, cloned_tipo) ```
+### OnCreate: ``` `<Tipo Name>`_OnCreate(data_handle) ```
 
 This is triggered when user performs create new or clone in the list view. Only short display fields will be present the tipo_list and cloned_tipo.
 
     - tipoHandle: handle to the utility service
-    - tipo_list: if the create is performed from the list view, this contains all the tipos in the list view. 
-    - cloned_tipo - Present only if the create event was fired due to clone operation. 
+    - data_handle.tipo_list: if the create is performed from the list view, this contains all the tipos in the list view. 
+    - data_handle.cloned_tipo - Present only if the create event was fired due to clone operation. 
     // return boolean; //Return true to continue creating/saving tipo
 
-### OnClick: ``` `<Tipo Name>`_OnClick(tipo_list, selected_tipo, event) ```
+### OnClick: ``` `<Tipo Name>`_OnClick(data_handle) ```
 
 This is triggered only when the list item is clicked in the list view. When actions like, delete/clone are performed on a tipo in the list view, this event is not fired. Only short display fields will be present the tipo_list and selected_tipo. 
 
-    - tipoHandle: handle to the utility service
-    - tipo_list: list of tipos in the list view
-    - selected_tipo - tipo data for the selected tipo.
+    - data_handle.tipoHandle: handle to the utility service
+    - data_handle.tipo_list: list of tipos in the list view
+    - data_handle.selected_tipo - tipo data for the selected tipo.
 	// return boolean; //Return true to continue creating/saving tipo
     
-### OnDelete: ``` `<Tipo Name>`_OnDelete(tipo) ```
+### OnDelete: ``` `<Tipo Name>`_OnDelete(data_handle) ```
 
 This event is triggered when a tipo is selected for deletion. This can be useful to control the behaviour when a tipo is deleted. For example, if this is a prent tipo and this event can be used to delete the child tipos before continuing with the deletion.
 
     - tipoHandle: handle to the utility service
-    - tipo: contains  data for the tipo that is selected for deletion.
+    - data_handle.tipo: contains  data for the tipo that is selected for deletion.
     // return boolean/promise; Returns true, default delete will be executed. Returns false, deafult action will not be executed.
 
 
 
-### OnView: ``` `<Tipo Name>`_OnView(tipo) ```
+### OnView: ``` `<Tipo Name>`_OnView(data_handle) ```
 
 This event is fired when user selects tipo for viewing. Before presenting the detailed view any customisations required can be performed using this event.
 	
 	- tipoHandle: handle to the utility service.
-	- tipo: contains data for the tipo that is selected for viewing details of the tipo.
+	- data_handle.tipo: contains data for the tipo that is selected for viewing details of the tipo.
     // return void;
 
-### OnSave: ``` `<Tipo Name>`_OnSave(tipo, mode) ```
+### OnSave: ``` `<Tipo Name>`_OnSave(data_handle) ```
 
 OnSave is fired when a new tipo is created or edited. In both cases, before sending the data to server, this event is fired. Data going to server can be modified by changing the data in tipo. Tipo Handle provides a number of functions to save an object in server. 
 
 	- tipoHandle: handle to the utility service.
-	- tipo: contains data for the tipo.
+	- data_handle.tipo: contains data for the tipo.
+	- data_handle.mode: contains whether the Save is triggered from create or edit mode
     // return boolean/promise; Only if true data will be saved in the server.
 
 
