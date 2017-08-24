@@ -6,7 +6,7 @@ weight: 2
 ## Introduction
 When you log in to your TipoTapp account, the first view that you'll see is the Home Page of the Dashboard with the `My Apps` tab selected. This is where you'll be able to access your created apps.
 
-![My Apps](/images/creating_an_application_01.png)
+![My Apps](/images/creating_an_application_basic/image_001.png)
 
 TipoTapp allows you to create several applications. Each application that you create will own its data and it will also be isolated from other applications.
 
@@ -78,7 +78,7 @@ To create an application, click on the + button on the bottom right side of the 
 
 On the page that appears, fill in the details for the application.
 
-![My Apps](/images/creating_an_application_02.png)
+![My Apps](/images/creating_an_application_basic/image_002.png)
 
 The App Name is the only required field here. You must ensure that the name entered is unique to your account. A user account cannot have apps sharing the same name. You can also add a Description of the app and select an Icon from a list of available Material Design icons.
 
@@ -86,13 +86,13 @@ The `App Link` will be automatically generated. As the name implies, this will b
 
 If you publish an app as a Sample App, it will be publicly available and accessible via the `Sample Apps` tab of the Home Page.
 
-![Sample Apps](/images/creating_an_application_03.png)
+![Sample Apps](/images/creating_an_application_basic/image_003.png)
 
 Here you'll find other apps that you can take a look at to see what's possible to build with TipoTapp. You can copy these and play around with them to get a feel of the system.
 
 After creating an app, it will be visible on the Dashboard. Below, you can see the app we created with a custom Description and App Icon.
 
-![Student Management System](/images/creating_an_application_04.png)
+![Student Management System](/images/creating_an_application_basic/image_004.png)
 
 ## Modelling App Data
 You just created an application and it's immediately available for use, but without any useful data, it is not that useful to you. In this section, we'll take a look at how you can model your app's data.
@@ -101,17 +101,17 @@ From the Dashboard, click on the app you just created. A new tab will be opened 
 
 On the Dashboard, on the left menu, you will see some Tipos listed there. Applications that you create come pre-loaded with some Tipos that you can choose to delete, edit or use as-is. There is no data that has been added for any of the Tipos, but you can add a record by using the + button at the bottom right of the screen.
 
-![Customer records](/images/creating_an_application_05.png)
+![Customer records](/images/creating_an_application_basic/image_005.png)
 
 The generated Tipos correspond to some of the Tipos that we are going to eventually create for the Student Management System, namely: `Student`, `Course`, `Unit`, `Admin` and `Departments`. You can keep these Tipos in your application and just continue reading through the guide without creating them yourself, but we are going to deleting ours and build the app from scratch.
 
 To edit the app's data objects, head over to the `Develop` menu by selecting the wrench icon on the top-right of the screen. The first page you'll see here will display some information about the app. Using the controls on the top-right of the screen, you can edit this data or you can delete the app altogether.
 
-![Develop menu](/images/creating_an_application_06.png)
+![Develop menu](/images/creating_an_application_basic/image_006.png)
 
 Open the menu to the left and select `App Definitions`. Remember, we'll thoroughly cover the interface later on, so for now, you don't need to know what the other options in the menu do.
 
-![Develop menu](/images/creating_an_application_07.png)
+![Develop menu](/images/creating_an_application_basic/image_007.png)
 
 The App Definitions menu displays Tipos that have been created to hold the app's data. Here you can view, edit, create and delete Tipos. At the moment, we can see the following Tipos that were automatically generated with the new app: `MasterData`, `Departments`, `Staff`, `Course`, `Unit`, `Student` and `Address`. Feel free to click on any Tipo to see its various fields.
 
@@ -119,17 +119,17 @@ We'll delete the `MasterData`, `Departments`, `Staff`, `Course`, `Unit` and `Stu
 
 To delete a Tipo, select it from the menu and click on the middle Delete button at the top-right of the screen.
 
-![Delete button](/images/creating_an_application_08.png)
+![Delete button](/images/creating_an_application_basic/image_008.png)
 
 With the App Definitions menu selected, use the + button at the bottom-right of the screen to add a Tipo to the app. We'll start with the `Unit` Tipo that will hold data related to a course unit. We'll keep things simple though. Our `Unit` object will only store the unit's ID and name.
 
 At the top of the page that comes up, you can enter the Tipo's Meta Data. Below we've filled out its Name, Description, Icon and Menu. With the Home menu selected, the Tipo will appear on the Home menu and we'll be able to access its records from there.
 
-![Field meta data](/images/creating_an_application_09.png)
+![Field meta data](/images/creating_an_application_basic/image_009.png)
 
 To add fields to the Tipo, select the + control to the right of the `Fields` section and fill out the field's data. With this view of the Field control, you can add basic information about the field as shown.
 
-![Field view](/images/creating_an_application_10.png)
+![Field view](/images/creating_an_application_basic/image_010.png)
 
 Remember we had mentioned that a Unit will have two fields: `Unit ID` and `Name`. There is no need to add an ID field as this will be automatically generated for any Tipo you add to the application.
 
@@ -137,13 +137,13 @@ The `Sequence` will hold a number that will determine the order the field will h
 
 The `Field` holds the name of the field and the `Type` specifies the type of data the field will hold. You can select the value from a list of Basic tipo Types or from Tipo Objects. We select `Simple String` for this field.
 
-![Field type](/images/creating_an_application_11.png)
+![Field type](/images/creating_an_application_basic/image_011.png)
 
 When you turn on `Short Display`, the field will be visible whenever an instance of the Tipo is displayed in a listview. This can be seen when viewing the records of a certain Tipo or in a form where the particular Tipo is embedded in another Tipo (we'll see an example of this later on).
 
 Basically any data object you can add on TipoTapp, has two Edit menus - a Basic one and an Advanced one. To access the Advanced menu, use the following icon that is located to the right of the Basic menu.
 
-![Advanced edit](/images/creating_an_application_12.png)
+![Advanced edit](/images/creating_an_application_basic/image_012.png)
 
 If you open the Advanced Edit menu of the Name field we just added, you will see a lot more options that you can configure for the field. We'll cover what they all do in another part of the documentation, but for now head over to the `Data Settings` section and switch on the `Meaningful Key?` control.
 
@@ -230,7 +230,7 @@ Adding `Allowed values` to a field will add a drop down menu to that field in th
 Do not separate the options with commas, instead press the `Return` key after every option entered. This will ensure that every value entered before `Return` is a separate option. If you use commas, then the value ` Male, Female, Other` will be taken as a single option. If you use Return, then your options should look as shown below.
 {{< /note >}}
 
-![Allowed values](/images/creating_an_application_13.png)
+![Allowed values](/images/creating_an_application_basic/image_013.png)
  
 `Address` field:
 
@@ -300,7 +300,7 @@ You'll see the `Student`, `Course`, `Unit`, `Admin` and `Departments` Tipos list
 
 Go back to the app's homepage and you should see the Tipos that you created added to the Home menu.
 
-![Home menu](/images/creating_an_application_14.png)
+![Home menu](/images/creating_an_application_basic/image_014.png)
 
 You can now add data to the app.
 
@@ -308,25 +308,53 @@ You can now add data to the app.
 
 To add records of a certain Tipo, select that Tipo and use the + button at the bottom-right of the screen to create a new instance of the Tipo. When you save the record, it will be listed on the Dashboard. Below you can see some of the data that we added to the app.
 
-![Unit records](/images/creating_an_application_15.png)
+![Unit records](/images/creating_an_application_basic/image_015.png)
 
-![Course records](/images/creating_an_application_16.png)
+![Course records](/images/creating_an_application_basic/image_016.png)
 
-![Student records](/images/creating_an_application_17.png)
+![Student records](/images/creating_an_application_basic/image_017.png)
 
 For each record shown, the details that are visible in the above list views are the fields whose **Short Display** switch was turned on. If you want to view more details of a record, click on it and all its other details will be brought up.
 
-![Course record detail view](/images/creating_an_application_18.png)
+![Course record detail view](/images/creating_an_application_basic/image_018.png)
 
-![Student record detail view](/images/creating_an_application_19.png)
+![Student record detail view](/images/creating_an_application_basic/image_019.png)
 
 Notice the below icon next to the `Address` details of the `Student` record, Whenever you see this icon, you can click on it to see more details regarding the particular field it's on. In the above case, if you click on the More Details icon of the Address field, you will be shown all the fields of the `Address` Tipo. If you had switched off **Short Display** for some/all the fields in the `Address` Tipo, then the particular fields wouldn't have shown up on the `Student` record detail view. But on clicking on the More Details icon next to the Address Field, you would have been able to see all the Address fields.
 
-![More details icon](/images/creating_an_application_20.png)
+![More details icon](/images/creating_an_application_basic/image_020.png)
 
-### Filtering Data and Searching Through Records
+### Searching Through Records
 
-TODO: Ask Raj if we should cover this here or if it's an Advanced concept
+When you take a look at a Tipo's records from the listview, you will notice a search control at the top-right of the screen. You can use this to search through the Tipo's records. The search performed is a full-text search that searches all the record's fields for the entered term and shows all the records that fit the criteria.
+
+The Tipo record listview loads just enough records to fill the screen. If you have a large data set, you can load more records through continuous scrolling.
+
+{{< note title="Note" >}}
+When you begin typing out a search term, the UI changes immediately to show you records that fit the search criteria. You should note that without pressing the Return key, the records shown will have been picked from the ones that had been loaded. If you have a large dataset and you hadn't scrolled through all the records, thus getting them loaded up, then when you perform a search (without pressing Return), TipoTapp will only filter through the loaded records, so you might end up missing some records that contain the search term but weren't loaded. To ensure that the search is done on all records, submit the search term with Return, so that all records on the back-end are searched.
+{{< /note >}}
+
+### Displaying Related Data
+
+If you take a look at a Course record, you will be able to see the Units that are part of that course. Most of the times in a learning institution, different courses can share the same unit. As the UI stands right now, it would not be easy to find all courses that contain a certain unit. You would have to look at all Course records and manually note down the occurrences of the particular Unit. If you have a lot of records, this of course will not be an efficient way of doing this, leave alone the practicality. TipoTapp enables you to add a tab to a Tipo's detail view that can show extra information regarding the Tipo, according to your specification. We'll do this for the Unit Tipo.
+
+Open `App Definitions`, select the Unit Tipo and enter Edit mode. Add a field to the Tipo named `Courses` of Type `Course`. Open the Advanced Editor of this field and scroll down to the `Relationship Settings` section. Set the `Relationship Type` to `reference`, switch on the `Show in Tab?` control and set `units:[[tipo_id]]` for the `Relationship Filter` field.
+
+Here, we created a field that will hold Courses related to the Unit. We specify the relationship as `reference` because we only want to reference the related Course as opposed to embedding it in the Tipo. With this, only the Course’s key will be stored against the Unit Tipo. We then switch on the `Show in Tab?` control so that the field's data appears in a separate tab. Finally we set a `Relationship Filter` that determines the data that will be shown in the field. If you don't set a filter, then all records of the field's type will appear in the tab. In our case, if we don't set a filter, then all Courses will be shown in the tab. With the `units:[[tipo_id]]` filter we specify that only the Courses whose `units` field hold a record with a `tipo_id` similar to the present Unit's id should be displayed. Remember that when you name the fields in your Tipo's the system stores them as lower cased values with the underscore as the delimiter, e.g. if you name a field `First Name` then it will be stored as `first_name`. To set a filter, you have to use this lower-cased field name.
+
+Save the Tipo and head back to the app's Home page to check the results of the changes you made.
+
+Below, we've added some more data to the app. As you can see, `Bachelor of Science in Computer Science` and `Bachelor of Science in Electrical Engineering` share a few Units.
+
+![Bachelor of Science in Computer Science record](/images/creating_an_application_basic/added_image_001.png)
+
+![Bachelor of Science in Electrical Engineering record](/images/creating_an_application_basic/added_image_002.png)
+
+If you take a look at one of the shared Units, you will be able to see all the related Courses in a tab named `COURSES`, which is the name we gave to the field we added. When creating the Course Tipo, we had specified its `Name` field to be its `Meaningful Key`. If we hadn't set this, then only the listed Course ids would have been displayed. So always remember to set the `Meaningful Key` to something distinguishable for any Tipo that will be part of another Tipo.
+
+![Show in tab feature](/images/creating_an_application_basic/added_image_003.png)
+
+![Show in tab feature](/images/creating_an_application_basic/added_image_004.png)
 
 ## Configuring Forms
 
@@ -338,17 +366,17 @@ When it comes to forms, TipoTapp allows you to customize their look and feel. We
 
 By default, a form is divided into three columns and each field takes up one column. You can see this in the image below. The fields are arranged in three columns and each field takes up a single column.
 
-![1 column field](/images/creating_an_application_21.png)
+![1 column field](/images/creating_an_application_basic/image_021.png)
 
 You can change the width of a field by setting its `Form Width ` field. To do this, go to `App Definitions` and select the Tipo you want modified. Go into Edit mode and open the Advanced Editor of the field whose width you want to modify. In our case, we'll modify the First Name field of the Student Tipo. Go down to the `Display Settings` section and select `2` as its `Form Width`. `Form Width` specifies how many columns a field takes in the form. Click on `Done` then save the changes.
 
 When you bring up the form again, you'll see that the First Name field now takes up two columns.
 
-![2 column field](/images/creating_an_application_22.png)
+![2 column field](/images/creating_an_application_basic/image_022.png)
 
 As mentioned, by default, forms are divided into 3 columns, but we'll see later how to change the number of columns for your views when we take a look at Flow and Grid layouts. Regardless of how many columns a form has, the `Form Width` of a field will determine how many of those columns the field takes up. Below you can see a 5 column form with a `First Name` field with a `Form Width` of `3`.
 
-![3 column field](/images/creating_an_application_23.png)
+![3 column field](/images/creating_an_application_basic/image_023.png)
 
 ### Dividers
 
@@ -356,11 +384,11 @@ You can improve the appearance of a form by separating related fields from other
 
 Go to `App Definitions`, select the Student Tipo and enter into Edit mode. Add a field named `Admission Details` of Type `Divider` and set its `Sequence` to a number that is between the Sequence number of the `Email` field and the Sequence number of the `Admission Date`. You can select any number, even a floating point. An example is shown below.
 
-![Divider](/images/creating_an_application_24.png)
+![Divider](/images/creating_an_application_basic/image_024.png)
 
 Save the changes and go back to the Student form. You should see an `Admission Details` Divider separating the admission details from the details that come before.
 
-![Divider](/images/creating_an_application_25.png)
+![Divider](/images/creating_an_application_basic/image_025.png)
 
 ### Field Groups
 
@@ -370,15 +398,15 @@ Go to `App Definitions`, select the Student Tipo and enter edit mode. Scroll dow
 
 Open the Advanced Editor for the Field Group you just added and then add the following two fields to it. Note that their Type is `True/False` and their `Short Display` has been turned on. You can add as many extra curricular activities as you want.
 
-![Field Group](/images/creating_an_application_26.png)
+![Field Group](/images/creating_an_application_basic/image_026.png)
 
 After adding Fields to that Field Group, go back to the main Editor and Add a new Field to the Tipo. Name it `Extra Curricular Activities` And set its Type to `Extra-Curricular-Activities`. You'll find this option added in the Type selector menu under the `Field Groups` section.
 
-![Field Group](/images/creating_an_application_27.png)
+![Field Group](/images/creating_an_application_basic/image_027.png)
 
 Save the changes and open up the Student form again to see the created form group.
 
-![Field Group](/images/creating_an_application_28.png)
+![Field Group](/images/creating_an_application_basic/image_028.png)
 
 ## Configuring How Data is Displayed
 
@@ -388,17 +416,17 @@ On TipoTapp, you can customize how data is displayed. Data can be either display
 
 By default the data shown in list views is displayed in a Flow Layout that has 3 columns. Below, you can see this for the Student records.
 
-![Student records](/images/creating_an_application_17.png)
+![Student records](/images/creating_an_application_basic/image_017.png)
 
 With the flow layout, all the fields of a Tipo (including any embedded Tipos) whose `Show Display` switch was turned on are shown in the list view.
 
 If you select one of the records and view it in the detail view, by default, its data is also shown in three columns.
 
-![Student record detail view](/images/creating_an_application_19.png)
+![Student record detail view](/images/creating_an_application_basic/image_019.png)
 
 We can change the number of columns displayed. To do this, head over to `App Definitions` and edit the Student Tipo. Open the Advanced Editor of the `Meta Data` section. You will see the fields shown below.
 
-![Student meta data](/images/creating_an_application_29.png)
+![Student meta data](/images/creating_an_application_basic/image_029.png)
 
 Take note of these fields: `Desktop Max Columns`, `Tablet Max Columns` and `Mobile Max Columns`. These are used to set the maximum number of columns shown in a Flow Layout on desktop, tablet and mobile devices respectively.
 
@@ -406,7 +434,7 @@ The default for desktop and tablet is 3 columns while for mobile, it is 1 column
 
 We are going to change the number of columns for the Student Tipo in Flow Layout to be 5 on the desktop. Select `5` from the dropdown menu of the `Desktop Max Columns` field. Save the changes and go back to the home dashboard and take a look at the Student records.
 
-![5 column flow layout](/images/creating_an_application_30.png)
+![5 column flow layout](/images/creating_an_application_basic/image_030.png)
 
 You can see the 5 columns in the image above. If you had set the `Form Width` of a particular field previously, you might want to re-adjust the value you set for it to accommodate the increase in columns. In the above, we changed the `Form Width` of the First Name column to `3` so now it takes up 3 of the 5 columns.
 
@@ -422,23 +450,25 @@ The other way data can be displayed on TipoTapp is via a Grid Layout. With the G
 
 To demonstrate this, we'll change the Student list view from a Flow Layout to a Grid Layout. Head over to `App Definitions`, select the Student Tipo and get into Edit mode. Scroll down to the `List Customization` section and open the Advanced Editor. You should see the fields shown below.
 
-![List customization](/images/creating_an_application_31.png)
+![List customization](/images/creating_an_application_basic/image_031.png)
 
 Turn on `Desktop Grid` and click on `Done`. By default, the list view grid will have 3 columns. Let's increase this so that it shows more data. Scroll up to the `Meta Data` section and open the Advanced Editor. Set the `Grid Max Columns` to `6`. Below, we've left the previous setting of `Desktop Max Columns` to `5`. Since we've switched the list view to the Grid Layout, the `Desktop Max Columns` value will only affect the views that use Flow Layout i.e. detail views and forms.
 
-![Grid max columns](/images/creating_an_application_32.png)
+![Grid max columns](/images/creating_an_application_basic/image_032.png)
 
 Save the changes and go back to the Home menu to take a look at the list view's new look.
 
-![6 column grid layout](/images/creating_an_application_33.png)
+![6 column grid layout](/images/creating_an_application_basic/image_033.png)
 
 Other than list views, TipoTapp also supports Grid Layouts for Field Groups. Right now, if you take a detailed view of a Student record, you will see the following Field Group for `Extra Curricular Activities`. It's data is displayed in a flow layout.
 
-![Field group flow layout](/images/creating_an_application_34.png)
+![Field group flow layout](/images/creating_an_application_basic/image_034.png)
 
 To change the field group to a grid layout, go to `App Definitions` and edit the Student Tipo. Scroll down to the `Fields` section and open the Advanced Editor of the `Extra Curricular Activities` field. From the `Group Settings` section, you can switch on the Grid Layout for desktop, tablet or mobile.
 
-![Group settings](/images/creating_an_application_35.png)
+![Group settings](/images/creating_an_application_basic/image_035.png)
+
+Unlike Flow Layout, the Grid Layout doesn't change columns based on device type. The number of columns is fixed for mobile, tablet and desktop and is determined by the value of `Grid Max Columns`.
 
 ### Flow/Grid Layout, Which Should You Use?
 
@@ -466,7 +496,7 @@ Other than changing how data is displayed, TipoTapp allows you to change the com
 
 To change how the app looks, select `Develop` from the navigation bar and then from the menu on the left, select `Customizations`.
 
-![Customization menu](/images/creating_an_application_36.png)
+![Customization menu](/images/creating_an_application_basic/image_036.png)
 
 In the next three sections, we'll be using the Editor found here.
 
@@ -474,21 +504,19 @@ In the next three sections, we'll be using the Editor found here.
 
 If you look at your app's navigation bar, you will see a default logo on the left side of the bar. To change this, get into Edit mode and scroll down to `Appearance Settings`. Go down to the `Logo` field and use the control on the left (with the clip icon) to select an image.
 
-![Change logo](/images/creating_an_application_37.png)
+![Change logo](/images/creating_an_application_basic/image_037.png)
 
 TODO: Ask Raj about the image types allowed as well as the dimensions.
 
 To change the app's Font, you can select one from the dropdown on the `Font` field.
 
-![Change font](/images/creating_an_application_38.png)
-
-TODO: Ask Raj if you can use your own fonts or if it's restricted to available options.
+![Change font](/images/creating_an_application_basic/image_038.png)
 
 ### Changing the App's Color
 
 TipoTapp uses Material Design on its interface. You can change the default primary and accent colors of your app by either selecting from the available color themes, or you can use your own custom palette. We'll look at the latter option in the second part of this guide. Right now, let's look at the available palette.
 
-![Change color](/images/creating_an_application_39.png)
+![Change color](/images/creating_an_application_basic/image_039.png)
 
 From `Appearance Settings`, you will find a `Choose Colour Theme` section shown above. The first time you click on a color, that color will be set as the Primary color. If you click on another color, this color will be set as the Accent. Each time you change colors, a preview of the resulting UI is shown below the palette.
 
@@ -496,4 +524,62 @@ From `Appearance Settings`, you will find a `Choose Colour Theme` section shown 
 
 TipoTapp provides templates for the following types of emails: `Reset Password Email`, `User Registration Email`, `User Registration Confirmation Email` and `Welcome Email`. You can use the default message in these, or you can change it as well as the formatting. You can change this from the `Email Templates` section. Select the email you want to change and open its Advanced Editor. Here, you can enter the HTML markup of the email. Make sure to use the correct variable names for the various fields in your app. These are seen as the values inside curly braces e.g. `{applicationName}`
 
-![Change email template](/images/creating_an_application_40.png)
+![Change email template](/images/creating_an_application_basic/image_040.png)
+
+## User Registration and Invitation
+
+After you are done creating and customizing your application, you might want to invite other users to use it. You can decide to have the app used in one institution, or you can decide to make it available for use by other schools. We'll now look at how this is done.
+
+If you take a look at your application's navigation bar, you will see that the links for the `Profile` and `Logout` icons are disabled. This is because the app is still in Development Mode. In Dev Mode, an app shares the same credentials with the TipoTapp User Account that created it.
+
+![Navigation bar](/images/creating_an_application_basic/image_041.png)
+
+To enable others to use the application go to `Develop` and select `Configurations` from the menu on the left.
+
+![Configurations menu](/images/creating_an_application_basic/image_042.png)
+
+At the top of the Editor on the right panel, you will se the following fields.
+
+![Signup configuration controls](/images/creating_an_application_basic/image_043.png)
+
+The `Allow Signup` field determines whether other users will be able to create accounts on the application. If you don't want to make the application available to others, for instance, if the School Management System is only to be used in your school, then you should enable this option, signup for an account that will be used to administer your school and then come back to this menu and disable the `Allow Signup` so that other accounts won't be able to be created on the application. The owner of the account you just created will then be able to invite other users e.g. students and staff to use their application.
+
+The `Confirm user email during signup` and `Capture account name during signup` do exactly as they say. These are mandatory and cannot be switched off.
+
+Below those controls, you can configure the account Plan for the application. You can set the `Default Trial Plan` by selecting from 3 options: `Basic`, `Professional` and `Enterprise` plans. You can also select how long an account will be active by changing the `Default Trial Period`. The maximum number of days you can set for this is 999 days. Having this period is especially useful in the cases where you plan to monitize your app. If you are going to sell it out to other schools, then you can set it to the period of use on a recurring payment plan. When a user's period expires, you can set another period for them.
+
+With these settings, let us now create an account. Preferably open another browser window and navigate to your app's URL (or just log out from the present application and use the same browser). You can find your app's link by selecting `Develop` from the navigation bar. From the application details that appear, you'll see the `App Link` field. The URL will point to the Dashboard, e.g. `https://app.tipotapp.com/app/d/tipotapp/studentmanagementsystem/#/dashboard`. Replace `dashboard` with `register` e.g. `https://app.tipotapp.com/app/d/tipotapp/studentmanagementsystem/#/register`. For the login link, replace it with `login` i.e. `https://app.tipotapp.com/app/d/tipotapp/studentmanagementsystem/#/login`.
+
+The signup and register pages will be customized according to the UI settings you made for the app. If you set a logo, changed the color/font, the changes will be reflected here.
+
+![Signup](/images/creating_an_application_basic/image_044.png)
+
+After you create an account, you will be automatically signed in. If the app creator had added any records to the account, you will be able to see the records. All accounts created on the application will have a copy of the records created by the app owner. Changing the records for your account will not change the original records or the records of another account since these are a copy and not the original records themselves. Any records or Tipos that you add to your account will be private to that account.
+
+If you check your email, you will find the Confirmation email.
+
+If you look at the navigation bar, the `Profile` and `Logout` links will now be enabled.
+
+![Navigation bar](/images/creating_an_application_basic/image_045.png)
+
+Select `Profile` and you will see the following menu.
+
+![Profile menu](/images/creating_an_application_basic/image_046.png)
+
+To invite other users to the account, e.g. you might want to invite the school principle or another staff member to the app, select `My Account` from the menu and use the 3-dot icon to the right to expose the `Invite User` control.
+
+![Profile menu](/images/creating_an_application_basic/image_047.png)
+
+An Editor will appear where you can enter the user's name and the role you wish for them to have. They will then receive the invite via email.
+
+![Profile menu](/images/creating_an_application_basic/image_048.png)
+
+TODO: what is the Account Name? Also `Confirm user email during signup` and `Capture account name during signup` might not be mandatory in future, so change the above when this happens.
+
+TODO: What are `Basic`, `Professional` and `Enterprise` plans?
+
+TODO: How does one use a custom domain?
+
+TODO: Change will be made to app to determine what data is shown to logged in user. Change doc when this happens.
+
+TODO: Invited User roles: `EnterprisePlanRole`, `ProfessionalPlanRole` and `Admin`. What are the differences? What can each do?
