@@ -78,8 +78,12 @@ googleAnalytics = ""
 [[menu.main]]
 	name   = "Tipo Javascript SDK"
 	url    = "tipo_javascript_sdk/"
-	weight = 6
+	weight = 7
 
+[[menu.main]]
+	name   = "Cloud Functions"
+	url    = "cloud_functions/"
+	weight = 8
 
 
 [blackfriday]
