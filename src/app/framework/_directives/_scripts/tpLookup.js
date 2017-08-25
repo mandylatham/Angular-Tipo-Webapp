@@ -12,6 +12,7 @@
     $mdDialog,
     tipoCache,
     tipoRouter,
+    tipoHandle,
     tipoInstanceDataService,
     tipoClientJavascript) {
 
@@ -104,10 +105,14 @@
     };
 
     _instance.addTipo = function() {
+      var newScope = $scope.$new();
+      newScope.hide_actions = true;
+      newScope.tipo_name = _instance.tipoDefinition.tipo_meta.tipo_name;
       var promise = $mdDialog.show({
         templateUrl: 'framework/_directives/_views/tp-lookup-popup-select-new.tpl.html',
         controller: 'TipoEditRootController',
         controllerAs: 'tipoRootController',
+        scope: newScope,
         resolve: /*@ngInject*/
         {
           tipo: function() {

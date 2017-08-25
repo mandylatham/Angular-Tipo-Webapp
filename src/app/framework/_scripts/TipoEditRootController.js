@@ -76,6 +76,7 @@
         templateUrl: 'framework/_directives/_views/tp-lookup-popup-select-new.tpl.html',
         controller: 'TipoCreateRootController',
         controllerAs: 'tipoRootController',
+        scope: newScope,
         fullscreen: true,
         resolve: /*@ngInject*/
         {
@@ -141,12 +142,14 @@
     $sce) {
     
     var _instance = this;
-    _instance.updateUrl = tipoHandle.updateUrl($stateParams.tipo_name);
-    _instance.createUrl = tipoHandle.createUrl($stateParams.tipo_name);
-    _instance.detailUrl = tipoHandle.detailUrl($stateParams.tipo_name);
+    _instance.hide_actions = $scope.hide_actions;
+    var tipo_name =  $scope.tipo_name || $stateParams.tipo_name;
+    _instance.updateUrl = tipoHandle.updateUrl(tipo_name);
+    _instance.createUrl = tipoHandle.createUrl(tipo_name);
+    _instance.detailUrl = tipoHandle.detailUrl(tipo_name);
     // _instance.tipoDefinition.tipo_field_groups = tipo.tipo_field_groups;
     var clonedTipoId = $stateParams.copyFrom;
-    var function_name = $stateParams.tipo_name + "_OnView";
+    var function_name = tipo_name + "_OnView";
     _instance.tipo = tipo;
     $scope.data_handle = {};
     $scope.data_handle.tipo = _instance.tipo;
@@ -154,7 +157,6 @@
       tipoClientJavascript[function_name]($scope.data_handle);
     }
     // var tipo_name = tipoDefinition.tipo_meta.tipo_name;
-    var tipo_name = $stateParams.tipo_name;
     var tipo_id = $stateParams.tipo_id;
 
     var perspective = $scope.perspective;
@@ -180,7 +182,7 @@
       var data = {};
       var parameters = {};
       tipoManipulationService.modifyTipoData(_instance.tipo);
-      var function_name = $stateParams.tipo_name + "_OnSave";
+      var function_name = tipo_name + "_OnSave";
       if(typeof tipoClientJavascript[function_name] === 'function'){
         $scope.data_handle.tipo = tipo;
         $scope.data_handle.action = action;
@@ -197,14 +199,13 @@
             //   $templateCache.remove(_instance.tipoDefinition._ui.listTemplateUrl.replace(/___TipoDefinition/g,"___" + tipo_id));
             //   $templateCache.remove(_instance.tipoDefinition._ui.createTemplateUrl.replace(/___TipoDefinition/g,"___" + tipo_id));
             // }
-            var registryName = $stateParams.tipo_name + '_resdata';
+            var registryName = tipo_name + '_resdata';
             var resData = tipoRegistry.get(registryName);
             tipoRegistry.pushData(tipo_name,result.tipo_id,result);
             tipoRouter.toTipoView(tipo_name, tipo_id);
           }
         });
       }else if (action === 'create') {
-        tipo_name = tipo_name;
         var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
           if(perspectiveMetadata.fieldName && !_instance.tipo[perspectiveMetadata.fieldName]){
             _instance.tipo[perspectiveMetadata.fieldName] = perspectiveMetadata.tipoId;
@@ -221,7 +222,7 @@
                   $mdDialog.hide(tipos);
                 });            
               }else{
-                var registryName = $stateParams.tipo_name + '_resdata';
+                var registryName = tipo_name + '_resdata';
                 var resData = tipoRegistry.get(registryName);
                 tipoRegistry.pushData(tipo_name,result[0].tipo_id,result[0]);
                 tipoRouter.toTipoResponse(resData,tipo_name,result[0].tipo_id,parameters);
@@ -333,11 +334,11 @@
       var filter = {};
       tipoRouter.startStateChange();
       getPerspective(filter);
-      tipoCache.evict($stateParams.tipo_name, $stateParams.tipo_id);
+      tipoCache.evict(tipo_name, $stateParams.tipo_id);
       $templateCache.remove(_instance.createUrl);
       $templateCache.remove(_instance.detailUrl);
       $templateCache.remove(_instance.updateUrl);
-      tipoHandle.getTipo($stateParams.tipo_name, $stateParams.tipo_id, filter, true).then(function (data) {
+      tipoHandle.getTipo(tipo_name, $stateParams.tipo_id, filter, true).then(function (data) {
         data.tipo_id = data.tipo_id || $stateParams.tipo_id;
         _instance.tipo = data;
         tipoRouter.endStateChange();
@@ -709,7 +710,7 @@
       }
       _.set(_instance.tipo,field_name,delItem);
       var context = setContext(field_name);
-      var function_name = $stateParams.tipo_name + '_' + field_name + '_OnArrayItemRemove';
+      var function_name = tipo_name + '_' + field_name + '_OnArrayItemRemove';
       if(typeof tipoClientJavascript[function_name] === 'function'){
         $scope.data_handle.tipo = _instance.tipo;
         $scope.data_handle.context = _instance.context;
@@ -800,7 +801,7 @@
     }
 
     _instance.OnArrayItemAdd = function(field_name,item,array,context){
-      var function_name = $stateParams.tipo_name + '_' + field_name + '_OnArrayItemAdd';
+      var function_name = tipo_name + '_' + field_name + '_OnArrayItemAdd';
       if(typeof tipoClientJavascript[function_name] === 'function'){
         $scope.data_handle.tipo = _instance.tipo;
         $scope.data_handle.context = _instance.context;
@@ -811,7 +812,7 @@
     }
 
     _instance.OnArrayItemRemove = function(field_name,item,array,context){
-      var function_name = $stateParams.tipo_name + '_' + field_name + '_OnArrayItemRemove';
+      var function_name = tipo_name + '_' + field_name + '_OnArrayItemRemove';
       if(typeof tipoClientJavascript[function_name] === 'function'){
         $scope.data_handle.tipo = _instance.tipo;
         $scope.data_handle.context = _instance.context;

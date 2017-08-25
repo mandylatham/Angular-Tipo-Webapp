@@ -170,10 +170,10 @@
       return tipoInstanceDataService.deleteOne(tipo_name,tipo_id);
      }
 
-     function getTipo(tipo_name, tipo_id, query_params){
+     function getTipo(tipo_name, tipo_id, query_params,reload){
       tipoCache.evict(tipo_name, tipo_id);
       query_params = tipoManipulationService.checkQueryParams(query_params);
-      return tipoInstanceDataService.getOne(tipo_name, tipo_id, query_params);
+      return tipoInstanceDataService.getOne(tipo_name, tipo_id, query_params, reload);
      }
 
      function getTipos(tipo_name, query_params){

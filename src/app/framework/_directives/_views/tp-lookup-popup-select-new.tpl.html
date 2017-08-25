@@ -16,7 +16,7 @@
   </md-toolbar>
   <form ng-cloak novalidate name="tipoForm" ng-submit="tipoForm.$valid && tipoRootController.save('dialog','create')">
     <md-dialog-content>
-      <ng-include src="tipoRootController.tipoDefinition._ui.createTemplateUrl" tp-include-replace/>
+      <ng-include src="tipoRootController.createUrl" tp-include-replace/>
     </md-dialog-content>
     <md-dialog-actions layout="row">
       <span flex></span>
