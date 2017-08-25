@@ -169,7 +169,7 @@ This is triggered when user performs create new or clone in the list view. Only 
 
 This is triggered only when the list item is clicked in the list view. When actions like, delete/clone are performed on a tipo in the list view, this event is not fired. Only short display fields will be present the tipo_list and selected_tipo. 
 
-    - data_handle.tipoHandle: handle to the utility service
+    - tipoHandle: handle to the utility service
     - data_handle.tipo_list: list of tipos in the list view
     - data_handle.selected_tipo - tipo data for the selected tipo.
 	// return boolean; //Return true to continue creating/saving tipo
@@ -207,50 +207,50 @@ OnSave is fired when a new tipo is created or edited. In both cases, before send
 
 //TODO for Murali. The following still needs to be documented properly.
 
-### OnChange:	``` `<Tipo Name>`_`<FieldName>`_OnChange(tipo, context, old_value, new_value)```
+### OnChange:	``` `<Tipo Name>`_`<FieldName>`_OnChange(data_handle)```
 
 This is applicable only in create or edit forms. This event is triggered when user changes the value of a field.
 
 	- tipoHandle: handle to the utility service.
-	- tipo: contains data for the tipo.
-	- this: handle to the current context in a deep json structure. When in an array to refer to the neighboring field that is in the same array index, simply use this.
-	- old_value: value before change
-	- new_value: value after change.
+	- data_handle.tipo: contains data for the tipo.
+	- data_handle.context: handle to the current context in a deep json structure. When in an array to refer to the neighboring field that is in the same array index, simply use this.
+	- data_handle.old_value: value before change
+	- data_handle.new_value: value after change.
 	// return boolean; If true change is propogated, if false change is not propagated.
     
 
-### OnArrayItemAdd:	``` `<Tipo Name>`_`<FieldName>`_OnArrayItemAdd(tipo, context, array , item)```
+### OnArrayItemAdd:	``` `<Tipo Name>`_`<FieldName>`_OnArrayItemAdd(data_handle)```
 
 	- tipoHandle: handle to the utility service.
-	- tipo: contains data for the tipo.
-	- this: handle to the current context in a deep json structure. When in an array to refer to the neighboring field that is in the same array index, simply use this.
-	- array: handle to the array
-	- item: newly added item.
+	- data_handle.tipo: contains data for the tipo.
+	- data_handle.context: handle to the current context in a deep json structure. When in an array to refer to the neighboring field that is in the same array index, simply use this.
+	- data_handle.array: handle to the array
+	- data_handle.item: newly added item.
 	// return boolean; If true add will continue;
 	
-### OnArrayItemRemove: ``` `<Tipo Name>`_`<FieldName>`_OnArrayItemRemove(tipo, context, array , item)```
+### OnArrayItemRemove: ``` `<Tipo Name>`_`<FieldName>`_OnArrayItemRemove(data_handle)```
 
 	- tipoHandle: handle to the utility service.
-	- tipo: contains data for the tipo.
-	- this: handle to the current context in a deep json structure. When in an array to refer to the neighboring field that is in the same array index, simply use this.
-	- array: handle to the array
-	- item: removed item.
+	- data_handle.tipo: contains data for the tipo.
+	- data_handle.context: handle to the current context in a deep json structure. When in an array to refer to the neighboring field that is in the same array index, simply use this.
+	- data_handle.array: handle to the array
+	- data_handle.item: removed item.
 	// return boolean; If true delete will continue;
 
-### BeforeLookup: ``` `<Tipo Name>`_`<FieldName>`_BeforeLookup(tipo,context, query_params)```
+### BeforeLookup: ``` `<Tipo Name>`_`<FieldName>`_BeforeLookup(data_handle)```
 
 	- tipoHandle: handle to the utility service.
-	- tipo: contains data for the tipo.
-	- this: handle to the current context in a deep json structure. When in an array to refer to the neighboring field that is in the same array index, simply use this.
-	- query_params: is an array of objects with two fields `param_name` and `param_value`. Important key is `tipo_filter` that contains the filter used on the serverside for lookups. By altering this, the lookup behaviour can be altered.
+	- data_handle.tipo: contains data for the tipo.
+	- data_handle.context: handle to the current context in a deep json structure. When in an array to refer to the neighboring field that is in the same array index, simply use this.
+	- data_handle.query_params: is an array of objects with two fields `param_name` and `param_value`. Important key is `tipo_filter` that contains the filter used on the serverside for lookups. By altering this, the lookup behaviour can be altered.
 	// return void;
 
-### AftereLookup: ``` `<Tipo Name>`_`<FieldName>`_AfterLookup(tipo, context, tipo_list, options)```
+### AftereLookup: ``` `<Tipo Name>`_`<FieldName>`_AfterLookup(data_handle)```
 
 	- tipoHandle: handle to the utility service.
-	- tipo: contains data for the tipo.
-	- this: handle to the current context in a deep json structure. When in an array to refer to the neighboring field that is in the same array index, simply use this.
-	- tipo_list: contains the result data of lookup.
-	- options: an array of objects with two fields `key` and `label`
+	- data_handle.tipo: contains data for the tipo.
+	- data_handle.context: handle to the current context in a deep json structure. When in an array to refer to the neighboring field that is in the same array index, simply use this.
+	- data_handle.tipo_list: contains the result data of lookup.
+	- data_handle.options: an array of objects with two fields `key` and `label`
 	// return void;
 

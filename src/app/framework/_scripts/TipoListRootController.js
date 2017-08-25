@@ -75,7 +75,7 @@
       tipoHandle.getTipos($stateParams.tipo_name, filter).then(function(tipos){
         var function_name = $stateParams.tipo_name + "_OnList";
         if(typeof tipoClientJavascript[function_name] === 'function'){
-          $scope.data_handle.tipos = tipos;
+          $scope.data_handle.tipo_list = tipos;
           tipoClientJavascript[function_name]($scope.data_handle);
         }
         _instance.tipos = tipos;
@@ -159,7 +159,7 @@
       var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
       var function_name = $stateParams.tipo_name + "_OnCreate";
       if(typeof tipoClientJavascript[function_name] === 'function'){
-        $scope.data_handle.tipos = _instance.tipos;
+        $scope.data_handle.tipo_list = _instance.tipos;
         tipoClientJavascript[function_name]($scope.data_handle);
       }
       if(perspectiveMetadata.fieldName){
@@ -187,7 +187,9 @@
       //Clientside Javascript for OnClone
       var function_name = $stateParams.tipo_name + "_OnCreate";
       if(typeof tipoClientJavascript[function_name] === 'function'){
-        tipoClientJavascript[function_name](_instance.tipos,tipo);
+        $scope.data_handle.tipo_list = _instance.tipos;
+        $scope.data_handle.tipo = tipo;
+        tipoClientJavascript[function_name]($scope.data_handle);
       }
       tipoRouter.toTipoCreate(tipo_name, {copyFrom: tipo.tipo_id});
     };
@@ -204,10 +206,11 @@
       var function_name = $stateParams.tipo_name + "_OnClick";
       var res = false;
       if(typeof tipoClientJavascript[function_name] === 'function'){
-         $scope.data_handle.tipos = _instance.tipos;
-         $scope.data_handle.tipo = tipo;
+         $scope.data_handle.tipo_list = _instance.tipos;
+         $scope.data_handle.selected_tipo = tipo;
          $scope.data_handle.event = event;
          res = tipoClientJavascript[function_name]($scope.data_handle);
+         _.set(tipo,"",$scope.data_handle.selected_tipo);
       }
       if (_instance.bulkedit || _instance.singleedit || _instance.bulkupdate || res) {
         event.stopPropagation();
@@ -363,7 +366,7 @@
     }
 
     $scope.$watch(function(){return $scope.data_handle},function(new_value,old_value){
-      _instance.tipo = $scope.data_handle.tipo;
+      _instance.tipos = $scope.data_handle.tipo_list;
     },true);
     
   }

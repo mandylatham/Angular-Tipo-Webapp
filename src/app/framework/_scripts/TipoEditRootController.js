@@ -452,7 +452,11 @@
       var context = setContext(field_name);
       var function_name = $stateParams.tipo_name + '_' + field_name + '_OnArrayItemAdd'
       if(typeof tipoClientJavascript[function_name] === 'function'){
-        tipoClientJavascript[function_name](_instance.tipo,context,array,newObject);
+        $scope.data_handle.tipo = _instance.tipo;
+        $scope.data_handle.context = _instance.context;
+        $scope.data_handle.array = _instance.array;
+        $scope.data_handle.item = _instance.newObject;
+        tipoClientJavascript[function_name](_$scope.data_handle);
       }
       scrollToNewItem(array,field_name);
     }
@@ -707,7 +711,11 @@
       var context = setContext(field_name);
       var function_name = $stateParams.tipo_name + '_' + field_name + '_OnArrayItemRemove';
       if(typeof tipoClientJavascript[function_name] === 'function'){
-        tipoClientJavascript[function_name](_instance.tipo,context,delItem,delItem[index]);
+        $scope.data_handle.tipo = _instance.tipo;
+        $scope.data_handle.context = _instance.context;
+        $scope.data_handle.array = delItem;
+        $scope.data_handle.item = delItem[index];
+        tipoClientJavascript[function_name](_$scope.data_handle);
       }
     }
 
@@ -778,23 +786,38 @@
       tipoRouter.to('subTipoListState', undefined, {related_tipo: relatedTipo,tipo_filter: tipo_filter,sub_tipo_field_name: sub_tipo_field_name}, true);
     };
 
-    _instance.fieldChange = function(function_name,context,new_value,field_name){
+    _instance.fieldChange = function(function_name,context,new_value,field_name,label){
       if(typeof tipoClientJavascript[function_name] === 'function'){
-        tipoClientJavascript[function_name](_instance.tipo,context,_.get(_instance.tipo,field_name + "_old"),new_value)
+        var old_value = _.get(_instance.tipo,field_name + "_old");
+        $scope.data_handle.tipo = _instance.tipo;
+        $scope.data_handle.context = context;
+        $scope.data_handle.old_value = old_value;
+        $scope.data_handle.new_value = new_value;
+        $scope.data_handle.label = label;
+        tipoClientJavascript[function_name]($scope.data_handle);
+        _.set(_instance.tipo,field_name,$scope.data_handle.new_value);
       }
     }
 
     _instance.OnArrayItemAdd = function(field_name,item,array,context){
       var function_name = $stateParams.tipo_name + '_' + field_name + '_OnArrayItemAdd';
       if(typeof tipoClientJavascript[function_name] === 'function'){
-        tipoClientJavascript[function_name](_instance.tipo,context,array,item);
+        $scope.data_handle.tipo = _instance.tipo;
+        $scope.data_handle.context = _instance.context;
+        $scope.data_handle.array = _instance.array;
+        $scope.data_handle.item = _instance.item;
+        tipoClientJavascript[function_name](_$scope.data_handle);
       }
     }
 
     _instance.OnArrayItemRemove = function(field_name,item,array,context){
       var function_name = $stateParams.tipo_name + '_' + field_name + '_OnArrayItemRemove';
       if(typeof tipoClientJavascript[function_name] === 'function'){
-        tipoClientJavascript[function_name](_instance.tipo,context,array,item);
+        $scope.data_handle.tipo = _instance.tipo;
+        $scope.data_handle.context = _instance.context;
+        $scope.data_handle.array = _instance.array;
+        $scope.data_handle.item = _instance.item;
+        tipoClientJavascript[function_name](_$scope.data_handle);
       }
     }
 
