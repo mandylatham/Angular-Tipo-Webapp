@@ -12,7 +12,7 @@
     </div>
     <div class="md-subhead text-center" flex>{{tipo.app_description}}</div>
     <div class="action-bar" flex="none" layout="row" layout-align="center center">
-      <md-button ng-click="tipoRootController.clone(tipo.tipo_id); $event.stopPropagation();" aria-label="Copy" class="md-icon-button">
+      <md-button ng-click="tipoRootController.clone(tipo); $event.stopPropagation();" aria-label="Copy" class="md-icon-button">
         <md-tooltip md-direction="top">Copy Application</md-tooltip>
         <md-icon>content_copy</md-icon>
       </md-button>
@@ -20,7 +20,7 @@
         <md-tooltip md-direction="top">Launch Application</md-tooltip>
         <md-icon>launch</md-icon>
       </md-button>
-      <md-button ng-click="controller.delete(tipo.tipo_id); $event.stopPropagation();" aria-label="Launch" class="md-icon-button">
+      <md-button ng-click="controller.delete(tipo); $event.stopPropagation();" aria-label="Launch" class="md-icon-button">
         <md-tooltip md-direction="top">Delete Application</md-tooltip>
         <md-icon>delete</md-icon>
       </md-button>

@@ -193,6 +193,7 @@
         template: '<ng-include src="fieldTemplate" tp-include-replace/>',
         link: function(scope, element, attrs, ctrl){
           scope.model = {};
+          scope.data_handle = {};
           var isarray = Boolean(scope.isarray);
           var fqfieldname = scope.fqfieldname.replace("$index", scope.index);
           // var isGroup = Boolean(field._ui.isGroup);

@@ -256,7 +256,7 @@
       }else{
         var confirmation = $mdDialog.confirm()
             .title('Delete Confirmation')
-            .textContent('Are you sure that you want to delete ' + tipo_name + ' ' + tipo_id + '?')
+            .textContent('Are you sure that you want to delete ' + tipo_name + ' ' + tipo.tipo_id + '?')
             .ariaLabel('Delete Confirmation')
             .ok('Yes')
             .cancel('No');
