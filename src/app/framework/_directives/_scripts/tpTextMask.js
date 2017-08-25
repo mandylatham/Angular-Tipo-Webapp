@@ -35,7 +35,11 @@
           scope.regexValidation = ""
           for (var i = 0; i < pattern.length; i++) {
             if (pattern[i] !== "#") {
-              scope.regexValidation = scope.regexValidation + "\\" + pattern[i];
+              if (isNaN(parseInt(pattern[i])) && !pattern[i].match(/[A-za-z]/i)) {
+                scope.regexValidation = scope.regexValidation + "\\" + pattern[i];
+              }else{
+                scope.regexValidation = scope.regexValidation + "[" + pattern[i] + "]";
+              }
               scope.pattern.mask.push(pattern[i]);
             }else{
               if (scope.fieldType === "integer") {
