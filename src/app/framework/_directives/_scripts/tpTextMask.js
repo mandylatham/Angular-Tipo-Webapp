@@ -46,7 +46,7 @@
                 scope.regexValidation = scope.regexValidation + "\\d";
                 scope.pattern.mask.push(/\d/);
               }else{
-                scope.regexValidation = scope.regexValidation + "\\w";
+                scope.regexValidation = scope.regexValidation + "[A-za-z0-9]";
                 scope.pattern.mask.push(/\w/);
               }
             };
