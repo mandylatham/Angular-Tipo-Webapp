@@ -73,7 +73,7 @@
             _.forEach(rawData.refresh_list, function(value) {
             	if (_.startsWith(value, '/tipo/')) {
                	 var broken = value.split("/");
-            	 tipoCache.evict(broken[1], broken[2]);
+            	 tipoCache.evict(broken[2], broken[3]);
             	} else {
                	 $templateCache.remove(value);
             	 $http.get(value + "?nocache=true");
