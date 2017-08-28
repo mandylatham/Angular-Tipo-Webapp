@@ -17,7 +17,8 @@
     $rootScope,
     $scope,
     $templateCache,
-    tipoClientJavascript) {
+    tipoClientJavascript,
+    tipoCustomJavascript) {
 
     var _instance = this;
     var role = metadataService.userMetadata.role;
@@ -74,6 +75,10 @@
       _instance.busy = true;
       tipoHandle.getTipos($stateParams.tipo_name, filter).then(function(tipos){
         var function_name = $stateParams.tipo_name + "_OnList";
+        if(typeof tipoCustomJavascript[function_name] === 'function'){
+          $scope.data_handle.tipo_list = tipos;
+          tipoCustomJavascript[function_name]($scope.data_handle);
+        }
         if(typeof tipoClientJavascript[function_name] === 'function'){
           $scope.data_handle.tipo_list = tipos;
           tipoClientJavascript[function_name]($scope.data_handle);
@@ -158,6 +163,10 @@
       //Clientside Javascript for OnCreate 
       var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
       var function_name = $stateParams.tipo_name + "_OnCreate";
+      if(typeof tipoCustomJavascript[function_name] === 'function'){
+        $scope.data_handle.tipo_list = _instance.tipos;
+        tipoCustomJavascript[function_name]($scope.data_handle);
+      }
       if(typeof tipoClientJavascript[function_name] === 'function'){
         $scope.data_handle.tipo_list = _instance.tipos;
         tipoClientJavascript[function_name]($scope.data_handle);
@@ -186,6 +195,11 @@
     _instance.clone = function(tipo){
       //Clientside Javascript for OnClone
       var function_name = $stateParams.tipo_name + "_OnCreate";
+      if(typeof tipoCustomJavascript[function_name] === 'function'){
+        $scope.data_handle.tipo_list = _instance.tipos;
+        $scope.data_handle.tipo = tipo;
+        tipoCustomJavascript[function_name]($scope.data_handle);
+      }
       if(typeof tipoClientJavascript[function_name] === 'function'){
         $scope.data_handle.tipo_list = _instance.tipos;
         $scope.data_handle.tipo = tipo;
@@ -205,6 +219,13 @@
       tipo.selected = !tipo.selected;
       var function_name = $stateParams.tipo_name + "_OnClick";
       var res = false;
+      if(typeof tipoCustomJavascript[function_name] === 'function'){
+         $scope.data_handle.tipo_list = _instance.tipos;
+         $scope.data_handle.selected_tipo = tipo;
+         $scope.data_handle.event = event;
+         res = tipoCustomJavascript[function_name]($scope.data_handle);
+         _.set(tipo,"",$scope.data_handle.selected_tipo);
+      }
       if(typeof tipoClientJavascript[function_name] === 'function'){
          $scope.data_handle.tipo_list = _instance.tipos;
          $scope.data_handle.selected_tipo = tipo;
@@ -271,6 +292,10 @@
           // ends here
           var function_name = $stateParams.tipo_name + "_OnDelete";
           var res = true;
+          if(typeof tipoCustomJavascript[function_name] === 'function'){
+            $scope.data_handle.tipo = tipo;
+             res = tipoCustomJavascript[function_name](tipo);
+          }
           if(typeof tipoClientJavascript[function_name] === 'function'){
             $scope.data_handle.tipo = tipo;
              res = tipoClientJavascript[function_name](tipo);
@@ -295,6 +320,10 @@
       tipoHandle.getTipos($stateParams.tipo_name, filter).then(function(tiposData){
         _instance.tipos = tiposData;
         var function_name = $stateParams.tipo_name + "_OnList";
+        if(typeof tipoCustomJavascript[function_name] === 'function'){
+          $scope.data_handle.tipo_list = tiposData;
+          tipoCustomJavascript[function_name]($scope.data_handle);
+        }
         if(typeof tipoClientJavascript[function_name] === 'function'){
           $scope.data_handle.tipo_list = tiposData;
           tipoClientJavascript[function_name]($scope.data_handle);
@@ -316,6 +345,10 @@
         if (!_.isEmpty(tiposData)) {
           _instance.tipos = _.union(_instance.tipos,tiposData);
           var function_name = $stateParams.tipo_name + "_OnList";
+          if(typeof tipoCustomJavascript[function_name] === 'function'){
+            $scope.data_handle.tipo_list = _instance.tipos;
+            tipoCustomJavascript[function_name]($scope.data_handle);
+          }
           if(typeof tipoClientJavascript[function_name] === 'function'){
             $scope.data_handle.tipo_list = _instance.tipos;
             tipoClientJavascript[function_name]($scope.data_handle);
@@ -339,6 +372,10 @@
       tipoHandle.getTipos($stateParams.tipo_name, filter).then(function(tiposData){
         _instance.tipos = tiposData;
         var function_name = $stateParams.tipo_name + "_OnList";
+        if(typeof tipoCustomJavascript[function_name] === 'function'){
+          $scope.data_handle.tipo_list = _instance.tipos;
+          tipoCustomJavascript[function_name]($scope.data_handle);
+        }
         if(typeof tipoClientJavascript[function_name] === 'function'){
           $scope.data_handle.tipo_list = _instance.tipos;
           tipoClientJavascript[function_name]($scope.data_handle);

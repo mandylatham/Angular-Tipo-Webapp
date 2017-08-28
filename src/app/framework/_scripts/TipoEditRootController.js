@@ -137,6 +137,7 @@
     $templateCache,
     tipoDefinitionDataService,
     tipoClientJavascript,
+    tipoCustomJavascript,
     $mdSelect,
     tipoCache,
     $sce) {
@@ -153,6 +154,9 @@
     _instance.tipo = tipo;
     $scope.data_handle = {};
     $scope.data_handle.tipo = _instance.tipo;
+    if(typeof tipoCustomJavascript[function_name] === 'function'){
+      tipoCustomJavascript[function_name]($scope.data_handle);
+    }
     if(typeof tipoClientJavascript[function_name] === 'function'){
       tipoClientJavascript[function_name]($scope.data_handle);
     }
@@ -183,6 +187,11 @@
       var parameters = {};
       tipoManipulationService.modifyTipoData(_instance.tipo);
       var function_name = tipo_name + "_OnSave";
+      if(typeof tipoCustomJavascript[function_name] === 'function'){
+        $scope.data_handle.tipo = tipo;
+        $scope.data_handle.action = action;
+        tipoCustomJavascript[function_name]($scope.data_handle);
+      }
       if(typeof tipoClientJavascript[function_name] === 'function'){
         $scope.data_handle.tipo = tipo;
         $scope.data_handle.action = action;
@@ -342,6 +351,9 @@
         data.tipo_id = data.tipo_id || $stateParams.tipo_id;
         _instance.tipo = data;
         $scope.data_handle.tipo = _instance.tipo;
+        if(typeof tipoCustomJavascript[function_name] === 'function'){
+          tipoCustomJavascript[function_name]($scope.data_handle);
+        }
         if(typeof tipoClientJavascript[function_name] === 'function'){
           tipoClientJavascript[function_name]($scope.data_handle);
         }
@@ -456,6 +468,13 @@
       _.set(_instance.tipo,field_name,array);
       var context = setContext(field_name);
       var function_name = $stateParams.tipo_name + '_' + field_name + '_OnArrayItemAdd'
+      if(typeof tipoCustomJavascript[function_name] === 'function'){
+        $scope.data_handle.tipo = _instance.tipo;
+        $scope.data_handle.context = _instance.context;
+        $scope.data_handle.array = _instance.array;
+        $scope.data_handle.item = _instance.newObject;
+        tipoCustomJavascript[function_name](_$scope.data_handle);
+      }
       if(typeof tipoClientJavascript[function_name] === 'function'){
         $scope.data_handle.tipo = _instance.tipo;
         $scope.data_handle.context = _instance.context;
@@ -715,6 +734,13 @@
       _.set(_instance.tipo,field_name,delItem);
       var context = setContext(field_name);
       var function_name = tipo_name + '_' + field_name + '_OnArrayItemRemove';
+      if(typeof tipoCustomJavascript[function_name] === 'function'){
+        $scope.data_handle.tipo = _instance.tipo;
+        $scope.data_handle.context = _instance.context;
+        $scope.data_handle.array = delItem;
+        $scope.data_handle.item = delItem[index];
+        tipoCustomJavascript[function_name](_$scope.data_handle);
+      }
       if(typeof tipoClientJavascript[function_name] === 'function'){
         $scope.data_handle.tipo = _instance.tipo;
         $scope.data_handle.context = _instance.context;
@@ -792,6 +818,16 @@
     };
 
     _instance.fieldChange = function(function_name,context,new_value,field_name,label){
+      if(typeof tipoCustomJavascript[function_name] === 'function'){
+        var old_value = _.get(_instance.tipo,field_name + "_old");
+        $scope.data_handle.tipo = _instance.tipo;
+        $scope.data_handle.context = context;
+        $scope.data_handle.old_value = old_value;
+        $scope.data_handle.new_value = new_value;
+        $scope.data_handle.label = label;
+        tipoCustomJavascript[function_name]($scope.data_handle);
+        _.set(_instance.tipo,field_name,$scope.data_handle.new_value);
+      }
       if(typeof tipoClientJavascript[function_name] === 'function'){
         var old_value = _.get(_instance.tipo,field_name + "_old");
         $scope.data_handle.tipo = _instance.tipo;
@@ -806,6 +842,13 @@
 
     _instance.OnArrayItemAdd = function(field_name,item,array,context){
       var function_name = tipo_name + '_' + field_name + '_OnArrayItemAdd';
+      if(typeof tipoCustomJavascript[function_name] === 'function'){
+        $scope.data_handle.tipo = _instance.tipo;
+        $scope.data_handle.context = _instance.context;
+        $scope.data_handle.array = _instance.array;
+        $scope.data_handle.item = _instance.item;
+        tipoCustomJavascript[function_name](_$scope.data_handle);
+      }
       if(typeof tipoClientJavascript[function_name] === 'function'){
         $scope.data_handle.tipo = _instance.tipo;
         $scope.data_handle.context = _instance.context;
@@ -817,6 +860,13 @@
 
     _instance.OnArrayItemRemove = function(field_name,item,array,context){
       var function_name = tipo_name + '_' + field_name + '_OnArrayItemRemove';
+      if(typeof tipoCustomJavascript[function_name] === 'function'){
+        $scope.data_handle.tipo = _instance.tipo;
+        $scope.data_handle.context = _instance.context;
+        $scope.data_handle.array = _instance.array;
+        $scope.data_handle.item = _instance.item;
+        tipoCustomJavascript[function_name](_$scope.data_handle);
+      }
       if(typeof tipoClientJavascript[function_name] === 'function'){
         $scope.data_handle.tipo = _instance.tipo;
         $scope.data_handle.context = _instance.context;

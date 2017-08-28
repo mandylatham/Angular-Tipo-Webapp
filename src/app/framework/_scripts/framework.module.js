@@ -81,7 +81,7 @@
         pageTitle: "{{$stateParams.tipo_name}} - View",
       },
       resolve: /*@ngInject*/ {
-        tipo: function (tipoHandle, tipoManipulationService, parentPromise, tipoClientJavascript, $stateParams) {
+        tipo: function (tipoHandle, tipoManipulationService, parentPromise, $stateParams) {
 
           var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
           var filter = {};

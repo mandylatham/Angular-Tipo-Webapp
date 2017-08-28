@@ -14,7 +14,8 @@
     tipoRouter,
     tipoHandle,
     tipoInstanceDataService,
-    tipoClientJavascript) {
+    tipoClientJavascript,
+    tipoCustomJavascript) {
 
     var _instance = this;
 
@@ -63,6 +64,16 @@
     };
 
     _instance.selectTipo = function(tipoSelected,event,tiposData){
+      if(typeof tipoCustomJavascript[$scope.tipo_name + '_List_OnClick'] === 'function'){
+        tipoRouter.startStateChange();
+        var instance = {};
+        instance.tipos = _instance.tipos;
+        var proceed = tipoCustomJavascript[$scope.tipo_name + '_List_OnClick'](instance,tipoSelected,$scope.tipo_name,$scope.queryparams,event);
+        $timeout(function() {
+          _instance.tipos = instance.tipos;
+          tipoRouter.endStateChange();
+        }, 1000);
+      }
       if(typeof tipoClientJavascript[$scope.tipo_name + '_List_OnClick'] === 'function'){
         tipoRouter.startStateChange();
         var instance = {};
@@ -168,7 +179,8 @@
     $mdSelect,
     $stateParams,
     tipoDefinitionDataService,
-    tipoClientJavascript) {
+    tipoClientJavascript,
+    tipoCustomJavascript) {
       return {
         require: 'ngModel',
         scope: {
@@ -342,6 +354,12 @@
             };
             searchCriteria.short_display = 'N';
             scope.searchCriteria = searchCriteria;
+            if(typeof tipoCustomJavascript[$stateParams.tipo_name + '_' + scope.fieldname + '_BeforeLookup'] === 'function'){
+              scope.data_handle.root = scope.root;
+              scope.data_handle.context = scope.context;
+              scope.data_handle.searchCriteria = scope.searchCriteria;
+              tipoCustomJavascript[$stateParams.tipo_name + '_' + scope.fieldname + '_BeforeLookup'](scope.data_handle);
+            }
             if(typeof tipoClientJavascript[$stateParams.tipo_name + '_' + scope.fieldname + '_BeforeLookup'] === 'function'){
               scope.data_handle.root = scope.root;
               scope.data_handle.context = scope.context;
@@ -370,6 +388,14 @@
               scope.perm = tipo_perm.perm;
               if(tipo_perm.perm.substr(2,1) === 0){
                 scope.disablecreate = true;
+              }
+              if(typeof tipoCustomJavascript[$stateParams.tipo_name + '_' + scope.fieldname + '_AfterLookup'] === 'function'){
+              // _.join(_.dropRight(fqfieldname.split(".")),".") used for initial client side js
+                scope.data_handle.root = scope.root;
+                scope.data_handle.context = scope.context;
+                scope.data_handle.tipo_list = scope.model.field;
+                scope.data_handle.options = scope.options;
+                tipoCustomJavascript[$stateParams.tipo_name + '_' + scope.fieldname + '_AfterLookup'](scope.root,scope.context,scope.model.field,scope.options);
               }
               if(typeof tipoClientJavascript[$stateParams.tipo_name + '_' + scope.fieldname + '_AfterLookup'] === 'function'){
               // _.join(_.dropRight(fqfieldname.split(".")),".") used for initial client side js
