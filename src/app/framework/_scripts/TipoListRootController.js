@@ -294,6 +294,11 @@
       $templateCache.remove(_instance.listUrl);
       tipoHandle.getTipos($stateParams.tipo_name, filter).then(function(tiposData){
         _instance.tipos = tiposData;
+        var function_name = $stateParams.tipo_name + "_OnList";
+        if(typeof tipoClientJavascript[function_name] === 'function'){
+          $scope.data_handle.tipo_list = tiposData;
+          tipoClientJavascript[function_name]($scope.data_handle);
+        }
         tipoRouter.endStateChange();
       });
     }
@@ -310,6 +315,11 @@
       tipoHandle.getTipos($stateParams.tipo_name, filter).then(function(tiposData){
         if (!_.isEmpty(tiposData)) {
           _instance.tipos = _.union(_instance.tipos,tiposData);
+          var function_name = $stateParams.tipo_name + "_OnList";
+          if(typeof tipoClientJavascript[function_name] === 'function'){
+            $scope.data_handle.tipo_list = _instance.tipos;
+            tipoClientJavascript[function_name]($scope.data_handle);
+          }
           _instance.busy = false;
           _instance.page++;
         };
@@ -328,6 +338,11 @@
       tipoCache.evict($stateParams.tipo_name);
       tipoHandle.getTipos($stateParams.tipo_name, filter).then(function(tiposData){
         _instance.tipos = tiposData;
+        var function_name = $stateParams.tipo_name + "_OnList";
+        if(typeof tipoClientJavascript[function_name] === 'function'){
+          $scope.data_handle.tipo_list = _instance.tipos;
+          tipoClientJavascript[function_name]($scope.data_handle);
+        }
         _instance.page++;
         _instance.busy = false;
         tipoRouter.endStateChange();

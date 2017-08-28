@@ -341,6 +341,10 @@
       tipoHandle.getTipo(tipo_name, $stateParams.tipo_id, filter, true).then(function (data) {
         data.tipo_id = data.tipo_id || $stateParams.tipo_id;
         _instance.tipo = data;
+        $scope.data_handle.tipo = _instance.tipo;
+        if(typeof tipoClientJavascript[function_name] === 'function'){
+          tipoClientJavascript[function_name]($scope.data_handle);
+        }
         tipoRouter.endStateChange();
       });
     }
