@@ -9,6 +9,7 @@
     tipoErrorHandler,
     tipoCache,
     cognitoService,
+    $templateCache,
     $http,
     $q,
     tipoRegistry) {
@@ -68,6 +69,17 @@
       response: {
         // Extracts the payload from the wrapped API response
         extractData: function (rawData) {
+        	
+            _.forEach(rawData.refresh_list, function(value) {
+            	if (_.startsWith(value, '/tipo/')) {
+               	 var broken = value.split("/");
+            	 tipoCache.evict(broken[2], broken[3]);
+            	} else {
+               	 $templateCache.remove(value);
+            	 $http.get(value + "?nocache=true");
+            	}
+          	});
+            
           if (rawData && rawData.response) {
             var resp = rawData.response;
             resp.tipo_name = rawData.tipo_name;
@@ -116,11 +128,12 @@
     tipoErrorHandler,
     tipoCache,
     cognitoService,
+    $templateCache,
     $http,
     $q,
     $window) {
 
-    var interceptors = getAllInterceptors(securityContextService, tipoErrorHandler, tipoCache, cognitoService, $http, $q);
+    var interceptors = getAllInterceptors(securityContextService, tipoErrorHandler, tipoCache, cognitoService,$templateCache, $http, $q);
     var location = $window.location;
     var relativeUrl = location.pathname;
     if (_.startsWith(relativeUrl, '/app')) {
@@ -156,12 +169,13 @@
     cognitoService,
     $mdMedia,
     $http,
+    $templateCache,
     $q,
     $window) {
     deviceInformation = $.ua.device;
     var isSmallScreen = $mdMedia('xs');
     deviceInformation.isMobile = isSmallScreen || deviceInformation.type === 'mobile';
-    var factory = Restangular.withConfig(_.partialRight(configureRestangular, securityContextService, tipoErrorHandler, tipoCache, cognitoService, $http, $q, $window));
+    var factory = Restangular.withConfig(_.partialRight(configureRestangular, securityContextService, tipoErrorHandler, tipoCache, cognitoService,$templateCache, $http, $q, $window));
     return factory;
   }
 

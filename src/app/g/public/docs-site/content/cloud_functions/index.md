@@ -1,30 +1,47 @@
-  ## Tipo Functions ##
+---
+title: Cloud Functions
+weight: 8
+---
   
-  Tipo Functions are used in doing custom actions or to override the default actions. A function can be used in Pre-Action or Post-Action. Functions to be used in Pre-Action has the following signature:
+Cloud Functions are used in doing custom actions or to override the default actions. Cloud functions are used by the developers to implement business logic speicific to the app developed. Cloud functions are implemented using AWS Lambda and these lambda functions reside in developers own AWS account.
+
+# Signature #
+
+Tipo Cloud Functions only takes a single JSON input and a single JSON output, both these are explained in the Request Structure and Response Structure sections below.
+
+  *`tipo_fn_response` handler ( `tipo_context`, `tipo_request`, `tipo_response`, `server_dependencies`);*
+
+## Request Structure ##
+ 
+Tipo cloud function request is a Json object with the following four members.
+
+Member name | Description
+------------ | ---------------
+`tipo_context` | Tipo Context contains all the contextual information about the user, application, current request and user actions
+`tipo_request []` | Contains array of all the requests from the client. Only bulk action will contain more than one array item, but the structure will always be an array.
+`tipo_response []`| Function may be called after performing database action, in which case there will be responses as well as requests as requests.
   
-  *`response` handler ( `tipo_context`, `tipo_request`, `server_dependencies`);*
+## tipo_context ##
   
-  Functions in the Post-Action must have the following signature:
-  
-  *`response` handler ( `tipo_context`, `tipo_response`, `server_dependencies`);*
-  
-  ### tipo_context ###
-  
-  Both compute functions used in generating simple field values and also TipoFunctions used in actions take tipo_context as input. TipoContext has the following fields.
-  `Support for settings yet to be added. Once settings concept if finalised, it will be added.`
-    * tipo_context.user
-    * tipo_context.account
-    * tipo_context.application
-    * tipo_context.application_owner
-    * tipo_context.request.tipo_name
-    * tipo_context.request.tipo_id
-    * tipo_context.request.tipo_action
-    * tipo_context.request.http_method
-    * tipo_context.request.compression
-    * tipo_context.request.page
-    * tipo_context.request.per_page
-    * tipo_context.request.tipo_fields
-    * tipo_context.request.tipo_filter
+Both compute functions used in generating simple field values and also TipoFunctions used in actions take tipo_context as input. TipoContext has the following fields.
+
+`Support for settings yet to be added. Once settings concept if finalised, it will be added.`
+
+Context Variable |  Description 
+------------ | ------------
+**tipo_context.user** | Logged-in user id (Email)
+tipo_context.account | Logged-in user account
+tipo_context.application | Logged-in application
+tipo_context.application_owner | Logged-in application owner account
+tipo_context.request.tipo_name | Tipo in context
+tipo_context.request.tipo_id
+tipo_context.request.tipo_action
+tipo_context.request.http_method
+tipo_context.request.compression
+tipo_context.request.page
+tipo_context.request.per_page
+tipo_context.request.tipo_fields
+tipo_context.request.tipo_filter
     
     Use the above format in the tipo_filter when specifying dependencies for dynamic replacement. 
       I.e. {{tipo_context.application}} will be replaced on the server with the actual application name.
