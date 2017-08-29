@@ -109,19 +109,22 @@
         };
 
         scope.onMultiPathChange = function (index, path) {
+          scope.multiplePaths.push({value: path});
           scope.multiplePaths[index].value = path;
-          scope.field[index].key = scope.fileTarget + path;
+          scope.field.push({
+              key: scope.fileTarget + path
+          });
         };
 
         scope.addMultiPathEntry = function(){
             var path = scope.tempPath.value || '';
-            scope.multiplePaths.push({
-              value: path
-            });
+            // scope.multiplePaths.push({
+            //   value: path
+            // });
             scope.field = scope.field || [];
-            scope.field.push({
-              key: scope.fileTarget + path
-            });
+            // scope.field.push({
+            //   key: scope.fileTarget + path
+            // });
             delete scope.tempPath.value;
             scope.openContentDialog(scope.field.length - 1);
         };
@@ -131,10 +134,33 @@
           scope.field.splice(index, 1);
         };
 
+        function completeUpload(initialPath,finalPath,index){
+          if(!_.isUndefined(finalPath)){
+            var parts = finalPath.split('/');
+            if(S(_.last(parts)).contains('.')){
+              if(finalPath !== initialPath){
+                // indicates that a file path is there and is not the original one
+                if(_.isUndefined(index)){
+                  if(_.isEmpty(scope.fileTarget)){
+                    scope.singlePath.value = finalPath;
+                    scope.onSinglePathChange();
+                  }else{
+                    scope.singlePath.value = finalPath.replace(scope.fileTarget, '');
+                    scope.onSinglePathChange();
+                  }
+                }else{
+                  var path = finalPath.replace(scope.fileTarget, '');
+                  scope.onMultiPathChange(index, path);
+                }
+              }
+            }
+          }
+        }
+
         scope.openContentDialog = function (index) {
           var initialPath;
           if(!_.isUndefined(index)){
-            initialPath = scope.field[index].key || scope.fileTarget;
+            initialPath = (scope.fileTarget + (scope.tempPath.value || '')) || scope.fileTarget;
           }else{
             initialPath = _.get(scope.field, 'key') || scope.fileTarget;
           }
@@ -147,7 +173,12 @@
 
               $scope.uploadStatus = 'not_started';
 
-              $scope.parent = scope; 
+              $scope.parent = scope;
+              if (scope.isArray) {
+                $scope.filetemplate = "framework/_directives/_views/tp-filearray.tpl.html";
+              }else{
+                $scope.filetemplate = "framework/_directives/_views/tp-singlefile.tpl.html"
+              }
               $scope.fileSize = "10MB";
               $scope.content = [];
               var finalPath;
@@ -167,30 +198,41 @@
               }
               $scope.finalPath = finalPath;
 
-              $scope.upload = function () {
-                if($scope.content.length > 0){
-                  var file = $scope.content[0].lfFile;
-                  var type = $scope.content[0].lfFileType;
-                  $scope.uploadStatus = 'in_progress';
-                   var reader = new FileReader();
-                   reader.onload = function(readerEvt) {
-                    var binaryString = readerEvt.target.result;
-                    var base64Encoded = btoa(binaryString);
-                    var data = {
-                      'File-Content': base64Encoded,
-                      'Content-Type': type
-                    };
+              function uploadEachFile(fileContent,last){
+                var file = fileContent.lfFile;
+                var type = fileContent.lfFileType;
+                $scope.uploadStatus = 'in_progress';
+                 var reader = new FileReader();
+                 reader.onload = function(readerEvt) {
+                  var binaryString = readerEvt.target.result;
+                  var base64Encoded = btoa(binaryString);
+                  var data = {
+                    'File-Content': base64Encoded,
+                    'Content-Type': type
+                  };
 
-                    tipoResource
-                    .oneUrl('content', $scope.finalPath)
-                    .customPUT(data, '', undefined)
-                    .then(function(result){
+                  tipoResource
+                  .oneUrl('content', scope.fileTarget)
+                  .customPUT(data, '', undefined)
+                  .then(function(result){
+                    if (last) {
                       $scope.uploadStatus = 'completed';
                       $scope.complete();
-                    });
-                   }
-                    
-                   reader.readAsBinaryString(file);
+                    };
+                  });
+                 }
+                  
+                 reader.readAsBinaryString(file);
+              }
+              $scope.upload = function () {
+                if (scope.isArray) {
+                  _.each($scope.content,function(fileContent){
+                    uploadEachFile(fileContent,true);
+                  });
+                }else{
+                  if($scope.content.length > 0){
+                    uploadEachFile($scope.content[0],true);
+                  }
                 }
               }
 
@@ -203,21 +245,42 @@
               };
 
               if(!$scope.isInitialPathFinal){
-                $scope.$watch('content[0].lfFileName',function(newName){
-                  if(_.isUndefined(newName)){
-                    if($scope.fixedPrefix){
-                      $scope.finalPath = $scope.fixedPrefix;
-                    }else{
-                      delete $scope.finalPath;
-                    }
-                  }else{
-                    if($scope.fixedPrefix){
-                      $scope.finalPath = $scope.fixedPrefix + newName;
-                    }else{
-                      $scope.finalPath = newName;
-                    }
-                  }
-                });
+                if (scope.isArray) {
+                  $scope.$watch('content.length',function(){
+                    $scope.finalPath = "";
+                    _.each($scope.content,function(fileContent){
+                      if(_.isUndefined(fileContent.lfFileName)){
+                        if($scope.fixedPrefix){
+                          $scope.finalPath = $scope.fixedPrefix + "," + $scope.finalPath;
+                        }else{
+                          delete $scope.finalPath;
+                        }
+                      }else{
+                        if($scope.fixedPrefix){
+                          $scope.finalPath = $scope.fixedPrefix + fileContent.lfFileName  + "," + $scope.finalPath;
+                        }else{
+                          $scope.finalPath = fileContent.lfFileName + "," + $scope.finalPath;
+                        }
+                      }
+                    })
+                  });
+                }else{
+                  $scope.$watch('content[0].lfFileName',function(newName){
+                      if(_.isUndefined(newName)){
+                        if($scope.fixedPrefix){
+                          $scope.finalPath = $scope.fixedPrefix;
+                        }else{
+                          delete $scope.finalPath;
+                        }
+                      }else{
+                        if($scope.fixedPrefix){
+                          $scope.finalPath = $scope.fixedPrefix + newName;
+                        }else{
+                          $scope.finalPath = newName;
+                        }
+                      }
+                  });
+                }                
               }
 
               function raiseError(err) {
@@ -240,27 +303,15 @@
             fullscreen: true
           });
           promise.then(function(finalPath){
-            if(!_.isUndefined(finalPath)){
-              var parts = finalPath.split('/');
-              if(S(_.last(parts)).contains('.')){
-                if(finalPath !== initialPath){
-                  // indicates that a file path is there and is not the original one
-                  if(_.isUndefined(index)){
-                    if(_.isEmpty(scope.fileTarget)){
-                      scope.singlePath.value = finalPath;
-                      scope.onSinglePathChange();
-                    }else{
-                      scope.singlePath.value = finalPath.replace(scope.fileTarget, '');
-                      scope.onSinglePathChange();
-                    }
-                  }else{
-                    var path = finalPath.replace(scope.fileTarget, '');
-                    scope.onMultiPathChange(index, path);
-                  }
-                }
-              }
+            if (scope.isArray) {
+              var paths = finalPath.split(",");
+              angular.forEach(paths,function(each,key){
+                completeUpload(initialPath,each,key);
+              })
+            }else{
+              completeUpload(initialPath,finalPath);
             }
-          })
+          });
         }
       }
     };

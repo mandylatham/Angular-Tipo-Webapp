@@ -10,24 +10,21 @@
   </md-toolbar>
   <div cg-busy="progress" class="fluid-row-container">
     <md-dialog-content layout-padding>
-      <div class="tp-detail dialog data" layout-padding>
-        <form name="uploadForm" layout="column">
-          <div class="tp-field" ng-if="!parent.isArray">
-            <lf-ng-md-file-input name="files" lf-files="content" lf-required lf-maxcount="5" lf-filesize="{{fileSize}}"
-              lf-totalsize="20MB" drag  preview lf-caption="{{finalPath}}" lf-placeholder="{{fixedPrefix || 'Select a file'}}" lf-api="lfApi"/>
-            <div class="error" ng-show="lastError">
-              <i class="fa fa-exclamation-circle fa-fw"></i> {{lastError}}
-            </div>
+    <div class="tp-detail dialog data" layout-padding>
+      <form name="uploadForm" layout="column">
+        <div class="tp-field">
+          <!-- <ng-include src="filetemplate"/> -->
+          <lf-ng-md-file-input name="files" lf-files="content" lf-required lf-maxcount="5" lf-filesize="{{fileSize}}"
+            lf-totalsize="20MB" drag  preview lf-caption="{{finalPath}}" lf-placeholder="{{fixedPrefix || 'Select a file'}}" ng-hide="parent.isArray"/>
+
+          <lf-ng-md-file-input name="files" lf-files="content" lf-required lf-maxcount="5" lf-filesize="{{fileSize}}"
+            lf-totalsize="20MB" drag multiple preview lf-caption="{{finalPath}}" lf-placeholder="{{fixedPrefix || 'Select a file'}}" ng-hide="!parent.isArray" />  
+          <div class="error" ng-show="lastError">
+            <i class="fa fa-exclamation-circle fa-fw"></i> {{lastError}}
           </div>
-          <div class="tp-field" ng-if="parent.isArray">
-            <lf-ng-md-file-input name="files" lf-files="content" lf-required lf-maxcount="5" lf-filesize="{{fileSize}}"
-              lf-totalsize="20MB" drag multiple preview lf-caption="{{finalPath}}" lf-placeholder="{{fixedPrefix || 'Select a file'}}" lf-api="lfApi"/>
-            <div class="error" ng-show="lastError">
-              <i class="fa fa-exclamation-circle fa-fw"></i> {{lastError}}
-            </div>
-          </div>
-        </form>
-      </div>
+        </div>
+      </form>
+    </div>
     </md-dialog-content>
     <md-dialog-actions layout="row">
       <span flex></span>
