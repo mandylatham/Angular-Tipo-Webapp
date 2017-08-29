@@ -13,7 +13,6 @@
     <div class="tp-detail dialog data" layout-padding>
       <form name="uploadForm" layout="column">
         <div class="tp-field">
-          <!-- <ng-include src="filetemplate"/> -->
           <lf-ng-md-file-input name="files" lf-files="content" lf-required lf-maxcount="5" lf-filesize="{{fileSize}}"
             lf-totalsize="20MB" drag  preview lf-caption="{{finalPath}}" lf-placeholder="{{fixedPrefix || 'Select a file'}}" ng-hide="parent.isArray"/>
 

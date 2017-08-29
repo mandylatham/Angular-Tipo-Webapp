@@ -174,11 +174,6 @@
               $scope.uploadStatus = 'not_started';
 
               $scope.parent = scope;
-              if (scope.isArray) {
-                $scope.filetemplate = "framework/_directives/_views/tp-filearray.tpl.html";
-              }else{
-                $scope.filetemplate = "framework/_directives/_views/tp-singlefile.tpl.html"
-              }
               $scope.fileSize = "10MB";
               $scope.content = [];
               var finalPath;
