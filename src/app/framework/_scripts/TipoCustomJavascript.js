@@ -23,6 +23,7 @@
 	       };
 	}
 	this.TipoDefinition_label_style_OnChange  = TipoDefinition_label_style_OnChange ;
+	this.TipoDefinition_value_style_OnChange  = TipoDefinition_label_style_OnChange ;
 
 	//___TipoDefinition___
 
@@ -32,10 +33,10 @@
 	function TipoAboutApp_OnView (data_handle) {
 	tipoHandle.getTipo('TipoApp',tipoHandle.applicationMetadata.application).then(function(tipo_res){
 	 data_handle.tipo.app_name = tipo_res.app_name;
-	 data_handle.tipo.app_version = tipo_res. app_version;
-	 data_handle.tipo.app_link = tipo_res. app_url;
-	 data_handle.tipo.app_description = tipo_res. app_description;
-	 data_handle.tipo.about_app_mobile_app_qr_code = tipo_res.mobile_app_qr_cd;
+	 data_handle.tipo.app_version = tipo_res.app_version;
+	 data_handle.tipo.app_link = tipo_res.app_url;
+	 data_handle.tipo.app_description = tipo_res.app_description;
+	 data_handle.tipo.mobile_app_qr_code = tipo_res.mobile_app_qr_cd;
 	})
 	}
 	this.TipoAboutApp_OnView  = TipoAboutApp_OnView ;

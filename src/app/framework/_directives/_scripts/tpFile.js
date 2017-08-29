@@ -38,8 +38,7 @@
         //     };
         //   });
         // };
-        var field = scope.field;
-        scope.hasValue = !_.isUndefined(field);
+        scope.hasValue = !_.isUndefined(scope.field);
         scope.isArray = Boolean(scope.isarray);
         scope.isSingle = !scope.isArray;
         scope.tempPath = {
@@ -53,7 +52,7 @@
           if (scope.isTargetFile) {
             // cannot be an array if an exact file name is specified, hence treating as a single file
             scope.isSingle = true;
-            field = {
+            scope.field = {
               key: fileTarget
             };
           }
@@ -61,13 +60,14 @@
             fileTarget += '/';
           }
         }
-        scope.fileTarget = fileTarget || '';
+        scope.prependTarget = fileTarget || '';
+        scope.fileTarget = 'public/' + scope.prependTarget;
 
         if(!scope.isTargetFile){
           if (scope.isSingle) {
             var path;
-            if (field) {
-              path = field.key;
+            if (scope.field) {
+              path = scope.field.key;
               if (fileTarget) {
                 path = path.replace(fileTarget, '');
               }
@@ -78,8 +78,8 @@
           }else{
             // for arrays
             scope.multiplePaths = [];
-            if(!_.isEmpty(field)){
-              scope.multiplePaths = _.map(field, function(each){
+            if(!_.isEmpty(scope.field)){
+              scope.multiplePaths = _.map(scope.field, function(each){
                 var eachPath = each.key;
                 if(fileTarget){
                   eachPath = eachPath.replace(fileTarget, '');
@@ -94,15 +94,15 @@
 
         scope.onSinglePathChange = function () {
           if (_.isEmpty(scope.singlePath.value)) {
-            field = {};
+            scope.field = {};
             return;
           }
           if (scope.isTargetSet) {
-            field = {
+            scope.field = {
               key: scope.fileTarget + scope.singlePath.value
             };
           } else {
-            field = {
+            scope.field = {
               key: scope.singlePath.value
             };
           }
@@ -110,7 +110,7 @@
 
         scope.onMultiPathChange = function (index, path) {
           scope.multiplePaths[index].value = path;
-          field[index].key = scope.fileTarget + path;
+          scope.field[index].key = scope.fileTarget + path;
         };
 
         scope.addMultiPathEntry = function(){
@@ -118,25 +118,25 @@
             scope.multiplePaths.push({
               value: path
             });
-            field = field || [];
-            field.push({
+            scope.field = scope.field || [];
+            scope.field.push({
               key: scope.fileTarget + path
             });
             delete scope.tempPath.value;
-            scope.openContentDialog(field.length - 1);
+            scope.openContentDialog(scope.field.length - 1);
         };
 
         scope.removeMultiPathEntry = function(index){
           scope.multiplePaths.splice(index, 1);
-          field.splice(index, 1);
+          scope.field.splice(index, 1);
         };
 
         scope.openContentDialog = function (index) {
           var initialPath;
           if(!_.isUndefined(index)){
-            initialPath = field[index].key || scope.fileTarget;
+            initialPath = scope.field[index].key || scope.fileTarget;
           }else{
-            initialPath = _.get(field, 'key') || scope.fileTarget;
+            initialPath = _.get(scope.field, 'key') || scope.fileTarget;
           }
           var promise = $mdDialog.show({
             controller: function FileContentController($scope) {
@@ -147,10 +147,9 @@
 
               $scope.uploadStatus = 'not_started';
 
-              $scope.parent = scope;
-
+              $scope.parent = scope; 
               $scope.fileSize = "10MB";
-
+              $scope.content = [];
               var finalPath;
               if(initialPath){
                 var parts = initialPath.split('/');
@@ -187,6 +186,7 @@
                     .customPUT(data, '', undefined)
                     .then(function(result){
                       $scope.uploadStatus = 'completed';
+                      $scope.complete();
                     });
                    }
                     

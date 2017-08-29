@@ -12,9 +12,16 @@
     <md-dialog-content layout-padding>
       <div class="tp-detail dialog data" layout-padding>
         <form name="uploadForm" layout="column">
-          <div class="tp-field">
+          <div class="tp-field" ng-if="!parent.isArray">
             <lf-ng-md-file-input name="files" lf-files="content" lf-required lf-maxcount="5" lf-filesize="{{fileSize}}"
-              lf-totalsize="20MB" drag preview lf-caption="{{finalPath}}" lf-placeholder="{{fixedPrefix || 'Select a file'}}" lf-api="lfApi"/>
+              lf-totalsize="20MB" drag  preview lf-caption="{{finalPath}}" lf-placeholder="{{fixedPrefix || 'Select a file'}}" lf-api="lfApi"/>
+            <div class="error" ng-show="lastError">
+              <i class="fa fa-exclamation-circle fa-fw"></i> {{lastError}}
+            </div>
+          </div>
+          <div class="tp-field" ng-if="parent.isArray">
+            <lf-ng-md-file-input name="files" lf-files="content" lf-required lf-maxcount="5" lf-filesize="{{fileSize}}"
+              lf-totalsize="20MB" drag multiple preview lf-caption="{{finalPath}}" lf-placeholder="{{fixedPrefix || 'Select a file'}}" lf-api="lfApi"/>
             <div class="error" ng-show="lastError">
               <i class="fa fa-exclamation-circle fa-fw"></i> {{lastError}}
             </div>
@@ -27,7 +34,7 @@
       <md-button ng-click="cancel()">
         Cancel
       </md-button>
-      <md-button md-theme="reverse" class="md-raised md-primary" ng-click="upload()" ng-if="uploadStatus === 'not_started'">
+      <md-button md-theme="reverse" class="md-raised md-primary" ng-click="upload();" ng-if="uploadStatus === 'not_started'">
         Start Upload
       </md-button>
       <md-button disabled md-theme="reverse" class="md-raised md-primary"  ng-if="uploadStatus === 'in_progress'">

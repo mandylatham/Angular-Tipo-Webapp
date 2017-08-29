@@ -461,6 +461,7 @@
       //   newObject[field.field_name] = null;
       // });
       var array = _.get(_instance.tipo,field_name);
+      delete array['$index'];
       if (!array) {
         array = [];
       };
