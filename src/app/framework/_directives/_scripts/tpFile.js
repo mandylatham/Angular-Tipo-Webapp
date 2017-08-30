@@ -157,6 +157,12 @@
           }
         }
 
+        scope.openViewFile = function(filePath){
+          tipoResource.one(filePath).withHttpConfig({responseType: 'arraybuffer'}).customGET().then(function(data){
+            console.log("data");
+          })
+        }
+
         scope.openContentDialog = function (index) {
           var initialPath;
           if(!_.isUndefined(index)){

@@ -2,7 +2,7 @@
   <div ng-if="isEdit">
     <div ng-if="isSingle">
       <div layout="row" layout-align="start center">
-        <span flex-order="1" ng-if="isTargetSet">{{fileTarget}}</span>
+        <span flex-order="1" ng-if="isTargetSet">{{prependTarget}}</span>
         <input type="text" ng-model="singlePath.value" aria-label="field.display_name" flex-order="2" ng-if="!(isTargetSet && isTargetFile)"
           ng-change="onSinglePathChange()">
         <span flex flex-order="3"></span>
@@ -17,7 +17,7 @@
     <div ng-if="isArray">
       <div layout="column">
         <div md-no-float layout="row" layout-align="start center">
-          <span flex-order="1" ng-if="isTargetSet">{{fileTarget}}</span>
+          <span flex-order="1" ng-if="isTargetSet">{{prependTarget}}</span>
           <input type="text" ng-model="tempPath.value" aria-label="field.display_name" flex-order="2">
           <div flex="none" flex-order="3">
             <md-button class="md-icon-button" aria-label="Add" ng-click="addMultiPathEntry()">
@@ -27,7 +27,7 @@
           </div>
         </div>
         <div layout="row" class="multi-file-row" layout-align="start center" ng-repeat="path in multiplePaths">
-          <span flex-order="1" flex>{{fileTarget}}{{path.value}}</span>
+          <span flex-order="1" flex>{{prependTarget}}{{path.value}}</span>
           <div flex="none" flex-order="3">
             <md-button class="md-icon-button" aria-label="Delete" ng-click="removeMultiPathEntry($index)">
               <md-tooltip md-direction="bottom">Remove Entry</md-tooltip>
@@ -49,7 +49,7 @@
       <div layout="row" layout-align="start center">
         <span flex-order="1" flex>{{field.key}}</span>
         <div flex-order="2" flex="none">
-          <md-button class="md-icon-button" aria-label="Download">
+          <md-button class="md-icon-button" aria-label="Download" ng-click="openViewFile(field.key)">
             <md-tooltip md-direction="bottom">Download</md-tooltip>
             <md-icon>file_download</md-icon>
           </md-button>
@@ -59,9 +59,9 @@
     <div ng-if="isArray">
       <div layout="column">
         <div layout="row" class="multi-file-row" layout-align="start center" ng-repeat="path in multiplePaths">
-          <span flex-order="1" flex>{{fileTarget}}{{path.value}}</span>
+          <span flex-order="1" flex>{{prependTarget}}{{path.value}}</span>
           <div flex-order="2" flex="none">
-            <md-button class="md-icon-button" aria-label="Upload">
+            <md-button class="md-icon-button" aria-label="Upload" ng-click="openViewFile(path.value)">
               <md-tooltip md-direction="bottom">Download</md-tooltip>
               <md-icon>file_download</md-icon>
             </md-button>
