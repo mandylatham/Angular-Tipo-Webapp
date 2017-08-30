@@ -81,8 +81,8 @@
             if(!_.isEmpty(scope.field)){
               scope.multiplePaths = _.map(scope.field, function(each){
                 var eachPath = each.key;
-                if(fileTarget){
-                  eachPath = eachPath.replace(fileTarget, '');
+                if(scope.fileTarget){
+                  eachPath = eachPath.replace(scope.fileTarget, '');
                 }
                 return {
                   value: eachPath
@@ -158,8 +158,9 @@
         }
 
         scope.openViewFile = function(filePath){
-          tipoResource.one(filePath).withHttpConfig({responseType: 'arraybuffer'}).customGET().then(function(data){
+          tipoResource.oneUrl('content',"g/" + scope.fileTarget + filePath).withHttpConfig({responseType: 'blob'}).get().then(function(data){
             console.log("data");
+            console.log(data);
           })
         }
 
