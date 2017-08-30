@@ -26,6 +26,8 @@ This first section of the **Creating an Application Guide**, will cover:
  - How to customize the appearance of the app. This will range from customizing how the app looks (logo, font, colours) to customizing other aspects such as  how data is displayed and the appearance of forms
  - How to customize email templates
  - How to invite users to the app, assign them roles and control their data access
+ 
+TODO: Assigning user roles and controlling their data access might be done later.
 
 ## Creating the Application
 To demonstrate the process of creating an application with TipoTapp, we are going to create an application that could be used in a higher-learning institution to manage student data. In this section of the guide, the app will start off simple with a few Tipos and then get more complex as we move to the Intermediate and Advanced sections.
@@ -514,11 +516,37 @@ To change the app's Font, you can select one from the dropdown on the `Font` fie
 
 ### Changing the App's Color
 
-TipoTapp uses Material Design on its interface. You can change the default primary and accent colors of your app by either selecting from the available color themes, or you can use your own custom palette. We'll look at the latter option in the second part of this guide. Right now, let's look at the available palette.
+TipoTapp uses [Material Design](https://material.io/) on its interface. You can change the default primary and accent colors of your app by either selecting from the available color themes, or you can use your own custom palette. Let's begin with the first option. Below, you can see the available palette.
 
 ![Change color](/images/creating_an_application_basic/image_039.png)
 
-From `Appearance Settings`, you will find a `Choose Colour Theme` section shown above. The first time you click on a color, that color will be set as the Primary color. If you click on another color, this color will be set as the Accent. Each time you change colors, a preview of the resulting UI is shown below the palette.
+From `Appearance Settings`, you will find a `Choose Colour Theme` section shown above. The first time you click on a color, that color will be set as the Primary color. If you click on another color, this color will be set as the Accent. Each time you change colors, a preview of the resulting UI is shown below the palette. When you select a color theme and save the changes, your application will immediately change appearance to reflect this.
+
+If you don't find a color that you prefer among the available options, you can add your own. You are not restricted to the palette that TipoTapp makes available to you. To do this, in Edit Mode, open the Advanced Editor of the `Appearance Settings` section. Then scroll down to `Material Theme` and open its Advanced Editor.
+
+![My Apps](/images/creating_an_application_basic/added_image_005.png)
+
+Here, you can add material design color codes for the app's `primary`, `accent`, `warn` and `background` pallets. You can use this website [http://mcg.mbitson.com](http://mcg.mbitson.com) to generate the color codes.
+
+![My Apps](/images/creating_an_application_basic/added_image_006.png)
+
+When you navigate to the website, you'll find a palette that has already been added to the workspace. You can edit this as well as add another palette. Below, are two palettes we've added to the workspace.
+
+![My Apps](/images/creating_an_application_basic/added_image_007.png)
+
+To add a palette to the workspace, use the following icon found on the navigation bar.
+
+![My Apps](/images/creating_an_application_basic/added_image_008.png)
+
+To edit a palette, use the following controls found at the top of the palette.
+
+![My Apps](/images/creating_an_application_basic/added_image_009.png)
+
+You can set the palette Name, view its code with the clipboard icon, delete it with the icon next to that and edit its color with the rightmost icon. When you are done selecting your palette's color, view its code and copy all of it with the `Copy ` button at the top-right corner of the dialog box.
+
+![My Apps](/images/creating_an_application_basic/added_image_010.png)
+
+Back in TipoTapp, paste the color code. Do this for any of the other fields (`primary`, `accent`, `warn` and `background`) that you want to change. Save your app and the changes will be reflected.
 
 ### Customizing Email Templates
 
