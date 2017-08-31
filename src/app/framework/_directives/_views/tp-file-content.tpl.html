@@ -14,10 +14,10 @@
       <form name="uploadForm" layout="column">
         <div class="tp-field">
           <lf-ng-md-file-input name="files" lf-files="content" lf-required lf-maxcount="5" lf-filesize="{{fileSize}}"
-            lf-totalsize="20MB" drag  preview lf-caption="{{finalPath}}" lf-placeholder="{{fixedPrefix || 'Select a file'}}" ng-hide="parent.isArray"/>
+            lf-totalsize="20MB" drag  preview lf-caption="{{finalPath.path}}" lf-placeholder="{{fixedPrefix || 'Select a file'}}" ng-hide="parent.isArray"/>
 
           <lf-ng-md-file-input name="files" lf-files="content" lf-required lf-maxcount="5" lf-filesize="{{fileSize}}"
-            lf-totalsize="20MB" drag multiple preview lf-caption="{{finalPath}}" lf-placeholder="{{fixedPrefix || 'Select a file'}}" ng-hide="!parent.isArray" />  
+            lf-totalsize="20MB" drag multiple preview lf-caption="{{finalPath.path}}" lf-placeholder="{{fixedPrefix || 'Select a file'}}" ng-hide="!parent.isArray" />  
           <div class="error" ng-show="lastError">
             <i class="fa fa-exclamation-circle fa-fw"></i> {{lastError}}
           </div>

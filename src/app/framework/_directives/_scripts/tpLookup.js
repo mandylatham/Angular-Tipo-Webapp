@@ -47,7 +47,7 @@
           });
         _.each(_instance.tipos, function(tipo){
             _.each($scope.selectedTipos,function(selected){
-              if(tipo[$scope.key_field] === selected.key || tipo[$scope.key_field] === selected[$scope.key_field]){
+              if((tipo[$scope.key_field] === selected.key || tipo[$scope.key_field] === selected[$scope.key_field]) && !_.isUndefined(tipo[$scope.key_field])){
                 tipo.selected = true;
               }
             })
@@ -473,7 +473,7 @@
             newScope.perm = scope.perm;
             newScope.queryparams = scope.searchCriteria;
             newScope.label_field = label_field;
-            newScope.key_field = label_field;
+            newScope.key_field = key_field;
             if (scope.root) {
             newScope.tipo_fields = scope.root.tipo_field_groups}
             newScope.selectedTipos = scope.selectedTipos;

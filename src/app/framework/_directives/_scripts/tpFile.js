@@ -69,11 +69,13 @@
             if (scope.field) {
               path = scope.field.key;
               if (fileTarget) {
-                path = path.replace(fileTarget, '');
+                path = path.replace(scope.fileTarget, '');
               }
             }
             scope.singlePath = {
-              value: path
+              value: path,
+              tagType: scope.field.type,
+              fileType: scope.field.fileType
             };
           }else{
             // for arrays
@@ -102,7 +104,8 @@
           if (scope.isTargetSet) {
             scope.field = {
               key: scope.fileTarget + scope.singlePath.value,
-              type: scope.singlePath.fileType
+              type: scope.singlePath.tagType,
+              fileType: scope.singlePath.fileType
             };
           } else {
             scope.field = {
@@ -115,7 +118,6 @@
 
         scope.onMultiPathChange = function (index, path, type, fileType) {
           scope.multiplePaths.push({value: path});
-          scope.multiplePaths[index].value = path;
           scope.field.push({
               key: scope.fileTarget + path,
               type: type,
@@ -137,8 +139,8 @@
         };
 
         scope.removeMultiPathEntry = function(index){
-          scope.multiplePaths.splice(index, 1);
-          scope.field.splice(index, 1);
+          scope.multiplePaths[index].deleted = true;
+          scope.field[index]._ARRAY_META._STATUS = 'DELETED';
         };
 
         function completeUpload(initialPath,finalPath,tagType,fileType,index){
@@ -171,36 +173,38 @@
           //   console.log("data");
           // })
           var template;
-          switch(filePath.type){
+          var type = filePath.tagType || filePath.type || "text/plain";
+          var src =  "g/" + scope.fileTarget + filePath.value;
+          switch(type){
               case 'image': {
-                  template = '<img src="' + scope.fileTarget + filePath.value + '" />';
+                  template = '<md-dialog><div><img class="fullwidth" src="' + src + '" /> <div></md-dialog>';
                   break;
               }
               case 'video': {
                   template =
-                      '<video controls>' +
-                          '<source src="' + scope.fileTarget + filePath.value + '"">' +
-                      '</video>'
+                      '<md-dialog class="fullwidth fullheight"><div class="fullwidth fullheight"><video class="fullwidth fullheight" controls>' +
+                          '<source src="' + src + '"">' +
+                      '</video><div></md-dialog>'
                   break;
               }
               case 'audio': {
                   template =
-                      '<audio controls>' +
-                          '<source src="' + scope.fileTarget + filePath.value + '"">' +
-                      '</audio>'
+                      '<md-dialog class="fullwidth fullheight"><div class="fullwidth fullheight"><audio class="fullwidth fullheight" controls>' +
+                          '<source src="' + src + '"">' +
+                      '</audio><div></md-dialog>'
                   break;
               }
               default : {
                   template =
-                      '<object  type="' + filePath.fileType + '" data="' + "g/" + scope.fileTarget + filePath.value + '">' +
+                      '<md-dialog class="fullwidth fullheight"><div class="fullwidth fullheight"><object class="fullwidth fullheight"  type="' + filePath.fileType + '" data="' + src + '">' +
                           '<div class="lf-ng-md-file-input-preview-default">' +
                               '<md-icon class="lf-ng-md-file-input-preview-icon "></md-icon>' +
                           '</div>' +
-                      '</object>';
+                      '</object><div></md-dialog>';
               }
           }
           var promise = $mdDialog.show({
-            template: '<div>' + template + '<div>',
+            template: template,
             parent: angular.element(document.body),
             targetEvent: event,
             escapeToClose: true,
@@ -232,9 +236,8 @@
               if(initialPath){
                 var parts = initialPath.split('/');
                 if(S(_.last(parts)).contains('.')){
-                  $scope.isInitialPathFinal = true;
-                  $scope.fixedPrefix = initialPath;
-                  finalPath = initialPath;
+                  $scope.fixedPrefix = scope.fileTarget;
+                  finalPath = scope.fileTarget;
                 }else {
                   if(!S(initialPath).endsWith('/')){
                     initialPath += '/';
@@ -299,6 +302,7 @@
                       if(_.isUndefined(fileContent.lfFileName)){
                         delete $scope.finalPath;
                       }else{
+                        fileContent.lfFileName = _.replace(fileContent.lfFileName, ' ', '');
                         if($scope.fixedPrefix){
                           $scope.finalPath.path = $scope.fixedPrefix + fileContent.lfFileName  + "," + $scope.finalPath.path;
                         }else{
@@ -312,16 +316,18 @@
                 }else{
                   $scope.finalPath = {};
                   $scope.$watch('content[0].lfFileName',function(newName){
+                    $scope.finalPath = {path: "", fileType: "",tagType: "" };
                       if(_.isUndefined(newName)){
                         delete $scope.finalPath;
                       }else{
+                        newName = _.replace(newName, ' ', '');
                         if($scope.fixedPrefix){
                           $scope.finalPath.path = $scope.fixedPrefix + newName;
                         }else{
                           $scope.finalPath.path = newName;
                         }
-                        $scope.finalPath.tagType = newName.lfTagType;
-                        $scope.finalPath.fileType = newName.lfFileType;
+                        $scope.finalPath.tagType = $scope.content[0].lfTagType;
+                        $scope.finalPath.fileType = $scope.content[0].lfFileType;
                       }
                   });
                 }                
@@ -352,7 +358,9 @@
               var types = finalPath.tagType.split(",");
               var fileTypes = finalPath.fileType.split(",");
               angular.forEach(paths,function(each,key){
-                completeUpload(initialPath,each,types[key],fileTypes[key],key);
+                if (!_.isEmpty(each)) {
+                  completeUpload(initialPath,each,types[key],fileTypes[key],key);
+                };
               })
             }else{
               completeUpload(initialPath,finalPath.path,finalPath.tagType,finalPath.fileType);

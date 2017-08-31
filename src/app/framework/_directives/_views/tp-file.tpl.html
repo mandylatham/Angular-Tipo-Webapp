@@ -2,9 +2,12 @@
   <div ng-if="isEdit">
     <div ng-if="isSingle">
       <div layout="row" layout-align="start center">
+        <div flex="none" flex-order="1">
+              <md-icon>folder</md-icon>
+        </div>
         <span flex-order="1" ng-if="isTargetSet">{{prependTarget}}</span>
         <input type="text" ng-model="singlePath.value" aria-label="field.display_name" flex-order="2" ng-if="!(isTargetSet && isTargetFile)"
-          ng-change="onSinglePathChange()">
+          ng-change="onSinglePathChange()" ng-disabled="true">
         <span flex flex-order="3"></span>
         <div flex="none" flex-order="4">
           <md-button class="md-icon-button" aria-label="Upload" ng-click="openContentDialog()">
@@ -17,8 +20,11 @@
     <div ng-if="isArray">
       <div layout="column">
         <div md-no-float layout="row" layout-align="start center">
+          <div flex="none" flex-order="1">
+              <md-icon>folder</md-icon>
+        </div>
           <span flex-order="1" ng-if="isTargetSet">{{prependTarget}}</span>
-          <input type="text" ng-model="tempPath.value" aria-label="field.display_name" flex-order="2">
+          <input type="text" ng-disabled="true" ng-model="tempPath.value" aria-label="field.display_name" flex-order="2">
           <div flex="none" flex-order="3">
             <md-button class="md-icon-button" aria-label="Add" ng-click="addMultiPathEntry()">
               <md-tooltip md-direction="bottom">Add Entry</md-tooltip>
@@ -26,7 +32,7 @@
             </md-button>
           </div>
         </div>
-        <div layout="row" class="multi-file-row" layout-align="start center" ng-repeat="path in multiplePaths">
+        <div layout="row" class="multi-file-row" layout-align="start center" ng-repeat="path in multiplePaths" ng-if="!path.deleted">
           <span flex-order="1" flex>{{prependTarget}}{{path.value}}</span>
           <div flex="none" flex-order="3">
             <md-button class="md-icon-button" aria-label="Delete" ng-click="removeMultiPathEntry($index)">
@@ -47,11 +53,11 @@
   <div ng-if="!isEdit">
     <div ng-if="isSingle">
       <div layout="row" layout-align="start center">
-        <span flex-order="1" flex>{{field.key}}</span>
+        <a href="g/public/{{prependTarget}}{{singlePath.value}}" download="{{singlePath.value}}"><span flex-order="1" flex>{{prependTarget}}{{singlePath.value}}</span></a>
         <div flex-order="2" flex="none">
-          <md-button class="md-icon-button" aria-label="Download" ng-click="openViewFile(field)">
-            <md-tooltip md-direction="bottom">Download</md-tooltip>
-            <md-icon>file_download</md-icon>
+          <md-button class="md-icon-button" aria-label="Preview" ng-click="openViewFile(singlePath)" ng-if="singlePath.fileType === 'application/json' || singlePath.fileType === 'application/pdf' || singlePath.fileType === 'application/java' || singlePath.tagType === 'image' || singlePath.fileType === 'text/javascript'">
+            <md-tooltip md-direction="bottom">Preview</md-tooltip>
+            <md-icon>remove_red_eye</md-icon>
           </md-button>
         </div>
       </div>
@@ -59,11 +65,11 @@
     <div ng-if="isArray">
       <div layout="column">
         <div layout="row" class="multi-file-row" layout-align="start center" ng-repeat="path in multiplePaths">
-          <span flex-order="1" flex>{{prependTarget}}{{path.value}}</span>
+          <a href="g/public/{{prependTarget}}{{path.value}}" download="{{path.value}}"><span flex-order="1" flex>{{prependTarget}}{{path.value}}</span></a>
           <div flex-order="2" flex="none">
-            <md-button class="md-icon-button" aria-label="Upload" ng-click="openViewFile(path)">
-              <md-tooltip md-direction="bottom">Download</md-tooltip>
-              <md-icon>file_download</md-icon>
+            <md-button class="md-icon-button" aria-label="Preview" ng-click="openViewFile(path)" ng-if="path.fileType === 'application/json' || path.fileType === 'application/pdf' || path.fileType === 'application/java' || path.type === 'image' || path.fileType === 'text/javascript'">
+              <md-tooltip md-direction="bottom">Preview</md-tooltip>
+              <md-icon>remove_red_eye</md-icon>
             </md-button>
           </div>
         </div>
