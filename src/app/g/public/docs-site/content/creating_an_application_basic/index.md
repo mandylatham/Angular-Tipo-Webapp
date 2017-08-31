@@ -265,7 +265,19 @@ There are two caveats about the embedded Tipos that we want you to note at this 
  - **Short Display**: Yes
  - **Mandatory** (from Advanced Editor): Yes
  
-There is a section in the Advanced Editor labelled `Validations`. Here, you can add validations to the fields. The validations are [regular expressions](https://en.wikipedia.org/wiki/Regular_expression) that the field's value will be validated against. You can select from a list of available regular expressions from the `Choose Validations` dropdown menu (like we do below for the `Email` field), or you can add your own to the `Custom Validations` field.
+There is a section in the Advanced Editor labelled `Validations`. Here, you can add validations to the fields. The validations are [regular expressions](https://en.wikipedia.org/wiki/Regular_expression) that the field's value will be validated against. You can select from a list of available regular expressions from the `Choose Validations` dropdown menu (like we do below for the `Email` field below), or you can add your own to the `Custom Validations` field.
+
+You can also provide a guide to the user for what the input should look like by setting the `Input Pattern`. You can select from a list of available patterns from `Choose Input Pattern` or use your own.
+
+![Input pattern](/images/creating_an_application_basic/added_image_011.png)
+
+TODO: Where are Force Validation, Underscore Provider and Hide Guide Input Pattern fields?
+
+If you were to set the above pattern, your form would have the guide shown below
+
+TODO: Input pattern seems to not be working, so will take below screenshot later.
+
+![Input pattern](/images/creating_an_application_basic/added_image_012.png)
 
 `Email` field:
 
