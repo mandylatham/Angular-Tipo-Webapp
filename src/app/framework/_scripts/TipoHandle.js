@@ -106,6 +106,7 @@
                       $location,
                       $mdToast,
                       $mdDialog,
+                      $q,
                       $stateParams){
 
     var role = metadataService.userMetadata.role;
@@ -117,7 +118,7 @@
               .ariaLabel(title)
               .ok('Yes')
               .cancel('No');
-       $mdDialog.show(confirmation).then(function(){
+       return $mdDialog.show(confirmation).then(function(){
           return true;
        },function(){
           return false;
@@ -127,11 +128,13 @@
      function hideElement(element_class){
       var elem = angular.element(document.querySelector("." + element_class));
       elem.style.display = 'none';
+      $q.when(true);
      }
 
      function showElement(element_class){
       var elem = angular.element(document.querySelector("." + element_class));
       elem.style.display = 'block';
+      $q.when(true);
      }
 
      function getTipoDefinition(tipo_name){
@@ -148,6 +151,7 @@
 
      function routeTo(url){
       $location.url(url);
+      $q.when(true);
      }
 
      function saveTipo(tipo_name, tipo_id, tipo_data){
@@ -214,6 +218,7 @@
         body: user_message
       };
       $mdToast.show(toast);
+      $q.when(true);
      };
 
      function updateUrl(tipo_name){

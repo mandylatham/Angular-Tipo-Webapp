@@ -85,6 +85,7 @@
   return module.directive('tpActions', function (
     tipoManipulationService,
     tipoInstanceDataService,
+    tipoClientJavascript,
     tipoHandle,
     tipoRouter,
     $mdDialog,
@@ -113,6 +114,7 @@
           var mode = scope.mode;
           scope.mobaction= {isOpen: false};
           scope.deskaction= {isOpen: false};
+          scope.data_handle= {};
 
           if(!mode){
             mode = 'view';
@@ -287,6 +289,16 @@
           }
 
           function callAction(tipo_name, action_name, selected_tipo_ids,additional_tipo_name,additional_tipo){
+            var function_name = tipo_name + "_" + action_name;
+            if(typeof tipoClientJavascript[function_name] === 'function'){
+              scope.data_handle.tipo_name = tipo_name;
+              scope.data_handle.action_name = action_name;
+              scope.data_handle.selected_tipo_ids = selected_tipo_ids;
+              scope.data_handle.selected_tipos = scope.tipos;
+              scope.data_handle.additional_tipo_name = additional_tipo_name;
+              scope.data_handle.additional_tipo = additional_tipo;
+              tipoClientJavascript[function_name]($scope.data_handle);
+            }
             tipoHandle.callAction(tipo_name, action_name, selected_tipo_ids,additional_tipo_name,additional_tipo)
                   .then(function(response){
                     tipoRouter.startStateChange();

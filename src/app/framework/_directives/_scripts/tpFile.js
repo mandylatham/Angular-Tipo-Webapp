@@ -85,7 +85,9 @@
                   eachPath = eachPath.replace(scope.fileTarget, '');
                 }
                 return {
-                  value: eachPath
+                  value: eachPath,
+                  type: each.type,
+                  fileType: each.fileType
                 };
               });
             }
@@ -99,20 +101,25 @@
           }
           if (scope.isTargetSet) {
             scope.field = {
-              key: scope.fileTarget + scope.singlePath.value
+              key: scope.fileTarget + scope.singlePath.value,
+              type: scope.singlePath.fileType
             };
           } else {
             scope.field = {
-              key: scope.singlePath.value
+              key: scope.singlePath.value,
+              type: scope.singlePath.tagType,
+              fileType: scope.singlePath.fileType,
             };
           }
         };
 
-        scope.onMultiPathChange = function (index, path) {
+        scope.onMultiPathChange = function (index, path, type, fileType) {
           scope.multiplePaths.push({value: path});
           scope.multiplePaths[index].value = path;
           scope.field.push({
-              key: scope.fileTarget + path
+              key: scope.fileTarget + path,
+              type: type,
+              fileType: fileType
           });
         };
 
@@ -134,13 +141,15 @@
           scope.field.splice(index, 1);
         };
 
-        function completeUpload(initialPath,finalPath,index){
+        function completeUpload(initialPath,finalPath,tagType,fileType,index){
           if(!_.isUndefined(finalPath)){
             var parts = finalPath.split('/');
             if(S(_.last(parts)).contains('.')){
               if(finalPath !== initialPath){
                 // indicates that a file path is there and is not the original one
                 if(_.isUndefined(index)){
+                  scope.singlePath.tagType = tagType;
+                  scope.singlePath.fileType = fileType;
                   if(_.isEmpty(scope.fileTarget)){
                     scope.singlePath.value = finalPath;
                     scope.onSinglePathChange();
@@ -150,7 +159,7 @@
                   }
                 }else{
                   var path = finalPath.replace(scope.fileTarget, '');
-                  scope.onMultiPathChange(index, path);
+                  scope.onMultiPathChange(index, path, tagType, fileType);
                 }
               }
             }
@@ -158,10 +167,46 @@
         }
 
         scope.openViewFile = function(filePath){
-          tipoResource.oneUrl('content',"g/" + scope.fileTarget + filePath).withHttpConfig({responseType: 'blob'}).get().then(function(data){
-            console.log("data");
-            console.log(data);
-          })
+          // tipoResource.oneUrl('content',"g/" + scope.fileTarget + filePath).withHttpConfig({responseType: 'blob'}).get().then(function(data){
+          //   console.log("data");
+          // })
+          var template;
+          switch(filePath.type){
+              case 'image': {
+                  template = '<img src="' + scope.fileTarget + filePath.value + '" />';
+                  break;
+              }
+              case 'video': {
+                  template =
+                      '<video controls>' +
+                          '<source src="' + scope.fileTarget + filePath.value + '"">' +
+                      '</video>'
+                  break;
+              }
+              case 'audio': {
+                  template =
+                      '<audio controls>' +
+                          '<source src="' + scope.fileTarget + filePath.value + '"">' +
+                      '</audio>'
+                  break;
+              }
+              default : {
+                  template =
+                      '<object  type="' + filePath.fileType + '" data="' + "g/" + scope.fileTarget + filePath.value + '">' +
+                          '<div class="lf-ng-md-file-input-preview-default">' +
+                              '<md-icon class="lf-ng-md-file-input-preview-icon "></md-icon>' +
+                          '</div>' +
+                      '</object>';
+              }
+          }
+          var promise = $mdDialog.show({
+            template: '<div>' + template + '<div>',
+            parent: angular.element(document.body),
+            targetEvent: event,
+            escapeToClose: true,
+            skipHide: true,
+            clickOutsideToClose: true,
+            fullscreen: true})
         }
 
         scope.openContentDialog = function (index) {
@@ -181,7 +226,7 @@
               $scope.uploadStatus = 'not_started';
 
               $scope.parent = scope;
-              $scope.fileSize = "10MB";
+              $scope.fileSize = "1MB";
               $scope.content = [];
               var finalPath;
               if(initialPath){
@@ -214,7 +259,7 @@
                   };
 
                   tipoResource
-                  .oneUrl('content', scope.fileTarget)
+                  .oneUrl('content', scope.fileTarget + fileContent.lfFileName)
                   .customPUT(data, '', undefined)
                   .then(function(result){
                     if (last) {
@@ -249,37 +294,34 @@
               if(!$scope.isInitialPathFinal){
                 if (scope.isArray) {
                   $scope.$watch('content.length',function(){
-                    $scope.finalPath = "";
+                    $scope.finalPath = {path: "", fileType: "",tagType: "" };
                     _.each($scope.content,function(fileContent){
                       if(_.isUndefined(fileContent.lfFileName)){
-                        if($scope.fixedPrefix){
-                          $scope.finalPath = $scope.fixedPrefix + "," + $scope.finalPath;
-                        }else{
-                          delete $scope.finalPath;
-                        }
+                        delete $scope.finalPath;
                       }else{
                         if($scope.fixedPrefix){
-                          $scope.finalPath = $scope.fixedPrefix + fileContent.lfFileName  + "," + $scope.finalPath;
+                          $scope.finalPath.path = $scope.fixedPrefix + fileContent.lfFileName  + "," + $scope.finalPath.path;
                         }else{
-                          $scope.finalPath = fileContent.lfFileName + "," + $scope.finalPath;
+                          $scope.finalPath.path = fileContent.lfFileName + "," + $scope.finalPath.path;
                         }
+                        $scope.finalPath.tagType = fileContent.lfTagType + "," + $scope.finalPath.tagType;
+                        $scope.finalPath.fileType = fileContent.lfFileType + "," + $scope.finalPath.fileType;
                       }
                     })
                   });
                 }else{
+                  $scope.finalPath = {};
                   $scope.$watch('content[0].lfFileName',function(newName){
                       if(_.isUndefined(newName)){
-                        if($scope.fixedPrefix){
-                          $scope.finalPath = $scope.fixedPrefix;
-                        }else{
-                          delete $scope.finalPath;
-                        }
+                        delete $scope.finalPath;
                       }else{
                         if($scope.fixedPrefix){
-                          $scope.finalPath = $scope.fixedPrefix + newName;
+                          $scope.finalPath.path = $scope.fixedPrefix + newName;
                         }else{
-                          $scope.finalPath = newName;
+                          $scope.finalPath.path = newName;
                         }
+                        $scope.finalPath.tagType = newName.lfTagType;
+                        $scope.finalPath.fileType = newName.lfFileType;
                       }
                   });
                 }                
@@ -306,12 +348,14 @@
           });
           promise.then(function(finalPath){
             if (scope.isArray) {
-              var paths = finalPath.split(",");
+              var paths = finalPath.path.split(",");
+              var types = finalPath.tagType.split(",");
+              var fileTypes = finalPath.fileType.split(",");
               angular.forEach(paths,function(each,key){
-                completeUpload(initialPath,each,key);
+                completeUpload(initialPath,each,types[key],fileTypes[key],key);
               })
             }else{
-              completeUpload(initialPath,finalPath);
+              completeUpload(initialPath,finalPath.path,finalPath.tagType,finalPath.fileType);
             }
           });
         }

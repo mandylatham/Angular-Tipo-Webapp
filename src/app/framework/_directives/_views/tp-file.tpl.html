@@ -49,7 +49,7 @@
       <div layout="row" layout-align="start center">
         <span flex-order="1" flex>{{field.key}}</span>
         <div flex-order="2" flex="none">
-          <md-button class="md-icon-button" aria-label="Download" ng-click="openViewFile(field.key)">
+          <md-button class="md-icon-button" aria-label="Download" ng-click="openViewFile(field)">
             <md-tooltip md-direction="bottom">Download</md-tooltip>
             <md-icon>file_download</md-icon>
           </md-button>
@@ -61,7 +61,7 @@
         <div layout="row" class="multi-file-row" layout-align="start center" ng-repeat="path in multiplePaths">
           <span flex-order="1" flex>{{prependTarget}}{{path.value}}</span>
           <div flex-order="2" flex="none">
-            <md-button class="md-icon-button" aria-label="Upload" ng-click="openViewFile(path.value)">
+            <md-button class="md-icon-button" aria-label="Upload" ng-click="openViewFile(path)">
               <md-tooltip md-direction="bottom">Download</md-tooltip>
               <md-icon>file_download</md-icon>
             </md-button>
