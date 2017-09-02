@@ -249,10 +249,6 @@ module.exports = function (grunt) {
         options: {
           replacements: [
             {
-              pattern: '${googleClientId}',
-              replacement: config.mavenProperties.googleClientId
-            },
-            {
               pattern: '${googleRecaptchaSitekey}',
               replacement: config.mavenProperties.googleRecaptchaSitekey
             }

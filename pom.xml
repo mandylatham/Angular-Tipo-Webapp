@@ -10,8 +10,6 @@
   <properties>
     <grunt.plugin.version>1.5.1</grunt.plugin.version>
     <tipo.api.url>/dev</tipo.api.url>
-    <google.client.id>${env.GOOGLE_CLIENT_ID}</google.client.id>
-    <google.recaptcha.sitekey>${env.GOOGLE_RECAPTCHA_SITEKEY}</google.recaptcha.sitekey>
   </properties>
 
   <build>
@@ -104,6 +102,25 @@
       </plugin>
 
       <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>properties-maven-plugin</artifactId>
+        <version>1.0.0</version>
+        <executions>
+          <execution>
+            <phase>initialize</phase>
+            <goals>
+              <goal>read-project-properties</goal>
+            </goals>
+            <configuration>
+              <files>
+                <file>env.properties</file>
+              </files>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
         <artifactId>exec-maven-plugin</artifactId>
         <groupId>org.codehaus.mojo</groupId>
         <executions>
@@ -119,7 +136,7 @@
               <arguments>
                 <argument>s3</argument>
                 <argument>rm</argument>
-                <argument>s3://${S3_BUCKET}</argument>
+                <argument>s3://${UI.Bucket}</argument>
                 <argument>--recursive</argument>
               </arguments>
             </configuration>
@@ -151,7 +168,7 @@
                 <argument>s3</argument>
                 <argument>sync</argument>
                 <argument>${basedir}/src/app/g/public</argument>
-                <argument>s3://${USER_S3_BUCKET}/g/tipotapp/tipoapp/public/</argument>
+                <argument>s3://${User.Bucket}/g/tipotapp/tipoapp/public/</argument>
               </arguments>
             </configuration>
           </execution>
@@ -168,7 +185,7 @@
                 <argument>s3</argument>
                 <argument>sync</argument>
                 <argument>${basedir}/src/app/g/private</argument>
-                <argument>s3://${USER_S3_BUCKET}/g/tipotapp/tipoapp/private/</argument>
+                <argument>s3://${User.Bucket}/g/tipotapp/tipoapp/private/</argument>
               </arguments>
             </configuration>
           </execution>
@@ -185,7 +202,7 @@
                 <argument>s3</argument>
                 <argument>sync</argument>
                 <argument>${basedir}/src/app/tipoappbase/public</argument>
-                <argument>s3://${USER_S3_BUCKET}/g/tipotapp/tipoappbase/public/</argument>
+                <argument>s3://${User.Bucket}/g/tipotapp/tipoappbase/public/</argument>
               </arguments>
             </configuration>
           </execution>
@@ -202,7 +219,7 @@
                 <argument>s3</argument>
                 <argument>sync</argument>
                 <argument>${basedir}/src/app/tipoappbase/private</argument>
-                <argument>s3://${USER_S3_BUCKET}/g/tipotapp/tipoappbase/private/</argument>
+                <argument>s3://${User.Bucket}/g/tipotapp/tipoappbase/private/</argument>
               </arguments>
             </configuration>
           </execution>
@@ -218,7 +235,7 @@
               <arguments>
                 <argument>s3</argument>
                 <argument>rm</argument>
-                <argument>s3://${USER_S3_BUCKET}/</argument>
+                <argument>s3://${User.Bucket}/</argument>
                 <!--<argument>dryrun</argument>-->
                 <argument>--recursive</argument>
                 <argument>--exclude</argument>
