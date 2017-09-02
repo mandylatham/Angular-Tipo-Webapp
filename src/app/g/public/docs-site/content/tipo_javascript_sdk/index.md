@@ -1,11 +1,34 @@
-# Client Side JavaScript
+---
+title: Client Side JavaScript
+weight: 7
+---
 
-## Tipo Handle
+# Tipo Handle
 
 TipoHandle is a utility service that allows client side javascript to perform common operations such as fetching data from server, saving data or even tailoring the UI as required.
 
+## ```application_meta```
 
-###  ```getConfirmation (user_message) ```
+Member name | Description
+------------ | ---------------
+`application_meta.application` | Application ID
+`application_meta.application_owner_account` | Application Onwer Account ID 
+
+
+## ```user_meta```
+
+Member name | Description
+------------ | ---------------
+`user_meta.tipo_id` | Currently it is the email address
+`user_meta.account` | Subscriber account to which the user belongs
+`user_meta.application` | Current application
+`user_meta.application_owner_account` | Current application owner account ID
+`user_meta.fully_qualified_username` | 'Application Owner ID'.'Application ID'.'tipo_id' (Used in Cognito)
+`user_meta.role` | User role
+`user_meta.user_attributes` | Additional attributes e.g. If the role is linked certain Tipos, during user invitation instances of those tipos are selected and stored in these user_attributes. for Student it would look like user_meta.user_attributes.Student.[212Student123]
+
+
+##  ```getConfirmation (user_message) ```
 
 Present user with a confirmation message and get user response.
 
@@ -15,7 +38,7 @@ Present user with a confirmation message and get user response.
 	Example Usage:
 	tipoHandle.getConfirmation("Please confirm if the object 234234 can be saved or deleted.");
 
-###  ```hideElement (element_class) or showElement(element_class) ```
+##  ```hideElement (element_class) or showElement(element_class) ```
 
 Each field has a class assocated to uniquely identify the field to hide or show.
 Example 1: Say Purchase Order has a order_total field, there will be a class called `order_total`.
@@ -29,14 +52,14 @@ Example 2: To hide something in an array of a group field, i.e. in a Purchase Or
 Each action uses action_name as the class associated to uniquely identify the action, so that it can be hidden or shown. If the action is already hidden in the meta-data, it will not be available in the client for show/hide
 	
 
-### ``` getTipoDefinition(tipo_name) ```
+## ``` getTipoDefinition(tipo_name) ```
 
 Fetch TipoDefinition for the Tipo specified in `tipo_name`.
 
 	- tipo_name : Tipo name to fetch TipoDefinition for.
 	// return TipoDefinition
 
-### ``` callAction(tipo_name, action_name, selected_tipo_ids, additional_tipo_name, additional_tipo) ```
+## ``` callAction(tipo_name, action_name, selected_tipo_ids, additional_tipo_name, additional_tipo) ```
 
 Perform action specified in `action_name` on the Tipo specified in `tipo_name`.
 
@@ -48,7 +71,7 @@ Perform action specified in `action_name` on the Tipo specified in `tipo_name`.
 	// return tipo_response; //result from the server is supplied back to the caller.
 
 
-### ``` routeTo(url) ```
+## ``` routeTo(url) ```
 
 User will be presented with the URL specified in `url`. Please specify the path after the `#` character.
 
@@ -56,7 +79,7 @@ User will be presented with the URL specified in `url`. Please specify the path 
 	// return void;
 
 
-### ``` saveTipo(tipo_name, tipo_id, tipo_data) ```
+## ``` saveTipo(tipo_name, tipo_id, tipo_data) ```
 
 Save tipo on server with the data supplied in `tipo_data`.
 
@@ -65,7 +88,7 @@ Save tipo on server with the data supplied in `tipo_data`.
 	- tipo_data
 	// return boolean; If true save tipo is successful.
 
-### ``` saveTipos(tipo_name, tipo_data) ```
+## ``` saveTipos(tipo_name, tipo_data) ```
 
 Save array tipo on server with the data supplied in `tipo_data`.
 
@@ -73,7 +96,7 @@ Save array tipo on server with the data supplied in `tipo_data`.
 	- tipo_data
 	// return boolean; If true save tipo is successful.
 	
-### ``` createTipo(	tipo_name, tipo_data, query_params) ```
+## ``` createTipo(	tipo_name, tipo_data, query_params) ```
 
 Create tipo on server with the data supplied in `tipo_data`.
 
@@ -82,7 +105,7 @@ Create tipo on server with the data supplied in `tipo_data`.
 	- query_params
 	// return boolean; If true save tipo is successful.
 
-### ``` createTipos(tipo_name, tipo_data, query_params) ```
+## ``` createTipos(tipo_name, tipo_data, query_params) ```
 
 Create array of tipos on server with the array data supplied in `tipo_data`.
 
@@ -91,7 +114,7 @@ Create array of tipos on server with the array data supplied in `tipo_data`.
 	- query_params
 	// return boolean; If true save tipo is successful.
 
-### ``` deleteTipo(tipo_name,tipo_id) ```
+## ``` deleteTipo(tipo_name,tipo_id) ```
 
 Delete tipo with name specified in `tipo_name` and ID specified in `tipo_id`.
 
@@ -99,7 +122,7 @@ Delete tipo with name specified in `tipo_name` and ID specified in `tipo_id`.
 	- tipo_id
 	// return boolean; If true delete tipo is successful.
 
-### ``` getTipo(tipo_name, tipo_id, query_params) ```
+## ``` getTipo(tipo_name, tipo_id, query_params) ```
 
 Get tipo data for `tipo_name` with ID specified in `tipo_id`.
 
@@ -108,7 +131,7 @@ Get tipo data for `tipo_name` with ID specified in `tipo_id`.
 	- query_params
 	// return promise;
 
-### ``` getTipos(tipo_name, query_params) ```
+## ``` getTipos(tipo_name, query_params) ```
 
 Get tipo data for `tipo_name` with query parameters specified in `query_params`.
 
@@ -116,7 +139,7 @@ Get tipo data for `tipo_name` with query parameters specified in `query_params`.
 	- query_params
 	// return promise;
 	
-### ``` presentForm(tipo_name, tipo, context, submit_label, show_cancel) ```
+## ``` presentForm(tipo_name, tipo, context, submit_label, show_cancel) ```
 
 Present create form using the structure of the tipo definition specified in `tipo_name` and the `submit_label` is displayed to the user. This function does not save the data collected on the server, instead it will simply save data in `tipo_data`.
 	
@@ -128,7 +151,7 @@ Present create form using the structure of the tipo definition specified in `tip
 	// return void;
 	
 
-### ``` presentFormWithData(tipo_name, tipo, submit_label, show_cancel) ```
+## ``` presentFormWithData(tipo_name, tipo, submit_label, show_cancel) ```
 
 Present edit form using the structure of the tipo definition specified in `tipo_name` and the `submit_label` is displayed to the user.
 	
@@ -138,17 +161,17 @@ Present edit form using the structure of the tipo definition specified in `tipo_
 	- show_cancel: boolean to indicate if the cancel button should be displayed
 	//return void;
 
-### ``` generateTipoConfigs(file) ```
+## ``` generateTipoConfigs(file) ```
 
 Provide a JSON file to generate TipoDefinition from JSON data sample.
 
 
-## Tipo Level Events
+# Tipo Level Events
 
 Tipo lovel events are fired when a new instance of a tipo is created/cloned, updated, deleted, listed and clicked in a list.
 
 
-### OnList: ``` `<Tipo Name>`_OnList(data_handle) ```
+## OnList: ``` `<Tipo Name>`_OnList(data_handle) ```
 
 This is triggered before presenting the list of tipos in a list view. The can be useful to suppress certain items or add some addtional items to the list returned by the server.
 
@@ -156,7 +179,7 @@ This is triggered before presenting the list of tipos in a list view. The can be
     - data_handle.tipo_list: list of tipos,  
     // return void;
 
-### OnCreate: ``` `<Tipo Name>`_OnCreate(data_handle) ```
+## OnCreate: ``` `<Tipo Name>`_OnCreate(data_handle) ```
 
 This is triggered when user performs create new or clone in the list view. Only short display fields will be present the tipo_list and cloned_tipo.
 
@@ -165,7 +188,7 @@ This is triggered when user performs create new or clone in the list view. Only 
     - data_handle.cloned_tipo - Present only if the create event was fired due to clone operation. 
     // return boolean; //Return true to continue creating/saving tipo
 
-### OnClick: ``` `<Tipo Name>`_OnClick(data_handle) ```
+## OnClick: ``` `<Tipo Name>`_OnClick(data_handle) ```
 
 This is triggered only when the list item is clicked in the list view. When actions like, delete/clone are performed on a tipo in the list view, this event is not fired. Only short display fields will be present the tipo_list and selected_tipo. 
 
@@ -174,7 +197,7 @@ This is triggered only when the list item is clicked in the list view. When acti
     - data_handle.selected_tipo - tipo data for the selected tipo.
 	// return boolean; //Return true to continue creating/saving tipo
     
-### OnDelete: ``` `<Tipo Name>`_OnDelete(data_handle) ```
+## OnDelete: ``` `<Tipo Name>`_OnDelete(data_handle) ```
 
 This event is triggered when a tipo is selected for deletion. This can be useful to control the behaviour when a tipo is deleted. For example, if this is a prent tipo and this event can be used to delete the child tipos before continuing with the deletion.
 
@@ -184,7 +207,7 @@ This event is triggered when a tipo is selected for deletion. This can be useful
 
 
 
-### OnView: ``` `<Tipo Name>`_OnView(data_handle) ```
+## OnView: ``` `<Tipo Name>`_OnView(data_handle) ```
 
 This event is fired when user selects tipo for viewing. Before presenting the detailed view any customisations required can be performed using this event.
 	
@@ -192,7 +215,7 @@ This event is fired when user selects tipo for viewing. Before presenting the de
 	- data_handle.tipo: contains data for the tipo that is selected for viewing details of the tipo.
     // return void;
 
-### OnSave: ``` `<Tipo Name>`_OnSave(data_handle) ```
+## OnSave: ``` `<Tipo Name>`_OnSave(data_handle) ```
 
 OnSave is fired when a new tipo is created or edited. In both cases, before sending the data to server, this event is fired. Data going to server can be modified by changing the data in tipo. Tipo Handle provides a number of functions to save an object in server. 
 
@@ -202,12 +225,12 @@ OnSave is fired when a new tipo is created or edited. In both cases, before send
     // return boolean/promise; Only if true data will be saved in the server.
 
 
-## Tipo Field Level Events
+# Tipo Field Level Events
 
 
 //TODO for Murali. The following still needs to be documented properly.
 
-### OnChange:	``` `<Tipo Name>`_`<FieldName>`_OnChange(data_handle)```
+## OnChange:	``` `<Tipo Name>`_`<FieldName>`_OnChange(data_handle)```
 
 This is applicable only in create or edit forms. This event is triggered when user changes the value of a field.
 
@@ -219,7 +242,7 @@ This is applicable only in create or edit forms. This event is triggered when us
 	// return boolean; If true change is propogated, if false change is not propagated.
     
 
-### OnArrayItemAdd:	``` `<Tipo Name>`_`<FieldName>`_OnArrayItemAdd(data_handle)```
+## OnArrayItemAdd:	``` `<Tipo Name>`_`<FieldName>`_OnArrayItemAdd(data_handle)```
 
 	- tipoHandle: handle to the utility service.
 	- data_handle.tipo: contains data for the tipo.
@@ -228,7 +251,7 @@ This is applicable only in create or edit forms. This event is triggered when us
 	- data_handle.item: newly added item.
 	// return boolean; If true add will continue;
 	
-### OnArrayItemRemove: ``` `<Tipo Name>`_`<FieldName>`_OnArrayItemRemove(data_handle)```
+## OnArrayItemRemove: ``` `<Tipo Name>`_`<FieldName>`_OnArrayItemRemove(data_handle)```
 
 	- tipoHandle: handle to the utility service.
 	- data_handle.tipo: contains data for the tipo.
@@ -237,7 +260,7 @@ This is applicable only in create or edit forms. This event is triggered when us
 	- data_handle.item: removed item.
 	// return boolean; If true delete will continue;
 
-### BeforeLookup: ``` `<Tipo Name>`_`<FieldName>`_BeforeLookup(data_handle)```
+## BeforeLookup: ``` `<Tipo Name>`_`<FieldName>`_BeforeLookup(data_handle)```
 
 	- tipoHandle: handle to the utility service.
 	- data_handle.tipo: contains data for the tipo.
@@ -245,12 +268,29 @@ This is applicable only in create or edit forms. This event is triggered when us
 	- data_handle.query_params: is an array of objects with two fields `param_name` and `param_value`. Important key is `tipo_filter` that contains the filter used on the serverside for lookups. By altering this, the lookup behaviour can be altered.
 	// return void;
 
-### AftereLookup: ``` `<Tipo Name>`_`<FieldName>`_AfterLookup(data_handle)```
+## AftereLookup: ``` `<Tipo Name>`_`<FieldName>`_AfterLookup(data_handle)```
 
 	- tipoHandle: handle to the utility service.
 	- data_handle.tipo: contains data for the tipo.
 	- data_handle.context: handle to the current context in a deep json structure. When in an array to refer to the neighboring field that is in the same array index, simply use this.
 	- data_handle.tipo_list: contains the result data of lookup.
 	- data_handle.options: an array of objects with two fields `key` and `label`
+	// return void;
+
+
+# Tipo Actions
+
+These are javascript based actions that run on the client side in the browser.
+
+## OnCick: ``` `<Tipo Name>`_`<action_name>`(data_handle)```
+
+Perform action specified in `action_name` on the Tipo specified in `tipo_name`. This function will be called after capturing the client-side dependency, if exists.
+
+	- data_handle.tipo_name: Tipo name on which action is performed.
+	- data_handle.action_name: Name of the action performed
+	- data_handle.selected_tipo_ids: this is an array that contains the selected tipo ids.
+	- data_handle.additional_tipo_name: This is the client side dependency tipo name
+	- data_handle.additional_tipo: Client side dependency data
+	- data_handle.selected_tipos: In the list view this will be an array, and in the detail/create/edit view this is single object on which the action is performed.
 	// return void;
 

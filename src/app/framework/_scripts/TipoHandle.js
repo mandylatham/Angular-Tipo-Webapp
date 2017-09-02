@@ -234,8 +234,8 @@
      }
 
 
-     this.applicationMetadata = metadataService.applicationMetadata;
-     this.userMetadata = metadataService.userMetadata;
+     this.application_meta = metadataService.applicationMetadata;
+     this.user_meta = metadataService.userMetadata;
      this.getConfirmation = getConfirmation;
      this.hideElement = hideElement;
      this.showElement = showElement;
