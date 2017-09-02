@@ -152,6 +152,7 @@
               <executable>bash</executable>
               <arguments>
                 <argument>${basedir}/s3upload.bash</argument>
+                <argument>${UI.Bucket}</argument>
               </arguments>
             </configuration>
           </execution>

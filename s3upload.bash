@@ -12,6 +12,8 @@ function processFile() {
     echo "Uploaded ${fname}. Content-Type: ${content_type}"
 }
 
+export S3_BUCKET=${1}
+echo "UI Bucket: ${S3_BUCKET}"
 export SOURCE_PATH=./target-grunt/dist
 export -f processFile
 find ${SOURCE_PATH} -type f -name "*" | cut -c 21- | xargs -I {} bash -c 'processFile "$@"' _ {}
