@@ -1,5 +1,5 @@
 ---
-title: Crash Course
+title: Quickstart
 weight: 9
 ---
 
