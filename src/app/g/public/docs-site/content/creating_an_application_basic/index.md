@@ -25,9 +25,7 @@ This first section of the **Creating an Application Guide**, will cover:
  - How to add data (records) to the app
  - How to customize the appearance of the app. This will range from customizing how the app looks (logo, font, colours) to customizing other aspects such as  how data is displayed and the appearance of forms
  - How to customize email templates
- - How to invite users to the app, assign them roles and control their data access
- 
-TODO: Assigning user roles and controlling their data access might be done later.
+ - How to invite users to the application
 
 ## Creating the Application
 To demonstrate the process of creating an application with TipoTapp, we are going to create an application that could be used in a higher-learning institution to manage student data. In this section of the guide, the app will start off simple with a few Tipos and then get more complex as we move to the Intermediate and Advanced sections.
@@ -123,7 +121,9 @@ To delete a Tipo, select it from the menu and click on the middle Delete button 
 
 ![Delete button](/images/creating_an_application_basic/image_008.png)
 
-With the App Definitions menu selected, use the + button at the bottom-right of the screen to add a Tipo to the app. We'll start with the `Unit` Tipo that will hold data related to a course unit. We'll keep things simple though. Our `Unit` object will only store the unit's ID and name.
+Before moving on to creating new Tipos, first select `Menu Definitions` and delete the `Admin` Tipo. This uses the `MasterData` Tipo and since that no longer exists, if you don't delete the Admin (or remove the dependence), then there will be a bug in your app.
+
+Next, select `App Definitions` and use the + button at the bottom-right of the screen to add a Tipo to the app. We'll start with the `Unit` Tipo that will hold data related to a course unit. We'll keep things simple though. Our `Unit` object will only store the unit's ID and name.
 
 At the top of the page that comes up, you can enter the Tipo's Meta Data. Below we've filled out its Name, Description, Icon and Menu. With the Home menu selected, the Tipo will appear on the Home menu and we'll be able to access its records from there.
 
@@ -140,6 +140,10 @@ The `Sequence` will hold a number that will determine the order the field will h
 The `Field` holds the name of the field and the `Type` specifies the type of data the field will hold. You can select the value from a list of Basic tipo Types or from Tipo Objects. We select `Simple String` for this field.
 
 ![Field type](/images/creating_an_application_basic/image_011.png)
+
+{{< note title="Note" >}}
+Once a Tipo is saved, you cannot change the `Type` of any of its fields. If you need to modify a field type, then you should delete the current field and create a new one with the needed `Type`.
+{{< /note >}}
 
 When you turn on `Short Display`, the field will be visible whenever an instance of the Tipo is displayed in a listview. This can be seen when viewing the records of a certain Tipo or in a form where the particular Tipo is embedded in another Tipo (we'll see an example of this later on).
 
@@ -271,13 +275,17 @@ You can also provide a guide to the user for what the input should look like by 
 
 ![Input pattern](/images/creating_an_application_basic/added_image_011.png)
 
-TODO: Where are Force Validation, Underscore Provider and Hide Guide Input Pattern fields?
-
-If you were to set the above pattern, your form would have the guide shown below
-
-TODO: Input pattern seems to not be working, so will take below screenshot later.
+In the above, we set a custom Input Pattern and switched on the `Underscore Provider` control. You can see he result of this below.
 
 ![Input pattern](/images/creating_an_application_basic/added_image_012.png)
+
+With `Underscore Provider` turned on, underscores are placed in position to guide you on the number of required characters. If you leave this off, then you'll have something like what is shown below. There will be no guides, but if you start entering characters, they will be formatted according to the pattern and when you reach the maximum number, the field won't take more typed characters.
+
+![Input pattern](/images/creating_an_application_basic/added_image_013.png)
+
+You can use both Validation and Input Pattern. If you use the Input Pattern by itself, the user can still enter the wrong information. In the example above, the field would validate even if the user doesn't enter the required number of characters. So you should also use validation whenever necessary to ensure you get correct input.
+
+If you set a validation regex as well as an input pattern, then switch on the `Force Validation` control, the field will be validated according to the Input Pattern and the regex will be ignored. In the example above, if we used `Force Validation`, then validation would fail if the user didn't enter the number of required characters.
 
 `Email` field:
 
@@ -520,8 +528,6 @@ If you look at your app's navigation bar, you will see a default logo on the lef
 
 ![Change logo](/images/creating_an_application_basic/image_037.png)
 
-TODO: Ask Raj about the image types allowed as well as the dimensions.
-
 To change the app's Font, you can select one from the dropdown on the `Font` field.
 
 ![Change font](/images/creating_an_application_basic/image_038.png)
@@ -613,13 +619,3 @@ To invite other users to the account, e.g. you might want to invite the school p
 An Editor will appear where you can enter the user's name and the role you wish for them to have. They will then receive the invite via email.
 
 ![Profile menu](/images/creating_an_application_basic/image_048.png)
-
-TODO: what is the Account Name? Also `Confirm user email during signup` and `Capture account name during signup` might not be mandatory in future, so change the above when this happens.
-
-TODO: What are `Basic`, `Professional` and `Enterprise` plans?
-
-TODO: How does one use a custom domain?
-
-TODO: Change will be made to app to determine what data is shown to logged in user. Change doc when this happens.
-
-TODO: Invited User roles: `EnterprisePlanRole`, `ProfessionalPlanRole` and `Admin`. What are the differences? What can each do?
