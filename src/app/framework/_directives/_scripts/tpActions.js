@@ -297,9 +297,9 @@
               scope.data_handle.selected_tipos = scope.tipos;
               scope.data_handle.additional_tipo_name = additional_tipo_name;
               scope.data_handle.additional_tipo = additional_tipo;
-              tipoClientJavascript[function_name]($scope.data_handle);
-            }
-            tipoHandle.callAction(tipo_name, action_name, selected_tipo_ids,additional_tipo_name,additional_tipo)
+              tipoClientJavascript[function_name](scope.data_handle);
+            }else{
+              tipoHandle.callAction(tipo_name, action_name, selected_tipo_ids,additional_tipo_name,additional_tipo)
                   .then(function(response){
                     tipoRouter.startStateChange();
                     tipoHandle.getTipo(tipo_name, tipo_id, {}, true).then(function(tipoData){
@@ -311,6 +311,7 @@
                       tipoRouter.endStateChange();                  
                     });
                   });
+            }
           }
 
           function performAction(action){
