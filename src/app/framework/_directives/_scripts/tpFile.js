@@ -103,7 +103,7 @@
           }
           if (scope.isTargetSet) {
             scope.field = {
-              key: scope.fileTarget + scope.singlePath.value,
+              key: scope.fileTarget + (isTargetFile ? '' :scope.singlePath.value),
               type: scope.singlePath.tagType,
               fileType: scope.singlePath.fileType
             };
