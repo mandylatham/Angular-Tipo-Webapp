@@ -5,18 +5,11 @@ weight: 3
 
 ## Introduction
 
-In the first section of this guide, we looked at some basic concepts of building an app on TipoTapp. In this section, we are going to expand the Student Management System app that we built and introduce some more complex concepts.
+In the first section of this guide, we looked at some basic concepts of building an app on TipoTapp. In this section, we are going to expand the Student Management System app that we built and introduce some more complex concepts like:
 
-This section will cover: (TODO: Will edit these when done with the guide)
-
- - Introduce perspectives, abstract tipos
- - Tipo Standing Data etc
- - Relationships
- - Option to choose custom colour palette
- - Pop up select
+ - Perspectives
  - Applying Styles
- - Validations
- - Input patterns
+ - Customizing select menus
  
 ## Perspectives
 
@@ -37,9 +30,7 @@ Go to `App Definitions` and create this Tipo. Fill out the following fields in t
  - **Tipo UI Type**: perspective
  - **Perspective Field**: department
 
-To specify that a Tipo is a Perspective, we set its `Tipo UI Type` to `perspective`. We also add a `Perspective Field` to it. This field will...
-
-TODO: What is Perspective Field?
+To specify that a Tipo is a Perspective, we set its `Tipo UI Type` to `perspective`. We've also added a `Perspective Field` to it. With this, any Tipo record that is created as part of this Perspective will have a field added to it named after the set `Perspective Field`.
 
 The `tipo_id` of a Perspective Tipo is stored against every Tipo instance created within the Perspective
 
@@ -70,7 +61,6 @@ Create a `Master Data` Tipo and set the following for its `Meta Data`.
  - **Name**: Master Data
  - **Description**: Master Data Tipo
  - **Icon**: data usage
- - **Choose Menu**: Home
  
 Add the following fields to the Tipo.
 
@@ -103,14 +93,13 @@ Next, create the `Staff` Tipo and fill out the following fields in its `Meta Dat
  - **Name**: Staff
  - **Description**: Staff Tipo
  - **Icon**: person
- - **Choose Menu**: Home
  
-Add the `Personal Details` field to the Tipo with the following values:
+`Personal Details` field:
 
  - **Field**: Personal Details
  - **Type**: Divider
  
-Then add the `First Name` field to the Tipo with the following values:
+`First Name` field:
 
  - **Field**: First Name
  - **Type**: Simple String
@@ -118,7 +107,7 @@ Then add the `First Name` field to the Tipo with the following values:
  - **Meaningful Key** (from Advanced Editor): Yes
  - **Mandatory** (from Advanced Editor): Yes
 
-Then add the `Last Name` field to the Tipo with the following values:
+`Last Name` field:
 
  - **Field**: Last Name
  - **Type**: Simple String
@@ -238,8 +227,6 @@ If you find that you have repeated fields in several Tipos like the above `First
  - **Select Label Field**: name_
  - **Select Key Field**: value_
  
-TODO: What do the last three settings above do?
- 
 `Start Date` field:
 
  - **Field**: Start Date
@@ -254,10 +241,6 @@ TODO: What do the last three settings above do?
 
  - **Field**: Department
  - **Type**: Department
- 
-TODO: Add more fields
-
-TODO: Ask Raj about the Master Data Tipo
 
 Save this Tipo and go back to the `Department` Tipo and add a field to it labelled `Head of the Department` with the following details:
 
@@ -268,14 +251,6 @@ Save this Tipo and go back to the `Department` Tipo and add a field to it labell
 Then scroll down to the `Tipo Menu` section and add an item to the `Department`'s menu. As mentioned, when you add a Tipo to a Perspective's menu, that Tipo becomes part of that Perspective and the Perspective's Id is stored against the Tipo.
 
 ![Tipo menu](/images/creating_an_application_intermediate/image_001.png)
-
-TODO: What does that mean? Is a field added to the Tipo to store the Perspective's `tipo_id`? Where is this id stored?
-
-TODO: Staff Tipo was also added to Home menu. Is it also part of that perspective? Can a Tipo be part of more than one Perspective?
-
-Before heading back to the Home page to add Department records, let's remove the `Staff` and `Master Data` Tipos from the Home menu. Open `Menu Definiions` and remove these two Tipos.
-
-TODO: Why did we select Home Menu when creating the two Tipos?
 
 Your Home menu should now look as shown:
 
@@ -310,7 +285,7 @@ If you select `Admin`, you will be able to see its menu. From here, you can acce
 
 ![Home menu with Admin](/images/creating_an_application_intermediate/image_005.png)
 
-## Using the Pop-up Select Menu
+## Customizing Select Menus
 
 So far, you've seen several fields with select menus in your forms. Below is an example of this on the Department creation form (look at `Head of Department`).
 
@@ -356,8 +331,6 @@ We've briefly covered relationships in other sections of the guide so far. We've
 
 By default, when two Tipos are related by reference, TipoTapp stores the referenced Tipo's `tipo_id` field against the current/containing Tipo and displays its Meaningful Key (if no field is set, this defaults to `tipo_id`). We've seen this already. However, you can change this default behaviour. You can configure your app so that another field is stored against the containing Tipo and another one is displayed.
 
-TODO: Does the field have to be unique? The way ids are unique. If it's not unique, can this be problematic later when trying to filter data?
-
 To do this, you need to make the following changes to the `Relationship Settings` of a field. You should change the value of `Select Label Field` to the field you want stored and `Select Key Field` to the field you want displayed.
 
 ![Relationship Settings](/images/creating_an_application_intermediate/image_014.png)
@@ -365,3 +338,27 @@ To do this, you need to make the following changes to the `Relationship Settings
 Remember to use the real field names and not their labels. The label if the value you put for the `Field` field when creating the field e.g. `First Name` while the field name is the field's representation in the database. If you don't set this, TipoTapp stores the lowercased equivalent of your label delimited by underscores, e.g. `first_name`. You can see the Field Name of any field by looking at its Detailed View.
 
 ## Applying Styles
+
+TipoTapp allows you to set CSS styles for your field's labels and values. This can be useful if for instance, you want to color-code a particular field for easy identification. From the Advanced Editor of a field, down at the `Display Settings` section, you can either choose from an available selection of CSS styles or you can add your own custom styles. The custom fields support valid CSS e.g. `{'border-bottom':'1px solid white'}`.
+
+![Relationship Settings](/images/creating_an_application_intermediate/image_015.png)
+
+By default, any style you set will be applied to all rows of your records, but you can also select to have different colors according to a certain condition. For instance, suppose the School Management System had a field named `Status` in its `Student` Tipo. This field was to be used to indicate wether the student was still in the school or not and it had four possible values:
+
+ - **Admitted**: The student has been admitted to the school after sending in their application, but they are still not enrolled.
+ - **Enrolled**: The student has started their program.
+ - **Graduated**: The student completed their program and graduated.
+ - **Dropped**: The student had been enrolled, but dropped out before completing their program.
+ 
+Using a different color code for the different status would be helpful when scrolling a list of all student records. You would find it easier to identify the various stages a student was in.
+
+Below is an example of a CSS style you can use to set different styles for different status.
+
+```
+($tipo.status_ === 'Admitted' && {'background-color': '#852487','border-radius': '5px' ,'padding': '5px', 'color': 'white'}) || ($tipo.status_ === 'Graduated' && {'background-color': '#e5d010','border-radius': '5px','padding': '5px', 'color': 'white' }) || ($tipo.status_ === 'Enrolled' && {'background-color': '#accc2e','border-radius': '5px' ,'padding': '5px', 'color': 'white'}) || ($tipo.status_ === 'Dropped' && {'background-color': '#911d3e','border-radius': '5px' ,'padding': '5px', 'color': 'white'})
+```
+
+Below you can see how the field of a student who was Enrolled would look like.
+
+![Relationship Settings](/images/creating_an_application_intermediate/image_016.png)
+
