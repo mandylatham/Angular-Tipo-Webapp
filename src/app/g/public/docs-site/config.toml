@@ -84,6 +84,21 @@ googleAnalytics = ""
 	name   = "Cloud Functions"
 	url    = "cloud_functions/"
 	weight = 8
+	
+[[menu.main]]
+	name   = "Crash Course"
+	url    = "crash_course/index.html"
+	weight = 9
+	
+[[menu.main]]
+	name   = "Advanced Concepts"
+	url   = "advanced_concepts/index.html"
+	weight = 10
+	
+[[menu.main]]
+	name   = "Extending Your Application"
+	url    = "extending_your_application/index.html"
+	weight = 11
 
 
 [blackfriday]

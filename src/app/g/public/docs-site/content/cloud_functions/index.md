@@ -42,6 +42,7 @@ tipo_context.request.page
 tipo_context.request.per_page
 tipo_context.request.tipo_fields
 tipo_context.request.tipo_filter
+tipo_context.user_attributes
     
     Use the above format in the tipo_filter when specifying dependencies for dynamic replacement. 
       I.e. {{tipo_context.application}} will be replaced on the server with the actual application name.

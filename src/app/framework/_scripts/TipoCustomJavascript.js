@@ -31,7 +31,7 @@
 	//___TipoAboutApp___
 
 	function TipoAboutApp_OnView (data_handle) {
-	tipoHandle.getTipo('TipoApp',tipoHandle.applicationMetadata.application).then(function(tipo_res){
+	tipoHandle.getTipo('TipoApp',tipoHandle.application_meta.application).then(function(tipo_res){
 	 data_handle.tipo.app_name = tipo_res.app_name;
 	 data_handle.tipo.app_version = tipo_res.app_version;
 	 data_handle.tipo.app_link = tipo_res.app_url;
@@ -46,7 +46,7 @@
 	//___AboutApp___
 
 	function AboutApp_OnView (data_handle) {
-	tipoHandle.getTipo('TipoApp',tipoHandle.applicationMetadata.application).then(function(tipo_res){
+	tipoHandle.getTipo('TipoApp',tipoHandle.application_meta.application).then(function(tipo_res){
 	 data_handle.tipo.app_name = tipo_res.app_name;
 	 data_handle.tipo.app_version = tipo_res. app_version;
 	 data_handle.tipo.app_link = tipo_res. app_url;
