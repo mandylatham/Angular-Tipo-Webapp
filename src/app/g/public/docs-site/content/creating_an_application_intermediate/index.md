@@ -358,7 +358,7 @@ Below is an example of a CSS style you can use to set different styles for diffe
 ($tipo.status_ === 'Admitted' && {'background-color': '#852487','border-radius': '5px' ,'padding': '5px', 'color': 'white'}) || ($tipo.status_ === 'Graduated' && {'background-color': '#e5d010','border-radius': '5px','padding': '5px', 'color': 'white' }) || ($tipo.status_ === 'Enrolled' && {'background-color': '#accc2e','border-radius': '5px' ,'padding': '5px', 'color': 'white'}) || ($tipo.status_ === 'Dropped' && {'background-color': '#911d3e','border-radius': '5px' ,'padding': '5px', 'color': 'white'})
 ```
 
-Below you can see how the field of a student who was Enrolled would look like.
+Below you can see how the field of a student who is Enrolled would look like.
 
 ![Relationship Settings](/images/creating_an_application_intermediate/image_016.png)
 
