@@ -32,6 +32,14 @@
 
           if($stateParams.filter){
             scope.currentFilters = $stateParams.filter;
+            var selectedFilters = scope.currentFilters.split("&&");
+            _.each(scope.filters,function(filter){
+              _.each(selectedFilters,function(selectedfilter){
+                if (filter.display_name == selectedfilter) {
+                  filter.selected = true;
+                };
+              })
+            });
             scope.selectedArray = _.filter(scope.filters, 'selected')
           }else{
             scope.selectedArray = [];
