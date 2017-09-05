@@ -726,13 +726,7 @@
       //   groupItem._ui.deleted = true;
       // }
       var delItem = _.get(_instance.tipo,field_name)
-      if (_.isUndefined(delItem[index]._ARRAY_META)) {
-        _.remove(delItem, function(each){
-          return each === delItem[index];
-        });
-      }else{
-        delItem[index]._ARRAY_META._STATUS = 'DELETED';
-      }
+      tipoHandle.deleteItemFromArray(delItem,index);
       _.set(_instance.tipo,field_name,delItem);
       var context = setContext(field_name);
       var fun_fname = field_name.replace(".","_");

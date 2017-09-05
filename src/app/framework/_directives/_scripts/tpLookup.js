@@ -558,7 +558,22 @@
             scope.$eval(attrs.ngChange);
           });
 
-          scope.$watch(function(){return scope.fieldvalue},function(){
+          scope.$watch(function(){return scope.fieldvalue},function(new_value,old_value){
+            var function_name;
+            if (new_value.length < old_value.length) {
+              function_name = $stateParams.tipo_name + "_" + scope.fqfieldname.replace(".","_") + "_OnArrayItemRemove";
+              scope.data_handle.item = _.difference(old_value,new_value);
+            };
+            if (new_value.length > old_value.length) {
+              function_name = $stateParams.tipo_name + "_" + scope.fqfieldname.replace(".","_") + "_OnArrayItemAdd";
+              scope.data_handle.item = _.difference(new_value,old_value);
+            };
+            if(typeof tipoClientJavascript[function_name] === 'function'){
+                scope.data_handle.tipo = scope.root;
+                scope.data_handle.context = scope.context;
+                scope.data_handle.new_value = new_value;
+                tipoClientJavascript[function_name](scope.data_handle);
+              }
             if (scope.model.field.key !== scope.fieldvalue) {
               scope.loadOptions();
               if (!isarray) {

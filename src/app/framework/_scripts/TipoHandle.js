@@ -186,6 +186,17 @@
       return tipoInstanceDataService.search(tipo_name,query_params);
      }
 
+
+     function deleteItemFromArray(item,index){
+      if (_.isUndefined(item[index]._ARRAY_META)) {
+        _.remove(item, function(each){
+          return each === item[index];
+        });
+      }else{
+        item[index]._ARRAY_META._STATUS = 'DELETED';
+      }
+     }
+
      function presentForm(tipo_name, tipo, submit_label, show_cancel){
       var newScope = {};
       newScope.context = tipo;
@@ -254,6 +265,7 @@
      this.updateUrl = updateUrl;
      this.createUrl = createUrl;
      this.detailUrl = detailUrl;
+     this.deleteItemFromArray = deleteItemFromArray;
 
 
 
