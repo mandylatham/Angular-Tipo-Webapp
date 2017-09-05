@@ -354,17 +354,17 @@
             };
             searchCriteria.short_display = 'N';
             scope.searchCriteria = searchCriteria;
-            if(typeof tipoCustomJavascript[$stateParams.tipo_name + '_' + scope.fieldname + '_BeforeLookup'] === 'function'){
+            if(typeof tipoCustomJavascript[$stateParams.tipo_name + '_' + scope.fqfieldname.replace(".","_") + '_BeforeLookup'] === 'function'){
               scope.data_handle.root = scope.root;
               scope.data_handle.context = scope.context;
               scope.data_handle.searchCriteria = scope.searchCriteria;
               tipoCustomJavascript[$stateParams.tipo_name + '_' + scope.fieldname + '_BeforeLookup'](scope.data_handle);
             }
-            if(typeof tipoClientJavascript[$stateParams.tipo_name + '_' + scope.fieldname + '_BeforeLookup'] === 'function'){
+            if(typeof tipoClientJavascript[$stateParams.tipo_name + '_' + scope.fqfieldname.replace(".","_") + '_BeforeLookup'] === 'function'){
               scope.data_handle.root = scope.root;
               scope.data_handle.context = scope.context;
               scope.data_handle.searchCriteria = scope.searchCriteria;
-              tipoClientJavascript[$stateParams.tipo_name + '_' + scope.fieldname + '_BeforeLookup'](scope.data_handle);
+              tipoClientJavascript[$stateParams.tipo_name + '_' + scope.fqfieldname.replace(".","_") + '_BeforeLookup'](scope.data_handle);
             }
             return tipoInstanceDataService.search(scope.tipo_name, searchCriteria).then(function(results){
               scope.tipos = results;
@@ -389,7 +389,7 @@
               if(tipo_perm.perm.substr(2,1) === 0){
                 scope.disablecreate = true;
               }
-              if(typeof tipoCustomJavascript[$stateParams.tipo_name + '_' + scope.fieldname + '_AfterLookup'] === 'function'){
+              if(typeof tipoCustomJavascript[$stateParams.tipo_name + '_' + scope.fqfieldname.replace(".","_") + '_AfterLookup'] === 'function'){
               // _.join(_.dropRight(fqfieldname.split(".")),".") used for initial client side js
                 scope.data_handle.root = scope.root;
                 scope.data_handle.context = scope.context;
@@ -397,13 +397,13 @@
                 scope.data_handle.options = scope.options;
                 tipoCustomJavascript[$stateParams.tipo_name + '_' + scope.fieldname + '_AfterLookup'](scope.root,scope.context,scope.model.field,scope.options);
               }
-              if(typeof tipoClientJavascript[$stateParams.tipo_name + '_' + scope.fieldname + '_AfterLookup'] === 'function'){
+              if(typeof tipoClientJavascript[$stateParams.tipo_name + '_' + scope.fqfieldname.replace(".","_") + '_AfterLookup'] === 'function'){
               // _.join(_.dropRight(fqfieldname.split(".")),".") used for initial client side js
                 scope.data_handle.root = scope.root;
                 scope.data_handle.context = scope.context;
                 scope.data_handle.tipo_list = scope.model.field;
                 scope.data_handle.options = scope.options;
-                tipoClientJavascript[$stateParams.tipo_name + '_' + scope.fieldname + '_AfterLookup'](scope.root,scope.context,scope.model.field,scope.options);
+                tipoClientJavascript[$stateParams.tipo_name + '_' + scope.fqfieldname.replace(".","_") + '_AfterLookup'](scope.root,scope.context,scope.model.field,scope.options);
               }
             });
           };

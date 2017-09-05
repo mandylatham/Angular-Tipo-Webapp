@@ -352,6 +352,7 @@
         data.tipo_id = data.tipo_id || $stateParams.tipo_id;
         _instance.tipo = data;
         $scope.data_handle.tipo = _instance.tipo;
+        function_name = tipo_name + "_OnView";
         if(typeof tipoCustomJavascript[function_name] === 'function'){
           tipoCustomJavascript[function_name]($scope.data_handle);
         }
@@ -736,14 +737,14 @@
         $scope.data_handle.context = _instance.context;
         $scope.data_handle.array = delItem;
         $scope.data_handle.item = delItem[index];
-        tipoCustomJavascript[function_name](_$scope.data_handle);
+        tipoCustomJavascript[function_name]($scope.data_handle);
       }
       if(typeof tipoClientJavascript[function_name] === 'function'){
         $scope.data_handle.tipo = _instance.tipo;
         $scope.data_handle.context = _instance.context;
         $scope.data_handle.array = delItem;
         $scope.data_handle.item = delItem[index];
-        tipoClientJavascript[function_name](_$scope.data_handle);
+        tipoClientJavascript[function_name]($scope.data_handle);
       }
     }
 
