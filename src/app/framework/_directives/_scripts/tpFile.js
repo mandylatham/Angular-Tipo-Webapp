@@ -71,12 +71,16 @@
               if (fileTarget) {
                 path = path.replace(scope.fileTarget, '');
               }
+              scope.singlePath = {
+                value: path,
+                tagType: scope.field.type,
+                fileType: scope.field.fileType
+              };
+            }else{
+              scope.singlePath = {
+                value: path
+              };
             }
-            scope.singlePath = {
-              value: path,
-              tagType: scope.field.type,
-              fileType: scope.field.fileType
-            };
           }else{
             // for arrays
             scope.multiplePaths = [];
@@ -260,6 +264,7 @@
                     'File-Content': base64Encoded,
                     'Content-Type': type
                   };
+                  fileContent.lfFileName = _.replace(fileContent.lfFileName, ' ', '');
 
                   tipoResource
                   .oneUrl('content', scope.fileTarget + (scope.isTargetFile ? '' :  fileContent.lfFileName))
