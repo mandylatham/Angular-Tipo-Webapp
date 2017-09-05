@@ -21,6 +21,7 @@
     tipoCustomJavascript) {
 
     var _instance = this;
+    _instance.tipoHandle = tipoHandle;
     var role = metadataService.userMetadata.role;
     var tipo_name = $stateParams.tipo_name;
     _instance.tipo_name = $stateParams.tipo_name;
