@@ -103,7 +103,7 @@
           }
           if (scope.isTargetSet) {
             scope.field = {
-              key: scope.fileTarget + scope.singlePath.value,
+              key: scope.fileTarget + (scope.isTargetFile ? '' :scope.singlePath.value),
               type: scope.singlePath.tagType,
               fileType: scope.singlePath.fileType
             };
@@ -262,7 +262,7 @@
                   };
 
                   tipoResource
-                  .oneUrl('content', scope.fileTarget + fileContent.lfFileName)
+                  .oneUrl('content', scope.fileTarget + (scope.isTargetFile ? '' :  fileContent.lfFileName))
                   .customPUT(data, '', undefined)
                   .then(function(result){
                     if (last) {
@@ -322,7 +322,7 @@
                       }else{
                         newName = _.replace(newName, ' ', '');
                         if($scope.fixedPrefix){
-                          $scope.finalPath.path = $scope.fixedPrefix + newName;
+                          $scope.finalPath.path = $scope.fixedPrefix + (scope.isTargetFile ? '' : newName);
                         }else{
                           $scope.finalPath.path = newName;
                         }

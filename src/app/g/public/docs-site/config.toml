@@ -86,8 +86,8 @@ googleAnalytics = ""
 	weight = 8
 	
 [[menu.main]]
-	name   = "Crash Course"
-	url    = "crash_course/index.html"
+	name   = "Quickstart"
+	url    = "quickstart/index.html"
 	weight = 9
 	
 [[menu.main]]
