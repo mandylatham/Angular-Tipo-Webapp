@@ -327,7 +327,7 @@
               }
             }
             if(!_.isUndefined(basefilter)){
-              var basefilterExpanded = tipoManipulationService.expandFilterExpression(basefilter, scope.root, _.get(scope.root,_.join(_.dropRight(fqfieldname.split(".")),".")),scope.arrayindex);
+              var basefilterExpanded = _.get(scope.root,scope.basefilter) || scope.basefilter;
               filter = basefilterExpanded;
             }
             if(!_.isUndefined(filter)){
@@ -341,7 +341,7 @@
             searchCriteria.per_page = 1000;
             if (!_.isEmpty(scope.queryparams)) {
               _.forOwn(scope.queryparams,function(value,key){
-                var baseParamExpanded = tipoManipulationService.expandFilterExpression(value, scope.root, scope.context,scope.arrayindex);
+                var baseParamExpanded = _.get(scope.root,value) || value;
                 searchCriteria[key] = baseParamExpanded;
               })
             };
