@@ -467,7 +467,8 @@
       array.push(newObject);
       _.set(_instance.tipo,field_name,array);
       var context = setContext(field_name);
-      var function_name = $stateParams.tipo_name + '_' + field_name + '_OnArrayItemAdd'
+      var fun_fname = field_name.replace(".","_");
+      var function_name = $stateParams.tipo_name + '_' + fun_fname + '_OnArrayItemAdd'
       if(typeof tipoCustomJavascript[function_name] === 'function'){
         $scope.data_handle.tipo = _instance.tipo;
         $scope.data_handle.context = _instance.context;
@@ -733,7 +734,8 @@
       }
       _.set(_instance.tipo,field_name,delItem);
       var context = setContext(field_name);
-      var function_name = tipo_name + '_' + field_name + '_OnArrayItemRemove';
+      var fun_fname = field_name.replace(".","_");
+      var function_name = tipo_name + '_' + fun_fname + '_OnArrayItemRemove';
       if(typeof tipoCustomJavascript[function_name] === 'function'){
         $scope.data_handle.tipo = _instance.tipo;
         $scope.data_handle.context = _instance.context;
@@ -818,6 +820,7 @@
     };
 
     _instance.fieldChange = function(function_name,context,new_value,field_name,label){
+      function_name = function_name.replace(".","_");
       if(typeof tipoCustomJavascript[function_name] === 'function'){
         var old_value = _.get(_instance.tipo,field_name + "_old");
         $scope.data_handle.tipo = _instance.tipo;
@@ -841,7 +844,8 @@
     }
 
     _instance.OnArrayItemAdd = function(field_name,item,array,context){
-      var function_name = tipo_name + '_' + field_name + '_OnArrayItemAdd';
+      var fun_fname = field_name.replace(".","_");
+      var function_name = tipo_name + '_' + fun_fname + '_OnArrayItemAdd';
       if(typeof tipoCustomJavascript[function_name] === 'function'){
         $scope.data_handle.tipo = _instance.tipo;
         $scope.data_handle.context = _instance.context;
@@ -859,7 +863,8 @@
     }
 
     _instance.OnArrayItemRemove = function(field_name,item,array,context){
-      var function_name = tipo_name + '_' + field_name + '_OnArrayItemRemove';
+      var fun_fname = field_name.replace(".","_");
+      var function_name = tipo_name + '_' + fun_fname + '_OnArrayItemRemove';
       if(typeof tipoCustomJavascript[function_name] === 'function'){
         $scope.data_handle.tipo = _instance.tipo;
         $scope.data_handle.context = _instance.context;
