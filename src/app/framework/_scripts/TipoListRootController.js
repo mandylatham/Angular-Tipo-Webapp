@@ -369,7 +369,6 @@
       filter.page = angular.copy(_instance.page);
       filter.per_page = _instance.per_page;
       tipoRouter.startStateChange();
-      tipoCache.evict($stateParams.tipo_name);
       tipoHandle.getTipos($stateParams.tipo_name, filter).then(function(tiposData){
         _instance.tipos = tiposData;
         var function_name = $stateParams.tipo_name + "_OnList";

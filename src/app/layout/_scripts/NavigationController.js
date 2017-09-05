@@ -125,6 +125,20 @@
       };
     }
 
+    function navigateToItem(menuItem,data){
+        _.each(data.tipo_meta.tipo_type,function(type){
+          if (type === "abstract") {
+            menuItem.abstract = true;
+          };
+          if (!menuItem.ignore_singleton && _.startsWith(type, 'singleton')) {
+            menuItem.isSingleton = true;
+          }else{
+            menuItem.isSingleton = false;
+          }
+        });
+        tipoRouter.toMenuItem(menuItem);
+    }
+
     _instance.navigate = function(menuItem){
       if(menuItem.type === 'Client'){
         if(clientActions[menuItem.id]){
@@ -141,18 +155,7 @@
       _instance.activeItem = menuItem;
       if (menuItem.tipo_name) {
         tipoHandle.getTipoDefinition(menuItem.tipo_name).then(function(response){
-          var data = response;
-          _.each(data.tipo_meta.tipo_type,function(type){
-            if (type === "abstract") {
-              menuItem.abstract = true;
-            };
-            if (!menuItem.ignore_singleton && _.startsWith(type, 'singleton')) {
-              menuItem.isSingleton = true;
-            }else{
-              menuItem.isSingleton = false;
-            }
-          });
-          tipoRouter.toMenuItem(menuItem);
+          navigateToItem(menuItem, response); 
         }); 
       }else{
         tipoRouter.toMenuItem(menuItem);

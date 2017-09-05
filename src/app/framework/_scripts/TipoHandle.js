@@ -137,8 +137,8 @@
       $q.when(true);
      }
 
-     function getTipoDefinition(tipo_name){
-      return tipoDefinitionDataService.getOne(tipo_name);
+     function getTipoDefinition(tipo_name, disableExpansion){
+      return tipoDefinitionDataService.getOne(tipo_name, disableExpansion);
      }
 
      function callAction(tipo_name, action_name, selected_tipo_ids, additional_tipo_name, additional_tipo){
@@ -181,7 +181,6 @@
      }
 
      function getTipos(tipo_name, query_params){
-      tipoCache.evict(tipo_name);
       query_params = tipoManipulationService.checkQueryParams(query_params);
       return tipoInstanceDataService.search(tipo_name,query_params);
      }
