@@ -107,6 +107,7 @@
                       $mdToast,
                       $mdDialog,
                       $q,
+                      $filter,
                       $stateParams){
 
     var role = metadataService.userMetadata.role;
@@ -243,6 +244,12 @@
       return "g/public/gen_temp/common/views/view.tpl.html." + role + "___" + tipo_name;
      }
 
+     function getISODate(){
+      var date = new Date();
+      date.setHours(0, 0, 0, 0);
+      return $filter('date')(date,'yyyy-MM-ddTHH:mm:ss.sss') + 'Z';
+     }
+
 
      this.application_meta = metadataService.applicationMetadata;
      this.user_meta = metadataService.userMetadata;
@@ -265,6 +272,7 @@
      this.createUrl = createUrl;
      this.detailUrl = detailUrl;
      this.deleteItemFromArray = deleteItemFromArray;
+     this.getISODate = getISODate;
 
 
 

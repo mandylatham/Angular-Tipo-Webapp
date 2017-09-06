@@ -570,9 +570,7 @@
       if(init){
         return new Date(eval(init));
       }
-      if (date) {
-        return new Date(date);
-      };
+      return date;
     }
 
     _instance.toList = function(){
@@ -875,6 +873,15 @@
         $scope.data_handle.item = _instance.item;
         tipoClientJavascript[function_name](_$scope.data_handle);
       }
+    }
+
+    _instance.datePostSetup = function(item,dateInp){
+      if (dateInp) {
+        item.setDate(dateInp);
+      }else{
+        item.setDate(new Date());
+      }
+      
     }
 
     function setContext(field_name){
