@@ -533,10 +533,13 @@
             if (isarray) {
               scope.model.field = [];
               scope.fieldvalue = [];
+              scope.fieldlabel = [];
             }else{
               scope.model.field = {};
               scope.fieldvalue = "";
+              scope.fieldlabel = "";
             }
+            ctrl.$setViewValue(scope.fieldvalue);
           }
 
           scope.tipoObjecSelectiontDialog = function(){
