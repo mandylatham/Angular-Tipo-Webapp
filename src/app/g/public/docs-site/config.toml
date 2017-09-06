@@ -87,17 +87,17 @@ googleAnalytics = ""
 	
 [[menu.main]]
 	name   = "Quickstart"
-	url    = "quickstart/index.html"
+	url    = "quickstart/"
 	weight = 9
 	
 [[menu.main]]
 	name   = "Advanced Concepts"
-	url   = "advanced_concepts/index.html"
+	url   = "advanced_concepts/"
 	weight = 10
 	
 [[menu.main]]
 	name   = "Extending Your Application"
-	url    = "extending_your_application/index.html"
+	url    = "extending_your_application/"
 	weight = 11
 
 
