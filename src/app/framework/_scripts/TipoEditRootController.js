@@ -149,6 +149,7 @@
     _instance.updateUrl = tipoHandle.updateUrl(tipo_name);
     _instance.createUrl = tipoHandle.createUrl(tipo_name);
     _instance.detailUrl = tipoHandle.detailUrl(tipo_name);
+    _instance.bulkFields = [];
     // _instance.tipoDefinition.tipo_field_groups = tipo.tipo_field_groups;
     var clonedTipoId = $stateParams.copyFrom;
     var function_name = tipo_name + "_OnView";
@@ -183,6 +184,7 @@
         return false;
       }
       tipoRouter.startStateChange();
+      resetbulkedits();
       //Clientside Javascript for OnSave
       var data = {};
       var parameters = {};
@@ -884,6 +886,47 @@
       
     }
 
+    _instance.toogleBulkEdit = function(field_name){
+      _.set(_instance,field_name + ".bulkedit",!_.get(_instance,field_name + ".bulkedit"));
+      var bulkedit = _.get(_instance,field_name + ".bulkedit");
+      if (bulkedit) {
+        _instance.bulkFields.push(field_name);
+        var newObject = {};
+        var array = _.get(_instance.tipo,field_name);
+        array.unshift(newObject);
+        _.set(_instance.tipo,field_name,array);
+        _.set(_instance,field_name + ".unbindwatch",$scope.$watch(function(){return _.get(_instance.tipo,field_name)[0];},function(newval,oldval){
+          console.log("group_fields");
+          var group_fields = _.get(_instance.tipo,field_name);
+          _.each(group_fields,function(each){
+            if (each.selected) {
+              _.each(newval, function(value, key) {
+                if ((value && key !== "$$hashKey" && oldval[key] !== value) || _.isBoolean(value)) {
+                  each[key] = value;
+                };
+              });
+            };
+          });
+          _.set(_instance.tipo,field_name,group_fields);
+        },true));
+      }else{
+        _instance.bulkFields = _.difference(_instance.bulkFields, field_name);
+        _.get(_instance,field_name + ".unbindwatch")();
+        var array = _.get(_instance.tipo,field_name);
+        array.shift();
+        _.each(array,function(each){
+          each.selected = false;
+        });
+        _.set(_instance.tipo,field_name,array);
+      }
+    }
+
+    function resetbulkedits(){
+      _.each(_instance.bulkFields,function(each){
+        _instance.toogleBulkEdit(each);
+      });
+    }
+
     function setContext(field_name){
       var fields = field_name.split(".");
       var ctx = field_name.indexOf("." + fields[fields.length - 1]);
@@ -918,9 +961,11 @@
     };
 
     $scope.hide = function() {
+      resetbulkedits();
       $mdDialog.hide();
     };
     $scope.cancel = function() {
+      resetbulkedits();
       $mdDialog.cancel();
     };
 
