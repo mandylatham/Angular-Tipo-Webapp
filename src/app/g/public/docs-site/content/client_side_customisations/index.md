@@ -19,7 +19,7 @@ Field Expression Attribute | Description
 Expression Pattern | Description
 ------------ | ---------------
 `$tipo_root`.<field_name> | Access data from the beginning of the object.
-`$tipo_root`.top_level_field.array[@index].child_field | Access data in other fields in the same array as  current. In PO line items, referring to line units in total can be accessed using `$tipo_root`.po_line_items[@index].units
+`$tipo_root`.top_level_field.array[$index].child_field | Access data in other fields in the same array as  current. In PO line items, referring to line units in total can be accessed using `$tipo_root`.po_line_items[@index].units
 `$tipo`.<child_field> | Same example above can be expressed as `$tipo`.units
 `$tipo_handle`.user_meta | To access logged-in user details as documented in TipoHandle
 `$tipo_handle`.application_meta | To access logged-in application details as documented in TipoHandle
