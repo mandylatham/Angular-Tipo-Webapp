@@ -886,8 +886,9 @@
       
     }
 
-    _instance.decodebase = function(item){
-      return atob(item);
+    _instance.initRichtext = function(item,field_name){
+      var obj = JSON.parse(atob(item));
+      _.set(_instance.tipo,field_name,obj);
     }
 
     _instance.toogleBulkEdit = function(field_name){

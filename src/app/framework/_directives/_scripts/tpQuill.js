@@ -8,7 +8,8 @@
       return {
         scope: {
           fieldValue: "=",
-          mode: "="
+          mode: "=",
+          initValue: "="
         },
         restrict: 'EA',
         replace: true,
@@ -33,6 +34,9 @@
             Quill.register('formats/video', AddHeight, true);
           }
           customizeQuillVideo();
+          if (!scope.fieldValue) {
+            scope.fieldValue = atob(scope.initValue);
+          };
           if (scope.mode !== "view") {
               var toolbarOptions = [
                 ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
