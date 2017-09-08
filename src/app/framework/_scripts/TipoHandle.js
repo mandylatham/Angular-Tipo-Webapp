@@ -144,9 +144,13 @@
 
      function callAction(tipo_name, action_name, selected_tipo_ids, additional_tipo_name, additional_tipo){
       if (selected_tipo_ids.length > 1) {
-        return tipoInstanceDataService.performBulkAction(tipo_name,action_name,selected_tipo_ids,additional_tipo_name,additional_tipo);
+        return tipoInstanceDataService.performBulkAction(tipo_name,action_name,selected_tipo_ids,additional_tipo_name,additional_tipo).then(function(){
+          tipoRouter.endStateChange();
+        });
       }else{
-        return tipoInstanceDataService.performSingleAction(tipo_name,selected_tipo_ids[0],action_name,additional_tipo_name,additional_tipo);
+        return tipoInstanceDataService.performSingleAction(tipo_name,selected_tipo_ids[0],action_name,additional_tipo_name,additional_tipo).then(function(){
+          tipoRouter.endStateChange();
+        });;
       }
      }
 
