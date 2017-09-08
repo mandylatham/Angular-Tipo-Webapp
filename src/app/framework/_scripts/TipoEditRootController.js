@@ -886,6 +886,10 @@
       
     }
 
+    _instance.decodebase = function(item){
+      return atob(item);
+    }
+
     _instance.toogleBulkEdit = function(field_name){
       _.set(_instance,field_name + ".bulkedit",!_.get(_instance,field_name + ".bulkedit"));
       var bulkedit = _.get(_instance,field_name + ".bulkedit");

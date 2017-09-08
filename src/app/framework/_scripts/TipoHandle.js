@@ -106,6 +106,7 @@
                       $location,
                       $mdToast,
                       $mdDialog,
+                      tipoRouter,
                       $q,
                       $filter,
                       $stateParams){
