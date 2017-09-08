@@ -1,8 +1,7 @@
 ---
 title: Client Side Customisations
-weight: 7
+weight: 8
 ---
-
 
 # Field Level Dynamic Expressions
 
@@ -25,9 +24,7 @@ Expression Pattern | Description
 `$tipo_handle`.user_meta | To access logged-in user details as documented in TipoHandle
 `$tipo_handle`.application_meta | To access logged-in application details as documented in TipoHandle
 
-
 ![Client Customizations](/images/developer/ClientCustomisations.jpg)
-
 
 # Tipo Handle
 
@@ -52,7 +49,6 @@ Member name | Description
 `user_meta.fully_qualified_username` | 'Application Owner ID'.'Application ID'.'tipo_id' (Used in Cognito)
 `user_meta.role` | User role
 `user_meta.user_attributes` | Additional attributes e.g. If the role is linked certain Tipos, during user invitation instances of those tipos are selected and stored in these user_attributes. for Student it would look like user_meta.user_attributes.Student.[212Student123]
-
 
 ##  ```getConfirmation (user_message) ```
 
@@ -253,7 +249,6 @@ OnSave is fired when a new tipo is created or edited. In both cases, before send
 
 # Tipo Field Level Events
 
-
 //TODO for Murali. The following still needs to be documented properly.
 
 ## OnChange:	``` `<Tipo Name>`_`<FieldName>`_OnChange(data_handle)```
@@ -267,7 +262,6 @@ This is applicable only in create or edit forms. This event is triggered when us
 	- data_handle.new_value: value after change.
 	// return boolean; If true change is propogated, if false change is not propagated.
     
-
 ## OnArrayItemAdd:	``` `<Tipo Name>`_`<FieldName>`_OnArrayItemAdd(data_handle)```
 
 	- tipoHandle: handle to the utility service.

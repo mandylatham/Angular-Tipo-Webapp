@@ -39,12 +39,10 @@ googleAnalytics = "UA-92686434-1"
     	text = "Ubuntu"
     	code = "Ubuntu Mono"
 
-
 [social]
 	twitter = "tipotapp"
 	email   = "info@tipotapp.com"
 
-	
 [[menu.main]]
 	name   = "Introduction"
 	url    = "introduction/"
@@ -64,47 +62,28 @@ googleAnalytics = "UA-92686434-1"
 	name   = "Extending Your Application"
 	url    = "extending_your_application/"
 	weight = 4
-
-	
-[[menu.main]]
-	name   = "Creating an Application - Basic"
-	url    = "creating_an_application_basic/"
-	weight = 5
-	
-[[menu.main]]
-	name   = "Creating an Application - Intermediate"
-	url    = "creating_an_application_intermediate/"
-	weight = 6
-	
-[[menu.main]]
-	name   = "Creating an Application - Advanced"
-	url    = "creating_an_application_advanced/"
-	weight = 7
 	
 [[menu.main]]
 	name   = "TipoTapp's Interface"
 	url   = "tipotapp_interface/"
-	weight = 8
+	weight = 5
 	
 [[menu.main]]
 	name   = "Reference Manual"
 	url    = "reference_manual/"
-	weight = 9
+	weight = 6
 
 [[menu.main]]
 	name   = "Developer Documentation"
 	url    = "developer_documentation/"
-	weight = 10
+	weight = 7
 
 [[menu.main]]
 	name   = "Client Side Customisations"
 	url    = "client_side_customisations/"
-	weight = 11
+	weight = 8
 
 [[menu.main]]
 	name   = "Server Side Customisations"
 	url    = "server_side_customisations/"
-	weight = 12
-
-
-
+	weight = 9

@@ -1,6 +1,6 @@
 ---
 title: Advanced Concepts
-weight: 10
+weight: 3
 ---
 
 ## Introduction
