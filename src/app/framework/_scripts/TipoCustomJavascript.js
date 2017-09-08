@@ -7,7 +7,7 @@
 
     //___TipoDefinition___
 
-	function TipoDefinition_label_style_OnChange (data_handle) {
+	function TipoDefinition_tipo_fields_label_style_OnChange (data_handle) {
 	if (data_handle.label === "Value Based Style") {
 	         if (data_handle.context.allowed_values) {
 	           var expression = "";
@@ -22,8 +22,8 @@
 	         };
 	       };
 	}
-	this.TipoDefinition_label_style_OnChange  = TipoDefinition_label_style_OnChange ;
-	this.TipoDefinition_value_style_OnChange  = TipoDefinition_label_style_OnChange ;
+	this.TipoDefinition_tipo_fields_label_style_OnChange  = TipoDefinition_tipo_fields_label_style_OnChange ;
+	this.TipoDefinition_tipo_fields_value_style_OnChange  = TipoDefinition_tipo_fields_label_style_OnChange ;
 
 	//___TipoDefinition___
 
