@@ -471,7 +471,7 @@
       array.push(newObject);
       _.set(_instance.tipo,field_name,array);
       var context = setContext(field_name);
-      var fun_fname = field_name.replace(".","_");
+      var fun_fname = field_name.replace(".","_").replace(/\[\d\]/g, "");
       var function_name = $stateParams.tipo_name + '_' + fun_fname + '_OnArrayItemAdd'
       if(typeof tipoCustomJavascript[function_name] === 'function'){
         $scope.data_handle.tipo = _instance.tipo;
@@ -730,7 +730,7 @@
       tipoHandle.deleteItemFromArray(delItem,index);
       _.set(_instance.tipo,field_name,delItem);
       var context = setContext(field_name);
-      var fun_fname = field_name.replace(".","_");
+      var fun_fname = field_name.replace(".","_").replace(/\[\d\]/g, "");
       var function_name = tipo_name + '_' + fun_fname + '_OnArrayItemRemove';
       if(typeof tipoCustomJavascript[function_name] === 'function'){
         $scope.data_handle.tipo = _instance.tipo;
@@ -840,7 +840,7 @@
     }
 
     _instance.OnArrayItemAdd = function(field_name,item,array,context){
-      var fun_fname = field_name.replace(".","_");
+      var fun_fname = field_name.replace(".","_").replace(/\[\d\]/g, "");
       var function_name = tipo_name + '_' + fun_fname + '_OnArrayItemAdd';
       if(typeof tipoCustomJavascript[function_name] === 'function'){
         $scope.data_handle.tipo = _instance.tipo;
@@ -859,7 +859,7 @@
     }
 
     _instance.OnArrayItemRemove = function(field_name,item,array,context){
-      var fun_fname = field_name.replace(".","_");
+      var fun_fname = field_name.replace(".","_").replace(/\[\d\]/g, "");
       var function_name = tipo_name + '_' + fun_fname + '_OnArrayItemRemove';
       if(typeof tipoCustomJavascript[function_name] === 'function'){
         $scope.data_handle.tipo = _instance.tipo;
