@@ -1,18 +1,13 @@
 name = "TipoTapp Docs"
 license = "TipoTapp License"
 licenselink = "https://app.tipotapp.com/license"
-description = "A material design theme for documentations."
+description = TipoTapp Documentation"
 homepage = "https://app.tipotapp.com"
 tags = ["tipotapp", "documentation", "docs", "tutorial", "how to", "getting started guide"]
 features = []
 min_version = 0.20
 
 [author]
-  name = "Digitalcraftsman"
-  homepage = "https://github.com/digitalcraftsman"
+  name = "TipoTapp"
+  homepage = "https://tipotapp.com"
 
-# If porting an existing theme
-[original]
-  name = "Martin Donath"
-  homepage = "http://struct.cc/"
-  repo = "https://github.com/squidfunk/mkdocs-material"
