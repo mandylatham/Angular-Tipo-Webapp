@@ -901,7 +901,7 @@
           _.each(group_fields,function(each){
             if (each.selected) {
               _.each(newval, function(value, key) {
-                if ((value && key !== "$$hashKey" && oldval[key] !== value) || _.isBoolean(value)) {
+                if (((value && key !== "$$hashKey") || _.isBoolean(value)) && oldval[key] !== value) {
                   each[key] = value;
                 };
               });
