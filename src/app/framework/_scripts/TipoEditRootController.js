@@ -886,11 +886,6 @@
       
     }
 
-    _instance.initRichtext = function(item,field_name){
-      var obj = JSON.parse(atob(item));
-      _.set(_instance.tipo,field_name,obj);
-    }
-
     _instance.toogleBulkEdit = function(field_name){
       _.set(_instance,field_name + ".bulkedit",!_.get(_instance,field_name + ".bulkedit"));
       var bulkedit = _.get(_instance,field_name + ".bulkedit");
