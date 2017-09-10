@@ -417,10 +417,6 @@
       return contextualData;
     }
 
-    function replaceIndexinExpression(filterExpression,tipoData){
-
-    }
-
     function expandFilterExpression(filterExpression, tipo, context,arrayIndex){
       var tipoData = {};
       if(!_.isUndefined(tipo)){

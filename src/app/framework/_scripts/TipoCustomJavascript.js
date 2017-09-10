@@ -3,7 +3,24 @@
   'use strict';
 
 
-  function TipoCustomJavascript(tipoHandle){
+  function TipoCustomJavascript(tipoHandle, tipoRouter){
+
+  	// function TipoS3Browser_OnClick(tipoData,selectedTipo,tipo_name,query_params,event){
+  	function TipoS3Browser_OnClick(data_handle){
+    	if (data_handle.selected_tipo.is_folder) {
+    		data_handle.queryparams.fq_folder = data_handle.selected_tipo.fq_filename;
+    		tipoHandle.getTipos(data_handle.tipo_name,data_handle.queryparams).then(function(response){
+    		data_handle.tipo_list = response;
+        if (data_handle.event) {
+          data_handle.event.stopPropagation();
+        };
+        tipoRouter.endStateChange();
+    	});
+    		return false;
+    	}
+    	return true;
+    }
+    this.TipoS3Browser_OnClick = TipoS3Browser_OnClick;
 
     //___TipoDefinition___
 

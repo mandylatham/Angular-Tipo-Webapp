@@ -35,7 +35,7 @@
     _instance.hideActions = true;
     _instance.bulkedit = true;
     $scope.fullscreen = true;
-
+    $scope.data_handle = {};
     function initselectedTipos(){
       if ($scope.selectedTipos.length > 0) {
         _.each(_instance.tiposWithDefinition, function(tipo){
@@ -64,25 +64,21 @@
     };
 
     _instance.selectTipo = function(tipoSelected,event,tiposData){
-      if(typeof tipoCustomJavascript[$scope.tipo_name + '_List_OnClick'] === 'function'){
+      if(typeof tipoCustomJavascript[$scope.tipo_name + '_OnClick'] === 'function'){
         tipoRouter.startStateChange();
-        var instance = {};
-        instance.tipos = _instance.tipos;
-        var proceed = tipoCustomJavascript[$scope.tipo_name + '_List_OnClick'](instance,tipoSelected,$scope.tipo_name,$scope.queryparams,event);
-        $timeout(function() {
-          _instance.tipos = instance.tipos;
-          tipoRouter.endStateChange();
-        }, 1000);
+        $scope.data_handle.selected_tipo = tipoSelected;
+        $scope.data_handle.tipo_name = $scope.tipo_name;
+        $scope.data_handle.queryparams = $scope.queryparams;
+        $scope.data_handle.event = event;
+        var proceed = tipoCustomJavascript[$scope.tipo_name + '_OnClick']($scope.data_handle);
       }
-      if(typeof tipoClientJavascript[$scope.tipo_name + '_List_OnClick'] === 'function'){
+      if(typeof tipoClientJavascript[$scope.tipo_name + '_OnClick'] === 'function'){
         tipoRouter.startStateChange();
-        var instance = {};
-        instance.tipos = _instance.tipos;
-        var proceed = tipoClientJavascript[$scope.tipo_name + '_List_OnClick'](instance,tipoSelected,$scope.tipo_name,$scope.queryparams,event);
-        $timeout(function() {
-          _instance.tipos = instance.tipos;
-          tipoRouter.endStateChange();
-        }, 1000);
+        $scope.data_handle.selected_tipo = tipoSelected;
+        $scope.data_handle.tipo_name = $scope.tipo_name;
+        $scope.data_handle.queryparams = $scope.queryparams;
+        $scope.data_handle.event = event;
+        var proceed = tipoClientJavascript[$scope.tipo_name + '_OnClick']($scope.data_handle);
       }
       else{
         var proceed = true;
@@ -169,6 +165,12 @@
     $scope.$watch(function(){return _instance.tipos;},function(){
       initselectedTipos();
     })
+
+    $scope.$watch(function(){return $scope.data_handle.tipo_list},function(new_value,old_value){
+      if ($scope.data_handle.tipo_list) {
+        _instance.tipos = $scope.data_handle.tipo_list;
+      };
+    });
   }
   return module.directive('tpLookup', function (
     tipoInstanceDataService,
