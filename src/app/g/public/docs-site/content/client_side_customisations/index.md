@@ -7,22 +7,26 @@ weight: 8
 
 In create/update forms data can be dynamically 
 
-Field Expression Attribute | Description
------------- | ---------------
-`expression` | Dynamically value is calculated. Simple JS expression to work out default values. This is used in the purely the create/edit forms. 
-`visibility_expression` | Where ng-if is generated for visibility for an action or a field.
-`relationship_filter` | Used in the queries sent to server in the drop-downs.
-`query_params` | Additional information passed to the server
-`filter_expression` | In the list view these filters are used to fetch only relevant records. Similar to relationship filters, these are elasticsearch queries.
-`value_style & label.style` | When applying CSS field data access.
+Field Expression Attribute | Description | Client Side | Server Side
+------------ | --------------- | ----------- | ----------
+`expression` | Dynamically value is calculated. Simple JS expression to work out default values. This is used in the purely the create/edit forms. | Yes | No
+`visibility_expression` | Where ng-if is generated for visibility for an action or a field. | Yes | No
+`Relationship Filter Query` | Used in the queries sent to server in the drop-downs. | Yes | Yes
+`query_params` | Additional information passed to the server | Yes | No
+`Filter Query` | In the list view these filters are used to fetch only relevant records. Similar to relationship filters, these are elasticsearch queries. | No | Yes
+`value_style & label.style` | When applying CSS field data access. | Yes | No
 
-Expression Pattern | Description
------------- | ---------------
-`$tipo_root`.<field_name> | Access data from the beginning of the object.
-`$tipo_root`.top_level_field.array[$index].child_field | Access data in other fields in the same array as  current. In PO line items, referring to line units in total can be accessed using `$tipo_root`.po_line_items[@index].units
-`$tipo`.<child_field> | Same example above can be expressed as `$tipo`.units
-`$tipo_handle`.user_meta | To access logged-in user details as documented in TipoHandle
-`$tipo_handle`.application_meta | To access logged-in application details as documented in TipoHandle
+
+The server side support is available, the developer can use $tipo_context to replace with dynamic information on the server before executing the queries.
+
+Expression Pattern | Description | Client/Server
+------------ | --------------- | ---------------
+`$tipo_root`.<field_name> | Access data from the beginning of the object. | Client
+`$tipo_root`.top_level_field.array[$index].child_field | Access data in other fields in the same array as  current. In PO line items, referring to line units in total can be accessed using `$tipo_root`.po_line_items[$index].units | Client
+`$tipo`.<child_field> | Same example above can be expressed as `$tipo`.units | Client
+`$tipo_handle`.user_meta | To access logged-in user details as documented in TipoHandle | Client
+`$tipo_handle`.application_meta | To access logged-in application details as documented in TipoHandle | Client
+`$tipo_context`| To access application context on the server | Server
 
 ![Client Customizations](/images/developer/ClientCustomisations.jpg)
 
