@@ -34,7 +34,7 @@
 
     var createState = {
       name: 'tipoCreate',
-      url: '/tipo/{tipo_name}/new?copyFrom&data&message',
+      url: '/tipo/{tipo_name}/new?copyFrom&data&message&filter',
       parent: 'layout',
       data: {
         pageTitle: "{{$stateParams.tipo_name}} - Create",
@@ -75,7 +75,7 @@
 
     var viewState = {
       name: 'tipoView',
-      url: '/tipo/{tipo_name}/{tipo_id}?message',
+      url: '/tipo/{tipo_name}/{tipo_id}?message&filter',
       parent: 'layout',
       data: {
         pageTitle: "{{$stateParams.tipo_name}} - View",
@@ -130,7 +130,7 @@
 
     var editState = {
       name: 'tipoEdit',
-      url: '/edit?message',
+      url: '/edit?message&filter',
       parent: viewState,
       data: {
         pageTitle: "{{$stateParams.tipo_name}} - Edit",
