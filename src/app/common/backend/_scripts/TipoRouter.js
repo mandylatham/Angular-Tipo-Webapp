@@ -58,6 +58,9 @@
       if(!parameters.perspective && $stateParams.perspective){
         parameters.perspective = $stateParams.perspective;
       }
+      if(!parameters.filter && $stateParams.filter){
+        parameters.filter = $stateParams.filter;
+      }
     }
 
     function to(state, reload, parameters, inherit){
