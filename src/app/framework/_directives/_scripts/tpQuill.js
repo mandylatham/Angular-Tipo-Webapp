@@ -34,7 +34,7 @@
             Quill.register('formats/video', AddHeight, true);
           }
           customizeQuillVideo();
-          if (!scope.fieldValue) {
+          if (!scope.fieldValue && scope.initValue) {
             scope.fieldValue = atob(scope.initValue);
           };
           if (scope.mode !== "view") {

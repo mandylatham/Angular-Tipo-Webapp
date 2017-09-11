@@ -48,7 +48,7 @@
               scope.context.province_region_district = scope.address.administrative_area_level_2;
               scope.context.state_ = scope.address.administrative_area_level_1;
               scope.context.country = scope.address.country;
-              scope.context.postalcode = _.toNumber(scope.address.postal_code);
+              scope.context._postalcode = _.toNumber(scope.address.postal_code);
             };
           }
         }
