@@ -288,6 +288,13 @@
             }
           }
 
+          function handleResponse(response){
+            response.message = response.user_message;
+            tipoRouter.toTipoResponse(response);
+            scope.refresh();
+            tipoRouter.endStateChange(); 
+          }
+
           function callAction(tipo_name, action_name, selected_tipo_ids,additional_tipo_name,additional_tipo){
             var function_name = tipo_name + "_" + action_name;
             if(typeof tipoClientJavascript[function_name] === 'function'){
@@ -299,18 +306,19 @@
               scope.data_handle.additional_tipo = additional_tipo;
               tipoClientJavascript[function_name](scope.data_handle);
             }else{
+              tipoRouter.startStateChange();
               tipoHandle.callAction(tipo_name, action_name, selected_tipo_ids,additional_tipo_name,additional_tipo)
-                  .then(function(response){
-                    tipoRouter.startStateChange();
+                .then(function(response){
+                  if (mode === 'view') {
                     tipoHandle.getTipo(tipo_name, tipo_id, {}, true).then(function(tipoData){
                       scope.tipos = tipoData;
-                      tipoRouter.toTipoView(tipo_name, tipo_id);
-                      response.message = response.user_message;
-                      tipoRouter.toTipoResponse(response);
-                      scope.refresh();
-                      tipoRouter.endStateChange();                  
-                    });
-                  });
+                      tipoRouter.toTipoView(tipo_name, tipo_id); 
+                      handleResponse(response);                
+                    });}
+                  else{
+                    handleResponse(response);
+                  }
+                });
             }
           }
 
