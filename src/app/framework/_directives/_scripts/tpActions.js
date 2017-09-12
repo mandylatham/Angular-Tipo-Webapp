@@ -316,6 +316,7 @@
                       handleResponse(response);                
                     });}
                   else{
+                    tipoRouter.toTipoList(tipo_name); 
                     handleResponse(response);
                   }
                 });
