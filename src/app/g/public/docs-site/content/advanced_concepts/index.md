@@ -309,13 +309,167 @@ To do this, you need to make the following changes to the `Relationship Settings
 Remember to use the real field names and not their labels. The label if the value you put for the `Field` field when creating the field e.g. `First Name` while the field name is the field's representation in the database. If you don't set this, TipoTapp stores the lowercased equivalent of your label delimited by underscores, e.g. `first_name`. You can see the Field Name of any field by looking at its Detailed View.
 
 ## Filters
-TODO
+TipoTapp allows you to set Filters on your data that determine the data displayed to the user. There are two types of filters: Relationship Filters and Quick Filters. We have already seen the former in use in the Quickstart guide, but we didn't delve deep into its details. We'll do this next.
 
 ### Relationship Filters
-TODO
+Relationship Filters can be used to limit the list of items available in dropdown menus that show records of a Tipo that are related to the current object. They can also be used to filter the data shown in tabs when you want to display data related to a particular record. We saw [an example](/quickstart/#displaying-related-data) of this in the Quickstart guide.
+
+To set a Relationship Filter on a Tipo's field, open its Advanced Editor and set the `Relationship Filter Query` in `Relationship Settings`.
+
+![Relationship Settings](/images/advanced_concepts/image_017.png)
+
+To set a value for the `Relationship Filter Query`, you use a Query DSL that we'll look at shortly.
 
 ### Quick Filters
-TODO
+Quick Filters are used to filter the data displayed in list views. When used, only the relevant records will be fetched from the server. Query Filters also use the Query DSL specified in the next section.
+
+To demonstrate Query Filters, we'll add a new Tipo to the Student Management System. This Tipo will be used to hold information regarding Applications that the institution receives.
+
+Add a Tipo named `Application` to the app and add the following fields to it.
+
+TODO: Add Fields later
+
+In Edit mode, scroll down to `List View Configuration` and open the Advanced Editor.
+
+Add the following Quick Filters:
+
+![Quick Filters](/images/advanced_concepts/image_018.png)
+
+![Quick Filters](/images/advanced_concepts/image_019.png)
+
+With the above settings, the user will be able to filter the records shown according to the status of the application.
+
+When you set a Quick Filter, the following control is added to the list view of that Tipo.
+
+![Quick Filters](/images/advanced_concepts/image_020.png)
+
+On clicking on it, you will be able to select from a list of filters that you added.
+
+![Quick Filters](/images/advanced_concepts/image_021.png)
+
+### Query DSL Syntax
+TipoTapp provides a Query DSL that is used when setting filters. The following are its specifications:
+
+#### Field Names
+the default_field is searched for the search terms, but it is possible to specify other fields in the query syntax:
+
+ - Where the `status` field contains `active`
+
+```
+status:active
+```
+
+ - Where the `title` field contains `quick` or `brown`. If you omit the OR operator the default operator will be used
+ 
+TODO: What is the default operator?
+
+```
+title:(quick OR brown)
+title:(quick brown)
+```
+
+ - Where the field `title` has any non-null value:
+
+```
+_exists_:title
+```
+
+#### Wildcards
+Wildcard searches can be run on individual terms, using `?` to replace a single character, and `*` to replace zero or more characters:
+
+```
+qu?ck bro*
+```
+
+TODO: Should I include the memory warning. Does it apply to TT?
+
+####Regular expressions
+Regular expression patterns can be embedded in the query string by wrapping them in forward-slashes (`/`):
+
+```
+name:/joh?n(ath[oa]n)/
+```
+
+#### Fuzziness
+We can search for terms that are similar to, but not exactly like our search terms, using the “fuzzy” operator:
+
+```
+quikc~ brwn~ foks~
+```
+This uses the [Damerau-Levenshtein distance](http://en.wikipedia.org/wiki/Damerau-Levenshtein_distance) to find all terms with a maximum of two changes, where a change is the insertion, deletion or substitution of a single character, or transposition of two adjacent characters.
+
+The default edit distance is `2`, but an edit distance of `1` should be sufficient to catch 80% of all human misspellings. It can be specified as:
+
+```
+quikc~1
+```
+
+#### Ranges
+Ranges can be specified for date, numeric or string fields. Inclusive ranges are specified with square brackets `[min TO max]` and exclusive ranges with curly brackets `{min TO max}`.
+
+ - All days in 2012:
+
+```
+date:[2012-01-01 TO 2012-12-31]
+```
+
+ - Numbers 1..5
+
+```
+count:[1 TO 5]
+```
+
+ - Tags between alpha and omega, excluding alpha and omega:
+
+```
+tag:{alpha TO omega}
+```
+
+ - Numbers from 10 upwards
+
+```
+count:[10 TO *]
+```
+
+ - Dates before 2012
+
+```
+date:{* TO 2012-01-01}
+```
+
+ - Curly and square brackets can be combined. E.g. numbers from 1 up to but not including 5:
+
+```
+count:[1 TO 5}
+```
+
+ - Ranges with one side unbounded can use the following syntax:
+
+```
+age:>10
+age:>=10
+age:<10
+age:<=10
+```
+ - To combine an upper and lower bound with the simplified syntax, you would need to join two clauses with an AND operator:
+
+```
+age:(>=10 AND <20)
+age:(+>=10 +<20)
+```
+
+#### Grouping
+Multiple terms or clauses can be grouped together with parentheses, to form sub-queries:
+
+```
+(quick OR brown) AND fox
+```
+
+Groups can be used to target a particular field, or to boost the result of a sub-query:
+
+```
+status:(active OR pending) title:(full text search)^2
+```
 
 ## User Roles
 TODO
