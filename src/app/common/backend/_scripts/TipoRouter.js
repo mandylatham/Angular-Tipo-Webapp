@@ -53,12 +53,12 @@
       return $state.go($state.current, reloadFlagParameters, {reload: $state.current});
     }
 
-    function setPerspectiveIfRequired(parameters){
+    function setPerspectiveIfRequired(parameters,tipoName){
       parameters = parameters || {};
       if(!parameters.perspective && $stateParams.perspective){
         parameters.perspective = $stateParams.perspective;
       }
-      if(!parameters.filter && $stateParams.filter){
+      if(!parameters.filter && $stateParams.filter && (tipoName === $stateParams.tipoName)){
         parameters.filter = $stateParams.filter;
       }
     }
@@ -90,7 +90,7 @@
         }
       }
       stateOptions.inherit = false;
-      setPerspectiveIfRequired(parameters);
+      setPerspectiveIfRequired(parameters,tipoName);
       return $state.go('tipoList', parameters, stateOptions);
     }
 
@@ -103,7 +103,7 @@
         parameters.perspective = perspectiveMetadata.perspective;
       }
       stateOptions.inherit = false;
-      setPerspectiveIfRequired(parameters);
+      setPerspectiveIfRequired(parameters,tipoName);
       return $state.go('tipoCreate', parameters, stateOptions);
     }
 
@@ -117,7 +117,7 @@
         parameters.perspective = perspectiveMetadata.perspective;
       }
       stateOptions.inherit = false;
-      setPerspectiveIfRequired(parameters);
+      setPerspectiveIfRequired(parameters,tipoName);
       return $state.go('tipoView', parameters, stateOptions);
     }
 
@@ -127,7 +127,7 @@
       parameters.tipo_name = tipoName;
       parameters.tipo_id = tipoId;
       stateOptions.inherit = true;
-      setPerspectiveIfRequired(parameters);
+      setPerspectiveIfRequired(parameters,tipoName);
       return $state.go('tipoEdit', parameters, stateOptions);
     }
 
