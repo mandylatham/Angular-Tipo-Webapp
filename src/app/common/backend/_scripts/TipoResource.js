@@ -10,6 +10,8 @@
     tipoCache,
     cognitoService,
     $templateCache,
+    $cacheFactory,
+    $location, 
     $http,
     $q,
     tipoRegistry) {
@@ -71,12 +73,29 @@
         extractData: function (rawData) {
         	
             _.forEach(rawData.refresh_list, function(value) {
+            	if(_.startsWith(value,"/")) {
+            		value = value.substring(1);
+            	}
             	if (_.startsWith(value, '/tipo/')) {
                	 var broken = value.split("/");
             	 tipoCache.evict(broken[2], broken[3]);
             	} else {
-               	 $templateCache.remove(value);
-            	 $http.get(value + "?nocache=true");
+            		$templateCache.remove(value);
+               		var $httpDefaultCache = $cacheFactory.get('$http');
+               		$httpDefaultCache.remove(value);
+               		var url = $location.protocol()+"://"+$location.host() + ":" 
+               				+ $location.port() + "/" +value;
+               		$httpDefaultCache.remove(url);
+               		
+            		$http.get(value,{cache:false, nocache:true});
+            		
+            		if (value.indexOf("CustomScript.js") !== -1) {
+				        var head= document.getElementsByTagName('head')[0];
+				        var script= document.createElement('script');
+				        script.type= 'text/javascript';
+				        script.src= url;
+				        head.appendChild(script);
+            		}
             	}
           	});
             
@@ -129,11 +148,13 @@
     tipoCache,
     cognitoService,
     $templateCache,
+    $cacheFactory,
+    $location,
     $http,
     $q,
     $window) {
 
-    var interceptors = getAllInterceptors(securityContextService, tipoErrorHandler, tipoCache, cognitoService,$templateCache, $http, $q);
+    var interceptors = getAllInterceptors(securityContextService, tipoErrorHandler, tipoCache, cognitoService,$templateCache, $cacheFactory, $location, $http, $q);
     var location = $window.location;
     var relativeUrl = location.pathname;
     if (_.startsWith(relativeUrl, '/app')) {
@@ -170,6 +191,8 @@
     tipoCache,
     cognitoService,
     $mdMedia,
+    $cacheFactory,
+    $location, 
     $http,
     $templateCache,
     $q,
@@ -177,7 +200,7 @@
     deviceInformation = $.ua.device;
     var isSmallScreen = $mdMedia('xs');
     deviceInformation.isMobile = isSmallScreen || deviceInformation.type === 'mobile';
-    var factory = Restangular.withConfig(_.partialRight(configureRestangular, securityContextService, tipoErrorHandler, tipoCache, cognitoService,$templateCache, $http, $q, $window));
+    var factory = Restangular.withConfig(_.partialRight(configureRestangular, securityContextService, tipoErrorHandler, tipoCache, cognitoService,$templateCache, $cacheFactory, $location, $http, $q, $window));
     return factory;
   }
 
