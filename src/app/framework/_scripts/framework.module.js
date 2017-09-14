@@ -48,6 +48,7 @@
             if (perspectiveMetadata.fieldName === 'application') {
               filter.tipo_filter = perspectiveMetadata.tipoFilter;
             }
+            filter.transient_fields = 'N';
             return tipoHandle.getTipo($stateParams.tipo_name, $stateParams.copyFrom, filter)
               .then(function (tipo) {
                 delete tipo.tipo_id;

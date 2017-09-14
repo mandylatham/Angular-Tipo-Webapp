@@ -20,7 +20,21 @@
 
   }
 
+  function TipoSubscribtionController(
+  tipoHandle,
+    $window,
+    $scope) {
+
+    var _instance = this;
+    /** In case of detail/edit/create pages, the tipo object that contains the data from server. */
+    var tipo = $scope.tipoRootController.tipo;
+
+    // Your business logic.
+
+  }
+
   angular.module('tipo.tipoapp')
-  .controller('MyTemplateController', MyTemplateController);
+  .controller('MyTemplateController', MyTemplateController)
+  .controller('TipoSubscribtionController', TipoSubscribtionController);;
 
 })();
