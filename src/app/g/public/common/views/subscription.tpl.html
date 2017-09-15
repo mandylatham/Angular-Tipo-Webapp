@@ -1,3 +1,56 @@
-<div layout="row" layout-align="center stretch" layout-margin layout-wrap ng-controller="TipoSubscribtionController as controller" id="tipoapp-app-list">
-<!--- test html -->
+<div layout="column" layout-align="center stretch" layout-margin layout-wrap ng-controller="TipoSubscribtionController as controller" id="tipoapp-app-list">
+	<md-table-container >
+		<table md-table md-row-select multiple ng-model="selected" md-progress="promise">
+			<thead md-head >
+				<tr md-row md-colors="{background: 'primary-400'}">
+					<th md-column>
+						Plan
+					</th>
+					<th md-column>
+						Status
+					</th>
+					<th md-column>
+						Active Until
+					</th>
+					<th md-column>
+						Stripe Subscription ID
+					</th>
+				</tr>
+			</thead>
+			<tbody md-body> 
+				<tr md-row ng-class-odd="'alternate'">
+					<td md-cell>
+						{{controller.tipo.plan}}
+					</td>
+					<td md-cell>
+						{{controller.tipo.subscription_status}}
+					</td>
+					<td md-cell>
+						{{controller.tipo.active_until}}
+					</td>
+					<td md-cell>
+						{{controller.tipo.stripe_subscription_id}}
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</md-table-container>
+	<md-content layout="row" >
+		<div  layout="column" layout-align="start stretch" layout-padding flex="50" ng-repeat="plan in controller.plans">
+			<div style="height:50px;background:#40e0d0;">
+			</div>
+			<div class="md-subhead text-center" flex>{{plan.plan_name}}</div>
+			<div class="md-subhead text-center" flex>App Creator:
+				<tp:simple-dropdown ng-model="controller[plan.plan_name]['app_creator']" isarray="false" istiporequired="true" allowedvalues="controller.allowed_values" allowcreate="true" fieldvalue="controller[plan.plan_name]['app_creator']"/>
+			 ${{plan.creator_user.amount}}</div>
+			<div class="md-subhead text-center" flex>App User:
+				<tp:simple-dropdown ng-model="controller[plan.plan_name]['app_user']" isarray="false" istiporequired="true" allowedvalues="controller.allowed_values" allowcreate="true" fieldvalue="controller[plan.plan_name]['app_user']"/>
+			 ${{plan.app_user.amount}}</div>
+			 <md-button>Select</md-button>
+		</div>
+	</md-content>
+	<label for="card-element">Card</label>
+	<div id="card-element"></div>
+
+	<md-button class="md-primary" ng-click="controller.testStripr()">Test Stripe</md-button>
 </div>

@@ -155,6 +155,6 @@
 
   angular.module('tipo.tipoapp')
   .controller('TipoTypeController', TipoTypeController)
-  .service('TipoTypeService', TipoTypeService);;
+  .service('TipoTypeService', TipoTypeService);
 
 })();

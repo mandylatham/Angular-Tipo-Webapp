@@ -25,7 +25,7 @@
           scope.model = {};
           scope.model.field = scope.fieldvalue;
           scope.addValue = function(){
-            allowedvalues.push(scope.searchTerm.text);
+            scope.allowedvalues.push(scope.searchTerm.text);
             scope.searchTerm.text = "";
           }
 

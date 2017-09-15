@@ -146,6 +146,7 @@
     _instance.tipoHandle = tipoHandle;
     _instance.hide_actions = $scope.hide_actions;
     var tipo_name =  $scope.tipo_name || $stateParams.tipo_name;
+    _instance.tipo_name = tipo_name;
     _instance.updateUrl = tipoHandle.updateUrl(tipo_name);
     _instance.createUrl = tipoHandle.createUrl(tipo_name);
     _instance.detailUrl = tipoHandle.detailUrl(tipo_name);
