@@ -34,6 +34,7 @@
     var _instance = this;
     var tipo_types = [];
     var tipo_name = $scope.tipoRootController.tipoDefinition.tipo_meta.tipo_name;
+    $scope.tipoRootController.hasTipos = true;
     var tipo_types = angular.copy(TipoTypeService.gettipo_types());
     var application = $scope.tipoRootController.tipoDefinition.application;
     var tipo_groups = $scope.tipoRootController.tipo_fields;

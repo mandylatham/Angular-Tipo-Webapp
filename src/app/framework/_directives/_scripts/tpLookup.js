@@ -31,6 +31,7 @@
     _instance.perm = $scope.perm;
     _instance.queryparams = $scope.queryparams;
     _instance.tipo_name = $scope.tipo_name;
+    _instance.listUrl = tipoHandle.listUrl(_instance.tipo_name);
     _instance.disablecreate = $scope.disablecreate;
     _instance.hideActions = true;
     _instance.bulkedit = true;

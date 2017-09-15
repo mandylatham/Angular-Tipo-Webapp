@@ -244,6 +244,10 @@
       return "g/public/gen_temp/common/views/view.tpl.html." + role + "___" + tipo_name;
      }
 
+     function listUrl(tipo_name){
+      return "g/public/gen_temp/common/views/list.tpl.html." + role + "___" + tipo_name;
+     }
+
      function getISODate(){
       var date = new Date();
       date.setHours(0, 0, 0, 0);
@@ -271,6 +275,7 @@
      this.updateUrl = updateUrl;
      this.createUrl = createUrl;
      this.detailUrl = detailUrl;
+     this.listUrl = listUrl;
      this.deleteItemFromArray = deleteItemFromArray;
      this.getISODate = getISODate;
 

@@ -19,7 +19,7 @@
       <label>&nbsp;</label>
       <input ng-model="tipoRootController.searchText" placeholder="enter search" data-ng-keyup="$event.keyCode == 13 ? tipoRootController.search() : null">
     </md-input-container>
-    <ng-include src="tipoRootController.tipoDefinition._ui.listTemplateUrl" tp-include-replace/>
+    <ng-include src="tipoRootController.listUrl" tp-include-replace/>
     
   </md-dialog-content>
   <md-dialog-actions layout="row">
