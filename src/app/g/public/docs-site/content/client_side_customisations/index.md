@@ -28,7 +28,7 @@ Expression Pattern | Description | Client/Server
 `$tipo_handle`.application_meta | To access logged-in application details as documented in TipoHandle | Client
 `$tipo_context`| To access application context on the server | Server
 
-![Client Customizations](/images/developer/ClientCustomisations.jpg)
+![Client Customizations](/images/developer/ClientCustomisations.png)
 
 # Tipo Handle
 

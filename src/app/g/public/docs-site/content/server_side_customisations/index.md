@@ -2,14 +2,25 @@
 title: Server Side Customisations
 weight: 9
 ---
-
-![Server Customizations](/images/developer/ServerCustomisations.jpg)
   
 Cloud Functions are used in doing custom actions or to override the default actions. Cloud functions are used by the developers to implement business logic speicific to the app developed. Cloud functions are implemented using AWS Lambda and these lambda functions reside in developers own AWS account.
 
-![My Apps](/images/developer/UC1.jpg)
+![Server Customizations](/images/developer/ServerCustomisations.png)
 
-![My Apps](/images/developer/UC2.jpg)
+# Pre Function
+
+![Pre Function](/images/developer/Pre Function.png)
+
+# Post Function
+
+![Post Function](/images/developer/Post Function.png)
+
+
+# Input/Output Structure 
+
+![Input Output Structures](/images/developer/InputOutput.png)
+
+
 
 # Signature #
 
