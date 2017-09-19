@@ -9,11 +9,11 @@ Cloud Functions are used in doing custom actions or to override the default acti
 
 # Pre Function
 
-![Pre Function](/images/developer/Pre Function.png)
+![Pre Function](/images/developer/PreFunction.png)
 
 # Post Function
 
-![Post Function](/images/developer/Post Function.png)
+![Post Function](/images/developer/PostFunction.png)
 
 
 # Input/Output Structure 
@@ -150,60 +150,5 @@ Use the above format in the tipo_filter when specifying dependencies for dynamic
 
 ### Tipo Function Output  ###
   
-#### Scenario 1 ####
-    
-*** TipoFunction Output - Scenario to continue processing request ***
-** To continue processing data - simply return body with tipo data as below **
-** The following response will result in deletion of Customer 123 and update or create to PurchaseOrder 111. **
 
-        [
-          {
-            "tipo_name": "Customer",
-            "db_action" : "DELETE", // Optionally return db_action, can be same as http_method or different as need be.
-            "data" : {
-              "tipo_id" : "123",
-              "first_name": "ABC",
-              "last_name": "XYZ"
-            }
-          },
-          {
-            "tipo_name": "PurchaseOrder", //Yes, it doesn't have to be the same tipo as the tipo_name in the request.
-            "db_action" : "PUT", // Optionally return db_action, can be same as http_method or different as need be. 
-            "data" : {
-              "tipo_id": "111",
-              "order_amount": 1000.00,
-              "ordered_product" : 123 
-            }
-            
-          }
-        ]
-
-#### Scenario 2 ####
-*** TipoFunction Output - Scenario to stop processing and return to client ***
-*** In this case, no further processing is done. Simply response is returned to client without executing further database activity or post funciton. The main difference status_code. If there is status_code in the response from the function, it is assumed that no further processing is required. It is assumed that all the items in the reponse array are same. ***
-
-      [
-        { 
-          "tipo_name" : "Customer",
-          "status_code": 200,
-          "message" : "", // only if error
-          "stack_trace" : "", // only if error
-          "data" : {
-              "tipo_id" : "123",
-              "first_name": "ABC",
-              "last_name": "XYZ"
-          }
-        },
-        {
-          "tipo_name" : "PurchaseOrder",
-          "status_code": 200,
-          "message" : "", // only if error
-          "stack_trace" : "", // only if error
-          "data" : {
-              "tipo_id" : "111",
-              "order_amount": 1000.00,
-              "ordered_product" : 123 
-          }
-        }
-      ]
 

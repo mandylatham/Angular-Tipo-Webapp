@@ -122,7 +122,7 @@ Item | Detail
 **Description** | Tipo name is the object being accessed, e.g. PurchaseOrder, Customer etc.
 
 
-![List View API](/images/developer/Tipo API List RR.png)
+![List View API](/images/developer/TipoAPIListRR.png)
 
 ## Tipo Instance Level
 
@@ -133,5 +133,5 @@ Item | Detail
 **Supported HTTP Methods** | `GET, PUT, POST, DELETE`
 **Description** | Tipo id identifies the individual instances of the particular Tipo.
 
-![List View API](/images/developer/Tipo API RR.png)
+![List View API](/images/developer/TipoAPIRR.png)
 
