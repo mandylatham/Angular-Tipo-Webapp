@@ -31,12 +31,14 @@
     function startStateChange(){
       // _stateChanging = true;
       $rootScope.progressbar.start();
+      $("#loader").addClass("loading");
       document.body.style.cursor='wait';
     }
 
     function endStateChange(){
       // _stateChanging = false;
       $rootScope.progressbar.complete();
+      $("#loader").removeClass("loading");
       document.body.style.cursor='default';
     }
 

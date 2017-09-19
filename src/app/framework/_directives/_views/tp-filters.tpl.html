@@ -1,7 +1,7 @@
 <div class="tp-field" layout="row">
   <md-menu md-offset="0 -7" ng-if="filters.length > 0">
     <md-button aria-label="Open demo menu" class="md-primary" ng-click="$mdOpenMenu()">
-       <md-icon>filter_list</md-icon> Filters
+       <md-icon>filter_list</md-icon> {{filterLabel || "Filters"}}
     </md-button>
     <md-menu-content width="4">
       <md-menu-item ng-repeat="each in filters">

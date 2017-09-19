@@ -20,6 +20,112 @@
 
   }
 
+  function ChangePasswordController($scope, securityContextService) {
+
+    var _instance = this;
+    _instance.data = {};
+
+    var hooks = $scope.tipoRootController.hooks;
+
+    hooks.preFinish = function() {
+      $scope.tipoRootController.data = {
+        accessToken: securityContextService.getCurrentAccessToken(),
+        oldPassword: _instance.data.oldPassword,
+        newPassword: _instance.data.newPassword,
+        username: securityContextService.getCurrentUser()
+      };
+      return true;
+    }
+  }
+
+  function TipoAppController(
+    tipoRouter,
+    metadataService,
+    $window,
+    $scope,
+    tipoCache) {
+
+    var _instance = this;
+
+    var tipo_name = $scope.tipoRootController.tipo_name;
+    // var hooks = $scope.tipoRootController.hooks;
+
+    // hooks.postFinish = function() {
+    //   tipoCache.evict(tipo_name);
+    //   tipoRouter.toTipoList(tipo_name);
+    //   return true;
+    // }
+
+    function addLogotoData(tipos){
+      _.each(tipos, function(each, index){
+        var logo;
+        if(each.app_name === 'Tipo App'){
+          logo = 'tipoapp';
+        } else if(index < 7){
+          logo = index + 1;
+        }else{
+          logo = 'no-image';
+        }
+        each.logo = logo + '.png';
+      });
+      _instance.tipos = tipos;
+    }
+    addLogotoData($scope.tipoRootController.tipos);
+
+    _instance.toEdit = function(tipo_id){
+      tipoRouter.toTipoEdit(tipo_name, tipo_id);
+    };
+
+    _instance.delete = function(tipo_id){
+      $scope.tipoRootController.delete(tipo_id);
+    };
+
+    _instance.launch = function(tipo){
+      $window.open(tipo.app_url, '_blank');
+    };
+
+    $scope.$watch(function(){ return $scope.tipoRootController.tipos;}, function(){
+      addLogotoData($scope.tipoRootController.tipos);
+    })
+
+  }
+
+  function TipoS3Browser(
+    $scope,
+    $filter,
+    tipoHandle) {
+
+    var _instance = this;
+
+    
+    function resolveFolderpath(){
+    var folder_path = $scope.tipoRootController.tipos[0].is_folder ?  _.replace($scope.tipoRootController.tipos[0].fq_filename,$scope.tipoRootController.tipos[0].filename + "/","") : _.replace($scope.tipoRootController.tipos[0].fq_filename,$scope.tipoRootController.tipos[0].filename,"") 
+    _instance.folder_path = folder_path.substring(0,folder_path.length-1).split("/");
+    }
+
+    _instance.goto = function(folder,index){
+      var pathArray = _.dropRight(_instance.folder_path,_instance.folder_path.length - index);
+      var folder_path = _.join(pathArray,"/")
+      var queryparams = $scope.tipoRootController.queryparams;
+      var tipo_name = $scope.tipoRootController.tipo_name;
+      queryparams.fq_folder = folder_path + "/"
+      tipoHandle.getTipos(tipo_name,queryparams).then(function(response){
+        $scope.tipoRootController.tipos = response;
+      });
+    }
+
+    _instance.removeTipo = function(chip){
+      var tipoSelected = $filter('filter')($scope.tipoRootController.tipos,function(tipo){ return tipo.tipo_id === chip.tipo_id || tipo.tipo_id === chip.key});
+      $scope.tipoRootController.selectTipo(tipoSelected[0],event,$scope.tipoRootController.tipos);
+    }
+
+
+    $scope.$watch(function(){return $scope.tipoRootController.tipos;},function(){
+      resolveFolderpath();
+    })
+
+  }
+
 
   function TipoTypeController(
     tipoRouter,
@@ -183,8 +289,29 @@
     _instance.tipo = $scope.tipoRootController.tipo;
     _instance.plans = [];
     _instance.allowed_values =  _.range(1, 11);
-    var stripe = Stripe('pk_test_JD6zYPAyxr6qz1pVtzSphiYQ');
-      var elements = stripe.elements();
+    _instance.edit_mode = {};
+    var tipo_plan = "TipoPlans";
+    
+    function getPlans(){
+      var params = {};
+      params.short_display = 'N';
+      params.tipo_filter = _instance.cycleSelected.filter_expression;
+      tipoHandle.getTipos(tipo_plan,params).then(function(response){
+        _instance.plans = response;
+      })
+    }
+    function getBillingCycles(){
+      tipoHandle.getTipoDefinition(tipo_plan,true).then(function(plan_def){
+        _instance.billing_cycles = plan_def.tipo_list.filters;
+        _instance.cycleSelected = plan_def.tipo_list.filters[0];
+        getPlans();
+      })
+    }
+    getBillingCycles();
+    function showCreditCard(){
+      _instance.show_card = true;
+      _instance.stripe = Stripe('pk_test_JD6zYPAyxr6qz1pVtzSphiYQ');
+      var elements = _instance.stripe.elements();
       var style = {
         base: {
           color: '#303238',
@@ -202,44 +329,60 @@
           },
         },
       };
-      var cardElement = elements.create('card', {style: style});
-      cardElement.mount('#card-element');
-    function extractPlans(plan_name,response){
-      plan_name = _.toLower(plan_name);
-      var userinx = _.findIndex(response, function(o) { return o.data.id == plan_name + 'user'; });
-      var creatorinx = _.findIndex(response, function(o) { return o.data.id == plan_name + 'creator'; });
-      _instance.plans.push({
-        plan_name: _.upperFirst(plan_name),
-        app_user: {
-          amount: response[userinx].data.amount
-        },
-        creator_user: {
-          amount: response[creatorinx].data.amount
-        },
-      });
-    }
-    function getPlans(){
-      tipoHandle.callAction($scope.tipoRootController.tipo_name,'list_stripe_plans',[_instance.tipo.tipo_id]).then(function(response){
-        extractPlans("Bronze",response);
-        extractPlans("Silver",response);
-      })
+      _instance.cardElement = elements.create('card', {style: style});
+      _instance.cardElement.mount('#card-element');
+      var container = angular.element(document.getElementById('inf-wrapper'));
+      var scrollTo = angular.element(document.getElementById('card-element'));
+      container.scrollToElement(scrollTo,150,100);
     }
 
-    _instance.testStripr = function(){
-      stripe.createToken(cardElement).then(function(result) {
+    function createToken(saveplan){
+      _instance.stripe.createToken(_instance.cardElement).then(function(result) {
         if (result.error) {
           // Inform the user if there was an error
           var errorElement = document.getElementById('card-errors');
           errorElement.textContent = result.error.message;
         } else {
           // Send the token to your server
-          stripeTokenHandler(result.token);
+          tipoHandle.callAction($scope.tipoRootController.tipo_name,'attach_card',[_instance.tipo.tipo_id],$scope.tipoRootController.tipo_name,{token_source: result.token.id}).then(function(response){
+            console.log(response);
+          })
         }
       });
     }
 
-    getPlans();
+    function selectPlan(plan_details,form){
+      if (!form.$valid) {
+        var container = angular.element(document.getElementById('inf-wrapper'));
+        var invalidElement = document.getElementsByClassName("ng-invalid");
+        container.scrollToElement(invalidElement[1],150,100);
+        return false;
+      }
+    _instance.selectedPlan = plan_details;
+      if (!_instance.tipo.credit_card && !_instance.cardElement) {
+        showCreditCard();
+        return;
+      }else if(_instance.cardElement && !_instance.tipo.credit_card){
+        createToken(true);
+        return;
+      }
+    }
+
+    function enableEditmode(id){
+      _instance.edit_mode[id] = true;
+      _.each(_instance.edit_mode,function(value,key){
+        if (key !== id) {
+          _instance.edit_mode[key] = false;
+        }
+      })
+    }
     // Your business logic.
+
+    this.createToken = createToken;
+    this.showCreditCard = showCreditCard;
+    this.selectPlan = selectPlan;
+    this.getPlans = getPlans;
+    this.enableEditmode = enableEditmode;
 
   }
 
@@ -247,6 +390,9 @@
   .controller('MyTemplateController', MyTemplateController)
   .controller('TipoSubscribtionController', TipoSubscribtionController)
   .controller('TipoTypeController', TipoTypeController)
+  .controller('TipoS3Browser', TipoS3Browser)
+  .controller('TipoAppController', TipoAppController)
+  .controller('ChangePasswordController', ChangePasswordController)
   .service('TipoTypeService', TipoTypeService);
 
 })();

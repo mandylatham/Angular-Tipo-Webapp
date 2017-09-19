@@ -1,4 +1,96 @@
-<div layout="column" layout-align="center stretch" layout-margin layout-wrap ng-controller="TipoSubscribtionController as controller" id="tipoapp-app-list">
+<!-- Container -->
+<div layout="column" ng-controller="TipoSubscribtionController as controller">
+	<!--Plan Details -->
+	<md-content layout="row" layout-align="center center" layout-padding style="height: 175px;">
+		<div layout="row" layout-align="center center" layout-padding flex="75">
+			<div layout="row" layout-align="center center">
+				<span>Plan: </span>
+				<md-chips>
+			      <md-chip>{{controller.tipo.plan}}</md-chip>
+			    </md-chips>
+			</div>
+			<div>
+				<md-content layout="column" >
+	      			<md-list flex>
+	      				<!-- <md-list-item class="md-2-line" ng-repeat="detail in controller.tipo.quantity"> -->
+	      				<md-list-item >
+				          <md-icon flex="10">done</md-icon>
+				          <div class="md-list-item-text" flex="90">
+				            <h3> 1 App User</h3>
+				            <!-- <h3> {{ detail.quantity }} {{ detail.quantity_label }} </h3> -->
+				          </div>
+				        </md-list-item>
+				        <md-list-item >
+				          <md-icon flex="10">done</md-icon>
+				          <div class="md-list-item-text" flex="90">
+				            <h3> Annual Billing</h3>
+				            <!-- <h3> {{controller.tipo.duration}} Billing</h3> -->
+				            <!-- <h3> {{ detail.quantity }} {{ detail.quantity_label }} </h3> -->
+				          </div>
+				        </md-list-item>
+	      			</md-list>
+	      			<md-button class="md-primary md-raised">Edit Plan</md-button>
+	      		</md-content>
+			</div>
+			<md-divider direction="vertical" style="height: 100px;"></md-divider>
+			<div layout="column" layout-padding>
+				<!-- <span>${{controller.tipo.total_cost}}</span> -->
+				<span>$500</span>
+				<span>Next Renewal 2nd May 2018 </span>
+			</div>
+		</div>
+		<md-divider direction="vertical" style="height: 100%;"></md-divider>
+		<div layout="column" layout-padding flex="25">
+			<span>Credit Card Info</span>
+			<span>************4242</span>
+			<!-- <span>************{{controller.tipo.credit_card}}</span> -->
+			<md-button class="md-primary md-raised" ng-click="controller.showCreditCard()">Update Card Details</md-button>
+		</div>
+	</md-content>
+	<!--Plan Details -->
+	<!--Choose Plans -->
+	<md-select ng-model="controller.cycleSelected" md-on-close="controller.getPlans()">
+		<md-option value="" ></md-option>
+		<md-option ng-value="cycle" ng-repeat="cycle in controller.billing_cycles">{{ cycle.display_name }}</md-option>
+	</md-select>
+	<!--Choose Plans -->
+	<!-- Show Plans -->
+	<md-content layout="row" >
+		<form name="plandetails" layout="column" layout-align="start stretch" layout-padding flex="50" ng-repeat="plan in controller.plans">
+			<div style="height:50px;" md-colors="{background: 'primary-400'}">
+			</div>
+			<div class="md-subhead text-center" flex>{{plan.tipo_id}}</div>
+			<div class="md-subhead text-center" layout="row" layout-align="center center" flex ng-repeat="sub_plan in plan.stripe_subscription_plans" ng-if="controller.edit_mode[plan.tipo_id]">
+				<span flex="40">{{sub_plan.plane_name}}</span>
+				<tp:simple-dropdown name="{{plan.tipo_id + '_' + sub_plan.plane_name}}" ng-model="controller[plan.tipo_id][sub_plan.plane_name]" isarray="false" istiporequired="true" allowedvalues="controller.allowed_values" allowcreate="true" fieldvalue="controller[plan.tipo_id][sub_plan.plane_name]" flex="40" istiporequired="true"/>
+				<div ng-messages="plandetails[plan.tipo_id + '_' + sub_plan.plane_name].$error">
+					<div ng-message="required" >This is required.</div>
+				</div>
+			 <span flex="20">* {{sub_plan.plan_amount}}{{sub_plan.currency}}</span>
+			</div>
+			<div class="md-subhead text-center" layout="row" layout-align="center center" flex ng-repeat="sub_plan in plan.stripe_subscription_plans"  ng-if="!controller.edit_mode[plan.tipo_id]">
+				<span flex="40">{{sub_plan.plane_name}}</span>
+			 <span flex="20">{{sub_plan.plan_amount}}{{sub_plan.currency}}/user</span>
+			</div>
+			<md-button class="md-primary md-raised" ng-click="controller.selectPlan(controller[plan.tipo_id],plandetails)" ng-if="controller.edit_mode[plan.tipo_id]">Select</md-button>
+			<md-button class="md-primary md-raised" ng-click="controller.enableEditmode(plan.tipo_id)" ng-if="!controller.edit_mode[plan.tipo_id]">Choose Plan</md-button>
+		</form>
+	</md-content>
+	<!-- Show Plans -->
+	<!-- Credit Card Details -->
+	<div ng-hide="!controller.show_card">
+		<label for="card-element">Card</label>
+		<div id="card-element"></div>
+	</div>
+	<md-button class="md-primary md-raised" ng-click="controller.seletedPlan()" ng-if="controller.selectedPlan && controller.show_card">Complete Subscription</md-button>
+	<md-button class="md-primary md-raised" ng-click="controller.seletedPlan()" ng-if="!controller.selectedPlan && controller.show_card">Update Card Details</md-button>
+	<!-- Credit Card Details -->
+</div>
+<!--Container -->
+
+
+
+<!-- <div layout="column" layout-align="center stretch" layout-margin layout-wrap  id="tipoapp-app-list">
 	<md-table-container >
 		<table md-table md-row-select multiple ng-model="selected" md-progress="promise">
 			<thead md-head >
@@ -14,6 +106,12 @@
 					</th>
 					<th md-column>
 						Stripe Subscription ID
+					</th>
+					<th md-column>
+						Credit Card
+					</th>
+					<th md-column>
+						Add/Update Card
 					</th>
 				</tr>
 			</thead>
@@ -31,26 +129,32 @@
 					<td md-cell>
 						{{controller.tipo.stripe_subscription_id}}
 					</td>
+					<td md-cell>
+						{{controller.tipo.credit_card || 'N/A'}}
+					</td>
+					<td md-cell>
+						<md-button class="md-primary md-raised">Add/Update Card</md-button>
+					</td>
+
 				</tr>
 			</tbody>
 		</table>
 	</md-table-container>
 	<md-content layout="row" >
 		<div  layout="column" layout-align="start stretch" layout-padding flex="50" ng-repeat="plan in controller.plans">
-			<div style="height:50px;background:#40e0d0;">
+			<div style="height:50px;" md-colors="{background: 'primary-400'}">
 			</div>
-			<div class="md-subhead text-center" flex>{{plan.plan_name}}</div>
-			<div class="md-subhead text-center" flex>App Creator:
-				<tp:simple-dropdown ng-model="controller[plan.plan_name]['app_creator']" isarray="false" istiporequired="true" allowedvalues="controller.allowed_values" allowcreate="true" fieldvalue="controller[plan.plan_name]['app_creator']"/>
-			 ${{plan.creator_user.amount}}</div>
-			<div class="md-subhead text-center" flex>App User:
-				<tp:simple-dropdown ng-model="controller[plan.plan_name]['app_user']" isarray="false" istiporequired="true" allowedvalues="controller.allowed_values" allowcreate="true" fieldvalue="controller[plan.plan_name]['app_user']"/>
-			 ${{plan.app_user.amount}}</div>
-			 <md-button>Select</md-button>
+			<div class="md-subhead text-center" flex>{{plan.tipo_id}}</div>
+			<div class="md-subhead text-center" layout="row" layout-align="center center" flex ng-repeat="sub_plan in plan.stripe_subscription_plans">
+				<span flex="40">{{sub_plan.plane_name}}</span>
+				<tp:simple-dropdown ng-model="controller[plan.tipo_id][sub_plan.plane_name]" isarray="false" istiporequired="true" allowedvalues="controller.allowed_values" allowcreate="true" fieldvalue="controller[plan.tipo_id][sub_plan.plane_name]" flex="40"/>
+			 <span flex="20">* {{sub_plan.plan_amount}}{{sub_plan.currency}}</span>
+			</div>
+			<md-button class="md-primary md-raised" ng-click="controller.selectPlan(controller[plan.tipo_id])">Select</md-button>
 		</div>
 	</md-content>
 	<label for="card-element">Card</label>
 	<div id="card-element"></div>
 
-	<md-button class="md-primary" ng-click="controller.testStripr()">Test Stripe</md-button>
-</div>
+	<md-button class="md-primary md-raised" ng-click="controller.createToken()">Test Stripe</md-button>
+</div> 

@@ -13,6 +13,8 @@
         scope: {
           tipoName: '=',
           tipoFilters: '=',
+          multiSelect: '=',
+          filterLabel: '='
         },
         restrict: 'EA',
         replace: true,
@@ -55,7 +57,7 @@
               scope.selectedArray.splice(scope.selectedArray.indexOf(filter),1);
               scope.removeFromCurrentExpression();
             }else{
-              if ($stateParams.filter) {
+              if ($stateParams.filter && scope.multiSelect) {
               scope.currentFilters = scope.currentFilters + "&&" + filter.display_name;
               }else{
                 scope.currentFilters = filter.display_name;
