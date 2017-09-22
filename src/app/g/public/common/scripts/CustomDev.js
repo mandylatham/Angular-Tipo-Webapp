@@ -288,6 +288,7 @@
     var _instance = this;
     /** In case of detail/edit/create pages, the tipo object that contains the data from server. */
     _instance.tipo = $scope.tipoRootController.tipo;
+    $scope.tipoRootController.hide_actions = true;
     _instance.plans = [];
     _instance.allowed_values =  _.range(1, 11);
     _instance.edit_mode = {};
@@ -295,20 +296,24 @@
     
     function getPlans(change){
       var params = {};
+      _instance.inProgress = true;
       params.short_display = 'N';
       if (!change) {
         selectCycle();
       };
-      params.tipo_filter = _instance.cycleSelected.filter_expression;
+      params.tipo_filter = "(!(inactive:true))"
+      params.tipo_filter = params.tipo_filter + ' AND ' + _instance.cycleSelected.filter_expression;
       if (_instance.edit_current_plan) {
         params.tipo_filter = params.tipo_filter + 'AND (plan_group:' + (_instance.tipo.plan_group ) + ')';
       };
       tipoHandle.getTipos(tipo_plan,params).then(function(response){
         _instance.plans = response;
+        _instance.inProgress = false;
       })
     }
     function selectCycle(){
       _instance.cycleSelected = _.find(_instance.billing_cycles, function(o) { return o.display_name === _instance.tipo.billing_cycle; });
+      _instance.selectedIndex = _.findIndex(_instance.billing_cycles, function(o) { return o.display_name === _instance.tipo.billing_cycle; }) || 0;
       _instance.cycleSelected = _instance.cycleSelected || _instance.billing_cycles[0];
     }
     function getBillingCycles(){
