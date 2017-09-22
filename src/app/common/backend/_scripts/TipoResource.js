@@ -5,6 +5,8 @@
   var deviceInformation = {};
 
   function getAllInterceptors(
+    tipoRouter,
+    $rootScope,
     securityContextService,
     tipoErrorHandler,
     tipoCache,
@@ -132,7 +134,13 @@
             });
             return false;
           } else {
-            tipoErrorHandler.handleError(response, deferred);
+            if (response.data.message === "No active subscription found.") {
+              // $rootScope.readonly = true;
+              // tipoRouter.toTipoView("TipoSubscriptions","default");
+              tipoErrorHandler.handleError(response, deferred);
+            }else{
+              tipoErrorHandler.handleError(response, deferred);
+            }
           }
           return true;
         }
@@ -143,6 +151,8 @@
   // Configures Restangular for API interactions
   function configureRestangular(
     RestangularConfigurer,
+    tipoRouter,
+    $rootScope,
     securityContextService,
     tipoErrorHandler,
     tipoCache,
@@ -154,7 +164,7 @@
     $q,
     $window) {
 
-    var interceptors = getAllInterceptors(securityContextService, tipoErrorHandler, tipoCache, cognitoService,$templateCache, $cacheFactory, $location, $http, $q);
+    var interceptors = getAllInterceptors(tipoRouter,$rootScope,securityContextService, tipoErrorHandler, tipoCache, cognitoService,$templateCache, $cacheFactory, $location, $http, $q);
     var location = $window.location;
     var relativeUrl = location.pathname;
     if (_.startsWith(relativeUrl, '/app')) {
@@ -187,6 +197,8 @@
   function TipoResource(
     Restangular,
     securityContextService,
+    $rootScope,
+    tipoRouter,
     tipoErrorHandler,
     tipoCache,
     cognitoService,
@@ -200,7 +212,7 @@
     deviceInformation = $.ua.device;
     var isSmallScreen = $mdMedia('xs');
     deviceInformation.isMobile = isSmallScreen || deviceInformation.type === 'mobile';
-    var factory = Restangular.withConfig(_.partialRight(configureRestangular, securityContextService, tipoErrorHandler, tipoCache, cognitoService,$templateCache, $cacheFactory, $location, $http, $q, $window));
+    var factory = Restangular.withConfig(_.partialRight(configureRestangular,tipoRouter, $rootScope, securityContextService, tipoErrorHandler, tipoCache, cognitoService,$templateCache, $cacheFactory, $location, $http, $q, $window));
     return factory;
   }
 

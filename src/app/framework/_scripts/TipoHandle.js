@@ -140,10 +140,15 @@
      }
 
      function getTipoDefinition(tipo_name, disableExpansion){
-      return tipoDefinitionDataService.getOne(tipo_name, disableExpansion);
+      tipoRouter.startStateChange();
+      return tipoDefinitionDataService.getOne(tipo_name, disableExpansion).then(function(response){
+          tipoRouter.endStateChange();
+          return response;
+        });
      }
 
      function callAction(tipo_name, action_name, selected_tipo_ids, additional_tipo_name, additional_tipo){
+      tipoRouter.startStateChange();
       if (selected_tipo_ids.length === 1) {
         return tipoInstanceDataService.performSingleAction(tipo_name,selected_tipo_ids[0],action_name,additional_tipo_name,additional_tipo).then(function(response){
           tipoRouter.endStateChange();
@@ -162,8 +167,24 @@
       $q.when(true);
      }
 
+     function toTipo(mode,tipo_name,tipo_id){
+      if (mode === 'view') {
+        tipoRouter.toTipoView(tipo_name,tipo_id);
+      }else if(mode === 'edit'){
+        tipoRouter.toTipoEdit(tipo_name,tipo_id);
+      }else if(mode === 'create'){
+        tipoRouter.toTipoCreate(tipo_name);
+      }else if (mode === 'list' ) {
+        tipoRouter.toTipoView(tipo_name);
+      };
+     }
+
      function saveTipo(tipo_name, tipo_id, tipo_data){
-      return tipoInstanceDataService.updateOne(tipo_name,tipo_data,tipo_id);
+      tipoRouter.startStateChange();
+      return tipoInstanceDataService.updateOne(tipo_name,tipo_data,tipo_id).then(function(response){
+          tipoRouter.endStateChange();
+          return response;
+        });
      }
 
      function saveTipos(tipo_name, tipo_data){
@@ -189,8 +210,12 @@
      }
 
      function getTipos(tipo_name, query_params){
+      tipoRouter.startStateChange();
       query_params = tipoManipulationService.checkQueryParams(query_params);
-      return tipoInstanceDataService.search(tipo_name,query_params);
+      return tipoInstanceDataService.search(tipo_name,query_params).then(function(response){
+        tipoRouter.endStateChange();
+        return response;
+      });
      }
 
 
@@ -284,6 +309,7 @@
      this.detailUrl = detailUrl;
      this.listUrl = listUrl;
      this.deleteItemFromArray = deleteItemFromArray;
+     this.toTipo = toTipo;
      this.getISODate = getISODate;
 
 

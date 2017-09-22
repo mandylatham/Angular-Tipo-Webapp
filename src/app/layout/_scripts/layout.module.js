@@ -36,7 +36,7 @@
       parent: 'root',
       resolve: /*@ngInject*/
       {
-        userMetadata: function(metadataService, $stateParams, securityContextService){
+        userMetadata: function(metadataService, $stateParams, securityContextService, $rootScope){
           if ($stateParams.mobile_auth) {
             var auth = decodeURIComponent($stateParams.mobile_auth);
             var authArray = auth.split(';');
@@ -46,15 +46,24 @@
               'loggedInUser': authArray[0]
             });
           };
-          return metadataService.loadUserMetadata();
+          if (!$rootScope.readonly) {
+            return metadataService.loadUserMetadata();
+          }else{
+            return {};
+          }
         },
         parentPromise: function(tipoDefinitionDataService, tipoManipulationService, userMetadata, $stateParams, $rootScope){
           var perspective = $stateParams.perspective || 'Home';
           var tipo = perspective.split('.')[0];
-          return tipoDefinitionDataService.getOne(tipo).then(function(){
-            $rootScope.perspective = perspective;
-            return tipoManipulationService.resolvePerspectiveMetadata(perspective);
-          });
+          if (!$rootScope.readonly) {
+            return tipoDefinitionDataService.getOne(tipo).then(function(){
+              $rootScope.perspective = perspective;
+              return tipoManipulationService.resolvePerspectiveMetadata(perspective);
+            });
+          }else{
+            var promise = tipoManipulationService.resolvePerspectiveMetadata(perspective);
+            return $q.when(promise);
+          }
         }
       },
       controller: /*@ngInject*/ function($scope, $rootScope){

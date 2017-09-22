@@ -78,7 +78,7 @@
 
     var userMeta = metadataService.userMetadata;
     var homeMeta = tipoRegistry.get('Home');
-    if (_.isUndefined(homeMeta)) {
+    if (_.isUndefined(homeMeta) && !$rootScope.readonly) {
       tipoDefinitionDataService.getOne('Home').then(function(definition){
         homeMeta = definition;
         addPerspectives(userMeta,homeMeta);

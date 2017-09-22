@@ -527,36 +527,40 @@
     }
 
     function resolvePerspectiveMetadata(perspective){
-      perspective = perspective || $rootScope.perspective;
-      var parts = perspective.split('.');
-      var tipoName = parts[0];
-      var tipoDefinition = tipoRegistry.get(tipoName);
-      var displayName;
-      if (tipoDefinition) {
-        displayName = tipoDefinition.tipo_meta.display_name;
-      };
-      var metadata = {
-        perspective: perspective,
-        tipoName: tipoName,
-        displayName: displayName
-      };
+      if (!$rootScope.readonly) {
+        perspective = perspective || $rootScope.perspective;
+        var parts = perspective.split('.');
+        var tipoName = parts[0];
+        var tipoDefinition = tipoRegistry.get(tipoName);
+        var displayName;
+        if (tipoDefinition) {
+          displayName = tipoDefinition.tipo_meta.display_name;
+        };
+        var metadata = {
+          perspective: perspective,
+          tipoName: tipoName,
+          displayName: displayName
+        };
 
-      if(parts.length > 1){
-        var tipoId = parts[1];
-        if(tipoId === 'default'){
-          metadata.singleton = true;
+        if(parts.length > 1){
+          var tipoId = parts[1];
+          if(tipoId === 'default'){
+            metadata.singleton = true;
+          }else{
+            var fieldName = tipoDefinition.tipo_meta.perspective_field_name || _.snakeCase(tipoName);
+            // var fieldName = _.snakeCase(tipoName);
+            metadata.fieldName = fieldName;
+            metadata.tipoId = tipoId;
+            metadata.tipoFilter = '(' + fieldName + ':(' + tipoId + '))';
+          }
         }else{
-          var fieldName = tipoDefinition.tipo_meta.perspective_field_name || _.snakeCase(tipoName);
-          // var fieldName = _.snakeCase(tipoName);
-          metadata.fieldName = fieldName;
-          metadata.tipoId = tipoId;
-          metadata.tipoFilter = '(' + fieldName + ':(' + tipoId + '))';
+          metadata.abstract = true;
         }
-      }else{
-        metadata.abstract = true;
-      }
 
-      return metadata;
+        return metadata;
+      }else{
+        return {};
+      }
     }
 
     function modifyTipoData(tipoData){

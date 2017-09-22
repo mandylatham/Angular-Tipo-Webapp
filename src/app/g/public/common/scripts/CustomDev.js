@@ -282,7 +282,8 @@
   function TipoSubscribtionController(
   tipoHandle,
     $window,
-    $scope) {
+    $scope,
+    $mdDialog) {
 
     var _instance = this;
     /** In case of detail/edit/create pages, the tipo object that contains the data from server. */
@@ -292,80 +293,171 @@
     _instance.edit_mode = {};
     var tipo_plan = "TipoPlans";
     
-    function getPlans(){
+    function getPlans(change){
       var params = {};
       params.short_display = 'N';
+      if (!change) {
+        selectCycle();
+      };
       params.tipo_filter = _instance.cycleSelected.filter_expression;
+      if (_instance.edit_current_plan) {
+        params.tipo_filter = params.tipo_filter + 'AND (plan_group:' + (_instance.tipo.plan_group ) + ')';
+      };
       tipoHandle.getTipos(tipo_plan,params).then(function(response){
         _instance.plans = response;
       })
     }
+    function selectCycle(){
+      _instance.cycleSelected = _.find(_instance.billing_cycles, function(o) { return o.display_name === _instance.tipo.billing_cycle; });
+      _instance.cycleSelected = _instance.cycleSelected || _instance.billing_cycles[0];
+    }
     function getBillingCycles(){
       tipoHandle.getTipoDefinition(tipo_plan,true).then(function(plan_def){
         _instance.billing_cycles = plan_def.tipo_list.filters;
-        _instance.cycleSelected = plan_def.tipo_list.filters[0];
         getPlans();
       })
     }
     getBillingCycles();
     function showCreditCard(){
-      _instance.show_card = true;
-      _instance.stripe = Stripe('pk_test_JD6zYPAyxr6qz1pVtzSphiYQ');
-      var elements = _instance.stripe.elements();
-      var style = {
-        base: {
-          color: '#303238',
-          fontSize: '16px',
-          lineHeight: '48px',
-          fontSmoothing: 'antialiased',
-          '::placeholder': {
-            color: '#ccc',
-          },
+      var promise = $mdDialog.show({
+        controller: function cardController($scope,$mdDialog) {
+
+          $scope.initCard = function(){
+            $scope.show_card = true;
+            $scope.stripe = Stripe('pk_test_JD6zYPAyxr6qz1pVtzSphiYQ');
+            var elements = $scope.stripe.elements();
+            var style = {
+              base: {
+                color: '#303238',
+                fontSize: '16px',
+                lineHeight: '48px',
+                fontSmoothing: 'antialiased',
+                '::placeholder': {
+                  color: '#ccc',
+                },
+              },
+              invalid: {
+                color: '#e5424d',
+                ':focus': {
+                  color: '#303238',
+                },
+              },
+            };
+            $scope.cardElement = elements.create('card', {style: style});
+            $scope.cardElement.mount('#card-element');
+            endwatch();
+          }
+
+          $scope.createToken = function(){
+            $scope.stripe.createToken($scope.cardElement).then(function(result) {
+              if (result.error) {
+                // Inform the user if there was an error
+                var errorElement = document.getElementById('card-errors');
+                errorElement.textContent = result.error.message;
+              } else {
+                // Send the token to your server
+                $mdDialog.hide(result); 
+              }
+            });
+          }
+
+          var endwatch = $scope.$watch(function(){return angular.element(document.getElementById('card-element'));},function(newval){
+            if (newval) {
+              $scope.initCard()
+            };
+          })
         },
-        invalid: {
-          color: '#e5424d',
-          ':focus': {
-            color: '#303238',
-          },
-        },
-      };
-      _instance.cardElement = elements.create('card', {style: style});
-      _instance.cardElement.mount('#card-element');
-      var container = angular.element(document.getElementById('inf-wrapper'));
-      var scrollTo = angular.element(document.getElementById('card-element'));
-      container.scrollToElement(scrollTo,150,100);
+        template: "<md-dialog style='width:50%'><md-dialog-content layout='column' layout-padding><div layout='row' layout-align='center center'><label for='card-element' flex='20'>Card</label><div id='card-element' flex='80'></div></div><md-button class='md-primary md-raised' ng-click='createToken()'>Update Card Details</md-button></md-dialog-content></md-dialog>",
+        targetEvent: event,
+        escapeToClose: true,
+        skipHide: true,
+        clickOutsideToClose: true,
+        fullscreen: true
+      });
+      promise.then(function(result){
+        createToken(result);
+      })
+      // _instance.cardElement.mount('#card-element');
+      // var container = angular.element(document.getElementById('inf-wrapper'));
+      // var scrollTo = angular.element(document.getElementById('card-element'));
+      // container.scrollToElement(scrollTo,150,100);
     }
 
-    function createToken(saveplan){
-      _instance.stripe.createToken(_instance.cardElement).then(function(result) {
-        if (result.error) {
-          // Inform the user if there was an error
-          var errorElement = document.getElementById('card-errors');
-          errorElement.textContent = result.error.message;
-        } else {
-          // Send the token to your server
-          tipoHandle.callAction($scope.tipoRootController.tipo_name,'attach_card',[_instance.tipo.tipo_id],$scope.tipoRootController.tipo_name,{token_source: result.token.id}).then(function(response){
-            console.log(response);
-          })
+    function createToken(result){
+      tipoHandle.callAction($scope.tipoRootController.tipo_name,'attach_card',[_instance.tipo.tipo_id],$scope.tipoRootController.tipo_name,{token_source: result.token.id}).then(function(response){
+        console.log(response);
+        _instance.last4 = response.last4;
+        _instance.card_token = result.token.id;
+        if (_instance.selectedPlan) {
+          var subscription = mapSubscrtoPlan();
+        }else{
+          var subscription = mapCardinfo();
         }
+
+        saveSubscription(subscription);
       });
     }
+    function mapSubscrtoPlan(){
+      var subscription = _instance.tipo;
+      subscription.plan = _instance.selectedPlan.tipo_id;
+      subscription.plan_group = _instance.selectedPlan.plan_group;
+      subscription.billing_cycle = _instance.cycleSelected.display_name;
+      subscription.credit_card = _instance.last4 || _instance.tipo.credit_card;
+      subscription.card_token = _instance.card_token || _instance.tipo.card_token;
+      subscription.plan_interval = _instance.selectedPlan.plan_period.plan_interval;
+      subscription.plan_period_ = _instance.selectedPlan.plan_period.plan_period;
+      subscription.total_cost = _instance.total_cost
+      delete subscription.plan_period;
+      _instance.selectedPlan.stripe_subscription_plans = _.sortBy(_instance.selectedPlan.stripe_subscription_plans, [function(o) { return o.plan_id; }]);
+      subscription.plan_items = _.sortBy(subscription.plan_items, [function(o) { return o.item_id; }]);
+      _.each(_instance.selectedPlan.stripe_subscription_plans,function(each_item,key){
+        if (!subscription.plan_items[key]) {
+          subscription.plan_items.push({external_item_id: ""});
+        };
+        subscription.plan_items[key].item_id = each_item.plan_id;
+        subscription.plan_items[key].item = each_item.plane_name;
+        subscription.plan_items[key].currency = each_item.currency;
+        subscription.plan_items[key].amount = each_item.plan_amount;
+        subscription.plan_items[key].quantity = _instance.plan_quantity[each_item.plane_name];
+      });
+      return subscription;
+    }
 
-    function selectPlan(plan_details,form){
-      if (!form.$valid) {
+    function mapCardinfo(){
+      var subscription = _instance.tipo;
+      subscription.credit_card = _instance.last4 || _instance.tipo.credit_card;
+      subscription.card_token = _instance.card_token || _instance.tipo.card_token;
+      return subscription;
+    }
+
+    function saveSubscription(subscription){
+      tipoHandle.saveTipo($scope.tipoRootController.tipo_name, 'default', subscription).then(function(response){
+        tipoHandle.toTipo("view",$scope.tipoRootController.tipo_name,'default');
+      })
+    }
+
+    function selectPlan(plan_quantity,plan,form){
+      if (form && !form.$valid) {
         var container = angular.element(document.getElementById('inf-wrapper'));
         var invalidElement = document.getElementsByClassName("ng-invalid");
         container.scrollToElement(invalidElement[1],150,100);
         return false;
       }
-    _instance.selectedPlan = plan_details;
+      _instance.selectedPlan = plan;
+      _instance.plan_quantity = plan_quantity;
+      getTotalCost(plan_quantity,plan)
       if (!_instance.tipo.credit_card && !_instance.cardElement) {
         showCreditCard();
         return;
-      }else if(_instance.cardElement && !_instance.tipo.credit_card){
-        createToken(true);
-        return;
+      }else{
+        var subscription = mapSubscrtoPlan();
+        saveSubscription(subscription);
       }
+    }
+
+    function deselectPlan(){
+      _instance.edit_current_plan = false;
+      getPlans();
     }
 
     function enableEditmode(id){
@@ -376,6 +468,22 @@
         }
       })
     }
+
+    function collapseAll(){
+      _instance.collapsed = !_instance.collapsed;
+      _.each(_instance.edit_mode,function(value,key){
+        delete _instance.edit_mode[key];
+      });
+    }
+
+    function getTotalCost(plan_quantity,plan){
+      var total_cost = 0;
+      _.each(plan.stripe_subscription_plans,function(each_item){
+        total_cost = total_cost + (each_item.plan_amount * (plan_quantity[each_item.plane_name] || 0));
+      });
+      _instance.total_cost = total_cost;
+    }
+    _instance.total_cost = 0;
     // Your business logic.
 
     this.createToken = createToken;
@@ -383,6 +491,9 @@
     this.selectPlan = selectPlan;
     this.getPlans = getPlans;
     this.enableEditmode = enableEditmode;
+    this.getTotalCost = getTotalCost;
+    this.deselectPlan = deselectPlan;
+    this.collapseAll = collapseAll;
 
   }
 

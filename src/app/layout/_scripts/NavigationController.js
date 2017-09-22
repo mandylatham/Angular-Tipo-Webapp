@@ -176,7 +176,9 @@
     };
 
     $scope.$watch(function(){return $rootScope.perspective;}, function(newValue, oldValue){
-      prepareMenu(newValue);
+      if (!$rootScope.readonly) {
+        prepareMenu(newValue);
+      };
     });
     $scope.$watch(function(){return _instance.menu;}, function(newValue, oldValue){
       if (!_.isUndefined(newValue) && $state.current.name === "dashboard") {
@@ -185,7 +187,9 @@
     });
 
     $scope.$on('$stateChangeSuccess', function() {
-     markActiveItem(_instance.menu);
+      if (!$rootScope.readonly) {
+        markActiveItem(_instance.menu);
+      }
     });
 
     // TODO: Hard-coded list of client actions. This needs to be extracted out and made configurable in future
