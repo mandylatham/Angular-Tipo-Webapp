@@ -71,6 +71,10 @@
         _instance.userMetadata = profile;
         _instance.cckey = checksum(profile.account + '.' + profile.role);
         return profile;
+      },function(error){
+        console.log("error");
+        console.log(error);
+        return {};
       });
     };
 

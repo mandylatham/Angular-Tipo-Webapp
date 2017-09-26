@@ -44,6 +44,9 @@
               if(tipo.key === selected.key){
                 tipo.selected = true;
               }
+              if (tipo.edit) {
+                tipo.edit = false;
+              };
             })
           });
         _.each(_instance.tipos, function(tipo){
@@ -51,6 +54,9 @@
               if((tipo[$scope.key_field] === selected.key || tipo[$scope.key_field] === selected[$scope.key_field]) && !_.isUndefined(tipo[$scope.key_field])){
                 tipo.selected = true;
               }
+              if (tipo.edit) {
+                tipo.edit = false;
+              };
             })
           });
       };

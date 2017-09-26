@@ -78,14 +78,19 @@
 
     var userMeta = metadataService.userMetadata;
     var homeMeta = tipoRegistry.get('Home');
-    if (_.isUndefined(homeMeta) && !$rootScope.readonly) {
+    if (!$rootScope.readonly) {
+      if (_.isUndefined(homeMeta)) {
       tipoDefinitionDataService.getOne('Home').then(function(definition){
         homeMeta = definition;
         addPerspectives(userMeta,homeMeta);
-      });
+        });
+      }else{
+        addPerspectives(userMeta,homeMeta);
+      };
     }else{
-      addPerspectives(userMeta,homeMeta);
-    };
+      _instance.hideheader = true;
+      _instance.hidesidemenu = true;
+    }
 
     _instance.reload = function () {
       tipoRouter.reloadCurrent();

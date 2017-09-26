@@ -29,6 +29,11 @@
           controller: 'TipoListRootController',
           controllerAs: 'tipoRootController'
         }
+      },
+      onEnter: /*@ngInject*/ function ($stateParams, $rootScope,tipoRouter) {
+        if ($rootScope.readonly && $stateParams.tipo_name !== $rootScope.readonlytiponame) {
+          tipoRouter[$rootScope.readonlyrf]($rootScope.readonlytiponame,$rootScope.readonlyid);
+        }
       }
     };
 
@@ -71,6 +76,11 @@
           controller: 'TipoEditRootController',
           controllerAs: 'tipoRootController'
         }
+      },
+      onEnter: /*@ngInject*/ function (tipo, $stateParams, $rootScope,tipoRouter) {
+        if ($rootScope.readonly && $stateParams.tipo_name !== $rootScope.readonlytiponame) {
+          tipoRouter[$rootScope.readonlyrf]($rootScope.readonlytiponame,$rootScope.readonlyid);
+        }
       }
     };
 
@@ -99,15 +109,19 @@
           $stateParams.perspectiveTipo = tipo;
           return tipo;
         },
-      tipoDefinition: function (tipoHandle, tipoManipulationService, tipo, $stateParams) {
-          $stateParams.perspectiveTipo = tipo;
-          var tipoDefinition = tipoHandle.getTipoDefinition($stateParams.tipo_name).then(function (definition) {
-            if (!_.isUndefined(definition)) {
-              tipoManipulationService.mergeDefinitionAndData(definition, tipo);
-            }
-            return definition;
-          });
-          return tipoDefinition;
+      tipoDefinition: function (tipoHandle, tipoManipulationService, tipo, $stateParams, $rootScope, $q) {
+          if (!$rootScope.readonly) {
+            $stateParams.perspectiveTipo = tipo;
+            var tipoDefinition = tipoHandle.getTipoDefinition($stateParams.tipo_name).then(function (definition) {
+              if (!_.isUndefined(definition)) {
+                tipoManipulationService.mergeDefinitionAndData(definition, tipo);
+              }
+              return definition;
+            });
+            return tipoDefinition;
+          }else{
+            return $q.when({})
+          }
         },
         delay: function ($q, $timeout) {
           return falseDelay($q, $timeout);
@@ -120,11 +134,17 @@
           controllerAs: 'tipoRootController'
         }
       },
-      onEnter: /*@ngInject*/ function (tipoDefinition, tipo, $stateParams, $rootScope) {
+      onEnter: /*@ngInject*/ function (tipoDefinition, tipo, $stateParams, $rootScope,tipoRouter) {
+        if (!$rootScope.readonly) {
         var type = tipoDefinition.tipo_meta.tipo_ui_type;
-        if (type === 'perspective') {
-          $rootScope.perspective = tipoDefinition.tipo_meta.tipo_name + '.' + tipo.tipo_id;
-          $stateParams.perspective = tipoDefinition.tipo_meta.tipo_name + '.' + tipo.tipo_id;
+          if (type === 'perspective') {
+            $rootScope.perspective = tipoDefinition.tipo_meta.tipo_name + '.' + tipo.tipo_id;
+            $stateParams.perspective = tipoDefinition.tipo_meta.tipo_name + '.' + tipo.tipo_id;
+          }
+        }else{
+          if ($stateParams.tipo_name !== $rootScope.readonlytiponame) {
+            tipoRouter[$rootScope.readonlyrf]($rootScope.readonlytiponame,$rootScope.readonlyid);
+          };
         }
       }
     };
@@ -148,7 +168,11 @@
           controllerAs: 'tipoRootController'
         }
       },
-      onEnter: /*@ngInject*/ function ($rootScope) {}
+      onEnter: /*@ngInject*/ function (tipo, $stateParams, $rootScope,tipoRouter) {
+        if ($rootScope.readonly && $stateParams.tipo_name !== $rootScope.readonlytiponame) {
+          tipoRouter[$rootScope.readonlyrf]($rootScope.readonlytiponame,$rootScope.readonlyid);
+        }
+      }
     };
 
     var subTipoListState = {

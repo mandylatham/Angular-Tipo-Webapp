@@ -111,7 +111,8 @@
                       $filter,
                       $stateParams){
 
-    var role = metadataService.userMetadata.role;
+    // var role = metadataService.userMetadata.role;
+    var role = "ProfessionalPlanRole";
     
      function getConfirmation(title, user_message){
        var confirmation = $mdDialog.confirm()

@@ -9,13 +9,16 @@
       parent: 'layout',
       resolve: /*@ngInject*/
       {
-        menu: function(parentPromise, tipoDefinitionDataService, tipoManipulationService, $rootScope) {
+        menu: function(parentPromise, tipoDefinitionDataService, tipoManipulationService, $rootScope, $q, tipoRouter) {
           if (!$rootScope.readonly) {
             var perspective = $rootScope.perspective;
             var tipo = perspective.split('.')[0];
             return tipoDefinitionDataService.getOne(tipo).then(function(definition){
               return tipoManipulationService.prepareMenu(perspective, definition);
             });
+          }else{
+            // tipoRouter[$rootScope.readonlyrf]($rootScope.readonlytiponame,$rootScope.readonlyid);
+            $q.when({});
           }
         }
       },

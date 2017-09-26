@@ -22,11 +22,10 @@
 
     var _instance = this;
     _instance.tipoHandle = tipoHandle;
-    var role = metadataService.userMetadata.role;
     var tipo_name = $stateParams.tipo_name;
     _instance.tipo_name = $stateParams.tipo_name;
     $scope.data_handle = {};
-    _instance.listUrl = "g/public/gen_temp/common/views/list.tpl.html." + role + "___" + $stateParams.tipo_name;
+    _instance.listUrl = tipoHandle.listUrl(tipo_name);
 
     if ($stateParams.tab_url) {
       var resData = tipoRegistry.get($stateParams.tab_url);

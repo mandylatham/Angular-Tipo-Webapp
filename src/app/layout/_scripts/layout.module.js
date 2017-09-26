@@ -36,7 +36,7 @@
       parent: 'root',
       resolve: /*@ngInject*/
       {
-        userMetadata: function(metadataService, $stateParams, securityContextService, $rootScope){
+        userMetadata: function(metadataService, $stateParams, securityContextService, $rootScope,$q){
           if ($stateParams.mobile_auth) {
             var auth = decodeURIComponent($stateParams.mobile_auth);
             var authArray = auth.split(';');
@@ -49,10 +49,10 @@
           if (!$rootScope.readonly) {
             return metadataService.loadUserMetadata();
           }else{
-            return {};
+            return $q.when({});
           }
         },
-        parentPromise: function(tipoDefinitionDataService, tipoManipulationService, userMetadata, $stateParams, $rootScope){
+        parentPromise: function(tipoDefinitionDataService, tipoManipulationService, userMetadata, $stateParams, $rootScope,$q){
           var perspective = $stateParams.perspective || 'Home';
           var tipo = perspective.split('.')[0];
           if (!$rootScope.readonly) {

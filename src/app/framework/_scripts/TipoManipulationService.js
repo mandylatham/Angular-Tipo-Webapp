@@ -559,7 +559,7 @@
 
         return metadata;
       }else{
-        return {};
+        return {perspective: null};
       }
     }
 

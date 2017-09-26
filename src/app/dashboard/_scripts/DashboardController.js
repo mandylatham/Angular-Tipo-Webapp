@@ -37,6 +37,9 @@
       }
     };
 
+    if ($rootScope.readonly) {
+      tipoRouter[$rootScope.readonlyrf]($rootScope.readonlytiponame,$rootScope.readonlyid);
+    };
     verifyConfirmationCode();
 
     // tipoRouter.toMenuItem(menu[0]);

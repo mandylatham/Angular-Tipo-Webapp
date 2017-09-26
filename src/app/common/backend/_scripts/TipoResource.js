@@ -134,10 +134,13 @@
             });
             return false;
           } else {
-            if (response.data.message === "No active subscription found.") {
-              // $rootScope.readonly = true;
+            if (response.status === 520) {
+              $rootScope.readonly = true;
+              $rootScope.readonlytiponame = "TipoSubscriptions";
+              $rootScope.readonlyid = "default";
+              $rootScope.readonlyrf = "toTipoView";
               // tipoRouter.toTipoView("TipoSubscriptions","default");
-              tipoErrorHandler.handleError(response, deferred);
+              // tipoErrorHandler.handleError(response, deferred);
             }else{
               tipoErrorHandler.handleError(response, deferred);
             }
