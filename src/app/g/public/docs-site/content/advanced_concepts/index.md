@@ -359,10 +359,6 @@ the default_field is searched for the search terms, but it is possible to specif
 status:active
 ```
 
- - Where the `title` field contains `quick` or `brown`. If you omit the OR operator the default operator will be used
- 
-TODO: What is the default operator?
-
 ```
 title:(quick OR brown)
 title:(quick brown)
@@ -381,9 +377,7 @@ Wildcard searches can be run on individual terms, using `?` to replace a single 
 qu?ck bro*
 ```
 
-TODO: Should I include the memory warning. Does it apply to TT?
-
-####Regular expressions
+#### Regular expressions
 Regular expression patterns can be embedded in the query string by wrapping them in forward-slashes (`/`):
 
 ```
@@ -501,11 +495,26 @@ TODO
 ## Menu Access Control
 TODO
 
-## Custom Actions
+## Actions
+Use of Actions is a way of extending your application to provide custom functionality through
+
+## Client-side Actions
 TODO
 
 ## Cloud Functions
 TODO
+
+1. List View Actions - 
+bulk acitons
+single actions
+JS only action - with javascript code behind the action.
+
+2.  Detail View Actions 
+Single action 
+
+Client side dependencies 
+
+Server Side Dependencies
 
 ## Further App Customization
 ### Customizing Select Menus
@@ -571,4 +580,5 @@ Below is an example of a CSS style you can use to set different styles for diffe
 Below you can see how the field of a student who is Enrolled would look like.
 
 ![Relationship Settings](/images/advanced_concepts/image_016.png)
+
 

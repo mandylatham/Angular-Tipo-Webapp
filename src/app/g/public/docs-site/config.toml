@@ -87,3 +87,8 @@ googleAnalytics = "UA-92686434-1"
 	name   = "Server Side Customisations"
 	url    = "server_side_customisations/"
 	weight = 9
+	
+[[menu.main]]
+	name   = "Actions"
+	url    = "actions/"
+	weight = 10
