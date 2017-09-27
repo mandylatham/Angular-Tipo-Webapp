@@ -361,7 +361,7 @@
                 searchCriteria.tipo_filter = "("+key_field+":(" + searchText + "*) OR " + label_field + ":(" + searchText + "*))";
               }
             };
-            searchCriteria.short_display = 'N';
+            searchCriteria.list_display = 'N';
             scope.searchCriteria = searchCriteria;
             if(typeof tipoCustomJavascript[$stateParams.tipo_name + '_' + scope.fqfieldname.replace(".","_").replace(/\[\d\]/g, "") + '_BeforeLookup'] === 'function'){
               scope.data_handle.root = scope.root;
