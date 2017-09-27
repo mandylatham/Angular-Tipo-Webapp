@@ -133,10 +133,6 @@
       label: "Location",
       icon: "location_on",
     },{
-      key: "s3explorer",
-      label: "S3 Browser",
-      icon: "open_in_browser",
-    },{
       key: "visualisation",
       label: "Visualisation",
       icon: "insert_chart",
