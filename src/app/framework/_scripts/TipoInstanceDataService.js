@@ -57,8 +57,8 @@
 
     _instance.search = function(tipo_name, criteria, reload){
       criteria = criteria || {};
-      if (!criteria.short_display) {
-        criteria.short_display = 'Y';
+      if (!criteria.list_display) {
+        criteria.list_display = 'Y';
       };
       criteria.cckey = metadataService.cckey;
       var headers = {};
@@ -225,7 +225,7 @@
 
     _instance.xAndYAxisData = function(report_config){
       var criteria = {};
-      criteria.short_display = 'N';
+      criteria.list_display = 'N';
       criteria.per_page = '1000';
       return report_config.reduce(function(promise,config){
         return promise.then(function(){
@@ -236,7 +236,7 @@
 
     _instance.aggegrationData = function(report_config){
       var criteria = {};
-      criteria.short_display = 'N';
+      criteria.list_display = 'N';
       criteria.per_page = '1000';
       criteria.aggs = {"count_category": {
           "terms":{

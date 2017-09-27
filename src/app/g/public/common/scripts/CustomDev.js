@@ -297,7 +297,7 @@
     function getPlans(change){
       var params = {};
       _instance.inProgress = true;
-      params.short_display = 'N';
+      params.list_display = 'N';
       if (!change) {
         selectCycle();
       };
