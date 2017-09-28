@@ -4,7 +4,7 @@ weight: 10
 ---
 
 ## Introduction
-Actions are a way of extending your application to provide custom functionality via buttons that run code that you specify. If you have used TipoTapp, then you have come upon Actions several times, On the UI, you have been engaging with controls at the top-right side of the screen. You can see an example of these below.
+Actions are a way of extending your application to provide custom functionality via buttons that run code that you specify. If you have used TipoTapp, then you have come upon Actions several times. On the UI, you have been engaging with controls at the top-right side of the screen. You can see an example of these below.
 
 ![Actions](/images/actions/image_001.png)
 
@@ -20,7 +20,7 @@ As mentioned, you can create an Action that runs code that is defined locally on
 
 We'll create an Action on the Detail view of the Student Tipo, that will log some information about a particular record.
 
-To create the Action, edit the Tipo and open the `View` tab. Open the Advanced Editor of `View` and add an Action with the name `Log`. Switch on the `Highlight` control (we'll see what this does later and select an icon for it. If you set an icon for an Action, its button will appear as a round button with the icon on it. If you don't set an icon for it, only the text will show in a rectangular button.
+To create the Action, edit the Tipo and open the `View` tab. Open the Advanced Editor of `View` and add an Action with the name `Log`. Switch on the `Highlight` control (we'll see what this does later and select an icon for it. If you set an icon for an Action, it will appear as a round button with the icon on it. If you don't set an icon for it, only the text will show in a rectangular button.
 
 ![Create Action](/images/actions/image_002.png)
 
@@ -39,8 +39,6 @@ Head to Home and select a Student record to view its Detail View. You will see a
 ![Log Action](/images/actions/image_003.png)
 
 In the above, we used the expression `` to refer to a record's first_name field. Below, are the patterns that govern expressions you can use.
-
-The server side support is available, the developer can use $tipo_context to replace with dynamic information on the server before executing the queries.
 
 Expression Pattern | Description | Client/Server
 ------------ | --------------- | ---------------
@@ -304,7 +302,7 @@ Perform action specified in `action_name` on the Tipo specified in `tipo_name`. 
 	// return void;
 
 ## Server Side Actions
-Server Side Actions are Actions that run code on a server when engaged. In particular, TipoTapp supports use of [AWS Lambda](http://docs.aws.amazon.com/lambda/latest/dg/welcome.html) functions. AWS Lambda is a compute service that lets you run code without provisioning or managing servers. You can write your code there in one of the supported languages (currently Node.js, Java, C# and Python) and it will be available to be called by other applications that you link to it.
+Server Side Actions are Actions that run code on a server when engaged with. In particular, TipoTapp supports use of [AWS Lambda](http://docs.aws.amazon.com/lambda/latest/dg/welcome.html) functions. AWS Lambda is a compute service that lets you run code without provisioning or managing servers. You can write your code there in one of the supported languages (currently Node.js, Java, C# and Python) and it will be available to be called by other applications that you link to it.
 
 For instructions on how to create a Lambda function, [check the documentation](http://docs.aws.amazon.com/lambda/latest/dg/welcome.html).
 
@@ -316,13 +314,13 @@ To add the credentials, open `Develop` and select `Configurations`. Add your AWS
 ![AWS Settings](/images/actions/image_004.png)
 
 ## Registering your Cloud Functions
-Before you can use a Lambda function, you have to register it. Each function you create on AWS comes with a unique idenifier (the ARN). TipoTapp uses this to link to the functions ou register.
+Before you can use a Lambda function, you have to register it. Each function you create on AWS comes with a unique idenifier (the ARN). TipoTapp uses this to link to the functions you register.
 
 To register a Cloud Function, head to `Develop` and select `Cloud Functions` from the menu. Bring up the Create form with the Add button.
 
-![Register Cloud Function](/images/my_notes/image_005.png)
+![Register Cloud Function](/images/actions/image_005.png)
 
-Give a name to your function, add its `Lambda Function ARN`, switch on `Use App AWS Credentials` which will use the AWS credentials you added. Also switch on `Supply TipoContext`. This will include the `tipo_context` object in the body of the request to the server. Tipo Context contains all the contextual information about the user, application, current request and user actions. Below are its attributes.
+Give a name to your function, set `Type` to `AWS Lambda`, add its `Lambda Function ARN`, switch on `Use App AWS Credentials` which will use the AWS credentials you added. Also switch on `Supply TipoContext`. This will include the `tipo_context` object in the body of the request to the server. Tipo Context contains all the contextual information about the user, application, current request and user actions. Below are its attributes.
 
 Context Variable |  Description 
 ------------ | ------------
@@ -346,11 +344,143 @@ Context Variable |  Description
 `$tipo_context.user_attributes` | Name value pairs of attributes associated during user registraion. Role identification TipoName and ID. For example, if the invited user is Supplier. 
 
 ## Creating a Server Side List View Action
+
+To demonstrate Server Side Actions, we are going to add another Tipo to the application and then add some Actions to it. This Tipo will be used to hold student application information.
+
+Create a Tipo named `Application` and fill out the following fields in the `Meta Data` section:
+
+ - **Name**: Application
+ - **Description**: Application Tipo
+ - **Choose Menu**: Home
+ - **Tipo Type**: x
+
+Add the following fields to the Tipo.
+
+`Student` field:
+
+ - **Field**: Student
+ - **Type**: Student
+ - **Short Display**: Yes
+ 
+`Course` field:
+
+ - **Field**: Course
+ - **Type**: Course
+ - **Short Display**: Yes
+ 
+`Application Date` field:
+
+ - **Field**: Application Date
+ - **Type**: Date/Time
+ - **Short Display**: Yes
+ 
+`Cover Letter` field:
+
+ - **Field**: Cover Letter
+ - **Type**: Rich Text
+ 
+`Application Status` field:
+ - **Field**: Application Status
+ - **Type**: Simple String
+ - **Short Display**: Yes
+
 ### Single Actions
+You can create an Action that works on a single record, or one that can process several records. Let's start by looking at Single Actions.
+
+We've created the following Lambda function on Amazon AWS. The function processes the current record and sets its `application_status` to `Approved`.
+
+```
+// TestFunc
+exports.handler = (event, context, callback) => {
+   // TODO implement
+   console.log('Pre Function --- Input');
+   console.log(event);
+   /** Received event with tipo_context, tipo_request and server_dependencies if any*/
+   /** Inside the tipo_context, the current_tipo contains the data for the application to be approved. */
+   var resp = {};
+if (event.tipo_context.current_tipo.course === "9123843365" 
+&& event.tipo_context.current_tipo.application_status != "Approved") {
+    var tipo_request = [{}];
+    tipo_request[0].tipo_name = "Application";
+    tipo_request[0].db_action = "PUT";
+    tipo_request[0].data = {};
+    tipo_request[0].data.tipo_id = event.tipo_context.current_tipo.tipo_id;
+    tipo_request[0].data.application_status = "Approved";
+    resp.tipo_request = tipo_request;
+}
+
+   console.log('Post Function --- Output');
+   console.log(resp);
+
+
+   callback(null, resp);
+};
+```
+
+On TipoTapp, we've registered this function as shown below:
+
+![Register Cloud Function](/images/actions/image_006.png)
+
+To create an Action on the Tipo's list view, open the `List` tab on the Tipo, open the Advanced Editor of the `List` section and add a `Custom Action.
+
+![Register Cloud Function](/images/actions/image_007.png)
+
+#### Client Side Dependencies
+You can add some data to the Action request before sending it to the AWS server. 
+#### Server Side Dependencies
+
 ### Bulk Actions
+As mentioned, you can create an Action that processes several records. To demonstrate this, we created the following function that iterates through several records, setting their `application_status` to `Approved`.
+
+```
+// BulkApproval
+exports.handler = (event, context, callback) => {
+   // TODO implement
+   console.log('Pre Function --- Input');
+   console.log(event);
+   /** Received event with tipo_context, tipo_request and server_dependencies if any*/
+   /** Inside the tipo_context, the current_tipo contains the data for the application to be approved. */
+   var resp = {};
+   
+    var result_tipo_requests = [];
+   for(var i = 0; i < event.tipo_request.length; i++) {
+        var tipo_request = event.tipo_request[i];       
+       console.log('request is ');
+       console.log(tipo_request);
+       console.log('data is');
+       console.log(tipo_request.data);
+       var new_req = {};
+       new_req.tipo_name = "Application";
+       new_req.db_action = "PUT";
+       new_req.data = {};
+       new_req.data.tipo_id = tipo_request.data.tipo_id;
+       new_req.data.application_status = "Approved";
+       result_tipo_requests.push(new_req);
+   }
+   
+   resp.tipo_request = result_tipo_requests;
+
+    var response_headers = {};
+    response_headers.user_message = "Successfully Approved All Applications";
+    response_headers.return_url = "/tipo/Application";
+    
+    resp.response_headers = response_headers;
+    
+   console.log('Pre Function --- Output');
+   console.log(resp);
+
+   callback(null, resp);
+};
+```
+
+On TipoTapp, we registered the function as shown.
+
+![Register Cloud Function](/images/actions/image_008.png)
+
 ## Creating a Server Side Detail View Action
-## Client Side Dependencies
-## Server Side Dependencies
+
+![Register Cloud Function](/images/actions/image_009.png)
+
 ## How Server Side Functions Work
 ![Server Customizations](/images/developer/ServerCustomisations.png)
 

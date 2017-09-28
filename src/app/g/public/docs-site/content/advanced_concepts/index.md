@@ -298,7 +298,7 @@ TODO
 TODO
 
 ## More on Relationships
-We've briefly covered relationships in other sections of the guide so far. We've seen that there are two types of relationships: `embed` and `reference`. With the former, only a related Tipo's key is stored against the current Tipo while the latter embedds a Tipo into another. We've seen how to mark a Tipo's field as the Meaningful Key so that when a record of that Tipo appears in another Tipo, that field will be displayed.
+We've briefly covered relationships in other sections of the guide so far. We've seen that there are two types of relationships: `reference` and `embed`. With the former, only a related Tipo's key is stored against the current Tipo while the latter embedds a Tipo into another. We've seen how to mark a Tipo's field as the Meaningful Key so that when a record of that Tipo appears in another Tipo, that field will be displayed.
 
 By default, when two Tipos are related by reference, TipoTapp stores the referenced Tipo's `tipo_id` field against the current/containing Tipo and displays its Meaningful Key (if no field is set, this defaults to `tipo_id`). We've seen this already. However, you can change this default behaviour. You can configure your app so that another field is stored against the containing Tipo and another one is displayed.
 
@@ -495,27 +495,6 @@ TODO
 ## Menu Access Control
 TODO
 
-## Actions
-Use of Actions is a way of extending your application to provide custom functionality through
-
-## Client-side Actions
-TODO
-
-## Cloud Functions
-TODO
-
-1. List View Actions - 
-bulk acitons
-single actions
-JS only action - with javascript code behind the action.
-
-2.  Detail View Actions 
-Single action 
-
-Client side dependencies 
-
-Server Side Dependencies
-
 ## Further App Customization
 ### Customizing Select Menus
 So far, you've seen several fields with select menus in your forms. Below is an example of this on the Department creation form (look at `Head of Department`).
@@ -580,5 +559,3 @@ Below is an example of a CSS style you can use to set different styles for diffe
 Below you can see how the field of a student who is Enrolled would look like.
 
 ![Relationship Settings](/images/advanced_concepts/image_016.png)
-
-
