@@ -90,7 +90,7 @@
       icon: "view_array",
     },{
       key: "richstring",
-      label: "Rich Text Editor",
+      label: "Rich Text",
       icon: "format_shapes",
     },{
       key: "htmlLink",
