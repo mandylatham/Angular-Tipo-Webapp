@@ -14,7 +14,7 @@
 
     var _instance = this;
     var tipo_types = [];
-    var tipo_name = $scope.tipoRootController.tipoDefinition.tipo_meta.tipo_name;
+    var tipo_name = $stateParams.tipo_name;
     var tipo_types = angular.copy(TipoTypeService.gettipo_types());
     var application = $scope.tipoRootController.tipoDefinition.application;
     var tipo_groups = $scope.tipoRootController.tipo_fields;
@@ -49,13 +49,12 @@
                         icon: tipo_object.tipo_meta.icon,
                         tipo_object: true});
       });
-      if ($scope.tipoRootController.selectedTipos.length > 0) {
+      if ($scope.tipoRootController.fieldvalue) {
       _.each(tipo_types, function(tipo){
-          _.each($scope.tipoRootController.selectedTipos,function(selected){
-            if(tipo.key === selected.key){
-              tipo.selected = true;
-            }
-          })
+          if(tipo.key === $scope.tipoRootController.fieldvalue){
+            tipo.selected = true;
+            $scope.tipoRootController.selectedTipos = [tipo];
+          }
         });
       };
       _instance.tipo_types = tipo_types;

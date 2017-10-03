@@ -15,7 +15,7 @@
     </div>
   </md-toolbar>
   <md-dialog-content>
-    <md-input-container flex class="tp-list fullwidth">
+    <md-input-container flex class="tp-list fullwidth" ng-if="tipoRootController.tipoDefinition.tipo_meta.allow_search">
       <label>&nbsp;</label>
       <input ng-model="tipoRootController.searchText" placeholder="enter search" data-ng-keyup="$event.keyCode == 13 ? tipoRootController.search() : null">
     </md-input-container>

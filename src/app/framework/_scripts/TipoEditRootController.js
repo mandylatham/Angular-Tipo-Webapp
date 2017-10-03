@@ -192,12 +192,12 @@
       tipoManipulationService.modifyTipoData(_instance.tipo);
       var function_name = tipo_name + "_OnSave";
       if(typeof tipoCustomJavascript[function_name] === 'function'){
-        $scope.data_handle.tipo = tipo;
+        $scope.data_handle.tipo = _instance.tipo;
         $scope.data_handle.action = action;
         tipoCustomJavascript[function_name]($scope.data_handle);
       }
       if(typeof tipoClientJavascript[function_name] === 'function'){
-        $scope.data_handle.tipo = tipo;
+        $scope.data_handle.tipo = _instance.tipo;
         $scope.data_handle.action = action;
         tipoClientJavascript[function_name]($scope.data_handle);
       }

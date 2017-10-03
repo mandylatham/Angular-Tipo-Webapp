@@ -42,6 +42,24 @@
 	this.TipoDefinition_tipo_fields_label_style_OnChange  = TipoDefinition_tipo_fields_label_style_OnChange ;
 	this.TipoDefinition_tipo_fields_value_style_OnChange  = TipoDefinition_tipo_fields_label_style_OnChange ;
 
+	function TipoDefinition_tipo_fields_default_value_BeforeLookup (data_handle) {
+		if (_.startsWith(data_handle.context.field_type, 'Tipo.')) {
+			data_handle.tipo_name = data_handle.context.field_type.substring(5);
+            data_handle.key_field = data_handle.context.select_key_field || data_handle.key_field;
+            data_handle.label_field = data_handle.context.select_label_field || data_handle.label_field;
+            if(!_.isUndefined(data_handle.context.relationship_filter) && data_handle.context.relationship_filter.indexOf("$tipo") === -1){
+              var basefilterExpanded = data_handle.context.relationship_filter;
+              if(!_.isUndefined(basefilterExpanded) && basefilterExpanded !== "" && !data_handle.searchCriteria.tipo_filter){
+	              data_handle.searchCriteria.tipo_filter = basefilterExpanded;
+	          }else{
+	          	data_handle.searchCriteria.tipo_filter = data_handle.searchCriteria.tipo_filter + " AND " + basefilterExpanded;
+	          }
+            }
+		}
+	}
+	this.TipoDefinition_tipo_fields_default_value_BeforeLookup  = TipoDefinition_tipo_fields_default_value_BeforeLookup ;
+	this.TipoDefinition_tipo_field_groups_tipo_fields_default_value_BeforeLookup  = TipoDefinition_tipo_fields_default_value_BeforeLookup ;
+
 	//___TipoDefinition___
 
 

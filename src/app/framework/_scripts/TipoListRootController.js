@@ -416,6 +416,45 @@
       });
     }
 
+    _instance.copyFromFilter = function(filter){
+      var searchCriteria = {};
+      var newScope = $scope.$new();
+      if (filter) {
+        filter = atob(filter);
+        searchCriteria.tipo_filter = filter;
+      };
+      searchCriteria.page = 1;
+      searchCriteria.per_page = _instance.per_page;
+      newScope.isarray = false;
+      newScope.disablecreate = true;
+      newScope.tipo_name = $stateParams.tipo_name;
+      newScope.perm = _instance.perm;
+      newScope.queryparams = searchCriteria;
+      newScope.label_field = 'tipo_id';
+      newScope.key_field = 'tipo_id';
+      tipoHandle.getTipos($stateParams.tipo_name, searchCriteria).then(function(tipos){
+        newScope.tipos = tipos;
+        var promise = $mdDialog.show({
+          templateUrl: 'framework/_directives/_views/tp-lookup-popup-select.tpl.html',
+          controller: 'TipoObjectDialogController',
+          controllerAs: 'tipoRootController',
+          scope: newScope,
+          resolve: /*@ngInject*/
+          {
+            tipoDefinition: function(tipoDefinitionDataService) {
+              return tipoDefinitionDataService.getOne($stateParams.tipo_name);
+            }
+          },
+          skipHide: true,
+          clickOutsideToClose: true,
+          fullscreen: true
+        });
+        promise.then(function(selectedTipo){
+          _instance.clone(selectedTipo[0]);
+        })
+      })
+    }
+
     $scope.$watch(function(){return $scope.data_handle},function(new_value,old_value){
       _instance.tipos = $scope.data_handle.tipo_list;
     },true);
