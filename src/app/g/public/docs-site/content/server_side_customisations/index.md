@@ -37,6 +37,67 @@ Member name | Description
 `tipo_context` | Tipo Context contains all the contextual information about the user, application, current request and user actions
 `tipo_request []` | Contains array of all the requests from the client. Only bulk action will contain more than one array item, but the structure will always be an array.
 `tipo_response []`| Function may be called after performing database action, in which case there will be responses as well as requests as requests.
+
+Here is an example of complete request structure
+
+    {
+      "tipo_request": [
+        {
+          "tipo_name": "Customer",
+          "db_action": "PUT",
+          "data": {
+            "tipo_id": "123",
+            "first_name": "ABC",
+            "last_name": "XYZ"
+          }
+        },
+        {
+          "tipo_name": "PurchaseOrder",
+          "db_action": "PUT",
+          "data": {
+            "tipo_id": "111",
+            "order_amount": 1000,
+            "ordered_product": 123
+          }
+        }
+      ],
+      "server_dependencies": [
+        {
+          "tipo_name": "Countries",
+          "data": [
+            {
+              "tipo_id": "123",
+              "country_name": "Australia",
+              "country_code": "AU"
+            },
+            {
+              "tipo_id": "124",
+              "country_name": "New Zealand",
+              "country_code": "NZ"
+            }
+          ]
+        },
+        {
+          "tipo_name": "PurchaseOrder",
+          "data": [
+            {
+              "tipo_id": "111",
+              "order_amount": 1000,
+              "ordered_product": 123
+            }
+          ]
+        }
+      ],
+      "tipo_context": {
+        "user": "test_user",
+        "account": "acme",
+        "gateway_request": {
+          "tipo_name": "Customer",
+          "tipo_filter": "(status:Active) OR (first_name:John) AND _exists_:(dept)"
+        }
+      }
+    }
+
   
 ## tipo_context ##
   
@@ -141,14 +202,84 @@ Use the above format in the tipo_filter when specifying dependencies for dynamic
           "tipo_name": "PurchaseOrder",
           "data" : [{
             "tipo_id": "111",
-            "order_amount": 1000.00
+            "order_amount": 1000.00,
             "ordered_product" : 123 
           }]
           
         }
       ]
 
-### Tipo Function Output  ###
-  
+## Response Structure  ##
+
+    {
+      "tipo_request": [
+        {
+          "tipo_name": "SomeOtherObject1",
+          "db_action": "PUT",
+          "data": {
+            "tipo_id": "123",
+            "first_name": "ABC",
+            "last_name": "XYZ"
+          }
+        },
+        {
+          "tipo_name": "SomeOtherObject2",
+          "db_action": "PUT",
+          "data": {
+            "tipo_id": "111",
+            "order_amount": 1000,
+            "ordered_product": 123
+          }
+        },
+        {
+          "tipo_name": "SomeOtherObject3",
+          "db_action": "DELETE",
+          "data": {
+            "tipo_id": "111",
+            "order_amount": 1000,
+            "ordered_product": 123
+          }
+        }
+      ],
+      "tipo_response": [
+        {
+          "tipo_name": "Countries",
+          "status_code": 200,
+          "data": [
+            {
+              "tipo_id": "123",
+              "country_name": "Australia",
+              "country_code": "AU"
+            },
+            {
+              "tipo_id": "124",
+              "country_name": "New Zealand",
+              "country_code": "NZ"
+            }
+          ]
+        },
+        {
+          "tipo_name": "PurchaseOrder",
+          "status_code": 200,
+          "data": [
+            {
+              "tipo_id": "111",
+              "order_amount": 1000,
+              "ordered_product": 123
+            }
+          ]
+        }
+      ],
+      "response_header": {
+        "user_message": "Hi User, Successfully done something !!!",
+        "return_url": "/tipo/WhereToGo/tipo_id",
+        "tab_url": "https://opennewtab.com"
+      },
+      "http_header": {
+        "user_message": "Hi User, Successfully done something !!!",
+        "return_url": "/tipo/WhereToGo/tipo_id",
+        "tab_url": "https://opennewtab.com"
+      }
+    }
 
 

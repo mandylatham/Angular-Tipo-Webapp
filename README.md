@@ -11,6 +11,7 @@ This document attempts to outline some setup instructions to get the code buildi
 
 ## Building the source code
 1. Clone the Git repository (https://*your_user_id*@bitbucket.org/deltagene/tipo-ui.git)
+2. Run  `import-env.py` python script to import environment variables - under tipo-ui root folder.
 2. Navigate to the checked out folder, say 'tipo-ui' and run `mvn clean install -Dall` to build the entire source
     - When you run with the 'all' flag, NPM, Bower and Grunt are all executed.
     - If you omit the 'all' flag (default), only the Grunt build runs and this is the usual since NPM and Bower need not be executed every time. They are required only when the package dependencies are altered (bower.json & package.json)

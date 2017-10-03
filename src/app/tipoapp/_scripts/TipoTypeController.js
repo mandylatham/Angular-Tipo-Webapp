@@ -77,15 +77,15 @@
   function TipoTypeService(){
     var tipo_types = [{
       key: "integer",
-      label: "Integer",
+      label: "Number",
       icon: "format_list_numbered",
     },{
       key: "string",
-      label: "Simple String",
+      label: "Text",
       icon: "sort_by_alpha",
     },{
       key: "longstring",
-      label: "Paragraph",
+      label: "Multiline Text",
       icon: "view_array",
     },{
       key: "richstring",
@@ -131,13 +131,20 @@
       key: "location",
       label: "Location",
       icon: "location_on",
-    },{
-      key: "visualisation",
-      label: "Visualisation",
-      icon: "insert_chart",
-    },{
+    },
+    //{
+    //  key: "s3explorer",
+    //  label: "S3 Browser",
+    //  icon: "open_in_browser",
+    //},
+    //{
+    //  key: "visualisation",
+    //  label: "Visualisation",
+    //  icon: "insert_chart",
+    //},
+    {
       key: "action",
-      label: "Action",
+      label: "Button",
       icon: "alarm_add",
     }];
 
