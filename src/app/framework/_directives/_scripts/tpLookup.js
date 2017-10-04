@@ -223,28 +223,7 @@
           var key_field = scope.key_field;
           var label_field = scope.label_field;
           
-          if(isarray){
-            scope.model.field = [];
-            if (!_.isUndefined(scope.fieldvalue)) {
-              scope.options = [];
-              scope.singlefield = {};
-              _.each(scope.fieldvalue,function(value,key){
-                scope.singlefield[key_field] = value;
-                scope.singlefield[label_field] = scope.fieldlabel[key];
-                scope.model.field.push(scope.singlefield);
-              });
-            }          
-          }else{
-            scope.model.field = {};
-            if (_.isUndefined(scope.fieldvalue)) {
-              scope.fieldlabel = "";
-            }else{
-              scope.options = [];
-              scope.model.field[key_field] = scope.fieldvalue;
-              scope.model.field[label_field] = scope.fieldlabel;
-              scope.options.push(scope.model.field);
-            }
-          }
+
           scope.ngModel = scope.fieldvalue;
 
           if(!scope.allowcreate){
@@ -254,11 +233,11 @@
           }
 
           function optionsFormat(results){
-            scope.fieldlabel = _.map(results, function(each){
-              return {
-                key: each[key_field] || each.key,
-                label: each[label_field] || each.label
-              };
+            return _.map(results, function(each){
+              var option = {}
+              option[key_field] = each[key_field];
+              option[label_field] = each[label_field];
+              return option;
             });
           }
 
@@ -291,6 +270,40 @@
           function numDigits(x) {
             return (Math.log10((x ^ (x >> 31)) - (x >> 31)) | 0) + 1;
           }
+
+          function initmodel(){
+            if (scope.options && ((isarray && scope.options !== scope.model.field) || (!isarray && scope.options[0] !== scope.model.field))) {
+              scope.model.field = _.filter(scope.options,function(o){return _.includes(scope.fieldvalue,o[key_field])});
+              if (!isarray) {
+                scope.model.field = scope.model.field[0];
+              };
+            }else{
+              if(isarray){
+                scope.model.field = [];
+                if (!_.isUndefined(scope.fieldvalue)) {
+                  scope.options = [];
+                  scope.singlefield = {};
+                  _.each(scope.fieldvalue,function(value,key){
+                    scope.singlefield[key_field] = value;
+                    scope.singlefield[label_field] = scope.fieldlabel[key];
+                    scope.model.field.push(scope.singlefield);
+                  });
+                  scope.options.push(scope.model.field);
+                }          
+              }else{
+                scope.model.field = {};
+                if (_.isUndefined(scope.fieldvalue)) {
+                  scope.fieldlabel = "";
+                }else{
+                  scope.options = [];
+                  scope.model.field[key_field] = scope.fieldvalue;
+                  scope.model.field[label_field] = scope.fieldlabel;
+                  scope.options.push(scope.model.field);
+                }
+              }
+            }
+          }
+          initmodel();
 
           scope.loadOptions = function (searchText,page_size){
             delete scope.options;
@@ -328,7 +341,7 @@
             };
             searchCriteria.page = 1;
             // If for the dropdown we require custom page size then we can get from the page_size parameter
-            searchCriteria.per_page = page_size;
+            searchCriteria.per_page = page_size || 10;
             if (!_.isEmpty(scope.queryparams)) {
               _.forOwn(scope.queryparams,function(value,key){
                 value = value.replace("$index", scope.index);
@@ -369,19 +382,10 @@
               tipoClientJavascript[function_name](scope.data_handle);
             }
             return tipoInstanceDataService.search(scope.tipo_name, searchCriteria).then(function(results){
-              scope.tipos = results;
-              scope.options = results;
-              scope.model.field = _.filter(scope.tipos,function(o){return _.includes(scope.fieldvalue,o[key_field])});
-              if (!isarray) {
-                scope.model.field = scope.model.field[0];
-              };
+              scope.tipos = _.uniq(results);
               // if (!scope.selectfield) {
-              // scope.options = _.map(results, function(each){
-              //   return {
-              //     key: each[key_field],
-              //     label: each[label_field]
-              //   };
-              // });
+              scope.options = optionsFormat(scope.tipos);
+              initmodel();
               // }else{
               //   scope.options = [];
               //   var remName = scope.selectfield.substr(scope.selectfield.indexOf('.') + 1);
@@ -540,11 +544,9 @@
           scope.tipoObjecSelectiontDialog = function(){
             var promise = openTipoObjectDialog();
             promise.then(function(selectedObjects){
-              // optionsFormat(selectedObjects);
-              if(isarray){
-                scope.model.field = selectedObjects;
-              }else{
-                scope.model.field = selectedObjects[0];
+              scope.model.field = optionsFormat(selectedObjects);
+              if(!isarray){
+                scope.model.field = scope.model.field[0];
               }
               scope.cleanup();
             });
@@ -582,13 +584,16 @@
                 function_name = $stateParams.tipo_name + "_" + scope.fqfieldname.replace(/\./g,"_").replace(/\[\d\]/g, "") + "_OnArrayItemAdd";
                 scope.data_handle.item = _.difference(new_value,old_value);
               };
-            };
-            if(typeof tipoClientJavascript[function_name] === 'function'){
+              if(typeof tipoClientJavascript[function_name] === 'function'){
                 scope.data_handle.tipo = scope.root;
                 scope.data_handle.context = scope.context;
                 scope.data_handle.new_value = new_value;
                 tipoClientJavascript[function_name](scope.data_handle);
               }
+            }
+            if (new_value !== old_value) {
+              initmodel();
+            };
             // if (scope.model.field.key !== scope.fieldvalue) {
             //   scope.loadOptions();
             //   if (!isarray) {

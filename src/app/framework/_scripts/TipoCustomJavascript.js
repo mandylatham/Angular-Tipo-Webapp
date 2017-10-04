@@ -51,7 +51,7 @@
               var basefilterExpanded = data_handle.context.relationship_filter;
               if(!_.isUndefined(basefilterExpanded) && basefilterExpanded !== "" && !data_handle.searchCriteria.tipo_filter){
 	              data_handle.searchCriteria.tipo_filter = basefilterExpanded;
-	          }else{
+	          }else if(data_handle.searchCriteria.tipo_filter && !_.isUndefined(basefilterExpanded) && basefilterExpanded !== ""){
 	          	data_handle.searchCriteria.tipo_filter = data_handle.searchCriteria.tipo_filter + " AND " + basefilterExpanded;
 	          }
             }
