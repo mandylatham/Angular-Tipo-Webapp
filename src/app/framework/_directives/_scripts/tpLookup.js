@@ -383,7 +383,7 @@
               tipoClientJavascript[function_name](scope.data_handle);
             }
             return tipoInstanceDataService.search(scope.tipo_name, searchCriteria).then(function(results){
-              scope.tipos = _.uniq(results);
+              scope.tipos = _.uniqWith(results, _.isEqual);
               // if (!scope.selectfield) {
               scope.options = optionsFormat(scope.tipos);
               initmodel();

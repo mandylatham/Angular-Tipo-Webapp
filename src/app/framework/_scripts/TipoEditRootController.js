@@ -922,6 +922,45 @@
       }
     }
 
+    _instance.copyFromFilter = function(filter){
+      var searchCriteria = {};
+      var newScope = $scope.$new();
+      if (filter) {
+        filter = atob(filter);
+        searchCriteria.tipo_filter = filter;
+      };
+      searchCriteria.page = 1;
+      searchCriteria.per_page = 10;
+      newScope.isarray = false;
+      newScope.disablecreate = true;
+      newScope.tipo_name = $stateParams.tipo_name;
+      newScope.perm = _instance.perm;
+      newScope.queryparams = searchCriteria;
+      newScope.label_field = 'tipo_id';
+      newScope.key_field = 'tipo_id';
+      tipoHandle.getTipos($stateParams.tipo_name, searchCriteria).then(function(tipos){
+        newScope.tipos = tipos;
+        var promise = $mdDialog.show({
+          templateUrl: 'framework/_directives/_views/tp-lookup-popup-select.tpl.html',
+          controller: 'TipoObjectDialogController',
+          controllerAs: 'tipoRootController',
+          scope: newScope,
+          resolve: /*@ngInject*/
+          {
+            tipoDefinition: function(tipoDefinitionDataService) {
+              return tipoDefinitionDataService.getOne($stateParams.tipo_name);
+            }
+          },
+          skipHide: true,
+          clickOutsideToClose: true,
+          fullscreen: true
+        });
+        promise.then(function(selectedTipo){
+          tipoRouter.toTipoCreate($stateParams.tipo_name, {copyFrom: selectedTipo[0].tipo_id});
+        })
+      })
+    }
+
     function resetbulkedits(){
       _.each(_instance.bulkFields,function(each){
         _instance.toogleBulkEdit(each);

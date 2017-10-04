@@ -1,8 +1,7 @@
 <div layout="row" layout-align="center stretch" layout-margin layout-wrap style="background: #F9F9F9;">
-  <div ng-repeat="tipo in tipoRootController.tiposWithDefinition | filter:tipoRootController.searchText" layout="column" style="width: 172px;" layout-align="center center" ng-click="tipoRootController.selectTipo(tipo,$event,tipoRootController.tiposWithDefinition)" ng-class="{'selected': tipo.selected}" class="pointer">
+  <div ng-repeat="tipo in tipoRootController.tipos | filter:tipoRootController.searchText" layout="column" style="width: 172px;" layout-align="center center" ng-click="tipoRootController.selectTipo(tipo,$event,tipoRootController.tipos)" ng-class="{'selected': tipo.selected}" class="pointer">
     <div class="app-logo">
-        <md-icon style="width: 48px;height: 48px;font-size: 48px;">{{tipo.key}}</md-icon>
+        <md-icon style="width: 48px;height: 48px;font-size: 48px;">{{tipo[key_field]}}</md-icon>
     </div>
-    <div class="md-subhead" flex>{{tipo.label}}</div>
-  </div>
+    <div class="md-subhead" flex>{{tipo[label_field]}}</div>
 <div>

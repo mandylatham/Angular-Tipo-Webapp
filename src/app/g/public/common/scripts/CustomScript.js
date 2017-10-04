@@ -8,7 +8,7 @@
 
 //___AboutApp___
 
-function AboutApp_OnView (data_handle) {
+function AboutApp_OnView (data_handle) {!
 tipoHandle.getTipo('TipoApp','1000000001').then(function(tipo_res){
  data_handle.tipo.app_name = tipo_res.app_name;
  data_handle.tipo.app_version = tipo_res. app_version;

@@ -17,6 +17,7 @@
     $rootScope,
     $scope,
     $templateCache,
+    $timeout,
     tipoClientJavascript,
     tipoCustomJavascript) {
 
@@ -68,34 +69,66 @@
         _instance.tipoFilters = tipoManipulationService.convertToFilterExpression(tipoFilters,$stateParams.filter);
         getPerspective(filter);
       };
-      filter.page = 1;
-      _instance.page = 2;
+      // filter.page = 1;
+      _instance.page = 0;
       _instance.per_page = page_size || 10;
       filter.per_page = _instance.per_page;
-      _instance.busy = true;
-      tipoHandle.getTipos($stateParams.tipo_name, filter).then(function(tipos){
-        var function_name = $stateParams.tipo_name + "_OnList";
-        if(typeof tipoCustomJavascript[function_name] === 'function'){
-          $scope.data_handle.tipo_list = tipos;
-          tipoCustomJavascript[function_name]($scope.data_handle);
+      _instance.tipos = [];
+      _instance.infiniteItems = {
+        numLoaded_: _instance.per_page,
+        toLoad_: 0,
+        getItemAtIndex: function(index) {
+          if (!_instance.tipos[index]) {
+            this.fetchMoreItems_(index);
+            return null;
+          }
+          if ( _instance.tipos[index]) {
+            return _instance.tipos[index];
+          };
+        },
+        getLength: function() {
+          return this.numLoaded_;
+        },
+        fetchMoreItems_: function(index) {
+          // For demo purposes, we simulate loading more items with a timed
+          // promise. In real code, this function would likely contain an
+          // $http request.
+          if (!_instance.busy) {
+            _instance.page++;
+            filter.page = _instance.page;
+            _instance.busy = true;
+            tipoHandle.getTipos($stateParams.tipo_name, filter).then(angular.bind(this,function(tipos){
+              var function_name = $stateParams.tipo_name + "_OnList";
+              if(typeof tipoCustomJavascript[function_name] === 'function'){
+                $scope.data_handle.tipo_list = tipos;
+                tipoCustomJavascript[function_name]($scope.data_handle);
+              }
+              if(typeof tipoClientJavascript[function_name] === 'function'){
+                $scope.data_handle.tipo_list = tipos;
+                tipoClientJavascript[function_name]($scope.data_handle);
+              }
+              _instance.tipos = _instance.tipos.concat(tipos);
+              if (tipos.length === _instance.per_page) {
+                this.numLoaded_ += tipos.length;
+              }else{
+                this.numLoaded_ = this.numLoaded_ - _instance.per_page - tipos.length;
+              }
+              _instance.busy = false;
+              _instance.initTipos = angular.copy(_instance.tipos);
+              if (_instance.page === 1) {
+                _instance.hasTipos = tipos.length > 0;
+                _instance.updatetipo = {};
+                _instance.loading = false;
+                var responseData = tipoRegistry.get($stateParams.tipo_name + '_resdata');
+                _instance.perm = responseData.perm;
+                _instance.restricted_actions = responseData.restricted_actions;
+                _instance.bulkedit = false;
+                _instance.singleedit = false;
+              };
+            }));
+          };
         }
-        if(typeof tipoClientJavascript[function_name] === 'function'){
-          $scope.data_handle.tipo_list = tipos;
-          tipoClientJavascript[function_name]($scope.data_handle);
-        }
-        _instance.tipos = tipos;
-        _instance.hasTipos = tipos.length > 0;
-        _instance.initTipos = angular.copy(tipos);
-        _instance.busy = false;
-        _instance.updatetipo = {};
-        _instance.loading = false;
-        var per_page = _instance.per_page;
-        var responseData = tipoRegistry.get($stateParams.tipo_name + '_resdata');
-        _instance.perm = responseData.perm;
-        _instance.restricted_actions = responseData.restricted_actions;
-        _instance.bulkedit = false;
-        _instance.singleedit = false;
-      });
+      };
     }
     function getPerspective(filter){
       var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
@@ -333,32 +366,32 @@
     }
 
     _instance.nextPage = function(){
-      if (_instance.busy) {return;}
-      _instance.busy = true;
-      _instance.loading = true;
-      var filter = {};
-      getPerspective(filter);
-      filter.page = angular.copy(_instance.page);
-      filter.per_page = _instance.per_page;
-      tipoRouter.startStateChange();
-      tipoHandle.getTipos($stateParams.tipo_name, filter).then(function(tiposData){
-        if (!_.isEmpty(tiposData)) {
-          _instance.tipos = _.union(_instance.tipos,tiposData);
-          var function_name = $stateParams.tipo_name + "_OnList";
-          if(typeof tipoCustomJavascript[function_name] === 'function'){
-            $scope.data_handle.tipo_list = _instance.tipos;
-            tipoCustomJavascript[function_name]($scope.data_handle);
-          }
-          if(typeof tipoClientJavascript[function_name] === 'function'){
-            $scope.data_handle.tipo_list = _instance.tipos;
-            tipoClientJavascript[function_name]($scope.data_handle);
-          }
-          _instance.busy = false;
-          _instance.page++;
-        };
-        _instance.loading = false;
-        tipoRouter.endStateChange();
-      });
+      // if (_instance.busy) {return;}
+      // _instance.busy = true;
+      // _instance.loading = true;
+      // var filter = {};
+      // getPerspective(filter);
+      // filter.page = angular.copy(_instance.page);
+      // filter.per_page = _instance.per_page;
+      // tipoRouter.startStateChange();
+      // tipoHandle.getTipos($stateParams.tipo_name, filter).then(function(tiposData){
+      //   if (!_.isEmpty(tiposData)) {
+      //     _instance.tipos = _.union(_instance.tipos,tiposData);
+      //     var function_name = $stateParams.tipo_name + "_OnList";
+      //     if(typeof tipoCustomJavascript[function_name] === 'function'){
+      //       $scope.data_handle.tipo_list = _instance.tipos;
+      //       tipoCustomJavascript[function_name]($scope.data_handle);
+      //     }
+      //     if(typeof tipoClientJavascript[function_name] === 'function'){
+      //       $scope.data_handle.tipo_list = _instance.tipos;
+      //       tipoClientJavascript[function_name]($scope.data_handle);
+      //     }
+      //     _instance.busy = false;
+      //     _instance.page++;
+      //   };
+      //   _instance.loading = false;
+      //   tipoRouter.endStateChange();
+      // });
     }
 
     _instance.search = function(){
@@ -414,45 +447,6 @@
       _.map(_instance.tipos,function(tipo){
         tipo.selected = _instance.selectedall;
       });
-    }
-
-    _instance.copyFromFilter = function(filter){
-      var searchCriteria = {};
-      var newScope = $scope.$new();
-      if (filter) {
-        filter = atob(filter);
-        searchCriteria.tipo_filter = filter;
-      };
-      searchCriteria.page = 1;
-      searchCriteria.per_page = _instance.per_page;
-      newScope.isarray = false;
-      newScope.disablecreate = true;
-      newScope.tipo_name = $stateParams.tipo_name;
-      newScope.perm = _instance.perm;
-      newScope.queryparams = searchCriteria;
-      newScope.label_field = 'tipo_id';
-      newScope.key_field = 'tipo_id';
-      tipoHandle.getTipos($stateParams.tipo_name, searchCriteria).then(function(tipos){
-        newScope.tipos = tipos;
-        var promise = $mdDialog.show({
-          templateUrl: 'framework/_directives/_views/tp-lookup-popup-select.tpl.html',
-          controller: 'TipoObjectDialogController',
-          controllerAs: 'tipoRootController',
-          scope: newScope,
-          resolve: /*@ngInject*/
-          {
-            tipoDefinition: function(tipoDefinitionDataService) {
-              return tipoDefinitionDataService.getOne($stateParams.tipo_name);
-            }
-          },
-          skipHide: true,
-          clickOutsideToClose: true,
-          fullscreen: true
-        });
-        promise.then(function(selectedTipo){
-          _instance.clone(selectedTipo[0]);
-        })
-      })
     }
 
     $scope.$watch(function(){return $scope.data_handle},function(new_value,old_value){
