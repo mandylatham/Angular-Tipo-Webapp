@@ -17,7 +17,7 @@
     var tipo_name = $stateParams.tipo_name;
     var tipo_types = angular.copy(TipoTypeService.gettipo_types());
     var application = $scope.tipoRootController.tipoDefinition.application;
-    var tipo_groups = $scope.tipoRootController.tipo_fields;
+    var tipo_groups = $scope.tipoRootController.root.tipo_field_groups;
     if (!_.isUndefined(tipo_groups)) {
       _.each(tipo_groups,function(tipo_group){
         tipo_types.push({ key: "FieldGroup." + tipo_group.tipo_group_name,

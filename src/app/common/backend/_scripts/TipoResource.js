@@ -175,6 +175,7 @@
       // relativeUrl = '/api/d/8501472954/sdm' + relativeUrl.substring(4);
       // relativeUrl = '/api/d/deltagene/billionbases' + relativeUrl.substring(4);
       relativeUrl = '/api' + relativeUrl.substring(4);
+      // relativeUrl = '/api/d/hr/hrbuddy' + relativeUrl.substring(4);
       // relativeUrl = '/api/d/johmyWizardM1/testapp123' + relativeUrl.substring(4);
     } else {
       // relativeUrl = '/api/d/8501472954/sdm';
@@ -182,6 +183,7 @@
       // relativeUrl = '/api/d/deltagene/billionbases';
       // relativeUrl = '/api/d/johmyWizardM1/testapp123';
       relativeUrl = '/api';
+      // relativeUrl = '/api/d/hr/hrbuddy';
     }
     var baseUrl = location.origin + relativeUrl;
     console.info('API Url - ' + baseUrl);

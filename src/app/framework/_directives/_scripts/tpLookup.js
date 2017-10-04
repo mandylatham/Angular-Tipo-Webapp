@@ -28,6 +28,7 @@
     };
     _instance.selectedTipos = $scope.selectedTipos;
     _instance.fieldvalue = $scope.fieldvalue;
+    _instance.root = $scope.root;
     _instance.perm = $scope.perm;
     _instance.queryparams = $scope.queryparams;
     _instance.tipo_name = $scope.tipo_name;
@@ -471,6 +472,7 @@
               newScope.field = scope.context;
               newScope.disablecreate = scope.disablecreate;
               newScope.tipo_name = scope.tipo_name;
+              newScope.root = scope.root;
               newScope.perm = scope.perm;
               newScope.queryparams = scope.searchCriteria;
               newScope.label_field = label_field;
