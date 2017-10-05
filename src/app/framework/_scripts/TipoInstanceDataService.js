@@ -15,7 +15,7 @@
 
     function unwrapAndSort(collection){
       if (!_.isUndefined(collection.perm)) {
-        tipoRegistry.push({tipo_name: collection.tipo_name + '_resdata', perm: collection.perm,return_url: collection.return_url,tab_url: collection.tab_url,message: collection.user_message,restricted_actions: collection.restricted_actions});
+        tipoRegistry.push({tipo_name: collection.tipo_name + '_resdata', perm: collection.perm,return_url: collection.return_url,tab_url: collection.tab_url,message: collection.user_message,restricted_actions: collection.restricted_actions,count: collection.count});
       };
       collection = _.filter(collection, function(each){
         if (!_.isNull(each.data)) {

@@ -105,6 +105,7 @@
             var resp = rawData.response;
             resp.tipo_name = rawData.tipo_name;
             resp.perm = rawData.perm;
+            resp.count = rawData.count;
             resp.tab_url = rawData.tab_url;
             resp.user_message = rawData.user_message;
             resp.return_url = rawData.return_url;

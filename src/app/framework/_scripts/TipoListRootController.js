@@ -61,6 +61,10 @@
       };
     };
 
+    _instance.getTipos = function(){
+
+    }
+
     _instance.initTiposData = function(tipoFilters,page_size,allow_search){
       var filter = {};
       _instance.hasTipos = true;
@@ -77,14 +81,13 @@
       _instance.infiniteItems = {
         numLoaded_: _instance.per_page,
         toLoad_: 0,
+        maxpages: 2,
         getItemAtIndex: function(index) {
-          if (!_instance.tipos[index]) {
+          if (!_instance.tipos[index] && index < this.numLoaded_) {
             this.fetchMoreItems_(index);
             return null;
           }
-          if ( _instance.tipos[index]) {
-            return _instance.tipos[index];
-          };
+          return _instance.tipos[index];
         },
         getLength: function() {
           return this.numLoaded_;
@@ -93,7 +96,7 @@
           // For demo purposes, we simulate loading more items with a timed
           // promise. In real code, this function would likely contain an
           // $http request.
-          if (!_instance.busy) {
+          if (!_instance.busy && _instance.page < this.maxpages) {
             _instance.page++;
             filter.page = _instance.page;
             _instance.busy = true;
@@ -108,11 +111,12 @@
                 tipoClientJavascript[function_name]($scope.data_handle);
               }
               _instance.tipos = _instance.tipos.concat(tipos);
-              if (tipos.length === _instance.per_page) {
-                this.numLoaded_ += tipos.length;
-              }else{
-                this.numLoaded_ = this.numLoaded_ - _instance.per_page - tipos.length;
-              }
+              // if (tipos.length === _instance.per_page) {
+              //   this.numLoaded_ += tipos.length;
+              // }
+              // else{
+              //   this.numLoaded_ = this.numLoaded_ - _instance.per_page - tipos.length;
+              // }
               _instance.busy = false;
               _instance.initTipos = angular.copy(_instance.tipos);
               if (_instance.page === 1) {
@@ -120,6 +124,8 @@
                 _instance.updatetipo = {};
                 _instance.loading = false;
                 var responseData = tipoRegistry.get($stateParams.tipo_name + '_resdata');
+                this.numLoaded_ = responseData.count;
+                this.maxpages = Math.ceil(responseData.count/_instance.per_page);
                 _instance.perm = responseData.perm;
                 _instance.restricted_actions = responseData.restricted_actions;
                 _instance.bulkedit = false;
@@ -130,6 +136,8 @@
         }
       };
     }
+
+
     function getPerspective(filter){
       var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
       // TODO: Hack - Sushil as this is supposed to work only for applications

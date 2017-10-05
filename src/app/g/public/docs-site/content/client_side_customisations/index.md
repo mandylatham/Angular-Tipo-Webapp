@@ -83,7 +83,7 @@ Each action uses action_name as the class associated to uniquely identify the ac
 Fetch TipoDefinition for the Tipo specified in `tipo_name`.
 
 	- tipo_name : Tipo name to fetch TipoDefinition for.
-	// return TipoDefinition
+	// return TipoDefinition(as a promise)
 
 ## ``` callAction(tipo_name, action_name, selected_tipo_ids, additional_tipo_name, additional_tipo) ```
 
@@ -94,7 +94,7 @@ Perform action specified in `action_name` on the Tipo specified in `tipo_name`.
 	- selected_tipo_ids: this is an array that contains the selected tipo ids.
 	- additional_tipo_name: if there is additional data that action requires specify the name here.
 	- additional_tipo: supply the additional data here.
-	// return tipo_response; //result from the server is supplied back to the caller.
+	// return tipo_response(as a promise); //result from the server is supplied back to the caller.
 
 
 ## ``` routeTo(url) ```
@@ -112,7 +112,7 @@ Save tipo on server with the data supplied in `tipo_data`.
 	- tipo_name
 	- tipo_id
 	- tipo_data
-	// return boolean; If true save tipo is successful.
+	// return boolean(as a promise); If true save tipo is successful.
 
 ## ``` saveTipos(tipo_name, tipo_data) ```
 
@@ -120,7 +120,7 @@ Save array tipo on server with the data supplied in `tipo_data`.
 
 	- tipo_name
 	- tipo_data
-	// return boolean; If true save tipo is successful.
+	// return boolean(as a promise); If true save tipo is successful.
 	
 ## ``` createTipo(	tipo_name, tipo_data, query_params) ```
 
@@ -129,7 +129,7 @@ Create tipo on server with the data supplied in `tipo_data`.
 	- tipo_name
 	- tipo_data
 	- query_params
-	// return boolean; If true save tipo is successful.
+	// return boolean(as a promise); If true save tipo is successful.
 
 ## ``` createTipos(tipo_name, tipo_data, query_params) ```
 
@@ -138,7 +138,7 @@ Create array of tipos on server with the array data supplied in `tipo_data`.
 	- tipo_name
 	- tipo_data
 	- query_params
-	// return boolean; If true save tipo is successful.
+	// return boolean(as a promise); If true save tipo is successful.
 
 ## ``` deleteTipo(tipo_name,tipo_id) ```
 
@@ -146,7 +146,7 @@ Delete tipo with name specified in `tipo_name` and ID specified in `tipo_id`.
 
 	- tipo_name
 	- tipo_id
-	// return boolean; If true delete tipo is successful.
+	// return boolean(as a promise); If true delete tipo is successful.
 
 ## ``` getTipo(tipo_name, tipo_id, query_params) ```
 
