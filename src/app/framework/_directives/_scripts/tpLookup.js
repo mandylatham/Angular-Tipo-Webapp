@@ -427,6 +427,7 @@
             };
             scope.infiniteItems = tipoManipulationService.getVirtualRepeatObject(searchCriteria.per_page,scope.tipo_name,tipoHandle.getTipos,searchCriteria);
             scope.infiniteItems.serverResultHandler = function(page){
+              this.tipos = _.uniqWith(this.tipos, _.isEqual);
               scope.tipos = _.uniqWith(this.tipos, _.isEqual);
               scope.options = optionsFormat(scope.tipos);
               initmodel();
