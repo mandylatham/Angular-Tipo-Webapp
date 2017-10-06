@@ -1,13 +1,17 @@
 <div layout="row">
 	<div flex>
-		<md-select ng-model="model.field" aria-label="realtedtipo" md-container-class="tp-field" placeholder="{{field.field_description}}" md-on-open="loadOptions()" md-on-close="cleanup()" md-selected-text="renderSelection()" multiple="true" ng-disabled="ispopup" flex ng-required="istipomandatory">
+		<md-select ng-model="model.field" aria-label="realtedtipo" md-container-class="tp-field" placeholder="{{field.field_description}}" md-on-open="triggerDropdown()" md-on-close="cleanup()" md-selected-text="renderSelection()" multiple="true" ng-disabled="ispopup" flex ng-required="istipomandatory">
 		  <md-select-header class="search" ng-if="options.length > 5">
 		    <md-input-container md-no-float class="fullwidth">
 		      <input ng-model="searchTerm.text" type="search" placeholder="Search ..." ng-keydown="stopBubbling($event)" tp:auto-focus>
 		      <md-icon ng-if="!disablecreate" class="md-primary addtipo pointer" ng-click="addTipo()">add</md-icon>
 		    </md-input-container>
 		  </md-select-header>
-		  <md-option ng-value="option" ng-repeat="option in options | filter: {label: searchTerm.text}">{{ option[label_field] }}</md-option>
+		  <md-virtual-repeat-container id="vertical-container" class="fluid-row-container" update-size>
+		  	<div md-virtual-repeat="option in infiniteItems" md-on-demand flex>
+		  		<md-option ng-value="option" >{{ option[label_field] }}</md-option>
+		  	</div>
+		  </md-virtual-repeat-container>
 		</md-select>
 	</div>
 	<div flex="25" class="actions" ng-if="ispopup" layout="row">
