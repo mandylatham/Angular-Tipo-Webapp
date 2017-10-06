@@ -49,9 +49,9 @@
                         icon: tipo_object.tipo_meta.icon,
                         tipo_object: true});
       });
-      if ($scope.tipoRootController.fieldvalue) {
+      if ($scope.tipoRootController.ngModel) {
       _.each(tipo_types, function(tipo){
-          if(tipo.key === $scope.tipoRootController.fieldvalue){
+          if(tipo.key === $scope.tipoRootController.ngModel){
             tipo.selected = true;
             $scope.tipoRootController.selectedTipos = [tipo];
           }

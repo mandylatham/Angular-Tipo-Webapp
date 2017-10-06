@@ -169,6 +169,51 @@
       }
     }
 
+    function getVirtualRepeatObject(per_page,tipo_name,getTipos,searchCriteria){
+      var page = 0;
+      var busy;
+      var filter = {};
+      filter = searchCriteria || filter;
+      var infiniteItems = {
+        numLoaded_: per_page,
+        toLoad_: 0,
+        maxpages: 2,
+        tipos: [],
+        getItemAtIndex: function(index) {
+          if (!this.tipos[index] && index < this.numLoaded_) {
+            this.fetchMoreItems_(index);
+            return null;
+          }
+          return this.tipos[index];
+        },
+        getLength: function() {
+          return this.numLoaded_;
+        },
+        fetchMoreItems_: function(index) {
+          // For demo purposes, we simulate loading more items with a timed
+          // promise. In real code, this function would likely contain an
+          // $http request.
+          if (!busy && page < this.maxpages) {
+            page++;
+            filter.page = page;
+            busy = true;
+            getTipos(tipo_name, filter).then(angular.bind(this,function(tipos){
+              var function_name = tipo_name + "_OnList";
+              this.tipos = this.tipos.concat(tipos);
+              busy = false;
+              if (page === 1) {
+                var responseData = tipoRegistry.get(tipo_name + '_resdata');
+                this.numLoaded_ = responseData.count;
+                this.maxpages = Math.ceil(responseData.count/per_page);
+              };
+              this.serverResultHandler(page);
+            }));
+          };
+        }
+      };
+      return infiniteItems;
+    }
+
     function mergeDefinitionAndDataArray(tipoDefinition,tipoDataArray,label_field){
       var tiposWithDefinition = [];
       _.each(tipoDataArray, function(tipo){
@@ -645,6 +690,7 @@
     this.getFieldMeta = getFieldMeta;
     this.modifyTipoData = modifyTipoData;
     this.checkQueryParams = checkQueryParams;
+    this.getVirtualRepeatObject = getVirtualRepeatObject;
 
   }
 

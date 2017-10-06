@@ -19,7 +19,8 @@
       };
       collection = _.filter(collection, function(each){
         if (!_.isNull(each.data)) {
-            return !_.isUndefined(each.data.tipo_id);
+            // return !_.isUndefined(each.data.tipo_id);
+            return !_.isUndefined(each.data);
         }       
       });
       collection = _.map(collection, function(each){

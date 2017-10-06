@@ -1,14 +1,18 @@
 <div layout="row">
 	<div flex>
-		<md-select ng-model="model.field" aria-label="realtedtipo" md-container-class="tp-field"  md-on-open="loadOptions()" md-on-close="cleanup()" ng-if="!ispopup" ng-required="istipomandatory">
+		<md-select ng-model="model.field" aria-label="realtedtipo" md-container-class="tp-field"  md-on-open="triggerDropdown()" md-on-close="cleanup()" ng-if="!ispopup" ng-required="istipomandatory">
 		  <md-select-header class="search">
 		    <md-input-container md-no-float class="fullwidth">
-		      <input ng-model="searchTerm.text" type="search" placeholder="Search ..." ng-keydown="stopBubbling($event)" ng-keyup="$event.keyCode == 13 ? tipoSearch(searchTerm.text) : null" tp:auto-focus>
+		      <input ng-model="searchTerm.text" type="search" placeholder="Search ..." ng-keydown="stopBubbling($event)" ng-keyup="$event.keyCode == 13 ? triggerDropdown(searchTerm.text) : null" tp:auto-focus>
 		      <md-icon ng-if="!disablecreate" class="md-primary addtipo pointer" ng-click="addTipo()">add</md-icon>
 		    </md-input-container>
 		  </md-select-header>
-		  <md-option value="" ng-if="!required && !searchTerm.text">-- Clear --</md-option>
-		  <md-option ng-value="option" ng-repeat="option in options">{{ option[label_field] }}</md-option>
+			  <md-option value="" ng-if="!required && !searchTerm.text">-- Clear --</md-option>
+		  <md-virtual-repeat-container id="vertical-container" class="fluid-row-container" update-size>
+		  	<div md-virtual-repeat="option in infiniteItems" md-on-demand flex>
+		  		<md-option ng-value="option" >{{ option[label_field] }}</md-option>
+		  	</div>
+		  </md-virtual-repeat-container>
 		</md-select>
 		<input ng-if="ispopup" ng-model="fieldlabel" ng-disabled="ispopup" ng-required="istipomandatory">
 	</div>

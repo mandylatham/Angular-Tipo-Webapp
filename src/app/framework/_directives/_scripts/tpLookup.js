@@ -7,6 +7,7 @@
 
   function TipoObjectDialogController(
     tipoManipulationService,
+    tipoRegistry,
     tipoDefinition,
     $scope,
     $timeout,
@@ -22,24 +23,19 @@
     var _instance = this;
     _instance.tipoDefinition = tipoDefinition;
     _instance.popup = true;
-    _instance.tipos = $scope.tipos;
-    if (_instance.tipos.length>0) {
-      _instance.hasTipos = true;
-    };
     _instance.selectedTipos = $scope.selectedTipos;
-    _instance.fieldvalue = $scope.fieldvalue;
+    _instance.ngModel = $scope.ngModel;
     _instance.root = $scope.root;
-    _instance.perm = $scope.perm;
     _instance.queryparams = $scope.queryparams;
     _instance.tipo_name = $scope.tipo_name;
     _instance.listUrl = tipoHandle.listUrl(_instance.tipo_name);
-    _instance.disablecreate = $scope.disablecreate;
     _instance.hideActions = true;
     _instance.bulkedit = true;
     $scope.fullscreen = true;
     $scope.data_handle = {};
+    _instance.hasTipos = true;
     function initselectedTipos(){
-      _.each(_instance.tipos, function(tipo){
+      _.each(_instance.infiniteItems.tipos, function(tipo){
           if (tipo.edit) {
               tipo.edit = false;
           };
@@ -50,7 +46,22 @@
           })
         });
     };
-    initselectedTipos();
+    _instance.infiniteItems = $scope.infiniteItems;
+    _instance.infiniteItems.serverResultHandler = function(page){
+      this.tipos = _.uniqWith(this.tipos, _.isEqual);
+      _instance.tipos = this.tipos;
+      if (page === 1) {
+        var tipo_perm = tipoRegistry.get(_instance.tipo_name + '_resdata');
+        _instance.perm = tipo_perm.perm;
+        if(tipo_perm.perm.substr(2,1) === 0){
+          _instance.disablecreate = true;
+        }
+        if (_instance.tipos.length === 0) {
+          _instance.hasTipos = false;
+        };
+        initselectedTipos();
+      };
+    };
     _instance.maximize = function(){
       $scope.fullscreen = true;
     };
@@ -131,7 +142,7 @@
       });
       promise.then(function(tipos){
         if (_.isArray(tipos)) {
-          _instance.tipos = tipos;
+          _instance.infiniteItems.tipos = tipos;
         };
         tipoRouter.endStateChange();
       })
@@ -149,7 +160,7 @@
       tipoRouter.startStateChange();
       tipoCache.evict($scope.tipo_name);
       tipoInstanceDataService.search($scope.tipo_name, filter).then(function(tiposData){
-        _instance.tipos = tiposData;
+        _instance.infiniteItems.tipos = tiposData;
         page++;
         tipoRouter.endStateChange();
       });
@@ -161,7 +172,7 @@
 
     $scope.$watch(function(){return $scope.data_handle.tipo_list},function(new_value,old_value){
       if ($scope.data_handle.tipo_list) {
-        _instance.tipos = $scope.data_handle.tipo_list;
+        _instance.infiniteItems.tipos = $scope.data_handle.tipo_list;
       };
     });
   }
@@ -170,8 +181,10 @@
     tipoManipulationService,
     tipoRouter,
     tipoRegistry,
+    tipoHandle,
     $mdDialog,
     $mdSelect,
+    $timeout,
     $stateParams,
     tipoDefinitionDataService,
     tipoClientJavascript,
@@ -185,7 +198,6 @@
           index: '=',
           fieldname: '=',
           fqfieldname: '=',
-          fieldvalue: '=',
           fieldlabel: '=',
           basefilter: '=',
           realtedtipo: '=',
@@ -224,8 +236,6 @@
           var key_field = scope.key_field;
           var label_field = scope.label_field;
           
-
-          scope.ngModel = scope.fieldvalue;
 
           if(!scope.allowcreate){
             scope.disablecreate = true;
@@ -273,18 +283,20 @@
           }
 
           function initmodel(){
-            if (scope.options && ((isarray && scope.options !== scope.model.field) || (!isarray && scope.options[0] !== scope.model.field))) {
-              scope.model.field = _.filter(scope.options,function(o){return _.includes(scope.fieldvalue,o[key_field])});
+            if (scope.tipos) {
+              scope.model.field = _.filter(scope.tipos,function(o){return _.includes(scope.ngModel,o[key_field])});
               if (!isarray) {
                 scope.model.field = scope.model.field[0];
               };
             }else{
+              scope.ngModel = _.get(scope.root,fqfieldname);
+              scope.fieldlabel = _.get(scope.root,fqfieldname + "_labels");
               if(isarray){
                 scope.model.field = [];
-                if (!_.isUndefined(scope.fieldvalue)) {
+                if (!_.isUndefined(scope.ngModel)) {
                   scope.options = [];
                   scope.singlefield = {};
-                  _.each(scope.fieldvalue,function(value,key){
+                  _.each(scope.ngModel,function(value,key){
                     scope.singlefield[key_field] = value;
                     scope.singlefield[label_field] = scope.fieldlabel[key];
                     scope.model.field.push(scope.singlefield);
@@ -293,11 +305,11 @@
                 }          
               }else{
                 scope.model.field = {};
-                if (_.isUndefined(scope.fieldvalue)) {
+                if (_.isUndefined(scope.ngModel)) {
                   scope.fieldlabel = "";
                 }else{
                   scope.options = [];
-                  scope.model.field[key_field] = scope.fieldvalue;
+                  scope.model.field[key_field] = scope.ngModel;
                   scope.model.field[label_field] = scope.fieldlabel;
                   scope.options.push(scope.model.field);
                 }
@@ -306,8 +318,34 @@
           }
           initmodel();
 
+          scope.afterlookupEvent = function(){
+            var function_name = $stateParams.tipo_name + '_' + scope.fqfieldname.replace(/\./g,"_").replace(/\[\d\]/g, "") + '_AfterLookup';
+            if(typeof tipoCustomJavascript[function_name] === 'function'){
+            // _.join(_.dropRight(fqfieldname.split(".")),".") used for initial client side js
+              scope.data_handle.root = scope.root;
+              scope.data_handle.context = scope.context;
+              scope.data_handle.tipo_list = scope.model.field;
+              scope.data_handle.options = scope.options;
+              tipoCustomJavascript[function_name](scope.root,scope.context,scope.model.field,scope.options);
+            }
+            if(typeof tipoClientJavascript[function_name] === 'function'){
+            // _.join(_.dropRight(fqfieldname.split(".")),".") used for initial client side js
+              scope.data_handle.root = scope.root;
+              scope.data_handle.context = scope.context;
+              scope.data_handle.tipo_list = scope.model.field;
+              scope.data_handle.options = scope.options;
+              tipoClientJavascript[function_name](scope.root,scope.context,scope.model.field,scope.options);
+            }
+          }
+          scope.triggerDropdown = function(searchText){
+            return $timeout(function() {
+              scope.$broadcast("$md-resize");
+              scope.loadOptions(searchText);
+            },100);
+          }
+
           scope.loadOptions = function (searchText,page_size){
-            delete scope.options;
+            // delete scope.options;
             var searchCriteria = {};
             var filter;
             var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
@@ -359,12 +397,12 @@
             };
             searchCriteria.list_display = 'N';
             scope.searchCriteria = searchCriteria;
-            if (isarray && scope.fieldvalue.length > 0) {
+            if (isarray && scope.ngModel.length > 0) {
               searchCriteria.must_include_key = key_field;
-              searchCriteria.must_include_values = _.join(scope.fieldvalue,',');
-            }else if(!isarray && scope.fieldvalue && scope.fieldvalue !== ""){
+              searchCriteria.must_include_values = _.join(scope.ngModel,',');
+            }else if(!isarray && scope.ngModel && scope.ngModel !== ""){
               searchCriteria.must_include_key = key_field;
-              searchCriteria.must_include_values = scope.fieldvalue;
+              searchCriteria.must_include_values = scope.ngModel;
             }
             var function_name = $stateParams.tipo_name + '_' + scope.fqfieldname.replace(/\./g,"_").replace(/\[\d\]/g, "") + '_BeforeLookup';
             if(typeof tipoCustomJavascript[function_name] === 'function'){
@@ -382,62 +420,45 @@
               scope.data_handle.searchCriteria = scope.searchCriteria;
               tipoClientJavascript[function_name](scope.data_handle);
             }
-            return tipoInstanceDataService.search(scope.tipo_name, searchCriteria).then(function(results){
-              scope.tipos = _.uniqWith(results, _.isEqual);
-              // if (!scope.selectfield) {
+            if (!scope.ispopup) {
+              searchCriteria.drop_down = 'Y';
+              searchCriteria.key_field = key_field;
+              searchCriteria.label_field = label_field;
+            };
+            scope.infiniteItems = tipoManipulationService.getVirtualRepeatObject(searchCriteria.per_page,scope.tipo_name,tipoHandle.getTipos,searchCriteria);
+            scope.infiniteItems.serverResultHandler = function(page){
+              scope.tipos = _.uniqWith(this.tipos, _.isEqual);
               scope.options = optionsFormat(scope.tipos);
               initmodel();
-              // }else{
-              //   scope.options = [];
-              //   var remName = scope.selectfield.substr(scope.selectfield.indexOf('.') + 1);
-              //   var startName = scope.selectfield.substr(0,scope.selectfield.indexOf('.'));
-              //   if (results[0][startName] || results[0][remName]) {
-              //     extractDropdownList(results[0],scope.options,startName,remName)
-              //   };
-              // }
-              var tipo_perm = tipoRegistry.get(scope.tipo_name + '_resdata');
-              scope.perm = tipo_perm.perm;
-              if(tipo_perm.perm.substr(2,1) === 0){
-                scope.disablecreate = true;
-              }
-              var function_name = $stateParams.tipo_name + '_' + scope.fqfieldname.replace(/\./g,"_").replace(/\[\d\]/g, "") + '_AfterLookup';
-              if(typeof tipoCustomJavascript[function_name] === 'function'){
-              // _.join(_.dropRight(fqfieldname.split(".")),".") used for initial client side js
-                scope.data_handle.root = scope.root;
-                scope.data_handle.context = scope.context;
-                scope.data_handle.tipo_list = scope.model.field;
-                scope.data_handle.options = scope.options;
-                tipoCustomJavascript[function_name](scope.root,scope.context,scope.model.field,scope.options);
-              }
-              if(typeof tipoClientJavascript[function_name] === 'function'){
-              // _.join(_.dropRight(fqfieldname.split(".")),".") used for initial client side js
-                scope.data_handle.root = scope.root;
-                scope.data_handle.context = scope.context;
-                scope.data_handle.tipo_list = scope.model.field;
-                scope.data_handle.options = scope.options;
-                tipoClientJavascript[function_name](scope.root,scope.context,scope.model.field,scope.options);
-              }
-            });
+              scope.afterlookupEvent();
+              if (page === 1) {
+                var tipo_perm = tipoRegistry.get(scope.tipo_name + '_resdata');
+                scope.perm = tipo_perm.perm;
+                if(tipo_perm.perm.substr(2,1) === 0){
+                  scope.disablecreate = true;
+                }
+              };
+            };
           };
 
           scope.searchTerm = {};
           scope.cleanup = function(){
             delete scope.searchTerm.text;
               if (!isarray) {
-                scope.fieldvalue = scope.model.field[key_field];
+                scope.ngModel = scope.model.field[key_field];
                 scope.fieldlabel = scope.model.field[label_field];
             }else{
-              scope.fieldvalue = [];
+              scope.ngModel = [];
               scope.fieldlabel = [];
               _.each(scope.model.field,function(val){
-                scope.fieldvalue.push(val[key_field]);
+                scope.ngModel.push(val[key_field]);
                 scope.fieldlabel.push(val[label_field]);
               });
             }
             if (attrs.ngChange) {
               _.set(scope.root, fqfieldname + "_labels", scope.fieldlabel);
             };
-            ctrl.$setViewValue(scope.fieldvalue);
+            ctrl.$setViewValue(scope.ngModel);
           };
 
           scope.stopBubbling = function(event){
@@ -465,36 +486,38 @@
 
           function openTipoObjectDialog(){
             var searchText;
-            var options = scope.loadOptions(searchText,scope.popupDefinition.tipo_meta.default_page_size);            
-            return options.then(function(){
-              var newScope = scope.$new();
-              newScope.isarray = isarray;
-              newScope.field = scope.context;
-              newScope.disablecreate = scope.disablecreate;
-              newScope.tipo_name = scope.tipo_name;
-              newScope.root = scope.root;
-              newScope.perm = scope.perm;
-              newScope.queryparams = scope.searchCriteria;
-              newScope.label_field = label_field;
-              newScope.key_field = key_field;
-              newScope.selectedTipos = _.filter(scope.tipos,function(o){return _.includes(scope.fieldvalue,o[key_field])});
-              var promise = $mdDialog.show({
-                templateUrl: 'framework/_directives/_views/tp-lookup-popup-select.tpl.html',
-                controller: TipoObjectDialogController,
-                controllerAs: 'tipoRootController',
-                scope: newScope,
-                resolve: /*@ngInject*/
-                {
-                  tipoDefinition: function(tipoManipulationService) {
-                    return scope.popupDefinition;
-                  }
-                },
-                skipHide: true,
-                clickOutsideToClose: true,
-                fullscreen: true
-              });
-              return promise;
+            scope.loadOptions(searchText,scope.popupDefinition.tipo_meta.default_page_size);            
+            var newScope = scope.$new();
+            newScope.isarray = isarray;
+            newScope.field = scope.context;
+            newScope.disablecreate = scope.disablecreate;
+            newScope.tipo_name = scope.tipo_name;
+            newScope.root = scope.root;
+            newScope.perm = scope.perm;
+            newScope.queryparams = scope.searchCriteria;
+            newScope.label_field = label_field;
+            newScope.key_field = key_field;
+            if (!isarray) {
+              newScope.selectedTipos = [scope.model.field];  
+            }else{
+              newScope.selectedTipos = scope.model.field;  
+            }
+            var promise = $mdDialog.show({
+              templateUrl: 'framework/_directives/_views/tp-lookup-popup-select.tpl.html',
+              controller: TipoObjectDialogController,
+              controllerAs: 'tipoRootController',
+              scope: newScope,
+              resolve: /*@ngInject*/
+              {
+                tipoDefinition: function(tipoManipulationService) {
+                  return scope.popupDefinition;
+                }
+              },
+              skipHide: true,
+              clickOutsideToClose: true,
+              fullscreen: true
             });
+            return promise;
           }
 
           scope.tipoSearch = function(searchText){
@@ -533,14 +556,14 @@
             scope.selectedTipos = [];
             if (isarray) {
               scope.model.field = [];
-              scope.fieldvalue = [];
+              scope.ngModel = [];
               scope.fieldlabel = [];
             }else{
               scope.model.field = {};
-              scope.fieldvalue = "";
+              scope.ngModel = "";
               scope.fieldlabel = "";
             }
-            ctrl.$setViewValue(scope.fieldvalue);
+            ctrl.$setViewValue(scope.ngModel);
           }
 
           scope.tipoObjecSelectiontDialog = function(){
@@ -575,7 +598,7 @@
               label_field = new_value;
             };
           })
-          scope.$watch(function(){return scope.fieldvalue},function(new_value,old_value){
+          scope.$watch(function(){return scope.ngModel},function(new_value,old_value){
             var function_name;
             if (isarray) {
               if (new_value && new_value.length < old_value.length) {
@@ -596,11 +619,11 @@
             if (new_value !== old_value) {
               initmodel();
             };
-            // if (scope.model.field.key !== scope.fieldvalue) {
+            // if (scope.model.field.key !== scope.ngModel) {
             //   scope.loadOptions();
             //   if (!isarray) {
-            //     scope.model.field.key = scope.fieldvalue;
-            //     scope.model.field.label = scope.fieldlabel || angular.copy(scope.fieldvalue);
+            //     scope.model.field.key = scope.ngModel;
+            //     scope.model.field.label = scope.fieldlabel || angular.copy(scope.ngModel);
             //   };
             // };
           })

@@ -60,11 +60,6 @@
         $mdToast.show(toast);
       };
     };
-
-    _instance.getTipos = function(){
-
-    }
-
     _instance.initTiposData = function(tipoFilters,page_size,allow_search){
       var filter = {};
       _instance.hasTipos = true;
@@ -78,63 +73,30 @@
       _instance.per_page = page_size || 10;
       filter.per_page = _instance.per_page;
       _instance.tipos = [];
-      _instance.infiniteItems = {
-        numLoaded_: _instance.per_page,
-        toLoad_: 0,
-        maxpages: 2,
-        getItemAtIndex: function(index) {
-          if (!_instance.tipos[index] && index < this.numLoaded_) {
-            this.fetchMoreItems_(index);
-            return null;
-          }
-          return _instance.tipos[index];
-        },
-        getLength: function() {
-          return this.numLoaded_;
-        },
-        fetchMoreItems_: function(index) {
-          // For demo purposes, we simulate loading more items with a timed
-          // promise. In real code, this function would likely contain an
-          // $http request.
-          if (!_instance.busy && _instance.page < this.maxpages) {
-            _instance.page++;
-            filter.page = _instance.page;
-            _instance.busy = true;
-            tipoHandle.getTipos($stateParams.tipo_name, filter).then(angular.bind(this,function(tipos){
-              var function_name = $stateParams.tipo_name + "_OnList";
-              if(typeof tipoCustomJavascript[function_name] === 'function'){
-                $scope.data_handle.tipo_list = tipos;
-                tipoCustomJavascript[function_name]($scope.data_handle);
-              }
-              if(typeof tipoClientJavascript[function_name] === 'function'){
-                $scope.data_handle.tipo_list = tipos;
-                tipoClientJavascript[function_name]($scope.data_handle);
-              }
-              _instance.tipos = _instance.tipos.concat(tipos);
-              // if (tipos.length === _instance.per_page) {
-              //   this.numLoaded_ += tipos.length;
-              // }
-              // else{
-              //   this.numLoaded_ = this.numLoaded_ - _instance.per_page - tipos.length;
-              // }
-              _instance.busy = false;
-              _instance.initTipos = angular.copy(_instance.tipos);
-              if (_instance.page === 1) {
-                _instance.hasTipos = tipos.length > 0;
-                _instance.updatetipo = {};
-                _instance.loading = false;
-                var responseData = tipoRegistry.get($stateParams.tipo_name + '_resdata');
-                this.numLoaded_ = responseData.count;
-                this.maxpages = Math.ceil(responseData.count/_instance.per_page);
-                _instance.perm = responseData.perm;
-                _instance.restricted_actions = responseData.restricted_actions;
-                _instance.bulkedit = false;
-                _instance.singleedit = false;
-              };
-            }));
-          };
+      _instance.bulkedit = false;
+      _instance.singleedit = false;
+      _instance.infiniteItems = tipoManipulationService.getVirtualRepeatObject(_instance.per_page,$stateParams.tipo_name,tipoHandle.getTipos,filter);
+      _instance.infiniteItems.serverResultHandler = function(page){
+        var function_name = $stateParams.tipo_name + "_OnList";
+        if(typeof tipoCustomJavascript[function_name] === 'function'){
+          $scope.data_handle.tipo_list = tipos;
+          tipoCustomJavascript[function_name]($scope.data_handle);
         }
-      };
+        if(typeof tipoClientJavascript[function_name] === 'function'){
+          $scope.data_handle.tipo_list = tipos;
+          tipoClientJavascript[function_name]($scope.data_handle);
+        }
+        _instance.initTipos = angular.copy(this.tipos);
+        _instance.tipos = angular.copy(this.tipos);
+        if (page === 1) {
+          _instance.hasTipos = this.tipos.length > 0;
+          _instance.updatetipo = {};
+          _instance.loading = false;
+          var responseData = tipoRegistry.get($stateParams.tipo_name + '_resdata');
+          _instance.perm = responseData.perm;
+          _instance.restricted_actions = responseData.restricted_actions;
+        }
+      }
     }
 
 
