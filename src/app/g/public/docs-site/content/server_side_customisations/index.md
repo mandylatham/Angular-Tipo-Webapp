@@ -125,6 +125,13 @@ Context Variable |  Description
 `$tipo_context.gateway_request`.**params** | HTTP request parameters. To get the value of a specific parameter passed by the client, simply add parameter name after params. E.g. `$tipo_context.gateway_request.params.spcial_code` will give you the value for the parameter by the name `special_code`
 `$tipo_context.current_tipo`.**{}** | When actions are performed in the detail/update view, the current tipo will contain the data upon which the action is currently being executed.
 `$tipo_context.user_attributes` | Name value pairs of attributes associated during user registraion. Role identification TipoName and ID. For example, if the invited user is Supplier. 
+`$tipo_context.user_attributes.user_tipo` | E.g. Patient, PartnerContact
+`$tipo_context.user_attributes.user_tipo_id` | E.g. Patient ID (1234), PartnerContact ID (2222)
+`$tipo_context.user_attributes.org_tipo` | E.g. PartnerOrg, SupplierOrg
+`$tipo_context.user_attributes.org_tipo_id` | E.g. PartnerOrg ID (PARTNER_11), SupplierOrg ID (SUPP_2222)
+
+
+
 
     
 Use the above format in the tipo_filter when specifying dependencies for dynamic replacement. 
