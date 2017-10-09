@@ -488,7 +488,6 @@
         $scope.data_handle.item = _instance.newObject;
         tipoClientJavascript[function_name](_$scope.data_handle);
       }
-      scrollToNewItem(array,field_name);
     }
 
     function scrollToNewItem(array,field_name){
@@ -598,7 +597,7 @@
 
     _instance.popupno = $scope.popupno || 0;
 
-    _instance.showDetail = function(htmltemplate,index,field_name){
+    _instance.showDetail = function(htmltemplate,fq_field_name,field_name){
       // var definition = extractDatafromDefinition(field_name);
       // if (!_.isUndefined(index)) {
       //   definition = definition._items[index];
@@ -615,42 +614,53 @@
       _instance.popupno++;
       newScope.popupno = _instance.popupno;
       htmltemplate = atob(htmltemplate);
-      if (!_.isUndefined(index)) {
-        if (_.isUndefined($scope.recursiveGroupRef)) {
-          newScope.recursiveGroupRef = {};
-          newScope.recursiveGroupRef.field_names = field_name + "/";
-          newScope.recursiveGroupRef.arrayindex = index.toString();
-          newScope.recursiveGroupRef.digits = numDigits(index).toString();
-        }else{
-          newScope.recursiveGroupRef = {};
-          newScope.recursiveGroupRef.field_names = $scope.recursiveGroupRef.field_names + field_name + "/";
-          newScope.recursiveGroupRef.arrayindex = $scope.recursiveGroupRef.arrayindex + index.toString();
-          newScope.recursiveGroupRef.digits = $scope.recursiveGroupRef.digits + numDigits(index).toString();
-        }
-        var nth = 0;
-        var loop = 0;
-        _.each(newScope.recursiveGroupRef.field_names.split('/'),function(stringVal){
-          if(!_.isEmpty(stringVal)){
-            var digits = newScope.recursiveGroupRef.digits.substr(loop,1);
-            var regex = new RegExp(stringVal + "\\[\\$index", "g");
-            htmltemplate = htmltemplate.replace(regex,stringVal + "[" + newScope.recursiveGroupRef.arrayindex.toString().substr(nth,digits));
-            nth = nth + digits;
-            loop++;
-          }
-        });
-      }else{
-        if (newScope.recursiveGroupRef) {
-          _.each(newScope.recursiveGroupRef.field_names.split('/'),function(stringVal){
-            if(!_.isEmpty(stringVal)){
-              var digits = newScope.recursiveGroupRef.digits.substr(loop,1);
-              var regex = new RegExp(stringVal, "g");
-              htmltemplate = htmltemplate.replace(regex,stringVal + "[" + newScope.recursiveGroupRef.arrayindex.toString().substr(nth,digits) + "]");
-              nth = nth + digits;
-              loop++;
-            }
-          });
+      var fields = fq_field_name.split(".");
+      _.each(fields,function(field){
+        if (field.indexOf("[") !== -1) {
+          var ind1 = field.indexOf("[");
+          var ind2 = field.indexOf("]");
+          var inx = field.slice(ind1+1,ind2);
+          var fieldname = field.slice(0,ind1);
+          var regex = new RegExp(fieldname + "([\\[(])(.+?)([\\])])","g");
+          htmltemplate = htmltemplate.replace(regex,fieldname+"["+inx+"]");
         };
-      }
+      });
+      // if (!_.isUndefined(index)) {
+      //   if (_.isUndefined($scope.recursiveGroupRef)) {
+      //     newScope.recursiveGroupRef = {};
+      //     newScope.recursiveGroupRef.field_names = field_name + "/";
+      //     newScope.recursiveGroupRef.arrayindex = index.toString();
+      //     newScope.recursiveGroupRef.digits = numDigits(index).toString();
+      //   }else{
+      //     newScope.recursiveGroupRef = {};
+      //     newScope.recursiveGroupRef.field_names = $scope.recursiveGroupRef.field_names + field_name + "/";
+      //     newScope.recursiveGroupRef.arrayindex = $scope.recursiveGroupRef.arrayindex + index.toString();
+      //     newScope.recursiveGroupRef.digits = $scope.recursiveGroupRef.digits + numDigits(index).toString();
+      //   }
+      //   var nth = 0;
+      //   var loop = 0;
+      //   _.each(newScope.recursiveGroupRef.field_names.split('/'),function(stringVal){
+      //     if(!_.isEmpty(stringVal)){
+      //       var digits = newScope.recursiveGroupRef.digits.substr(loop,1);
+      //       var regex = new RegExp(stringVal + "\\[\\$index", "g");
+      //       htmltemplate = htmltemplate.replace(regex,stringVal + "[" + newScope.recursiveGroupRef.arrayindex.toString().substr(nth,digits));
+      //       nth = nth + digits;
+      //       loop++;
+      //     }
+      //   });
+      // }else{
+      //   if (newScope.recursiveGroupRef) {
+      //     _.each(newScope.recursiveGroupRef.field_names.split('/'),function(stringVal){
+      //       if(!_.isEmpty(stringVal)){
+      //         var digits = newScope.recursiveGroupRef.digits.substr(loop,1);
+      //         var regex = new RegExp(stringVal, "g");
+      //         htmltemplate = htmltemplate.replace(regex,stringVal + "[" + newScope.recursiveGroupRef.arrayindex.toString().substr(nth,digits) + "]");
+      //         nth = nth + digits;
+      //         loop++;
+      //       }
+      //     });
+      //   };
+      // }
       // newScope.root = _instance.tipoDefinition;
       newScope.mode = "edit";
       newScope.fullscreen = true;
@@ -709,10 +719,10 @@
       return $sce.trustAsHtml(html);
     }
 
-    _instance.generateItem = function(field_name){
+    _instance.generateItem = function(field_name,angular_name){
       // var definition = extractDatafromDefinition(field_name);
       // tipoManipulationService.generateGroupItem(definition);
-      generateGroupItem(field_name);
+      generateGroupItem(angular_name);
     }
 
     _instance.deleteItem = function(field_name,index){
