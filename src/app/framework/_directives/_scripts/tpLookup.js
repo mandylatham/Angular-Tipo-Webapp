@@ -220,7 +220,7 @@
           scope.model = {};
           var isarray = Boolean(scope.isarray);
           scope.isMandatory = Boolean(scope.istipomandatory);
-          var fqfieldname = scope.fqfieldname.replace("$index", scope.index);
+          var fqfieldname = scope.fqfieldname.replace("index", scope.index);
           var fieldTemplate;
           if(isarray){
             fieldTemplate = 'framework/_directives/_views/tp-lookup-multiple.tpl.html';
