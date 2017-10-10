@@ -11,7 +11,7 @@
         link: function(scope, element, attributes, mdVirtualRepeatContainer) {
           var footer = 10;
           function getHeight() {
-            var height = $window.innerHeight - (element[0].getBoundingClientRect().top + footer);
+            var height = $window.innerHeight - (footer);
             angular.element(element).css('height', height + 'px');
             return height;
           }
