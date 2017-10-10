@@ -297,6 +297,7 @@
                 scope.model.field = scope.model.field[0];
               };
             }else{
+              scope.initload = true;
               scope.ngModel = _.get(scope.root,fqfieldname);
               scope.fieldlabel = _.get(scope.root,fqfieldname + "_labels");
               if(isarray){
@@ -322,6 +323,14 @@
                   scope.options.push(scope.model.field);
                 }
               }
+              // scope.infiniteItems = {
+              //   getItemAtIndex: function(index){
+              //     return scope.options[index];
+              //   },
+              //   getLength: function(index){
+              //     return scope.options.length;
+              //   }
+              // };
             }
           }
           initmodel();
@@ -346,6 +355,7 @@
             }
           }
           scope.triggerDropdown = function(searchText){
+            scope.initload = false;
             return $timeout(function() {
               scope.$broadcast("$md-resize");
               scope.loadOptions(searchText);
