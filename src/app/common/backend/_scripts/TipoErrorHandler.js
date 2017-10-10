@@ -74,7 +74,7 @@
     var _instance = this;
 
     this.handleError = function(exception, deferred) {
-      tipoRouter.startStateChange();
+      tipoRouter.endStateChange();
       var promise = $mdDialog.show({
         templateUrl: 'common/backend/_views/error.tpl.html',
         controller: ErrorController,
@@ -86,7 +86,7 @@
         clickOutsideToClose: true,
         fullscreen: true
       });
-      promise.then(tipoRouter.endStateChange);
+      // promise.then(tipoRouter.endStateChange);
       return false;
     };
 
