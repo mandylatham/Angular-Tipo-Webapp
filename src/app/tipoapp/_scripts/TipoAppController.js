@@ -21,18 +21,18 @@
     // }
 
     function addLogotoData(tipos){
-      _.each(tipos, function(each, index){
-        var logo;
-        if(each.app_name === 'Tipo App'){
-          logo = 'tipoapp';
-        } else if(index < 7){
-          logo = index + 1;
-        }else{
-          logo = 'no-image';
-        }
-        each.logo = logo + '.png';
-      });
-      _instance.tipos = tipos;
+      // _.each(tipos, function(each, index){
+      //   var logo;
+      //   if(each.app_name === 'Tipo App'){
+      //     logo = 'tipoapp';
+      //   } else if(index < 7){
+      //     logo = index + 1;
+      //   }else{
+      //     logo = 'no-image';
+      //   }
+      //   each.logo = logo + '.png';
+      // });
+      _instance.infiniteItems = $scope.tipoRootController.infiniteItems;
     }
     addLogotoData($scope.tipoRootController.tipos);
 
