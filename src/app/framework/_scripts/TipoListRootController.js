@@ -77,6 +77,8 @@
       _instance.singleedit = false;
       _instance.infiniteItems = tipoManipulationService.getVirtualRepeatObject(_instance.per_page,$stateParams.tipo_name,tipoHandle.getTipos,filter);
       _instance.infiniteItems.serverResultHandler = serverResultHandler;
+      var container = angular.element(document.getElementById('inf-wrapper'));
+      container.scrollTop();
     }
 
     function serverResultHandler(page){

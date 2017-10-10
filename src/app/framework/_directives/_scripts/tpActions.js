@@ -127,8 +127,8 @@
           if(mode === 'view'){
             // only a single tipo
             tipo_id = scope.tipos.tipo_id;
-            if (!_.isUndefined(scope.tipos.restrictedActions)) {
-              var restrictedActions = scope.tipos.restrictedActions.split(',');
+            if (!_.isUndefined(scope.tipos.restricted_actions)) {
+              var restrictedActions = scope.tipos.restricted_actions.split(',');
             };
           }else{
             if (!_.isUndefined(scope.restrictedActions)) {
