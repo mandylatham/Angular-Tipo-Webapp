@@ -1,16 +1,16 @@
 ---
-title: Actions
-weight: 10
+title: Client Side Actions
+weight: 8
 ---
 
-## Introduction
+## Introduction to Actions
 Actions are a way of extending your application to provide custom functionality via buttons that run code that you specify. If you have used TipoTapp, then you have come upon Actions several times. On the UI, you have been engaging with controls at the top-right side of the screen. You can see an example of these below.
 
 ![Actions](/images/actions/image_001.png)
 
 TipoTapp allows you to further extend your application by creating Custom Actions. The Actions are backed by code which is run when the user engages with the button. This code can either be local, or it can be run from the cloud. We'll soon see examples of both.
 
-You can create Actions on list views, detail views and edit views. You can also specify Actions that run on deletion of an object. These are usually hidden and are run when the Delete button of a record is clicked. An example usecase of this is: you might want to override the normal delete operation so that when the user presses delete, the record isn't deleted from the database, but only marked as deleted and removed from the UI.
+You can create Actions on list views, detail views and edit views. You can also specify Actions that run on deletion of an object. These are usually hidden and are run when the Delete button of a record is clicked. An example use case of this is: you might want to override the normal delete operation so that when the user presses delete, the record isn't deleted from the database, but only marked as deleted and removed from the UI.
 
 ## Client Side Actions
 
@@ -55,8 +55,7 @@ TipoHandle is a utility service that allows client side javascript to perform co
 Member name | Description
 ------------ | ---------------
 `application_meta.application` | Application ID
-`application_meta.application_owner_account` | Application Onwer Account ID 
-
+`application_meta.application_owner_account` | Application Owner Account ID 
 
 ### ```user_meta```
 Member name | Description
@@ -72,16 +71,16 @@ Member name | Description
 ###  ```getConfirmation (user_message) ```
 Present user with a confirmation message and get user response.
 
-	- user_message : User will be promoted to confirm using this user messsage.
+	- user_message : User will be prompted to confirm using this user message.
 	// return boolean; True if user selected "Yes".
 
 	Example Usage:
 	tipoHandle.getConfirmation("Please confirm if the object 234234 can be saved or deleted.");
 
 ###  ```hideElement (element_class) or showElement(element_class) ```
-Each field has a class assocated to uniquely identify the field to hide or show.
+Each field has a class associated to uniquely identify the field to hide or show.
 Example 1: Say Purchase Order has a order_total field, there will be a class called `order_total`.
-Example 2: To hide something in an array of a group field, i.e. in a Purchase Order line item cescription, a class will be associated with the line item description in the following pattern: `line_item_n_description` (`n` is the array index) 
+Example 2: To hide something in an array of a group field, i.e. in a Purchase Order line item description, a class will be associated with the line item description in the following pattern: `line_item_n_description` (`n` is the array index) 
 
 	- element_class: element identifier to show/hide element
 	//return void;
@@ -90,12 +89,11 @@ Example 2: To hide something in an array of a group field, i.e. in a Purchase Or
 - Scenario 2: Hide or show Actions
 Each action uses action_name as the class associated to uniquely identify the action, so that it can be hidden or shown. If the action is already hidden in the meta-data, it will not be available in the client for show/hide
 	
-
 ### ``` getTipoDefinition(tipo_name) ```
 Fetch TipoDefinition for the Tipo specified in `tipo_name`.
 
 	- tipo_name : Tipo name to fetch TipoDefinition for.
-	// return TipoDefinition
+	// return TipoDefinition(as a promise)
 
 ### ``` callAction(tipo_name, action_name, selected_tipo_ids, additional_tipo_name, additional_tipo) ```
 Perform action specified in `action_name` on the Tipo specified in `tipo_name`.
@@ -105,8 +103,7 @@ Perform action specified in `action_name` on the Tipo specified in `tipo_name`.
 	- selected_tipo_ids: this is an array that contains the selected tipo ids.
 	- additional_tipo_name: if there is additional data that action requires specify the name here.
 	- additional_tipo: supply the additional data here.
-	// return tipo_response; //result from the server is supplied back to the caller.
-
+	// return tipo_response(as a promise); //result from the server is supplied back to the caller.
 
 ### ``` routeTo(url) ```
 User will be presented with the URL specified in `url`. Please specify the path after the `#` character.
@@ -114,21 +111,20 @@ User will be presented with the URL specified in `url`. Please specify the path 
 	- url : resource location after `#`. E.g. /tipo/PurchaseOrder/93829282782 or /tipo/Customer
 	// return void;
 
-
 ### ``` saveTipo(tipo_name, tipo_id, tipo_data) ```
 Save tipo on server with the data supplied in `tipo_data`.
 
 	- tipo_name
 	- tipo_id
 	- tipo_data
-	// return boolean; If true save tipo is successful.
+	// return boolean(as a promise); If true save tipo is successful.
 
 ### ``` saveTipos(tipo_name, tipo_data) ```
 Save array tipo on server with the data supplied in `tipo_data`.
 
 	- tipo_name
 	- tipo_data
-	// return boolean; If true save tipo is successful.
+	// return boolean(as a promise); If true save tipo is successful.
 	
 ### ``` createTipo(	tipo_name, tipo_data, query_params) ```
 Create tipo on server with the data supplied in `tipo_data`.
@@ -136,7 +132,7 @@ Create tipo on server with the data supplied in `tipo_data`.
 	- tipo_name
 	- tipo_data
 	- query_params
-	// return boolean; If true save tipo is successful.
+	// return boolean(as a promise); If true save tipo is successful.
 
 ### ``` createTipos(tipo_name, tipo_data, query_params) ```
 Create array of tipos on server with the array data supplied in `tipo_data`.
@@ -144,14 +140,14 @@ Create array of tipos on server with the array data supplied in `tipo_data`.
 	- tipo_name
 	- tipo_data
 	- query_params
-	// return boolean; If true save tipo is successful.
+	// return boolean(as a promise); If true save tipo is successful.
 
 ### ``` deleteTipo(tipo_name,tipo_id) ```
 Delete tipo with name specified in `tipo_name` and ID specified in `tipo_id`.
 
 	- tipo_name
 	- tipo_id
-	// return boolean; If true delete tipo is successful.
+	// return boolean(as a promise); If true delete tipo is successful.
 
 ### ``` getTipo(tipo_name, tipo_id, query_params) ```
 Get tipo data for `tipo_name` with ID specified in `tipo_id`.
@@ -192,10 +188,10 @@ Present edit form using the structure of the tipo definition specified in `tipo_
 Provide a JSON file to generate TipoDefinition from JSON data sample.
 
 ## Tipo Level Events
-Tipo lovel events are fired when a new instance of a tipo is created/cloned, updated, deleted, listed and clicked in a list.
+Tipo level events are fired when a new instance of a tipo is created/cloned, updated, deleted, listed and clicked in a list.
 
 ### OnList: ``` `<Tipo Name>`_OnList(data_handle) ```
-This is triggered before presenting the list of tipos in a list view. The can be useful to suppress certain items or add some addtional items to the list returned by the server.
+This is triggered before presenting the list of tipos in a list view. The can be useful to suppress certain items or add some additional items to the list returned by the server.
 
     - tipoHandle: handle to the utility service
     - data_handle.tipo_list: list of tipos,
@@ -218,13 +214,11 @@ This is triggered only when the list item is clicked in the list view. When acti
 	// return boolean; //Return true to continue creating/saving tipo
     
 ### OnDelete: ``` `<Tipo Name>`_OnDelete(data_handle) ```
-This event is triggered when a tipo is selected for deletion. This can be useful to control the behaviour when a tipo is deleted. For example, if this is a prent tipo and this event can be used to delete the child tipos before continuing with the deletion.
+This event is triggered when a tipo is selected for deletion. This can be useful to control the behaviour when a tipo is deleted. For example, if this is a prent (TODO: present?) tipo and this event can be used to delete the child tipos before continuing with the deletion.
 
     - tipoHandle: handle to the utility service
     - data_handle.tipo: contains  data for the tipo that is selected for deletion.
-    // return boolean/promise; Returns true, default delete will be executed. Returns false, deafult action will not be executed.
-
-
+    // return boolean/promise; Returns true, default delete will be executed. Returns false, default action will not be executed.
 
 ### OnView: ``` `<Tipo Name>`_OnView(data_handle) ```
 This event is fired when user selects tipo for viewing. Before presenting the detailed view any customisations required can be performed using this event.
@@ -241,7 +235,6 @@ OnSave is fired when a new tipo is created or edited. In both cases, before send
 	- data_handle.mode: contains whether the Save is triggered from create or edit mode
     // return boolean/promise; Only if true data will be saved in the server.
 
-
 ## Tipo Field Level Events
 //TODO for Murali. The following still needs to be documented properly.
 
@@ -253,7 +246,7 @@ This is applicable only in create or edit forms. This event is triggered when us
 	- data_handle.context: handle to the current context in a deep json structure. When in an array to refer to the neighboring field that is in the same array index, simply use this.
 	- data_handle.old_value: value before change
 	- data_handle.new_value: value after change.
-	// return boolean; If true change is propogated, if false change is not propagated.
+	// return boolean; If true change is propagated, if false change is not propagated.
     
 ### OnArrayItemAdd:	``` `<Tipo Name>`_`<FieldName>`_OnArrayItemAdd(data_handle)```
 	- tipoHandle: handle to the utility service.
@@ -275,7 +268,7 @@ This is applicable only in create or edit forms. This event is triggered when us
 	- tipoHandle: handle to the utility service.
 	- data_handle.tipo: contains data for the tipo.
 	- data_handle.context: handle to the current context in a deep json structure. When in an array to refer to the neighboring field that is in the same array index, simply use this.
-	- data_handle.query_params: is an array of objects with two fields `param_name` and `param_value`. Important key is `tipo_filter` that contains the filter used on the serverside for lookups. By altering this, the lookup behaviour can be altered.
+	- data_handle.query_params: is an array of objects with two fields `param_name` and `param_value`. Important key is `tipo_filter` that contains the filter used on the server side for lookups. By altering this, the lookup behaviour can be altered.
 	// return void;
 
 ### AftereLookup: ``` `<Tipo Name>`_`<FieldName>`_AfterLookup(data_handle)```
@@ -285,7 +278,6 @@ This is applicable only in create or edit forms. This event is triggered when us
 	- data_handle.tipo_list: contains the result data of lookup.
 	- data_handle.options: an array of objects with two fields `key` and `label`
 	// return void;
-
 
 ## Tipo Actions
 These are javascript based actions that run on the client side in the browser.
@@ -300,212 +292,3 @@ Perform action specified in `action_name` on the Tipo specified in `tipo_name`. 
 	- data_handle.additional_tipo: Client side dependency data
 	- data_handle.selected_tipos: In the list view this will be an array, and in the detail/create/edit view this is single object on which the action is performed.
 	// return void;
-
-## Server Side Actions
-Server Side Actions are Actions that run code on a server when engaged with. In particular, TipoTapp supports use of [AWS Lambda](http://docs.aws.amazon.com/lambda/latest/dg/welcome.html) functions. AWS Lambda is a compute service that lets you run code without provisioning or managing servers. You can write your code there in one of the supported languages (currently Node.js, Java, C# and Python) and it will be available to be called by other applications that you link to it.
-
-For instructions on how to create a Lambda function, [check the documentation](http://docs.aws.amazon.com/lambda/latest/dg/welcome.html).
-
-## Linking an Amazon AWS Account
-To use AWS Lambda, you can either use your own credentials or you can decide that the app will use the credentials of its subscribers (e.g. each school that the Student Management System will be sold to). We'll take the former option, to ensure that the app comes fully loaded with Cloud Function support instead of leaving this up to the subscribers.
-
-To add the credentials, open `Develop` and select `Configurations`. Add your AWS `Access Key ID` and the `Secret Key`.
-
-![AWS Settings](/images/actions/image_004.png)
-
-## Registering your Cloud Functions
-Before you can use a Lambda function, you have to register it. Each function you create on AWS comes with a unique idenifier (the ARN). TipoTapp uses this to link to the functions you register.
-
-To register a Cloud Function, head to `Develop` and select `Cloud Functions` from the menu. Bring up the Create form with the Add button.
-
-![Register Cloud Function](/images/actions/image_005.png)
-
-Give a name to your function, set `Type` to `AWS Lambda`, add its `Lambda Function ARN`, switch on `Use App AWS Credentials` which will use the AWS credentials you added. Also switch on `Supply TipoContext`. This will include the `tipo_context` object in the body of the request to the server. Tipo Context contains all the contextual information about the user, application, current request and user actions. Below are its attributes.
-
-Context Variable |  Description 
------------- | ------------
-`$tipo_context`.**user** | Logged-in user id (Email)
-`$tipo_context`.**user_role** | Logged-in user role
-`$tipo_context`.**account** | Logged-in user account ID
-`$tipo_context`.**account_name** | Logged-in user account name
-`$tipo_context`.**application** | Logged-in application ID
-`$tipo_context`.**application_name** | Logged-in application name
-`$tipo_context`.**application_owner_account** | Logged-in application owner account ID
-`$tipo_context`.**application_owner_account_name** | Logged-in application owner account name
-`$tipo_context.gateway_request`.**tipo_name** | TipoName in the request URL
-`$tipo_context.gateway_request`.**tipo_id** | TipoID in the request URL
-`$tipo_context.gateway_request`.**tipo_action** | Query parameter 'tipo_action' value
-`$tipo_context.gateway_request`.**http_method** | Request HTTP method (GET, PUT, POST, DELETE)
-`$tipo_context.gateway_request`.**page** | During pagination, which page is requested
-`$tipo_context.gateway_request`.**per_page** | How many results in a single response.
-`$tipo_context.gateway_request`.**tipo_filter** | Filter to apply on the data being fetched.
-`$tipo_context.gateway_request`.**params** | HTTP request parameters. To get the value of a specific parameter passed by the client, simply add parameter name after params. E.g. `$tipo_context.gateway_request.params.spcial_code` will give you the value for the parameter by the name `special_code`
-`$tipo_context.current_tipo`.**{}** | When actions are performed in the detail/update view, the current tipo will contain the data upon which the action is currently being executed.
-`$tipo_context.user_attributes` | Name value pairs of attributes associated during user registraion. Role identification TipoName and ID. For example, if the invited user is Supplier. 
-
-## Creating a Server Side List View Action
-
-To demonstrate Server Side Actions, we are going to add another Tipo to the application and then add some Actions to it. This Tipo will be used to hold student application information.
-
-Create a Tipo named `Application` and fill out the following fields in the `Meta Data` section:
-
- - **Name**: Application
- - **Description**: Application Tipo
- - **Choose Menu**: Home
- - **Tipo Type**: x
-
-Add the following fields to the Tipo.
-
-`Student` field:
-
- - **Field**: Student
- - **Type**: Student
- - **Short Display**: Yes
- 
-`Course` field:
-
- - **Field**: Course
- - **Type**: Course
- - **Short Display**: Yes
- 
-`Application Date` field:
-
- - **Field**: Application Date
- - **Type**: Date/Time
- - **Short Display**: Yes
- 
-`Cover Letter` field:
-
- - **Field**: Cover Letter
- - **Type**: Rich Text
- 
-`Application Status` field:
- - **Field**: Application Status
- - **Type**: Simple String
- - **Short Display**: Yes
-
-### Single Actions
-You can create an Action that works on a single record, or one that can process several records. Let's start by looking at Single Actions.
-
-We've created the following Lambda function on Amazon AWS. The function processes the current record and sets its `application_status` to `Approved`.
-
-```
-// TestFunc
-exports.handler = (event, context, callback) => {
-   // TODO implement
-   console.log('Pre Function --- Input');
-   console.log(event);
-   /** Received event with tipo_context, tipo_request and server_dependencies if any*/
-   /** Inside the tipo_context, the current_tipo contains the data for the application to be approved. */
-   var resp = {};
-if (event.tipo_context.current_tipo.course === "9123843365" 
-&& event.tipo_context.current_tipo.application_status != "Approved") {
-    var tipo_request = [{}];
-    tipo_request[0].tipo_name = "Application";
-    tipo_request[0].db_action = "PUT";
-    tipo_request[0].data = {};
-    tipo_request[0].data.tipo_id = event.tipo_context.current_tipo.tipo_id;
-    tipo_request[0].data.application_status = "Approved";
-    resp.tipo_request = tipo_request;
-}
-
-   console.log('Post Function --- Output');
-   console.log(resp);
-
-
-   callback(null, resp);
-};
-```
-
-On TipoTapp, we've registered this function as shown below:
-
-![Register Cloud Function](/images/actions/image_006.png)
-
-To create an Action on the Tipo's list view, open the `List` tab on the Tipo, open the Advanced Editor of the `List` section and add a `Custom Action.
-
-![Register Cloud Function](/images/actions/image_007.png)
-
-#### Client Side Dependencies
-You can add some data to the Action request before sending it to the AWS server. 
-#### Server Side Dependencies
-
-### Bulk Actions
-As mentioned, you can create an Action that processes several records. To demonstrate this, we created the following function that iterates through several records, setting their `application_status` to `Approved`.
-
-```
-// BulkApproval
-exports.handler = (event, context, callback) => {
-   // TODO implement
-   console.log('Pre Function --- Input');
-   console.log(event);
-   /** Received event with tipo_context, tipo_request and server_dependencies if any*/
-   /** Inside the tipo_context, the current_tipo contains the data for the application to be approved. */
-   var resp = {};
-   
-    var result_tipo_requests = [];
-   for(var i = 0; i < event.tipo_request.length; i++) {
-        var tipo_request = event.tipo_request[i];       
-       console.log('request is ');
-       console.log(tipo_request);
-       console.log('data is');
-       console.log(tipo_request.data);
-       var new_req = {};
-       new_req.tipo_name = "Application";
-       new_req.db_action = "PUT";
-       new_req.data = {};
-       new_req.data.tipo_id = tipo_request.data.tipo_id;
-       new_req.data.application_status = "Approved";
-       result_tipo_requests.push(new_req);
-   }
-   
-   resp.tipo_request = result_tipo_requests;
-
-    var response_headers = {};
-    response_headers.user_message = "Successfully Approved All Applications";
-    response_headers.return_url = "/tipo/Application";
-    
-    resp.response_headers = response_headers;
-    
-   console.log('Pre Function --- Output');
-   console.log(resp);
-
-   callback(null, resp);
-};
-```
-
-On TipoTapp, we registered the function as shown.
-
-![Register Cloud Function](/images/actions/image_008.png)
-
-## Creating a Server Side Detail View Action
-
-![Register Cloud Function](/images/actions/image_009.png)
-
-## How Server Side Functions Work
-![Server Customizations](/images/developer/ServerCustomisations.png)
-
-### Pre Function
-
-![Pre Function](/images/developer/PreFunction.png)
-
-### Post Function
-
-![Post Function](/images/developer/PostFunction.png)
-
-### Input/Output Structure 
-
-![Input Output Structures](/images/developer/InputOutput.png)
-
-### Signature #
-Tipo Cloud Functions only takes a single JSON input and a single JSON output, both these are explained in the Request Structure and Response Structure sections below.
-
-  *`tipo_fn_response` handler ( `tipo_context`, `tipo_request`, `tipo_response`, `server_dependencies`);*
-
-### Request Structure ##
-Tipo cloud function request is a Json object with the following four members.
-
-Member name | Description
------------- | ---------------
-`tipo_context` | Tipo Context contains all the contextual information about the user, application, current request and user actions
-`tipo_request []` | Contains array of all the requests from the client. Only bulk action will contain more than one array item, but the structure will always be an array.
-`tipo_response []`| Function may be called after performing database action, in which case there will be responses as well as requests as requests.

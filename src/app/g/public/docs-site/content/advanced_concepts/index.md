@@ -325,9 +325,42 @@ Quick Filters are used to filter the data displayed in list views. When used, on
 
 To demonstrate Query Filters, we'll add a new Tipo to the Student Management System. This Tipo will be used to hold information regarding Applications that the institution receives.
 
-Add a Tipo named `Application` to the app and add the following fields to it.
+Add a Tipo named `Application` to the app and add the following fields and Meta Data to it.
 
-TODO: Add Fields later
+ - **Name**: Application
+ - **Description**: Application Tipo
+ - **Choose Menu**: Home
+ - **Tipo Type**: Entity Tipo
+
+Add the following fields to the Tipo.
+
+`Student` field:
+
+ - **Field**: Student
+ - **Type**: Student
+ - **Short Display**: Yes
+ 
+`Course` field:
+
+ - **Field**: Course
+ - **Type**: Course
+ - **Short Display**: Yes
+ 
+`Application Date` field:
+
+ - **Field**: Application Date
+ - **Type**: Date/Time
+ - **Short Display**: Yes
+ 
+`Cover Letter` field:
+
+ - **Field**: Cover Letter
+ - **Type**: Rich Text
+ 
+`Application Status` field:
+ - **Field**: Application Status
+ - **Type**: Simple String
+ - **Short Display**: Yes
 
 In Edit mode, scroll down to `List View Configuration` and open the Advanced Editor.
 
