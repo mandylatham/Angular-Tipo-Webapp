@@ -3,7 +3,7 @@
 		<md-select ng-model="model.field" aria-label="realtedtipo" md-container-class="tp-field" placeholder="{{field.field_description}}" md-on-open="triggerDropdown()" md-on-close="cleanup()" md-selected-text="renderSelection()" multiple="true" ng-disabled="ispopup" flex ng-required="istipomandatory">
 		  <md-select-header class="search" ng-if="options.length > 5">
 		    <md-input-container md-no-float class="fullwidth">
-		      <input ng-model="searchTerm.text" type="search" placeholder="Search ..." ng-keydown="stopBubbling($event)" tp:auto-focus>
+		      <input ng-model="searchTerm.text" type="search" placeholder="Search ..." ng-keydown="stopBubbling($event)" ng-keyup="$event.keyCode == 13 ? triggerDropdown(searchTerm.text) : null" tp:auto-focus>
 		      <md-icon ng-if="!disablecreate" class="md-primary addtipo pointer" ng-click="addTipo()">add</md-icon>
 		    </md-input-container>
 		  </md-select-header>

@@ -76,26 +76,28 @@
       _instance.bulkedit = false;
       _instance.singleedit = false;
       _instance.infiniteItems = tipoManipulationService.getVirtualRepeatObject(_instance.per_page,$stateParams.tipo_name,tipoHandle.getTipos,filter);
-      _instance.infiniteItems.serverResultHandler = function(page){
-        var function_name = $stateParams.tipo_name + "_OnList";
-        if(typeof tipoCustomJavascript[function_name] === 'function'){
-          $scope.data_handle.tipo_list = tipos;
-          tipoCustomJavascript[function_name]($scope.data_handle);
-        }
-        if(typeof tipoClientJavascript[function_name] === 'function'){
-          $scope.data_handle.tipo_list = tipos;
-          tipoClientJavascript[function_name]($scope.data_handle);
-        }
-        _instance.initTipos = angular.copy(this.tipos);
-        _instance.tipos = angular.copy(this.tipos);
-        if (page === 1) {
-          _instance.hasTipos = this.tipos.length > 0;
-          _instance.updatetipo = {};
-          _instance.loading = false;
-          var responseData = tipoRegistry.get($stateParams.tipo_name + '_resdata');
-          _instance.perm = responseData.perm;
-          _instance.restricted_actions = responseData.restricted_actions;
-        }
+      _instance.infiniteItems.serverResultHandler = serverResultHandler;
+    }
+
+    function serverResultHandler(page){
+     var function_name = $stateParams.tipo_name + "_OnList";
+      if(typeof tipoCustomJavascript[function_name] === 'function'){
+        $scope.data_handle.tipo_list = tipos;
+        tipoCustomJavascript[function_name]($scope.data_handle);
+      }
+      if(typeof tipoClientJavascript[function_name] === 'function'){
+        $scope.data_handle.tipo_list = tipos;
+        tipoClientJavascript[function_name]($scope.data_handle);
+      }
+      _instance.initTipos = angular.copy(this.tipos);
+      _instance.tipos = angular.copy(this.tipos);
+      if (page === 1) {
+        _instance.hasTipos = this.tipos.length > 0;
+        _instance.updatetipo = {};
+        _instance.loading = false;
+        var responseData = tipoRegistry.get($stateParams.tipo_name + '_resdata');
+        _instance.perm = responseData.perm;
+        _instance.restricted_actions = responseData.restricted_actions;
       }
     }
 
@@ -367,25 +369,8 @@
     _instance.search = function(){
       var filter = {};
       getPerspective(filter);
-      _instance.page = 1;
-      filter.page = angular.copy(_instance.page);
-      filter.per_page = _instance.per_page;
-      tipoRouter.startStateChange();
-      tipoHandle.getTipos($stateParams.tipo_name, filter).then(function(tiposData){
-        _instance.tipos = tiposData;
-        var function_name = $stateParams.tipo_name + "_OnList";
-        if(typeof tipoCustomJavascript[function_name] === 'function'){
-          $scope.data_handle.tipo_list = _instance.tipos;
-          tipoCustomJavascript[function_name]($scope.data_handle);
-        }
-        if(typeof tipoClientJavascript[function_name] === 'function'){
-          $scope.data_handle.tipo_list = _instance.tipos;
-          tipoClientJavascript[function_name]($scope.data_handle);
-        }
-        _instance.page++;
-        _instance.busy = false;
-        tipoRouter.endStateChange();
-      });
+      _instance.infiniteItems = tipoManipulationService.getVirtualRepeatObject(_instance.per_page,$stateParams.tipo_name,tipoHandle.getTipos,filter);
+      _instance.infiniteItems.serverResultHandler = serverResultHandler;
     }
 
     _instance.undoEdit = function(){
