@@ -144,8 +144,26 @@
       }, function(err) {
         if (appMetadata.application !== '1000000001' && err.message && err.message.indexOf('User does not exist') !== -1) {
           username = '2000000001.1000000001.' + _instance.user.email;
-          return _instance.login(username);
+          return _instance.developerlogin(username, password);
         }
+        raiseError(err);
+      });
+    };
+
+    _instance.developerlogin = function(username, password){
+      markProgress();
+      cognitoService.authenticate(username, password).then(function(result){
+        if ($stateParams.retry) {
+          $stateParams.retry.resolve();
+        }
+        if (result && result.type === 'PasswordChallenge') {
+          // Go to New Password Required page when facing PasswordChallenge
+          tipoRouter.to('newPasswordRequired', undefined, { deferredPassword: result.value });
+        } else {
+          tipoCache.clearMemoryCache();
+          _instance.gotoPreviousView();
+        }
+      }, function(err) {
         raiseError(err);
       });
     };
