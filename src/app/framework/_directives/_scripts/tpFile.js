@@ -18,7 +18,10 @@
         mode: '@?',
         isarray: "=",
         metaData: "=",
-        fieldpath: '='
+        fieldpath: '=',
+        fileTargetVel: '=',
+        privateFile: '=',
+        rootFolder: '='
       },
       restrict: 'EA',
       replace: true,
@@ -44,7 +47,12 @@
         scope.tempPath = {
           
         };
-        var fileTarget = scope.metaData;
+        var fileTarget = scope.fileTargetVel;
+        if (scope.privateFile) {
+        	scope.rootFolder = 'private/' + uuid4() ;
+        } else {
+        	scope.rootFolder = "public";
+      	}
         if (fileTarget) {
           scope.isTargetSet = true;
           var parts = fileTarget.split('/');
@@ -53,7 +61,8 @@
             // cannot be an array if an exact file name is specified, hence treating as a single file
             scope.isSingle = true;
             scope.field = {
-              key: fileTarget
+              key: fileTarget,
+              rootFolder: scope.rootFolder
             };
           }
           if (!scope.isTargetFile && !S(fileTarget).endsWith('/')) {
@@ -61,7 +70,7 @@
           }
         }
         scope.prependTarget = fileTarget || '';
-        scope.fileTarget = 'public/' + scope.prependTarget;
+    	scope.fileTarget = '/tipo_upload/' + scope.rootFolder + '/' + scope.prependTarget;
 
         if(!scope.isTargetFile){
           if (scope.isSingle) {
@@ -109,13 +118,15 @@
             scope.field = {
               key: scope.fileTarget + (scope.isTargetFile ? '' :scope.singlePath.value),
               type: scope.singlePath.tagType,
-              fileType: scope.singlePath.fileType
+              fileType: scope.singlePath.fileType,
+              rootFolder: scope.rootFolder
             };
           } else {
             scope.field = {
               key: scope.singlePath.value,
               type: scope.singlePath.tagType,
               fileType: scope.singlePath.fileType,
+              rootFolder: scope.rootFolder
             };
           }
         };
@@ -125,7 +136,8 @@
           scope.field.push({
               key: scope.fileTarget + path,
               type: type,
-              fileType: fileType
+              fileType: fileType,
+              rootFolder: scope.rootFolder
           });
         };
 
@@ -146,6 +158,31 @@
           scope.multiplePaths[index].deleted = true;
           scope.field[index]._ARRAY_META._STATUS = 'DELETED';
         };
+        
+        function uuid4() {
+            //// return uuid of form xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx
+            var uuid = '', ii;
+            for (ii = 0; ii < 32; ii += 1) {
+              switch (ii) {
+              case 8:
+              case 20:
+                uuid += '_';
+                uuid += (Math.random() * 16 | 0).toString(16);
+                break;
+              case 12:
+                uuid += '_';
+                uuid += '4';
+                break;
+              case 16:
+                uuid += '_';
+                uuid += (Math.random() * 4 | 8).toString(16);
+                break;
+              default:
+                uuid += (Math.random() * 16 | 0).toString(16);
+              }
+            }
+            return uuid;
+          }
 
         function completeUpload(initialPath,finalPath,tagType,fileType,index){
           if(!_.isUndefined(finalPath)){
@@ -358,6 +395,10 @@
             fullscreen: true
           });
           promise.then(function(finalPath){
+        	  var replaceStr = '/tipo_upload/' + scope.rootFolder;
+    	  scope.fileTarget = _.replace(scope.fileTarget,replaceStr,'');
+    	  initialPath = _.replace(initialPath,replaceStr,'');
+    	  finalPath.path = _.replace(finalPath.path, new RegExp(replaceStr,'g'),'');
             if (scope.isArray) {
               var paths = finalPath.path.split(",");
               var types = finalPath.tagType.split(",");
