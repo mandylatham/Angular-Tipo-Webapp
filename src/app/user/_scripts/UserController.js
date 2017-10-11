@@ -20,7 +20,6 @@
     _instance.inProgress = false;
 
     var appMetadata = metadataService.applicationMetadata;
-    var tipotappdeveloper;
 
     var user = {};
     user.fullName = function(){
@@ -128,19 +127,6 @@
     };
 
     _instance.login = function(username, password){
-      tipotappdeveloper = false;
-      return _instance.execlogin(username, password);
-      }, function(err) {
-        if ( (appMetadata.application !== '1000000001' && err.message && err.message.indexOf('User does not exist') !== -1) && (!tipotappdeveloper)) {
-          username = '2000000001.1000000001.' + _instance.user.email;
-          tipotappdeveloper = true;
-          return _instance.execlogin(username, password);
-        }
-        raiseError(err);
-      };
-    };
-
-    _instance.execlogin = function(username, password){
       markProgress();
       username = username || user.fullName();
       password = password || user.password;
@@ -156,10 +142,13 @@
           _instance.gotoPreviousView();
         }
       }, function(err) {
+        if (appMetadata.application !== '1000000001' && err.message && err.message.indexOf('User does not exist') !== -1) {
+          username = '2000000001.1000000001.' + _instance.user.email;
+          return _instance.login(username);
+        }
         raiseError(err);
       });
     };
-
 
     _instance.onForgotPassword = function(){
       markProgress();
