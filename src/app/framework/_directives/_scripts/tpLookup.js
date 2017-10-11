@@ -151,16 +151,24 @@
 
     _instance.search = function(){
       var filter = {};
-      if (!_.isEmpty(_instance.searchText)) {
+      filter = _instance.queryparams;
+      if (!_.isEmpty(_instance.searchText) && !filter.tipo_filter ) {
         filter.tipo_filter = "(_all:(" + _instance.searchText + "*))";
-      };
+      }else if(!_.isEmpty(_instance.searchText) && filter.tipo_filter && !_.isEmpty(filter.tipo_filter)){
+        filter.tipo_filter = filter.tipo_filter + " AND (_all:(" + _instance.searchText + "*))";
+      }
       var page = 1;
       filter.page = angular.copy(page);
       filter.per_page = _instance.tipoDefinition.tipo_meta.default_page_size;
       tipoRouter.startStateChange();
       tipoCache.evict($scope.tipo_name);
       tipoInstanceDataService.search($scope.tipo_name, filter).then(function(tiposData){
+        _instance.infiniteItems.filter = filter;
+        _instance.infiniteItems.page = page;
         _instance.infiniteItems.tipos = tiposData;
+        var responseData = tipoRegistry.get($scope.tipo_name + '_resdata');
+        _instance.infiniteItems.numLoaded_ = responseData.count;
+        _instance.infiniteItems.maxpages = Math.ceil(responseData.count/filter.per_page);
         page++;
         tipoRouter.endStateChange();
       });
@@ -289,6 +297,7 @@
                 scope.model.field = scope.model.field[0];
               };
             }else{
+              scope.initload = true;
               scope.ngModel = _.get(scope.root,fqfieldname);
               scope.fieldlabel = _.get(scope.root,fqfieldname + "_labels");
               if(isarray){
@@ -314,6 +323,14 @@
                   scope.options.push(scope.model.field);
                 }
               }
+              // scope.infiniteItems = {
+              //   getItemAtIndex: function(index){
+              //     return scope.options[index];
+              //   },
+              //   getLength: function(index){
+              //     return scope.options.length;
+              //   }
+              // };
             }
           }
           initmodel();
@@ -338,6 +355,7 @@
             }
           }
           scope.triggerDropdown = function(searchText){
+            scope.initload = false;
             return $timeout(function() {
               scope.$broadcast("$md-resize");
               scope.loadOptions(searchText);
@@ -396,7 +414,6 @@
               }
             };
             searchCriteria.list_display = 'N';
-            scope.searchCriteria = searchCriteria;
             if (isarray && scope.ngModel.length > 0) {
               searchCriteria.must_include_key = key_field;
               searchCriteria.must_include_values = _.join(scope.ngModel,',');
@@ -425,6 +442,7 @@
               searchCriteria.key_field = key_field;
               searchCriteria.label_field = label_field;
             };
+            scope.searchCriteria = searchCriteria;
             scope.infiniteItems = tipoManipulationService.getVirtualRepeatObject(searchCriteria.per_page,scope.tipo_name,tipoHandle.getTipos,searchCriteria);
             scope.infiniteItems.serverResultHandler = function(page){
               this.tipos = _.uniqWith(this.tipos, _.isEqual);
