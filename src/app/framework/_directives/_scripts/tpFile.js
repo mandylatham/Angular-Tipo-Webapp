@@ -20,8 +20,7 @@
         metaData: "=",
         fieldpath: '=',
         fileTargetVel: '=',
-        privateFile: '=',
-        rootFolder: '='
+        privateFile: '='
       },
       restrict: 'EA',
       replace: true,
@@ -70,7 +69,7 @@
           }
         }
         scope.prependTarget = fileTarget || '';
-    	scope.fileTarget = '/tipo_upload/' + scope.rootFolder + '/' + scope.prependTarget;
+    	scope.fileTarget =  scope.rootFolder + '/' + scope.prependTarget;
 
         if(!scope.isTargetFile){
           if (scope.isSingle) {
@@ -78,8 +77,10 @@
             if (scope.field) {
               path = scope.field.key;
               if (fileTarget) {
+            	  scope.fileTarget =  scope.field.rootFolder + '/' + scope.prependTarget;
                 path = path.replace(scope.fileTarget, '');
               }
+              
               scope.singlePath = {
                 value: path,
                 tagType: scope.field.type,
@@ -97,6 +98,7 @@
               scope.multiplePaths = _.map(scope.field, function(each){
                 var eachPath = each.key;
                 if(scope.fileTarget){
+                	scope.fileTarget =  each.rootFolder + '/' + scope.prependTarget;
                   eachPath = eachPath.replace(scope.fileTarget, '');
                 }
                 return {
@@ -304,7 +306,7 @@
                   fileContent.lfFileName = _.replace(fileContent.lfFileName, ' ', '');
 
                   tipoResource
-                  .oneUrl('content', scope.fileTarget + (scope.isTargetFile ? '' :  fileContent.lfFileName))
+                  .oneUrl('content', '/tipo_upload/' + scope.fileTarget + (scope.isTargetFile ? '' :  fileContent.lfFileName))
                   .customPUT(data, '', undefined)
                   .then(function(result){
                     if (last) {
@@ -395,10 +397,6 @@
             fullscreen: true
           });
           promise.then(function(finalPath){
-        	  var replaceStr = '/tipo_upload/' + scope.rootFolder;
-    	  scope.fileTarget = _.replace(scope.fileTarget,replaceStr,'');
-    	  initialPath = _.replace(initialPath,replaceStr,'');
-    	  finalPath.path = _.replace(finalPath.path, new RegExp(replaceStr,'g'),'');
             if (scope.isArray) {
               var paths = finalPath.path.split(",");
               var types = finalPath.tagType.split(",");
