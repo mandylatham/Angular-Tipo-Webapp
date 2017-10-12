@@ -78,7 +78,7 @@
             	if(_.startsWith(value,"/")) {
             		value = value.substring(1);
             	}
-            	if (_.startsWith(value, '/tipo/')) {
+            	if (_.startsWith(value, 'tipo/')) {
                	 var broken = value.split("/");
             	 tipoCache.evict(broken[2], broken[3]);
             	} else {
@@ -89,7 +89,12 @@
                				+ $location.port() + "/" +value;
                		$httpDefaultCache.remove(url);
                		
-            		$http.get(value,{cache:false, nocache:true});
+               		var config = {headers:  {
+               	        'Pragma': 'no-cache',
+               	    	}
+               		};
+               		
+            		$http.get(value,config);
             		
             		if (value.indexOf("CustomScript.js") !== -1) {
 				        var head= document.getElementsByTagName('head')[0];
