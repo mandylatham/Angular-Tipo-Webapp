@@ -66,8 +66,8 @@
       _instance.allow_search = allow_search;
       if ($stateParams.filter) {
         _instance.tipoFilters = tipoManipulationService.convertToFilterExpression(tipoFilters,$stateParams.filter);
-        getPerspective(filter);
       };
+      getPerspective(filter);
       // filter.page = 1;
       _instance.page = 0;
       _instance.per_page = page_size || 10;
@@ -244,7 +244,7 @@
     }
 
     _instance.updateSelected = function(field_name,label_){
-      _.each(_instance.tipos,function(tp){
+      _.each(_instance.infiniteItems.tipos,function(tp){
         if (tp.selected) {
           _.set(tp,field_name,_.get(_instance.updatetipo,field_name));
           var label = _.get(_instance.updatetipo,field_name + "_labels");
@@ -253,6 +253,7 @@
           };
         };
       });
+      _instance.tipos = _instance.infiniteItems.tipos;
     }
 
     _instance.save = function(tipo,action){

@@ -26,90 +26,98 @@
       replace: true,
       templateUrl: 'framework/_directives/_views/tp-file.tpl.html',
       link: function (scope, element, attrs) {
-        var mode = scope.mode || 'view';
-        scope.isEdit = mode === 'edit';
 
-        // function getFieldDefiniton(){
+        function initDirective(unbind){
+          var mode = scope.mode || 'view';
+          scope.isEdit = mode === 'edit';
 
-        // };
-        // if (!_.isUndefined(scope.fieldpath)) {
-        //   _.each(scope.field.tipo_fields,function(tpField){
-        //     if (tpField.field_name === scope.fieldpath) {
-        //       scope.field = tpField;
-        //       return;
-        //     };
-        //   });
-        // };
-        scope.hasValue = !_.isUndefined(scope.field);
-        scope.isArray = Boolean(scope.isarray);
-        scope.isSingle = !scope.isArray;
-        scope.tempPath = {
-          
-        };
-        var fileTarget = scope.fileTargetVel;
-        if (scope.privateFile) {
-        	scope.rootFolder = 'private/' + uuid4() ;
-        } else {
-        	scope.rootFolder = "public";
-      	}
-        if (fileTarget) {
-          scope.isTargetSet = true;
-          var parts = fileTarget.split('/');
-          scope.isTargetFile = S(_.last(parts)).contains('.');
-          if (scope.isTargetFile) {
-            // cannot be an array if an exact file name is specified, hence treating as a single file
-            scope.isSingle = true;
-            scope.field = {
-              key: fileTarget,
-              rootFolder: scope.rootFolder
-            };
+          // function getFieldDefiniton(){
+
+          // };
+          // if (!_.isUndefined(scope.fieldpath)) {
+          //   _.each(scope.field.tipo_fields,function(tpField){
+          //     if (tpField.field_name === scope.fieldpath) {
+          //       scope.field = tpField;
+          //       return;
+          //     };
+          //   });
+          // };
+          scope.hasValue = !_.isUndefined(scope.field);
+          scope.isArray = Boolean(scope.isarray);
+          scope.isSingle = !scope.isArray;
+          scope.tempPath = {
+            
+          };
+          var fileTarget = scope.fileTargetVel;
+          if (scope.privateFile) {
+            scope.rootFolder = 'private/' + uuid4() ;
+          } else {
+            scope.rootFolder = "public";
           }
-          if (!scope.isTargetFile && !S(fileTarget).endsWith('/')) {
-            fileTarget += '/';
-          }
-        }
-        scope.prependTarget = fileTarget || '';
-    	scope.fileTarget =  scope.rootFolder + '/' + scope.prependTarget;
-
-        if(!scope.isTargetFile){
-          if (scope.isSingle) {
-            var path;
-            if (scope.field) {
-              path = scope.field.key;
-              if (fileTarget) {
-            	  scope.fileTarget =  scope.field.rootFolder + '/' + scope.prependTarget;
-                path = path.replace(scope.fileTarget, '');
-              }
-              
-              scope.singlePath = {
-                value: path,
-                tagType: scope.field.type,
-                fileType: scope.field.fileType
-              };
-            }else{
-              scope.singlePath = {
-                value: path
+          if (fileTarget) {
+            scope.isTargetSet = true;
+            var parts = fileTarget.split('/');
+            scope.isTargetFile = S(_.last(parts)).contains('.');
+            if (scope.isTargetFile) {
+              // cannot be an array if an exact file name is specified, hence treating as a single file
+              scope.isSingle = true;
+              scope.field = {
+                key: fileTarget,
+                rootFolder: scope.rootFolder
               };
             }
-          }else{
-            // for arrays
-            scope.multiplePaths = [];
-            if(!_.isEmpty(scope.field)){
-              scope.multiplePaths = _.map(scope.field, function(each){
-                var eachPath = each.key;
-                if(scope.fileTarget){
-                	scope.fileTarget =  each.rootFolder + '/' + scope.prependTarget;
-                  eachPath = eachPath.replace(scope.fileTarget, '');
+            if (!scope.isTargetFile && !S(fileTarget).endsWith('/')) {
+              fileTarget += '/';
+            }
+          }
+          scope.prependTarget = fileTarget || '';
+          scope.fileTarget =  scope.rootFolder + '/' + scope.prependTarget;
+
+          if(!scope.isTargetFile){
+            if (scope.isSingle) {
+              var path;
+              if (scope.field) {
+                path = scope.field.key;
+                if (fileTarget) {
+                  scope.fileTarget =  scope.field.rootFolder + '/' + scope.prependTarget;
+                  path = path.replace(scope.fileTarget, '');
                 }
-                return {
-                  value: eachPath,
-                  type: each.type,
-                  fileType: each.fileType
+                
+                scope.singlePath = {
+                  value: path,
+                  tagType: scope.field.type,
+                  fileType: scope.field.fileType
                 };
-              });
+              }else{
+                scope.singlePath = {
+                  value: path
+                };
+              }
+            }else{
+              // for arrays
+              scope.multiplePaths = [];
+              if(!_.isEmpty(scope.field)){
+                scope.multiplePaths = _.map(scope.field, function(each){
+                  var eachPath = each.key;
+                  if(scope.fileTarget){
+                    scope.fileTarget =  each.rootFolder + '/' + scope.prependTarget;
+                    eachPath = eachPath.replace(scope.fileTarget, '');
+                  }
+                  return {
+                    value: eachPath,
+                    type: each.type,
+                    fileType: each.fileType
+                  };
+                });
+              }
             }
           }
+          if (unbind) {
+            unbindWatch();
+          };
         }
+
+        initDirective();
 
         scope.onSinglePathChange = function () {
           if (_.isEmpty(scope.singlePath.value)) {
@@ -211,6 +219,13 @@
             }
           }
         }
+
+         var unbindWatch = scope.$watch(function(){return scope.field},function(new_val,old){
+            if (!old && new_val) {
+              initDirective(true);
+            };
+            console.log(new_val);
+          });
 
         scope.openViewFile = function(filePath){
           // tipoResource.oneUrl('content',"g/" + scope.fileTarget + filePath).withHttpConfig({responseType: 'blob'}).get().then(function(data){

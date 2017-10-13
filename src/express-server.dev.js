@@ -34,25 +34,25 @@ var pathMappings = [
     // url: 'https://app.billionbases.com/app/d/deltagene/billionbases'
     // url: 'https://dev.tipotapp.com/app/d/deltagene/billionbases'
   },
-  // {
-	 //    path: '/tipo_upload',
-	 //    // url: 'https://dev.tipotapp.com/app/d/tipotapp/constructionmanagement'
-	 //    url: 'https://dev.tipotapp.com'
-	 //    // url: 'https://dev.tipotapp.com/app/d/hr/hrbuddy'
-	 //    // url: 'https://dev.tipotapp.com/app/d/johmyWizardM1/testapp123'
-	 //    // url: 'https://dev.tipotapp.com/app/d/8501472954/sdm'
-	 //    // url: 'https://app.billionbases.com/app/d/deltagene/billionbases'
-	 //    // url: 'https://dev.tipotapp.com/app/d/deltagene/billionbases'
-	 //  },
-	 //  {
-		//     path: '/g/private',
-		//     // url: 'https://dev.tipotapp.com/app/d/tipotapp/constructionmanagement'
-		//     url: 'https://dev.tipotapp.com'
-		//     // url: 'https://dev.tipotapp.com/app/d/hr/hrbuddy'
-		//     // url: 'https://dev.tipotapp.com/app/d/johmyWizardM1/testapp123'
-		//     // url: 'https://dev.tipotapp.com/app/d/8501472954/sdm'
-		//     // url: 'https://app.billionbases.com/app/d/deltagene/billionbases'
-		//     // url: 'https://dev.tipotapp.com/app/d/deltagene/billionbases'
+  {
+	    path: '/tipo_upload',
+	    // url: 'https://dev.tipotapp.com/app/d/tipotapp/constructionmanagement'
+	    url: 'https://dev.tipotapp.com'
+	    // url: 'https://dev.tipotapp.com/app/d/hr/hrbuddy'
+	    // url: 'https://dev.tipotapp.com/app/d/johmyWizardM1/testapp123'
+	    // url: 'https://dev.tipotapp.com/app/d/8501472954/sdm'
+	    // url: 'https://app.billionbases.com/app/d/deltagene/billionbases'
+	    // url: 'https://dev.tipotapp.com/app/d/deltagene/billionbases'
+	  },
+	  {
+		    path: '/g/private',
+		    // url: 'https://dev.tipotapp.com/app/d/tipotapp/constructionmanagement'
+		    url: 'https://dev.tipotapp.com'
+		    // url: 'https://dev.tipotapp.com/app/d/hr/hrbuddy'
+		    // url: 'https://dev.tipotapp.com/app/d/johmyWizardM1/testapp123'
+		    // url: 'https://dev.tipotapp.com/app/d/8501472954/sdm'
+		    // url: 'https://app.billionbases.com/app/d/deltagene/billionbases'
+		    // url: 'https://dev.tipotapp.com/app/d/deltagene/billionbases'
 	},
   // {
   //   path: '/app',
