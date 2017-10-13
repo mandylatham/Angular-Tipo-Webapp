@@ -636,7 +636,7 @@
               }
             }
             if (new_value !== old_value) {
-              initmodel(true);
+              initmodel();
             };
             // if (scope.model.field.key !== scope.ngModel) {
             //   scope.loadOptions();
@@ -645,7 +645,12 @@
             //     scope.model.field.label = scope.fieldlabel || angular.copy(scope.ngModel);
             //   };
             // };
-          })
+          });
+          scope.$watch(function(){return scope.fieldlabel},function(new_value,old_value){
+            if (new_value !== old_value) {
+              initmodel();
+            };
+          });
         }
       };
     }
