@@ -290,8 +290,8 @@
             return (Math.log10((x ^ (x >> 31)) - (x >> 31)) | 0) + 1;
           }
 
-          function initmodel(){
-            if (scope.tipos) {
+          function initmodel(initdirective){
+            if (scope.tipos && !initdirective) {
               scope.model.field = _.filter(scope.tipos,function(o){return _.includes(scope.ngModel,o[key_field])});
               if (!isarray) {
                 scope.model.field = scope.model.field[0];
@@ -636,7 +636,7 @@
               }
             }
             if (new_value !== old_value) {
-              initmodel();
+              initmodel(true);
             };
             // if (scope.model.field.key !== scope.ngModel) {
             //   scope.loadOptions();

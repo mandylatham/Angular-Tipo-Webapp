@@ -901,12 +901,8 @@
       _.set(_instance,field_name + ".bulkedit",!_.get(_instance,field_name + ".bulkedit"));
       var bulkedit = _.get(_instance,field_name + ".bulkedit");
       if (bulkedit) {
-        _instance.bulkFields.push(field_name);
         var newObject = {};
-        var array = _.get(_instance.tipo,field_name);
-        array.unshift(newObject);
-        _.set(_instance.tipo,field_name,array);
-        _.set(_instance,field_name + ".unbindwatch",$scope.$watch(function(){return _.get(_instance.tipo,field_name)[0];},function(newval,oldval){
+        _.set(_instance,field_name + ".unbindwatch",$scope.$watch(function(){return _.get(_instance.bulkinstance,field_name + ".undefined");},function(newval,oldval){
           console.log("group_fields");
           var group_fields = _.get(_instance.tipo,field_name);
           _.each(group_fields,function(each){
@@ -921,10 +917,8 @@
           _.set(_instance.tipo,field_name,group_fields);
         },true));
       }else{
-        _instance.bulkFields = _.difference(_instance.bulkFields, field_name);
         _.get(_instance,field_name + ".unbindwatch")();
         var array = _.get(_instance.tipo,field_name);
-        array.shift();
         _.each(array,function(each){
           each.selected = false;
         });
