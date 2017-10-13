@@ -89,12 +89,15 @@
                				+ $location.port() + "/" +value;
                		$httpDefaultCache.remove(url);
                		
-               		var config = {headers:  {
-               	        'Pragma': 'no-cache',
-               	    	}
-               		};
-               		
-            		$http.get(value,config);
+               		setTimeout(function() {
+               	 		var config = {headers:  {
+               	   	        'Pragma': 'no-cache',
+               	   	    	}
+               	   		};
+               	   		
+               			$http.get(value,config);
+               		}, 10000);
+
             		
             		if (value.indexOf("CustomScript.js") !== -1) {
 				        var head= document.getElementsByTagName('head')[0];
@@ -156,6 +159,8 @@
       }
     };
   }
+  
+
 
   // Configures Restangular for API interactions
   function configureRestangular(
