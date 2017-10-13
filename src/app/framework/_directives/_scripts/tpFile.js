@@ -322,7 +322,7 @@
                   fileContent.lfFileName = _.replace(fileContent.lfFileName, ' ', '');
 
                   tipoResource
-                  .oneUrl('content', '/tipo_upload/' + scope.fileTarget + (scope.isTargetFile ? '' :  fileContent.lfFileName))
+                  .oneUrl('content', 'tipo_upload/' + scope.fileTarget + (scope.isTargetFile ? '' :  fileContent.lfFileName))
                   .customPUT(data, '', undefined)
                   .then(function(result){
                     if (last) {
