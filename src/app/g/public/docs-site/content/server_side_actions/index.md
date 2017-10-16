@@ -1,10 +1,10 @@
 ---
 title: Server Side Actions
-weight: 9
+weight: 6
 ---
 
 ## Introduction
-Server Side Actions are Actions that run code on a server when engaged with. In particular, TipoTapp supports use of [AWS Lambda](http://docs.aws.amazon.com/lambda/latest/dg/welcome.html) functions. AWS Lambda is a compute service that lets you run code without provisioning or managing servers. You can write your code there in one of the supported languages (currently Node.js, Java, C# and Python) and it will be available to be called by other applications that you link to it.
+As mentioned in the previous guide on Client Side Actions, an Action is a button that you can add on the TipoTapp UI and define some code for it that will be run when the user engages with the button. Server Side Actions are Actions that run code on a server when engaged with. In particular, TipoTapp supports the use of [AWS Lambda](http://docs.aws.amazon.com/lambda/latest/dg/welcome.html) functions. AWS Lambda is a compute service that lets you run code without provisioning or managing servers. You can write your code there in one of the supported languages (currently Node.js, Java, C# and Python) and it will be available to be called by other applications that you link to it.
 
 For instructions on how to create a Lambda function, [check the documentation](http://docs.aws.amazon.com/lambda/latest/dg/welcome.html).
 
@@ -15,24 +15,36 @@ On AWS, you can choose to only have one function per Action created. You can als
 
 After your cloud function runs, a response is returned back to TipoTapp, where you can then use its data.
 
+To explain the process in a more detailed way, take this example: suppose you created an Action on TipoTapp that  ran server side code when clicked. Suppose the Cloud function you wrote on AWS required additional information other than what's found in the `tipo_context` (if you recall, `tipo_context` holds such data as the user and account information, more on this later). To include such information in the request to the server, you would use client side or server side dependencies.
+
+Client side dependency is information gathered from the user that you can then send in the request body to the server. How you collect such data is via a form that is shown to the user right after they click on the Action button, and before a request is made to the server. After the user fills the form and submits it, its data will be included in the request to the server.
+
+Server side dependency is also additional data that you send in the request body, but rather than collecting the information from the user, you define what data will be sent when creating the Action. Server side dependencies are basically a list of Tipos that are referenced by the Cloud Function you've defined. Suppose your Lambda function needs to reference other Tipos other than the Tipo you are creating an Action for. For this, you would have to specify the list of Tipos that the Cloud Function needs to know about. The list is then sent in the request to the server.
+
+Now, to continue with our example, suppose you defined three functions on AWS that will process the request: a pre-function, that will be the first to be run, a main function (we'll sometimes refer to this as the Cloud Function) and a post function, which will be run just before a response is sent back to TipoTapp.
+
+When the user activates the Action on TipoTapp, a request will be sent to the server. Since we've defined a pre-function, this willl be the first to receive the request. It will process the data and then send a response (consider this the pre-function's response/output, but the Cloud Function's request/input) to the Cloud Function. The Cloud Function will then process this data, making requests to the database if necessary. When done, it will then send its output to the post-function, which will process the data before sending a final response back to TipoTapp. TipoTapp will then act on the data sent back. We'll look at this process in detail in the rest of this guide.
+
+Remember that pre and post functions are optional.
+
 ![Server Customizations](/images/developer/ServerCustomisations.png)
 
 ### Pre Function
-On AWS, you can specify a function that will be run before your main function is run. An example use case for this is, you might want to process the request before passing it to the main function. For this, you would define a pre-function that would process the request and then send its response to the main Action function.
+On AWS, you can specify a function that will be run before your main function is run. An example use case for this is, you might want to process the request before passing it to the main function. For this, you would define a pre-function that would process the request and then send its response to the main Cloud Function.
 
 ![Pre Function](/images/developer/PreFunction.png)
 
 ### Post Function
-Just as you can define a pre-function on AWS, you can also define a post-function. This will be run after your Action function completes execution, before the response is sent back to TipoTapp.
+Just as you can define a pre-function on AWS, you can also define a post-function. This will be run after your Cloud Function completes execution, before the response is sent back to TipoTapp.
 
 ![Post Function](/images/developer/PostFunction.png)
 
 ### Input/Output Structure 
 Below, you can see the structure of the request and response objects that make up the input and output respectively of a Cloud Function.
 
-The Input consists of the `tipo_request`, available `server_dependencies` (we'll look what these are later) and the `tipo_context` if it was provided (we'll also look at this later.
+The Input consists of the `tipo_request`, available `server_dependencies` (we'll look what these are later) and the `tipo_context` if it was provided (we'll also look at this later).
 
-The Output consists of the `tipo_response` that consist of data returned from the Cloud Function and the `status_code`, the `response_header` and `http_header`. In the `response_header` you can include a `tab_url` attribute whose value is a URL that will be opened in a new tab once the response is received on TipoTapp. You can also include a `user_message` that will be displayed to the user in an modal window.
+The Output consists of a `tipo_request` which is the request sent to a post-function if it's available, a `tipo_response` that consist of data returned from the Cloud Function back to TipoTapp, the `response_header` and `http_header`. In the `response_header` you can include a `tab_url` attribute whose value is a URL that will be opened in a new tab once the response is received on TipoTapp. You can also include a `user_message` that will be displayed to the user in a flash message. Additionally, you can include a `return_url` that will be navigated to once the response is received on TipoTapp.
 
 ![Input Output Structures](/images/developer/InputOutput.png)
 
@@ -49,7 +61,7 @@ Member name | Description
 `tipo_context` | Tipo Context contains all the contextual information about the user, application, current request and user actions
 `tipo_request []` | Contains array of all the requests from the client. Only bulk action will contain more than one array item, but the structure will always be an array.
 `tipo_response []`| Function may be called after performing database action, in which case there will be responses as well as requests.
-`server_dependencies []`| TODO: confirm
+`server_dependencies []`| This is a list of Tipos that are referenced by the Cloud Function. The list is sent in the request to the server.
 
 Here is an example of complete request structure
 
@@ -118,10 +130,10 @@ Tipo Cloud Function response is a JSON object with the following members.
 
 Member name | Description
 ------------ | ---------------
-`tipo_request []` | TODO: fill
-`tipo_response []`| TODO: fill
-`response_header` | TODO: fill
-`http_header` | TODO: fill
+`tipo_request []` | If you've defined a post-function, then the response of your Cloud Function will contain a request that will be processed by the post-function, before data is sent back to TipoTapp. This is optional; if there is no post--function, then there will be no request.
+`tipo_response []`| This holds the data that is sent back to TipoTapp.
+`response_header` | This holds additional instructions of what should happen once the response gets back to TipoTapp. For instance it can contain a `user_message` that will be shown to the user as a flash message, or it can contain a `return_url` which holds a URL that will be navigated to once the response reaches TipoTapp, it can also contain a `tab_url` that will hold a URL which will be opened in a new tab.
+`http_header` | This carries HTTP headers which can hold information about the response, server or the objects sent back in the message body.
 
 Here is an example of complete response structure:
 
@@ -191,9 +203,9 @@ Here is an example of complete response structure:
     "tab_url": "https://opennewtab.com"
   },
   "http_header": {
-    "user_message": "Hi User, Successfully done something !!!",
-    "return_url": "/tipo/WhereToGo/tipo_id",
-    "tab_url": "https://opennewtab.com"
+    "Cache-Control": "no-cache",
+    "Connection": "close",
+    "Date": "Wed, 21 Oct 2015 07:28:00 GMT"
   }
 }
 ```
@@ -218,8 +230,6 @@ Give a name to your function, set `Type` to `AWS Lambda`, add its `Lambda Functi
 
 ## Tipo Context
 As mentioned, the `tipo_context` object holds contextual information about the user, application, current request and user actions. It has the following attributes:
-
-TODO: Support for settings yet to be added. Once settings concept if finalised, it will be added.
 
 Context Variable |  Description 
 ------------ | ------------
@@ -334,7 +344,7 @@ Save your results. If you go back to home, and check the Application list view, 
 ### Server Side Dependencies
 This is a list of Tipos that are referenced by the Cloud Function. The list is sent in the request to the server.  In the TipoDefinition an array of Tipos and `tipo_filters` are defined.
   
-In the TipoDefinition configuraiton for server dependecies is captured under various actions. 
+In the TipoDefinition configuration for server dependecies is captured under various actions. 
   
 Server dependency is an array each containing the following:
 

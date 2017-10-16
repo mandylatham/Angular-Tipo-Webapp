@@ -1,6 +1,6 @@
 ---
 title: Developer Documentation
-weight: 7
+weight: 4
 ---
   
 There are various ways developers can use the TipoTapp platform. The platform automatically renders user interface as soon as the Tipo Definitions are created. However, you aren't stuck with this default user interface. TipoTapp offers many features that you can use to tailor the UI to be in line with your business needs.

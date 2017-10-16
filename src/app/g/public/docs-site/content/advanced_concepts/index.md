@@ -8,7 +8,7 @@ In the Quickstart section of this guide, we looked at some basic concepts of bui
 
  - Perspectives
  - Tipo types
- - We'll take a look at more fetures you can use to customize your app like setting CSS Styles for fields and customizing select menus
+ - We'll take a look at more features you can use to customize your app like setting CSS Styles for fields and customizing select menus
  - We'll take a look at filters
  - We'll talk more on relationships
  - We'll cover more advanced concepts on user roles
@@ -19,7 +19,7 @@ Before we introduce the concept of Perspectives, let's first outline why you mig
 
 Let's say that a school is using your Student Management System. The school has saved some Unit, Course and Student data but then comes into difficulty navigating its data because there is no way to structure the data in the same way the school is structured. Schools are usually divided into Departments. There are courses, students and staff members that belong to a particular department. So it would be nice to have a view that showed only the information belonging to a department. This is where Perspectives come in.
 
-You can create a Tipo that is of type Perspective, that can be used to house other Tipos. When you access this Perspective, you will only see data belonging to it. By default, TipoTapp comes with some Perspectives created. We have the `Home`, `Settings`, `Profile` and `Develop` Perpectives created. Any Tipo that you create as part of the Menu for a Perpective will belong to that Perspective and when you navigate to that Perpective, you will be able to see the records of that Perspective's Tipos. We've seen this already in the Tipos we've created so far. For the Unit, Course and Student Tipos, we selected `Home` as the value for the `Choose Menu` field. With this setting, the Tipos automatically became part of the Home Perpective.
+You can create a Tipo that is of type Perspective, that can be used to house other Tipos. When you access this Perspective, you will only see data belonging to it. By default, TipoTapp comes with some Perspectives created. We have the `Home`, `Settings`, `Profile` and `Develop` Perspectives created. Any Tipo that you create as part of the Menu for a Perspective will belong to that Perspective and when you navigate to that Perspective, you will be able to see the records of that Perspective's Tipos. We've seen this already in the Tipos we've created so far. For the Unit, Course and Student Tipos, we selected `Home` as the value for the `Choose Menu` field. With this setting, the Tipos automatically became part of the Home Perspective.
 
 To demonstrate this, let's create a `Department` Tipo that will hold records belonging to a particular department.
 
@@ -289,16 +289,22 @@ If you select `Admin`, you will be able to see its menu. From here, you can acce
 ![Home menu with Admin](/images/advanced_concepts/image_005.png)
 
 ### Singleton.Account
-TODO
+For a `Singleton.Account` Tipo, there can only be one instance of the Tipo for each account (e.g. for every subscribed school using the Student Management System). For an example of this, suppose you had a `School` Tip that held information regarding a school such as `School Name`, `Address` e.t.c. Such a Tipo would be marked as `singleton.account` as there would be no need to have several instances or records of school details.
+
+When you select a `singleton.account` from a menu, you will be taken directly to the record's detail view. Since you can't create several record of such a Tipo, there is no need to display the one record in a list view.
 
 ### Singleton.Application
-TODO
+For a `Singleton.Application` Tipo, there can only be one instance of the Tipo for each application. An example of this is the `Customizations` Tipo that can be accessed from the menu on the `Develop` page. This holds such settings as the application logo and color scheme. We only need one instance of this for the application.
+
+Just as for the `singleton.account`, when you look at a `singleton.application` Tipo, you are taken straight to the detail view.
 
 ### Singleton.User
-TODO
+For this type of Tipo, there can only be one instance of it for every user within an account. e.g. `My Profile` (which holds information regarding the user) is a user level singleton.
+
+This type of Tipo also doesn't display its record in a list view, but instead takes the user directly to the detail view when selected.
 
 ## More on Relationships
-We've briefly covered relationships in other sections of the guide so far. We've seen that there are two types of relationships: `reference` and `embed`. With the former, only a related Tipo's key is stored against the current Tipo while the latter embedds a Tipo into another. We've seen how to mark a Tipo's field as the Meaningful Key so that when a record of that Tipo appears in another Tipo, that field will be displayed.
+We've briefly covered relationships in other sections of the guide so far. We've seen that there are two types of relationships: `reference` and `embed`. With the former, only a related Tipo's key is stored against the current Tipo while the latter embeds a Tipo into another. We've seen how to mark a Tipo's field as the Meaningful Key so that when a record of that Tipo appears in another Tipo, that field will be displayed.
 
 By default, when two Tipos are related by reference, TipoTapp stores the referenced Tipo's `tipo_id` field against the current/containing Tipo and displays its Meaningful Key (if no field is set, this defaults to `tipo_id`). We've seen this already. However, you can change this default behaviour. You can configure your app so that another field is stored against the containing Tipo and another one is displayed.
 
@@ -504,27 +510,6 @@ TODO
 ### Defining User Roles
 TODO
 
-### EnterprisePlanRole
-TODO
-
-### ProfessionalPlanRole
-TODO
-
-### Admin
-TODO
-
-## Plans
-TODO
-
-### Basic
-TODO
-
-### Professional
-TODO
-
-### Enterprise
-TODO
-
 ## Menu Access Control
 TODO
 
@@ -574,7 +559,7 @@ TipoTapp allows you to set CSS styles for your field's labels and values. This c
 
 ![Relationship Settings](/images/advanced_concepts/image_015.png)
 
-By default, any style you set will be applied to all rows of your records, but you can also select to have different colors according to a certain condition. For instance, suppose the School Management System had a field named `Status` in its `Student` Tipo. This field was to be used to indicate wether the student was still in the school or not and it had four possible values:
+By default, any style you set will be applied to all rows of your records, but you can also select to have different colors according to a certain condition. For instance, suppose the School Management System had a field named `Status` in its `Student` Tipo. This field was to be used to indicate whether the student was still in the school or not and it had four possible values:
 
  - **Admitted**: The student has been admitted to the school after sending in their application, but they are still not enrolled.
  - **Enrolled**: The student has started their program.
