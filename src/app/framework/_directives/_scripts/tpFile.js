@@ -45,9 +45,8 @@
           scope.hasValue = !_.isUndefined(scope.field);
           scope.isArray = Boolean(scope.isarray);
           scope.isSingle = !scope.isArray;
-          scope.tempPath = {
-            
-          };
+          scope.tempPath = {};
+          scope.singlePath = {};
           var fileTarget = scope.fileTargetVel;
           if (scope.privateFile) {
             scope.rootFolder = 'private/' + uuid4() ;
@@ -63,7 +62,13 @@
               scope.isSingle = true;
               scope.field = {
                 key: fileTarget,
-                rootFolder: scope.rootFolder
+                rootFolder: scope.rootFolder,
+                type: scope.field.type,
+                fileType: scope.field.fileType
+              };
+              scope.singlePath = {
+                tagType: scope.field.type,
+                fileType: scope.field.fileType
               };
             }
             if (!scope.isTargetFile && !S(fileTarget).endsWith('/')) {
@@ -120,7 +125,7 @@
         initDirective();
 
         scope.onSinglePathChange = function () {
-          if (_.isEmpty(scope.singlePath.value)) {
+          if (_.isEmpty(scope.singlePath.value) && !scope.isTargetSet) {
             scope.field = {};
             return;
           }
@@ -233,10 +238,10 @@
           // })
           var template;
           var type = filePath.tagType || filePath.type || "text/plain";
-          var src =  "g/" + scope.fileTarget + filePath.value;
+          var src =  "g/" + scope.fileTarget + (scope.isTargetFile ? '' :filePath.value);
           switch(type){
               case 'image': {
-                  template = '<md-dialog><div><img class="fullwidth" src="' + src + '" /> <div></md-dialog>';
+                  template = '<md-dialog><div><img class="fullwidth" src="' + src + '" style="background: lightgrey;"/> <div></md-dialog>';
                   break;
               }
               case 'video': {

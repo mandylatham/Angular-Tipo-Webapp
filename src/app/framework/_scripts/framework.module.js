@@ -180,12 +180,16 @@
       url: '/{related_tipo}?tipo_filter',
       parent: viewState,
       resolve: /*@ngInject*/ {
-        subTipos: function (tipoDefinition, tipoInstanceDataService, tipoManipulationService, $stateParams) {
+        subTipoDefinition: function (tipoDefinition, tipoDefinitionDataService, tipoManipulationService, $stateParams) {
+          return tipoDefinitionDataService.getOne($stateParams.related_tipo);
+        },
+        subTipos: function (tipoDefinition, tipoInstanceDataService, tipoManipulationService, $stateParams,subTipoDefinition) {
 
           var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
 
           var filter = {};
-
+          filter.page = 1;
+          filter.per_page = subTipoDefinition.tipo_meta.default_page_size;
           if (perspectiveMetadata.tipoFilter) {
             filter.tipo_filter = perspectiveMetadata.tipoFilter;
           }
@@ -198,9 +202,6 @@
             }
           }
           return tipoInstanceDataService.search($stateParams.related_tipo, filter);
-        },
-        subTipoDefinition: function (tipoDefinition, tipoDefinitionDataService, tipoManipulationService, $stateParams) {
-          return tipoDefinitionDataService.getOne($stateParams.related_tipo);
         },
         delay: function ($q, $timeout) {
           return falseDelay($q, $timeout);
