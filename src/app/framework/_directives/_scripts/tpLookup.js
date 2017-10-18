@@ -194,6 +194,7 @@
     $mdSelect,
     $timeout,
     $stateParams,
+    $compile,
     tipoDefinitionDataService,
     tipoClientJavascript,
     tipoCustomJavascript) {
@@ -387,7 +388,12 @@
             //   }
             // }
             if(!_.isUndefined(basefilter)){
-              var basefilterExpanded = _.get(scope.root,scope.basefilter) || scope.basefilter;
+              // scope.basefilter = "jsdsjjnjsj {{root.integer_4}}";
+              // var linkFn = $compile(scope.basefilter);
+              // var linkedContent = linkFn(scope);
+              //  scope.$apply();
+              //  var result = linkedContent.html();
+              var basefilterExpanded = scope.basefilter;
               filter = basefilterExpanded;
             }
             if(!_.isUndefined(filter) && filter !== ""){
@@ -402,7 +408,7 @@
             if (!_.isEmpty(scope.queryparams)) {
               _.forOwn(scope.queryparams,function(value,key){
                 value = value.replace("$index", scope.index);
-                var baseParamExpanded = _.get(scope.root,value) || value;
+                var baseParamExpanded =  value;
                 searchCriteria[key] = baseParamExpanded;
               })
             };

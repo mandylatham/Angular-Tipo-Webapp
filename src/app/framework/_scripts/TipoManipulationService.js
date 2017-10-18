@@ -169,14 +169,22 @@
       }
     }
 
-    function getVirtualRepeatObject(per_page,tipo_name,getTipos,searchCriteria){
+    function getVirtualRepeatObject(per_page,tipo_name,getTipos,searchCriteria,default_tipos,count){
       var busy;
+      var page = 0;
+      var maxpages = 2;
+      if (count) {
+        maxpages = Math.ceil(count/per_page);
+      };
+      if (default_tipos) {
+        page = 1;
+      };
       var infiniteItems = {
-        numLoaded_: per_page,
+        numLoaded_: count || per_page,
         toLoad_: 0,
-        maxpages: 2,
-        tipos: [],
-        page: 0,
+        maxpages: maxpages,
+        tipos: default_tipos || [],
+        page: page,
         filter: searchCriteria || {},
         getItemAtIndex: function(index) {
           if (!this.tipos[index] && index < this.numLoaded_) {
@@ -195,12 +203,13 @@
           if (!busy && this.page < this.maxpages) {
             this.page++;
             this.filter.page = this.page;
+            this.filter.per_page = per_page;
             busy = true;
             getTipos(tipo_name, this.filter).then(angular.bind(this,function(tipos){
               var function_name = tipo_name + "_OnList";
               this.tipos = this.tipos.concat(tipos);
               busy = false;
-              if (this.page === 1) {
+              if (this.page === 1 && !count) {
                 var responseData = tipoRegistry.get(tipo_name + '_resdata');
                 this.numLoaded_ = responseData.count;
                 this.maxpages = Math.ceil(responseData.count/per_page);

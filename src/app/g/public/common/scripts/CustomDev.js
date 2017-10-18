@@ -120,8 +120,10 @@
     }
 
 
-    $scope.$watch(function(){return $scope.tipoRootController.tipos;},function(){
-      resolveFolderpath();
+    $scope.$watch(function(){return $scope.tipoRootController.tipos;},function(new_val,old_val){
+      if (new_val) {
+        resolveFolderpath();
+      };
     })
 
   }
