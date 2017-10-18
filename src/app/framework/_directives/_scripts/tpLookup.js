@@ -408,7 +408,7 @@
             if (!_.isEmpty(scope.queryparams)) {
               _.forOwn(scope.queryparams,function(value,key){
                 value = value.replace("$index", scope.index);
-                var baseParamExpanded =  value;
+                var baseParamExpanded = _.get(scope.root,value) || value;
                 searchCriteria[key] = baseParamExpanded;
               })
             };
