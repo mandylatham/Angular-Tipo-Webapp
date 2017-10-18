@@ -292,6 +292,10 @@
 
      function setPerspective(){
       this.perspective = tipoManipulationService.resolvePerspectiveMetadata();
+      this.perspective.tipo_name = this.perspective.tipoName;
+      this.perspective.display_name = this.perspective.displayName;
+      this.perspective.field_name = this.perspective.fieldName;
+      this.perspective.tipo_id = this.perspective.tipoId;
     }
 
 

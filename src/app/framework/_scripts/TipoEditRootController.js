@@ -144,7 +144,7 @@
     
     var _instance = this;
     tipoHandle.setPerspective();
-    _instance.tipoHandle = tipoHandle;
+    _instance.tipo_handle = tipoHandle;
     _instance.hide_actions = $scope.hide_actions;
     var tipo_name =  $scope.tipo_name || $stateParams.tipo_name;
     _instance.tipo_name = tipo_name;

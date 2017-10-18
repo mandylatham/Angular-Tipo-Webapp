@@ -23,7 +23,7 @@
 
     var _instance = this;
     tipoHandle.setPerspective();
-    _instance.tipoHandle = tipoHandle;
+    _instance.tipo_handle = tipoHandle;
     var tipo_name = $stateParams.tipo_name;
     _instance.tipo_name = $stateParams.tipo_name;
     $scope.data_handle = {};
