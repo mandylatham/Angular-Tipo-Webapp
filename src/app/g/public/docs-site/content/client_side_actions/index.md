@@ -68,6 +68,15 @@ Member name | Description
 `user_meta.role` | User role
 `user_meta.user_attributes` | Additional attributes e.g. If the role is linked certain Tipos, during user invitation instances of those tipos are selected and stored in these user_attributes. for Student it would look like user_meta.user_attributes.Student.[212Student123]
 
+### ```perspective```
+
+Member name | Description
+------------ | ---------------
+`perspective.tipo_name` | Perspective TipoName
+`perspective.display_name` | Perspective Tipo display name
+`perspective.field_name` | Perspective field name
+`perspective.tipo_id` | Perspective Tipo ID
+
 ###  ```getConfirmation (user_message) ```
 Present user with a confirmation message and get user response.
 
