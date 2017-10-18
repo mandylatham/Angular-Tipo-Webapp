@@ -194,7 +194,7 @@
             filter.tipo_filter = perspectiveMetadata.tipoFilter;
           }
           if (!_.isUndefined($stateParams.tipo_filter) && !_.isEmpty($stateParams.tipo_filter)){
-            var sub_filter = atob($stateParams.tipo_filter);
+            var sub_filter = $stateParams.tipo_filter;
             if (filter.tipo_filter) {
               filter.tipo_filter += " AND " + tipoManipulationService.expandFilterExpression(sub_filter, tipoDefinition);
             } else {

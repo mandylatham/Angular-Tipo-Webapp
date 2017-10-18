@@ -290,6 +290,10 @@
       return $filter('date')(date,'yyyy-MM-ddTHH:mm:ss.sss') + 'Z';
      }
 
+     function setPerspective(){
+      this.perspective = tipoManipulationService.resolvePerspectiveMetadata();
+    }
+
 
      this.application_meta = metadataService.applicationMetadata;
      this.user_meta = metadataService.userMetadata;
@@ -315,6 +319,7 @@
      this.deleteItemFromArray = deleteItemFromArray;
      this.toTipo = toTipo;
      this.getISODate = getISODate;
+     this.setPerspective = setPerspective;
 
 
 

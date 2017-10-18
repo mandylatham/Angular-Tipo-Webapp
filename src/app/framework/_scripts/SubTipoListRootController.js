@@ -11,7 +11,8 @@
     tipoInstanceDataService,
     tipoRouter,
     tipoRegistry,
-    $state) {
+    $state,
+    $stateParams) {
 
     var _instance = this;
 
@@ -35,14 +36,27 @@
     //   });
     // });
     // _instance.tiposWithDefinition = tiposWithDefinition;
-
-    _instance.hasTipos = subTipos.length > 0;
+    var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
+    var filter = {};
     var per_page = _instance.tipoDefinition.tipo_meta.default_page_size;
+    filter.per_page = per_page;
+    if (perspectiveMetadata.tipoFilter) {
+      filter.tipo_filter = perspectiveMetadata.tipoFilter;
+    }
+    if (!_.isUndefined($stateParams.tipo_filter) && !_.isEmpty($stateParams.tipo_filter)){
+      var sub_filter = $stateParams.tipo_filter;
+      if (filter.tipo_filter) {
+        filter.tipo_filter += " AND " + tipoManipulationService.expandFilterExpression(sub_filter, tipoDefinition);
+      } else {
+        filter.tipo_filter = tipoManipulationService.expandFilterExpression(sub_filter, tipoDefinition);
+      }
+    }
+    _instance.hasTipos = subTipos.length > 0;
     var responseData = tipoRegistry.get(tipo_name + '_resdata');
     _instance.perm = responseData.perm;
     _instance.restricted_actions = responseData.restricted_actions;
     var count = responseData.count;
-    _instance.infiniteItems = tipoManipulationService.getVirtualRepeatObject(per_page ,tipo_name,tipoHandle.getTipos,{},subTipos,count);
+    _instance.infiniteItems = tipoManipulationService.getVirtualRepeatObject(per_page ,tipo_name,tipoHandle.getTipos,filter,subTipos,count);
     _instance.infiniteItems.serverResultHandler = function(){
 
     };

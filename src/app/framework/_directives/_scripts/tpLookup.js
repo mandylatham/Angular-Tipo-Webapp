@@ -408,7 +408,12 @@
             if (!_.isEmpty(scope.queryparams)) {
               _.forOwn(scope.queryparams,function(value,key){
                 value = value.replace("$index", scope.index);
-                var baseParamExpanded = _.get(scope.root,value) || value;
+                if (value.indexOf("$tipo") !== -1 || value.indexOf("$tipo_root") !== -1) {
+                  value = value.replace("$tipo.", "").replace("$tipo_root.","");
+                  var baseParamExpanded = _.get(scope.root,value) || '___NA___';  
+                }else{
+                  var baseParamExpanded = value;
+                }
                 searchCriteria[key] = baseParamExpanded;
               })
             };
