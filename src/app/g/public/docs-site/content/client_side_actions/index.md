@@ -1,6 +1,6 @@
 ---
 title: Client Side Actions
-weight: 8
+weight: 5
 ---
 
 ## Introduction to Actions

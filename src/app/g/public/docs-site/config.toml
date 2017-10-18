@@ -57,43 +57,23 @@ googleAnalytics = "UA-92686434-1"
 	name   = "Advanced Concepts"
 	url   = "advanced_concepts/"
 	weight = 3
-	
-[[menu.main]]
-	name   = "Extending Your Application"
-	url    = "extending_your_application/"
-	weight = 4
-	
-[[menu.main]]
-	name   = "TipoTapp's Interface"
-	url   = "tipotapp_interface/"
-	weight = 5
-	
-[[menu.main]]
-	name   = "Reference Manual"
-	url    = "reference_manual/"
-	weight = 6
 
 [[menu.main]]
 	name   = "Developer Documentation"
 	url    = "developer_documentation/"
-	weight = 7
+	weight = 4
 
 [[menu.main]]
 	name   = "Client Side Actions"
 	url    = "client_side_actions/"
-	weight = 8
+	weight = 5
 
 [[menu.main]]
 	name   = "Server Side Actions"
 	url    = "server_side_actions/"
-	weight = 9
+	weight = 6
 	
 [[menu.main]]
-	name   = "Client Side Customisations"
-	url    = "client_side_customisations/"
-	weight = 10
-
-[[menu.main]]
-	name   = "Server Side Customisations"
-	url    = "server_side_customisations/"
-	weight = 11
+	name   = "Expressions and Filters Syntax"
+	url    = "expressions_and_filters_syntax/"
+	weight = 7
