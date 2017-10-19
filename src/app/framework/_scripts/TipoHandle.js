@@ -36,6 +36,7 @@
     tipoDefinition,
     tipoManipulationService,
     $scope,
+    tipoHandle,
     tipoDialogInputs,
     tipoRouter,
     tipoInstanceDataService,
@@ -43,6 +44,8 @@
     
     var _instance = this;
     _instance.tipoDefinition = tipoDefinition;
+    tipoHandle.setPerspective();
+    _instance.tipo_handle = tipoHandle;
     _instance.hide_actions = true;
     _instance.tipo = {};
     _instance.context = tipoDialogInputs.context;

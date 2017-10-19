@@ -703,6 +703,7 @@
       // newScope.key_field = key_field;
       newScope.label_field = label_field;
       newScope.tipo = _instance.tipo[prefix];
+      newScope.fq_field_name = prefix;
       var promise = $mdDialog.show({
         templateUrl: 'framework/_directives/_views/tp-lookup-dialog.tpl.html',
         controller: 'TipoLookupDialogController',
