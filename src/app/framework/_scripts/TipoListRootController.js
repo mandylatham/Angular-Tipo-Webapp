@@ -64,6 +64,7 @@
     _instance.initTiposData = function(tipoFilters,page_size,allow_search){
       var filter = {};
       _instance.hasTipos = true;
+      tipoCache.evict($stateParams.tipo_name);
       _instance.allow_search = allow_search;
       if ($stateParams.filter) {
         _instance.tipoFilters = tipoManipulationService.convertToFilterExpression(tipoFilters,$stateParams.filter);
@@ -324,19 +325,21 @@
       getPerspective(filter);
       tipoCache.evict($stateParams.tipo_name);
       $templateCache.remove(_instance.listUrl);
-      tipoHandle.getTipos($stateParams.tipo_name, filter).then(function(tiposData){
-        _instance.tipos = tiposData;
-        var function_name = $stateParams.tipo_name + "_OnList";
-        if(typeof tipoCustomJavascript[function_name] === 'function'){
-          $scope.data_handle.tipo_list = tiposData;
-          tipoCustomJavascript[function_name]($scope.data_handle);
-        }
-        if(typeof tipoClientJavascript[function_name] === 'function'){
-          $scope.data_handle.tipo_list = tiposData;
-          tipoClientJavascript[function_name]($scope.data_handle);
-        }
-        tipoRouter.endStateChange();
-      });
+      _instance.infiniteItems.tipos = [];
+      _instance.infiniteItems.page = 0;
+      // tipoHandle.getTipos($stateParams.tipo_name, filter).then(function(tiposData){
+      //   _instance.tipos = tiposData;
+      //   var function_name = $stateParams.tipo_name + "_OnList";
+      //   if(typeof tipoCustomJavascript[function_name] === 'function'){
+      //     $scope.data_handle.tipo_list = tiposData;
+      //     tipoCustomJavascript[function_name]($scope.data_handle);
+      //   }
+      //   if(typeof tipoClientJavascript[function_name] === 'function'){
+      //     $scope.data_handle.tipo_list = tiposData;
+      //     tipoClientJavascript[function_name]($scope.data_handle);
+      //   }
+      //   tipoRouter.endStateChange();
+      // });
     }
 
     _instance.nextPage = function(){
