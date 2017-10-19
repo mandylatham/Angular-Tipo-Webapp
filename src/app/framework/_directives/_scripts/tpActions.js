@@ -7,6 +7,7 @@
   function TipoActionDialogController(
     tipoDefinition,
     tipoAction,
+    tipoHandle,
     tipoManipulationService,
     $scope,
     tipoRouter,
@@ -20,7 +21,8 @@
     _instance.tipo = {};
     _instance.context = $scope.context;
     $scope.Date = Date;
-
+    tipoHandle.setPerspective();
+    _instance.tipo_handle = tipoHandle;
     _instance.hooks = {};
     _instance.fullscreen = true;
     _instance.maximize = function(){
