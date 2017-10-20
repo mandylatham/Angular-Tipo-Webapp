@@ -229,7 +229,6 @@
             if (!old && new_val) {
               initDirective(true);
             };
-            console.log(new_val);
           });
 
         scope.openViewFile = function(filePath){

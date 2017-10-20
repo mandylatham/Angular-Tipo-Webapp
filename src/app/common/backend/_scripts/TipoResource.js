@@ -183,13 +183,13 @@
     var relativeUrl = location.pathname;
     if (_.startsWith(relativeUrl, '/app')) {
       // relativeUrl = '/api/d/tipotapp/constructionmanagement' + relativeUrl.substring(4);
-      // relativeUrl = '/api/d/8501472954/sdm' + relativeUrl.substring(4);
+      // relativeUrl = '/api/d/tipotapp/sdm' + relativeUrl.substring(4);
       // relativeUrl = '/api/d/deltagene/billionbases' + relativeUrl.substring(4);
       relativeUrl = '/api' + relativeUrl.substring(4);
       // relativeUrl = '/api/d/hr/hrbuddy' + relativeUrl.substring(4);
       // relativeUrl = '/api/d/johmyWizardM1/testapp123' + relativeUrl.substring(4);
     } else {
-      // relativeUrl = '/api/d/8501472954/sdm';
+      // relativeUrl = '/api/d/tipotapp/sdm';
       // relativeUrl = '/api/d/tipotapp/constructionmanagement';
       // relativeUrl = '/api/d/deltagene/billionbases';
       // relativeUrl = '/api/d/johmyWizardM1/testapp123';

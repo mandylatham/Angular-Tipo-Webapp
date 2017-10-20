@@ -21,7 +21,7 @@ var pathMappings = [
     // url: 'https://dev.billionbases.com',
     // url: 'https://dev.tipotapp.com/app/d/hr/hrbuddy'
     // url: 'https://dev.tipotapp.com/app/d/johmyWizardM1/testapp123'
-    // url: 'https://dev.tipotapp.com/app/d/8501472954/sdm'
+    // url: 'https://dev.tipotapp.com/app/d/tipotapp/sdm'
     // url: 'https://app.billionbases.com/app/d/deltagene/billionbases'
     // url: 'https://dev.tipotapp.com/app/d/deltagene/billionbases'
   },
@@ -32,7 +32,7 @@ var pathMappings = [
     // url: 'https://dev.billionbases.com',
     // url: 'https://dev.tipotapp.com/app/d/hr/hrbuddy'
     // url: 'https://dev.tipotapp.com/app/d/johmyWizardM1/testapp123'
-    // url: 'https://dev.tipotapp.com/app/d/8501472954/sdm'
+    // url: 'https://dev.tipotapp.com/app/d/tipotapp/sdm'
     // url: 'https://app.billionbases.com/app/d/deltagene/billionbases'
     // url: 'https://dev.tipotapp.com/app/d/deltagene/billionbases'
   },
@@ -43,7 +43,7 @@ var pathMappings = [
       // url: 'https://dev.billionbases.com',
 	    // url: 'https://dev.tipotapp.com/app/d/hr/hrbuddy'
 	    // url: 'https://dev.tipotapp.com/app/d/johmyWizardM1/testapp123'
-	    // url: 'https://dev.tipotapp.com/app/d/8501472954/sdm'
+	    // url: 'https://dev.tipotapp.com/app/d/tipotapp/sdm'
 	    // url: 'https://app.billionbases.com/app/d/deltagene/billionbases'
 	    // url: 'https://dev.tipotapp.com/app/d/deltagene/billionbases'
 	  },
@@ -54,7 +54,7 @@ var pathMappings = [
         // url: 'https://dev.billionbases.com',
 		    // url: 'https://dev.tipotapp.com/app/d/hr/hrbuddy'
 		    // url: 'https://dev.tipotapp.com/app/d/johmyWizardM1/testapp123'
-		    // url: 'https://dev.tipotapp.com/app/d/8501472954/sdm'
+		    // url: 'https://dev.tipotapp.com/app/d/tipotapp/sdm'
 		    // url: 'https://app.billionbases.com/app/d/deltagene/billionbases'
 		    // url: 'https://dev.tipotapp.com/app/d/deltagene/billionbases'
 	},

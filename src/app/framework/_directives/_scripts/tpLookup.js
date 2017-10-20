@@ -305,11 +305,12 @@
                 scope.model.field = [];
                 if (!_.isUndefined(scope.ngModel)) {
                   scope.options = [];
-                  scope.singlefield = {};
+                  var singlefield = {};
                   _.each(scope.ngModel,function(value,key){
-                    scope.singlefield[key_field] = value;
-                    scope.singlefield[label_field] = scope.fieldlabel[key];
-                    scope.model.field.push(scope.singlefield);
+                    singlefield[key_field] = value;
+                    singlefield[label_field] = scope.fieldlabel[key];
+                    scope.model.field.push(singlefield);
+                    singlefield = {};
                   });
                   scope.options.push(scope.model.field);
                 }          
