@@ -45,7 +45,7 @@
             _instance.perspectives.push({
                 name: 'Profile',
                 icon: 'account_box',
-                disabled: true,
+                disabled: false,
                 perspective: 'ProfilePerspective'
               });
         }
@@ -70,7 +70,7 @@
           _instance.perspectives.push({
               name: 'Log Out',
               icon: 'exit_to_app',
-              disabled: true,
+              disabled: false,
               perspective: 'logout'
           });
       }
