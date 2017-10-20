@@ -628,7 +628,11 @@
           };
         }
         if (_.isObject(value) && !_.isArray(value)) {
-          modifyTipoData(value);
+          if (_.isEmpty(value)) {
+            tipoData[key] = null;
+          }else{
+            modifyTipoData(value);
+          }
         };
         if (_.isArray(value)) {
           if (value.length === 0) {
