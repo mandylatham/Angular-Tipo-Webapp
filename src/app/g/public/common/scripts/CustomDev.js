@@ -120,8 +120,8 @@
     }
 
 
-    $scope.$watch(function(){return $scope.tipoRootController.tipos;},function(new_val,old_val){
-      if (new_val) {
+    $scope.$watch(function(){return $scope.tipoRootController.infiniteItems.tipos;},function(new_val,old_val){
+      if (new_val && new_val !== old_val) {
         resolveFolderpath();
       };
     })

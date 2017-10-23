@@ -133,18 +133,18 @@
       if(reload){
         headers['Cache-Control'] = 'max-age=0';
       }
-      var result = tipoRegistry.getData(tipo_name,id);
-      if (result && !reload) {
-      var defer = $q.defer();
-      defer.resolve(result);
-      return defer.promise; 
-      }else{
+      // var result = tipoRegistry.getData(tipo_name,id);
+      // if (result && !reload) {
+      // var defer = $q.defer();
+      // defer.resolve(result);
+      // return defer.promise; 
+      // }else{
         var promise = getDocumentResource(tipo_name, id).get(criteria, headers);
         promise.then(function(response){
           tipoRegistry.pushData(tipo_name,id,response);
         });
         return getDocumentResource(tipo_name, id).get(criteria, headers);
-      }
+      // }
     };
 
     _instance.updateOne = function(tipo_name, tipo, id){

@@ -15,6 +15,12 @@
             <md-icon>attachment</md-icon>
           </md-button>
         </div>
+        <div flex="none" flex-order="5">
+            <md-button class="md-icon-button" aria-label="Delete" ng-click="removeSinglePathEntry()">
+              <md-tooltip md-direction="bottom">Remove Entry</md-tooltip>
+              <md-icon>delete</md-icon>
+            </md-button>
+          </div>
       </div>
     </div>
     <div ng-if="isArray">

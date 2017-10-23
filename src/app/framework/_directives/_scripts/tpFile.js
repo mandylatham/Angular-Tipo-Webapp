@@ -173,6 +173,11 @@
           scope.multiplePaths[index].deleted = true;
           scope.field[index]._ARRAY_META._STATUS = 'DELETED';
         };
+
+        scope.removeSinglePathEntry = function(){
+          scope.singlePath = {};
+          scope.field = {};
+        }
         
         function uuid4() {
             //// return uuid of form xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx
