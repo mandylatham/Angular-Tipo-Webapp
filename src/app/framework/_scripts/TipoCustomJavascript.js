@@ -18,6 +18,7 @@
     	});
     		return false;
     	}
+    	tipoRouter.endStateChange();
     	return true;
     }
     this.TipoS3Browser_OnClick = TipoS3Browser_OnClick;

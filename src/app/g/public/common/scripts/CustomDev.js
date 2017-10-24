@@ -97,6 +97,18 @@
 
     var _instance = this;
 
+
+    function getS3Items(){
+      var queryparams = $scope.tipoRootController.queryparams;
+      var tipo_name = $scope.tipoRootController.tipo_name;
+      delete queryparams.must_include_values;
+      delete queryparams.must_include_key;
+      tipoHandle.getTipos(tipo_name,queryparams).then(function(response){
+        $scope.tipoRootController.tipos = response;
+      });
+    }
+
+    getS3Items();
     
     function resolveFolderpath(){
     var folder_path = $scope.tipoRootController.tipos[0].is_folder ?  _.replace($scope.tipoRootController.tipos[0].fq_filename,$scope.tipoRootController.tipos[0].filename + "/","") : _.replace($scope.tipoRootController.tipos[0].fq_filename,$scope.tipoRootController.tipos[0].filename,"") 
@@ -108,6 +120,8 @@
       var folder_path = _.join(pathArray,"/")
       var queryparams = $scope.tipoRootController.queryparams;
       var tipo_name = $scope.tipoRootController.tipo_name;
+      delete queryparams.must_include_values;
+      delete queryparams.must_include_key;
       queryparams.fq_folder = folder_path + "/"
       tipoHandle.getTipos(tipo_name,queryparams).then(function(response){
         $scope.tipoRootController.tipos = response;
@@ -120,7 +134,7 @@
     }
 
 
-    $scope.$watch(function(){return $scope.tipoRootController.infiniteItems.tipos;},function(new_val,old_val){
+    $scope.$watch(function(){return $scope.tipoRootController.tipos;},function(new_val,old_val){
       if (new_val && new_val !== old_val) {
         resolveFolderpath();
       };

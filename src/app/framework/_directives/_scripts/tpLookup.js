@@ -77,7 +77,9 @@
         $scope.data_handle.tipo_name = $scope.tipo_name;
         $scope.data_handle.queryparams = $scope.queryparams;
         $scope.data_handle.event = event;
-        var proceed = tipoCustomJavascript[$scope.tipo_name + '_OnClick']($scope.data_handle);
+        var proceedcustom = tipoCustomJavascript[$scope.tipo_name + '_OnClick']($scope.data_handle);
+      }else{
+        var proceedcustom = true;
       }
       if(typeof tipoClientJavascript[$scope.tipo_name + '_OnClick'] === 'function'){
         tipoRouter.startStateChange();
@@ -90,7 +92,7 @@
       else{
         var proceed = true;
       }
-      if (proceed) {
+      if (proceed && proceedcustom) {
         if (!$scope.isarray) {
           _.each(tiposData, function(tipo){
             tipo.selected = false;
@@ -181,6 +183,7 @@
     $scope.$watch(function(){return $scope.data_handle.tipo_list},function(new_value,old_value){
       if ($scope.data_handle.tipo_list) {
         _instance.infiniteItems.tipos = $scope.data_handle.tipo_list;
+        _instance.tipos = $scope.data_handle.tipo_list;
       };
     });
   }
