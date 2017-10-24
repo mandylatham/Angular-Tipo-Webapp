@@ -9,7 +9,8 @@
         scope: {
           fieldValue: "=",
           mode: "=",
-          initValue: "="
+          initValue: "=",
+          readOnly: '='
         },
         restrict: 'EA',
         replace: true,

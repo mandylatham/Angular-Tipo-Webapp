@@ -222,6 +222,7 @@
           selectfield: '=',
           selectkeyfield: '=',
           selectlabelfield: '=',
+          readOnly: '='
         },
         restrict: 'EA',
         replace: true,
@@ -440,7 +441,7 @@
             if(typeof tipoCustomJavascript[function_name] === 'function'){
               scope.data_handle.root = scope.root;
               scope.data_handle.context = scope.context;
-              scope.data_handle.searchCriteria = scope.searchCriteria;
+              scope.data_handle.searchCriteria = searchCriteria;
               scope.data_handle.tipo_name = scope.tipo_name;
               scope.data_handle.key_field = scope.key_field;
               scope.data_handle.label_field = scope.label_field;
@@ -449,7 +450,7 @@
             if(typeof tipoClientJavascript[function_name] === 'function'){
               scope.data_handle.root = scope.root;
               scope.data_handle.context = scope.context;
-              scope.data_handle.searchCriteria = scope.searchCriteria;
+              scope.data_handle.searchCriteria = searchCriteria;
               tipoClientJavascript[function_name](scope.data_handle);
             }
             if (!scope.ispopup) {

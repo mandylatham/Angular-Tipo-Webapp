@@ -15,7 +15,8 @@
           allowedvalues: '=',
           allowcreate: '=',
           description: '=',
-          fieldname: '='
+          fieldname: '=',
+          readOnly: '='
         },
         restrict: 'EA',
         replace: true,

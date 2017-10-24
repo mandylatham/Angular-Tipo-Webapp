@@ -20,7 +20,8 @@
         metaData: "=",
         fieldpath: '=',
         fileTargetVel: '=',
-        privateFile: '='
+        privateFile: '=',
+        readOnly: '='
       },
       restrict: 'EA',
       replace: true,

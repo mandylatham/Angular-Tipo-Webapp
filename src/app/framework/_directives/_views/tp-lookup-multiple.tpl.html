@@ -1,6 +1,6 @@
 <div layout="row">
 	<div flex>
-		<md-select ng-model="model.field" aria-label="realtedtipo" md-container-class="tp-field" placeholder="{{field.field_description}}" md-on-open="triggerDropdown()" md-on-close="cleanup()" md-selected-text="renderSelection()" multiple="true" ng-disabled="ispopup" flex ng-required="istipomandatory">
+		<md-select ng-model="model.field" aria-label="realtedtipo" md-container-class="tp-field" placeholder="{{field.field_description}}" md-on-open="triggerDropdown()" md-on-close="cleanup()" md-selected-text="renderSelection()" multiple="true" ng-disabled="ispopup && readOnly" flex ng-required="istipomandatory">
 		  <md-select-header class="search" ng-if="options.length > 5">
 		    <md-input-container md-no-float class="fullwidth">
 		      <input ng-model="searchTerm.text" type="search" placeholder="Search ..." ng-keydown="stopBubbling($event)" ng-keyup="$event.keyCode == 13 ? triggerDropdown(searchTerm.text) : null" tp:auto-focus>
@@ -15,7 +15,7 @@
 		  </md-virtual-repeat-container>
 		</md-select>
 	</div>
-	<div flex="25" class="actions" ng-if="ispopup" layout="row">
+	<div flex="25" class="actions" ng-if="ispopup && !readOnly" layout="row">
 		<md-button class="m0" ng-click="tipoObjecSelectiontDialog()">
 			<md-icon>search</md-icon>
 		</md-button>
