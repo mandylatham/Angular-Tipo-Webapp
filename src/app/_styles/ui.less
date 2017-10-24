@@ -544,6 +544,23 @@ md-fab-speed-dial.md-fab-top-right{
   float: right;
 }
 
+// For Tabs
+md-tabs.md-stretch-tabs md-pagination-wrapper {
+  width: 100% !important;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+  flex-direction: row; 
+}
+md-tabs.md-stretch-tabs md-pagination-wrapper md-tab-item {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  flex-grow: 1; 
+}
+
 // For Swiper
 .swiper-slide{
   text-align: center;

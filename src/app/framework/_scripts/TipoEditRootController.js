@@ -139,9 +139,12 @@
     tipoClientJavascript,
     tipoCustomJavascript,
     $mdSelect,
+    $mdMedia,
     tipoCache,
     $sce) {
     
+
+    $scope.$mdMedia = $mdMedia;
     var _instance = this;
     tipoHandle.setPerspective();
     _instance.tipo_handle = tipoHandle;
