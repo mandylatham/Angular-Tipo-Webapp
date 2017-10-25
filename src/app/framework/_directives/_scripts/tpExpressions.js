@@ -8,7 +8,7 @@
   return module.directive('tpExpressions', function ($filter) {
       return {
         scope: {
-          expression: '&',
+          expression: '=',
           bindvalue: '=',
           readonly: '=',
           fieldtype: '=',
