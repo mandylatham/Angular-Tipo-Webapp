@@ -193,21 +193,22 @@
       //Clientside Javascript for OnSave
       var data = {};
       var parameters = {};
-      tipoManipulationService.modifyTipoData(_instance.tipo);
+      var clone_tipo = angular.copy(_instance.tipo);
+      tipoManipulationService.modifyTipoData(clone_tipo);
       var function_name = tipo_name + "_OnSave";
       if(typeof tipoCustomJavascript[function_name] === 'function'){
-        $scope.data_handle.tipo = _instance.tipo;
+        $scope.data_handle.tipo = clone_tipo;
         $scope.data_handle.action = action;
         tipoCustomJavascript[function_name]($scope.data_handle);
       }
       if(typeof tipoClientJavascript[function_name] === 'function'){
-        $scope.data_handle.tipo = _instance.tipo;
+        $scope.data_handle.tipo = clone_tipo;
         $scope.data_handle.action = action;
         tipoClientJavascript[function_name]($scope.data_handle);
       }
       if (action === 'edit') {
         data.copy_from_tipo_id = tipo.copy_from_tipo_id;
-        tipoHandle.saveTipo(tipo_name, tipo_id ,_instance.tipo).then(function(result){
+        tipoHandle.saveTipo(tipo_name, tipo_id ,clone_tipo).then(function(result){
           if(tipoRouter.stickyExists()){
             tipoRouter.toStickyAndReset();
           }else{
@@ -224,13 +225,13 @@
         });
       }else if (action === 'create') {
         var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
-          if(perspectiveMetadata.fieldName && !_instance.tipo[perspectiveMetadata.fieldName]){
-            _instance.tipo[perspectiveMetadata.fieldName] = perspectiveMetadata.tipoId;
+          if(perspectiveMetadata.fieldName && !clone_tipo[perspectiveMetadata.fieldName]){
+            clone_tipo[perspectiveMetadata.fieldName] = perspectiveMetadata.tipoId;
           }
           if(!_.isUndefined(clonedTipoId)){
-            _instance.tipo.copy_from_tipo_id = clonedTipoId;
+            clone_tipo.copy_from_tipo_id = clonedTipoId;
           }
-          tipoHandle.createTipo(tipo_name, _instance.tipo).then(function(result){
+          tipoHandle.createTipo(tipo_name, clone_tipo).then(function(result){
             if(tipoRouter.stickyExists()){
               tipoRouter.toStickyAndReset();
             }else{

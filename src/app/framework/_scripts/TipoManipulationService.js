@@ -638,6 +638,9 @@
           if (value.length === 0) {
             tipoData[key] = null;
           }else{
+            _.remove(value, function(val){
+              return val._UI_STATUS === 'DELETED';
+            });
             _.each(value,function(val){
               modifyTipoData(val);
             });

@@ -230,9 +230,10 @@
 
      function deleteItemFromArray(item,index){
       if (_.isUndefined(item[index]._ARRAY_META)) {
-        _.remove(item, function(each){
-          return each === item[index];
-        });
+        // _.remove(item, function(each){
+        //   return each === item[index];
+        // });
+        item[index]._UI_STATUS = 'DELETED';
       }else{
         item[index]._ARRAY_META._STATUS = 'DELETED';
       }

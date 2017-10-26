@@ -1,6 +1,6 @@
 <md-virtual-repeat-container layout="row" layout-align="center stretch" layout-margin layout-wrap ng-controller="TipoAppController as controller" id="tipoapp-app-list" update-size>
   <div >
-    <md-card tp:perm md-virtual-repeat="tipo in controller.tipos | filter: tipoRootController.searchText"  md-on-demand  layout="column" layout-align="start stretch" layout-padding ng-click="!tipo.disableclick && controller.launch(tipo); $event.stopPropagation();">
+    <md-card tp:perm md-virtual-repeat="tipo in controller.tipos"  md-on-demand  layout="column" layout-align="start stretch" layout-padding ng-click="!tipo.disableclick && controller.launch(tipo); $event.stopPropagation();">
       
       
       <div layout="column" layout-align="start center">
