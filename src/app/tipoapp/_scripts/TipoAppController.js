@@ -12,6 +12,7 @@
     var _instance = this;
 
     var tipo_name = $scope.tipoRootController.tipo_name;
+    $scope.tipoRootController.disablecreate = true;
     // var hooks = $scope.tipoRootController.hooks;
 
     // hooks.postFinish = function() {

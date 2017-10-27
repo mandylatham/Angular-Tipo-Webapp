@@ -1,17 +1,21 @@
-<div md-whiteframe="24">
+<div md-whiteframe="2" md-colors="{background: 'primary-500'}" layout="row" layout-padding layout-align="center center" flex="none">
+      <span class="md-title">Sign In</span>
+</div>
+<div md-whiteframe="2">
   <form name="loginForm" data-ng-submit="controller.login()">
     <md-content layout-padding layout="column" layout-align="center stretch">
-      <div class="md-subhead text-center">Login to the application</div>
-      <md-input-container class="md-icon-float md-block">
-        <label>Email</label>
+      <div class="md-subhead text-center"></div>
+      <label class="loginlabel">Email</label>
+      <md-input-container class="md-icon-float md-block" md-no-float>
         <md-icon>person</md-icon>
         <input ng-model="controller.user.email" type="text" required tabindex="1">
         <div class="text-right" id="forgot-password-link" ng-if="!controller.inProgress">
           <a href="" ng-click="controller.toForgotPassword()" tabindex="5">Forgot Password?</a>
         </div>
       </md-input-container>
-      <md-input-container class="md-icon-float md-block">
-        <label>Password</label>
+      <label class="loginlabel">Password</label>
+      <md-input-container class="md-icon-float md-block " md-no-float >
+        <!-- <label>Password</label> -->
         <md-icon>lock_open</md-icon>
         <input ng-model="controller.user.password" type="password" required tabindex="2">
       </md-input-container>

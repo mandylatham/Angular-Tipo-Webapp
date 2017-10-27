@@ -117,6 +117,12 @@ html{
     max-width: none;
   }
 
+  .loginlabel{
+  padding: 0px 37px;
+  color: rgba(0,0,0,0.54);
+  font-size: 13px;
+  }
+
   #login-container{
     @media (min-width: 600px){
       min-width: 450px;
@@ -648,7 +654,10 @@ table.md-table th.md-column{
     text-overflow: ellipsis;
   }
 }
-
+md-toolbar.md-default-theme:not(.md-menu-toolbar) md-icon, md-toolbar:not(.md-menu-toolbar) md-icon{
+      color: white;
+    fill: white
+}
 #tipoapp-app-list{
   md-card{
     margin: 20px;
@@ -657,7 +666,7 @@ table.md-table th.md-column{
   }
   .app-top{
     width: 100%;
-    background: #2db3ac;
+    background: #e85c63;
   }
   .app-icon{
     font-size:24px;

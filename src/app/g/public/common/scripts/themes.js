@@ -50,78 +50,149 @@
         'contrastDarkColors': '50 100 200 300 A100 A200'
       });
       
-            	$mdThemingProvider.definePalette('primary', {
-        		  '50': 'befaff',
-        		  '100': '72f4ff',
-        		  '200': '3af0ff',
-        		  '300': '00def1',
-        		  '400': '00c2d3',
-        		  '500': '00a6b4',
-        		  '600': '008a95',
-        		  '700': '006e77',
-        		  '800': '005158',
-        		  '900': '00353a',
-        		  'A100': 'b4f9ff',
-        		  'A200': '4ef1ff',
-        		  'A400': '00d5e7',
-        		  'A700': '00bdcd',
-        		  'contrastDefaultColor': 'light',
-        		  'contrastDarkColors': [
-        		    '50',
-        		    '100',
-        		    '200',
-        		    '300',
-        		    '400',
-        		    'A100',
-        		    'A200',
-        		    'A400',
-        		    'A700'
-        		  ],
-        		  'contrastLightColors': [
-        		    '500',
-        		    '600',
-        		    '700',
-        		    '800',
-        		    '900'
-        		  ]
-        		});
+          //   	$mdThemingProvider.definePalette('primary', {
+        		//   '50': 'befaff',
+        		//   '100': '72f4ff',
+        		//   '200': '3af0ff',
+        		//   '300': '00def1',
+        		//   '400': '00c2d3',
+        		//   '500': '00a6b4',
+        		//   '600': '008a95',
+        		//   '700': '006e77',
+        		//   '800': '005158',
+        		//   '900': '00353a',
+        		//   'A100': 'b4f9ff',
+        		//   'A200': '4ef1ff',
+        		//   'A400': '00d5e7',
+        		//   'A700': '00bdcd',
+        		//   'contrastDefaultColor': 'light',
+        		//   'contrastDarkColors': [
+        		//     '50',
+        		//     '100',
+        		//     '200',
+        		//     '300',
+        		//     '400',
+        		//     'A100',
+        		//     'A200',
+        		//     'A400',
+        		//     'A700'
+        		//   ],
+        		//   'contrastLightColors': [
+        		//     '500',
+        		//     '600',
+        		//     '700',
+        		//     '800',
+        		//     '900'
+        		//   ]
+        		// });
       
-            	$mdThemingProvider.definePalette('accent', {
-        		  '50': 'ffffff',
-        		  '100': 'fee1d9',
-        		  '200': 'fcb7a3',
-        		  '300': 'f9815e',
-        		  '400': 'f86a41',
-        		  '500': 'f75323',
-        		  '600': 'f33e09',
-        		  '700': 'd53608',
-        		  '800': 'b82f07',
-        		  '900': '9a2706',
-        		  'A100': 'ffffff',
-        		  'A200': 'ffc5b4',
-        		  'A400': 'ff764e',
-        		  'A700': 'fd6337',
-        		  'contrastDefaultColor': 'light',
-        		  'contrastDarkColors': [
-        		    '50',
-        		    '100',
-        		    '200',
-        		    '300',
-        		    '400',
-        		    'A100',
-        		    'A200',
-        		    'A400',
-        		    'A700'
-        		  ],
-        		  'contrastLightColors': [
-        		    '500',
-        		    '600',
-        		    '700',
-        		    '800',
-        		    '900'
-        		  ]
-        		});
-            
+          //   	$mdThemingProvider.definePalette('accent', {
+        		//   '50': 'ffffff',
+        		//   '100': 'fee1d9',
+        		//   '200': 'fcb7a3',
+        		//   '300': 'f9815e',
+        		//   '400': 'f86a41',
+        		//   '500': 'f75323',
+        		//   '600': 'f33e09',
+        		//   '700': 'd53608',
+        		//   '800': 'b82f07',
+        		//   '900': '9a2706',
+        		//   'A100': 'ffffff',
+        		//   'A200': 'ffc5b4',
+        		//   'A400': 'ff764e',
+        		//   'A700': 'fd6337',
+        		//   'contrastDefaultColor': 'light',
+        		//   'contrastDarkColors': [
+        		//     '50',
+        		//     '100',
+        		//     '200',
+        		//     '300',
+        		//     '400',
+        		//     'A100',
+        		//     'A200',
+        		//     'A400',
+        		//     'A700'
+        		//   ],
+        		//   'contrastLightColors': [
+        		//     '500',
+        		//     '600',
+        		//     '700',
+        		//     '800',
+        		//     '900'
+        		//   ]
+        		// });
+    $mdThemingProvider.definePalette('primary', {
+  '50': 'fcebec',
+  '100': 'f8ced0',
+  '200': 'f4aeb1',
+  '300': 'ef8d92',
+  '400': 'eb747a',
+  '500': 'e85c63',
+  '600': 'e5545b',
+  '700': 'e24a51',
+  '800': 'de4147',
+  '900': 'd83035',
+  'A100': 'ffffff',
+  'A200': 'ffe9e9',
+  'A400': 'ffb6b8',
+  'A700': 'ff9c9f',
+  'contrastDefaultColor': 'light',
+  'contrastDarkColors': [
+    '50',
+    '100',
+    '200',
+    '300',
+    '400',
+    '500',
+    '600',
+    'A100',
+    'A200',
+    'A400',
+    'A700'
+  ],
+  'contrastLightColors': [
+    '700',
+    '800',
+    '900'
+  ]
+});
+$mdThemingProvider.definePalette('accent', {
+  '50': 'e6f6f5',
+  '100': 'c0e8e6',
+  '200': '96d9d6',
+  '300': '6ccac5',
+  '400': '4dbeb8',
+  '500': '2db3ac',
+  '600': '28aca5',
+  '700': '22a39b',
+  '800': '1c9a92',
+  '900': '118b82',
+  'A100': 'bdfffa',
+  'A200': '8afff6',
+  'A400': '57fff2',
+  'A700': '3dfff0',
+  'contrastDefaultColor': 'light',
+  'contrastDarkColors': [
+    '50',
+    '100',
+    '200',
+    '300',
+    '400',
+    '500',
+    '600',
+    'A100',
+    'A200',
+    'A400',
+    'A700'
+  ],
+  'contrastLightColors': [
+    '500',
+    '600',
+    '700',
+    '800',
+    '900'
+  ]
+});           
             
             
       $mdThemingProvider
