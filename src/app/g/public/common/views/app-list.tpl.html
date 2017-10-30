@@ -1,6 +1,6 @@
 <md-virtual-repeat-container  ng-controller="TipoAppController as controller" update-size>
   <div layout="row" layout-align="center stretch" layout-margin layout-wrap id="tipoapp-app-list" >
-    <md-card layout="column" layout-align="center center" layout-padding ng-click="tipoRootController.createNew(); $event.stopPropagation();" style="background: #e85c63;background-image: url('_assets/images/2.png');">
+    <md-card layout="column" layout-align="center center" layout-padding ng-click="tipoRootController.createNew(); $event.stopPropagation();" style="background: #2db3ac;background-image: url('_assets/images/3.png');">
       <div layout="column" layout-align="start center" style="color: white;">
         <md-icon class="material-icons" style="border-radius: 50%;background: white;width: 100px;height: 100px;line-height: 100px;text-align: center;opacity: 0.3;font-size: 50px;">add</md-icon>
         <span class="md-headline" layout-padding>New Application</span>
@@ -9,7 +9,7 @@
     <md-card tp:perm md-virtual-repeat="tipo in controller.infiniteItems"  md-on-demand  layout="column" layout-align="start stretch" ng-click="!tipo.disableclick && controller.launch(tipo); $event.stopPropagation();">
       
       
-      <div layout="row" layout-align="space-between center" class="app-top" style="background-image: url('_assets/images/2.png');color:white;" layout-padding >
+      <div layout="row" layout-align="space-between center" class="app-top" style="background-image: url('_assets/images/3.png');color:white;" layout-padding >
         <div layout="row" layout-align="start center" flex="80">
           <md-icon ng-if="tipo.icon" class="app-icon">{{tipo.icon}}</md-icon>
           <md-icon ng-if="!tipo.icon"  class="app-icon">apps</md-icon>

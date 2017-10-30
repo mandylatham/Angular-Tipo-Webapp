@@ -61,16 +61,23 @@
             if (scope.isTargetFile) {
               // cannot be an array if an exact file name is specified, hence treating as a single file
               scope.isSingle = true;
-              scope.field = {
-                key: fileTarget,
-                rootFolder: scope.rootFolder,
-                type: scope.field.type,
-                fileType: scope.field.fileType
-              };
-              scope.singlePath = {
-                tagType: scope.field.type,
-                fileType: scope.field.fileType
-              };
+              if (scope.field) {
+                scope.field = {
+                  key: fileTarget,
+                  rootFolder: scope.rootFolder,
+                  type: scope.field.type,
+                  fileType: scope.field.fileType
+                };
+                scope.singlePath = {
+                  tagType: scope.field.type,
+                  fileType: scope.field.fileType
+                };
+              }else{
+                scope.field = {
+                  key: fileTarget,
+                  rootFolder: scope.rootFolder
+                };
+              }
             }
             if (!scope.isTargetFile && !S(fileTarget).endsWith('/')) {
               fileTarget += '/';

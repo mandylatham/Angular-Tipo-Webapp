@@ -7,6 +7,7 @@
     metadataService,
     $window,
     $scope,
+    tipoManipulationService,
     tipoCache) {
 
     var _instance = this;
@@ -33,7 +34,11 @@
       //   }
       //   each.logo = logo + '.png';
       // });
+      // _instance.infiniteItems = tipoManipulationService.getVirtualRepeatWrapObject($scope.tipoRootController.infiniteItems,3);
       _instance.infiniteItems = $scope.tipoRootController.infiniteItems;
+      if (tipos.length > 0 && _instance.infiniteItems) {
+        virtualReapeatDone();
+      };
     }
     addLogotoData($scope.tipoRootController.tipos);
 
@@ -49,7 +54,7 @@
       $window.open(tipo.app_url, '_blank');
     };
 
-    $scope.$watch(function(){ return $scope.tipoRootController.tipos;}, function(){
+    var virtualReapeatDone = $scope.$watch(function(){ return $scope.tipoRootController.tipos;}, function(){
       addLogotoData($scope.tipoRootController.tipos);
     })
 

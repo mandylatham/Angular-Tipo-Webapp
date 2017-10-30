@@ -188,7 +188,14 @@ html{
     padding: 40px;
     text-align: center;
   }
-
+  .heading-standard{
+    color: rgb(0, 166, 180);
+    padding: 10px 15px 0;
+    font-weight: bold;
+  }
+  .subheading{
+    padding: 0 4px 0;
+  }
   .tp-page-heading{
     .separator{
       margin-left: 2px;
@@ -206,7 +213,11 @@ html{
       padding: 8px;
     }
   }
-
+  .perspectivemenu{
+    .md-no-style{
+      padding: 0px;
+    }
+  }
   .tp-navigation{
     .menu-header{
       .md-list-item-inner{
@@ -223,8 +234,7 @@ html{
       }
     }
     md-list-item{
-      padding-top: 0;
-      padding-bottom: 0;
+      padding: 0 0 20px 0;
       &.active{
         border-left: 5px solid #aa4608;
         button{
@@ -654,9 +664,8 @@ table.md-table th.md-column{
     text-overflow: ellipsis;
   }
 }
-md-toolbar.md-default-theme:not(.md-menu-toolbar) md-icon, md-toolbar:not(.md-menu-toolbar) md-icon{
-      color: white;
-    fill: white
+md-list-item::before, md-list-item .md-list-item-inner::before{
+  min-height: 0px;
 }
 #tipoapp-app-list{
   md-card{
@@ -666,7 +675,7 @@ md-toolbar.md-default-theme:not(.md-menu-toolbar) md-icon, md-toolbar:not(.md-me
   }
   .app-top{
     width: 100%;
-    background: #e85c63;
+    background: #2db3ac;
   }
   .app-icon{
     font-size:24px;

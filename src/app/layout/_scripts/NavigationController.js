@@ -62,6 +62,7 @@
       menuItem.tipoId = tipoId;
       menuItem.label = label;
       menuItem.action = 'switch';
+      menuItem.tipoName = definition.tipo_id;
       _instance.perspectiveMenuItems = _.union(_instance.perspectiveMenuItems,[menuItem]);
     }
 
@@ -107,7 +108,13 @@
             markActiveItem(_instance.menu, selectedTipoId);
           }else{
             // If the perspective menu items are more than 500
-            tipoInstanceDataService.search(tipoName).then(function(tipos){
+            var queryparams = {};
+            queryparams.page = 1;
+            queryparams.per_page = 10;
+            queryparams.must_include_key = "tipo_id";
+            queryparams.must_include_values = selectedTipoId;
+            tipoInstanceDataService.search(tipoName,queryparams).then(function(tipos){
+              tipos = _.uniqWith(tipos, _.isEqual);
               _.each(tipos, function(tipo){
                 prepareMenuItems(tipo,definition,_instance.perspectiveMenuItems);
               });

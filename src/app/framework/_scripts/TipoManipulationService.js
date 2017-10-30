@@ -222,6 +222,44 @@
       return infiniteItems;
     }
 
+    function getVirtualRepeatWrapObject(dataSource,columns){
+      var infiniteItems = {
+        dataSource: dataSource,
+        columns: columns,
+        getLength: function(){
+          var numberOfItems = this.dataSource.getLength();
+          return numberOfItems / this.columns;
+        },
+        getItemAtIndex: function(rowIndex){
+          var realStartIndex = rowIndex * this.columns;
+          var total = this.dataSource.getLength();
+
+          var row = [];
+
+          for (var i = 0; i < this.columns; i++) {
+              var realIndex = realStartIndex + i;
+
+              if(realIndex >= total){
+                  break;
+              }
+              var item = this.dataSource.getItemAtIndex(realIndex);
+
+              if(item){
+                  row.push(item);
+              }else{
+                  // If a item from the row did not finish loading, we have to return null
+                  // to indicate that this row item has to be retried later on.
+                  row = null; 
+                  break
+              }
+          }
+
+          return row;
+        }
+      };
+      return infiniteItems;
+    }
+
     function mergeDefinitionAndDataArray(tipoDefinition,tipoDataArray,label_field){
       var tiposWithDefinition = [];
       _.each(tipoDataArray, function(tipo){
@@ -706,6 +744,7 @@
     this.modifyTipoData = modifyTipoData;
     this.checkQueryParams = checkQueryParams;
     this.getVirtualRepeatObject = getVirtualRepeatObject;
+    this.getVirtualRepeatWrapObject = getVirtualRepeatWrapObject;
 
   }
 

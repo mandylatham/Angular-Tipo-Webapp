@@ -115,7 +115,7 @@
       parameters.tipo_name = tipoName;
       parameters.tipo_id = tipoId;
       var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
-      if(perspectiveMetadata.tipoName){
+      if(perspectiveMetadata.tipoName && !parameters.perspective){
         parameters.perspective = perspectiveMetadata.perspective;
       }
       stateOptions.inherit = false;

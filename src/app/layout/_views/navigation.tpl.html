@@ -1,48 +1,5 @@
-<md-sidenav layout="column" md-component-id="left" class="md-sidenav-left" md-is-locked-open="$mdMedia('gt-md')" role="navigation" md-whiteframe="6" md-colors="{background: 'primary-50'}" md-is-open="header.opensidenav" md-swipe-right="$mdSidenav( 'left' ).open()" md-swipe-left="$mdSidenav( 'left' ).close()" ng-hide="header.hidesidemenu">
+<md-sidenav layout="column" md-component-id="left" class="md-sidenav-left" md-is-locked-open="$mdMedia('gt-md')" role="navigation" md-whiteframe="6" md-is-open="header.opensidenav" md-swipe-right="$mdSidenav( 'left' ).open()" md-swipe-left="$mdSidenav( 'left' ).close()" ng-hide="header.hidesidemenu" style="width: 150px;">
   <div class="tp-navigation" ng-controller="NavigationController as navigation">
-    <md-list>
-    <!-- <md-divider></md-divider> -->
-      <md-list-item ng-if="navigation.perspectiveMenu" class="menu-header" >
-        <md-button layout="row" layout-align="start center" ng-disabled="true" ng-if="navigation.perspectiveMenu.abstract">
-          <div>
-            <span class="md-subhead">{{navigation.perspectiveMenu.displayName}}</span>
-          </div>
-        </md-button>
-        <md-button layout="row" layout-align="space-between end" ng-click="navigation.switchTipoPerspective(navigation.selectedPerspectiveItem)" ng-if="!navigation.perspectiveMenu.abstract">
-          <div>
-            <span class="md-subhead">
-              <span ng-if="navigation.perspectiveMenu.singleton">{{navigation.perspectiveMenu.displayName}}</span>
-              <span ng-if="!navigation.perspectiveMenu.singleton">{{navigation.selectedPerspectiveItem.label}}</span>
-              <!-- <span ng-if="!navigation.perspectiveMenu.singleton">{{navigation.stateParams.perspectiveLabel}}</span> -->
-            </span>
-          </div>
-          <md-menu ng-if="navigation.perspectiveMenu.menuItems.length > 1">
-            <md-button class="md-icon-button" ng-click="navigation.openPerspectiveMenu($mdOpenMenu, $event)">
-              <md-icon md-menu-origin>arrow_drop_down_circle</md-icon>
-            </md-button>
-            <md-menu-content width="4">
-              <md-menu-item class="search" ng-if="navigation.perspectiveMenu.menuItems.length > 6">
-                <md-input-container md-no-float>
-                  <input ng-model="navigation.perspectiveMenu.searchText" type="search" placeholder="Search ...">
-                </md-input-container>
-              </md-menu-item>
-              <md-menu-item ng-repeat="tipo in navigation.perspectiveMenu.menuItems | filter: navigation.perspectiveMenu.searchText" ng-if="tipo !== navigation.selectedPerspectiveItem">
-                <md-button ng-click="navigation.switchTipoPerspective(tipo)">{{tipo.label}}</md-button>
-              </md-menu-item>
-            </md-menu-content>
-          </md-menu>
-        </md-button>
-      </md-list-item>
-      <md-divider></md-divider>
-      <md-list-item layout-padding ng-repeat="item in navigation.menu" ng-class="{'active': item === navigation.activeItem}">
-        <md-button layout="row" layout-align="start center" ng-click="navigation.navigate(item)">
-          <div class="md-list-item-inner">
-            <md-icon ng-if="item.icon">{{item.icon}}</md-icon>
-            <md-icon ng-if="!item.icon">keyboard_arrow_right</md-icon>
-            <span>{{item.label}}</span>
-          </div>
-        </md-button>
-      </md-list-item>
-    </md-list>
+    <ng-include src="'g/public/common/views/custom_menu.tpl.html'" tp-include-replace/>
   </div>
 </md-sidenav>
