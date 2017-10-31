@@ -25,6 +25,16 @@
 
     //___TipoDefinition___
 
+  //   function TipoDefinition_tipo_event_js_javascript_code_OnChange(data_handle){
+  //   	try {
+		//     eval(data_handle.new_value); 
+		// } catch (e) {
+		//     if (e instanceof SyntaxError) {
+		//         alert(e.message);
+		//     }
+		// }
+  //   }
+  //   this.TipoDefinition_tipo_event_js_javascript_code_OnChange  = TipoDefinition_tipo_event_js_javascript_code_OnChange ;
 	function TipoDefinition_tipo_fields_label_style_OnChange (data_handle) {
 	if (data_handle.label === "Value Based Style") {
 	         if (data_handle.context.allowed_values) {

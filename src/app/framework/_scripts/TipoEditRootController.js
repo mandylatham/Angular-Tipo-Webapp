@@ -833,7 +833,7 @@
     };
 
     _instance.fieldChange = function(function_name,context,new_value,field_name,label){
-      function_name = function_name.replace(".","_").replace(/\[\d\]/g, "");
+      function_name = function_name.replace(".","_").replace(/\[\w+\]/g, "");
       if(typeof tipoCustomJavascript[function_name] === 'function'){
         var old_value = _.get(_instance.tipo,field_name + "_old");
         $scope.data_handle.tipo = _instance.tipo;

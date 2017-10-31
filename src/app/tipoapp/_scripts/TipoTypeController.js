@@ -132,6 +132,11 @@
       label: "Location",
       icon: "location_on",
     },
+    // {
+    //   key: "javascript",
+    //   label: "Javascript",
+    //   icon: "code",
+    // },
     //{
     //  key: "s3explorer",
     //  label: "S3 Browser",

@@ -79,6 +79,7 @@
       _instance.singleedit = false;
       _instance.infiniteItems = tipoManipulationService.getVirtualRepeatObject(_instance.per_page,$stateParams.tipo_name,tipoHandle.getTipos,filter);
       _instance.infiniteItems.serverResultHandler = serverResultHandler;
+      _instance.infiniteItems.fetchMoreItems_("",1);
     }
 
     function serverResultHandler(page){
@@ -376,6 +377,8 @@
       getPerspective(filter);
       _instance.infiniteItems = tipoManipulationService.getVirtualRepeatObject(_instance.per_page,$stateParams.tipo_name,tipoHandle.getTipos,filter);
       _instance.infiniteItems.serverResultHandler = serverResultHandler;
+      _instance.infiniteItems.tipos = [];
+      _instance.tipos = [];
     }
 
     _instance.undoEdit = function(){

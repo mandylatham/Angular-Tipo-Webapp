@@ -36,9 +36,9 @@
       // });
       // _instance.infiniteItems = tipoManipulationService.getVirtualRepeatWrapObject($scope.tipoRootController.infiniteItems,3);
       _instance.infiniteItems = $scope.tipoRootController.infiniteItems;
-      if (tipos.length > 0 && _instance.infiniteItems) {
-        virtualReapeatDone();
-      };
+      // if (tipos.length > 0 && _instance.infiniteItems) {
+      //   virtualReapeatDone();
+      // };
     }
     addLogotoData($scope.tipoRootController.tipos);
 

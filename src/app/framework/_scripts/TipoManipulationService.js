@@ -186,6 +186,7 @@
         tipos: default_tipos || [],
         page: page,
         filter: searchCriteria || {},
+        busy: busy,
         getItemAtIndex: function(index) {
           if (!this.tipos[index] && index < this.numLoaded_) {
             this.fetchMoreItems_(index);
@@ -196,19 +197,22 @@
         getLength: function() {
           return this.numLoaded_;
         },
-        fetchMoreItems_: function(index) {
+        fetchMoreItems_: function(index,page) {
           // For demo purposes, we simulate loading more items with a timed
           // promise. In real code, this function would likely contain an
           // $http request.
-          if (!busy && this.page < this.maxpages) {
+          if (!this.busy && this.page < this.maxpages) {
             this.page++;
+            if (page) {
+              this.page = page;
+            };
             this.filter.page = this.page;
             this.filter.per_page = per_page;
-            busy = true;
+            this.busy = true;
             getTipos(tipo_name, this.filter).then(angular.bind(this,function(tipos){
               var function_name = tipo_name + "_OnList";
               this.tipos = this.tipos.concat(tipos);
-              busy = false;
+              this.busy = false;
               if (this.page === 1 && !count) {
                 var responseData = tipoRegistry.get(tipo_name + '_resdata');
                 this.numLoaded_ = responseData.count;
