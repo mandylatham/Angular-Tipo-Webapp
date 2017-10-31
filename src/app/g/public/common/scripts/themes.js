@@ -89,7 +89,7 @@
             	$mdThemingProvider.definePalette('accent', {
         		  '50': 'ffffff',
         		  '100': 'fee1d9',
-        		  '200': 'fcb7a3',
+        		  '200': 'fbb03b',
         		  '300': 'f9815e',
         		  '400': 'f86a41',
         		  '500': 'f75323',

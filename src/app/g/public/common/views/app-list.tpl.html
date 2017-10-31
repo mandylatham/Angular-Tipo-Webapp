@@ -1,21 +1,21 @@
 <md-virtual-repeat-container  ng-controller="TipoAppController as controller" update-size>
   <div layout="row" layout-align="center stretch" layout-margin layout-wrap id="tipoapp-app-list" >
-    <md-card layout="column" layout-align="center center" layout-padding ng-click="tipoRootController.createNew(); $event.stopPropagation();" style="background: #2db3ac;background-image: url('_assets/images/3.png');">
-      <div layout="column" layout-align="start center" style="color: white;">
-        <md-icon class="material-icons" style="border-radius: 50%;background: white;width: 100px;height: 100px;line-height: 100px;text-align: center;opacity: 0.3;font-size: 50px;">add</md-icon>
+    <md-card layout="column" layout-align="center center" layout-padding ng-click="tipoRootController.createNew(); $event.stopPropagation();" style="background-image: url('_assets/images/white-pattern-png.png');" md-colors="{backgroundColor: 'primary-500-0.32',color: 'grey-900'}">
+      <div layout="column" layout-align="start center">
+        <md-icon class="material-icons" style="border-radius: 50%;background: white;width: 100px;height: 100px;line-height: 100px;text-align: center;opacity: 0.7;font-size: 50px;">add</md-icon>
         <span class="md-headline" layout-padding>New Application</span>
       </div>
     </md-card>
-    <md-card tp:perm md-virtual-repeat="tipo in controller.infiniteItems"  md-on-demand  layout="column" layout-align="start stretch" ng-click="!tipo.disableclick && controller.launch(tipo); $event.stopPropagation();">
+    <md-card tp:perm md-virtual-repeat="tipo in controller.infiniteItems"  md-on-demand  layout="column" layout-align="start stretch" ng-click="!tipo.disableclick && controller.launch(tipo); $event.stopPropagation();" ng-mouseover="tipo.showactionbar = true;" ng-mouseleave="tipo.showactionbar = false;" >
       
       
-      <div layout="row" layout-align="space-between center" class="app-top" style="background-image: url('_assets/images/3.png');color:white;" layout-padding >
+      <div layout="row" layout-align="space-between center" class="app-top" style="background-image: url('_assets/images/white-pattern-png.png');" layout-padding md-colors="{backgroundColor: 'primary-500-0.32',color: 'grey-900'}">
         <div layout="row" layout-align="start center" flex="80">
-          <md-icon ng-if="tipo.icon" class="app-icon">{{tipo.icon}}</md-icon>
-          <md-icon ng-if="!tipo.icon"  class="app-icon">apps</md-icon>
+         <!--  <md-icon ng-if="tipo.icon" class="app-icon">{{tipo.icon}}</md-icon>
+          <md-icon ng-if="!tipo.icon"  class="app-icon">apps</md-icon> -->
           <span class="md-headline">{{tipo.app_name.substring(0,10)}}{{tipo.app_name.substring(10) !== ""? "...": ""}}</span>
         </div>
-        <img ng-src="_assets/images/logo_trans.png" style="width: 60px;" flex="20"/>
+        <!-- <img ng-src="_assets/images/logo_trans.png" style="width: 60px;" flex="20"/> -->
         <!-- <div class="app-logo">
           <img ng-src="_assets/images/logos/{{tipo.logo}}" />
         </div> -->
@@ -23,18 +23,21 @@
       <div layout="row">
         <div class="md-subhead" flex style="min-height: 100px;margin-left: 20px;padding-top: 20px;">
           {{tipo.app_description.substring(0,72)}}{{tipo.app_description && tipo.app_description.substring(72) !== ""? "...": ""}}</div>
-        <action-bar class="action-bar" flex="none" layout="column" layout-align="center center" style="background: rgba(0,0,0,0.05)">
-          <md-button ng-click="tipoRootController.clone(tipo); $event.stopPropagation();" aria-label="Copy" class="md-icon-button">
-            <md-tooltip md-direction="top">Copy Application</md-tooltip>
-            <md-icon>content_copy</md-icon>
+        <action-bar class="action-bar" flex="none" layout="column" layout-align="center end" ng-if="tipo.showactionbar">
+          <md-button ng-click="tipoRootController.clone(tipo); $event.stopPropagation();" aria-label="Copy" class="icon-button">
+            <md-tooltip md-direction="right">Copy Application</md-tooltip>
+            <!-- <md-icon>content_copy</md-icon> -->
+            <md-icon md-svg-src="_assets/images/copy.svg" ></md-icon>
           </md-button>
-          <md-button ng-click="controller.launch(tipo); $event.stopPropagation();" aria-label="Launch" class="md-icon-button">
-            <md-tooltip md-direction="top">Launch Application</md-tooltip>
-            <md-icon>launch</md-icon>
+          <md-button ng-click="controller.launch(tipo); $event.stopPropagation();" aria-label="Launch" class="icon-button">
+            <md-tooltip md-direction="right">Launch Application</md-tooltip>
+            <!-- <md-icon>launch</md-icon> -->
+            <md-icon md-svg-src="_assets/images/launch.svg" ></md-icon>
           </md-button>
-          <md-button ng-click="controller.delete(tipo); $event.stopPropagation();" aria-label="Launch" class="md-icon-button">
-            <md-tooltip md-direction="top">Delete Application</md-tooltip>
-            <md-icon>delete</md-icon>
+          <md-button ng-click="controller.delete(tipo); $event.stopPropagation();" aria-label="Launch" class="icon-button">
+            <md-tooltip md-direction="right">Delete Application</md-tooltip>
+            <!-- <md-icon>delete</md-icon> -->
+            <md-icon md-svg-src="_assets/images/delete.svg" ></md-icon>
           </md-button>
         </action-bar>
       </div>

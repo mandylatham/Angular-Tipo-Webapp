@@ -123,6 +123,14 @@ html{
   font-size: 13px;
   }
 
+  .menuicon{
+    margin: 0px;
+    font-size: 60px !important;
+    width: 60px;
+    height: 60px;
+    opacity: 0.32;
+  }
+
   #login-container{
     @media (min-width: 600px){
       min-width: 450px;
@@ -190,11 +198,11 @@ html{
   }
   .heading-standard{
     color: rgb(0, 166, 180);
-    padding: 10px 15px 0;
     font-weight: bold;
   }
   .subheading{
-    padding: 0 4px 0;
+    padding: 0 8px 0;
+    color: #808080;
   }
   .tp-page-heading{
     .separator{
@@ -218,6 +226,17 @@ html{
       padding: 0px;
     }
   }
+  .icon-button{
+    border-radius: 0;
+    padding: 0px;
+    margin: 0;
+    min-width: 0;
+    md-icon{
+      color: white;
+      background: #0a1d21;
+      padding: 1px;
+    }
+  }
   .tp-navigation{
     .menu-header{
       .md-list-item-inner{
@@ -234,16 +253,18 @@ html{
       }
     }
     md-list-item{
-      padding: 0 0 20px 0;
+//      padding: 0 0 20px 0;
       &.active{
-        border-left: 5px solid #aa4608;
         button{
           font-weight: bold;
           .md-list-item-inner{
             margin-left: -5px;
           }
           md-icon{
-            color: #aa4608;
+            opacity: 1;
+          }
+          span{
+            border-bottom: 3px solid #e54f5a;
           }
         }
       }
@@ -258,10 +279,6 @@ html{
       font-weight: normal;
       width: 100%;
       text-transform: none;
-      md-icon{
-        margin-right: 15px;
-        font-size: 20pt;
-      }
     }
   }
 
@@ -673,9 +690,16 @@ md-list-item::before, md-list-item .md-list-item-inner::before{
     width: 300px;
     cursor: pointer;
   }
-  .app-top{
-    width: 100%;
-    background: #2db3ac;
+  .app-top:before {
+    width: 50px;
+    height: 64px;
+    margin-left: -8px;
+    content: '';
+    display: block;
+    position: absolute;
+    border-bottom: 1px solid;
+    border-bottom-width: medium;
+    border-bottom-color: #f8931f;
   }
   .app-icon{
     font-size:24px;

@@ -16,6 +16,7 @@
     'lfNgMdFileInput',
     'cgBusy',
     'ngProgress',
+    'ngAnimate',
     'ngPageTitle',
     'cleave.js',
     'naif.base64',
