@@ -50,7 +50,7 @@
               });
         }
         
-      if (homeMeta.application_owner_account === userMeta.account ) {
+      if (homeMeta.application_owner_account === '2000000001' ) {
         _instance.perspectives.push({
           name: 'Develop',
           icon: 'build',
