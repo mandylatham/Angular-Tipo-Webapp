@@ -1,3 +1,8 @@
+---
+title: Tipo Authentication API
+weight: 30
+---
+
 ## Authentication details
 
 `AccessToken`, `IdToken` and `RefreshToken` are returned in responese when authentication is successful.

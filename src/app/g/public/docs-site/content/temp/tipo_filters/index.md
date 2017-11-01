@@ -1,6 +1,9 @@
+---
+title: Tipo Filters
+weight: 27
+---
 
-
-  ### Tipo Filter ###
+### Tipo Filter ###
   * **tipo_filter**: this is the where clause. Supported by the GET operations.
       
     **Example 1**: When retriving a customer to restrict age to greater than 20.

@@ -1,6 +1,6 @@
 ---
 title: Creating an Application - Basic
-weight: 2
+weight: 20
 ---
 
 ## Introduction

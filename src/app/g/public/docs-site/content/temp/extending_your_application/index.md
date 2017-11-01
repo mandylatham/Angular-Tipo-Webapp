@@ -1,6 +1,6 @@
 ---
 title: Extending Your Application
-weight: 4
+weight: 24
 ---
 
 ## Introduction

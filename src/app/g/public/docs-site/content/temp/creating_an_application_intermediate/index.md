@@ -1,6 +1,6 @@
 ---
 title: Creating an Application - Intermediate
-weight: 3
+weight: 21
 ---
 
 ## Introduction

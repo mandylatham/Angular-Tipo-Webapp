@@ -1,4 +1,9 @@
-  ## Tipo Functions with capital letters and spaces use case##
+---
+title: Tipo Functions
+weight: 29
+---
+
+## Tipo Functions with capital letters and spaces use case##
   
   Tipo Functions are used in doing custom actions or to override the default actions. A function can be used in Pre-Action or Post-Action. Functions to be used in Pre-Action has the following signature:
   

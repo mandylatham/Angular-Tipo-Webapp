@@ -1,6 +1,6 @@
 ---
 title: Reference Manual
-weight: 6
+weight: 31
 ---
 
 ## Tipo Types

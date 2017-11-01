@@ -1,3 +1,8 @@
+---
+title: Tipo Definitions
+weight: 28
+---
+
 ### Tipo Definition - Explained ###
 Tipo Definition is very similar to Swagger definitions with a lot of extensions. However the framework doesn't complete take Swagger as the bassis in order to grow without any direct dependecies on other frameworks. Nevertheless it is quite easy to generate a swagger defintion using tipo metadata. Swagger goals are for documentation, Tipo goals are rapid web application development. Hence introducing a direct dependency will result in unforeseen complexities at a later stage. 
 

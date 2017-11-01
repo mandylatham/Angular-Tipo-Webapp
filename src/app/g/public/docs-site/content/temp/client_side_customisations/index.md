@@ -1,6 +1,6 @@
 ---
 title: Client Side Customisations
-weight: 8
+weight: 25
 ---
 
 # Field Level Dynamic Expressions
