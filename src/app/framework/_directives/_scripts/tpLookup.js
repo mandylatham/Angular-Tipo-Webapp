@@ -326,6 +326,7 @@
                   scope.options = [];
                   scope.model.field[key_field] = scope.ngModel;
                   scope.model.field[label_field] = scope.fieldlabel || scope.ngModel;
+                  scope.fieldlabel = scope.fieldlabel || scope.ngModel;
                   scope.options.push(scope.model.field);
                 }
               }
