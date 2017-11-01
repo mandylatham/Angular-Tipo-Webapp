@@ -187,12 +187,12 @@
       // relativeUrl = '/api/d/deltagene/billionbases' + relativeUrl.substring(4);
       relativeUrl = '/api' + relativeUrl.substring(4);
       // relativeUrl = '/api/d/hr/hrbuddy' + relativeUrl.substring(4);
-      // relativeUrl = '/api/d/johmyWizardM1/testapp123' + relativeUrl.substring(4);
+      // relativeUrl = '/api/d/hr/dialadish' + relativeUrl.substring(4);
     } else {
       // relativeUrl = '/api/d/tipotapp/sdm';
       // relativeUrl = '/api/d/tipotapp/constructionmanagement';
       // relativeUrl = '/api/d/deltagene/billionbases';
-      // relativeUrl = '/api/d/johmyWizardM1/testapp123';
+      // relativeUrl = '/api/d/hr/dialadish';
       relativeUrl = '/api';
       // relativeUrl = '/api/d/hr/hrbuddy';
     }

@@ -46,8 +46,10 @@
 
       if(!_.isUndefined(activeItem)){
         _instance.activeItem = activeItem;
+        $rootScope.activeItem = activeItem;
       }else{
         delete _instance.activeItem;
+        $rootScope.activeItem = selectedItem;
       }
     }
 
@@ -175,6 +177,7 @@
       $rootScope.perspective = tipoName + '.' + menuItem.tipoId;
       tipoRouter.toTipoView(tipoName, menuItem.tipoId).then(function(){
         delete _instance.activeItem;
+        $rootScope.activeItem = menuItem;
       });
     };
 
