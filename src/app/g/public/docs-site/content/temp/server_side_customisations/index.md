@@ -1,6 +1,6 @@
 ---
 title: Server Side Customisations
-weight: 9
+weight: 26
 ---
   
 Cloud Functions are used in doing custom actions or to override the default actions. Cloud functions are used by the developers to implement business logic speicific to the app developed. Cloud functions are implemented using AWS Lambda and these lambda functions reside in developers own AWS account.
