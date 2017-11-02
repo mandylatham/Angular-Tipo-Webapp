@@ -139,7 +139,7 @@
         var type = tipoDefinition.tipo_meta.tipo_ui_type;
           if (type === 'perspective') {
             $rootScope.perspective = tipoDefinition.tipo_meta.tipo_name + '.' + tipo.tipo_id;
-            $stateParams.perspective = tipoDefinition.tipo_meta.tipo_name + '.' + tipo.tipo_id;
+            // $stateParams.perspective = tipoDefinition.tipo_meta.tipo_name + '.' + tipo.tipo_id;
           }
         }else{
           if ($stateParams.tipo_name !== $rootScope.readonlytiponame) {
