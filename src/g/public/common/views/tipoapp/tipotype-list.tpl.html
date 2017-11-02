@@ -1,4 +1,12 @@
-<div ng-controller="TipoTypeController as controller" class="fluid-row-container">
+<div flex layout="column" ng-init="tipoRootController.initTiposData([])">
+
+      <div id="search" layout="column">
+                  <div  show-gt-md show-md show-sm show-xs>
+        
+ 
+ 
+<div class="tp-list">
+  <div ng-controller="TipoTypeController as controller" class="fluid-row-container">
   <div class="header" flex-offset="5">
     <div layout="row" layout-align="end center">
       <h3 flex>
@@ -56,3 +64,13 @@
     </div>
   </div>
 </div>
+
+</div>
+
+      </div>
+      </div>
+  <div ng-hide="!tipoRootController.loading">
+    <img class="tp-list" ng-src="_assets/images/default.gif" style="width: 50px;height: 50px;">
+  </div>
+</div>
+
