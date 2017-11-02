@@ -11,6 +11,10 @@ var pathMappings = [
     dir: 'app'
   },
   {
+	path: '/g',
+	dir: 'g'
+  },
+  {
     path: '/bower_components',
     dir: 'bower_components'
   },

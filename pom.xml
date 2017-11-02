@@ -168,7 +168,7 @@
               <arguments>
                 <argument>s3</argument>
                 <argument>sync</argument>
-                <argument>${basedir}/src/app/g/public</argument>
+                <argument>${basedir}/src/g/public</argument>
                 <argument>s3://${User.Bucket}/g/tipotapp/tipoapp/public/</argument>
               </arguments>
             </configuration>
@@ -185,7 +185,7 @@
               <arguments>
                 <argument>s3</argument>
                 <argument>sync</argument>
-                <argument>${basedir}/src/app/g/private</argument>
+                <argument>${basedir}/src/g/private</argument>
                 <argument>s3://${User.Bucket}/g/tipotapp/tipoapp/private/</argument>
               </arguments>
             </configuration>
