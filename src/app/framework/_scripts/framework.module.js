@@ -92,7 +92,7 @@
         pageTitle: "{{$stateParams.tipo_name}} - View",
       },
       resolve: /*@ngInject*/ {
-        tipo: function (tipoHandle, tipoManipulationService, parentPromise, $stateParams, $rootScope) {
+        tipo: function (tipoHandle, tipoManipulationService, parentPromise, $stateParams) {
 
           var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
           var filter = {};
@@ -106,12 +106,12 @@
             data.tipo_id = data.tipo_id || $stateParams.tipo_id;
             return data;
           });
-          $rootScope.perspectiveTipo = tipo;
+          $stateParams.perspectiveTipo = tipo;
           return tipo;
         },
       tipoDefinition: function (tipoHandle, tipoManipulationService, tipo, $stateParams, $rootScope, $q) {
           if (!$rootScope.readonly) {
-            $rootScope.perspectiveTipo = tipo;
+            $stateParams.perspectiveTipo = tipo;
             var tipoDefinition = tipoHandle.getTipoDefinition($stateParams.tipo_name).then(function (definition) {
               if (!_.isUndefined(definition)) {
                 tipoManipulationService.mergeDefinitionAndData(definition, tipo);
@@ -139,7 +139,7 @@
         var type = tipoDefinition.tipo_meta.tipo_ui_type;
           if (type === 'perspective') {
             $rootScope.perspective = tipoDefinition.tipo_meta.tipo_name + '.' + tipo.tipo_id;
-            // $stateParams.perspective = tipoDefinition.tipo_meta.tipo_name + '.' + tipo.tipo_id;
+            $stateParams.perspective = tipoDefinition.tipo_meta.tipo_name + '.' + tipo.tipo_id;
           }
         }else{
           if ($stateParams.tipo_name !== $rootScope.readonlytiponame) {
