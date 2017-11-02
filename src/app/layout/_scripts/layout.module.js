@@ -3,9 +3,11 @@
   'use strict';
 
   function registerUrlRedirects(urlRouterProvider) {
-    urlRouterProvider.when('', '/dashboard');
-    urlRouterProvider.when('/', '/dashboard');
-    urlRouterProvider.otherwise('/dashboard');
+    // urlRouterProvider.when('', '/dashboard');
+    // urlRouterProvider.when('/', '/dashboard');
+    // urlRouterProvider.otherwise('/dashboard');
+    urlRouterProvider.when('', '/login');
+    urlRouterProvider.otherwise('/login');
   }
 
   function parsePerspective(perspective){

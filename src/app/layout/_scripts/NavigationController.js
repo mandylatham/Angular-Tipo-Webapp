@@ -120,8 +120,8 @@
               _.each(tipos, function(tipo){
                 prepareMenuItems(tipo,definition,_instance.perspectiveMenuItems);
               });
-              if ($rootScope.perspectiveTipo) {
-                prepareMenuItems($rootScope.perspectiveTipo,definition,_instance.perspectiveMenuItems);
+              if ($stateParams.perspectiveTipo) {
+                prepareMenuItems($stateParams.perspectiveTipo,definition,_instance.perspectiveMenuItems);
               };
               perspectiveMenu.menuItems = _instance.perspectiveMenuItems;
               _instance.perspectiveMenu = perspectiveMenu;
