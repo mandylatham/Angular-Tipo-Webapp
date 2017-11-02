@@ -25,7 +25,8 @@
     'google.places',
     'text-mask',
     'angular-flatpickr',
-    'infinite-scroll'
+    'infinite-scroll',
+    'cl.paging'
   ]);
 
   module.config(function ($mdThemingProvider, $mdToastProvider) {

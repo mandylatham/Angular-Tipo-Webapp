@@ -21,7 +21,7 @@
     //   tipoRouter.toTipoList(tipo_name);
     //   return true;
     // }
-
+    _instance.steps = tipoManipulationService.calculatePageViews();
     function addLogotoData(tipos){
       // _.each(tipos, function(each, index){
       //   var logo;

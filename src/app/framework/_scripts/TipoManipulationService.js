@@ -2,7 +2,7 @@
 
   'use strict';
 
-  function TipoManipulationService(tipoRegistry, $rootScope, $q) {
+  function TipoManipulationService(tipoRegistry, $rootScope, $q, $mdMedia) {
 
     function setupMustacheOverrides(){
       Mustache.tags = ['[[', ']]'];
@@ -211,7 +211,11 @@
             this.busy = true;
             getTipos(tipo_name, this.filter).then(angular.bind(this,function(tipos){
               var function_name = tipo_name + "_OnList";
-              this.tipos = this.tipos.concat(tipos);
+              if (page) {
+                this.tipos = tipos;
+              }else{
+                this.tipos = this.tipos.concat(tipos);
+              }
               this.busy = false;
               if (this.page === 1 && !count) {
                 var responseData = tipoRegistry.get(tipo_name + '_resdata');
@@ -727,6 +731,18 @@
       return params;
     }
 
+    function calculatePageViews(){
+      if ($mdMedia('xs')) {
+        return 2;
+      }else if($mdMedia('sm')) {
+        return 4;
+      }else if($mdMedia('md')) {
+        return 8;
+      }else{
+        return 10;
+      }
+    }
+
     // Expose the functions that need to be consumed from outside
     this.extractShortDisplayFields = extractShortDisplayFields;
     this.getFieldValue = getFieldValue;
@@ -749,6 +765,7 @@
     this.checkQueryParams = checkQueryParams;
     this.getVirtualRepeatObject = getVirtualRepeatObject;
     this.getVirtualRepeatWrapObject = getVirtualRepeatWrapObject;
+    this.calculatePageViews = calculatePageViews;
 
   }
 

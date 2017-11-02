@@ -1,4 +1,4 @@
-<div flex layout="column" ng-init="tipoRootController.initTiposData([{display_name: 'sampleapp',filter_expression:'publish_app_as_sample_app:true', selected: false, hidden_:true},])">
+<div flex layout="column" ng-init="tipoRootController.initTiposData([{display_name: 'sampleapp',filter_expression:'publish_app_as_sample_app:true', selected: false, hidden_:true},])" ng-controller="TipoAppController as controller">
   <md-subheader class="md-primary" ng-if="!tipoRootController.hideActions" >
   <div layout="row" layout-align="space-between center" layout-align-xs="space-between start">
     <div layout="row" layout-xs="column" layout-sm="column" layout-align="center center" layout-align-xs="start start" layout-align-sm="start start" >
@@ -18,6 +18,9 @@
       <tp:actions mode="list" restricted-actions="tipoRootController.restricted_actions" tipo-name="'TipoApp'"  tipo-actions="[{tipo_action: 'ImportApp',display_name: 'Import App',highlight: $action.highlight,bulk_select: $action.bulk_select,single_select: $action.single_select,icon: 'import_export',visibility_expression: '' , client_dependency:{tipo_name: 'ImportAppCDF'}},]" tipos="tipoRootController.tipos" bulkedit="tipoRootController.bulkedit" singleedit="tipoRootController.singleedit"/>
     </div>
   </div>
+  <div>
+    <cl-paging flex cl-pages="controller.infiniteItems.maxpages" cl-steps="controller.steps" cl-page-changed="controller.infiniteItems.fetchMoreItems_('',controller.infiniteItems.page)" cl-align="end start" cl-current-page="controller.infiniteItems.page"></cl-paging>
+  </div>
   </md-subheader>
     <md-button tp:perm md-theme="reverse" class="md-fab md-primary main" aria-label="Create new"  ng-if="!tipoRootController.disablecreate" ng-click="tipoRootController.createNew()">
     <md-tooltip md-direction="left">Create new</md-tooltip>
@@ -36,7 +39,7 @@
  
  
 <div class="tp-list">
-  <md-virtual-repeat-container  ng-controller="TipoAppController as controller" update-size>
+  <div >
     <div layout="row" layout-align="center stretch" layout-margin layout-wrap id="tipoapp-app-list" >
       <md-card layout="column" layout-align="center center" layout-padding ng-click="tipoRootController.createNew(); $event.stopPropagation();" style="background-image: url('_assets/images/white-pattern-png.png');" md-colors="{backgroundColor: 'primary-500-0.32',color: 'grey-900'}">
         <div layout="column" layout-align="start center">
@@ -44,7 +47,7 @@
           <span class="md-headline" layout-padding>New Application</span>
         </div>
       </md-card>
-      <md-card tp:perm md-virtual-repeat="tipo in controller.infiniteItems"  md-on-demand  layout="column" layout-align="start stretch" ng-click="!tipo.disableclick && controller.launch(tipo); $event.stopPropagation();" ng-mouseover="tipo.showactionbar = true;" ng-mouseleave="tipo.showactionbar = false;" >
+      <md-card tp:perm ng-repeat="tipo in controller.infiniteItems.tipos"  md-on-demand  layout="column" layout-align="start stretch" ng-click="!tipo.disableclick && controller.launch(tipo); $event.stopPropagation();" ng-mouseover="tipo.showactionbar = true;" ng-mouseleave="tipo.showactionbar = false;" >
         
         
         <div layout="row" layout-align="space-between center" class="app-top" style="background-image: url('_assets/images/white-pattern-png.png');" layout-padding md-colors="{backgroundColor: 'primary-500-0.32',color: 'grey-900'}">
@@ -81,7 +84,7 @@
         </div>
       </md-card>
     </div>
-  </md-virtual-repeat-container>
+  </div>
 </div>
 
       </div>
