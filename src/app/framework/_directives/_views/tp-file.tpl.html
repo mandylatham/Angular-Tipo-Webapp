@@ -7,7 +7,7 @@
         </div>
         <span flex-order="1" ng-if="isTargetSet">{{prependTarget}}</span>
         <input type="text" ng-model="singlePath.value" aria-label="field.display_name" flex-order="2" ng-if="!(isTargetSet && isTargetFile)"
-          ng-change="onSinglePathChange()" ng-disabled="true">
+          ng-change="onSinglePathChange()">
         <span flex flex-order="3"></span>
         <div flex="none" flex-order="4" ng-if="!readOnly">
           <md-button class="md-icon-button" aria-label="Upload" ng-click="openContentDialog()">
