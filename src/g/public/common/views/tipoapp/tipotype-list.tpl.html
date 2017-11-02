@@ -1,0 +1,58 @@
+<div ng-controller="TipoTypeController as controller" class="fluid-row-container">
+  <div class="header" flex-offset="5">
+    <div layout="row" layout-align="end center">
+      <h3 flex>
+        <a class="plain" md-colors="{color: 'primary-700'}">
+          Basic Tipo Types 
+        </a>
+      </h3>
+    </div>
+    <md-divider></md-divider>
+  </div>
+  <div layout="row" flex="95" flex-offset="5" layout-align="start stretch" class="fluid-row data" layout-wrap>
+    <div ng-repeat="tipo in controller.tipo_types | filter:{tipo_object: '!true'} | filter:{field_group: '!true'} " layout="row" style="width: 172px;" layout-margin layout-align="center center" ng-click="tipoRootController.selectTipo(tipo,$event,controller.tipo_types)" ng-class="{'selected': tipo.selected}" class="pointer">
+      <div class="app-logo">
+          <md-icon style="width: 30px;height: 30px;font-size: 30px;">{{tipo.icon}}</md-icon>
+      </div>
+      <div class="md-subhead text-left" flex>{{tipo.label}}</div>
+    </div>
+  </div>
+  <div class="header" flex-offset="5">
+    <div layout="row" layout-align="end center">
+      <h3 flex>
+        <a class="plain" md-colors="{color: 'primary-700'}">
+          Tipo Objects
+        </a>
+      </h3>
+    </div>
+    <md-divider></md-divider>
+  </div>
+
+  <div layout="row" flex="95" flex-offset="5" layout-align="start stretch" class="fluid-row data" layout-wrap>
+    <div ng-repeat="tipo in controller.tipo_types | filter:{tipo_object: 'true'}" layout="row" style="width: 200px;" layout-align="center center" layout-margin ng-click="tipoRootController.selectTipo(tipo,$event,controller.tipo_types)" ng-class="{'selected': tipo.selected}" class="pointer">
+      <div class="app-logo">
+          <md-icon style="width: 30px;height: 30px;font-size: 30px;" ng-if="tipo.icon">{{tipo.icon}}</md-icon>
+          <md-icon style="width: 30px;height: 30px;font-size: 30px;" ng-if="!tipo.icon">add_box</md-icon>
+      </div>
+      <div class="md-subhead text-left" flex>{{tipo.label}}</div>
+    </div>
+  </div>
+  <div class="header" flex-offset="5" ng-if="(controller.tipo_types | filter:{field_group: 'true'}).length > 0">
+    <div layout="row" layout-align="end center">
+      <h3 flex>
+        <a class="plain" md-colors="{color: 'primary-700'}">
+          Field Groups
+        </a>
+      </h3>
+    </div>
+    <md-divider></md-divider>
+  </div>
+  <div layout="row" flex="95" flex-offset="5" layout-align="start stretch" class="fluid-row data" layout-wrap>
+    <div ng-repeat="tipo in controller.tipo_types | filter:{field_group: 'true'}" layout="row" style="width: 200px;" layout-align="center center" layout-margin ng-click="tipoRootController.selectTipo(tipo,$event,controller.tipo_types)" ng-class="{'selected': tipo.selected}" class="pointer">
+      <div class="app-logo">
+          <md-icon style="width: 30px;height: 30px;font-size: 30px;">{{tipo.icon}}</md-icon>
+      </div>
+      <div class="md-subhead text-left" flex>{{tipo.label}}</div>
+    </div>
+  </div>
+</div>

@@ -324,7 +324,7 @@
               }
               $scope.finalPath = finalPath;
 
-              function uploadEachFile(fileContent,last){
+              function uploadEachFile(fileContent,last,isSimple){
                 var file = fileContent.lfFile;
                 var type = fileContent.lfFileType;
                 $scope.uploadStatus = 'in_progress';
@@ -337,9 +337,13 @@
                     'Content-Type': type
                   };
                   fileContent.lfFileName = _.replace(fileContent.lfFileName, ' ', '');
-
+                  if (isSimple && scope.field) {
+                    var uploadPath = scope.field.key || scope.fileTarget;
+                  }else{
+                    uploadPath = scope.fileTarget;
+                  }
                   tipoResource
-                  .oneUrl('content', 'tipo_upload/' + scope.fileTarget + (scope.isTargetFile ? '' :  fileContent.lfFileName))
+                  .oneUrl('content', 'tipo_upload/' + uploadPath + (scope.isTargetFile ? '' :  fileContent.lfFileName))
                   .customPUT(data, '', undefined)
                   .then(function(result){
                     if (last) {
@@ -358,7 +362,7 @@
                   });
                 }else{
                   if($scope.content.length > 0){
-                    uploadEachFile($scope.content[0],true);
+                    uploadEachFile($scope.content[0],true,true);
                   }
                 }
               }

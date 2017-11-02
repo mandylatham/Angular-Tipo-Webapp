@@ -1,0 +1,82 @@
+<div ng-controller="TipoS3Browser as controller">
+	<div layout="row" class="tp-list">
+		<div ng-repeat="folder in controller.folder_path" style="color:#00A6B4;font-size:20px">
+			<a href="" ng-click="controller.goto(folder,$index)">{{folder}}</a><span style="margin: 0 3px;">></span>
+		</div>
+	</div>
+	<div>
+	<div  show-gt-md show-md show-sm show-xs>			
+		<div class="tp-list">
+	  		<!-- <md-virtual-repeat-container id="vertical-container" class="fluid-row-container"  md-top-index="tipoRootController.topIndex" update-size> -->
+    			<div tp:perm   class="fluid-row" md-whiteframe="2">
+    				<md-table-container >
+    					<table md-table md-row-select multiple ng-model="selected" md-progress="promise">
+    						<thead md-head >
+    							<tr md-row md-colors="{background: 'primary-400'}">
+									<th md-column ng-if="tipoRootController.singleedit || tipoRootController.bulkedit || tipoRootController.bulkupdate">
+									</th>
+  	  	  							<th md-column>Filename</th>
+	      	  	  					<th md-column>Last Modified</th>
+	      	  	  					<th md-column>Folder(?)</th>
+	      	  	    				<th md-column ng-if="!tipoRootController.popup">Actions</th> 
+    							</tr>
+    						</thead>
+    						<tbody md-body> 		
+    							<tr md-row md-select="tipo" md-select-id="id" md-auto-select ng-class-even="'alternate'"  ng-class="{'selected pointer': tipo.selected}" ng-click="!tipo.disableclick && tipoRootController.toDetail(tipo.tipo_id,tipoRootController.tipos,tipo)" ng-repeat="tipo in tipoRootController.tipos " md-on-demand>
+      								<td md-cell ng-if="tipoRootController.singleedit || tipoRootController.bulkedit || tipoRootController.bulkupdate" class="pointer" ng-click="!tipo.disableclick && tipoRootController.selectTipo(tipo,$event,tipoRootController.tipos)">
+										<md-checkbox ng-checked="tipo.selected"></md-checkbox>
+									</td>
+  	  	  							<td md-cell ng-if="!tipo.edit && !tipoRootController.bulkupdate" ng-click="!tipo.disableclick && tipoRootController.selectTipo(tipo,$event,tipoRootController.tipos)">
+										<span><span >{{tipo.filename || '-N/A-'}}</span></span>
+									</td>
+			      	  	  			<td md-cell ng-if="!tipo.edit && !tipoRootController.bulkupdate" ng-click="!tipo.disableclick && tipoRootController.selectTipo(tipo,$event,tipoRootController.tipos)">
+			      	  	  				<span><span >{{(tipo.last_modified | date:'MM/dd/yyyy') || '-N/A-'}}</span></span>
+									</td>
+			      	  	  			<td md-cell ng-if="!tipo.edit && !tipoRootController.bulkupdate" ng-click="!tipo.disableclick && tipoRootController.selectTipo(tipo,$event,tipoRootController.tipos)">
+				      	  	  			<span><span>
+											<div class="tp-switch" >
+										        <md-switch class="md-primary" ng-disabled="true" ng-model="tipo.is_folder" aria-label="$display_name" >
+										          <span>{{ tipo.is_folder && 'Yes' || 'No' }}</span>
+										        </md-switch>
+										    </div>
+		    							</span></span>
+									</td>
+			      	  	    		<td md-cell ng-if="!tipoRootController.popup">
+										<div flex="none" layout="row" layout-align="start center">
+										        <md-button ng-if="!tipo.disableclick" ng-click="tipoRootController.toDetail(tipo.tipo_id,tipoRootController.tipos,tipo)" aria-label="View details" class="md-icon-button">
+									          <md-tooltip md-direction="left">Details</md-tooltip>
+									          <md-icon>fullscreen</md-icon>
+									        </md-button>
+									        <md-button ng-click="tipoRootController.clone(tipo,$index);$event.stopPropagation();" aria-label="Copy" class="md-icon-button">
+									          <md-tooltip md-direction="left">Copy</md-tooltip>
+									          <md-icon>content_copy</md-icon>
+									        </md-button>
+									        <md-button ng-click="tipoRootController.delete(tipo,$index);$event.stopPropagation();"  ng-if="!(tipoRootController.bulkupdate && tipo.tipo_id) " aria-label="Copy" class="md-icon-button">
+									          <md-tooltip md-direction="left">Delete</md-tooltip>
+									          <md-icon>delete</md-icon>
+									        </md-button>
+									     </div>
+									</td>
+        
+								</tr>
+							</tbody>
+						</table>
+     				 </md-table-container>
+				</div>
+  			<!-- </md-virtual-repeat-container> -->
+	 	</div>
+	</div>
+	<div ng-hide="!tipoRootController.loading">
+	<img class="tp-list" ng-src="_assets/images/default.gif" style="width: 50px;height: 50px;">
+	</div>
+
+	</div>
+	<div>
+		<md-chips ng-model="selectedTipos" md-on-remove="controller.removeTipo($chip)">
+	      <md-chip-template>
+	        <span>{{$chip[label_field] || $chip[key_field] || $chip['tipo_id'] || $chip['label'] || $chip['key']}}</span>
+	      </md-chip-template>
+	    </md-chips>
+	</div>
+</div>
+	
