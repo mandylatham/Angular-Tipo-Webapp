@@ -3,9 +3,9 @@
   'use strict';
 
   function registerUrlRedirects(urlRouterProvider) {
-
-    urlRouterProvider.when('', '/login');
-    urlRouterProvider.otherwise('/login');
+    urlRouterProvider.when('', '/dashboard');
+    urlRouterProvider.when('/', '/dashboard');
+    urlRouterProvider.otherwise('/dashboard');
   }
 
   function parsePerspective(perspective){
