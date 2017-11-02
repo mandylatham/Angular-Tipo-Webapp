@@ -106,12 +106,12 @@
             data.tipo_id = data.tipo_id || $stateParams.tipo_id;
             return data;
           });
-          $stateParams.perspectiveTipo = tipo;
+          $rootScope.perspectiveTipo = tipo;
           return tipo;
         },
       tipoDefinition: function (tipoHandle, tipoManipulationService, tipo, $stateParams, $rootScope, $q) {
           if (!$rootScope.readonly) {
-            $stateParams.perspectiveTipo = tipo;
+            $rootScope.perspectiveTipo = tipo;
             var tipoDefinition = tipoHandle.getTipoDefinition($stateParams.tipo_name).then(function (definition) {
               if (!_.isUndefined(definition)) {
                 tipoManipulationService.mergeDefinitionAndData(definition, tipo);
