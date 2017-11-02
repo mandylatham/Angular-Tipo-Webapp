@@ -34,6 +34,7 @@
     $scope.fullscreen = true;
     $scope.data_handle = {};
     _instance.hasTipos = true;
+    _instance.disablecreate = $scope.disablecreate;
     function initselectedTipos(){
       _.each(_instance.infiniteItems.tipos, function(tipo){
           if (tipo.edit) {
