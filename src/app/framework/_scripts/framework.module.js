@@ -151,7 +151,7 @@
 
     var editState = {
       name: 'tipoEdit',
-      url: '/edit?message&filter',
+      url: '/edit?message',
       parent: viewState,
       data: {
         pageTitle: "{{$stateParams.tipo_name}} - Edit",

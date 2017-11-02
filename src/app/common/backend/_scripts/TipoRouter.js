@@ -60,7 +60,7 @@
       if(!parameters.perspective && $stateParams.perspective){
         parameters.perspective = $stateParams.perspective;
       }
-      if(!parameters.filter && $stateParams.filter && (tipoName === $stateParams.tipoName)){
+      if(!parameters.filter && $stateParams.filter && (tipoName === $stateParams.tipo_name)){
         parameters.filter = $stateParams.filter;
       }
     }
