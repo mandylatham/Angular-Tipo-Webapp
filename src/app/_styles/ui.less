@@ -199,12 +199,16 @@ html{
   .heading-standard{
     color: rgb(0, 166, 180);
     font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 3px;
   }
   .subheading{
     padding: 0 8px 0;
     color: #808080;
   }
   .tp-page-heading{
+    background: white;
+    padding: 8px;
     .separator{
       margin-left: 2px;
       margin-right: 2px;
@@ -215,7 +219,10 @@ html{
     white-space: pre-wrap;
     word-wrap: break-word;
   }
-
+  .bottompage{
+    position: fixed;
+    bottom: 0px;
+  }
   .md-subheader{
     .md-subheader-inner{
       padding: 8px;
@@ -355,10 +362,11 @@ html{
 
   .tp-detail{
     &.page{
-      @media (min-width: 768px){
-        margin-right: 15px;
-        margin-left: 15px;
-      }
+      margin: 1px;
+      // @media (min-width: 768px){
+       // margin-right: 15px;
+        // margin-left: 15px;
+      // }
     }
 
     &.dialog{

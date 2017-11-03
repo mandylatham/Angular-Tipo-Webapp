@@ -1,5 +1,5 @@
 <div flex layout="column" ng-init="tipoRootController.initTiposData([{display_name: 'sampleapp',filter_expression:'publish_app_as_sample_app:true', selected: false, hidden_:true},])" ng-controller="TipoAppController as controller">
-  <md-subheader class="md-primary" ng-if="!tipoRootController.hideActions" >
+  <div class="md-primary" ng-if="!tipoRootController.hideActions" >
   <div layout="row" layout-align="space-between center" layout-align-xs="space-between start">
     <div layout="row" layout-xs="column" layout-sm="column" layout-align="center center" layout-align-xs="start start" layout-align-sm="start start" >
       <div class="md-title subheading heading-standard" md-colors="{color: 'primary-500'}">
@@ -18,10 +18,7 @@
       <tp:actions mode="list" restricted-actions="tipoRootController.restricted_actions" tipo-name="'TipoApp'"  tipo-actions="[{tipo_action: 'ImportApp',display_name: 'Import App',highlight: $action.highlight,bulk_select: $action.bulk_select,single_select: $action.single_select,icon: 'import_export',visibility_expression: '' , client_dependency:{tipo_name: 'ImportAppCDF'}},]" tipos="tipoRootController.tipos" bulkedit="tipoRootController.bulkedit" singleedit="tipoRootController.singleedit"/>
     </div>
   </div>
-  <div>
-    <cl-paging flex cl-pages="controller.infiniteItems.maxpages" cl-steps="controller.steps" cl-page-changed="controller.infiniteItems.fetchMoreItems_('',controller.infiniteItems.page)" cl-align="end start" cl-current-page="controller.infiniteItems.page"></cl-paging>
   </div>
-  </md-subheader>
     <md-button tp:perm md-theme="reverse" class="md-fab md-primary main" aria-label="Create new"  ng-if="!tipoRootController.disablecreate" ng-click="tipoRootController.createNew()">
     <md-tooltip md-direction="left">Create new</md-tooltip>
     <md-icon>add</md-icon>
@@ -89,7 +86,9 @@
 
       </div>
       </div>
-  <div ng-hide="!tipoRootController.loading">
-    <img class="tp-list" ng-src="_assets/images/default.gif" style="width: 50px;height: 50px;">
-  </div>
+  <md-subheader class="md-primary bottompage" >
+    <div>
+      <cl-paging flex cl-pages="controller.infiniteItems.maxpages" cl-steps="controller.steps" cl-page-changed="controller.infiniteItems.fetchMoreItems_('',controller.infiniteItems.page)" cl-align="end start" cl-current-page="controller.infiniteItems.page"></cl-paging>
+    </div>
+  </md-subheader>
 </div>
