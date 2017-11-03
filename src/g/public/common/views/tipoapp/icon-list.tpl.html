@@ -1,7 +1,47 @@
-<div layout="row" layout-align="center stretch" layout-margin layout-wrap style="background: #F9F9F9;">
-  <div ng-repeat="tipo in tipoRootController.tipos | filter:tipoRootController.searchText" layout="column" style="width: 172px;" layout-align="center center" ng-click="tipoRootController.selectTipo(tipo,$event,tipoRootController.tipos)" ng-class="{'selected': tipo.selected}" class="pointer">
+
+										<div flex layout="column" ng-init="tipoRootController.initTiposData([],40)">
+  <md-subheader class="md-primary" >
+			<div>
+		  <cl-paging flex cl-pages="tipoRootController.infiniteItems.maxpages" cl-steps="tipoRootController.steps" cl-page-changed="tipoRootController.infiniteItems.fetchMoreItems_('',tipoRootController.infiniteItems.page)" cl-align="end start" cl-current-page="tipoRootController.infiniteItems.page"></cl-paging>
+		</div>
+	  </md-subheader>
+      <div ng-if="!tipoRootController.hasTipos" flex layout="row" layout-align="center center">
+    <tp-no-content message="No records found" />
+  </div>
+      <div ng-if="tipoRootController.hasTipos"  id="search" layout="column">
+      <md-input-container flex class="tp-list" ng-if="tipoRootController.showsearch">
+      <label>&nbsp;</label>
+      <input ng-model="tipoRootController.searchText" class="searchbar" placeholder="enter search" ng-keyup="$event.keyCode == 13 ? tipoRootController.search() : null">
+    </md-input-container>
+	    						<div  show-gt-md show-md show-sm show-xs>
+				
+ 
+ 
+<div class="tp-list">
+	<div layout="row" layout-align="center stretch" layout-margin layout-wrap style="background: #F9F9F9;">
+  <div ng-repeat="tipo in tipoRootController.infiniteItems.tipos" layout="column" style="width: 172px;" layout-align="center center" ng-click="tipoRootController.selectTipo(tipo,$event,tipoRootController.tipos)" ng-class="{'selected': tipo.selected}" class="pointer">
     <div class="app-logo">
         <md-icon style="width: 48px;height: 48px;font-size: 48px;">{{tipo[key_field]}}</md-icon>
     </div>
     <div class="md-subhead" flex>{{tipo[label_field]}}</div>
 <div>
+</div>
+
+			</div>
+		  </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

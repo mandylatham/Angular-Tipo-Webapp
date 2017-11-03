@@ -47,7 +47,7 @@
           <span class="md-headline" layout-padding>New Application</span>
         </div>
       </md-card>
-      <md-card tp:perm ng-repeat="tipo in controller.infiniteItems.tipos"  md-on-demand  layout="column" layout-align="start stretch" ng-click="!tipo.disableclick && controller.launch(tipo); $event.stopPropagation();" ng-mouseover="tipo.showactionbar = true;" ng-mouseleave="tipo.showactionbar = false;" >
+      <md-card tp:perm ng-repeat="tipo in controller.infiniteItems.tipos"  layout="column" layout-align="start stretch" ng-click="!tipo.disableclick && controller.launch(tipo); $event.stopPropagation();" ng-mouseover="tipo.showactionbar = true;" ng-mouseleave="tipo.showactionbar = false;" >
         
         
         <div layout="row" layout-align="space-between center" class="app-top" style="background-image: url('_assets/images/white-pattern-png.png');" layout-padding md-colors="{backgroundColor: 'primary-500-0.32',color: 'grey-900'}">

@@ -72,7 +72,11 @@
       getPerspective(filter);
       // filter.page = 1;
       _instance.page = 0;
-      _instance.per_page = page_size || 10;
+      if (page_size && !_.isEmpty(page_size)) {
+       _instance.per_page = parseInt(page_size);
+      }else{
+        _instance.per_page = 10;
+      }
       filter.per_page = _instance.per_page;
       _instance.tipos = [];
       _instance.bulkedit = false;
@@ -80,6 +84,7 @@
       _instance.infiniteItems = tipoManipulationService.getVirtualRepeatObject(_instance.per_page,$stateParams.tipo_name,tipoHandle.getTipos,filter);
       _instance.infiniteItems.serverResultHandler = serverResultHandler;
       _instance.infiniteItems.fetchMoreItems_("",1);
+      _instance.steps = tipoManipulationService.calculatePageViews();
     }
 
     function serverResultHandler(page){
@@ -328,6 +333,7 @@
       $templateCache.remove(_instance.listUrl);
       _instance.infiniteItems.tipos = [];
       _instance.infiniteItems.page = 0;
+      _instance.infiniteItems.fetchMoreItems_("",1);
       // tipoHandle.getTipos($stateParams.tipo_name, filter).then(function(tiposData){
       //   _instance.tipos = tiposData;
       //   var function_name = $stateParams.tipo_name + "_OnList";

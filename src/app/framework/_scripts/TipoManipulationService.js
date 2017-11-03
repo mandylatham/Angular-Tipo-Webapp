@@ -201,7 +201,7 @@
           // For demo purposes, we simulate loading more items with a timed
           // promise. In real code, this function would likely contain an
           // $http request.
-          if (!this.busy && this.page < this.maxpages) {
+          if (!this.busy && (this.page < this.maxpages || page <= this.maxpages)) {
             this.page++;
             if (page) {
               this.page = page;

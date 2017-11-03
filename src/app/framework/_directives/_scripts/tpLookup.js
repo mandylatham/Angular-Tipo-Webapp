@@ -48,6 +48,8 @@
         });
     };
     _instance.infiniteItems = $scope.infiniteItems;
+    _instance.infiniteItems.fetchMoreItems_("",1);
+    _instance.steps = tipoManipulationService.calculatePageViews();
     _instance.infiniteItems.serverResultHandler = function(page){
       this.tipos = _.uniqWith(this.tipos, _.isEqual);
       _instance.tipos = this.tipos;
@@ -166,6 +168,7 @@
       tipoRouter.startStateChange();
       tipoCache.evict($scope.tipo_name);
       tipoInstanceDataService.search($scope.tipo_name, filter).then(function(tiposData){
+        tiposData = _.uniqWith(tiposData, _.isEqual);
         _instance.infiniteItems.filter = filter;
         _instance.infiniteItems.page = page;
         _instance.infiniteItems.tipos = tiposData;
