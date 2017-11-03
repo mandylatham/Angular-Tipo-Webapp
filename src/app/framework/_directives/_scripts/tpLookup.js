@@ -233,6 +233,7 @@
         template: '<ng-include src="fieldTemplate" tp-include-replace/>',
         link: function(scope, element, attrs, ctrl){
           // Initialize
+          scope._ = _;
           scope.data_handle = {};
           scope.model = {};
           var isarray = Boolean(scope.isarray);
@@ -263,8 +264,8 @@
           function optionsFormat(results){
             return _.map(results, function(each){
               var option = {}
-              option[key_field] = each[key_field];
-              option[label_field] = each[label_field];
+              option[key_field] = _.get(each,key_field);
+              option[label_field] = _.get(each,label_field);
               return option;
             });
           }
@@ -565,11 +566,16 @@
           };
 
           scope.addTipo = function() {
+            var newScope = scope.$new();
+            newScope.tipo_name = scope.tipo_name;
+            newScope.hide_actions = true;
+            newScope.fullscreen = true;
             $mdSelect.hide();
             var promise = $mdDialog.show({
               templateUrl: 'framework/_directives/_views/tp-lookup-popup-select-new.tpl.html',
               controller: 'TipoEditRootController',
               controllerAs: 'tipoRootController',
+              scope: newScope,
               fullscreen: true,
               resolve: /*@ngInject*/
               {
@@ -591,6 +597,10 @@
             })
             return promise;
           };
+
+          scope.getLabel = function(option){
+            return _.get(option, label_field);
+          }
 
           scope.clearModel = function(){
             scope.selectedTipos = [];

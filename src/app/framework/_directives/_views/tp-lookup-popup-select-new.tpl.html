@@ -3,13 +3,13 @@
     <div class="md-toolbar-tools">
       <h2>{{tipoRootController.tiposWithDefinition.tipo_meta.display_name}}</h2>
       <span flex></span>
-      <md-button class="md-icon-button" ng-click="tipoRootController.maximize()" ng-if="!fullscreen">
+      <md-button class="md-icon-button" ng-click="maximize()" ng-if="!fullscreen">
         <md-icon aria-label="Maximize">crop_square</md-icon>
       </md-button>
-      <md-button class="md-icon-button" ng-click="tipoRootController.restore()" ng-if="fullscreen">
+      <md-button class="md-icon-button" ng-click="restore()" ng-if="fullscreen">
         <md-icon aria-label="Restore size">filter_none</md-icon>
       </md-button>
-      <md-button class="md-icon-button" md-autofocus ng-click="tipoRootController.cancel('dialog')">
+      <md-button class="md-icon-button" md-autofocus ng-click="cancel('dialog')">
         <md-icon aria-label="Close dialog">close</md-icon>
       </md-button>
     </div>
@@ -20,7 +20,7 @@
     </md-dialog-content>
     <md-dialog-actions layout="row">
       <span flex></span>
-      <md-button ng-click="tipoRootController.cancel('dialog')">
+      <md-button ng-click="cancel('dialog')">
        Cancel
       </md-button>
       <md-button md-theme="reverse" class="md-raised md-primary" type="submit">

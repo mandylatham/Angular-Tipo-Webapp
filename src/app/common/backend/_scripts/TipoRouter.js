@@ -55,20 +55,20 @@
       return $state.go($state.current, reloadFlagParameters, {reload: $state.current});
     }
 
-    function setPerspectiveIfRequired(parameters,tipoName){
+    function setPerspectiveIfRequired(parameters,tipoName,resetFilter){
       parameters = parameters || {};
       if(!parameters.perspective && $stateParams.perspective){
         parameters.perspective = $stateParams.perspective;
       }
-      if(!parameters.filter && $stateParams.filter && (tipoName === $stateParams.tipo_name)){
+      if(!parameters.filter && $stateParams.filter && (tipoName === $stateParams.tipo_name) && !resetFilter){
         parameters.filter = $stateParams.filter;
       }
     }
 
-    function to(state, reload, parameters, inherit){
+    function to(state, reload, parameters, inherit,resetFilter){
       var stateOptions = angular.isDefined(reload) ? {reload: reload} : {reload: state};
       stateOptions.inherit = Boolean(inherit);
-      setPerspectiveIfRequired(parameters);
+      setPerspectiveIfRequired(parameters,"",resetFilter);
       return $state.go(state, parameters, stateOptions);
     }
 
@@ -77,7 +77,7 @@
       return $state.go('^', undefined, stateOptions);
     }
 
-    function toTipoList(tipoName, parameters, resetPerspective){
+    function toTipoList(tipoName, parameters, resetPerspective,resetFilter){
       var stateOptions = {reload: 'tipoList'};
       parameters = parameters || {};
       parameters.tipo_name = tipoName;
@@ -92,7 +92,7 @@
         }
       }
       stateOptions.inherit = false;
-      setPerspectiveIfRequired(parameters,tipoName);
+      setPerspectiveIfRequired(parameters,tipoName,resetFilter);
       return $state.go('tipoList', parameters, stateOptions);
     }
 
@@ -109,7 +109,7 @@
       return $state.go('tipoCreate', parameters, stateOptions);
     }
 
-    function toTipoView(tipoName, tipoId, parameters){
+    function toTipoView(tipoName, tipoId, parameters,resetFilter){
       var stateOptions = {reload: 'tipoView'};
       parameters = parameters || {};
       parameters.tipo_name = tipoName;
@@ -119,7 +119,7 @@
         parameters.perspective = perspectiveMetadata.perspective;
       }
       stateOptions.inherit = false;
-      setPerspectiveIfRequired(parameters,tipoName);
+      setPerspectiveIfRequired(parameters,tipoName,resetFilter);
       return $state.go('tipoView', parameters, stateOptions);
     }
 
@@ -222,7 +222,7 @@
 
     function toMenuItem(menuItem){
       if(menuItem.state){
-        return to(menuItem.state, menuItem.state);
+        return to(menuItem.state, menuItem.state,{},false,true);
       }else if(menuItem.tipo_name){
 
         var parameters = {};
@@ -232,15 +232,15 @@
           };
         }
         if (menuItem.abstract) {
-          to('dashboard', 'layout', {perspective: menuItem.id}, false);
+          to('dashboard', 'layout', {perspective: menuItem.id}, false,true);
         }else{
           if(menuItem.isSingleton){
-            return toTipoView(menuItem.tipo_name, 'default', parameters);
+            return toTipoView(menuItem.tipo_name, 'default', parameters,true);
           }else{
             if(menuItem.quickFilters){
               parameters.filter = menuItem.quickFilters;
             }
-            return toTipoList(menuItem.tipo_name, parameters);
+            return toTipoList(menuItem.tipo_name, parameters,false,true);
           }
         }
       }else if(menuItem.url){
