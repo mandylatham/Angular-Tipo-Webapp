@@ -26,21 +26,21 @@
     $scope.tipoRootController.palettecolors = {};
 
 
-    // function convertToAngularCode(pallete){
-    //   var palleteObj = {};
-    //   palleteObj['contrastDarkColors'] = [];
-    //   palleteObj['contrastLightColors'] = [];
-    //   _.each(pallete,function(each){
-    //     palleteObj[each.name] = each.hex;
-    //     if (each.darkContrast) {
-    //       palleteObj['contrastDarkColors'].push(each.name);
-    //     }else{
-    //       palleteObj['contrastLightColors'].push(each.name);
-    //     }
-    //   });
-    //   palleteObj['contrastDefaultColor'] = 'light';
-    //   return palleteObj;
-    // }
+    function applyToAngularCode(pallete){
+      var palleteObj = {};
+      palleteObj['contrastDarkColors'] = [];
+      palleteObj['contrastLightColors'] = [];
+      _.each(pallete,function(each){
+        palleteObj[each.name] = each.hex;
+        if (each.darkContrast) {
+          palleteObj['contrastDarkColors'].push(each.name);
+        }else{
+          palleteObj['contrastLightColors'].push(each.name);
+        }
+      });
+      palleteObj['contrastDefaultColor'] = 'light';
+      return palleteObj;
+    }
 
     _instance.createAjsPaletteCode = function (palette) {
         return '$mdThemingProvider.definePalette(\'' + palette.name + '\', ' + _instance.createAjsPaletteJson(palette.colors) + ');';
@@ -96,6 +96,7 @@
       ];
       $scope.tipoRootController.palettecolors[palletename] = palleteColors;
 
+
     }
 
     function convertToAngularCode(paletteName){
@@ -104,6 +105,9 @@
     }
 
     _instance.save = function(tipoForm,mode){
+      if (!$scope.tipoRootController.tipo.appearance_settings.material_theme) {
+        $scope.tipoRootController.tipo.appearance_settings.material_theme = {};
+      };
        $scope.tipoRootController.tipo.appearance_settings.material_theme.primary_ = convertToAngularCode('primary');
        $scope.tipoRootController.tipo.appearance_settings.material_theme.accent = convertToAngularCode('accent');
        $scope.tipoRootController.save(tipoForm,mode);
