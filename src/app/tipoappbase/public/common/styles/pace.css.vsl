@@ -34,8 +34,8 @@
   right: 100%;
   width: 100%;
   height: 10px;
-  #if ($tipo_customization.appearance_settings.primary_colour)
-  background: $tipo_customization.appearance_settings.primary_colour;
+  #if ($tipo_customization.appearance_settings.theme_colour_primary)
+  background: $tipo_customization.appearance_settings.theme_colour_primary;
   #else
   background: #29d;  
   #end

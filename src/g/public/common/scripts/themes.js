@@ -122,7 +122,20 @@
         		  ]
         		});    
             
-            
+         
+  $mdThemingProvider
+      .theme('default')
+            .primaryPalette('tipoprimary')
+                  .accentPalette('tipoaccent')
+                  .warnPalette('red')
+                  .backgroundPalette('grey');
+        
+    $mdThemingProvider
+      .theme('reverse')
+            .primaryPalette('tipoaccent')
+                  .accentPalette('tipoprimary')
+                  .warnPalette('red')
+                  .backgroundPalette('grey');   
       $mdThemingProvider
       .theme('default')
             .primaryPalette('primary')

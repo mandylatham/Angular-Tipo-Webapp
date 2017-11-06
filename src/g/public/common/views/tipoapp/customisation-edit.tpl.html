@@ -1,0 +1,428 @@
+<div flex layout="column" ng-controller="TipoColorController as controller">
+    <form ng-cloak novalidate name="tipoForm" ng-submit="controller.save(tipoForm,'edit')">
+        <div class="md-primary tp-page-heading " ng-hide="tipoRootController.hide_actions" md-whiteframe="1">
+            <div layout="row" layout-xs="column" layout-sm="column" layout-align="start center" layout-align-sm="start start" layout-align-xs="start start">
+                <div flex>
+                    <div class="md-title subheading heading-standard" md-colors="{color: 'primary-800'}">
+                        <span>{{$root.activeItem.label}}</span></div>
+                    <span class="subheading md-headline">
+							{{tipoRootController.tipo.tipo_id}}
+						</span>
+                </div>
+                <div>
+                    <md-button class="md-primary md-fab md-mini" ng-click="tipoRootController.cancel()">
+                        <md-icon>close</md-icon>
+                        <md-tooltip md-direction="top">Cancel</md-tooltip>
+                    </md-button>
+                    <md-button md-theme="reverse" class="md-primary md-fab md-mini" type="submit">
+                        <md-icon>done</md-icon>
+                        <md-tooltip md-direction="top">Save</md-tooltip>
+                    </md-button>
+                </div>
+            </div>
+        </div>
+        <md-card class="tp-detail page">
+            <md-tabs ng-class="{'md-stretch-tabs': $mdMedia('md'), 'md-stretch-tabs': $mdMedia('lg')}" md-dynamic-height md-border-bottom md-swipe-content flex="100">
+                <div class="p-8">
+                    <md-tab label="Basic">
+                        <md-content class="md-padding">
+                            <section class="fieldset no-header fluid-row-container">
+                                <div class="data" layout-padding layout="row" layout-wrap layout-align="start start">
+                                    <section class="fieldset fluid-row-container flex-100" flex="100" show-gt-md show-md show-sm show-xs>
+                                        <div class="header">
+                                            <div layout="row" layout-align="end center">
+                                                <h3 flex ng-init="tipoRootController.initCollapsed('appearance_settings', '')">
+		        <a href="" ng-click="appearance_settings.collapsed = !appearance_settings.collapsed" class="plain" md-colors="{color: 'primary-700'}">
+		          <i class="fa" ng-class="{'fa-caret-down': !appearance_settings.collapsed , 'fa-caret-right': appearance_settings.collapsed}"></i>
+		           Appearance Settings
+		        </a>
+		      </h3>
+                                                <div class="actions horizontal" layout="row" layout-align="center center">
+                                                    <div layout="row">
+                                                        <div flex="none">
+                                                            <md-button class="m0" ng-click="tipoRootController.showDetail('ICAgICAgICAgCgkKCTxkaXYgY2xhc3M9InAtOCI+CgkgIDxzZWN0aW9uIGNsYXNzPSJmaWVsZHNldCBuby1oZWFkZXIgZmx1aWQtcm93LWNvbnRhaW5lciI+CgkgICAgPGRpdiBjbGFzcz0iZGF0YSIgbGF5b3V0LXBhZGRpbmcgbGF5b3V0PSJyb3ciIGxheW91dC13cmFwIGxheW91dC1hbGlnbj0ic3RhcnQgc3RhcnQiPgoJIAoJCgoJCQoJCQkKCSAgICAJCQoJCQkJCQkKCSAgCQkgIAkJICAgICAgICAgCQoJCQkKCQkJCgkJCQoJICAJICAJICAJICAJICAJICAJICAJICAJICAJICAJCiAgICAJICAgIAkJCgkJCQoJCQoKICAJICAgIAkKCQkJCgkJCQkgICAgPGRsIGNsYXNzPSJlZGl0IiAKCSAgICAJCQkJICAgIGxheW91dD0iY29sdW1uIiAKCQkgICAgbGF5b3V0LWFsaWduPSJjZW50ZXIgc3RyZXRjaCIKCQkJICAgCQlzdHlsZT0ibWFyZ2luLWJvdHRvbTogMTBweDsiCgkJCSAgICBmbGV4PSIxMDAiIAoJCQlmbGV4LWd0LXNtPSIxMDAiIAoJCQlmbGV4LWd0LW1kPSIxMDAiIHN0eWxlPSIiPgoJICAgIDxkdCBzdHlsZT0ibWluLWhlaWdodDogMTZweDsiPgogICAgCSAgICAJICAgIAkJCQkJCQkJCTxzcGFuPgoJCQkJCQkJCQlMb2dvCgkJCQk8L3NwYW4+CgkJCQkJCQkJCTwvZHQ+CgkgICAgPGRkPgogICAgCQk8ZGl2IGNsYXNzPSJ0cC1maWVsZCI+CgkJCQkJCTxzcGFuPgoJCQkJCQkJPG1kLWlucHV0LWNvbnRhaW5lciBtZC1uby1mbG9hdD4KCQkJCQkJCQkJCQkgICAgICAgICAgICAJCQkJCQkJIAkJCQkJCQkJCQkJCQk8dHA6ZmlsZSBuZy1tb2RlbD0idGlwb1Jvb3RDb250cm9sbGVyLnRpcG8uYXBwZWFyYW5jZV9zZXR0aW5ncy5sb2dvX2ZpbGUiIGZpZWxkPSJ0aXBvUm9vdENvbnRyb2xsZXIudGlwby5hcHBlYXJhbmNlX3NldHRpbmdzLmxvZ29fZmlsZSIgZmllbGRwYXRoPSInYXBwZWFyYW5jZV9zZXR0aW5ncy5sb2dvX2ZpbGUnIiBtb2RlPSJlZGl0IiBmaWxlLXRhcmdldC12ZWw9Iidhc3NldHMvaW1hZ2VzL2xvZ28ucG5nJyIgcHJpdmF0ZS1maWxlPSInJyJyZWFkLW9ubHk9ImZhbHNlIiAgIC8+CgkJCQkJCQkJCQkJCQkJPGRpdiBjbGFzcz0iaGludCIgPlVwbG9hZCB5b3VyIGxvZ288L2Rpdj4KCQkJCQkJCQkJCQkJCQkJCQkJCTwvbWQtaW5wdXQtY29udGFpbmVyPgoJCQk8L3NwYW4+CgkJPC9kaXY+ICAgICAgIAogICAgPC9kZD4KIDwvZGw+CiAJICAgIAkJCQoJICAgIAkJCgkJCQkJCQoJICAJCSAgCQkgICAgICAgICAJCgkJCQoJCQkKCQkJCgkgIAkgIAkgIAkgIAkgIAkgIAkgIAkgIAkgIAkgIAkKICAgIAkgICAgCQkKCQkJCgkJCgogIAkgICAgCQoJCQkKCQkJCSAgICA8ZGwgY2xhc3M9ImVkaXQiIAoJICAgIAkJCQkgICAgbGF5b3V0PSJjb2x1bW4iIAoJCSAgICBsYXlvdXQtYWxpZ249ImNlbnRlciBzdHJldGNoIgoJCQkgICAJCXN0eWxlPSJtYXJnaW4tYm90dG9tOiAxMHB4OyIKCQkJICAgIGZsZXg9IjEwMCIgCgkJCWZsZXgtZ3Qtc209IjEwMCIgCgkJCWZsZXgtZ3QtbWQ9IjEwMCIgc3R5bGU9IiI+CgkgICAgPGR0IHN0eWxlPSJtaW4taGVpZ2h0OiAxNnB4OyI+CiAgICAJICAgIAkgICAgCQkJCQkJCQkJPHNwYW4+CgkJCQkJCQkJCUZhdmljb24KCQkJCTwvc3Bhbj4KCQkJCQkJCQkJPC9kdD4KCSAgICA8ZGQ+CiAgICAJCTxkaXYgY2xhc3M9InRwLWZpZWxkIj4KCQkJCQkJPHNwYW4+CgkJCQkJCQk8bWQtaW5wdXQtY29udGFpbmVyIG1kLW5vLWZsb2F0PgoJCQkJCQkJCQkJCSAgICAgICAgICAgIAkJCQkJCQkgCQkJCQkJCQkJCQkJCTx0cDpmaWxlIG5nLW1vZGVsPSJ0aXBvUm9vdENvbnRyb2xsZXIudGlwby5hcHBlYXJhbmNlX3NldHRpbmdzLmZhdmljb25fZmlsZSIgZmllbGQ9InRpcG9Sb290Q29udHJvbGxlci50aXBvLmFwcGVhcmFuY2Vfc2V0dGluZ3MuZmF2aWNvbl9maWxlIiBmaWVsZHBhdGg9IidhcHBlYXJhbmNlX3NldHRpbmdzLmZhdmljb25fZmlsZSciIG1vZGU9ImVkaXQiIGZpbGUtdGFyZ2V0LXZlbD0iJ2Fzc2V0cy9pbWFnZXMvZmF2aWNvbi5pY28nIiBwcml2YXRlLWZpbGU9IicnInJlYWQtb25seT0iZmFsc2UiICAgLz4KCQkJCQkJCQkJCQkJCQk8ZGl2IGNsYXNzPSJoaW50IiA+VXBsb2FkIHlvdXIgZmF2aWNvbjwvZGl2PgoJCQkJCQkJCQkJCQkJCQkJCQkJPC9tZC1pbnB1dC1jb250YWluZXI+CgkJCTwvc3Bhbj4KCQk8L2Rpdj4gICAgICAgCiAgICA8L2RkPgogPC9kbD4KIAkgICAgCQkJCgkgICAgCQkKCQkJCQkJCgkgIAkJICAJCSAgICAgICAgIAkKCQkJCgkJCQoJCQkKCSAgCSAgCSAgCSAgCSAgCSAgCSAgCSAgCSAgCSAgCQogICAgCSAgICAJCQoJCQkKCQkKCiAgCSAgICAJCgkJCQoJCQkJICAgIDxkbCBjbGFzcz0iZWRpdCIgCgkgICAgCQkJCSAgICBsYXlvdXQ9ImNvbHVtbiIgCgkJICAgIGxheW91dC1hbGlnbj0iY2VudGVyIHN0cmV0Y2giCgkJCSAgIAkJc3R5bGU9Im1hcmdpbi1ib3R0b206IDEwcHg7IgoJCQkgICAgZmxleD0iMTAwIiAKCQkJZmxleC1ndC1zbT0iMTAwIiAKCQkJZmxleC1ndC1tZD0iMTAwIiBzdHlsZT0iIj4KCSAgICA8ZHQgc3R5bGU9Im1pbi1oZWlnaHQ6IDE2cHg7Ij4KICAgIAkgICAgCSAgICAJCQkJCQkJCQk8c3Bhbj4KCQkJCQkJCQkJRm9udAoJCQkJPC9zcGFuPgoJCQkJCQkJCQk8L2R0PgoJICAgIDxkZD4KICAgIAkJPGRpdiBjbGFzcz0idHAtZmllbGQiPgoJCQkJCQk8c3Bhbj4KCQkJCQkJCTxtZC1pbnB1dC1jb250YWluZXIgbWQtbm8tZmxvYXQ+CgkJCQkJCQkJCQkJICAgICAgICAgICAgCQkJCQkJCSAJCSAgICAJCQkJCQkJCQkJCQkJCQkgICAgCQkJCQkJCQkJICAgIAkgICAgCTx0cDpsb29rdXAgbmctbW9kZWw9InRpcG9Sb290Q29udHJvbGxlci50aXBvLmFwcGVhcmFuY2Vfc2V0dGluZ3MuZm9udF9mYW1pbHkiIHJlYWQtb25seT0iZmFsc2UiIGZpZWxkdmFsdWU9InRpcG9Sb290Q29udHJvbGxlci50aXBvLmFwcGVhcmFuY2Vfc2V0dGluZ3MuZm9udF9mYW1pbHkiIGZpZWxkbGFiZWw9ICJ0aXBvUm9vdENvbnRyb2xsZXIudGlwby5hcHBlYXJhbmNlX3NldHRpbmdzLmZvbnRfZmFtaWx5X2xhYmVscyIgYmFzZWZpbHRlcj0iJ2NhdGVnb3J5OihGb250KSciIHJlYWx0ZWR0aXBvPSInVGlwb1N0YW5kaW5nRGF0YSciIGlzYXJyYXk9ImZhbHNlIiBpc3BvcHVwPSIiIGlzdGlwb21hbmRhdG9yeT0iZmFsc2UiIGxhYmVsZmllbGQ9Iid0aXBvX2lkJyIgcXVlcnlwYXJhbXM9IicnIiBhbGxvd2NyZWF0ZT0iIiBzZWxlY3RrZXlmaWVsZD0iJ3ZhbHVlXyciIHNlbGVjdGxhYmVsZmllbGQ9IiduYW1lXyciIGZxZmllbGRuYW1lPSInYXBwZWFyYW5jZV9zZXR0aW5ncy5mb250X2ZhbWlseSciIGZpZWxkbmFtZT0iJ2ZvbnRfZmFtaWx5JyIgcm9vdD0idGlwb1Jvb3RDb250cm9sbGVyLnRpcG8iIGNvbnRleHQ9InRpcG9Sb290Q29udHJvbGxlci50aXBvLmFwcGVhcmFuY2Vfc2V0dGluZ3MiIG5nLWluaXQ9InRpcG9Sb290Q29udHJvbGxlci50aXBvLmFwcGVhcmFuY2Vfc2V0dGluZ3MuZm9udF9mYW1pbHkgPSB0aXBvUm9vdENvbnRyb2xsZXIudGlwby5hcHBlYXJhbmNlX3NldHRpbmdzLmZvbnRfZmFtaWx5IHx8ICcnO3RpcG9Sb290Q29udHJvbGxlci50aXBvLmFwcGVhcmFuY2Vfc2V0dGluZ3MuZm9udF9mYW1pbHlfbGFiZWxzID0gdGlwb1Jvb3RDb250cm9sbGVyLnRpcG8uYXBwZWFyYW5jZV9zZXR0aW5ncy5mb250X2ZhbWlseV9sYWJlbHMgfHwgJycgIiAgIC8+CiAgICAJCQkJCQkJCQkJCQkJPGRpdiBjbGFzcz0iaGludCIgPkNob29zZSBmb250IGZvciB5b3VyIGFwcDwvZGl2PgoJCQkJCQkJCQkJCQkJCQkJCQkJPC9tZC1pbnB1dC1jb250YWluZXI+CgkJCTwvc3Bhbj4KCQk8L2Rpdj4gICAgICAgCiAgICA8L2RkPgogPC9kbD4KIAkgICAgCQkJCgkgICAgCQkKCQkJCQkJCgkgIAkJICAJCSAgICAgICAgIAkKCQkJCgkJCQoJCQkKCSAgCSAgCSAgCSAgCSAgCSAgCSAgCSAgCSAgCSAgCQogICAgCSAgICAJCQoJCQkKCQkKCiAgCSAgICAJCgkJCQoJCQkJICAgIDxkbCBjbGFzcz0iZWRpdCIgCgkgICAgCQkJCSAgICBsYXlvdXQ9ImNvbHVtbiIgCgkJICAgIGxheW91dC1hbGlnbj0iY2VudGVyIHN0cmV0Y2giCgkJCQkgICAgZmxleD0iMTAwIiAKCQkJZmxleC1ndC1zbT0iMTAwIiAKCQkJZmxleC1ndC1tZD0iMTAwIiBzdHlsZT0iIj4KCSAgICA8ZHQ+CiAgICAJICAgIAk8L2R0PgoJICAgIDxkZD4KICAgIAkJPGRpdiBjbGFzcz0idHAtZmllbGQiPgoJCQkJCQk8c3Bhbj4KCQkJCQkJCTxtZC1pbnB1dC1jb250YWluZXIgbWQtbm8tZmxvYXQ+CgkJCQkJCQkJCQkJICAgICAgICAgICAgCQkJCQoJCQkJCQkJCTxzcGFuPgoJCQkJCgkJCQkJCQkJCQkJCQkJCTxzcGFuIG5nLWluaXQgPSAidGlwb1Jvb3RDb250cm9sbGVyLmFwcGVhcmFuY2Vfc2V0dGluZ3MuY29sb3VyX3RoZW1lID0gJ0N1c3RvbWl6ZSB5b3VyIGFwcOKAmXMgY29sb3VyIHNjaGVtZSB0byBtYXRjaCB5b3VyIGJyYW5kIGNvbG91cnMuIFRpcG9UYXBwIHVzZXMgR29vZ2xlIE1hdGVyaWFsIERlc2lnbi4gQ2hvb3NlIHR3byBjb2xvdXJzIC0gYSBwcmltYXJ5IGNvbG91ciB0aGF0IGFwcGVhcnMgbW9zdCBmcmVxdWVudGx5IGluIHlvdXIgYXBwIGFuZCBhIHNlY29uZGFyeSBjb2xvdXIgdG8gYWNjZW50IGtleSBwYXJ0cyBvZiB5b3VyIFVJIGxpa2UgYnV0dG9ucyBldGMuIElmIHlvdSBmZWVsIGxpbWl0ZWQgYnkgb3B0aW9ucyBoZXJlLCBwcm9jZWVkIHRvIE1hdGVyaWFsIHRoZW1lIG9wdGlvbiB1bmRlciBhZHZhbmNlZCB0byBjcmVhdGUgYW4gZW50aXJlbHkgbmV3IGNvbG91ciBzY2hlbWUnIj4KCQl7e3RpcG9Sb290Q29udHJvbGxlci5hcHBlYXJhbmNlX3NldHRpbmdzLmNvbG91cl90aGVtZSB8fCAnLU4vQS0nfX08L3NwYW4+CgkJCQkKCTwvc3Bhbj4KCQoJCgkJCQkJCQkJCQkJCQkJCQkJCQkJPC9tZC1pbnB1dC1jb250YWluZXI+CgkJCTwvc3Bhbj4KCQk8L2Rpdj4gICAgICAgCiAgICA8L2RkPgogPC9kbD4KIAkgICAgCQkJCgkgICAgCQkKCQkJCQkJCgkgIAkJICAJCSAgICAgICAgIAkKCQkJCgkJCQoJCQkKCSAgCSAgCSAgCSAgCSAgCSAgCSAgCSAgCSAgCSAgCSAgCQogICAgCSAgICAJCQoJCQkKCQkKCiAgCSAgICAJCgkJCQoJCQkJICAgIDxkbCBjbGFzcz0iZWRpdCIgCgkgICAgCQkJCSAgICBsYXlvdXQ9ImNvbHVtbiIgCgkJICAgIGxheW91dC1hbGlnbj0iY2VudGVyIHN0cmV0Y2giCgkJCQkgICAgZmxleD0iMTAwIiAKCQkJZmxleC1ndC1zbT0iMTAwIiAKCQkJZmxleC1ndC1tZD0iNTAiIHN0eWxlPSIiPgoJICAgIDxkdCBzdHlsZT0ibWluLWhlaWdodDogMTZweDsiPgogICAgCSAgICAJICAgIAkJCQkJCQkJCTxzcGFuPgoJCQkJCQkJCQlDaG9vc2UgUHJpbWFyeSBDb2xvdXIgVGhlbWUKCQkJCTwvc3Bhbj4KCQkJCQkJCQkJPC9kdD4KCSAgICA8ZGQ+CiAgICAJCTxkaXYgY2xhc3M9InRwLWZpZWxkIj4KCQkJCQkJPHNwYW4+CgkJCQkJCQk8bWQtaW5wdXQtY29udGFpbmVyIG1kLW5vLWZsb2F0PgoJCQkJCQkJCQkJCSAgICAgICAgICAgIAkJCQkJCQkJIAkJCQkJCQkJCQkJCQkJPHNwZWN0cnVtLWNvbG9ycGlja2VyIG5nLW1vZGVsPSJ0aXBvUm9vdENvbnRyb2xsZXIudGlwby5hcHBlYXJhbmNlX3NldHRpbmdzLnRoZW1lX2NvbG91cl9wcmltYXJ5IiBuYW1lPSJDaG9vc2UgUHJpbWFyeSBDb2xvdXIgVGhlbWVfY29sb3VyIiBuZy1tb2RlbC1vcHRpb25zPSJ7IHVwZGF0ZU9uOiAnZGVmYXVsdCBibHVyJywgZGVib3VuY2U6IHsnZGVmYXVsdCc6IDI1MCwgJ2JsdXInOiAwfSB9IiBuZy1yZXF1aXJlZD0iZmFsc2UiIG5nLWRpc2FibGVkPSJmYWxzZSIgICBmb3JtYXQ9IidoZXgnIiBvcHRpb25zPSJ7cHJlZmVycmVkRm9ybWF0OiAnaGV4Jywgc2hvd0lucHV0OiB0cnVlLCBzaG93UGFsZXR0ZTogdHJ1ZSwgcGFsZXR0ZTpbWycjOTAwJywgJyNiNDVmMDYnLCAnI2JmOTAwMCcsICcjMzg3NjFkJywgJyMxMzRmNWMnLCAnIzBiNTM5NCcsICcjMzUxYzc1JywgJyM3NDFiNDcnXSxbJyNmNGNjY2MnLCAnI2ZjZTVjZCcsICcjZmZmMmNjJywgJyNkOWVhZDMnLCAnI2QwZTBlMycsICcjY2ZlMmYzJywgJyNkOWQyZTknLCAnI2VhZDFkYyddLFsnI2VhOTk5OScsICcjZjljYjljJywgJyNmZmU1OTknLCAnI2I2ZDdhOCcsICcjYTJjNGM5JywgJyM5ZmM1ZTgnLCAnI2I0YTdkNicsICcjZDVhNmJkJ10sWycjZTA2NjY2JywgJyNmNmIyNmInLCAnI2ZmZDk2NicsICcjOTNjNDdkJywgJyM3NmE1YWYnLCAnIzZmYThkYycsICcjOGU3Y2MzJywgJyNjMjdiYTAnXSxbJyNjMDAnLCAnI2U2OTEzOCcsICcjZjFjMjMyJywgJyM2YWE4NGYnLCAnIzQ1ODE4ZScsICcjM2Q4NWM2JywgJyM2NzRlYTcnLCAnI2E2NGQ3OSddLFsnIzYwMCcsICcjNzgzZjA0JywgJyM3ZjYwMDAnLCAnIzI3NGUxMycsICcjMGMzNDNkJywgJyMwNzM3NjMnLCAnIzIwMTI0ZCcsICcjNGMxMTMwJ11dIH0iPjwvc3BlY3RydW0tY29sb3JwaWNrZXI+CgkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJPC9tZC1pbnB1dC1jb250YWluZXI+CgkJCTwvc3Bhbj4KCQk8L2Rpdj4gICAgICAgCiAgICA8L2RkPgogPC9kbD4KIAkgICAgCQkJCgkgICAgCQkKCQkJCQkJCgkgIAkJICAJCSAgICAgICAgIAkKCQkJCgkJCQoJCQkKCSAgCSAgCSAgCSAgCSAgCSAgCSAgCSAgCSAgCSAgCSAgCQogICAgCSAgICAJCQoJCQkKCQkKCiAgCSAgICAJCgkJCQoJCQkJICAgIDxkbCBjbGFzcz0iZWRpdCIgCgkgICAgCQkJCSAgICBsYXlvdXQ9ImNvbHVtbiIgCgkJICAgIGxheW91dC1hbGlnbj0iY2VudGVyIHN0cmV0Y2giCgkJCQkgICAgZmxleD0iMTAwIiAKCQkJZmxleC1ndC1zbT0iMTAwIiAKCQkJZmxleC1ndC1tZD0iNTAiIHN0eWxlPSIiPgoJICAgIDxkdCBzdHlsZT0ibWluLWhlaWdodDogMTZweDsiPgogICAgCSAgICAJICAgIAkJCQkJCQkJCTxzcGFuPgoJCQkJCQkJCQlDaG9vc2UgQWNjZW50IENvbG91ciBUaGVtZQoJCQkJPC9zcGFuPgoJCQkJCQkJCQk8L2R0PgoJICAgIDxkZD4KICAgIAkJPGRpdiBjbGFzcz0idHAtZmllbGQiPgoJCQkJCQk8c3Bhbj4KCQkJCQkJCTxtZC1pbnB1dC1jb250YWluZXIgbWQtbm8tZmxvYXQ+CgkJCQkJCQkJCQkJICAgICAgICAgICAgCQkJCQkJCSAJCQkJCQkJCQkJCQkJCTxzcGVjdHJ1bS1jb2xvcnBpY2tlciBuZy1tb2RlbD0idGlwb1Jvb3RDb250cm9sbGVyLnRpcG8uYXBwZWFyYW5jZV9zZXR0aW5ncy50aGVtZV9jb2xvdXJfYWNjZW50IiBuYW1lPSJDaG9vc2UgQWNjZW50IENvbG91ciBUaGVtZV9jb2xvdXIiIG5nLW1vZGVsLW9wdGlvbnM9InsgdXBkYXRlT246ICdkZWZhdWx0IGJsdXInLCBkZWJvdW5jZTogeydkZWZhdWx0JzogMjUwLCAnYmx1cic6IDB9IH0iIG5nLXJlcXVpcmVkPSJmYWxzZSIgbmctZGlzYWJsZWQ9ImZhbHNlIiAgIGZvcm1hdD0iJ2hleCciIG9wdGlvbnM9IntwcmVmZXJyZWRGb3JtYXQ6ICdoZXgnLCBzaG93SW5wdXQ6IHRydWUsIHNob3dQYWxldHRlOiB0cnVlLCBwYWxldHRlOltbJyM5MDAnLCAnI2I0NWYwNicsICcjYmY5MDAwJywgJyMzODc2MWQnLCAnIzEzNGY1YycsICcjMGI1Mzk0JywgJyMzNTFjNzUnLCAnIzc0MWI0NyddLFsnI2Y0Y2NjYycsICcjZmNlNWNkJywgJyNmZmYyY2MnLCAnI2Q5ZWFkMycsICcjZDBlMGUzJywgJyNjZmUyZjMnLCAnI2Q5ZDJlOScsICcjZWFkMWRjJ10sWycjZWE5OTk5JywgJyNmOWNiOWMnLCAnI2ZmZTU5OScsICcjYjZkN2E4JywgJyNhMmM0YzknLCAnIzlmYzVlOCcsICcjYjRhN2Q2JywgJyNkNWE2YmQnXSxbJyNlMDY2NjYnLCAnI2Y2YjI2YicsICcjZmZkOTY2JywgJyM5M2M0N2QnLCAnIzc2YTVhZicsICcjNmZhOGRjJywgJyM4ZTdjYzMnLCAnI2MyN2JhMCddLFsnI2MwMCcsICcjZTY5MTM4JywgJyNmMWMyMzInLCAnIzZhYTg0ZicsICcjNDU4MThlJywgJyMzZDg1YzYnLCAnIzY3NGVhNycsICcjYTY0ZDc5J10sWycjNjAwJywgJyM3ODNmMDQnLCAnIzdmNjAwMCcsICcjMjc0ZTEzJywgJyMwYzM0M2QnLCAnIzA3Mzc2MycsICcjMjAxMjRkJywgJyM0YzExMzAnXV0gfSI+PC9zcGVjdHJ1bS1jb2xvcnBpY2tlcj4KCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQk8L21kLWlucHV0LWNvbnRhaW5lcj4KCQkJPC9zcGFuPgoJCTwvZGl2PiAgICAgICAKICAgIDwvZGQ+CiA8L2RsPgogCSAgICAJCQkKCSAgICAJCQoJCQkJCQkKCSAgCQkgICAgCQkJCQkJCQkJCQkJCQkKCQkKCQkJCgkJCQkJPHNlY3Rpb24gY2xhc3M9ImZpZWxkc2V0IGZsdWlkLXJvdy1jb250YWluZXIgZmxleC0xMDAiIGZsZXg9IjEwMCIgIHNob3ctZ3QtbWQgc2hvdy1tZCBzaG93LXNtIHNob3cteHMgID4KCQkJCQkJICAgIAk8ZGl2IGNsYXNzPSJoZWFkZXIiPgoJCSAgICA8ZGl2IGxheW91dD0icm93IiBsYXlvdXQtYWxpZ249ImVuZCBjZW50ZXIiPgoJCSAgICAgIDxoMyBmbGV4IG5nLWluaXQ9InRpcG9Sb290Q29udHJvbGxlci5pbml0Q29sbGFwc2VkKCdtYXRlcmlhbF90aGVtZScsICcnKSI+CgkJICAgICAgICA8YSBocmVmPSIiIG5nLWNsaWNrPSJtYXRlcmlhbF90aGVtZS5jb2xsYXBzZWQgPSAhbWF0ZXJpYWxfdGhlbWUuY29sbGFwc2VkIiBjbGFzcz0icGxhaW4iIG1kLWNvbG9ycz0ie2NvbG9yOiAncHJpbWFyeS03MDAnfSI+CgkJICAgICAgICAgIDxpIGNsYXNzPSJmYSIgbmctY2xhc3M9InsnZmEtY2FyZXQtZG93bic6ICFtYXRlcmlhbF90aGVtZS5jb2xsYXBzZWQgLCAnZmEtY2FyZXQtcmlnaHQnOiBtYXRlcmlhbF90aGVtZS5jb2xsYXBzZWR9Ij48L2k+CgkJICAgICAgICAgICBNYXRlcmlhbCBUaGVtZQoJCSAgICAgICAgPC9hPgoJCSAgICAgIDwvaDM+CgkJICAgICAgPGRpdiBjbGFzcz0iYWN0aW9ucyBob3Jpem9udGFsIiBsYXlvdXQ9InJvdyIgbGF5b3V0LWFsaWduPSJjZW50ZXIgY2VudGVyIj4KCQkgICAgICAJCSAgICAgICAgPGRpdiBsYXlvdXQ9InJvdyI+CgkJICAgICAgICAJCQkJICAgICAgICAgCQkgICAgICAgICAgCQkJICAgICAgICA8L2Rpdj4KCQkgICAgICAgIAkJICAgICAgPC9kaXY+CgkJICAgIDwvZGl2PgoJCSAgICA8bWQtZGl2aWRlcj48L21kLWRpdmlkZXI+CgkJICA8L2Rpdj4KCQkgIAkJCTxkaXYgY2xhc3M9ImhpbnQiIHN0eWxlPSJwb3NpdGlvbjogaW5oZXJpdDtsaW5lLWhlaWdodDogMjBweDsiPkEgbWF0ZXJpYWwgdGhlbWUgaXMgYSBjb21wb3NpdGlvbiBvZiBjb2xvdXIgcGFsZXR0ZXMuIFRoYXTigJlzIHJpZ2h0LCBub3QganVzdCBhIHNpbmdsZSBjb2xvdXIgcGFsZXR0ZSwgbXVsdGlwbGUgY29sb3VyIHBhbGV0dGVzLiBZb3UgbmVlZCB0byBzdXBwbHkgdGhlIGNvbG91ciBwYWxldHRlLiAgV2UgZm91bmQgdGhpcyBhd2Vzb21lIHdlYnNpdGUgd2hlcmUgeW91IGVudGVyIHlvdXIgYnJhbmQgY29sb3IsIGFuZCBpdCBjcmVhdGVzIGEgY29tcGxldGUgcGFsZXR0ZSB3aXRoIHRoZSBkaWZmZXJlbnQgc2hhZGVzIGZvciB0aGF0IGJyYW5kIGNvbG9yOiBodHRwOi8vbWNnLm1iaXRzb24uY29tLiBDb3B5IHBhc3RlIHRoZSBnZW5lcmF0ZWQgcGFsZXR0ZSBhbmQgeW91IGFyZSBkb25lLjwvZGl2PgoJCSAgCQkgIAkJCSAgPGRpdiBjbGFzcz0iZGF0YSBsYXlvdXQtZ3JvdXAiIGZsZXggbGF5b3V0PSJyb3ciIGxheW91dC13cmFwIGxheW91dC1hbGlnbj0ic3RhcnQgc3RhcnQiIG5nLWhpZGU9Im1hdGVyaWFsX3RoZW1lLmNvbGxhcHNlZCI+CgkJICAJCQkgICAgCQkJICAgIAkJIAoKICAJICAJCSAgCQkgICAgICAgICAJCgkJCQoJCQkKCQkJCgkgIAkgIAkgIAkgIAkgIAkgIAkgIAkgIAkgIAkgIAkKICAgIAkgICAgCQkKCQkJCgkJCgogIAkgICAgCQoJCQkKCQkJCSAgICA8ZGwgY2xhc3M9ImVkaXQiIAoJICAgIAkJCQkgICAgbGF5b3V0PSJjb2x1bW4iIAoJCSAgICBsYXlvdXQtYWxpZ249ImNlbnRlciBzdHJldGNoIgoJCQkgICAJCXN0eWxlPSJtYXJnaW4tYm90dG9tOiAxMHB4OyIKCQkJICAgIGZsZXg9IjEwMCIgCgkJCWZsZXgtZ3Qtc209IjEwMCIgCgkJCWZsZXgtZ3QtbWQ9IjEwMCIgc3R5bGU9IiI+CgkgICAgPGR0IHN0eWxlPSJtaW4taGVpZ2h0OiAxNnB4OyI+CiAgICAJICAgIAkgICAgCQkJCQkJCQkJPHNwYW4+CgkJCQkJCQkJCVByaW1hcnkgQ29sb3VyCgkJCQk8L3NwYW4+CgkJCQkJCQkJCTwvZHQ+CgkgICAgPGRkPgogICAgCQk8ZGl2IGNsYXNzPSJ0cC1maWVsZCI+CgkJCQkJCTxzcGFuPgoJCQkJCQkJPG1kLWlucHV0LWNvbnRhaW5lciBtZC1uby1mbG9hdD4KCQkJCQkJCQkJCQkgICAgICAgICAgICAJCQkJCQkJIAkJCQkJCQkJCQkJCQk8dGV4dGFyZWEgdHlwZT0ibG9uZ3N0cmluZyIgbmctZGlzYWJsZWQ9ImZhbHNlIiBuZy1tb2RlbD0idGlwb1Jvb3RDb250cm9sbGVyLnRpcG8uYXBwZWFyYW5jZV9zZXR0aW5ncy5tYXRlcmlhbF90aGVtZS5wcmltYXJ5XyIgcm93cz0iMiIgbWQtc2VsZWN0LW9uLWZvY3VzIGFyaWEtbGFiZWw9IlByaW1hcnkgQ29sb3VyIiBuYW1lPSJQcmltYXJ5IENvbG91cl9sb25nc3RyaW5nIiBuZy1yZXF1aXJlZD0iZmFsc2UiIG5nLXBhdHRlcm49IiIgICAgLz4KCQkJCQkJCQkJCQkJCQk8ZGl2IGNsYXNzPSJoaW50IiA+Q29sb3VyIG1vc3QgdXNlZCBhY3Jvc3MgYWxsIHNjcmVlbnMgYW5kIGNvbXBvbmVudHMuIFRoZSBQYWxsZXQgbXVzdCBiZSBuYW1lZCBwcmltYXJ5LjwvZGl2PgoJCQkJCQkJCQkJCQkJCQkJCQkJPC9tZC1pbnB1dC1jb250YWluZXI+CgkJCTwvc3Bhbj4KCQk8L2Rpdj4gICAgICAgCiAgICA8L2RkPgogPC9kbD4KICAgCQkgIAkgICAgICAJCSAKCiAgCSAgCQkgIAkJICAgICAgICAgCQoJCQkKCQkJCgkJCQoJICAJICAJICAJICAJICAJICAJICAJICAJICAJICAJCiAgICAJICAgIAkJCgkJCQoJCQoKICAJICAgIAkKCQkJCgkJCQkgICAgPGRsIGNsYXNzPSJlZGl0IiAKCSAgICAJCQkJICAgIGxheW91dD0iY29sdW1uIiAKCQkgICAgbGF5b3V0LWFsaWduPSJjZW50ZXIgc3RyZXRjaCIKCQkJICAgCQlzdHlsZT0ibWFyZ2luLWJvdHRvbTogMTBweDsiCgkJCSAgICBmbGV4PSIxMDAiIAoJCQlmbGV4LWd0LXNtPSIxMDAiIAoJCQlmbGV4LWd0LW1kPSIxMDAiIHN0eWxlPSIiPgoJICAgIDxkdCBzdHlsZT0ibWluLWhlaWdodDogMTZweDsiPgogICAgCSAgICAJICAgIAkJCQkJCQkJCTxzcGFuPgoJCQkJCQkJCQlBY2NlbnQgQ29sb3VyCgkJCQk8L3NwYW4+CgkJCQkJCQkJCTwvZHQ+CgkgICAgPGRkPgogICAgCQk8ZGl2IGNsYXNzPSJ0cC1maWVsZCI+CgkJCQkJCTxzcGFuPgoJCQkJCQkJPG1kLWlucHV0LWNvbnRhaW5lciBtZC1uby1mbG9hdD4KCQkJCQkJCQkJCQkgICAgICAgICAgICAJCQkJCQkJIAkJCQkJCQkJCQkJCQk8dGV4dGFyZWEgdHlwZT0ibG9uZ3N0cmluZyIgbmctZGlzYWJsZWQ9ImZhbHNlIiBuZy1tb2RlbD0idGlwb1Jvb3RDb250cm9sbGVyLnRpcG8uYXBwZWFyYW5jZV9zZXR0aW5ncy5tYXRlcmlhbF90aGVtZS5hY2NlbnQiIHJvd3M9IjIiIG1kLXNlbGVjdC1vbi1mb2N1cyBhcmlhLWxhYmVsPSJBY2NlbnQgQ29sb3VyIiBuYW1lPSJBY2NlbnQgQ29sb3VyX2xvbmdzdHJpbmciIG5nLXJlcXVpcmVkPSJmYWxzZSIgbmctcGF0dGVybj0iIiAgICAvPgoJCQkJCQkJCQkJCQkJCTxkaXYgY2xhc3M9ImhpbnQiID5Db2xvdXIgdXNlZCBmb3IgdGhlIGZsb2F0aW5nIGFjdGlvbiBidXR0b24gYW5kIGludGVyYWN0aXZlIGVsZW1lbnRzLiBUaGUgUGFsbGV0IG11c3QgYmUgbmFtZWQgYWNjZW50LjwvZGl2PgoJCQkJCQkJCQkJCQkJCQkJCQkJPC9tZC1pbnB1dC1jb250YWluZXI+CgkJCTwvc3Bhbj4KCQk8L2Rpdj4gICAgICAgCiAgICA8L2RkPgogPC9kbD4KICAgCQkgIAkgICAgICAJCSAKCiAgCSAgCQkgIAkJICAgICAgICAgCQoJCQkKCQkJCgkJCQoJICAJICAJICAJICAJICAJICAJICAJICAJICAJICAJCiAgICAJICAgIAkJCgkJCQoJCQoKICAJICAgIAkKCQkJCgkJCQkgICAgPGRsIGNsYXNzPSJlZGl0IiAKCSAgICAJCQkJICAgIGxheW91dD0iY29sdW1uIiAKCQkgICAgbGF5b3V0LWFsaWduPSJjZW50ZXIgc3RyZXRjaCIKCQkJICAgCQlzdHlsZT0ibWFyZ2luLWJvdHRvbTogMTBweDsiCgkJCSAgICBmbGV4PSIxMDAiIAoJCQlmbGV4LWd0LXNtPSIxMDAiIAoJCQlmbGV4LWd0LW1kPSIxMDAiIHN0eWxlPSIiPgoJICAgIDxkdCBzdHlsZT0ibWluLWhlaWdodDogMTZweDsiPgogICAgCSAgICAJICAgIAkJCQkJCQkJCTxzcGFuPgoJCQkJCQkJCQlXYXJuaW5nIENvbG91cgoJCQkJPC9zcGFuPgoJCQkJCQkJCQk8L2R0PgoJICAgIDxkZD4KICAgIAkJPGRpdiBjbGFzcz0idHAtZmllbGQiPgoJCQkJCQk8c3Bhbj4KCQkJCQkJCTxtZC1pbnB1dC1jb250YWluZXIgbWQtbm8tZmxvYXQ+CgkJCQkJCQkJCQkJICAgICAgICAgICAgCQkJCQkJCSAJCQkJCQkJCQkJCQkJPHRleHRhcmVhIHR5cGU9ImxvbmdzdHJpbmciIG5nLWRpc2FibGVkPSJmYWxzZSIgbmctbW9kZWw9InRpcG9Sb290Q29udHJvbGxlci50aXBvLmFwcGVhcmFuY2Vfc2V0dGluZ3MubWF0ZXJpYWxfdGhlbWUud2FybiIgcm93cz0iMiIgbWQtc2VsZWN0LW9uLWZvY3VzIGFyaWEtbGFiZWw9Ildhcm5pbmcgQ29sb3VyIiBuYW1lPSJXYXJuaW5nIENvbG91cl9sb25nc3RyaW5nIiBuZy1yZXF1aXJlZD0iZmFsc2UiIG5nLXBhdHRlcm49IiIgICAgLz4KCQkJCQkJCQkJCQkJCQk8ZGl2IGNsYXNzPSJoaW50IiA+Q29sb3IgdXNlZCB0byBjb252ZXkgZXJyb3Igc3RhdGUuIFRoZSBQYWxsZXQgbXVzdCBiZSBuYW1lZCB3YXJuLjwvZGl2PgoJCQkJCQkJCQkJCQkJCQkJCQkJPC9tZC1pbnB1dC1jb250YWluZXI+CgkJCTwvc3Bhbj4KCQk8L2Rpdj4gICAgICAgCiAgICA8L2RkPgogPC9kbD4KICAgCQkgIAkgICAgICAJCSAKCiAgCSAgCQkgIAkJICAgICAgICAgCQoJCQkKCQkJCgkJCQoJICAJICAJICAJICAJICAJICAJICAJICAJICAJICAJCiAgICAJICAgIAkJCgkJCQoJCQoKICAJICAgIAkKCQkJCgkJCQkgICAgPGRsIGNsYXNzPSJlZGl0IiAKCSAgICAJCQkJICAgIGxheW91dD0iY29sdW1uIiAKCQkgICAgbGF5b3V0LWFsaWduPSJjZW50ZXIgc3RyZXRjaCIKCQkJICAgCQlzdHlsZT0ibWFyZ2luLWJvdHRvbTogMTBweDsiCgkJCSAgICBmbGV4PSIxMDAiIAoJCQlmbGV4LWd0LXNtPSIxMDAiIAoJCQlmbGV4LWd0LW1kPSIxMDAiIHN0eWxlPSIiPgoJICAgIDxkdCBzdHlsZT0ibWluLWhlaWdodDogMTZweDsiPgogICAgCSAgICAJICAgIAkJCQkJCQkJCTxzcGFuPgoJCQkJCQkJCQlCYWNrZ3JvdW5kIENvbG91cgoJCQkJPC9zcGFuPgoJCQkJCQkJCQk8L2R0PgoJICAgIDxkZD4KICAgIAkJPGRpdiBjbGFzcz0idHAtZmllbGQiPgoJCQkJCQk8c3Bhbj4KCQkJCQkJCTxtZC1pbnB1dC1jb250YWluZXIgbWQtbm8tZmxvYXQ+CgkJCQkJCQkJCQkJICAgICAgICAgICAgCQkJCQkJCSAJCQkJCQkJCQkJCQkJPHRleHRhcmVhIHR5cGU9ImxvbmdzdHJpbmciIG5nLWRpc2FibGVkPSJmYWxzZSIgbmctbW9kZWw9InRpcG9Sb290Q29udHJvbGxlci50aXBvLmFwcGVhcmFuY2Vfc2V0dGluZ3MubWF0ZXJpYWxfdGhlbWUuYmFja2dyb3VuZCIgcm93cz0iMiIgbWQtc2VsZWN0LW9uLWZvY3VzIGFyaWEtbGFiZWw9IkJhY2tncm91bmQgQ29sb3VyIiBuYW1lPSJCYWNrZ3JvdW5kIENvbG91cl9sb25nc3RyaW5nIiBuZy1yZXF1aXJlZD0iZmFsc2UiIG5nLXBhdHRlcm49IiIgICAgLz4KCQkJCQkJCQkJCQkJCQk8ZGl2IGNsYXNzPSJoaW50IiA+Q29sb3VyIHVzZWQgZm9yIGVsZW1lbnQgYmFja2dyb3VuZHMuIFRoZSBQYWxsZXQgbXVzdCBiZSBuYW1lZCBiYWNrZ3JvdW5kLjwvZGl2PgoJCQkJCQkJCQkJCQkJCQkJCQkJPC9tZC1pbnB1dC1jb250YWluZXI+CgkJCTwvc3Bhbj4KCQk8L2Rpdj4gICAgICAgCiAgICA8L2RkPgogPC9kbD4KICAgCQkgIAkgICAgICAgICAgICAgICAgCQkJCQk8L2Rpdj4KCQk8L3NlY3Rpb24+CgkJICAgIAkJCQoJICAgIAkJCgkJCQkJCQoJICAJCSAgCQkgICAgIAkJCgkJCQoJCQkKCQkJCgkgIAkgIAkgIAkgIAkgIAkgIAkgIAkgIAkgIAkgIAkKICAgIAkgICAgCQkKCQkJCgkJCgogIAkgICAgCQoJCQkKCQkJCSAgICA8ZGwgY2xhc3M9ImVkaXQiIAoJICAgIAkJCQkgICAgbGF5b3V0PSJjb2x1bW4iIAoJCSAgICBsYXlvdXQtYWxpZ249ImNlbnRlciBzdHJldGNoIgoJCQkgICAJCXN0eWxlPSJtYXJnaW4tYm90dG9tOiAxMHB4OyIKCQkJICAgIGZsZXg9IjEwMCIgCgkJCWZsZXgtZ3Qtc209IjUwIiAKCQkJZmxleC1ndC1tZD0iMzMiIHN0eWxlPSIiPgoJICAgIDxkdCBzdHlsZT0ibWluLWhlaWdodDogMTZweDsiPgogICAgCSAgICAJICAgIAkJCQkJCQkJCTxzcGFuPgoJCQkJCQkJCQlDdXN0b20gQ1NTCgkJCQk8L3NwYW4+CgkJCQkJCQkJCTwvZHQ+CgkgICAgPGRkPgogICAgCQk8ZGl2IGNsYXNzPSJ0cC1maWVsZCI+CgkJCQkJCTxzcGFuPgoJCQkJCQkJPG1kLWlucHV0LWNvbnRhaW5lciBtZC1uby1mbG9hdD4KCQkJCQkJCQkJCQkgICAgICAgICAgICAJCQkJCQkJIAkJCQkJCQkJCQkJCQk8dHA6ZmlsZSBuZy1tb2RlbD0idGlwb1Jvb3RDb250cm9sbGVyLnRpcG8uYXBwZWFyYW5jZV9zZXR0aW5ncy5jdXN0b21fY3NzIiBmaWVsZD0idGlwb1Jvb3RDb250cm9sbGVyLnRpcG8uYXBwZWFyYW5jZV9zZXR0aW5ncy5jdXN0b21fY3NzIiBmaWVsZHBhdGg9IidhcHBlYXJhbmNlX3NldHRpbmdzLmN1c3RvbV9jc3MnIiBtb2RlPSJlZGl0IiBmaWxlLXRhcmdldC12ZWw9IicnIiBwcml2YXRlLWZpbGU9IicnInJlYWQtb25seT0iZmFsc2UiICAgLz4KCQkJCQkJCQkJCQkJCQk8ZGl2IGNsYXNzPSJoaW50IiA+VXBsb2FkIHlvdXIgQ1NTPC9kaXY+CgkJCQkJCQkJCQkJCQkJCQkJCQk8L21kLWlucHV0LWNvbnRhaW5lcj4KCQkJPC9zcGFuPgoJCTwvZGl2PiAgICAgICAKICAgIDwvZGQ+CiA8L2RsPgogCSAgICAJCQkJCgkJCSAgICAgCQkJCQoJICAgIDwvZGl2PgoJICA8L3NlY3Rpb24+Cgk8L2Rpdj4KCQoJCgoKCgo=','appearance_settings')" aria-label="Edit">
+                                                                <md-tooltip md-direction="top">Edit</md-tooltip>
+                                                                <md-icon>launch</md-icon>
+                                                            </md-button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <md-divider></md-divider>
+                                        </div>
+                                        <div class="data layout-group" flex layout="row" layout-wrap layout-align="start start" ng-hide="appearance_settings.collapsed">
+                                            <dl class="edit" layout="column" layout-align="center stretch" style="margin-bottom: 10px;" flex="100" flex-gt-sm="100" flex-gt-md="100" style="">
+                                                <dt style="min-height: 16px;">
+                                                    <span>
+									Logo
+				</span>
+                                                </dt>
+                                                <dd>
+                                                    <div class="tp-field">
+                                                        <span>
+							<md-input-container md-no-float>
+											            							 													<tp:file ng-model="tipoRootController.tipo.appearance_settings.logo_file" field="tipoRootController.tipo.appearance_settings.logo_file" fieldpath="'appearance_settings.logo_file'" mode="edit" file-target-vel="'assets/images/logo.png'" private-file="''"read-only="false"   />
+														<div class="hint" >Upload your logo</div>
+																			</md-input-container>
+			</span>
+                                                    </div>
+                                                </dd>
+                                            </dl>
+                                            <dl class="edit" layout="column" layout-align="center stretch" style="margin-bottom: 10px;" flex="100" flex-gt-sm="100" flex-gt-md="100" style="">
+                                                <dt style="min-height: 16px;">
+                                                    <span>
+									Favicon
+				</span>
+                                                </dt>
+                                                <dd>
+                                                    <div class="tp-field">
+                                                        <span>
+							<md-input-container md-no-float>
+											            							 													<tp:file ng-model="tipoRootController.tipo.appearance_settings.favicon_file" field="tipoRootController.tipo.appearance_settings.favicon_file" fieldpath="'appearance_settings.favicon_file'" mode="edit" file-target-vel="'assets/images/favicon.ico'" private-file="''"read-only="false"   />
+														<div class="hint" >Upload your favicon</div>
+																			</md-input-container>
+			</span>
+                                                    </div>
+                                                </dd>
+                                            </dl>
+                                            <dl class="edit" layout="column" layout-align="center stretch" style="margin-bottom: 10px;" flex="100" flex-gt-sm="100" flex-gt-md="100" style="">
+                                                <dt style="min-height: 16px;">
+                                                    <span>
+									Font
+				</span>
+                                                </dt>
+                                                <dd>
+                                                    <div class="tp-field">
+                                                        <span>
+							<md-input-container md-no-float>
+											            							 		    															    									    	    	<tp:lookup ng-model="tipoRootController.tipo.appearance_settings.font_family" read-only="false" fieldvalue="tipoRootController.tipo.appearance_settings.font_family" fieldlabel= "tipoRootController.tipo.appearance_settings.font_family_labels" basefilter="'category:(Font)'" realtedtipo="'TipoStandingData'" isarray="false" ispopup="" istipomandatory="false" labelfield="'tipo_id'" queryparams="''" allowcreate="" selectkeyfield="'value_'" selectlabelfield="'name_'" fqfieldname="'appearance_settings.font_family'" fieldname="'font_family'" root="tipoRootController.tipo" context="tipoRootController.tipo.appearance_settings" ng-init="tipoRootController.tipo.appearance_settings.font_family = tipoRootController.tipo.appearance_settings.font_family || '';tipoRootController.tipo.appearance_settings.font_family_labels = tipoRootController.tipo.appearance_settings.font_family_labels || '' "   />
+    													<div class="hint" >Choose font for your app</div>
+																			</md-input-container>
+			</span>
+                                                    </div>
+                                                </dd>
+                                            </dl>
+                                            <dl class="edit" layout="column" layout-align="center stretch" flex="100" flex-gt-sm="100" flex-gt-md="100" style="">
+                                                <dt>
+                                                </dt>
+                                                <dd>
+                                                    <div class="tp-field">
+                                                        <span>
+							<md-input-container md-no-float>
+											            				
+								<span>
+				
+															<span ng-init = "tipoRootController.appearance_settings.colour_theme = 'Customize your app’s colour scheme to match your brand colours. TipoTapp uses Google Material Design. Choose two colours - a primary colour that appears most frequently in your app and a secondary colour to accent key parts of your UI like buttons etc. If you feel limited by options here, proceed to Material theme option under advanced to create an entirely new colour scheme'">
+		{{tipoRootController.appearance_settings.colour_theme || '-N/A-'}}</span>
+                                                        </span>
+                                                        </md-input-container>
+                                                        </span>
+                                                    </div>
+                                                </dd>
+                                            </dl>
+                                            <dl class="edit" layout="column" layout-align="center stretch" flex="100" flex-gt-sm="100" flex-gt-md="50" style="">
+                                                <dt style="min-height: 16px;">
+                                                    <span>
+									Choose Primary Colour Theme
+				</span>
+                                                </dt>
+                                                <dd>
+                                                    <div class="tp-field">
+                                                        <span>
+							<md-content md-no-float>													            			
+										<spectrum-colorpicker ng-model="tipoRootController.tipo.appearance_settings.theme_colour_primary" name="Choose Primary Colour Theme_colour" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 250, 'blur': 0} }" ng-required="false" ng-disabled="false"   format="'hex'" options="{preferredFormat: 'hex', showInput: true, showPalette: true, palette:[['#900', '#b45f06', '#bf9000', '#38761d', '#134f5c', '#0b5394', '#351c75', '#741b47'],['#f4cccc', '#fce5cd', '#fff2cc', '#d9ead3', '#d0e0e3', '#cfe2f3', '#d9d2e9', '#ead1dc'],['#ea9999', '#f9cb9c', '#ffe599', '#b6d7a8', '#a2c4c9', '#9fc5e8', '#b4a7d6', '#d5a6bd'],['#e06666', '#f6b26b', '#ffd966', '#93c47d', '#76a5af', '#6fa8dc', '#8e7cc3', '#c27ba0'],['#c00', '#e69138', '#f1c232', '#6aa84f', '#45818e', '#3d85c6', '#674ea7', '#a64d79'],['#600', '#783f04', '#7f6000', '#274e13', '#0c343d', '#073763', '#20124d', '#4c1130']] }" ng-change = "controller.calcColors(tipoRootController.tipo.appearance_settings.theme_colour_primary,'primary')" ng-init="controller.calcColors(tipoRootController.tipo.appearance_settings.theme_colour_primary,'primary')"></spectrum-colorpicker>
+										<md-list flex class="palette-colors spaced">
+										    <md-list-item flex class="light-canvas" ng-repeat="color in tipoRootController.palettecolors.primary">
+										        <div class="palette-color" style="background-color:{{color.hex}};" ng-class="{'palette-color-light': !color.darkContrast, 'palette-color-dark': color.darkContrast}">
+										            <span class="name color-text" ng-bind="color.name"></span>
+										            <span ng-bind="color.hex" class="palette-color-hex color-text"></span>
+								                    <div class="palette-color-mutators">
+								                        <!-- Removed lighten and darken buttons until saturation issues are worked out. -->
+								                        <spectrum-colorpicker ng-model="color.hex" format="'hex'" options="{preferredFormat: 'hex', showInput: true, showPalette: true, palette:defaultPalette }"></spectrum-colorpicker>
+								                    </div>
+								                    <div class="palette-color-contrast" ng-click="color.darkContrast = !color.darkContrast">
+								                      <md-tooltip>Toggle contrast</md-tooltip>
+								                    </div>
+										        </div>
+										    </md-list-item>
+										</md-list>
+																							</md-content>
+			</span>
+                                                    </div>
+                                                </dd>
+                                            </dl>
+                                            <dl class="edit" layout="column" layout-align="center stretch" flex="100" flex-gt-sm="100" flex-gt-md="50" style="">
+                                                <dt style="min-height: 16px;">
+                                                    <span>
+									Choose Accent Colour Theme
+				</span>
+                                                </dt>
+                                                <dd>
+                                                    <div class="tp-field">
+                                                        <span>
+							<md-content md-no-float>
+											            							 														<spectrum-colorpicker ng-model="tipoRootController.tipo.appearance_settings.theme_colour_accent" name="Choose Accent Colour Theme_colour" ng-model-options="{ updateOn: 'default blur', debounce: {'default': 250, 'blur': 0} }" ng-required="false" ng-disabled="false"   format="'hex'" options="{preferredFormat: 'hex', showInput: true, showPalette: true, palette:[['#900', '#b45f06', '#bf9000', '#38761d', '#134f5c', '#0b5394', '#351c75', '#741b47'],['#f4cccc', '#fce5cd', '#fff2cc', '#d9ead3', '#d0e0e3', '#cfe2f3', '#d9d2e9', '#ead1dc'],['#ea9999', '#f9cb9c', '#ffe599', '#b6d7a8', '#a2c4c9', '#9fc5e8', '#b4a7d6', '#d5a6bd'],['#e06666', '#f6b26b', '#ffd966', '#93c47d', '#76a5af', '#6fa8dc', '#8e7cc3', '#c27ba0'],['#c00', '#e69138', '#f1c232', '#6aa84f', '#45818e', '#3d85c6', '#674ea7', '#a64d79'],['#600', '#783f04', '#7f6000', '#274e13', '#0c343d', '#073763', '#20124d', '#4c1130']] }" ng-change = "controller.calcColors(tipoRootController.tipo.appearance_settings.theme_colour_accent,'accent')" ng-init="controller.calcColors(tipoRootController.tipo.appearance_settings.theme_colour_accent,'accent')"></spectrum-colorpicker>
+										<md-list flex class="palette-colors spaced">
+										    <md-list-item flex class="light-canvas" ng-repeat="color in tipoRootController.palettecolors.accent">
+										        <div class="palette-color" style="background-color:{{color.hex}};" ng-class="{'palette-color-light': !color.darkContrast, 'palette-color-dark': color.darkContrast}">
+										            <span class="name color-text" ng-bind="color.name"></span>
+										            <span ng-bind="color.hex" class="palette-color-hex color-text"></span>
+								                    <div class="palette-color-mutators">
+								                        <!-- Removed lighten and darken buttons until saturation issues are worked out. -->
+								                        <spectrum-colorpicker ng-model="color.hex" format="'hex'" options="{preferredFormat: 'hex', showInput: true, showPalette: true, palette:defaultPalette }"></spectrum-colorpicker>
+								                    </div>
+								                    <div class="palette-color-contrast" ng-click="color.darkContrast = !color.darkContrast">
+								                      <md-tooltip>Toggle contrast</md-tooltip>
+								                    </div>
+										        </div>
+										    </md-list-item>
+										</md-list>
+																							</md-content>
+			</span>
+                                                    </div>
+                                                </dd>
+                                            </dl>
+                                            <dl class="edit" layout="column" layout-align="center stretch" style="margin-bottom: 10px;" flex="100" flex-gt-sm="50" flex-gt-md="33" style="">
+                                                <dt style="min-height: 16px;">
+                                                    <span>
+									Custom CSS
+				</span>
+                                                </dt>
+                                                <dd>
+                                                    <div class="tp-field">
+                                                        <span>
+							<md-input-container md-no-float>
+											            							 													<tp:file ng-model="tipoRootController.tipo.appearance_settings.custom_css" field="tipoRootController.tipo.appearance_settings.custom_css" fieldpath="'appearance_settings.custom_css'" mode="edit" file-target-vel="''" private-file="''"read-only="false"   />
+														<div class="hint" >Upload your CSS</div>
+																			</md-input-container>
+			</span>
+                                                    </div>
+                                                </dd>
+                                            </dl>
+                                        </div>
+                                    </section>
+                                    <dl class="edit" layout="column" layout-align="center stretch" flex="100" flex-gt-sm="100" flex-gt-md="100" style="">
+                                        <dt style="min-height: 16px;">
+                                        </dt>
+                                        <dd>
+                                            <div class="tp-field">
+                                                <span>
+							<md-input-container md-no-float>
+											            							 													<span class="header">
+				          <div layout="row" layout-align="end center">
+	            <h3 flex>
+	              <a class="plain" md-colors="{color: 'primary-700'}">
+	                Advanced
+	              </a>
+	            </h3>
+	          </div>
+	        	          <md-divider></md-divider>
+	          	        </span>
+                                                </md-input-container>
+                                                </span>
+                                            </div>
+                                        </dd>
+                                    </dl>
+                                    <dl class="edit" layout="column" layout-align="center stretch" style="margin-bottom: 10px;" flex="100" flex-gt-sm="100" flex-gt-md="100" style="">
+                                        <dt style="min-height: 16px;">
+                                            <span>
+									Application Web Title
+				</span>
+                                        </dt>
+                                        <dd>
+                                            <div class="tp-field">
+                                                <span>
+							<md-input-container md-no-float>
+											            							 																	<input ng-model="tipoRootController.tipo.app_title" ng-disabled="false" aria-label="Application Web Title" name="Application Web Title_string" ng-required="false" ng-pattern=""      >
+																		<div class="hint" >Provide a Title for your application</div>
+																			</md-input-container>
+			</span>
+                                            </div>
+                                        </dd>
+                                    </dl>
+                                    <dl class="edit" layout="column" layout-align="center stretch" style="margin-bottom: 10px;" flex="100" flex-gt-sm="100" flex-gt-md="100" style="">
+                                        <dt style="min-height: 16px;">
+                                            <span>
+									Google Analytics Tracking ID
+				</span>
+                                        </dt>
+                                        <dd>
+                                            <div class="tp-field">
+                                                <span>
+							<md-input-container md-no-float>
+											            							 																	<input ng-model="tipoRootController.tipo.ga_tracking_id" ng-disabled="false" aria-label="Google Analytics Tracking ID" name="Google Analytics Tracking ID_string" ng-required="false" ng-pattern=""      >
+																		<div class="hint" >Configure Google Analytics code that allows you to track the visitors to your application</div>
+																			</md-input-container>
+			</span>
+                                            </div>
+                                        </dd>
+                                    </dl>
+                        </md-content>
+                    </md-tab>
+                    <md-tab>
+                        <md-tab-label>
+                            Custom Developer JavaScript
+                        </md-tab-label>
+                        <md-tab-body>
+                            <md-content class="md-padding">
+                                <section class="fieldset no-header fluid-row-container">
+                                    <div class="data" layout-padding layout="row" layout-wrap layout-align="start start">
+                                        <section class="fieldset fluid-row-container flex-100" flex="100" show-gt-md show-md show-sm show-xs>
+                                            <div class="header">
+                                                <div layout="row" layout-align="end center">
+                                                    <h3 flex ng-init="tipoRootController.initCollapsed('custom_developer_javascript', '')">
+		        <a href="" ng-click="custom_developer_javascript.collapsed = !custom_developer_javascript.collapsed" class="plain" md-colors="{color: 'primary-700'}">
+		          <i class="fa" ng-class="{'fa-caret-down': !custom_developer_javascript.collapsed , 'fa-caret-right': custom_developer_javascript.collapsed}"></i>
+		           Custom Developer JavaScript
+		        </a>
+		      </h3>
+                                                    <div class="actions horizontal" layout="row" layout-align="center center">
+                                                        <div layout="row">
+                                                            <div flex="none">
+                                                                <md-button class="m0" ng-click="tipoRootController.showDetail('ICAgICAgICAgCgkKCTxkaXYgY2xhc3M9InAtOCI+CgkgIDxzZWN0aW9uIGNsYXNzPSJmaWVsZHNldCBuby1oZWFkZXIgZmx1aWQtcm93LWNvbnRhaW5lciI+CgkgICAgPGRpdiBjbGFzcz0iZGF0YSIgbGF5b3V0LXBhZGRpbmcgbGF5b3V0PSJyb3ciIGxheW91dC13cmFwIGxheW91dC1hbGlnbj0ic3RhcnQgc3RhcnQiPgoJIAoJCgoJCQoJCQkKCSAgICAJCQoJCQkJCQkKCSAgCQkgIAkJICAgICAJCQoJCQkKCQkJCgkJCQoJICAJICAJICAJICAJICAJICAJICAJICAJICAJICAJCiAgICAJICAgIAkJCgkJCQoJCQoKICAJICAgIAkKCQkJCgkJCQkgICAgPGRsIGNsYXNzPSJlZGl0IiAKCSAgICAJCQkJICAgIGxheW91dD0iY29sdW1uIiAKCQkgICAgbGF5b3V0LWFsaWduPSJjZW50ZXIgc3RyZXRjaCIKCQkJCSAgICBmbGV4PSIxMDAiIAoJCQlmbGV4LWd0LXNtPSI1MCIgCgkJCWZsZXgtZ3QtbWQ9IjMzIiBzdHlsZT0iIj4KCSAgICA8ZHQgc3R5bGU9Im1pbi1oZWlnaHQ6IDE2cHg7Ij4KICAgIAkgICAgCSAgICAJCQkJCQkJCQk8c3Bhbj4KCQkJCQkJCQkJQXBwIEN1c3RvbSBKYXZhU2NyaXB0CgkJCQk8L3NwYW4+CgkJCQkJCQkJCTwvZHQ+CgkgICAgPGRkPgogICAgCQk8ZGl2IGNsYXNzPSJ0cC1maWVsZCI+CgkJCQkJCTxzcGFuPgoJCQkJCQkJPG1kLWlucHV0LWNvbnRhaW5lciBtZC1uby1mbG9hdD4KCQkJCQkJCQkJCQkgICAgICAgICAgICAJCQkJCQkJIAkJCQkJCQkJCQkJCQk8dHA6ZmlsZSBuZy1tb2RlbD0idGlwb1Jvb3RDb250cm9sbGVyLnRpcG8uY3VzdG9tX2RldmVsb3Blcl9qYXZhc2NyaXB0LmFwcF9jdXN0b21famF2YXNjcmlwdCIgZmllbGQ9InRpcG9Sb290Q29udHJvbGxlci50aXBvLmN1c3RvbV9kZXZlbG9wZXJfamF2YXNjcmlwdC5hcHBfY3VzdG9tX2phdmFzY3JpcHQiIGZpZWxkcGF0aD0iJ2N1c3RvbV9kZXZlbG9wZXJfamF2YXNjcmlwdC5hcHBfY3VzdG9tX2phdmFzY3JpcHQnIiBtb2RlPSJlZGl0IiBmaWxlLXRhcmdldC12ZWw9Iidjb21tb24vc2NyaXB0cy9DdXN0b21EZXYuanMnIiBwcml2YXRlLWZpbGU9IicnInJlYWQtb25seT0iZmFsc2UiICAgLz4KCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQk8L21kLWlucHV0LWNvbnRhaW5lcj4KCQkJPC9zcGFuPgoJCTwvZGl2PiAgICAgICAKICAgIDwvZGQ+CiA8L2RsPgogCSAgICAJCQkKCSAgICAJCQoJCQkJCQkKCSAgCQkgIAkJICAgICAJCQoJCQkKCQkJCgkJCQoJICAJICAJICAJICAJICAJICAJICAJICAJICAJICAJCiAgICAJICAgIAkJCgkJCQoJCQoKICAJICAgIAkKCQkJCgkJCQkgICAgPGRsIGNsYXNzPSJlZGl0IiAKCSAgICAJCQkJICAgIGxheW91dD0iY29sdW1uIiAKCQkgICAgbGF5b3V0LWFsaWduPSJjZW50ZXIgc3RyZXRjaCIKCQkJICAgCQlzdHlsZT0ibWFyZ2luLWJvdHRvbTogMTBweDsiCgkJCSAgICBmbGV4PSIxMDAiIAoJCQlmbGV4LWd0LXNtPSI1MCIgCgkJCWZsZXgtZ3QtbWQ9IjMzIiBzdHlsZT0iIj4KCSAgICA8ZHQgc3R5bGU9Im1pbi1oZWlnaHQ6IDE2cHg7Ij4KICAgIAkgICAgCSAgICAJCQkJCQkJCQk8c3Bhbj4KCQkJCQkJCQkJT3RoZXIgSmF2YVNjcmlwdAoJCQkJPC9zcGFuPgoJCQkJCQkJCQk8L2R0PgoJICAgIDxkZD4KICAgIAkJPGRpdiBjbGFzcz0idHAtZmllbGQiPgoJCQkJCQk8c3Bhbj4KCQkJCQkJCTxtZC1pbnB1dC1jb250YWluZXIgbWQtbm8tZmxvYXQ+CgkJCQkJCQkJCQkJICAgICAgICAgICAgCQkJCQkJCSAJCQkJCQkJCQkJCTxzcGFuPgoJCQkJPHRwOmZpbGUgbmctbW9kZWw9InRpcG9Sb290Q29udHJvbGxlci50aXBvLmN1c3RvbV9kZXZlbG9wZXJfamF2YXNjcmlwdC5vdGhlcl9qYXZhc2NyaXB0IiBmaWVsZD0idGlwb1Jvb3RDb250cm9sbGVyLnRpcG8uY3VzdG9tX2RldmVsb3Blcl9qYXZhc2NyaXB0Lm90aGVyX2phdmFzY3JpcHQiIGZpZWxkcGF0aD0iJ2N1c3RvbV9kZXZlbG9wZXJfamF2YXNjcmlwdC5vdGhlcl9qYXZhc2NyaXB0JyIgbW9kZT0iZWRpdCIgaXNhcnJheT0idHJ1ZSIgZmlsZS10YXJnZXQtdmVsPSInY29tbW9uL3NjcmlwdHMvJyIgcHJpdmF0ZS1maWxlPSInJyIgcmVhZC1vbmx5PSJmYWxzZSIgIC8+CiAgICAgICAgCTwvc3Bhbj4KICAgICAgICAgICAgCQkJCQkJCQkJCQk8ZGl2IGNsYXNzPSJoaW50IiA+SmF2YVNjcmlwdCBmaWxlcyBjb250YWluaW5nIGNvbnRyb2xsZXJzIGFuZCBvdGhlciBuZWNlc3NhcnkgYXBwbGljYXRpb24gbG9naWMuPC9kaXY+CgkJCQkJCQkJCQkJCQkJCQkJCQk8L21kLWlucHV0LWNvbnRhaW5lcj4KCQkJPC9zcGFuPgoJCTwvZGl2PiAgICAgICAKICAgIDwvZGQ+CiA8L2RsPgogCSAgICAJCQkJCgkJCSAgICAgCQkJCQoJICAgIDwvZGl2PgoJICA8L3NlY3Rpb24+Cgk8L2Rpdj4KCQoJCgoKCgo=','custom_developer_javascript')" aria-label="Edit">
+                                                                    <md-tooltip md-direction="top">Edit</md-tooltip>
+                                                                    <md-icon>launch</md-icon>
+                                                                </md-button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <md-divider></md-divider>
+                                            </div>
+                                            <div class="data layout-group" flex layout="row" layout-wrap layout-align="start start" ng-hide="custom_developer_javascript.collapsed">
+                                                <dl class="edit" layout="column" layout-align="center stretch" flex="100" flex-gt-sm="50" flex-gt-md="33" style="">
+                                                    <dt style="min-height: 16px;">
+                                                        <span>
+									App Custom JavaScript
+				</span>
+                                                    </dt>
+                                                    <dd>
+                                                        <div class="tp-field">
+                                                            <span>
+							<md-input-container md-no-float>
+											            							 													<tp:file ng-model="tipoRootController.tipo.custom_developer_javascript.app_custom_javascript" field="tipoRootController.tipo.custom_developer_javascript.app_custom_javascript" fieldpath="'custom_developer_javascript.app_custom_javascript'" mode="edit" file-target-vel="'common/scripts/CustomDev.js'" private-file="''"read-only="false"   />
+																							</md-input-container>
+			</span>
+                                                        </div>
+                                                    </dd>
+                                                </dl>
+                                            </div>
+                                        </section>
+                                        <dl class="edit" layout="column" layout-align="center stretch" flex="100" flex-gt-sm="50" flex-gt-md="33" style="">
+                                            <dt style="min-height: 16px;">
+                                                <span>
+									Custom Menu Template
+				</span>
+                                            </dt>
+                                            <dd>
+                                                <div class="tp-field">
+                                                    <span>
+							<md-input-container md-no-float>
+											            							 													<tp:file ng-model="tipoRootController.tipo.custom_menu_template" field="tipoRootController.tipo.custom_menu_template" fieldpath="'custom_menu_template'" mode="edit" file-target-vel="'common/views/tipoapp/custom_menu.tpl.html'" private-file="''"read-only="false"   />
+																							</md-input-container>
+			</span>
+                                                </div>
+                                            </dd>
+                                        </dl>
+                                    </div>
+                                </section>
+                            </md-content>
+                        </md-tab-body>
+                    </md-tab>
+                    <md-tab>
+                        <md-tab-label>
+                            Email Templates
+                        </md-tab-label>
+                        <md-tab-body>
+                            <md-content class="md-padding">
+                                <section class="fieldset no-header fluid-row-container">
+                                    <div class="data" layout-padding layout="row" layout-wrap layout-align="start start">
+                                        <section class="fieldset fluid-row-container flex-100" flex="100" show-gt-md show-md show-sm show-xs>
+                                            <div class="header">
+                                                <div layout="row" layout-align="end center">
+                                                    <h3 flex ng-init="tipoRootController.initCollapsed('email_template_customizations', '')">
+		        <a href="" ng-click="email_template_customizations.collapsed = !email_template_customizations.collapsed" class="plain" md-colors="{color: 'primary-700'}">
+		          <i class="fa" ng-class="{'fa-caret-down': !email_template_customizations.collapsed , 'fa-caret-right': email_template_customizations.collapsed}"></i>
+		           Email Templates
+		        </a>
+		      </h3>
+                                                    <div class="actions horizontal" layout="row" layout-align="center center">
+                                                        <div>
+                                                            <div flex="none">
+                                                                <md-button class="m0" ng-click="tipoRootController.generateItem('email_template_customizations','email_template_customizations')" aria-label="New">
+                                                                    <md-tooltip md-direction="top">New</md-tooltip>
+                                                                    <md-icon>add</md-icon>
+                                                                </md-button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <md-divider></md-divider>
+                                            </div>
+                                            <div class="data" style="margin-top: 10px;" ng-hide="email_template_customizations.collapsed">
+                                                <div layout="row" id="{{'email_template_customizations' + $index}}" ng-repeat="groupItem in tipoRootController.tipo.email_template_customizations" ng-if="(!groupItem._ARRAY_META || groupItem._ARRAY_META._STATUS != 'DELETED') && (!groupItem._UI_STATUS || groupItem._UI_STATUS != 'DELETED') && tipoRootController.tipo.email_template_customizations.length > 0" md-whiteframe="2" class="fluid-row" ng-init="index = $index;">
+                                                    <div flex layout="row" layout-padding layout-wrap layout-align="start start" class="data">
+                                                        <dl class="edit" layout="column" layout-align="center stretch" flex="100" flex-gt-sm="50" flex-gt-md="33" style="">
+                                                            <dt style="min-height: 16px;">
+                                                                <span>
+									Type
+				</span>
+                                                            </dt>
+                                                            <dd>
+                                                                <div class="tp-field">
+                                                                    <span>
+							<md-input-container md-no-float>											            							 																																					<tp:simple-dropdown ng-model="tipoRootController.tipo.email_template_customizations[index].email_template_type" isarray="false" read-only="false" fieldvalue="tipoRootController.tipo.email_template_customizations[index].email_template_type" istiporequired="false" allowedvalues="['Reset Password Email','User Invitation Email','User Registration Confirmation Email','Welcome Email']" allowcreate="$field.allow_create" name="Type_string"    />
+																							</md-input-container>
+			</span>
+                                                                </div>
+                                                            </dd>
+                                                        </dl>
+                                                        <dl class="edit" layout="column" layout-align="center stretch" flex="100" flex-gt-sm="100" flex-gt-md="100" style="">
+                                                            <dt style="min-height: 16px;">
+                                                                <span>
+									Subject
+				</span>
+                                                            </dt>
+                                                            <dd>
+                                                                <div class="tp-field">
+                                                                    <span>
+							<md-input-container md-no-float>											            							 																	<input ng-model="tipoRootController.tipo.email_template_customizations[index].email_subject" ng-disabled="false" aria-label="Subject" name="Subject_string" ng-required="false" ng-pattern=""      >
+																											</md-input-container>
+			</span>
+                                                                </div>
+                                                            </dd>
+                                                        </dl>
+                                                    </div>
+                                                    <div flex="none" layout="column" layout-align="center center" class="actions bg">
+                                                        <md-button ng-click="tipoRootController.showDetail('ICAgICAgICAgCgkKCTxkaXYgY2xhc3M9InAtOCI+CgkgIDxzZWN0aW9uIGNsYXNzPSJmaWVsZHNldCBuby1oZWFkZXIgZmx1aWQtcm93LWNvbnRhaW5lciI+CgkgICAgPGRpdiBjbGFzcz0iZGF0YSIgbGF5b3V0LXBhZGRpbmcgbGF5b3V0PSJyb3ciIGxheW91dC13cmFwIGxheW91dC1hbGlnbj0ic3RhcnQgc3RhcnQiPgoJIAoJCgoJCQoJCQkKCSAgICAJCQoJCQkJCQkKCSAgCQkgIAkJICAgICAgICAgCQoJCQkKCQkJCgkJCQoJICAJICAJICAJICAJICAJICAJICAJICAJICAJICAJCiAgICAJICAgIAkJCgkJCQoJCQoKICAJICAgIAkKCQkJCgkJCQkgICAgPGRsIGNsYXNzPSJlZGl0IiAKCSAgICAJCQkJICAgIGxheW91dD0iY29sdW1uIiAKCQkgICAgbGF5b3V0LWFsaWduPSJjZW50ZXIgc3RyZXRjaCIKCQkJCSAgICBmbGV4PSIxMDAiIAoJCQlmbGV4LWd0LXNtPSI1MCIgCgkJCWZsZXgtZ3QtbWQ9IjMzIiBzdHlsZT0iIj4KCSAgICA8ZHQgc3R5bGU9Im1pbi1oZWlnaHQ6IDE2cHg7Ij4KICAgIAkgICAgCSAgICAJCQkJCQkJCQk8c3Bhbj4KCQkJCQkJCQkJVHlwZQoJCQkJPC9zcGFuPgoJCQkJCQkJCQk8L2R0PgoJICAgIDxkZD4KICAgIAkJPGRpdiBjbGFzcz0idHAtZmllbGQiPgoJCQkJCQk8c3Bhbj4KCQkJCQkJCTxtZC1pbnB1dC1jb250YWluZXIgbWQtbm8tZmxvYXQ+CgkJCQkJCQkJCQkJICAgICAgICAgICAgCQkJCQkJCSAJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJPHRwOnNpbXBsZS1kcm9wZG93biBuZy1tb2RlbD0idGlwb1Jvb3RDb250cm9sbGVyLnRpcG8uZW1haWxfdGVtcGxhdGVfY3VzdG9taXphdGlvbnNbaW5kZXhdLmVtYWlsX3RlbXBsYXRlX3R5cGUiIGlzYXJyYXk9ImZhbHNlIiByZWFkLW9ubHk9ImZhbHNlIiBmaWVsZHZhbHVlPSJ0aXBvUm9vdENvbnRyb2xsZXIudGlwby5lbWFpbF90ZW1wbGF0ZV9jdXN0b21pemF0aW9uc1tpbmRleF0uZW1haWxfdGVtcGxhdGVfdHlwZSIgaXN0aXBvcmVxdWlyZWQ9ImZhbHNlIiBhbGxvd2VkdmFsdWVzPSJbJ1Jlc2V0IFBhc3N3b3JkIEVtYWlsJywnVXNlciBJbnZpdGF0aW9uIEVtYWlsJywnVXNlciBSZWdpc3RyYXRpb24gQ29uZmlybWF0aW9uIEVtYWlsJywnV2VsY29tZSBFbWFpbCddIiBhbGxvd2NyZWF0ZT0iJGZpZWxkLmFsbG93X2NyZWF0ZSIgbmFtZT0iVHlwZV9zdHJpbmciICAgIC8+CgkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJPC9tZC1pbnB1dC1jb250YWluZXI+CgkJCTwvc3Bhbj4KCQk8L2Rpdj4gICAgICAgCiAgICA8L2RkPgogPC9kbD4KIAkgICAgCQkJCgkgICAgCQkKCQkJCQkJCgkgIAkJICAJCSAgICAgICAgIAkKCQkJCgkJCQoJCQkKCSAgCSAgCSAgCSAgCSAgCSAgCSAgCSAgCSAgCSAgCQogICAgCSAgICAJCQoJCQkKCQkKCiAgCSAgICAJCgkJCQoJCQkJICAgIDxkbCBjbGFzcz0iZWRpdCIgCgkgICAgCQkJCSAgICBsYXlvdXQ9ImNvbHVtbiIgCgkJICAgIGxheW91dC1hbGlnbj0iY2VudGVyIHN0cmV0Y2giCgkJCQkgICAgZmxleD0iMTAwIiAKCQkJZmxleC1ndC1zbT0iMTAwIiAKCQkJZmxleC1ndC1tZD0iMTAwIiBzdHlsZT0iIj4KCSAgICA8ZHQgc3R5bGU9Im1pbi1oZWlnaHQ6IDE2cHg7Ij4KICAgIAkgICAgCSAgICAJCQkJCQkJCQk8c3Bhbj4KCQkJCQkJCQkJU3ViamVjdAoJCQkJPC9zcGFuPgoJCQkJCQkJCQk8L2R0PgoJICAgIDxkZD4KICAgIAkJPGRpdiBjbGFzcz0idHAtZmllbGQiPgoJCQkJCQk8c3Bhbj4KCQkJCQkJCTxtZC1pbnB1dC1jb250YWluZXIgbWQtbm8tZmxvYXQ+CgkJCQkJCQkJCQkJICAgICAgICAgICAgCQkJCQkJCSAJCQkJCQkJCQkJCQkJCQkJCTxpbnB1dCBuZy1tb2RlbD0idGlwb1Jvb3RDb250cm9sbGVyLnRpcG8uZW1haWxfdGVtcGxhdGVfY3VzdG9taXphdGlvbnNbaW5kZXhdLmVtYWlsX3N1YmplY3QiIG5nLWRpc2FibGVkPSJmYWxzZSIgYXJpYS1sYWJlbD0iU3ViamVjdCIgbmFtZT0iU3ViamVjdF9zdHJpbmciIG5nLXJlcXVpcmVkPSJmYWxzZSIgbmctcGF0dGVybj0iIiAgICAgID4KCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJPC9tZC1pbnB1dC1jb250YWluZXI+CgkJCTwvc3Bhbj4KCQk8L2Rpdj4gICAgICAgCiAgICA8L2RkPgogPC9kbD4KIAkgICAgCQkJCgkgICAgCQkKCQkJCQkJCgkgIAkJICAJCSAgICAgICAgIAkKCQkJCgkJCQoJCQkKCSAgCSAgCSAgCSAgCSAgCSAgCSAgCSAgCSAgCSAgCQogICAgCSAgICAJCQoJCQkKCQkKCiAgCSAgICAJCgkJCQoJCQkJICAgIDxkbCBjbGFzcz0iZWRpdCIgCgkgICAgCQkJCSAgICBsYXlvdXQ9ImNvbHVtbiIgCgkJICAgIGxheW91dC1hbGlnbj0iY2VudGVyIHN0cmV0Y2giCgkJCQkgICAgZmxleD0iMTAwIiAKCQkJZmxleC1ndC1zbT0iMTAwIiAKCQkJZmxleC1ndC1tZD0iMTAwIiBzdHlsZT0iIj4KCSAgICA8ZHQgc3R5bGU9Im1pbi1oZWlnaHQ6IDE2cHg7Ij4KICAgIAkgICAgCSAgICAJCQkJCQkJCQk8c3Bhbj4KCQkJCQkJCQkJRW1haWwgQm9keQoJCQkJPC9zcGFuPgoJCQkJCQkJCQk8L2R0PgoJICAgIDxkZD4KICAgIAkJPGRpdiBjbGFzcz0idHAtZmllbGQiPgoJCQkJCQk8c3Bhbj4KCQkJCQkJCTxtZC1pbnB1dC1jb250YWluZXIgbWQtbm8tZmxvYXQ+CgkJCQkJCQkJCQkJICAgICAgICAgICAgCQkJCQkJCSAJCQkJCQkJCQkJCQkJPHRleHRhcmVhIHR5cGU9ImxvbmdzdHJpbmciIG5nLWRpc2FibGVkPSJmYWxzZSIgbmctbW9kZWw9InRpcG9Sb290Q29udHJvbGxlci50aXBvLmVtYWlsX3RlbXBsYXRlX2N1c3RvbWl6YXRpb25zW2luZGV4XS5lbWFpbF9ib2R5IiByb3dzPSIyIiBtZC1zZWxlY3Qtb24tZm9jdXMgYXJpYS1sYWJlbD0iRW1haWwgQm9keSIgbmFtZT0iRW1haWwgQm9keV9sb25nc3RyaW5nIiBuZy1yZXF1aXJlZD0iZmFsc2UiIG5nLXBhdHRlcm49IiIgICAgLz4KCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQk8L21kLWlucHV0LWNvbnRhaW5lcj4KCQkJPC9zcGFuPgoJCTwvZGl2PiAgICAgICAKICAgIDwvZGQ+CiA8L2RsPgogCSAgICAJCQkJCgkJCSAgICAgCQkJCQoJICAgIDwvZGl2PgoJICA8L3NlY3Rpb24+Cgk8L2Rpdj4KCQoJCgoKCgo=','email_template_customizations['+$index+']','email_template_customizations')" aria-label="Edit" class="md-icon-button">
+                                                            <md-tooltip md-direction="left">Edit</md-tooltip>
+                                                            <md-icon>launch</md-icon>
+                                                        </md-button>
+                                                        <md-button ng-click="tipoRootController.deleteItem('email_template_customizations',$index)" aria-label="Delete" class="md-icon-button">
+                                                            <md-tooltip md-direction="left">Delete</md-tooltip>
+                                                            <md-icon>delete</md-icon>
+                                                        </md-button>
+                                                        <md-button ng-click="tipoRootController.cloneItem('email_template_customizations',$index)" aria-label="Copy" class="md-icon-button">
+                                                            <md-tooltip md-direction="left">Copy</md-tooltip>
+                                                            <md-icon>content_copy</md-icon>
+                                                        </md-button>
+                                                    </div>
+                                                </div>
+                                                <md-button class="m0 float-right md-icon-button" ng-click="tipoRootController.generateItem('email_template_customizations','email_template_customizations')" aria-label="New">
+                                                    <md-tooltip md-direction="top">Quick Add</md-tooltip>
+                                                    <md-icon>add</md-icon>
+                                                </md-button>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </section>
+                            </md-content>
+                        </md-tab-body>
+                    </md-tab>
+                    </div>
+                    </section>
+                </div>
+            </md-tabs>
+        </md-card>
+    </form>
+</div>

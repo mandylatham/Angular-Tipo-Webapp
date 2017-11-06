@@ -51,11 +51,11 @@
       });
       
       #if($tipo_customization.appearance_settings.material_theme.primary_)
-      	$tipo_customization.appearance_settings.material_theme.primary_
+        $tipo_customization.appearance_settings.material_theme.primary_
       #end
 
       #if($tipo_customization.appearance_settings.material_theme.accent)
-      	$tipo_customization.appearance_settings.material_theme.accent
+        $tipo_customization.appearance_settings.material_theme.accent
       #end
       
       #if($tipo_customization.appearance_settings.material_theme.warn)
