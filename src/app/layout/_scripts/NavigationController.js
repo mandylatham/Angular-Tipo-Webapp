@@ -112,7 +112,7 @@
             // If the perspective menu items are more than 500
             var queryparams = {};
             queryparams.page = 1;
-            queryparams.per_page = 10;
+            queryparams.per_page = 100;
             queryparams.must_include_key = "tipo_id";
             queryparams.must_include_values = selectedTipoId;
             tipoInstanceDataService.search(tipoName,queryparams).then(function(tipos){

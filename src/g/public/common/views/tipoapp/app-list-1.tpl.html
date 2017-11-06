@@ -47,7 +47,7 @@
       <md-card tp:perm ng-repeat="tipo in controller.infiniteItems.tipos"  layout="column" layout-align="start stretch" ng-click="!tipo.disableclick && controller.launch(tipo); $event.stopPropagation();" ng-mouseover="tipo.showactionbar = true;" ng-mouseleave="tipo.showactionbar = false;" >
         
         
-        <div layout="row" layout-align="space-between center" class="app-top" style="background-image: url('_assets/images/white-pattern-png.png');" layout-padding md-colors="{backgroundColor: 'primary-500-0.32',color: 'grey-900'}">
+        <div layout="row" layout-align="space-between center" class="app-top" style="background-image: url('_assets/images/white-pattern-png.png');" layout-padding ng-style=" tipo.theme_colour_primary && {backgroundColor: tipo.theme_colour_primary,color: '#FFFFFF'}" md-colors="{backgroundColor: 'primary-500-0.32',color: 'grey-900'}">
           <div layout="row" layout-align="start center" flex="80">
            <!--  <md-icon ng-if="tipo.icon" class="app-icon">{{tipo.icon}}</md-icon>
             <md-icon ng-if="!tipo.icon"  class="app-icon">apps</md-icon> -->
