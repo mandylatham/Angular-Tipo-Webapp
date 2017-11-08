@@ -3,6 +3,7 @@
   'use strict';
 
   var deviceInformation = {};
+  
 
   function getAllInterceptors(
     tipoRouter,
