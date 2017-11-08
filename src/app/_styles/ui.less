@@ -244,7 +244,6 @@ html{
     min-width: 0;
     md-icon{
       color: white;
-      background: #0a1d21;
       padding: 1px;
     }
   }
@@ -765,26 +764,28 @@ md-list-item::before, md-list-item .md-list-item-inner::before{
 #tipoapp-app-list{
   md-card{
     margin: 20px;
-    width: 300px;
+    width: 250px;
+    height: 270px;
     cursor: pointer;
   }
-  .app-top:before {
-    width: 50px;
-    height: 64px;
-    margin-left: -8px;
-    content: '';
-    display: block;
+  .app-top {
     position: absolute;
-    border-bottom: 1px solid;
-    border-bottom-width: medium;
-    border-bottom-color: #f8931f;
+    margin: auto;
+    width: 250px;
+    height: 170px;
+  }
+  .action-bar{
+    position: absolute;
+    height: 168px;
+    right: 0;
+    background: rgba(0,0,0,0.1);
+    top: 0;
   }
   .app-icon{
-    font-size:24px;
-    width:24px;
-    height:24px;
+    font-size:85px;
+    width:85px;
+    height:85px;
     color: white;
-    margin: 0 8px;
     box-sizing: content-box;
   }
   .app-logo{
