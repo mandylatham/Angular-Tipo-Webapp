@@ -14,7 +14,7 @@
 
     var _instance = this;
 
-    $rootScope.applicationMetadata = applicationMetadata;
+    // $rootScope.applicationMetadata = applicationMetadata;
 
     var perspectives;
 
