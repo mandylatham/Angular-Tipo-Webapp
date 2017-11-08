@@ -1,12 +1,3 @@
-<md-toolbar id="header" md-whiteframe="2" md-colors="{background: 'primary-500'}" ng-hide="header.hideheader" >
-  <div class="md-toolbar-tools docs-toolbar-tools" tabIndex="-1" layout-wrap>
-    <a><img src="g/public/assets/images/logo.png" hide-xs></img></a>
-    <span flex></span>
-  </div>
-</md-toolbar>
-<div id="layout" layout="column" layout-align="start center" ng-controller="UserController as controller">
-  <div hide-xs flex="20"></div>
-  <div id="login-container" layout="column" layout-align="center stretch">
-    <div ui-view="content"></div>
-  </div>
+<div ng-controller="UserController as controller">
+	<div ui-view="content"></div>
 </div>

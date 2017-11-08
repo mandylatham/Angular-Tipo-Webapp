@@ -20,13 +20,14 @@
     _instance.inProgress = false;
 
     var appMetadata = metadataService.applicationMetadata;
-
+    var appMetadata = _.merge(_.get(appMetadata,"TipoApp"),_.get(appMetadata,"TipoConfiguration"));
+    _instance.header_template = metadataService.resolveAppCustomUrls("login_header_template","user/_views/header.tpl.html")
     var user = {};
     user.fullName = function(){
-      return appMetadata.owner + '.' + appMetadata.application + '.' + _instance.user.email;
+      return appMetadata.application_owner_account + '.' + appMetadata.application + '.' + _instance.user.email;
     };
     _instance.user = user;
-    _instance.captureAccountNameDuringSignup = appMetadata.captureAccountNameDuringSignup;
+    _instance.captureAccountNameDuringSignup = appMetadata.capture_account_name_during_signup;
 
     _instance.toRegistration = function(){
       tipoRouter.to('registration');
@@ -84,7 +85,7 @@
 
     _instance.signUp = function(attemptCnt) {
       markProgress();
-      if (appMetadata.captureAccountNameDuringSignup && !verifyAccountName(user.accountName)) {
+      if (appMetadata.capture_account_name_during_signup && !verifyAccountName(user.accountName)) {
         raiseError({ message: 'Account name has invalid format' });
         return;
       }
@@ -102,12 +103,12 @@
         cognitoService.authenticate(user.fullName(), user.password).then(function() {
           cognitoService.resendCode().then(function() {
             tipoCache.clearMemoryCache();
-            tipoInstanceDataService.upsertAll('TipoAccount',[{account:account ,application:appMetadata.application ,tipo_id:account ,account_name:user.accountName ,application_owner_account:appMetadata.owner ,company_name:user.companyName }],criteria).then(function(res){
+            tipoInstanceDataService.upsertAll('TipoAccount',[{account:account ,application:appMetadata.application ,tipo_id:account ,account_name:user.accountName ,application_owner_account:appMetadata.application_owner_account ,company_name:user.companyName }],criteria).then(function(res){
             },
             function(err){
               raiseError(err);
             });
-            tipoInstanceDataService.upsertAll('TipoUser',[{account:account ,application:appMetadata.application ,tipo_id:user.email ,application_owner_account:appMetadata.owner,role: "Admin" }],criteria).then(function(res){
+            tipoInstanceDataService.upsertAll('TipoUser',[{account:account ,application:appMetadata.application ,tipo_id:user.email ,application_owner_account:appMetadata.application_owner_account,role: "Admin" }],criteria).then(function(res){
             },
             function(err){
               raiseError(err);

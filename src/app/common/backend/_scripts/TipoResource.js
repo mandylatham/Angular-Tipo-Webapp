@@ -237,20 +237,23 @@
   function httpInterceptors(securityContextService){
     return{
       request: function(config){
+        var deferred = $q.defer();
         var accessToken = securityContextService.getCurrentIdToken();
         if (!_.isUndefined(accessToken)) {
           config.headers['Authorization'] = accessToken;
-        }     
-        return config;
+        }
+        deferred.resolve(config);
+        return deferred.promise;
       }
     }
   }
 
   angular.module('tipo.common')
     .factory('tipoResource', TipoResource);
-    // .factory('httpInterceptors', httpInterceptors)
-    // .config(function ($httpProvider) {
-    //   // $httpProvider.interceptors.push('httpInterceptors');
-    // });
+    // .factory('httpInterceptors', httpInterceptors);
+  // angular.module('tipo.common')
+  //   .config(function ($httpProvider) {
+  //     $httpProvider.interceptors.push(httpInterceptors);
+  //   });
 
 })();

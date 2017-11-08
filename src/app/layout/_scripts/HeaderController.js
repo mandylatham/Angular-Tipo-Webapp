@@ -19,6 +19,7 @@
     if ($stateParams.hideheader) {
       _instance.hideheader = true;
     };
+    _instance.template = metadataService.resolveAppCustomUrls("app_header_template","layout/_views/app-header.tpl.html");
 
     function addPerspectives(userMeta,homeMeta){
         _instance.perspectives = [{

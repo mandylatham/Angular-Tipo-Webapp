@@ -61,7 +61,7 @@
       <div layout="row" layout-align="start center">
         <a ng-if="singlePath" href="g/{{rootFolder}}/{{prependTarget}}{{singlePath.value}}" download="{{singlePath.value}}"><span flex-order="1" flex>{{prependTarget}}{{singlePath.value}}</span></a>
         <div flex-order="2" flex="none">
-          <md-button class="md-icon-button" aria-label="Preview" ng-click="openViewFile(singlePath)" ng-if="singlePath.fileType === 'application/json' || singlePath.fileType === 'application/pdf' || singlePath.fileType === 'application/java' || singlePath.tagType === 'image' || singlePath.fileType === 'text/javascript'">
+          <md-button class="md-icon-button" aria-label="Preview" ng-click="openViewFile(singlePath)" ng-if="singlePath.fileType === 'application/json' || singlePath.fileType === 'application/pdf' || singlePath.fileType === 'application/java' || singlePath.tagType === 'image' || singlePath.fileType === 'text/javascript' || singlePath.fileType === 'text/html'" >
             <md-tooltip md-direction="bottom">Preview</md-tooltip>
             <md-icon>remove_red_eye</md-icon>
           </md-button>

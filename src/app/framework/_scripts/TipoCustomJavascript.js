@@ -67,7 +67,8 @@
 	//___TipoAboutApp___
 
 	function TipoAboutApp_OnView (data_handle) {
-	tipoHandle.getTipo('TipoApp',tipoHandle.application_meta.application).then(function(tipo_res){
+	var application = _.get(tipoHandle.application_meta,"TipoApp.application");
+	tipoHandle.getTipo('TipoApp',application).then(function(tipo_res){
 	 data_handle.tipo.app_name = tipo_res.app_name;
 	 data_handle.tipo.app_version = tipo_res.app_version;
 	 data_handle.tipo.app_link = tipo_res.app_url;
@@ -78,21 +79,6 @@
 	this.TipoAboutApp_OnView  = TipoAboutApp_OnView ;
 
 	//___TipoAboutApp___
-
-	//___AboutApp___
-
-	function AboutApp_OnView (data_handle) {
-	tipoHandle.getTipo('TipoApp',tipoHandle.application_meta.application).then(function(tipo_res){
-	 data_handle.tipo.app_name = tipo_res.app_name;
-	 data_handle.tipo.app_version = tipo_res. app_version;
-	 data_handle.tipo.app_link = tipo_res. app_url;
-	 data_handle.tipo.app_description = tipo_res. app_description;
-	 data_handle.tipo.about_app_mobile_app_qr_code = tipo_res.mobile_app_qr_cd;
-	})
-	}
-	this.AboutApp_OnView  = AboutApp_OnView ;
-
-	//___AboutApp___
 
 
   }

@@ -47,16 +47,16 @@
       <md-card tp:perm ng-repeat="tipo in controller.infiniteItems.tipos"  layout="column" layout-align="start stretch" ng-click="!tipo.disableclick && controller.launch(tipo); $event.stopPropagation();" ng-mouseover="tipo.showactionbar = true;" ng-mouseleave="tipo.showactionbar = false;" >
         
         
-        <div layout="row" layout-align="space-between center" class="app-top" style="background-image: url('_assets/images/white-pattern-png.png');" layout-padding ng-style=" tipo.theme_colour_primary && {backgroundColor: tipo.theme_colour_primary,color: '#FFFFFF'}" md-colors="{backgroundColor: 'primary-500-0.32',color: 'grey-900'}">
-          <div layout="row" layout-align="start center" flex="80">
-           <!--  <md-icon ng-if="tipo.icon" class="app-icon">{{tipo.icon}}</md-icon>
-            <md-icon ng-if="!tipo.icon"  class="app-icon">apps</md-icon> -->
-            <span class="md-headline">{{tipo.app_name.substring(0,10)}}{{tipo.app_name.substring(10) !== ""? "...": ""}}</span>
-          </div>
+        <div layout="row" layout-align="space-between center" style="-webkit-mask-image: url('_assets/images/white_pattern.svg');height:64px" layout-padding ng-style=" tipo.theme_colour_primary && {backgroundColor: tipo.theme_colour_primary,color: '#FFFFFF'}" md-colors="{backgroundColor: 'primary-500-0.32',color: 'grey-900'}">
           <!-- <img ng-src="_assets/images/logo_trans.png" style="width: 60px;" flex="20"/> -->
           <!-- <div class="app-logo">
             <img ng-src="_assets/images/logos/{{tipo.logo}}" />
           </div> -->
+        </div>
+        <div layout="row" layout-align="start center" class="app-top" flex="80" style="position: absolute;margin-top: 16px;padding-left: 8px;">
+         <!--  <md-icon ng-if="tipo.icon" class="app-icon">{{tipo.icon}}</md-icon>
+          <md-icon ng-if="!tipo.icon"  class="app-icon">apps</md-icon> -->
+          <span class="md-headline" style="padding-left:8px;">{{tipo.app_name.substring(0,10)}}{{tipo.app_name.substring(10) !== ""? "...": ""}}</span>
         </div>
         <div layout="row">
           <div class="md-subhead" flex style="min-height: 100px;margin-left: 20px;padding-top: 20px;">

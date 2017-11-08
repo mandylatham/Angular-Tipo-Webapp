@@ -62,12 +62,7 @@
               // cannot be an array if an exact file name is specified, hence treating as a single file
               scope.isSingle = true;
               if (scope.field) {
-                scope.field = {
-                  key: fileTarget,
-                  rootFolder: scope.rootFolder,
-                  type: scope.field.type,
-                  fileType: scope.field.fileType
-                };
+                scope.field.rootFolder = scope.rootFolder;
                 scope.singlePath = {
                   tagType: scope.field.type,
                   fileType: scope.field.fileType

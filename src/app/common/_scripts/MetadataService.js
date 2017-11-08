@@ -2,7 +2,7 @@
 
   'use strict';
 
-  var SUBSCRIPTION_RESOURCE = 'subscription';
+  var SUBSCRIPTION_RESOURCE = 'tipo_app_info';
   var ACCOUNT_RESOURCE = 'TipoAccount/default';
   var PROFILE_RESOURCE = 'TipoUser/default';
 
@@ -11,6 +11,7 @@
     tipoErrorHandler,
     $mdMedia,
     $q,
+    $http,
     $window) {
 
     var _instance = this;
@@ -81,6 +82,26 @@
     _instance.clearServerCache = function(){
       return tipoResource.one('TipoSpecial.Cache.Remove/default').doPUT({});
     };
+
+    _instance.resolveAppCustomTemplates = function(template_name,alt_path){
+      return $http.get(_instance.resolveAppCustomUrls(template_name,alt_path))
+                  .then(function(tpl){
+                    return tpl.data;
+                  });
+    }
+
+    _instance.resolveAppCustomUrls = function(template_name,alt_path){
+      if (!_instance.applicationMetadata.TipoCustomization) {
+        _instance.applicationMetadata.TipoCustomization = {};
+      };
+      var templateObj = _instance.applicationMetadata.TipoCustomization[template_name] || {};
+      if (templateObj.rootFolder && templateObj.key) {
+        var template = 'g/' + templateObj.key;
+      }else{
+        var template = alt_path;
+      }
+      return template;
+    }
 
     function loadGeolocation() {
       if (navigator.geolocation) {

@@ -17,7 +17,9 @@
       parent: baseState,
       views: {
         'content@userBase': {
-          templateUrl: 'user/_views/registration.tpl.html'
+          templateProvider: function(metadataService){
+            return metadataService.resolveAppCustomTemplates('registation_template','user/_views/registration.tpl.html');
+          }
         }
       }
     };
@@ -31,7 +33,9 @@
       },
       views: {
         'content@userBase': {
-          templateUrl: 'user/_views/login.tpl.html'
+          templateProvider: function(metadataService){
+            return metadataService.resolveAppCustomTemplates('login_template','user/_views/login.tpl.html');
+          }
         }
       }
     };
@@ -42,7 +46,9 @@
       parent: baseState,
       views: {
         'content@userBase': {
-          templateUrl: 'user/_views/forgot-password.tpl.html'
+          templateProvider: function(metadataService){
+            return metadataService.resolveAppCustomTemplates('forgot_password_template','user/_views/forgot-password.tpl.html');
+          }
         }
       }
     };
@@ -54,7 +60,9 @@
       parent: baseState,
       views: {
         'content@userBase': {
-          templateUrl: 'user/_views/reset-password.tpl.html'
+          templateProvider: function(metadataService){
+            return metadataService.resolveAppCustomTemplates('reset_password_template','user/_views/reset-password.tpl.html');
+          }
         }
       }
     };
@@ -68,7 +76,9 @@
       parent: baseState,
       views: {
         'content@userBase': {
-          templateUrl: 'user/_views/new-password-required.tpl.html'
+          templateProvider: function(metadataService){
+            return metadataService.resolveAppCustomTemplates('new_password_template','user/_views/new-password-required.tpl.html');
+          }
         }
       }
     };

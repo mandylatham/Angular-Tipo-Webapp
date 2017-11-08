@@ -22,6 +22,8 @@
 
     var currentPerspective;
 
+    _instance.template = metadataService.resolveAppCustomUrls("custom_menu_template","g/public/common/views/tipoapp/custom_menu.tpl.html");
+
     // TODO: Hacky way to mark the active menu item. Need to improve this
     function markActiveItem(menu, perspectiveTipoId){
       if(!_.isUndefined(perspectiveTipoId)){
