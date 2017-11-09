@@ -18,8 +18,8 @@
       views: {
         'content@userBase': {
           templateProvider: function($timeout,metadataService){
-            return $timeout({
-              metadataService.resolveAppCustomTemplates('registation_template','user/_views/registration.tpl.html');
+            return $timeout(function(){
+              return metadataService.resolveAppCustomTemplates('registation_template','user/_views/registration.tpl.html');
             },100);
           }
           // templateUrl: 'user/_views/registration.tpl.html'
