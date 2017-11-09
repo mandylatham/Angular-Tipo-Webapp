@@ -24,7 +24,55 @@
     <md-icon>add</md-icon>
   </md-button>
       <div ng-if="!tipoRootController.hasTipos" flex layout="row" layout-align="center center">
-    <tp-no-content message="No records found" />
+    <!-- <tp-no-content message="No records found" /> -->
+      <div style="width:600px;height: 500px;border: 1px solid #23bdc1;margin: 40px;">
+        <div layout="row" flex="100" class="fullheight">
+          <div layout="column" flex="50" class="fullheight" layout-align="center center" layout-padding style="border-right: 1px solid #23bdc1">
+            <span class="md-headline" style="font-style: italic;">Create your First App</span>
+            <span><img ng-src="g/public/assets/images/plant1.png" class="fullwidth"> </span>
+          </div>
+          <div layout="column" layout-padding layout-align="center stretch" flex="50">
+            <dl class="edit" layout="column" layout-align="center stretch">
+              <dt style="min-height: 16px;">
+                <span> App Name </span><span>*</span> 
+              </dt>
+              <div>
+                <div class="tp-field">
+                  <span>
+                    <md-input-container md-no-float>
+                      <input ng-model="controller.tipo.app_name" ng-disabled="false" aria-label="App Name" name="App Name_string" ng-required="true" ng-pattern="">
+                      <div ng-messages="tipoForm['App Name_string'].$error">
+                        <div ng-message="required" >This is required.</div>
+                      </div>
+                    </md-input-container>
+                  </span>
+                </div>       
+              </div>
+            </dl>
+            <dl class="edit" layout="column" layout-align="center stretch">
+              <dt style="min-height: 16px;">
+                <span> Description </span><span>*</span> 
+              </dt>
+              <div>
+                <div class="tp-field">
+                  <span>
+                    <md-input-container md-no-float>
+                      <textarea type="longstring" ng-disabled="false" ng-model="controller.tipo.app_description" rows="2" md-select-on-focus aria-label="Description" name="Description_longstring" ng-required="false"/>
+                      <div ng-messages="tipoForm['App Name_string'].$error">
+                        <div ng-message="required" >This is required.</div>
+                      </div>
+                    </md-input-container>
+                  </span>
+                </div>       
+              </div>
+            </dl>
+            <div style="text-align: center;">
+              <md-button class="md-warn md-raised fullwidth" flex="100" ng-click="controller.createApp()">Create</md-button>
+            </div>
+          </div>
+        </div>
+      </div>
+
   </div>
       <div ng-if="tipoRootController.hasTipos"  id="search" layout="column">
       <md-input-container flex class="tp-list" ng-if="tipoRootController.showsearch">
@@ -38,15 +86,23 @@
 <div class="tp-list">
   <div >
     <div layout="row" layout-align="center stretch" layout-margin layout-wrap id="tipoapp-app-list" >
-      <md-card layout="column" layout-align="center center" layout-padding ng-click="tipoRootController.createNew(); $event.stopPropagation();" style="background-image: url('_assets/images/white-pattern-png.png');" md-colors="{backgroundColor: 'primary-500-0.32',color: 'grey-900'}">
+      <!-- <md-card layout="column" layout-align="center center" layout-padding ng-click="tipoRootController.createNew(); $event.stopPropagation();" style="background-image: url('_assets/images/white-pattern-png.png');" md-colors="{backgroundColor: 'primary-500-0.32',color: 'grey-900'}">
         <div layout="column" layout-align="start center">
           <md-icon class="material-icons" style="border-radius: 50%;background: white;width: 100px;height: 100px;line-height: 100px;text-align: center;opacity: 0.7;font-size: 50px;">add</md-icon>
           <span class="md-headline" layout-padding>New Application</span>
         </div>
+      </md-card> -->
+      <md-card layout="column" layout-align="start stretch" ng-click="tipoRootController.createNew(); $event.stopPropagation();" >      
+        <div layout="row" layout-align="space-between center" style="-webkit-mask-image: url('_assets/images/white_pattern.svg');height:168px;background-color:#309fdb;color:white;" layout-padding >
+        </div>
+        <div layout="row" layout-align="start center" class="app-top" flex="80">
+          <img  ng-src="g/public/assets/images/custom_icons/create.png" class="app-icon" style="margin: auto;">
+        </div>
+        <div layout="column" layout-padding>
+           <div class="md-title" style="font-size: 15px">New Application</div>
+        </div>
       </md-card>
-      <md-card tp:perm ng-repeat="tipo in controller.infiniteItems.tipos"  layout="column" layout-align="start stretch" ng-click="!tipo.disableclick && controller.launch(tipo); $event.stopPropagation();" ng-mouseover="tipo.showactionbar = true;" ng-mouseleave="tipo.showactionbar = false;" >
-        
-        
+      <md-card tp:perm ng-repeat="tipo in controller.infiniteItems.tipos"  layout="column" layout-align="start stretch" ng-click="!tipo.disableclick && controller.launch(tipo); $event.stopPropagation();" ng-mouseover="tipo.showactionbar = true;" ng-mouseleave="tipo.showactionbar = false;" >      
         <div layout="row" layout-align="space-between center" style="-webkit-mask-image: url('_assets/images/white_pattern.svg');height:168px" layout-padding ng-style=" tipo.theme_colour_primary && {backgroundColor: tipo.theme_colour_primary,color: '#FFFFFF'}" md-colors="{backgroundColor: 'primary-500-0.32',color: 'grey-900'}">
           <!-- <img ng-src="_assets/images/logo_trans.png" style="width: 60px;" flex="20"/> -->
           <!-- <div class="app-logo">
@@ -54,7 +110,8 @@
           </div> -->
         </div>
         <div layout="row" layout-align="start center" class="app-top" flex="80">
-          <md-icon ng-if="tipo.icon" class="app-icon">{{tipo.icon}}</md-icon>
+          <md-icon ng-if="tipo.icon && tipo.icon.indexOf('.') === -1" class="app-icon">{{tipo.icon}}</md-icon>
+          <img ng-if="tipo.icon && tipo.icon.indexOf('.') !== -1" ng-src="{{'g/' + tipo.icon}}" class="app-icon">
           <md-icon ng-if="!tipo.icon"  class="app-icon">apps</md-icon>
           <!-- <md-icon md-svg-src="_assets/images/white_pattern.svg"></md-icon> -->
           <action-bar class="action-bar" flex="none" layout="column" layout-align="center end">
@@ -77,7 +134,7 @@
         </div>
         <div layout="column" layout-padding>
            <div class="md-title" style="font-size: 15px">{{tipo.app_name}}</div>
-          <div class="md-subhead" flex style="font-size:12px">
+          <div class="md-subhead" flex style="font-size:12px;padding: 0 8px;line-height: 17px;">
             {{tipo.app_description.substring(0,50)}}{{tipo.app_description && tipo.app_description.substring(50) !== ""? "...": ""}}</div>
         </div>
       </md-card>

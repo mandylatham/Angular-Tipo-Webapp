@@ -17,10 +17,10 @@
       parent: baseState,
       views: {
         'content@userBase': {
-          // templateProvider: function(metadataService){
-          //   return metadataService.resolveAppCustomTemplates('registation_template','user/_views/registration.tpl.html');
-          // }
-          templateUrl: 'user/_views/registration.tpl.html'
+          templateProvider: function(metadataService){
+            return metadataService.resolveAppCustomTemplates('registation_template','user/_views/registration.tpl.html');
+          }
+          // templateUrl: 'user/_views/registration.tpl.html'
         }
       }
     };
@@ -48,10 +48,10 @@
       parent: baseState,
       views: {
         'content@userBase': {
-          // templateProvider: function(metadataService){
-          //   return metadataService.resolveAppCustomTemplates('forgot_password_template','user/_views/forgot-password.tpl.html');
-          // }
-          templateUrl: 'user/_views/forgot-password.tpl.html'
+          templateProvider: function(metadataService){
+            return metadataService.resolveAppCustomTemplates('forgot_password_template','user/_views/forgot-password.tpl.html');
+          }
+          // templateUrl: 'user/_views/forgot-password.tpl.html'
         }
       }
     };
@@ -63,10 +63,10 @@
       parent: baseState,
       views: {
         'content@userBase': {
-          // templateProvider: function(metadataService){
-          //   return metadataService.resolveAppCustomTemplates('reset_password_template','user/_views/reset-password.tpl.html');
-          // }
-          templateUrl: 'user/_views/reset-password.tpl.html'
+          templateProvider: function(metadataService){
+            return metadataService.resolveAppCustomTemplates('reset_password_template','user/_views/reset-password.tpl.html');
+          }
+          // templateUrl: 'user/_views/reset-password.tpl.html'
         }
       }
     };
