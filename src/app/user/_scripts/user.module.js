@@ -17,8 +17,10 @@
       parent: baseState,
       views: {
         'content@userBase': {
-          templateProvider: function(metadataService){
-            return metadataService.resolveAppCustomTemplates('registation_template','user/_views/registration.tpl.html');
+          templateProvider: function($timeout,metadataService){
+            return $timeout({
+              metadataService.resolveAppCustomTemplates('registation_template','user/_views/registration.tpl.html');
+            },100);
           }
           // templateUrl: 'user/_views/registration.tpl.html'
         }
