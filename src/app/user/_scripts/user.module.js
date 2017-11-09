@@ -17,10 +17,10 @@
       parent: baseState,
       views: {
         'content@userBase': {
-          // templateProvider: function(metadataService){
-          //   return metadataService.resolveAppCustomTemplates('registation_template','user/_views/registration.tpl.html');
-          // }
-          templateUrl: 'user/_views/registration.tpl.html'
+          templateProvider: function(metadataService){
+            return metadataService.resolveAppCustomTemplates('registation_template','user/_views/registration.tpl.html');
+          }
+          // templateUrl: 'user/_views/registration.tpl.html'
         }
       }
     };

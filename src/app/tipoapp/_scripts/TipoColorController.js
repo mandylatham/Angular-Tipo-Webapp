@@ -95,8 +95,6 @@
         getColorObject(tinycolor.mix(baseDark, baseTriad[4], 15).saturate(100).lighten(40), 'A700')
       ];
       $scope.tipoRootController.palettecolors[palletename] = palleteColors;
-
-
     }
 
     function convertToAngularCode(paletteName){
