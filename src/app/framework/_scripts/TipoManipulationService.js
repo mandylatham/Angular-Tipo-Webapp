@@ -15,7 +15,7 @@
             }) !== -1;
         }
 
-        function extractShortDisplayFields(definition) {
+        function extractShortDisplayFields(definition) { 
             var eligibleFields = [];
             extractShortDisplayFieldsRecursive(definition, eligibleFields);
             return eligibleFields;
