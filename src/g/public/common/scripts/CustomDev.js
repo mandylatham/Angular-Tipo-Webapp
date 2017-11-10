@@ -327,6 +327,32 @@
         _instance.inProgress = false;
       })
     }
+    var planDisplayText;
+    function getPlanDetails (plan) {
+      planDisplayText = " " + plan.quantity + " " + plan.item;
+      angular.forEach(_instance.plans, function(value, index) {
+          if(value.tipo_id === _instance.tipo.plan) {
+            angular.forEach(value.stripe_subscription_plans, function(subscriptionPlan, key){
+              if(plan.item === subscriptionPlan.plane_name) {
+                if(plan.quantity <= subscriptionPlan.discounted_quantity) {
+                  planDisplayText = " Used <b>" + plan.quantity + " of " + subscriptionPlan.discounted_quantity  + " </b>included " + plan.item + "(s)" ;
+                } else {
+                  var additionalQuantity = plan.quantity - subscriptionPlan.discounted_quantity;
+                  planDisplayText = " <b>" + subscriptionPlan.discounted_quantity + "</b> " + plan.item + " <b>+ " + additionalQuantity + " </b>additional " + plan.item + "(s)" ;
+                }
+              }
+            })
+          }
+        });
+      return planDisplayText;
+    }
+    function getPlanCost(plan) {
+      var planCost = 0;
+      angular.forEach(plan.stripe_subscription_plans, function(subsPlan, index) {
+        planCost = planCost + (subsPlan.discounted_quantity * subsPlan.plan_amount);
+      })
+      return  " $" + planCost + "/month" ;
+    }
     function selectCycle(){
       _instance.cycleSelected = _.find(_instance.billing_cycles, function(o) { return o.display_name === _instance.tipo.billing_cycle; });
       _instance.selectedIndex = _.findIndex(_instance.billing_cycles, function(o) { return o.display_name === _instance.tipo.billing_cycle; }) || 0;
@@ -457,37 +483,9 @@
       })
     }
 
-    function selectPlan(plan_quantity,plan,form){
-      if (form && !form.$valid) {
-        var container = angular.element(document.getElementById('inf-wrapper'));
-        var invalidElement = document.getElementsByClassName("ng-invalid");
-        container.scrollToElement(invalidElement[1],150,100);
-        return false;
-      }
-      _instance.selectedPlan = plan;
-      _instance.plan_quantity = plan_quantity;
-      getTotalCost(plan_quantity,plan)
-      if (!_instance.tipo.credit_card && !_instance.cardElement) {
-        showCreditCard();
-        return;
-      }else{
-        var subscription = mapSubscrtoPlan();
-        saveSubscription(subscription);
-      }
-    }
-
     function deselectPlan(){
       _instance.edit_current_plan = false;
       getPlans();
-    }
-
-    function enableEditmode(id){
-      _instance.edit_mode[id] = true;
-      _.each(_instance.edit_mode,function(value,key){
-        if (key !== id) {
-          _instance.edit_mode[key] = false;
-        }
-      })
     }
 
     function collapseAll(){
@@ -497,24 +495,15 @@
       });
     }
 
-    function getTotalCost(plan_quantity,plan){
-      var total_cost = 0;
-      _.each(plan.stripe_subscription_plans,function(each_item){
-        total_cost = total_cost + (each_item.plan_amount * (plan_quantity[each_item.plane_name] || 0));
-      });
-      _instance.total_cost = total_cost;
-    }
-    _instance.total_cost = 0;
     // Your business logic.
 
     this.createToken = createToken;
     this.showCreditCard = showCreditCard;
-    this.selectPlan = selectPlan;
     this.getPlans = getPlans;
-    this.enableEditmode = enableEditmode;
-    this.getTotalCost = getTotalCost;
     this.deselectPlan = deselectPlan;
     this.collapseAll = collapseAll;
+    this.getPlanDetails = getPlanDetails;
+    this.getPlanCost = getPlanCost;
 
   }
 
