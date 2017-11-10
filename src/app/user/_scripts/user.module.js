@@ -15,14 +15,14 @@
       name: 'registration',
       url: '/register',
       parent: baseState,
-      views: {
+      views: /*@ngInject*/ {
         'content@userBase': {
-          // templateProvider: function($q,metadataService){
-          //   var deferred=$q.defer();
-          //   deferred.resolve(metadataService.resolveAppCustomTemplates('registation_template','user/_views/registration.tpl.html'));
-          //    return deferred.promise;
-          // }
-          templateUrl: 'user/_views/registration.tpl.html'
+          templateProvider: function($q,metadataService){
+            var deferred=$q.defer();
+            deferred.resolve(metadataService.resolveAppCustomTemplates('registation_template','user/_views/registration.tpl.html'));
+             return deferred.promise;
+          }
+          // templateUrl: 'user/_views/registration.tpl.html'
         }
       }
     };
