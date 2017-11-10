@@ -84,12 +84,10 @@
     };
 
     _instance.resolveAppCustomTemplates = function(template_name,alt_path){
-      var deferred = $q.defer();
-      deferred.resolve($http.get(_instance.resolveAppCustomUrls(template_name,alt_path))
+      return $http.get(_instance.resolveAppCustomUrls(template_name,alt_path))
                   .then(function(tpl){
                     return tpl.data;
-                  }));
-      return deferred.promise
+                  });
     }
 
     _instance.resolveAppCustomUrls = function(template_name,alt_path){

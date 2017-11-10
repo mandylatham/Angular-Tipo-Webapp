@@ -34,12 +34,12 @@
       params: {
         'retry': null
       },
-      views: {
+      views: /*@ngInject*/ {
         'content@userBase': {
-          // templateProvider: function(metadataService){
-          //   return metadataService.resolveAppCustomTemplates('login_template','user/_views/login.tpl.html');
-          // }
-          templateUrl: 'user/_views/login.tpl.html'
+          templateProvider: function(metadataService){
+            return metadataService.resolveAppCustomTemplates('login_template','user/_views/login.tpl.html');
+          }
+          // templateUrl: 'user/_views/login.tpl.html'
         }
       }
     };
@@ -48,12 +48,12 @@
       name: 'forgotPassword',
       url: '/forgot-password',
       parent: baseState,
-      views: {
+      views: /*@ngInject*/ {
         'content@userBase': {
-          // templateProvider: function(metadataService){
-          //   return metadataService.resolveAppCustomTemplates('forgot_password_template','user/_views/forgot-password.tpl.html');
-          // }
-          templateUrl: 'user/_views/forgot-password.tpl.html'
+          templateProvider: function(metadataService){
+            return metadataService.resolveAppCustomTemplates('forgot_password_template','user/_views/forgot-password.tpl.html');
+          }
+          // templateUrl: 'user/_views/forgot-password.tpl.html'
         }
       }
     };
@@ -63,12 +63,12 @@
       url: '/resetpass?code&email',
       //url: '/reset-password?code&email',
       parent: baseState,
-      views: {
+      views: /*@ngInject*/ {
         'content@userBase': {
-          // templateProvider: function(metadataService){
-          //   return metadataService.resolveAppCustomTemplates('reset_password_template','user/_views/reset-password.tpl.html');
-          // }
-          templateUrl: 'user/_views/reset-password.tpl.html'
+          templateProvider: function(metadataService){
+            return metadataService.resolveAppCustomTemplates('reset_password_template','user/_views/reset-password.tpl.html');
+          }
+          // templateUrl: 'user/_views/reset-password.tpl.html'
         }
       }
     };
@@ -80,12 +80,12 @@
         'deferredPassword': null
       },
       parent: baseState,
-      views: {
+      views: /*@ngInject*/ {
         'content@userBase': {
-          // templateProvider: function(metadataService){
-          //   return metadataService.resolveAppCustomTemplates('new_password_template','user/_views/new-password-required.tpl.html');
-          // }
-          templateUrl: 'user/_views/new-password-required.tpl.html'
+          templateProvider: function(metadataService){
+            return metadataService.resolveAppCustomTemplates('new_password_template','user/_views/new-password-required.tpl.html');
+          }
+          // templateUrl: 'user/_views/new-password-required.tpl.html'
         }
       }
     };
