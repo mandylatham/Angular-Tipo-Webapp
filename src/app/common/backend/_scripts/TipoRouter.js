@@ -243,9 +243,11 @@
             return toTipoList(menuItem.tipo_name, parameters,false,true);
           }
         }
-      }else if(menuItem.url){
-        $window.location.href = menuItem.url;
-      }
+      }else if(menuItem.navigate_to){
+        openTabPopup(menuItem.navigate_to,"","You are navigating to: " + menuItem.navigate_to);
+      }else if (menuItem.location_to) {
+        $location.url(menuItem.location_to);
+      };
     }
     
 

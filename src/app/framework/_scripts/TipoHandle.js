@@ -173,7 +173,7 @@
 
      function routeTo(url){
       $location.url(url);
-      $q.when(true);
+      // $q.when(true);
      }
 
      function toTipo(mode,tipo_name,tipo_id){

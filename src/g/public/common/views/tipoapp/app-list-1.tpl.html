@@ -98,8 +98,8 @@
         <div layout="row" layout-align="start center" class="app-top" flex="80">
           <img  ng-src="g/public/assets/images/custom_icons/create.png" class="app-icon" style="margin: auto;">
         </div>
-        <div layout="column" layout-padding>
-           <div class="md-title" style="font-size: 15px">New Application</div>
+        <div layout="column" layout-padding style="margin: auto;">
+           <div class="md-title" style="font-size: 22px">New App</div>
         </div>
       </md-card>
       <md-card tp:perm ng-repeat="tipo in controller.infiniteItems.tipos"  layout="column" layout-align="start stretch" ng-click="!tipo.disableclick && controller.launch(tipo); $event.stopPropagation();" ng-mouseover="tipo.showactionbar = true;" ng-mouseleave="tipo.showactionbar = false;" >      
@@ -111,7 +111,7 @@
         </div>
         <div layout="row" layout-align="start center" class="app-top" flex="80">
           <md-icon ng-if="tipo.icon && tipo.icon.indexOf('.') === -1" class="app-icon">{{tipo.icon}}</md-icon>
-          <img ng-if="tipo.icon && tipo.icon.indexOf('.') !== -1" ng-src="{{'g/' + tipo.icon}}" class="app-icon">
+          <img ng-if="tipo.icon && tipo.icon.indexOf('.') !== -1" ng-src="{{'g/' + tipo.icon}}" class="app-icon" style="margin: auto;">
           <md-icon ng-if="!tipo.icon"  class="app-icon">apps</md-icon>
           <!-- <md-icon md-svg-src="_assets/images/white_pattern.svg"></md-icon> -->
           <action-bar class="action-bar" flex="none" layout="column" layout-align="center end">
@@ -133,7 +133,7 @@
           </action-bar>
         </div>
         <div layout="column" layout-padding>
-           <div class="md-title" style="font-size: 15px">{{tipo.app_name}}</div>
+           <div class="md-title" style="font-size: 15px;font-weight: bold;">{{tipo.app_name}}</div>
           <div class="md-subhead" flex style="font-size:12px;padding: 0 8px;line-height: 17px;">
             {{tipo.app_description.substring(0,50)}}{{tipo.app_description && tipo.app_description.substring(50) !== ""? "...": ""}}</div>
         </div>
