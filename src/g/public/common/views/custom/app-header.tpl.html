@@ -1,0 +1,16 @@
+<md-toolbar id="header" md-whiteframe="2" md-colors="{background: 'primary-500'}" ng-hide="header.hideheader">
+test replace
+  <div class="md-toolbar-tools docs-toolbar-tools" tabIndex="-1" layout-wrap>
+    <div flex="none" hide-gt-md>
+      <md-button class="md-icon-button" ng-click="main.toogleNavigation()" id="mobnav" name="mobnav" aria-label="Menu">
+        <md-icon>menu</md-icon>
+      </md-button>
+    </div>
+    <a ng-click="main.toPerspective(header.perspectives[0].perspective)" href=""><img src="g/public/assets/images/logo.png" hide-xs></img></a>
+    <span flex></span>
+    <md-button ng-repeat="each in header.perspectives" ng-click="main.toPerspective(each.perspective)" class="md-icon-button" ng-disabled="each.disabled">
+      <md-tooltip md-direction="bottom">{{each.name}}</md-tooltip>
+      <md-icon>{{each.icon}}</md-icon>
+    </md-button>
+  </div>
+</md-toolbar>
