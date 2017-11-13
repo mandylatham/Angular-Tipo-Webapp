@@ -308,17 +308,18 @@
     _instance.plans = [];
     _instance.allowed_values =  _.range(1, 11);
     _instance.edit_mode = {};
+    _instance.cycleSelected = "Monthly";
     var tipo_plan = "TipoPlans";
     
-    function getPlans(change){
+    function getPlans(){
       var params = {};
       _instance.inProgress = true;
       params.list_display = 'N';
-      if (!change) {
-        selectCycle();
-      };
+      // if (!change) {
+        // selectCycle();
+      // };
       params.tipo_filter = "(!(inactive:true))"
-      params.tipo_filter = params.tipo_filter + ' AND ' + _instance.cycleSelected.filter_expression;
+      // params.tipo_filter = params.tipo_filter + ' AND ' + _instance.cycleSelected.filter_expression;
       if (_instance.edit_current_plan) {
         params.tipo_filter = params.tipo_filter + 'AND (plan_group:' + (_instance.tipo.plan_group ) + ')';
       };
@@ -353,18 +354,30 @@
       })
       return  " $" + planCost + "/month" ;
     }
-    function selectCycle(){
-      _instance.cycleSelected = _.find(_instance.billing_cycles, function(o) { return o.display_name === _instance.tipo.billing_cycle; });
-      _instance.selectedIndex = _.findIndex(_instance.billing_cycles, function(o) { return o.display_name === _instance.tipo.billing_cycle; }) || 0;
-      _instance.cycleSelected = _instance.cycleSelected || _instance.billing_cycles[0];
+    // function selectCycle(){
+    //   _instance.cycleSelected = _.find(_instance.billing_cycles, function(o) { return o.display_name === _instance.tipo.billing_cycle; });
+    //   _instance.selectedIndex = _.findIndex(_instance.billing_cycles, function(o) { return o.display_name === _instance.tipo.billing_cycle; }) || 0;
+    //   _instance.cycleSelected = _instance.cycleSelected || _instance.billing_cycles[0];
+    //   console.log( _instance.cycleSelected);
+    // }
+    // function getBillingCycles(){
+    //   tipoHandle.getTipoDefinition(tipo_plan,true).then(function(plan_def){
+    //     _instance.billing_cycles = plan_def.tipo_list.filters;
+    //     getPlans();
+    //   })
+    // }
+    // getBillingCycles();
+    function selectPlan(plan){
+      _instance.selectedPlan = plan;
+      if (!_instance.tipo.credit_card && !_instance.cardElement) {
+        showCreditCard();
+        return;
+      }else{
+        var subscription = mapSubscrtoPlan();
+        saveSubscription(subscription);
+      }
     }
-    function getBillingCycles(){
-      tipoHandle.getTipoDefinition(tipo_plan,true).then(function(plan_def){
-        _instance.billing_cycles = plan_def.tipo_list.filters;
-        getPlans();
-      })
-    }
-    getBillingCycles();
+
     function showCreditCard(){
       var promise = $mdDialog.show({
         controller: function cardController($scope,$mdDialog) {
@@ -436,8 +449,10 @@
         _instance.last4 = response.last4;
         _instance.card_token = result.token.id;
         if (_instance.selectedPlan) {
+          console.log("if loop");
           var subscription = mapSubscrtoPlan();
         }else{
+          console.log("else loop");
           var subscription = mapCardinfo();
         }
 
@@ -448,7 +463,7 @@
       var subscription = _instance.tipo;
       subscription.plan = _instance.selectedPlan.tipo_id;
       subscription.plan_group = _instance.selectedPlan.plan_group;
-      subscription.billing_cycle = _instance.cycleSelected.display_name;
+      subscription.billing_cycle = _instance.cycleSelected;
       subscription.credit_card = _instance.last4 || _instance.tipo.credit_card;
       subscription.card_token = _instance.card_token || _instance.tipo.card_token;
       subscription.plan_interval = _instance.selectedPlan.plan_period.plan_interval;
@@ -465,7 +480,7 @@
         subscription.plan_items[key].item = each_item.plane_name;
         subscription.plan_items[key].currency = each_item.currency;
         subscription.plan_items[key].amount = each_item.plan_amount;
-        subscription.plan_items[key].quantity = _instance.plan_quantity[each_item.plane_name];
+        // subscription.plan_items[key].quantity = _instance.plan_quantity[each_item.plane_name];
       });
       return subscription;
     }
@@ -500,6 +515,7 @@
     this.createToken = createToken;
     this.showCreditCard = showCreditCard;
     this.getPlans = getPlans;
+    this.selectPlan = selectPlan;
     this.deselectPlan = deselectPlan;
     this.collapseAll = collapseAll;
     this.getPlanDetails = getPlanDetails;
