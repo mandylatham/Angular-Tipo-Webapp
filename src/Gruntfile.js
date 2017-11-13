@@ -250,7 +250,7 @@ module.exports = function (grunt) {
         options: {
           replacements: [
             {
-              pattern: '${googleRecaptchaSitekey}',
+              pattern: 'tipo_replace.googleRecaptchaSitekey',
               replacement: config.mavenProperties.googleRecaptchaSitekey
             }
           ]
