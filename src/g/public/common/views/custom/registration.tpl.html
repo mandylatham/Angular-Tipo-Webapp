@@ -1,0 +1,47 @@
+<div id="layout" layout="column" layout-align="start center" layout-align-xs="start center" style="background-image: url('_assets/images/login_bg.png');background-position: bottom;background-size: contain;background-repeat: no-repeat;">
+    <ng-include src="controller.header_template" tp-include-replace/>
+    <div flex="10"></div>
+    <div id="login-container" layout="column" layout-align="center stretch">
+        <div md-whiteframe="2" style="background: #fbfbfb;margin-bottom:20px;">
+            <div layout="row" layout-padding layout-align="center center" flex="none">
+                <span class="md-title">Create Account</span>
+            </div>
+            <div>
+                <form name="registrationForm" data-ng-submit="controller.signUp()">
+                    <md-content layout-padding layout="column" layout-align="center stretch">
+                        <div class="md-subhead text-center"></div>
+                        <label class="loginlabel">Email</label>
+                        <md-input-container class="md-icon-float md-block">
+                            <md-icon>person</md-icon>
+                            <input ng-model="controller.user.email" type="text" required>
+                        </md-input-container>
+                        <label class="loginlabel">Password</label>
+                        <md-input-container class="md-icon-float md-block">
+                            <md-icon>lock_open</md-icon>
+                            <input ng-model="controller.user.password" type="password" required>
+                        </md-input-container>
+                        <label class="loginlabel" ng-show="controller.captureAccountNameDuringSignup">Company Name</label>
+                        <md-input-container class="md-icon-float md-block" ng-show="controller.captureAccountNameDuringSignup">
+                            <md-icon>person</md-icon>
+                            <input ng-model="controller.user.companyName" type="text" ng-change="controller.user.accountName = _.toLower(_.camelCase(controller.user.companyName))" ng-required="controller.captureAccountNameDuringSignup">
+                        </md-input-container>
+                        <label class="loginlabel" ng-show="controller.captureAccountNameDuringSignup">Account</label>
+                        <md-input-container class="md-icon-float md-block" ng-show="controller.captureAccountNameDuringSignup">
+                            <md-icon>person</md-icon>
+                            <input ng-model="controller.user.accountName" ng-disabled="true" type="text" ng-required="controller.captureAccountNameDuringSignup">
+                        </md-input-container>
+                        <div class="recaptcha" vc-recaptcha ng-model="controller.user.recaptcha" key="'${googleRecaptchaSitekey}'" layout="row" layout-align="center center"></div>
+                        <div class="error with-margin" ng-show="controller.lastError"><i class="fa fa-exclamation-circle fa-fw"></i> {{controller.lastError}}</div>
+                        <md-button type="submit" md-theme="reverse" class="md-raised md-primary" ng-if="!controller.inProgress">Create my Account</md-button>
+                        <md-button disabled md-theme="reverse" class="md-raised md-primary" ng-show="controller.inProgress">
+                            <i class="fa fa-refresh fa-spin fa-fw"></i> Processing...
+                        </md-button>
+                    </md-content>
+                </form>
+            </div>
+        </div>
+        <div layout="column" layout-align="center stretch" layout-padding ng-if="!controller.inProgress">
+            <md-button md-whiteframe="24" type="button" class="md-raised md-primary" ng-click="controller.toLogin()">Sign In</md-button>
+        </div>
+    </div>
+</div>
