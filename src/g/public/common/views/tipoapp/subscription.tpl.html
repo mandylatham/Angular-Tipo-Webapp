@@ -40,7 +40,7 @@
 				          <md-icon class="marginright20" md-colors="{color: 'primary-700'}" flex="10">done</md-icon>
 				          <div class="md-list-item-text" flex="90" >
 				            <!-- <span> Annual Billing</span> -->
-				            <span> {{controller.tipo.total_cost}} USD</span>
+				            <b><span>Total Price: <span ng-if="controller.tipo.subscription_status === 'trial'">$0</span><span ng-if="controller.tipo.subscription_status !== 'trial'">${{controller.tipo.total_cost}}</span></span></b>
 				          </div>
 				        </md-list-item>
 				        <md-list-item flex class="height48" hide-gt-xs show-xs>
@@ -79,7 +79,7 @@
 	<!--Choose Plans -->
 	<div>
 			<!-- Show Plans -->
-				<div ng-init="controller.getPlans(true)" layout="row" layout-align="space-around stretch" layout-sm="column" layout-xs="column" ng-if="!controller.inProgress">
+				<div ng-init="controller.getPlans()" layout="row" layout-align="space-around stretch" layout-sm="column" layout-xs="column" ng-if="!controller.inProgress">
 					<md-card ng-repeat="plan in controller.plans" flex layout="column" layout-align="space-between stretch">
 						<form name="plandetails" layout="column" layout-align="start stretch" layout-padding >
 							<div style="height:100px;margin: -8px;color: white" md-colors="{background: 'primary-500'}" class="text-center">
@@ -111,7 +111,7 @@
 								</div>
 						</div>
 						</form>
-						<md-button class="md-primary md-raised m0" md-theme="reverse" md-colors="{background: 'accent-500'}" ng-click="controller.showCreditCard()" ng-disabled="plan.tipo_id === controller.tipo.plan"><span ng-if="plan.tipo_id !== controller.tipo.plan" >Choose Plan</span><span ng-if="plan.tipo_id === controller.tipo.plan">Current Plan</span></md-button>
+						<md-button class="md-primary md-raised m0" md-theme="reverse" md-colors="{background: 'accent-500'}" ng-click="controller.selectPlan(plan)" ng-disabled="plan.tipo_id === controller.tipo.plan"><span ng-if="plan.tipo_id !== controller.tipo.plan" >Choose Plan</span><span ng-if="plan.tipo_id === controller.tipo.plan">Current Plan</span></md-button>
 					</md-card>
 				</div>
 				<div ng-hide="!controller.inProgress">
