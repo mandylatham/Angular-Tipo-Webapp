@@ -488,7 +488,7 @@ body, input {
 }
 
 .project .logo img {
-	background: #fff;
+/*	background: #fff; */
 }
 
 .project:focus .logo img, .project:hover .logo img {
