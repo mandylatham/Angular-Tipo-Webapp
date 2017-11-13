@@ -1,50 +1,49 @@
-<md-list>
-    <!-- <md-divider></md-divider> -->
-      <md-list-item ng-if="navigation.perspectiveMenu && navigation.perspectiveMenu.menuItems.length > 1" style="height: 25px;min-height: 25px;margin: -16px;margin-bottom: 5px;">
-        <div style="width:100%">
-          <md-menu ng-if="navigation.perspectiveMenu.menuItems.length > 1" style="width:100%">
-            <md-button class="md-primary md-raised" layout="row" layout-align="center center" ng-click="navigation.openPerspectiveMenu($mdOpenMenu, $event)" style="margin: 0px;min-height: 0;height: 20px;">
-              <md-tooltip md-direction="right">Switch {{navigation.selectedPerspectiveItem.tipoName}}</md-tooltip>
-              <div class="md-list-item-inner" layout="column">
-                <md-icon md-menu-origin style="margin: 0px;">arrow_drop_down</md-icon>
-                <!-- <span class="md-subhead" style="font-weight: 500;">Switch {{navigation.selectedPerspectiveItem.tipoName}}</span> -->
-              </div>
-            </md-button>
-            <md-menu-content width="4">
-              <md-menu-item class="search" ng-if="navigation.perspectiveMenu.menuItems.length > 6">
-                <md-input-container md-no-float>
-                  <input ng-model="navigation.perspectiveMenu.searchText" type="search" placeholder="Search ...">
-                </md-input-container>
-              </md-menu-item>
-              <md-menu-item ng-repeat="tipo in navigation.perspectiveMenu.menuItems | filter: navigation.perspectiveMenu.searchText" ng-if="tipo !== navigation.selectedPerspectiveItem">
-                <md-button ng-click="navigation.switchTipoPerspective(tipo)">{{tipo.label}}</md-button>
-              </md-menu-item>
-            </md-menu-content>
-          </md-menu>
+<div>
+    <div ng-if="navigation.perspectiveMenu && navigation.perspectiveMenu.menuItems.length > 1" ng-class="{'active': item === navigation.activeItem}" layout="row" style="height: 68px;padding: 0px" class="tp-page-heading">
+        <div style="width: 15px;min-width: 15px;">
+            <md-menu ng-if="navigation.perspectiveMenu.menuItems.length > 1" style="width:100%">
+                <md-button class="md-primary md-raised" layout="row" layout-align="center stretch" ng-click="navigation.openPerspectiveMenu($mdOpenMenu, $event)" style="margin: 0px;min-width: 0;height: 100%;border-radius: 0px;">
+                    <md-tooltip md-direction="right">Switch {{navigation.selectedPerspectiveItem.tipoName}}</md-tooltip>
+                    <div class="md-list-item-inner" layout="column">
+                        <md-icon md-menu-origin style="margin: 0px;">keyboard_arrow_right</md-icon>
+                        <!-- <span class="md-subhead" style="font-weight: 500;">Switch {{navigation.selectedPerspectiveItem.tipoName}}</span> -->
+                    </div>
+                </md-button>
+                <md-menu-content width="4">
+                    <md-menu-item class="search" ng-if="navigation.perspectiveMenu.menuItems.length > 6">
+                        <md-input-container md-no-float>
+                            <input ng-model="navigation.perspectiveMenu.searchText" type="search" placeholder="Search ...">
+                        </md-input-container>
+                    </md-menu-item>
+                    <md-menu-item ng-repeat="tipo in navigation.perspectiveMenu.menuItems | filter: navigation.perspectiveMenu.searchText" ng-if="tipo !== navigation.selectedPerspectiveItem">
+                        <md-button ng-click="navigation.switchTipoPerspective(tipo)">{{tipo.label}}</md-button>
+                    </md-menu-item>
+                </md-menu-content>
+            </md-menu>
         </div>
-        <!-- </md-button> -->
-      </md-list-item>
-      <md-list-item ng-if="navigation.perspectiveMenu && navigation.perspectiveMenu.menuItems.length > 1" ng-class="{'active': item === navigation.activeItem}">
-        <md-button layout="row" layout-align="center center" ng-click="navigation.switchTipoPerspective(navigation.selectedPerspectiveItem)" ng-if="!navigation.perspectiveMenu.abstract">
-          <!-- <md-tooltip md-direction="right" ng-if="navigation.perspectiveMenu.singleton">{{navigation.selectedPerspectiveItem.label}}</md-tooltip>
+        <md-button layout="row" layout-align="center center" ng-click="navigation.switchTipoPerspective(navigation.selectedPerspectiveItem)" ng-if="!navigation.perspectiveMenu.abstract" class="md-primary" style="margin: 0px;">
+            <!-- <md-tooltip md-direction="right" ng-if="navigation.perspectiveMenu.singleton">{{navigation.selectedPerspectiveItem.label}}</md-tooltip>
           <md-tooltip md-direction="right" ng-if="!navigation.perspectiveMenu.singleton">{{navigation.selectedPerspectiveItem.label}}</md-tooltip> -->
-          <div class="md-list-item-inner" layout="column">
-            <md-icon ng-if="item.icon" class="menuicon" md-colors="{color: 'primary-500'}">{{item.icon}}</md-icon>
-            <md-icon ng-if="!item.icon" class="menuicon" md-colors="{color: 'primary-500'}">keyboard_arrow_right</md-icon>
-            <span class="md-subhead" style="font-weight: 500;" ng-if="navigation.perspectiveMenu.singleton">{{navigation.perspectiveMenu.displayName}}</span>
-            <span class="md-subhead" style="font-weight: 500;" ng-if="!navigation.perspectiveMenu.singleton">{{navigation.selectedPerspectiveItem.label}}</span>
-          </div>
+            <div class="md-list-item-inner" layout="column">
+                <!-- <md-icon ng-if="item.icon" class="menuicon" md-colors="{color: 'primary-500'}">{{item.icon}}</md-icon>
+            <md-icon ng-if="!item.icon" class="menuicon" md-colors="{color: 'primary-500'}">keyboard_arrow_right</md-icon> -->
+                <span class="md-subhead" style="font-weight: 500;" ng-if="navigation.perspectiveMenu.singleton">{{navigation.perspectiveMenu.displayName}}</span>
+                <span class="md-subhead" style="font-weight: 500;" ng-if="!navigation.perspectiveMenu.singleton">{{navigation.selectedPerspectiveItem.label}}</span>
+            </div>
         </md-button>
-      </md-list-item>
-      <!-- <md-divider></md-divider> -->
-      <md-list-item ng-repeat="item in navigation.menu" ng-class="{'active': item === navigation.activeItem}">
-        <md-button layout="row" layout-align="center center" ng-click="navigation.navigate(item)">
-          <!-- <md-tooltip md-direction="right">{{item.label}}</md-tooltip> -->
-          <div class="md-list-item-inner" layout="column">
-            <md-icon ng-if="item.icon" class="menuicon" md-colors="{color: 'primary-500'}">{{item.icon}}</md-icon>
-            <md-icon ng-if="!item.icon" class="menuicon" md-colors="{color: 'primary-500'}">keyboard_arrow_right</md-icon>
-            <span class="md-subhead" style="font-weight: 500;">{{item.label}}</span>
-          </div>
-        </md-button>
-      </md-list-item>
+    </div>
+    <md-list>
+        <!-- <md-divider></md-divider> -->
+        <!-- <md-divider></md-divider> -->
+        <md-list-item ng-repeat="item in navigation.menu" ng-class="{'active': item === navigation.activeItem}">
+            <md-button layout="row" layout-align="center center" ng-click="navigation.navigate(item)">
+                <!-- <md-tooltip md-direction="right">{{item.label}}</md-tooltip> -->
+                <div class="md-list-item-inner" layout="column">
+                    <md-icon ng-if="item.icon" class="menuicon" md-colors="{color: 'primary-500'}">{{item.icon}}</md-icon>
+                    <md-icon ng-if="!item.icon" class="menuicon" md-colors="{color: 'primary-500'}">keyboard_arrow_right</md-icon>
+                    <span class="md-subhead" style="font-weight: 500;">{{item.label}}</span>
+                </div>
+            </md-button>
+        </md-list-item>
     </md-list>
+</div>

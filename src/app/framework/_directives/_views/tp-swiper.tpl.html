@@ -1,10 +1,10 @@
-<div class="swiper-container">
+<div class="swiper-container" ng-init="resize()">
 
 	<style ng-bind-html="mystyles"></style>
     <!-- Additional required wrapper -->
     <div class="swiper-wrapper">
         <!-- Slides -->
-        <div class="swiper-slide" ng-repeat="img in imageArray" style="height: auto;">
+        <div class="swiper-slide fullwidth" ng-repeat="img in imageArray" style="height: auto;">
             <img ng-src="{{'data:image/*;base64, ' + img.base64}}" ng-if="img.base64">
             <img ng-src="{{img}}" ng-if="!img.base64">
         </div>

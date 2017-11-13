@@ -1,95 +1,60 @@
 <!-- Container -->
 <div layout="column" ng-controller="TipoSubscribtionController as controller" layout-padding>
+	<h3 md-colors="{color: 'primary-700'}" flex="" class="flex">
+				Current Plan
+ 	</h3>
+ 	<md-divider></md-divider>
 	<!--Plan Details -->
 	<md-card layout-gt-sm="row" layout-sm="column" layout-xs="column" layout-align-gt-sm="center center" layout-padding>
 		<div layout="row" layout-xs="column" layout-align-xs="start start" layout-align="space-around center" layout-padding flex="75" flex-xs="100" flex-sm="100">
-			<div layout="row" layout-align="center center" flex="20" flex-xs="100">
-				<md-icon md-colors="{color: 'primary-700'}">bubble_chart</md-icon><span>Plan: </span>
-				<md-chips>
-			      <md-chip>{{controller.tipo.plan_group}}</md-chip>
-			    </md-chips>
+			<div layout="column" layout-align="center center" flex="20" flex-xs="100">
+				<div layout="row" layout-align="center center">
+					<md-icon md-colors="{color: 'primary-700'}">bubble_chart</md-icon><span>Plan: </span>
+					<md-chips>
+							<md-chip>{{controller.tipo.plan}}</md-chip>
+					</md-chips>
+				</div>
+				<div class="margin10">
+						<span>Status: <b>{{controller.tipo.subscription_status | uppercase}}</b> </span>
+				</div>	
 			</div>
-			<div flex="45" ng-if="!controller.edit_current_plan" flex-xs="100">
+			<div flex="45" flex-xs="100">
 				<md-content layout="column"  class="transparent">
 	      			<md-list flex layout-xs="row" layout-wrap>
-	      				<md-list-item flex ng-repeat="detail in controller.tipo.plan_items" class="height30">
+	      				<md-list-item flex ng-repeat="detail in controller.tipo.plan_items" class="height48">
 	      				<!-- <md-list-item > -->
-				          <md-icon md-colors="{color: 'primary-700'}" flex="10">done</md-icon>
+				          <md-icon class="marginright20" md-colors="{color: 'primary-700'}" flex="10">done</md-icon>
 				          <div class="md-list-item-text" flex="90">
 				            <!-- <h3> 1 App User</h3> -->
-				            <span> {{ detail.quantity }} {{ detail.item }} </span>
+				            <span ng-bind-html="controller.getPlanDetails(detail)"></span>
 				          </div>
 				        </md-list-item>
-				        <md-list-item flex class="height30">
-				          <md-icon md-colors="{color: 'primary-700'}" flex="10">done</md-icon>
+				        <md-list-item flex class="height48">
+				          <md-icon class="marginright20" md-colors="{color: 'primary-700'}" flex="10">done</md-icon>
 				          <div class="md-list-item-text" flex="90" >
 				            <!-- <span> Annual Billing</span> -->
 				            <span> {{controller.tipo.billing_cycle ||  (controller.tipo.plan_interval + ' '+ controller.tipo.plan_period_)}} Billing</span>
 				          </div>
 				        </md-list-item>
-				        <md-list-item flex class="height30" hide-gt-xs show-xs>
-				          <md-icon md-colors="{color: 'primary-700'}" flex="10">done</md-icon>
+				        <md-list-item flex class="height48" hide-gt-xs show-xs>
+				          <md-icon class="marginright20" md-colors="{color: 'primary-700'}" flex="10">done</md-icon>
 				          <div class="md-list-item-text" flex="90" >
 				            <!-- <span> Annual Billing</span> -->
-				            <span> {{controller.tipo.total_cost}} USD</span>
+				            <b><span>Total Price: <span ng-if="controller.tipo.subscription_status === 'trial'">$0</span><span ng-if="controller.tipo.subscription_status !== 'trial'">${{controller.tipo.total_cost}}</span></span></b>
 				          </div>
 				        </md-list-item>
-				        <md-list-item flex class="height30" hide-gt-xs show-xs>
-				          <md-icon md-colors="{color: 'primary-700'}" flex="10">done</md-icon>
+				        <md-list-item flex class="height48" hide-gt-xs show-xs>
+				          <md-icon class="marginright20" md-colors="{color: 'primary-700'}" flex="10">done</md-icon>
 				          <div class="md-list-item-text" flex="90" >
 				            <!-- <span> Annual Billing</span> -->
 				             <span>{{controller.tipo.active_until | date:'MM/dd/yyyy'}} Next Renewal</span>
 				          </div>
 				        </md-list-item>
 	      			</md-list>
-	      			<md-button class="md-primary md-raised" ng-click="controller.edit_current_plan = true">Edit Plan</md-button>
 	      		</md-content>
 	      	</div>
-	      	<div flex="80" ng-if="controller.edit_current_plan">
-	      		<md-content layout="column"  class="transparent">
-	      			<md-list flex>
-	      				<md-list-item layout-padding class="height48">
-				          <span class="width30">Billing Cycle: </span>
-				          <div class="md-list-item-text marginleft15" >
-				            <!-- <span> Annual Billing</span> -->
-				           <md-select ng-model="controller.cycleSelected" md-on-close="controller.getPlans(true)">
-								<md-option value="" ></md-option>
-								<md-option ng-value="cycle" ng-repeat="cycle in controller.billing_cycles">{{ cycle.display_name }}</md-option>
-						   </md-select>
-				          </div>
-				        </md-list-item>
-	      				<md-list-item ng-repeat="detail in controller.plans[0].stripe_subscription_plans" layout-padding class="height48">
-				          <span class="width30">{{detail.plane_name}}:</span>
-				          <div class="md-list-item-text marginleft15" ng-init="controller[controller.plans[0].tipo_id][detail.plane_name] = controller.tipo.plan_items[$index].quantity;controller.getTotalCost(controller[controller.plans[0].tipo_id],controller.plans[0])">
-				            <!-- <h3> 1 App User</h3> -->
-							<tp:simple-dropdown name="{{controller.plans[0].tipo_id + '_' + detail.plane_name}}" ng-model="controller[controller.plans[0].tipo_id][detail.plane_name]" isarray="false" istiporequired="true" allowedvalues="controller.allowed_values" allowcreate="true" fieldvalue="controller[controller.plans[0].tipo_id][detail.plane_name]"istiporequired="true" ng-change="controller.getTotalCost(controller[controller.plans[0].tipo_id],controller.plans[0])"/>
-							<div ng-messages="plandetails[controller.plans[0].tipo_id + '_' + detail.plane_name].$error">
-								<div ng-message="required" >This is required.</div>
-							</div>
-				          </div>
-				        </md-list-item>
-				        <!-- <md-divider></md-divider> -->
-				        <md-list-item ng-repeat="detail in controller.plans[0].stripe_subscription_plans" layout-padding class="height48">
-				          <span class="width30">{{detail.plane_name}} Cost: </span>
-				          <div class="md-list-item-text marginleft15">
-								{{controller[controller.plans[0].tipo_id][detail.plane_name]}} X {{detail.plan_amount}} {{detail.currency}}
-				          </div>
-				        </md-list-item>
-				        <md-list-item layout-padding class="height48" class="font20">
-				          <span class="width30">Total Cost</span>
-				          <div class="md-list-item-text marginleft15">
-								{{controller.total_cost}}
-				          </div>
-				        </md-list-item>
-	      			</md-list>
-	      			<div layout="row">
-		      			<md-button class="md-primary md-raised" ng-click="controller.selectPlan(controller[controller.plans[0].tipo_id],controller.plans[0],plandetails)">Save Plan</md-button>
-		      			<md-button class="md-primary md-raised" ng-click="controller.deselectPlan()">Cancel</md-button>
-	      			</div>
-	      		</md-content>
-	      	</div>
-			<div layout="column" layout-padding ng-if="!controller.edit_current_plan" class="leftdivider" flex="35" hide-xs>
-				<div><md-icon md-colors="{color: 'primary-700'}" class="font20">assessment</md-icon><span class="font20">Total Price: ${{controller.tipo.total_cost}}</span></div>
+			<div layout="column" layout-padding class="leftdivider" flex="35" hide-xs>
+				<div><md-icon md-colors="{color: 'primary-700'}" class="font20">assessment</md-icon><b><span class="font20">Total Price: <span ng-if="controller.tipo.subscription_status === 'trial'">$0</span><span ng-if="controller.tipo.subscription_status !== 'trial'">${{controller.tipo.total_cost}}</span></span></b></div>
 				<!-- <span>$500</span> -->
 				<div><md-icon md-colors="{color: 'primary-700'}" class="font20">date_range</md-icon><span>  Next Renewal {{controller.tipo.active_until | date:'MM/dd/yyyy'}} </span></div>
 				<!-- <span>Next Renewal 2nd May 2018 </span> -->
@@ -106,59 +71,53 @@
 	</md-card>
 	<!--Plan Details -->
 	<!-- Divider-->
-	<h3 flex="" class="flex" ng-init="controller.collapsed = true" ng-if="!controller.edit_current_plan">
-	    <a href="" ng-click="controller.collapseAll()" class="plain" md-colors="{color: 'primary-700'}" style="color: rgb(0, 110, 119);">
-	      <i class="fa fa-caret-down" ng-class="{'fa-caret-down': !controller.collapsed , 'fa-caret-right': controller.collapsed}"></i>
+	<h3 md-colors="{color: 'primary-700'}" flex="" class="flex">
 	       Choose Different Plans
-	    </a>
-  	</h3>
-  	<md-divider></md-divider>
+	</h3>
+	<md-divider></md-divider>
 	<!-- Divider-->
 	<!--Choose Plans -->
-	<div ng-hide="controller.collapsed" ng-if="!controller.edit_current_plan">
-		<!-- <md-select ng-model="controller.cycleSelected" md-on-close="controller.getPlans(true)" flex="20">
-			<md-option value="" ></md-option>
-			<md-option ng-value="cycle" ng-repeat="cycle in controller.billing_cycles">{{ cycle.display_name }}</md-option>
-		</md-select> -->
-		<!--Choose Plans -->
-		<md-tabs md-dynamic-height md-border-bottom  md-selected="controller.selectedIndex">
-			<md-tab ng-repeat="cycle in controller.billing_cycles" label="{{cycle.display_name}}" ng-click="controller.cycleSelected = cycle;controller.getPlans(true)">
+	<div>
 			<!-- Show Plans -->
-				<div layout="row" layout-align="space-around stretch" layout-sm="column" layout-xs="column" ng-if="!controller.inProgress">
+				<div ng-init="controller.getPlans()" layout="row" layout-align="space-around stretch" layout-sm="column" layout-xs="column" ng-if="!controller.inProgress">
 					<md-card ng-repeat="plan in controller.plans" flex layout="column" layout-align="space-between stretch">
 						<form name="plandetails" layout="column" layout-align="start stretch" layout-padding >
-							<div style="height:50px;margin: -8px;" md-colors="{background: 'primary-500'}" class="text-center">
+							<div style="height:100px;margin: -8px;color: white" md-colors="{background: 'primary-500'}" class="text-center">
 								<md-icon style="color: white;font-size: 30px;margin-top: 8px;">donut_large</md-icon>
+								<div class="md-subhead text-center font20 margin10"><b>{{plan.tipo_id}}</b></div>
+								<div class="md-subhead text-center font20 margin10"><b>{{controller.getPlanCost(plan)}}</b></div>
 							</div>
-							<div class="md-subhead text-center" flex>{{plan.tipo_id}}</div>
-							<div class="md-subhead text-center" layout="row" layout-align="center center" flex ng-repeat="sub_plan in plan.stripe_subscription_plans" ng-if="controller.edit_mode[plan.tipo_id]">
-								<span flex="40">{{sub_plan.plane_name}}</span>
-								<tp:simple-dropdown name="{{plan.tipo_id + '_' + sub_plan.plane_name}}" ng-model="controller[plan.tipo_id][sub_plan.plane_name]" isarray="false" istiporequired="true" allowedvalues="controller.allowed_values" allowcreate="true" fieldvalue="controller[plan.tipo_id][sub_plan.plane_name]" flex="20" istiporequired="true" ng-change="controller.getTotalCost(controller[plan.tipo_id],plan)"/>
-								<div ng-messages="plandetails[plan.tipo_id + '_' + sub_plan.plane_name].$error">
-									<div ng-message="required" >This is required.</div>
+							<div class="margin10">
+								<div class="md-subhead" ng-repeat="sub_plan in plan.stripe_subscription_plans | orderBy: 'item_sort_number' " >
+									<div layout="column" class="text-center margin10" layout-align="center center">
+											<div class="font20" md-colors="{color: 'accent-500'}"><b>{{sub_plan.discounted_quantity}}</b></div>
+											<div style="color:gray">Included {{sub_plan.plane_name}}(s)</div>	
+									</div>	
 								</div>
-							 <span flex="40"> X {{sub_plan.plan_amount}} {{sub_plan.currency}}</span>
-							</div>
-							<div layout="row" layout-align="center center" ng-if="controller.edit_mode[plan.tipo_id]" flex-offset="10">
-							<span flex="40">Total Cost</span>
-							<span flex="20">{{controller.total_cost}}</span>
-							<span flex></span>
-							</div>
-							<div class="md-subhead text-center" layout="row" layout-align="center center" flex ng-repeat="sub_plan in plan.stripe_subscription_plans"  ng-if="!controller.edit_mode[plan.tipo_id]">
-								<span flex="40">{{sub_plan.plane_name}}</span>
-							 <span flex="40">{{sub_plan.plan_amount}} {{sub_plan.currency}}/user</span>
-							</div>
+								<div layout="column" class="text-center margin10" layout-align="center center" >
+									<div class="font20" md-colors="{color: 'accent-500'}"><b>{{plan.plan_restrictions[0].max_allowed}}</b></div>
+									<div style="color:gray">Included Applications</div>
+								</div>
+								<div layout="column" class="text-center margin10" layout-align="center center" >
+									<div class="font20" md-colors="{color: 'accent-500'}"><b>Unlimited</b></div>
+									<div class="planText" style="color:gray" ng-bind-html="plan.additional_text"></div>
+								</div>
+								<md-divider></md-divider>
+								<div class="md-subhead">
+									<div layout="column" class="text-center margin10" layout-align="center center" ng-repeat="sub_plan in plan.stripe_subscription_plans | orderBy:'item_sort_number' " > 
+											<div class="font20" md-colors="{color: 'accent-500'}"><b>${{sub_plan.plan_amount}}</b></div>
+											<div style="color:gray">Additional {{sub_plan.plane_name}}</div>
+									</div>
+								</div>
+						</div>
 						</form>
-						<md-button class="md-accent md-raised m0"  md-theme="reverse" md-colors="{background: 'accent-500'}" ng-click="controller.selectPlan(controller[plan.tipo_id],plan,plandetails)" ng-if="controller.edit_mode[plan.tipo_id]">Select</md-button>
-						<md-button class="md-primary md-raised m0" md-theme="reverse" md-colors="{background: 'accent-500'}" ng-click="controller.enableEditmode(plan.tipo_id)" ng-if="!controller.edit_mode[plan.tipo_id]">Choose Plan</md-button>
+						<md-button class="md-primary md-raised m0" md-theme="reverse" md-colors="{background: 'accent-500'}" ng-click="controller.selectPlan(plan)" ng-disabled="plan.tipo_id === controller.tipo.plan"><span ng-if="plan.tipo_id !== controller.tipo.plan" >Choose Plan</span><span ng-if="plan.tipo_id === controller.tipo.plan">Current Plan</span></md-button>
 					</md-card>
 				</div>
 				<div ng-hide="!controller.inProgress">
 			    	<img class="tp-list" ng-src="_assets/images/logos/tipotapp.gif" style="width: 50px;height: 50px;">
 			  	</div>
-			<md-tab>
 			<!-- Show Plans -->
-		</md-tabs>
 	</div>
 	<!-- Credit Card Details -->
 	<div id="myStaticDialog">
