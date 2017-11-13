@@ -135,7 +135,7 @@
 		 	 <replacements>
 		 	  <replacement>
 		 	   <token>tipo_replace.googleRecaptchaSitekey</token>
-		 	   <value>${env.googleRecaptchaSitekey}</value>
+		 	   <value>${googleRecaptchaSitekey}</value>
 		 	  </replacement> 
 			</replacements>
 		 </configuration>
