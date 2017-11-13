@@ -308,17 +308,18 @@
     _instance.plans = [];
     _instance.allowed_values =  _.range(1, 11);
     _instance.edit_mode = {};
+    _instance.cycleSelected = "Monthly";
     var tipo_plan = "TipoPlans";
     
-    function getPlans(change){
+    function getPlans(){
       var params = {};
       _instance.inProgress = true;
       params.list_display = 'N';
-      if (!change) {
-        selectCycle();
-      };
+      // if (!change) {
+        // selectCycle();
+      // };
       params.tipo_filter = "(!(inactive:true))"
-      params.tipo_filter = params.tipo_filter + ' AND ' + _instance.cycleSelected.filter_expression;
+      // params.tipo_filter = params.tipo_filter + ' AND ' + _instance.cycleSelected.filter_expression;
       if (_instance.edit_current_plan) {
         params.tipo_filter = params.tipo_filter + 'AND (plan_group:' + (_instance.tipo.plan_group ) + ')';
       };
@@ -327,18 +328,56 @@
         _instance.inProgress = false;
       })
     }
-    function selectCycle(){
-      _instance.cycleSelected = _.find(_instance.billing_cycles, function(o) { return o.display_name === _instance.tipo.billing_cycle; });
-      _instance.selectedIndex = _.findIndex(_instance.billing_cycles, function(o) { return o.display_name === _instance.tipo.billing_cycle; }) || 0;
-      _instance.cycleSelected = _instance.cycleSelected || _instance.billing_cycles[0];
+    var planDisplayText;
+    function getPlanDetails (plan) {
+      planDisplayText = " " + plan.quantity + " " + plan.item;
+      angular.forEach(_instance.plans, function(value, index) {
+          if(value.tipo_id === _instance.tipo.plan) {
+            angular.forEach(value.stripe_subscription_plans, function(subscriptionPlan, key){
+              if(plan.item === subscriptionPlan.plane_name) {
+                if(plan.quantity <= subscriptionPlan.discounted_quantity) {
+                  planDisplayText = " Used <b>" + plan.quantity + " of " + subscriptionPlan.discounted_quantity  + " </b>included " + plan.item + "(s)" ;
+                } else {
+                  var additionalQuantity = plan.quantity - subscriptionPlan.discounted_quantity;
+                  planDisplayText = " <b>" + subscriptionPlan.discounted_quantity + "</b> " + plan.item + " <b>+ " + additionalQuantity + " </b>additional " + plan.item + "(s)" ;
+                }
+              }
+            })
+          }
+        });
+      return planDisplayText;
     }
-    function getBillingCycles(){
-      tipoHandle.getTipoDefinition(tipo_plan,true).then(function(plan_def){
-        _instance.billing_cycles = plan_def.tipo_list.filters;
-        getPlans();
+    function getPlanCost(plan) {
+      var planCost = 0;
+      angular.forEach(plan.stripe_subscription_plans, function(subsPlan, index) {
+        planCost = planCost + (subsPlan.discounted_quantity * subsPlan.plan_amount);
       })
+      return  " $" + planCost + "/month" ;
     }
-    getBillingCycles();
+    // function selectCycle(){
+    //   _instance.cycleSelected = _.find(_instance.billing_cycles, function(o) { return o.display_name === _instance.tipo.billing_cycle; });
+    //   _instance.selectedIndex = _.findIndex(_instance.billing_cycles, function(o) { return o.display_name === _instance.tipo.billing_cycle; }) || 0;
+    //   _instance.cycleSelected = _instance.cycleSelected || _instance.billing_cycles[0];
+    //   console.log( _instance.cycleSelected);
+    // }
+    // function getBillingCycles(){
+    //   tipoHandle.getTipoDefinition(tipo_plan,true).then(function(plan_def){
+    //     _instance.billing_cycles = plan_def.tipo_list.filters;
+    //     getPlans();
+    //   })
+    // }
+    // getBillingCycles();
+    function selectPlan(plan){
+      _instance.selectedPlan = plan;
+      if (!_instance.tipo.credit_card && !_instance.cardElement) {
+        showCreditCard();
+        return;
+      }else{
+        var subscription = mapSubscrtoPlan();
+        saveSubscription(subscription);
+      }
+    }
+
     function showCreditCard(){
       var promise = $mdDialog.show({
         controller: function cardController($scope,$mdDialog) {
@@ -410,8 +449,10 @@
         _instance.last4 = response.last4;
         _instance.card_token = result.token.id;
         if (_instance.selectedPlan) {
+          console.log("if loop");
           var subscription = mapSubscrtoPlan();
         }else{
+          console.log("else loop");
           var subscription = mapCardinfo();
         }
 
@@ -419,10 +460,10 @@
       });
     }
     function mapSubscrtoPlan(){
-      var subscription = _instance.tipo;
+      var subscription = angular.copy(_instance.tipo);
       subscription.plan = _instance.selectedPlan.tipo_id;
       subscription.plan_group = _instance.selectedPlan.plan_group;
-      subscription.billing_cycle = _instance.cycleSelected.display_name;
+      subscription.billing_cycle = _instance.cycleSelected;
       subscription.credit_card = _instance.last4 || _instance.tipo.credit_card;
       subscription.card_token = _instance.card_token || _instance.tipo.card_token;
       subscription.plan_interval = _instance.selectedPlan.plan_period.plan_interval;
@@ -439,7 +480,7 @@
         subscription.plan_items[key].item = each_item.plane_name;
         subscription.plan_items[key].currency = each_item.currency;
         subscription.plan_items[key].amount = each_item.plan_amount;
-        subscription.plan_items[key].quantity = _instance.plan_quantity[each_item.plane_name];
+        // subscription.plan_items[key].quantity = _instance.plan_quantity[each_item.plane_name];
       });
       return subscription;
     }
@@ -457,37 +498,9 @@
       })
     }
 
-    function selectPlan(plan_quantity,plan,form){
-      if (form && !form.$valid) {
-        var container = angular.element(document.getElementById('inf-wrapper'));
-        var invalidElement = document.getElementsByClassName("ng-invalid");
-        container.scrollToElement(invalidElement[1],150,100);
-        return false;
-      }
-      _instance.selectedPlan = plan;
-      _instance.plan_quantity = plan_quantity;
-      getTotalCost(plan_quantity,plan)
-      if (!_instance.tipo.credit_card && !_instance.cardElement) {
-        showCreditCard();
-        return;
-      }else{
-        var subscription = mapSubscrtoPlan();
-        saveSubscription(subscription);
-      }
-    }
-
     function deselectPlan(){
       _instance.edit_current_plan = false;
       getPlans();
-    }
-
-    function enableEditmode(id){
-      _instance.edit_mode[id] = true;
-      _.each(_instance.edit_mode,function(value,key){
-        if (key !== id) {
-          _instance.edit_mode[key] = false;
-        }
-      })
     }
 
     function collapseAll(){
@@ -497,24 +510,16 @@
       });
     }
 
-    function getTotalCost(plan_quantity,plan){
-      var total_cost = 0;
-      _.each(plan.stripe_subscription_plans,function(each_item){
-        total_cost = total_cost + (each_item.plan_amount * (plan_quantity[each_item.plane_name] || 0));
-      });
-      _instance.total_cost = total_cost;
-    }
-    _instance.total_cost = 0;
     // Your business logic.
 
     this.createToken = createToken;
     this.showCreditCard = showCreditCard;
-    this.selectPlan = selectPlan;
     this.getPlans = getPlans;
-    this.enableEditmode = enableEditmode;
-    this.getTotalCost = getTotalCost;
+    this.selectPlan = selectPlan;
     this.deselectPlan = deselectPlan;
     this.collapseAll = collapseAll;
+    this.getPlanDetails = getPlanDetails;
+    this.getPlanCost = getPlanCost;
 
   }
 

@@ -54,6 +54,12 @@ html{
 .padding0{
   padding: 0px;
 }
+.margin10 {
+  margin: 10px;
+}
+.marginright20{
+  margin-right: 20px !important;
+}
 .marginleft15{
   margin-left: 15%;
 }
@@ -213,6 +219,7 @@ html{
   .tp-page-heading{
     background: white;
     padding: 8px;
+    border-bottom: 1px solid lightgrey;
     .separator{
       margin-left: 2px;
       margin-right: 2px;
@@ -409,6 +416,10 @@ html{
     span{
       word-wrap: break-word;
     }
+    .noborder{
+        border-width: 0px;
+        background: rgb(242, 242, 242);
+    }
     md-input-container{
       margin: 0;
       width: 100%;
@@ -575,7 +586,7 @@ md-fab-speed-dial.md-fab-top-right{
   right: 10px !important
 }
 .fullwidth{
-  width: 100%
+  width: 100% !important;
 }
 .fullheight{
   height: 100%
@@ -794,5 +805,11 @@ md-list-item::before, md-list-item .md-list-item-inner::before{
       width: 160px;
       height: 160px;
     }
+  }
+}
+
+.planText {
+  div {
+    margin: 10px;
   }
 }
