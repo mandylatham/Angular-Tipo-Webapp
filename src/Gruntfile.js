@@ -244,8 +244,7 @@ module.exports = function (grunt) {
       google: {
         files: {
           '<%= config.directories.source %>/index.html': '<%= config.directories.source %>/index.html',
-          '<%= config.directories.source %>/user/_views/registration.tpl.html': '<%= config.directories.source %>/user/_views/registration.tpl.html',
-          'g/public/common/views/custom/registration.tpl.html': 'g/public/common/views/custom/registration.tpl.html',
+          '<%= config.directories.source %>/user/_views/registration.tpl.html': '<%= config.directories.source %>/user/_views/registration.tpl.html'
         },
         options: {
           replacements: [
