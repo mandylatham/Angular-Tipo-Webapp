@@ -253,8 +253,6 @@
           scope.label_field = scope.selectlabelfield || scope.labelfield || 'tipo_id';
           var key_field = scope.key_field;
           var label_field = scope.label_field;
-          
-
           if(!scope.allowcreate){
             scope.disablecreate = true;
           }else{
@@ -493,7 +491,7 @@
               scope.fieldlabel = [];
               _.each(scope.model.field,function(val){
                 scope.ngModel.push(val[key_field]);
-                scope.fieldlabel.push(val[label_field]);
+                scope.fieldlabel.push(scope.getLabel(val));
               });
             }
             if (attrs.ngChange) {
