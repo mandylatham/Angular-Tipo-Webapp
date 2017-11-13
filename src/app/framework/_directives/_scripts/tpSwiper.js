@@ -7,7 +7,9 @@
 
   return module.directive('tpSwiper', function (
     $mdColors, 
-    $mdColorUtil) {
+    $mdColorUtil,
+    $window,
+    $timeout) {
       return {
         scope: {
           direction: '=',
@@ -58,15 +60,23 @@
                 paginationHide: scope.hidePagination,
                 mousewheelControl: mousewheelControl,
                 loop: loop,
+                loopedSlides: scope.imageArray.length,
                 // If we need pagination
                 pagination: '.swiper-pagination',
-                paginationClickable: false,
+                paginationClickable: true,
                 // Navigation arrows
                 nextButton: '.swiper-button-next',
                 prevButton: '.swiper-button-prev',
           });
           }
+
+          scope.resize = function(){
+            return $timeout(function() {
+              $window.dispatchEvent(new Event("resize"));
+            },1000);
+          }
           init();
+          scope.resize();
 
           scope.$watch(function(){return scope.imageArray},function(){
             init();
