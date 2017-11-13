@@ -460,7 +460,7 @@
       });
     }
     function mapSubscrtoPlan(){
-      var subscription = _instance.tipo;
+      var subscription = angular.copy(_instance.tipo);
       subscription.plan = _instance.selectedPlan.tipo_id;
       subscription.plan_group = _instance.selectedPlan.plan_group;
       subscription.billing_cycle = _instance.cycleSelected;

@@ -1,8 +1,8 @@
 <div>
-    <div md-whiteframe="2" ng-if="navigation.perspectiveMenu && navigation.perspectiveMenu.menuItems.length > 1" ng-class="{'active': item === navigation.activeItem}" layout="row">
+    <div ng-if="navigation.perspectiveMenu && navigation.perspectiveMenu.menuItems.length > 1" ng-class="{'active': item === navigation.activeItem}" layout="row" style="height: 68px;padding: 0px" class="tp-page-heading">
         <div style="width: 15px;min-width: 15px;">
             <md-menu ng-if="navigation.perspectiveMenu.menuItems.length > 1" style="width:100%">
-                <md-button class="md-primary md-raised" layout="row" layout-align="center stretch" ng-click="navigation.openPerspectiveMenu($mdOpenMenu, $event)" style="margin: 0px;min-width: 0;height: auto;border-radius: 0px;">
+                <md-button class="md-primary md-raised" layout="row" layout-align="center stretch" ng-click="navigation.openPerspectiveMenu($mdOpenMenu, $event)" style="margin: 0px;min-width: 0;height: 100%;border-radius: 0px;">
                     <md-tooltip md-direction="right">Switch {{navigation.selectedPerspectiveItem.tipoName}}</md-tooltip>
                     <div class="md-list-item-inner" layout="column">
                         <md-icon md-menu-origin style="margin: 0px;">keyboard_arrow_right</md-icon>

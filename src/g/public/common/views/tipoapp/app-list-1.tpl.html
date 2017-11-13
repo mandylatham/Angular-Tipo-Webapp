@@ -33,7 +33,7 @@
       <div style="width:600px;height: 500px;border: 1px solid #23bdc1;margin: 40px;">
         <div layout="row" class="fullwidth fullheight">
           <div layout="column"  class="fullwidth fullheight" layout-align="center center" layout-padding style="margin: auto;">
-            <span class="md-headline" style="font-style: italic;">Create your New Idea</span>
+            <span class="md-headline" style="font-style: italic;">Create Your New App</span>
             <tp:swiper image-array="controller.imageArray" pagination-type="'bullets'"/>
             <!-- <span><img ng-src="g/public/assets/images/plant1.png" class="fullwidth"> </span> -->
             <div class="fullwidth">
@@ -149,7 +149,7 @@
 
       </div>
       </div>
-  <md-subheader class="md-primary bottompage" ng-if="controller.infiniteItems.maxpages > 1">
+  <md-subheader class="md-primary md-no-sticky" ng-if="controller.infiniteItems.maxpages > 1">
     <div>
       <cl-paging flex cl-pages="controller.infiniteItems.maxpages" cl-steps="controller.steps" cl-page-changed="controller.infiniteItems.fetchMoreItems_('',controller.infiniteItems.page)" cl-align="end start" cl-current-page="controller.infiniteItems.page"></cl-paging>
     </div>
