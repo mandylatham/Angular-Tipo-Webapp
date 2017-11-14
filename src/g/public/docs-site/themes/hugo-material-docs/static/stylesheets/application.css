@@ -354,7 +354,6 @@ hr {
 	z-index: 2;
 	height: 56px;
 	padding: 4px;
-	overflow: hidden
 }
 
 .ios.standalone .header {
