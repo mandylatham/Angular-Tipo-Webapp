@@ -509,8 +509,13 @@
             if (scope.fieldlabel && scope.fieldlabel.length){
               text = '<div class="multiple-list">';
               _.each(scope.fieldlabel, function(each){
-                text += '<div>' +each + '</div>';
+                text += '<div>' + each + '</div>';
               });
+              text += '</div>';
+            } else if(scope.model.field) {
+              console.log(scope.model.field);
+              text = '<div class="multiple-list">';
+              text += '<div>' + scope.getLabel(scope.model.field) + '</div>';
               text += '</div>';
             }
             return text;

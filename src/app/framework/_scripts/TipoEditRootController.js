@@ -135,6 +135,7 @@
     $stateParams,
     $mdDialog,
     $templateCache,
+    tipoDefinition,
     tipoDefinitionDataService,
     tipoClientJavascript,
     tipoCustomJavascript,
@@ -149,6 +150,7 @@
     tipoHandle.setPerspective();
     _instance.tipo_handle = tipoHandle;
     _instance.hide_actions = $scope.hide_actions;
+    _instance.tipoDefinition = tipoDefinition;
     var tipo_name =  $scope.tipo_name || $stateParams.tipo_name;
     _instance.tipo_name = tipo_name;
     _instance.updateUrl = tipoHandle.updateUrl(tipo_name);
@@ -236,7 +238,11 @@
               tipoRouter.toStickyAndReset();
             }else{
               if (form === 'dialog') {
-                tipoHandle.getTipos(tipo_name).then(function(tipos){
+                var filter = {};
+                var page = 1;
+                filter.page = angular.copy(page);
+                filter.per_page = _instance.tipoDefinition.tipo_meta.default_page_size;
+                tipoHandle.getTipos(tipo_name, filter).then(function(tipos){
                   $mdDialog.hide(tipos);
                 });            
               }else{
