@@ -13,9 +13,8 @@
     $stateParams) {
 
     var _instance = this;
-    var tipo_types = [];
     var tipo_name = $stateParams.tipo_name;
-    var tipo_types = angular.copy(TipoTypeService.gettipo_types());
+    var tipo_types = $scope.tipoRootController.tipos || [];
     var application = $scope.tipoRootController.tipoDefinition.application;
     var tipo_groups = $scope.tipoRootController.root.tipo_field_groups;
     if (!_.isUndefined(tipo_groups)) {
@@ -76,6 +75,13 @@
     _instance.launch = function(tipo){
       $window.open(tipo.app_url, '_blank');
     };
+
+    var listener = $scope.$watch(function(){return $scope.tipoRootController.tipos},function(new_value,old_value) {
+      if(new_value) {
+        tipo_types = _.union(tipo_types, new_value);
+        listener();
+      }
+    },true);
 
   }
 
