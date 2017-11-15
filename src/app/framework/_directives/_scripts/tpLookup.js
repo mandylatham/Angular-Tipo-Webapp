@@ -513,7 +513,7 @@
                 text += '<div>' + each + '</div>';
               });
               text += '</div>';
-            } else if(scope.model.field) {
+            } else if(scope.model.field && scope.getLabel(scope.model.field)) {
               text = '<div class="multiple-list">';
               text += '<div>' + scope.getLabel(scope.model.field) + '</div>';
               text += '</div>';
