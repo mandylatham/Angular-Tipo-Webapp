@@ -354,7 +354,6 @@ hr {
 	z-index: 2;
 	height: 56px;
 	padding: 4px;
-	overflow: hidden
 }
 
 .ios.standalone .header {
@@ -488,7 +487,7 @@ body, input {
 }
 
 .project .logo img {
-	background: #fff;
+/*	background: #fff; */
 }
 
 .project:focus .logo img, .project:hover .logo img {

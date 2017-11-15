@@ -119,6 +119,46 @@
           </execution>
         </executions>
       </plugin>
+      
+      <plugin>
+      	<groupId>com.google.code.maven-replacer-plugin</groupId>
+      	<artifactId>replacer</artifactId>
+      	<version>1.5.3</version>
+      	 <executions>
+      	  <execution>
+      	   <phase>prepare-package</phase>
+      	    <goals> <goal>replace</goal> </goals> 
+		  </execution>
+		 </executions>
+		 <configuration>
+		 	<file>${basedir}/src/g/public/common/views/custom/registration.tpl.html</file>
+		 	 <replacements>
+		 	  <replacement>
+		 	   <token>tipo_replace.googleRecaptchaSitekey</token>
+		 	   <value>6Ldaig8UAAAAABblj3oOjSlTco3HTUhArcn_nJAG</value>
+		 	  </replacement> 
+			</replacements>
+		 </configuration>
+	 </plugin> 
+      
+	  <!-- plugin>
+	    <artifactId>maven-antrun-plugin</artifactId>
+	    <executions>
+	      <execution>
+	        <phase>prepare-package</phase>
+	        <configuration>
+	          <tasks>
+	            <replace token= "tipo_replace.googleRecaptchaSitekey" value="${googleRecaptchaSitekey}" dir="${basedir}/src/">                                 
+	              <include name="**/g/public/common/views/custom/registration.tpl.html"/>
+	            </replace>
+	          </tasks>
+	        </configuration>
+	        <goals>
+	          <goal>run</goal>
+	        </goals>
+	      </execution>
+	    </executions>
+	  </plugin-->
 
       <plugin>
         <artifactId>exec-maven-plugin</artifactId>
