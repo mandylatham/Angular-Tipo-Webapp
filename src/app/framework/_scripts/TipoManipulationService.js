@@ -608,6 +608,17 @@
                 menuItem.ignore_singleton = each.ignore_singleton;
                 if (isTipo) {
                     menuItem.tipo_name = parts[1];
+                    var tipo_type = each.type__labels.split(" - ")[1].split(",");
+                    _.each(tipo_type,function(each_type){
+                      if (each_type === "abstract") {
+                        menuItem.abstract = true;
+                      };
+                      if (!menuItem.ignore_singleton && _.startsWith(each_type, 'singleton')) {
+                        menuItem.isSingleton = true;
+                      }else{
+                        menuItem.isSingleton = false;
+                      }
+                    });
                     menuItem.perspective = perspective;
                 }
                 menuItem.quickFilters = each.quick_filters;

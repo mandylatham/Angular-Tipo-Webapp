@@ -96,7 +96,7 @@
                	   	    	}
                	   		};
                	   		
-               			$http.get(value,config);
+               			$templateCache.put(value,$http.get(value,config));
                		}, 10000);
 
             		

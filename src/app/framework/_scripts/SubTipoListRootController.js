@@ -3,7 +3,7 @@
   'use strict';
 
   function SubTipoListRootController(
-    tipoDefinition,
+    tipo,
     subTipoDefinition,
     subTipos,
     tipoManipulationService,
@@ -16,7 +16,7 @@
 
     var _instance = this;
 
-    var parentTipo = tipoDefinition;
+    var parentTipo = tipo;
 
     _instance.tipoDefinition = subTipoDefinition;
     _instance.tipos = subTipos;
@@ -46,9 +46,9 @@
     if (!_.isUndefined($stateParams.tipo_filter) && !_.isEmpty($stateParams.tipo_filter)){
       var sub_filter = $stateParams.tipo_filter;
       if (filter.tipo_filter) {
-        filter.tipo_filter += " AND " + tipoManipulationService.expandFilterExpression(sub_filter, tipoDefinition);
+        filter.tipo_filter += " AND " + tipoManipulationService.expandFilterExpression(sub_filter, tipo);
       } else {
-        filter.tipo_filter = tipoManipulationService.expandFilterExpression(sub_filter, tipoDefinition);
+        filter.tipo_filter = tipoManipulationService.expandFilterExpression(sub_filter, tipo);
       }
     }
     _instance.hasTipos = subTipos.length > 0;
@@ -63,7 +63,7 @@
 
     _instance.createNew = function(){
       tipoRouter.recordSticky();
-      var data = tipoManipulationService.extractContextualData(tipoDefinition, subTipoDefinition);
+      var data = tipoManipulationService.extractContextualData(tipo, subTipoDefinition);
       data = encodeURIComponent(angular.toJson(data));
       tipoRouter.toTipoCreate(tipo_name, {data: data});
     };

@@ -226,6 +226,7 @@
           selectfield: '=',
           selectkeyfield: '=',
           selectlabelfield: '=',
+          labelexpression: '=',
           readOnly: '='
         },
         restrict: 'EA',
@@ -368,6 +369,7 @@
           }
           scope.triggerDropdown = function(searchText){
             scope.initload = false;
+            scope.options = [];
             return $timeout(function() {
               scope.$broadcast("$md-resize");
               scope.loadOptions(searchText);
@@ -487,13 +489,13 @@
             delete scope.searchTerm.text;
               if (!isarray) {
                 scope.ngModel = scope.model.field[key_field];
-                scope.fieldlabel = scope.model.field[label_field];
+                scope.fieldlabel = scope.getLabel(scope.model.field);
             }else{
               scope.ngModel = [];
               scope.fieldlabel = [];
               _.each(scope.model.field,function(val){
                 scope.ngModel.push(val[key_field]);
-                scope.fieldlabel.push(val[label_field]);
+                scope.fieldlabel.push(scope.getLabel(val));
               });
             }
             if (attrs.ngChange) {
@@ -598,8 +600,21 @@
             return promise;
           };
 
+          //template setting
+          _.templateSettings.interpolate = /{([\s\S]+?)}/g;
+         if (scope.labelexpression.indexOf("$tipo") !== -1 || scope.labelexpression.indexOf("$tipo_root") !== -1) {
+            // var labelexpression = _.replace(scope.labelexpression,/$tipo./, "");
+            var labelexpression = scope.labelexpression.replace(/\$tipo\./g, "").replace("$tipo_root.","");
+            var compiled = _.template(labelexpression);
+          }
+          var label;
           scope.getLabel = function(option){
-            return _.get(option, label_field);
+            if (labelexpression && !_.isNull(option)) {
+              label = compiled(option);
+            }else{
+              label = _.get(option,label_field);
+            }
+            return label;
           }
 
           scope.clearModel = function(){
