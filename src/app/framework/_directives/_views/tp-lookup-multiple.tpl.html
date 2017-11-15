@@ -2,7 +2,7 @@
 	<div flex>
 		<md-select ng-model="model.field" aria-label="realtedtipo" md-container-class="tp-field" placeholder="{{field.field_description}}" md-on-open="triggerDropdown()" md-on-close="cleanup()" md-selected-text="renderSelection()" multiple="true" ng-disabled="ispopup || readOnly" flex ng-required="istipomandatory">
 		  <md-select-header class="search" ng-if="options.length > 5">
-		    <md-input-container md-no-float class="fullwidth">
+		    <md-input-container md-no-float>
 		      <input ng-model="searchTerm.text" type="search" placeholder="Search ..." ng-keydown="stopBubbling($event)" ng-keyup="$event.keyCode == 13 ? triggerDropdown(searchTerm.text) : null" tp:auto-focus>
 		      <md-icon ng-if="!disablecreate" class="md-primary addtipo pointer" ng-click="addTipo()">add</md-icon>
 		    </md-input-container>
@@ -10,7 +10,7 @@
 		  <md-option ng-value="option" ng-if="initload" ng-repeat="option in options">{{ option[label_field] }}</md-option>
 		  <md-virtual-repeat-container id="vertical-container" class="fluid-row-container" update-size md-auto-shrink>
 		  	<div md-virtual-repeat="option in infiniteItems" md-on-demand flex>
-		  		<md-option ng-value="option" >{{ option[label_field] }}</md-option>
+		  		<md-option ng-value="option" ng-selected="model.field.indexOf(option) >= 0">{{ getLabel(option) }}</md-option>
 		  	</div>
 		  </md-virtual-repeat-container>
 		</md-select>

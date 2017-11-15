@@ -127,6 +127,7 @@
       var newScope = $scope.$new();
       newScope.hide_actions = true;
       newScope.tipo_name = _instance.tipoDefinition.tipo_meta.tipo_name;
+      newScope.queryparams = _instance.queryparams;
       var promise = $mdDialog.show({
         templateUrl: 'framework/_directives/_views/tp-lookup-popup-select-new.tpl.html',
         controller: 'TipoEditRootController',
@@ -254,8 +255,6 @@
           scope.label_field = scope.selectlabelfield || scope.labelfield || 'tipo_id';
           var key_field = scope.key_field;
           var label_field = scope.label_field;
-          
-
           if(!scope.allowcreate){
             scope.disablecreate = true;
           }else{
@@ -510,11 +509,15 @@
 
           scope.renderSelection = function(){
             var text = '<div class="placeholder"> </div>';
-            if (scope.fieldlabel && scope.fieldlabel.length){
+            if ((_.isArray(scope.fieldlabel) && scope.fieldlabel.length)){
               text = '<div class="multiple-list">';
               _.each(scope.fieldlabel, function(each){
-                text += '<div>' +each + '</div>';
+                text += '<div>' + each + '</div>';
               });
+              text += '</div>';
+            } else if(scope.model.field && scope.getLabel(scope.model.field)) {
+              text = '<div class="multiple-list">';
+              text += '<div>' + scope.getLabel(scope.model.field) + '</div>';
               text += '</div>';
             }
             return text;

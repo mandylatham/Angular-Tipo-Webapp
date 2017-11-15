@@ -1,8 +1,8 @@
 <div layout="row">
 	<div flex>
-		<md-select ng-model="model.field" aria-label="realtedtipo" md-container-class="tp-field"  md-on-open="triggerDropdown()" md-on-close="cleanup()" ng-if="!ispopup" ng-required="istipomandatory" ng-disabled="readOnly">
+		<md-select ng-model="model.field" aria-label="realtedtipo" md-container-class="tp-field"  md-on-open="triggerDropdown()" md-selected-text="renderSelection()" md-on-close="cleanup()" ng-if="!ispopup" ng-required="istipomandatory" ng-disabled="readOnly">
 		  <md-select-header class="search">
-		    <md-input-container md-no-float class="fullwidth">
+		    <md-input-container md-no-float>
 		      <input ng-model="searchTerm.text" type="search" placeholder="Search ..." ng-keydown="stopBubbling($event)" ng-keyup="$event.keyCode == 13 ? triggerDropdown(searchTerm.text) : null" tp:auto-focus>
 		      <md-icon ng-if="!disablecreate" class="md-primary addtipo pointer" ng-click="addTipo()">add</md-icon>
 		    </md-input-container>
@@ -11,7 +11,7 @@
 			  <md-option ng-value="option" ng-if="initload" ng-repeat="option in options">{{ option[label_field] }}</md-option>
 		  <md-virtual-repeat-container id="vertical-container" class="fluid-row-container" update-size md-auto-shrink>
 		  	<div md-virtual-repeat="option in infiniteItems" md-on-demand flex>
-		  		<md-option ng-value="option" >{{ getLabel(option) }}</md-option>
+		  		<md-option ng-value="option" ng-selected="option===model.field">{{ getLabel(option) }}</md-option>
 		  	</div>
 		  </md-virtual-repeat-container>
 		</md-select>

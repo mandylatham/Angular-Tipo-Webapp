@@ -244,7 +244,7 @@
               tipoRouter.toStickyAndReset();
             }else{
               if (form === 'dialog') {
-                tipoHandle.getTipos(tipo_name).then(function(tipos){
+                tipoHandle.getTipos(tipo_name, $scope.queryparams).then(function(tipos){
                   $mdDialog.hide(tipos);
                 });            
               }else{
