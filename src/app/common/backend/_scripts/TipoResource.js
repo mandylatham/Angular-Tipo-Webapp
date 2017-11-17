@@ -253,7 +253,9 @@
           if (!config.params) {
             config.params = {};
           };
-        config.params.version_stamp = $rootScope.version_stamp
+        if (_.startsWith(config.url,"g/") || _.startsWith(config.url,"api/")) {
+          config.params.version_stamp = $rootScope.version_stamp
+        };
         if (_.startsWith(config.url,"g/") && $rootScope.cdn_host) {
           config.url = "https://" + $rootScope.cdn_host + "/" + config.url;
         };
