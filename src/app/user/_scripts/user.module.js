@@ -27,6 +27,20 @@
       }
     };
 
+    var captureCreditCardState = {
+      name: 'captureCreditCard',
+      url: '/capture-credit-card',
+      parent: baseState,
+      views: /*@ngInject*/ {
+        'content@userBase': {
+          templateProvider: function(metadataService){
+            return metadataService.resolveAppCustomTemplates('creditcard_template','user/_views/capture-creditcard.tpl.html');
+          }
+          // templateUrl: 'user/_views/capture-creditcard.tpl.html'
+        }
+      }
+    };
+
     var loginState = {
       name: 'login',
       url: '/login?plan',
@@ -94,6 +108,7 @@
       .state(baseState)
       .state(loginState)
       .state(registrationState)
+      .state(captureCreditCardState)
       .state(forgotPasswordState)
       .state(resetPasswordState)
       .state(newPasswordRequiredState);
@@ -106,7 +121,7 @@
   var module = angular.module('tipo.user', []);
   module.run(function ($rootScope) {
     $rootScope.$on('$stateChangeStart', function(event, to, toParams, from, fromParams) {
-      if (['registration', 'login', 'forgotPassword', 'resetPassword', 'newPasswordRequired'].indexOf(to.name) != -1) {
+      if (['registration', 'login', 'forgotPassword', 'resetPassword', 'newPasswordRequired', 'captureCreditCard'].indexOf(to.name) != -1) {
         return; // no need to save auxiliary states
       }
 

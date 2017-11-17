@@ -12,12 +12,16 @@
     $state,
     $stateParams,
     $mdToast,
+    $mdDialog,
+    tipoHandle,
     $scope,
     $rootScope) {
 
     var _instance = this;
 
     _instance.inProgress = false;
+    $scope.tipoAccountResponse;
+    $scope.cardToken;
 
     var appMetadata = metadataService.applicationMetadata;
     var appMetadata = _.merge(_.get(appMetadata,"TipoApp"),_.get(appMetadata,"TipoConfiguration"));
@@ -83,6 +87,67 @@
       _instance.inProgress = false;
     }
 
+      _instance.initCard = function(){
+        $scope.show_card = true;
+        $scope.stripe = Stripe('pk_test_JD6zYPAyxr6qz1pVtzSphiYQ');
+        var elements = $scope.stripe.elements();
+        var style = {
+          base: {
+            color: '#303238',
+            fontSize: '16px',
+            lineHeight: '48px',
+            fontSmoothing: 'antialiased',
+            '::placeholder': {
+              color: '#ccc',
+            },
+          },
+          invalid: {
+            color: '#e5424d',
+            ':focus': {
+              color: '#303238',
+            },
+          },
+        };
+        $scope.cardElement = elements.create('card', {style: style});
+        $scope.cardElement.mount('#card-element');
+      }
+
+      _instance.createToken = function(){
+        $scope.stripe.createToken($scope.cardElement).then(function(result) {
+          if (result.error) {
+            // Inform the user if there was an error
+            var errorElement = document.getElementById('card-errors');
+            errorElement.textContent = result.error.message;
+          } else {
+            // Send the token to your server
+            console.log(result);
+            createToken(result);
+          }
+        });
+      }
+
+      function createToken(result){
+        console.log(result);
+        console.log($scope.tipoAccountResponse);
+        $scope.cardToken = result;
+        if ($scope.tipoAccountResponse) {
+          tipoHandle.callAction($scope.tipoAccountResponse.tipo_name,'attach_card',[$scope.tipoAccountResponse.tipo_id],$scope.tipoAccountResponse.tipo_name,{token_source: $scope.cardToken.token.id}).then(function(response){
+            console.log(response);
+          });
+        } else {
+          $scope.$watch(function(){
+            return $scope.tipoAccountResponse;
+          }, function(newValue, oldValue){
+            console.log(newValue, oldValue);
+            if(newValue){
+              tipoHandle.callAction(newValue.tipo_name,'attach_card',[newValue.tipo_id],newValue.tipo_name,{token_source: $scope.cardToken.token.id}).then(function(response){
+                console.log(response);
+              });
+            }
+          }, true);
+        }
+      }
+
     _instance.signUp = function(attemptCnt) {
       markProgress();
       if (appMetadata.capture_account_name_during_signup && !verifyAccountName(user.accountName)) {
@@ -104,6 +169,8 @@
           cognitoService.resendCode().then(function() {
             tipoCache.clearMemoryCache();
             tipoInstanceDataService.upsertAll('TipoAccount',[{account:account ,application:appMetadata.application ,tipo_id:account ,account_name:user.accountName ,application_owner_account:appMetadata.application_owner_account ,company_name:user.companyName }],criteria).then(function(res){
+              console.log("----------------------- tipo account done", res);
+              $scope.tipoAccountResponse = res;
             },
             function(err){
               raiseError(err);
@@ -113,7 +180,7 @@
             function(err){
               raiseError(err);
             });
-            tipoRouter.to('dashboard');
+            tipoRouter.to('captureCreditCard');
           }, function(err) {
             console.error(err);
             tipoRouter.to('dashboard');
@@ -233,6 +300,7 @@
         $mdToast.show(toast);
       }
     });
+
 
   }
   angular.module('tipo.user')

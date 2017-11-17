@@ -449,10 +449,8 @@
         _instance.last4 = response.last4;
         _instance.card_token = result.token.id;
         if (_instance.selectedPlan) {
-          console.log("if loop");
           var subscription = mapSubscrtoPlan();
         }else{
-          console.log("else loop");
           var subscription = mapCardinfo();
         }
 
