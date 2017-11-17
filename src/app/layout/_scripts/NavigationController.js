@@ -10,6 +10,8 @@
     metadataService,
     tipoCache,
     $mdSidenav,
+    $templateCache,
+    $window,
     $mdMedia,
     $state,
     $stateParams,
@@ -205,6 +207,8 @@
         tipoRouter.startStateChange();
         metadataService.clearServerCache().then(function(){
           tipoCache.clearAll();
+          $templateCache.removeAll();
+          $window.location.reload();
           tipoRouter.endStateChange();
         });
       },

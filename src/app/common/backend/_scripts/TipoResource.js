@@ -17,7 +17,7 @@
     $location, 
     $http,
     $q,
-    tipoRegistry) {
+    $window) {
 
     function refreshAccesstoken() {
       var deferred = $q.defer();
@@ -73,8 +73,14 @@
       },
       response: {
         // Extracts the payload from the wrapped API response
-        extractData: function (rawData) {
-        	
+        extractData: function (rawData, operation, what, url, response, deferred) {
+          var version_stamp = response.headers()["x-tipo-version-stamp"];
+           if ($rootScope.version_stamp && $rootScope.version_stamp !== version_stamp) {
+              console.log("refresh entire app");
+              tipoCache.clearAll();
+              $templateCache.removeAll();
+              $window.location.reload();
+           };
             _.forEach(rawData.refresh_list, function(value) {
             	if(_.startsWith(value,"/")) {
             		value = value.substring(1);
@@ -179,7 +185,7 @@
     $q,
     $window) {
 
-    var interceptors = getAllInterceptors(tipoRouter,$rootScope,securityContextService, tipoErrorHandler, tipoCache, cognitoService,$templateCache, $cacheFactory, $location, $http, $q);
+    var interceptors = getAllInterceptors(tipoRouter,$rootScope,securityContextService, tipoErrorHandler, tipoCache, cognitoService,$templateCache, $cacheFactory, $location, $http, $q, $window);
     var location = $window.location;
     var relativeUrl = location.pathname;
     if (_.startsWith(relativeUrl, '/app')) {
@@ -235,26 +241,33 @@
 
   // Tipo Resource. This shall be used for all the HTTP XHR calls
 
-  function httpInterceptors(securityContextService){
+  function httpInterceptors(localStorageService,$rootScope){
     return{
       request: function(config){
-        var deferred = $q.defer();
-        var accessToken = securityContextService.getCurrentIdToken();
+        // var accessToken = securityContextService.getCurrentIdToken();
+        var accessToken = _.get(localStorageService.get('security_context'),'tokenDetails.id_token');
         if (!_.isUndefined(accessToken)) {
-          config.headers['Authorization'] = accessToken;
+          // config.headers['Authorization'] = accessToken;
         }
-        deferred.resolve(config);
-        return deferred.promise;
+        if ($rootScope.version_stamp) {
+          if (!config.params) {
+            config.params = {};
+          };
+        config.params.version_stamp = $rootScope.version_stamp
+        if (_.startsWith(config.url,"g/") && $rootScope.cdn_host) {
+          config.url = "https://" + $rootScope.cdn_host + "/" + config.url;
+        };
+        };
+        return config;
       }
     }
   }
 
   angular.module('tipo.common')
-    .factory('tipoResource', TipoResource);
-    // .factory('httpInterceptors', httpInterceptors);
-  // angular.module('tipo.common')
-  //   .config(function ($httpProvider) {
-  //     $httpProvider.interceptors.push(httpInterceptors);
-  //   });
+    .factory('httpInterceptors', httpInterceptors)
+    .factory('tipoResource', TipoResource)
+    .config(function ($httpProvider) {
+      $httpProvider.interceptors.push('httpInterceptors');
+    });
 
 })();

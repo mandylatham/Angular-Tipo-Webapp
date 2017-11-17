@@ -36,6 +36,7 @@
       promise = promise.then(function (metadata) {
         _instance.applicationMetadata = metadata;
         $rootScope.version_stamp = metadata.SystemConfig.build_number + "." + metadata.TipoApp.app_version + "." + metadata.TipoApp.random;
+        $rootScope.cdn_host = metadata.SystemConfig.app_cdn_host;
         return metadata;
       }, function () {
         console.warn('Could not fetch the application metadata. This indicates that the Tipo APIs are not reachable');
