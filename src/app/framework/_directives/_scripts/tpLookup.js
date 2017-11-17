@@ -14,9 +14,8 @@
     $mdDialog,
     tipoCache,
     tipoRouter,
-    tipoHandle,
     tipoInstanceDataService,
-    tipoDefinitionDataService,
+    tipoHandle,
     tipoClientJavascript,
     tipoCustomJavascript) {
 
@@ -138,7 +137,7 @@
           tipo: function() {
             return undefined;
           },
-          tipoDefinition: function(tipoDefinitionDataService){
+          tipoDefinition: function(){
             return _instance.tipoDefinition;
           }
         },
@@ -203,7 +202,6 @@
     $timeout,
     $stateParams,
     $compile,
-    tipoDefinitionDataService,
     tipoClientJavascript,
     tipoCustomJavascript) {
       return {
@@ -524,7 +522,7 @@
           };
 
           if (scope.ispopup) {
-            tipoDefinitionDataService.getOne(scope.tipo_name).then(function(definition){
+            tipoHandle.getTipoDefinition(scope.tipo_name).then(function(definition){
               var searchText;
               scope.popupDefinition = definition;
             });
@@ -587,8 +585,8 @@
                 tipo: function() {
                   return undefined;
                 },
-                tipoDefinition: function(tipoDefinitionDataService){
-                  return tipoDefinitionDataService.getOne(scope.tipo_name);
+                tipoDefinition: function(tipoHandle){
+                  return tipoHandle.getTipoDefinition(scope.tipo_name);
                 }
               },
               skipHide: true,

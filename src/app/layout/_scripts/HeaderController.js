@@ -4,7 +4,7 @@
 
   function HeaderController(
     tipoRouter,
-    tipoDefinitionDataService,
+    tipoHandle,
     tipoInstanceDataService,
     tipoManipulationService,
     metadataService,
@@ -81,7 +81,7 @@
     var homeMeta = tipoRegistry.get('Home');
     if (!$rootScope.readonly) {
       if (_.isUndefined(homeMeta)) {
-      tipoDefinitionDataService.getOne('Home').then(function(definition){
+      tipoHandle.getTipoDefinition('Home').then(function(definition){
         homeMeta = definition;
         addPerspectives(userMeta,homeMeta);
         });

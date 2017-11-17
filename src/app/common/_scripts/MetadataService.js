@@ -12,6 +12,7 @@
     $mdMedia,
     $q,
     $http,
+    $templateCache,
     $window) {
 
     var _instance = this;
@@ -84,10 +85,14 @@
     };
 
     _instance.resolveAppCustomTemplates = function(template_name,alt_path){
-      return $http.get(_instance.resolveAppCustomUrls(template_name,alt_path))
-                  .then(function(tpl){
-                    return tpl.data;
-                  });
+      var deferred = $q.defer();
+      var template = _instance.resolveAppCustomUrls(template_name,alt_path);
+      if ($templateCache.get(template)) {
+        deferred.resolve($templateCache.get(template));
+      }else{
+        $http.get(template).then(function(tpl){ $templateCache.put(template,tpl.data); deferred.resolve(tpl.data);});
+      }
+      return deferred.promise;
     }
 
     _instance.resolveAppCustomUrls = function(template_name,alt_path){

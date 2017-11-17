@@ -117,7 +117,7 @@
     if (metadataService.userMetadata && metadataService.userMetadata.role) {
       var role = metadataService.userMetadata.role;
     }else{
-      var role = "ProfessionalPlanRole";
+      var role = "TipoUser";
     }
     
      function getConfirmation(title, user_message){
