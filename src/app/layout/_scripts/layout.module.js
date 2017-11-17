@@ -84,9 +84,12 @@
                 $templateCache.put(url,$http.get(url,config));
               })
             })
-          })
+          });
+          $rootScope.asyncSuccess = true;
         }
-        loadAsyncData();
+        if (!$rootScope.asyncSuccess) {
+          loadAsyncData();
+        };
       },
       templateUrl: 'layout/_views/layout.tpl.html'
     };

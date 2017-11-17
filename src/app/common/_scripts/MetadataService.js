@@ -12,6 +12,7 @@
     $mdMedia,
     $q,
     $http,
+    $rootScope,
     $templateCache,
     $window) {
 
@@ -34,6 +35,7 @@
       });
       promise = promise.then(function (metadata) {
         _instance.applicationMetadata = metadata;
+        $rootScope.version_stamp = metadata.SystemConfig.build_number + "." + metadata.TipoApp.app_version + "." + metadata.TipoApp.random;
         return metadata;
       }, function () {
         console.warn('Could not fetch the application metadata. This indicates that the Tipo APIs are not reachable');
