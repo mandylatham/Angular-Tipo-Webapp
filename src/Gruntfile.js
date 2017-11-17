@@ -251,10 +251,6 @@ module.exports = function (grunt) {
             {
               pattern: 'tipo_replace.googleRecaptchaSitekey',
               replacement: config.mavenProperties.googleRecaptchaSitekey
-            },
-            {
-              pattern: /appcdn/g,
-              replacement: config.mavenProperties.app_cdn_host
             }
           ]
         }
