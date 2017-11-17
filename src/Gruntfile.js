@@ -255,6 +255,14 @@ module.exports = function (grunt) {
             {
             	pattern: '___app_cdn_host___',
             	replacement: config.mavenProperties.app_cdn_host
+            }, 
+            {
+            	pattern: 'asdfasdfasdf',
+            	replacement: config.mavenProperties.app_cdn_host
+            }, 
+            {
+            	pattern: '2___app_cdn_host___2',
+            	replacement:  config.mavenProperties.googleRecaptchaSitekey
             }
           ]
         }
