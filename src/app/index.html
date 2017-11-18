@@ -8,15 +8,10 @@
     <title state-title="Build Apps Made Easy" pattern="%s | TipoTapp"></title>
     <meta name="description" content="Tipo User Interface">
     
-    <script>
-		(function(){
-		var i = document.createElement('iframe');
-		i.style.display = 'none';
-		i.onload = function() { i.parentNode.removeChild(i); };
-		i.src = 'g/public/common/scripts/themes.js';
-		document.body.appendChild(i);
-		})();
-	</script>
+    <!-- Themes -->
+    <script src="g/public/common/scripts/themes.js"></script>
+    
+
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <!-- build:js(app) /_scripts/bootstrap.js -->
@@ -48,6 +43,17 @@
   </head>
 
   <body id="body">
+  
+      <!--script>
+		(function(){
+		var i = document.createElement('iframe');
+		i.style.display = 'none';
+		i.onload = function() { i.parentNode.removeChild(i); };
+		i.src = 'g/public/common/scripts/themes.js';
+		document.body.appendChild(i);
+		})();
+	</script-->
+  
     <div id="background-container" ui-view></div>
     <div id="loader"></div>
     <!--[if lt IE 7]>
