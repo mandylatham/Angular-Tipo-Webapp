@@ -15,6 +15,7 @@
     $mdMedia,
     $state,
     $stateParams,
+    $location,
     $scope,
     $rootScope) {
 
@@ -208,6 +209,7 @@
         metadataService.clearServerCache().then(function(){
           tipoCache.clearAll();
           $templateCache.removeAll();
+          $location.url("/login");
           $window.location.reload();
           tipoRouter.endStateChange();
         });

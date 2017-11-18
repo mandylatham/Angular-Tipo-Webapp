@@ -14,6 +14,7 @@
     $http,
     $rootScope,
     $templateCache,
+    $location,
     $window) {
 
     var _instance = this;
@@ -36,7 +37,20 @@
       promise = promise.then(function (metadata) {
         _instance.applicationMetadata = metadata;
         $rootScope.version_stamp = metadata.SystemConfig.build_number + "." + metadata.TipoApp.app_version + "." + metadata.TipoApp.random;
-        $rootScope.cdn_host = metadata.SystemConfig.app_cdn_host;
+        console.log("$location.absUrl()");
+        console.log($location.absUrl());
+        console.log($location.protocol());
+        console.log($location.host());
+        console.log($location.port());
+        console.log($location.path());
+        console.log($window.location.pathname);
+        var pathname = $window.location.pathname
+        if (_.startsWith(pathname,"/app/d")) {
+          $rootScope.cdn_host = metadata.SystemConfig.app_cdn_host;
+          $rootScope.relative_path = pathname;
+        }else{
+          $rootScope.cdn_host = metadata.SystemConfig.app_cdn_host + "/app/d/" + metadata.TipoApp.application_owner_account_name + "/" + metadata.TipoApp.application_name ;
+        }
         return metadata;
       }, function () {
         console.warn('Could not fetch the application metadata. This indicates that the Tipo APIs are not reachable');
