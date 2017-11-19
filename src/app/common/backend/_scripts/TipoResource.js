@@ -96,15 +96,26 @@
                				+ $location.port() + "/" +value;
                		$httpDefaultCache.remove(url);
                		
+	               	  $.ajax({
+	                      type:"PURGE",
+	                      url: value,
+	                      crossDomain: true
+	                  });
+               		
+
                		setTimeout(function() {
-               	 		var config = {headers:  {
-               	   	        'Pragma': 'no-cache',
-               	   	    	}
+               	 		var config = {
                	   		};
                	   		
-               			$templateCache.put(value,$http.get(value,config));
-               		}, 10000);
-
+               			$templateCache.put(value,$.ajax({
+	                      type:"GET",
+	                      headers:{
+	               	   	        'Pragma': 'no-cache',
+	               	   	  },
+	                      url: value,
+	                      crossDomain: true
+	                  }));
+               		}, 2000);
             		
             		if (value.indexOf("CustomScript.js") !== -1) {
 				        var head= document.getElementsByTagName('head')[0];
