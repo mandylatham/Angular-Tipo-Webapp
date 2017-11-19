@@ -253,15 +253,15 @@
           if (!config.params) {
             config.params = {};
           };
-//        var relative_path = "";
-//        if ($rootScope.relative_path) {
-//          relative_path = $rootScope.relative_path;
-//        };
+        var relative_path = "";
+        if ($rootScope.relative_path) {
+          relative_path = $rootScope.relative_path;
+        };
         if (_.startsWith(config.url, "g/") || _.startsWith(config.url,"api/")) {
           config.params.version_stamp = $rootScope.version_stamp
         };
         if (_.startsWith(config.url, "g/") && $rootScope.cdn_host) {
-          config.url = "https://" + $rootScope.cdn_host + "/" + config.url;
+          config.url = "https://" + $rootScope.cdn_host + relative_path  + config.url;
         };
         };
         return config;
