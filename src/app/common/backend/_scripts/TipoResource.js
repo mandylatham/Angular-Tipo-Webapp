@@ -260,7 +260,14 @@
         if (_.startsWith(config.url, "g/") || _.startsWith(config.url,"api/")) {
           config.params.version_stamp = $rootScope.version_stamp
         };
+
         if (_.startsWith(config.url, "g/") && $rootScope.cdn_host) {
+            if (!_.startsWith(relative_path, "/")) {
+            	relative_path = "/" + relative_path;
+            }
+            if (!_.endsWith(relative_path, "/")) {
+            	relative_path = relative_path + "/";
+            }
           config.url = "https://" + $rootScope.cdn_host + relative_path  + config.url;
         };
         };
