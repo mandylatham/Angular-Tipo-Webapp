@@ -76,7 +76,7 @@
         extractData: function (rawData, operation, what, url, response, deferred) {
           var version_stamp = response.headers()["x-tipo-version-stamp"];
            if ($rootScope.version_stamp && $rootScope.version_stamp !== version_stamp) {
-              console.log("refresh entire app");
+              console.log("refresh entire app stored : [" + $rootScope.version_stamp + "], received : [" + version_stamp + "]" );
               tipoCache.clearAll();
               $templateCache.removeAll();
               $window.location.reload();
