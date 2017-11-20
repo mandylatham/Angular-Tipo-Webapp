@@ -96,32 +96,44 @@
                                 $location.port() + "/" + value;
                             $httpDefaultCache.remove(url);
 
-                            $http({
+                            if (!_.startsWith(value,"api/")) {
+                                $http({
                                 method: "PURGE",
                                 url: value, 
                                 crossDomain: true,
                                 headers: { "Content-Type": "text/plain" }
                                 })
                                 .then(function(){
-                                    $http.get(value).then(function(tpl){
-                                    $templateCache.put(value,tpl.data);
-                                  });
+                                    setTimeout(function() {
+                                        $http.get(value).then(function(tpl){
+                                            $templateCache.put(value,tpl.data);
+                                        });
+                                    },2000);
                                 });
-
-
-                            setTimeout(function() {
+                            }else{
+                                var config = {headers:  {
+                                                    'Pragma': 'no-cache',
+                                                  }
+                                              };
+                                setTimeout(function() {
+                                    $http.get(value,config).then(function(tpl){
+                                        $templateCache.put(value,tpl.data);
+                                    });
+                                    },2000);
+                            }
+                            // setTimeout(function() {
                                  
-                                // var config = {};
+                            //     // var config = {};
 
-                                // $templateCache.put(value, $.ajax({
-                                //     type: "GET",
-                                //     headers: {
-                                //         'Pragma': 'no-cache',
-                                //     },
-                                //     url: value,
-                                //     crossDomain: true
-                                // }));
-                            }, 2000);
+                            //     // $templateCache.put(value, $.ajax({
+                            //     //     type: "GET",
+                            //     //     headers: {
+                            //     //         'Pragma': 'no-cache',
+                            //     //     },
+                            //     //     url: value,
+                            //     //     crossDomain: true
+                            //     // }));
+                            // }, 2000);
 
                             if (value.indexOf("CustomScript.js") !== -1) {
                                 var head = document.getElementsByTagName('head')[0];
@@ -285,7 +297,7 @@
                         if (!_.endsWith(relative_path, "/")) {
                             relative_path = relative_path + "/";
                         }
-                        config.url = "https://" + $rootScope.cdn_host + relative_path + config.url;
+                        config.url = "https://" + $rootScope.cdn_host + config.url;
                     };
                 };
                 return config;
