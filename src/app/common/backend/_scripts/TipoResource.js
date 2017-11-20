@@ -189,7 +189,7 @@
     var location = $window.location;
     var relativeUrl = location.pathname;
     if (_.startsWith(relativeUrl, '/app')) {
-      // relativeUrl = '/api/d/tipotapp/constructionmanagement' + relativeUrl.substring(4);
+      // relativeUrl = '/api/d/tipotapp/tourmanagmentapp' + relativeUrl.substring(4);
       // relativeUrl = '/api/d/tipotapp/sdm' + relativeUrl.substring(4);
       // relativeUrl = '/api/d/deltagene/billionbases' + relativeUrl.substring(4);
       relativeUrl = '/api' + relativeUrl.substring(4);
@@ -197,7 +197,7 @@
       // relativeUrl = '/api/d/hr/dialadish' + relativeUrl.substring(4);
     } else {
       // relativeUrl = '/api/d/tipotapp/sdm';
-      // relativeUrl = '/api/d/tipotapp/constructionmanagement';
+      // relativeUrl = '/api/d/tipotapp/tourmanagmentapp';
       // relativeUrl = '/api/d/deltagene/billionbases';
       // relativeUrl = '/api/d/hr/dialadish';
       relativeUrl = '/api';
@@ -253,15 +253,18 @@
           if (!config.params) {
             config.params = {};
           };
-        var relative_path = "";
-        if ($rootScope.relative_path) {
-          relative_path = $rootScope.relative_path;
-        };
-        if (_.startsWith(config.url,relative_path + "g/") || _.startsWith(config.url,"api/")) {
+        // var relative_path = "";
+        // if ($rootScope.relative_path) {
+        //   relative_path = $rootScope.relative_path;
+        // };
+        if (_.startsWith(config.url,"g/") || _.startsWith(config.url,"api/")) {
           config.params.version_stamp = $rootScope.version_stamp
         };
-        if (_.startsWith(config.url,relative_path + "g/") && $rootScope.cdn_host) {
+        if (_.startsWith(config.url,"g/") && $rootScope.cdn_host) {
           config.url = "https://" + $rootScope.cdn_host + "/" + config.url;
+          if (S(config.url).contains("TipoDefinition") && config.method === "GET") {
+            config.headers["Surrogate-Key"] = "TipoDefinition";
+          };
         };
         };
         return config;

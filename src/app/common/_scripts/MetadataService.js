@@ -47,7 +47,7 @@
         var pathname = $window.location.pathname
         if (_.startsWith(pathname,"/app/d")) {
           $rootScope.cdn_host = metadata.SystemConfig.app_cdn_host;
-          $rootScope.relative_path = pathname;
+          // $rootScope.relative_path = pathname;
         }else{
           $rootScope.cdn_host = metadata.SystemConfig.app_cdn_host + "/app/d/" + metadata.TipoApp.application_owner_account_name + "/" + metadata.TipoApp.application_name ;
         }
