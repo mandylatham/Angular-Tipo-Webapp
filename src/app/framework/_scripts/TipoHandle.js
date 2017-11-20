@@ -51,7 +51,7 @@
     _instance.context = tipoDialogInputs.context;
     _instance.submit_label = tipoDialogInputs.submit_label;
     _instance.tipo_name =  tipoDialogInputs.tipo_name
-    
+    _instance.createUrl = tipoHandle.createUrl(_instance.tipo_name);
     $scope.Date = Date;
 
     _instance.hooks = {};

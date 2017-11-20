@@ -96,24 +96,31 @@
                                 $location.port() + "/" + value;
                             $httpDefaultCache.remove(url);
 
-                            $.ajax({
-                                type: "PURGE",
-                                url: value,
-                                crossDomain: true
-                            });
+                            $http({
+                                method: "PURGE",
+                                url: value, 
+                                crossDomain: true,
+                                headers: { "Content-Type": "text/plain" }
+                                })
+                                .then(function(){
+                                    $http.get(value).then(function(tpl){
+                                    $templateCache.put(value,tpl.data);
+                                  });
+                                });
 
 
                             setTimeout(function() {
-                                var config = {};
+                                 
+                                // var config = {};
 
-                                $templateCache.put(value, $.ajax({
-                                    type: "GET",
-                                    headers: {
-                                        'Pragma': 'no-cache',
-                                    },
-                                    url: value,
-                                    crossDomain: true
-                                }));
+                                // $templateCache.put(value, $.ajax({
+                                //     type: "GET",
+                                //     headers: {
+                                //         'Pragma': 'no-cache',
+                                //     },
+                                //     url: value,
+                                //     crossDomain: true
+                                // }));
                             }, 2000);
 
                             if (value.indexOf("CustomScript.js") !== -1) {
