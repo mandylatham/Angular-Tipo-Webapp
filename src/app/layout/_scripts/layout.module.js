@@ -58,7 +58,7 @@
           var perspective = $stateParams.perspective || 'Home';
           var tipo = perspective.split('.')[0];
           if (!$rootScope.readonly) {
-            return tipoDefinitionDataService.getOne(tipo).then(function(){
+            return tipoDefinitionDataService.getOne(tipo,true).then(function(){
               $rootScope.perspective = perspective;
               return tipoManipulationService.resolvePerspectiveMetadata(perspective);
             });

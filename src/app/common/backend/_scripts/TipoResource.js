@@ -275,9 +275,6 @@
             request: function(config) {
                 // var accessToken = securityContextService.getCurrentIdToken();
                 var accessToken = _.get(localStorageService.get('security_context'), 'tokenDetails.id_token');
-                if (!_.isUndefined(accessToken)) {
-                    // config.headers['Authorization'] = accessToken;
-                }
                 if ($rootScope.version_stamp) {
                     if (!config.params) {
                         config.params = {};
@@ -289,7 +286,9 @@
                     if (_.startsWith(config.url, "g/") || _.startsWith(config.url, "api/")) {
                         config.params.version_stamp = $rootScope.version_stamp
                     };
-
+                    if (!_.isUndefined(accessToken) && _.startsWith(config.url, "api/")) {
+                        config.headers['Authorization'] = accessToken;
+                    }
                     if (_.startsWith(config.url, "g/") && $rootScope.cdn_host) {
                         if (!_.startsWith(relative_path, "/")) {
                             relative_path = "/" + relative_path;
