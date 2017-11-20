@@ -5,22 +5,22 @@
     <meta http-equiv="cache-control" content="max-age=0" />
     <meta http-equiv="cache-control" content="no-cache" />
     <meta http-equiv="pragma" content="no-cache" />
-    <title state-title="Build Cloud-Native applications in minutes" pattern="%s | TipoTapp"></title>
+    <title state-title="Build Apps Made Easy" pattern="%s | TipoTapp"></title>
     <meta name="description" content="Tipo User Interface">
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-    <!-- build:js(app) _scripts/bootstrap.js -->
+    <!-- build:js(app) /_scripts/bootstrap.js -->
     <script src="/_scripts/bootstrap.js"></script>
     <!-- endbuild -->
 
-    <!-- build:js(app) _scripts/pace.js -->
+    <!-- build:js(app) /_scripts/pace.js -->
     <script src="/_scripts/non-bower-managed/pace.js"></script>
     <!-- endbuild -->
 
     <link href="g/public/common/styles/pace.css" rel="stylesheet" />
     
-    <!-- build:css(app) _styles/main.css -->
+
+    <!-- build:css(app) /_styles/main.css -->
     <link rel="stylesheet" type="text/css" media="screen" href="/_styles/main.css">
     <!-- endbuild -->
 
@@ -33,11 +33,12 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyATW0kUB4r9O_SKDbm5CYkRNuYS0YvdkRo&libraries=places"></script>
     <script src='https://apis.google.com/js/platform.js' async defer></script>  
     <script src="https://www.google.com/recaptcha/api.js?onload=vcRecaptchaApiLoaded&render=explicit" async defer></script>
-	<link rel="stylesheet" type="text/css" media="screen" href="g/public/common/styles/font.css">
-	<link rel="stylesheet" type="text/css" media="screen" href="g/public/common/styles/custom.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="g/public/common/styles/font.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="g/public/common/styles/custom.css">
   </head>
 
   <body id="body">
+    
     <div id="background-container" ui-view></div>
     <div id="loader"></div>
     <!--[if lt IE 7]>
@@ -48,10 +49,10 @@
     <script src="/_scripts/non-bower-managed/jsbn.js"></script>
     <script src="/_scripts/non-bower-managed/jsbn2.js"></script>
     <script src="/_scripts/non-bower-managed/sjcl.js"></script>
-    <!-- endbuild -->
-
     <script src="/_scripts/non-bower-managed/separate/aws-cognito-sdk.min.js"></script>
     <script src="/_scripts/non-bower-managed/separate/amazon-cognito-identity.min.js"></script>
+    <!-- endbuild -->
+
 
     <!-- build:js(.) /_scripts/bower-managed.js -->
     <!-- bower:js -->
@@ -148,17 +149,26 @@
 
     <!-- endbuild -->
     <script src="g/public/common/scripts/themes.js"></script>
+    
+    <!-- build:js(app) /_scripts/non-bower-managed-post.js -->
     <script src="/_scripts/non-bower-managed/material-paging.min.js"></script>
     <script src="/_scripts/non-bower-managed/cleave-angular.min.js"></script>
     <script src="/_scripts/non-bower-managed/markerclusterer.js"></script>
     <script src="/_scripts/non-bower-managed/angular1TextMask.js"></script>
     <script src="/_scripts/non-bower-managed/image-resize.min.js"></script>
     <script src="/_scripts/non-bower-managed/image-drop.min.js"></script>
+    <!-- endbuild -->
+    
     <script src="g/public/common/scripts/GoogleAnalytics.js" async defer></script>
     <script src="g/public/common/scripts/CustomScript.js" async defer></script>
     <script src="g/public/common/scripts/CustomDev.js" async defer></script>
     <script src="https://js.stripe.com/v3/" async defer></script>
 
+	<!-- Testing replacements tipo_replace.googleRecaptchaSitekey ___app_cdn_host___ asdfasdfasdf 2___app_cdn_host___2 -->
+
   </body>
+  
+
+  <!-- endbuild -->
 
 </html>

@@ -4,5 +4,6 @@
   "version": "${project.version}",
   "finalName": "${project.build.finalName}",
   "description": "${project.description}",
-  "googleRecaptchaSitekey": "${googleRecaptchaSiteKey}"
+  "googleRecaptchaSitekey": "${googleRecaptchaSiteKey}",
+  "app_cdn_host": "${app_cdn_host}"
 }

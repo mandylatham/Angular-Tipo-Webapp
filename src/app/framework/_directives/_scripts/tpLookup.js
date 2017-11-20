@@ -14,9 +14,8 @@
     $mdDialog,
     tipoCache,
     tipoRouter,
-    tipoHandle,
     tipoInstanceDataService,
-    tipoDefinitionDataService,
+    tipoHandle,
     tipoClientJavascript,
     tipoCustomJavascript) {
 
@@ -127,6 +126,7 @@
       var newScope = $scope.$new();
       newScope.hide_actions = true;
       newScope.tipo_name = _instance.tipoDefinition.tipo_meta.tipo_name;
+      newScope.queryparams = _instance.queryparams;
       var promise = $mdDialog.show({
         templateUrl: 'framework/_directives/_views/tp-lookup-popup-select-new.tpl.html',
         controller: 'TipoEditRootController',
@@ -137,7 +137,7 @@
           tipo: function() {
             return undefined;
           },
-          tipoDefinition: function(tipoDefinitionDataService){
+          tipoDefinition: function(){
             return _instance.tipoDefinition;
           }
         },
@@ -202,7 +202,6 @@
     $timeout,
     $stateParams,
     $compile,
-    tipoDefinitionDataService,
     tipoClientJavascript,
     tipoCustomJavascript) {
       return {
@@ -226,6 +225,7 @@
           selectfield: '=',
           selectkeyfield: '=',
           selectlabelfield: '=',
+          labelexpression: '=',
           readOnly: '='
         },
         restrict: 'EA',
@@ -253,8 +253,6 @@
           scope.label_field = scope.selectlabelfield || scope.labelfield || 'tipo_id';
           var key_field = scope.key_field;
           var label_field = scope.label_field;
-          
-
           if(!scope.allowcreate){
             scope.disablecreate = true;
           }else{
@@ -368,6 +366,7 @@
           }
           scope.triggerDropdown = function(searchText){
             scope.initload = false;
+            scope.options = [];
             return $timeout(function() {
               scope.$broadcast("$md-resize");
               scope.loadOptions(searchText);
@@ -487,13 +486,13 @@
             delete scope.searchTerm.text;
               if (!isarray) {
                 scope.ngModel = scope.model.field[key_field];
-                scope.fieldlabel = scope.model.field[label_field];
+                scope.fieldlabel = scope.getLabel(scope.model.field);
             }else{
               scope.ngModel = [];
               scope.fieldlabel = [];
               _.each(scope.model.field,function(val){
                 scope.ngModel.push(val[key_field]);
-                scope.fieldlabel.push(val[label_field]);
+                scope.fieldlabel.push(scope.getLabel(val));
               });
             }
             if (attrs.ngChange) {
@@ -508,18 +507,22 @@
 
           scope.renderSelection = function(){
             var text = '<div class="placeholder"> </div>';
-            if (scope.fieldlabel && scope.fieldlabel.length){
+            if ((_.isArray(scope.fieldlabel) && scope.fieldlabel.length)){
               text = '<div class="multiple-list">';
               _.each(scope.fieldlabel, function(each){
-                text += '<div>' +each + '</div>';
+                text += '<div>' + each + '</div>';
               });
+              text += '</div>';
+            } else if(scope.model.field && scope.getLabel(scope.model.field)) {
+              text = '<div class="multiple-list">';
+              text += '<div>' + scope.getLabel(scope.model.field) + '</div>';
               text += '</div>';
             }
             return text;
           };
 
           if (scope.ispopup) {
-            tipoDefinitionDataService.getOne(scope.tipo_name).then(function(definition){
+            tipoHandle.getTipoDefinition(scope.tipo_name).then(function(definition){
               var searchText;
               scope.popupDefinition = definition;
             });
@@ -582,8 +585,8 @@
                 tipo: function() {
                   return undefined;
                 },
-                tipoDefinition: function(tipoDefinitionDataService){
-                  return tipoDefinitionDataService.getOne(scope.tipo_name);
+                tipoDefinition: function(tipoHandle){
+                  return tipoHandle.getTipoDefinition(scope.tipo_name);
                 }
               },
               skipHide: true,
@@ -598,8 +601,21 @@
             return promise;
           };
 
+          //template setting
+          _.templateSettings.interpolate = /{([\s\S]+?)}/g;
+         if (scope.labelexpression.indexOf("$tipo") !== -1 || scope.labelexpression.indexOf("$tipo_root") !== -1) {
+            // var labelexpression = _.replace(scope.labelexpression,/$tipo./, "");
+            var labelexpression = scope.labelexpression.replace(/\$tipo\./g, "").replace("$tipo_root.","");
+            var compiled = _.template(labelexpression);
+          }
+          var label;
           scope.getLabel = function(option){
-            return _.get(option, label_field);
+            if (labelexpression && !_.isNull(option)) {
+              label = compiled(option);
+            }else{
+              label = _.get(option,label_field);
+            }
+            return label;
           }
 
           scope.clearModel = function(){

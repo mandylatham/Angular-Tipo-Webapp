@@ -2,6 +2,7 @@
 
 var path = require('path');
 var express = require('express');
+var cors = require('cors')
 var lodash = require('lodash');
 var proxy = require('http-proxy-middleware');
 
@@ -83,7 +84,7 @@ var proxyConfig = {
 };
 
 var app = express();
-
+app.use(cors());
 lodash.each(pathMappings, function(mapping){
   if(mapping.dir){
     app.use(mapping.path, express.static(path.resolve(__dirname, mapping.dir)));

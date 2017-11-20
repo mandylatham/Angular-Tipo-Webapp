@@ -68,7 +68,28 @@
           }
         }
       },
-      controller: /*@ngInject*/ function($scope, $rootScope){
+      controller: /*@ngInject*/ function($scope, $rootScope,tipoHandle,$templateCache,$http){
+        function loadAsyncData(){
+          var filter = {};
+          filter.tipo_filter = "(tipo_meta.pre_load: true)";
+          var templates = ["updateUrl","createUrl","detailUrl","listUrl"];
+          var config = {headers:  {
+                            'Pragma': 'no-cache',
+                          }
+                      };
+          tipoHandle.getTipos("TipoDefinition",filter).then(function(tipos){
+            _.each(tipos,function(tipo){
+              _.each(templates,function(template){
+                var url = tipoHandle[template](tipo.tipo_id);
+                $templateCache.put(url,$http.get(url,config));
+              })
+            })
+          });
+          $rootScope.asyncSuccess = true;
+        }
+        if (!$rootScope.asyncSuccess) {
+          loadAsyncData();
+        };
       },
       templateUrl: 'layout/_views/layout.tpl.html'
     };

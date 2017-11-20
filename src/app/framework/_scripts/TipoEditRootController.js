@@ -141,6 +141,7 @@
     $mdSelect,
     $mdMedia,
     tipoCache,
+    $rootScope,
     $sce) {
     
 
@@ -150,6 +151,13 @@
     _instance.tipo_handle = tipoHandle;
     _instance.hide_actions = $scope.hide_actions;
     var tipo_name =  $scope.tipo_name || $stateParams.tipo_name;
+    _instance.initTiposData = function(ui_type){
+      var type = ui_type;
+      if (type === 'perspective') {
+          $rootScope.perspective = tipo_name + '.' + tipo.tipo_id;
+          $stateParams.perspective = tipo_name + '.' + tipo.tipo_id;
+        }
+    }
     _instance.tipo_name = tipo_name;
     _instance.updateUrl = tipoHandle.updateUrl(tipo_name);
     _instance.createUrl = tipoHandle.createUrl(tipo_name);
@@ -236,7 +244,7 @@
               tipoRouter.toStickyAndReset();
             }else{
               if (form === 'dialog') {
-                tipoHandle.getTipos(tipo_name).then(function(tipos){
+                tipoHandle.getTipos(tipo_name, $scope.queryparams).then(function(tipos){
                   $mdDialog.hide(tipos);
                 });            
               }else{

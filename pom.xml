@@ -114,6 +114,7 @@
             <configuration>
               <files>
                 <file>env.properties</file>
+                <file>src/maven-properties.json</file>
               </files>
             </configuration>
           </execution>
@@ -135,11 +136,35 @@
 		 	 <replacements>
 		 	  <replacement>
 		 	   <token>tipo_replace.googleRecaptchaSitekey</token>
-		 	   <value>6Ldaig8UAAAAABblj3oOjSlTco3HTUhArcn_nJAG</value>
+		 	   <value>${googleRecaptchaSitekey}</value>
 		 	  </replacement> 
 			</replacements>
 		 </configuration>
 	 </plugin> 
+   <plugin>
+        <groupId>com.google.code.maven-replacer-plugin</groupId>
+        <artifactId>replacer</artifactId>
+        <version>1.5.3</version>
+         <executions>
+          <execution>
+           <phase>prepare-package</phase>
+            <goals> <goal>replace</goal> </goals> 
+      </execution>
+     </executions>
+     <configuration>
+      <file>${basedir}/target-grunt/dist/index.html</file>
+       <replacements>
+        <replacement>
+         <token>/_scripts</token>
+         <value>https://${app_cdn_host}/_scripts</value>
+        </replacement>
+        <replacement>
+         <token>/_styles</token>
+         <value>https://${app_cdn_host}/_styles</value>
+        </replacement> 
+      </replacements>
+     </configuration>
+   </plugin> 
       
 	  <!-- plugin>
 	    <artifactId>maven-antrun-plugin</artifactId>

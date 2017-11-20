@@ -359,8 +359,8 @@
               scope: newScope,
               resolve: /*@ngInject*/
               {
-                tipoDefinition: function(tipoDefinitionDataService, tipoManipulationService) {
-                  return tipoDefinitionDataService.getOne(tipo_name);
+                tipoDefinition: function(tipoHandle, tipoManipulationService) {
+                  return tipoHandle.getTipoDefinition(tipo_name);
                 },
                 tipoAction: function(){
                   return action;

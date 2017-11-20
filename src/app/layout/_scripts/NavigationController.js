@@ -10,9 +10,12 @@
     metadataService,
     tipoCache,
     $mdSidenav,
+    $templateCache,
+    $window,
     $mdMedia,
     $state,
     $stateParams,
+    $location,
     $scope,
     $rootScope) {
 
@@ -58,7 +61,7 @@
     function prepareMenuItems(tipo,definition,perspectiveMenuItems){
       var tipoId = tipo.tipo_id;
       var clonedDefinition = _.cloneDeep(definition);
-      clonedDefinition.tipo_fields = clonedDefinition.list_display_fields;
+      // clonedDefinition.tipo_fields = clonedDefinition.list_display_fields;
       tipoManipulationService.mergeDefinitionAndData(clonedDefinition, tipo);
       // clonedDefinition.tipo_fields = tipoManipulationService.extractShortDisplayFields(clonedDefinition);
       var label = tipoManipulationService.getLabel(clonedDefinition);
@@ -165,13 +168,7 @@
         $mdSidenav('left').close();
       }
       _instance.activeItem = menuItem;
-      if (menuItem.tipo_name) {
-        tipoHandle.getTipoDefinition(menuItem.tipo_name).then(function(response){
-          navigateToItem(menuItem, response); 
-        }); 
-      }else{
-        tipoRouter.toMenuItem(menuItem);
-      }    
+      tipoRouter.toMenuItem(menuItem);   
     };
 
     _instance.switchTipoPerspective = function(menuItem){
@@ -211,6 +208,9 @@
         tipoRouter.startStateChange();
         metadataService.clearServerCache().then(function(){
           tipoCache.clearAll();
+          $templateCache.removeAll();
+          $location.url("/login");
+          $window.location.reload();
           tipoRouter.endStateChange();
         });
       },

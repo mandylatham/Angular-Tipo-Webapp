@@ -27,6 +27,17 @@
     var appMetadata = _.merge(_.get(appMetadata,"TipoApp"),_.get(appMetadata,"TipoConfiguration"));
     _instance.header_template = metadataService.resolveAppCustomUrls("login_header_template","user/_views/header.tpl.html")
     var user = {};
+    var templates = [{template_name: "registation_template", default_template: "user/_views/registration.tpl.html"},
+      {template_name: "login_template", default_template: "user/_views/registration.tpl.html"},
+      {template_name: "forgot_password_template", default_template: "user/_views/forgot-password.tpl.html"},
+      {template_name: "reset_password_template", default_template: "user/_views/reset-password.tpl.html"},
+      {template_name: "new_password_template", default_template: "user/_views/new-password-required.tpl.html"}];
+    function fetchAllTemplatesAsync(){
+      _.each(templates,function(each){
+        metadataService.resolveAppCustomTemplates(each.template_name, each.default_template);
+      })
+    }
+    fetchAllTemplatesAsync();
     user.fullName = function(){
       return appMetadata.application_owner_account + '.' + appMetadata.application + '.' + _instance.user.email;
     };

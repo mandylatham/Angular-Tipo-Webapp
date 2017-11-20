@@ -117,7 +117,7 @@
     if (metadataService.userMetadata && metadataService.userMetadata.role) {
       var role = metadataService.userMetadata.role;
     }else{
-      var role = "ProfessionalPlanRole";
+      var role = "TipoUser";
     }
     
      function getConfirmation(title, user_message){
@@ -148,7 +148,7 @@
 
      function getTipoDefinition(tipo_name, disableExpansion){
       tipoRouter.startStateChange();
-      return tipoDefinitionDataService.getOne(tipo_name, disableExpansion).then(function(response){
+      return tipoDefinitionDataService.getOne(tipo_name, true).then(function(response){
           tipoRouter.endStateChange();
           return response;
         });
@@ -213,7 +213,7 @@
      }
 
      function getTipo(tipo_name, tipo_id, query_params,reload){
-      tipoCache.evict(tipo_name, tipo_id);
+      // tipoCache.evict(tipo_name, tipo_id);
       query_params = tipoManipulationService.checkQueryParams(query_params);
       return tipoInstanceDataService.getOne(tipo_name, tipo_id, query_params, reload);
      }

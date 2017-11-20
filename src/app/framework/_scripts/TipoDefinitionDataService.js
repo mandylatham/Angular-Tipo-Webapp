@@ -57,12 +57,12 @@
         params.expand_def = 'Y';
       }
       var promise = tipoResource.one(TIPO_DEFINITION_RESOURCE, id).get(params);
-      if(!disableExpansion){
+      // if(!disableExpansion){
         promise = promise.then(function(definition){
           tipoRegistry.push(definition);
           return tipoRegistry.get(id);
         });
-      }
+      // }
       return promise;
     };
 
