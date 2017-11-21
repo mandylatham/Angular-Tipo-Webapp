@@ -31,7 +31,7 @@
       <div ng-if="!tipoRootController.hasTipos" flex layout="row" layout-align="center center">
     <!-- <tp-no-content message="No records found" /> -->
       <div style="width:600px;height: 500px;border: 1px solid #23bdc1;margin: 40px;">
-        <div layout="row" class="fullwidth fullheight">
+        <div layout="row" class="fullwidth fullheight" ng-if="tipoRootController.tipo_handle.menu_item.quickFilters !== 'sampleapp'">
           <div layout="column"  class="fullwidth fullheight" layout-align="center center" layout-padding style="margin: auto;">
             <span class="md-headline" style="font-style: italic;">Create Your New App</span>
             <tp:swiper image-array="controller.imageArray" pagination-type="'bullets'"/>
@@ -97,7 +97,7 @@
           <span class="md-headline" layout-padding>New Application</span>
         </div>
       </md-card> -->
-      <md-card layout="column" layout-align="start stretch" ng-click="tipoRootController.createNew(); $event.stopPropagation();" >      
+      <md-card layout="column" layout-align="start stretch" ng-if="tipoRootController.tipo_handle.menu_item.quickFilters !== 'sampleapp'" ng-click="tipoRootController.createNew(); $event.stopPropagation();" >      
         <div layout="row" layout-align="space-between center" style="-webkit-mask-image: url('_assets/images/white_pattern.svg');height:168px;background-color:#309fdb;color:white;" layout-padding >
         </div>
         <div layout="row" layout-align="start center" class="app-top" flex="80">
@@ -130,7 +130,7 @@
               <!-- <md-icon>launch</md-icon> -->
               <md-icon md-svg-src="_assets/images/launch.svg" ></md-icon>
             </md-button>
-            <md-button ng-click="controller.delete(tipo); $event.stopPropagation();" aria-label="Launch" class="icon-button">
+            <md-button ng-click="controller.delete(tipo); $event.stopPropagation();" ng-if="tipoRootController.tipo_handle.menu_item.quickFilters !== 'sampleapp'" aria-label="Launch" class="icon-button">
               <md-tooltip md-direction="right">Delete Application</md-tooltip>
               <!-- <md-icon>delete</md-icon> -->
               <md-icon md-svg-src="_assets/images/delete.svg" ></md-icon>
