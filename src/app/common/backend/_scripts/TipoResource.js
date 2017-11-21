@@ -168,6 +168,9 @@
               $rootScope.readonlyrf = "toTipoView";
               // tipoRouter.toTipoView("TipoSubscriptions","default");
               // tipoErrorHandler.handleError(response, deferred);
+            } 
+            if (response.status === 521) {
+              tipoRouter.to('captureCreditCard');              
             }else{
               tipoErrorHandler.handleError(response, deferred);
             }
@@ -272,7 +275,7 @@
           config.params.version_stamp = $rootScope.version_stamp
         };
 
-        if (_.startsWith(config.url, "g/") && $rootScope.cdn_host) {
+        if (_.startsWith(config.url, "g/") && $rootScope.cdn_host && !S(config.url).contains("/custom/")) {
             if (!_.startsWith(relative_path, "/")) {
             	relative_path = "/" + relative_path;
             }

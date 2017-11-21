@@ -12,7 +12,6 @@
     $state,
     $stateParams,
     $mdToast,
-    $mdDialog,
     tipoHandle,
     $scope,
     $rootScope) {
@@ -20,8 +19,6 @@
     var _instance = this;
 
     _instance.inProgress = false;
-    $scope.tipoAccountResponse;
-    $scope.cardToken;
 
     var appMetadata = metadataService.applicationMetadata;
     var appMetadata = _.merge(_.get(appMetadata,"TipoApp"),_.get(appMetadata,"TipoConfiguration"));
@@ -100,7 +97,7 @@
 
       _instance.initCard = function(){
         $scope.show_card = true;
-        $scope.stripe = Stripe('pk_test_JD6zYPAyxr6qz1pVtzSphiYQ');
+        $scope.stripe = Stripe(appMetadata.app_subscription.publishable_key);
         var elements = $scope.stripe.elements();
         var style = {
           base: {
@@ -124,6 +121,7 @@
       }
 
       _instance.createToken = function(){
+        markProgress();
         $scope.stripe.createToken($scope.cardElement).then(function(result) {
           if (result.error) {
             // Inform the user if there was an error
@@ -131,32 +129,16 @@
             errorElement.textContent = result.error.message;
           } else {
             // Send the token to your server
-            console.log(result);
             createToken(result);
           }
         });
       }
 
       function createToken(result){
-        console.log(result);
-        console.log($scope.tipoAccountResponse);
-        $scope.cardToken = result;
-        if ($scope.tipoAccountResponse) {
-          tipoHandle.callAction($scope.tipoAccountResponse.tipo_name,'attach_card',[$scope.tipoAccountResponse.tipo_id],$scope.tipoAccountResponse.tipo_name,{token_source: $scope.cardToken.token.id}).then(function(response){
-            console.log(response);
+        console.log("token", result);
+        tipoHandle.callAction('TipoSubscriptions','attach_card',['2000000001'],'TipoSubscriptions',{token_source: result.token.id}).then(function(response){
+            tipoRouter.to('dashboard');
           });
-        } else {
-          $scope.$watch(function(){
-            return $scope.tipoAccountResponse;
-          }, function(newValue, oldValue){
-            console.log(newValue, oldValue);
-            if(newValue){
-              tipoHandle.callAction(newValue.tipo_name,'attach_card',[newValue.tipo_id],newValue.tipo_name,{token_source: $scope.cardToken.token.id}).then(function(response){
-                console.log(response);
-              });
-            }
-          }, true);
-        }
       }
 
     _instance.signUp = function(attemptCnt) {
@@ -176,22 +158,26 @@
         };
         // Authenticate
         var criteria = {bare_event: 'Y',post_event: 'Y'};
+        var user_attributes = {first_name: user.first_name, phone_number: user.phone_number};
+        var org_attributes = {company_name: user.companyName};
         cognitoService.authenticate(user.fullName(), user.password).then(function() {
           cognitoService.resendCode().then(function() {
             tipoCache.clearMemoryCache();
-            tipoInstanceDataService.upsertAll('TipoAccount',[{account:account ,application:appMetadata.application ,tipo_id:account ,account_name:user.accountName ,application_owner_account:appMetadata.application_owner_account ,company_name:user.companyName }],criteria).then(function(res){
-              console.log("----------------------- tipo account done", res);
-              $scope.tipoAccountResponse = res;
+            tipoInstanceDataService.upsertAll('TipoAccount',[{account:account ,application:appMetadata.application ,tipo_id:account ,account_name:user.accountName ,application_owner_account:appMetadata.application_owner_account ,company_name:user.companyName, org_attributes:org_attributes, user_attributes: user_attributes}],criteria).then(function(res){
             },
             function(err){
               raiseError(err);
             });
-            tipoInstanceDataService.upsertAll('TipoUser',[{account:account ,application:appMetadata.application ,tipo_id:user.email ,application_owner_account:appMetadata.application_owner_account,role: "Admin" }],criteria).then(function(res){
-            },
-            function(err){
-              raiseError(err);
-            });
-            tipoRouter.to('captureCreditCard');
+            // tipoInstanceDataService.upsertAll('TipoUser',[{account:account ,application:appMetadata.application ,tipo_id:user.email ,application_owner_account:appMetadata.application_owner_account,role: "Admin" }],criteria).then(function(res){
+            // },
+            // function(err){
+            //   raiseError(err);
+            // });
+            if(appMetadata.app_subscription.capture_credit_card) {
+              tipoRouter.to('captureCreditCard');
+            } else {
+              tipoRouter.to('dashboard');
+            }
           }, function(err) {
             console.error(err);
             tipoRouter.to('dashboard');

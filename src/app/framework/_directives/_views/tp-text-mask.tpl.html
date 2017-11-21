@@ -1,3 +1,3 @@
 <div>
-	<input text-mask="pattern" name="{{name}}" ng-model="fieldLabel" type="text" ng-pattern="regexValidation"/>
+	<input text-mask="pattern" name="{{name}}" ng-model="fieldLabel" type="text" ng-pattern="regexValidation" ng-model-options="{ updateOn: 'blur'}" ng-required="isRequired" />
 </div>
