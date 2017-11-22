@@ -58,7 +58,7 @@
           var perspective = $stateParams.perspective || 'Home';
           var tipo = perspective.split('.')[0];
           if (!$rootScope.readonly) {
-            return tipoDefinitionDataService.getOne(tipo).then(function(){
+            return tipoDefinitionDataService.getOne(tipo,true).then(function(){
               $rootScope.perspective = perspective;
               return tipoManipulationService.resolvePerspectiveMetadata(perspective);
             });
@@ -73,15 +73,15 @@
           var filter = {};
           filter.tipo_filter = "(tipo_meta.pre_load: true)";
           var templates = ["updateUrl","createUrl","detailUrl","listUrl"];
-          var config = {headers:  {
-                            'Pragma': 'no-cache',
-                          }
-                      };
+          // var config = {headers:  {
+          //                   'Pragma': 'no-cache',
+          //                 }
+          //             };
           tipoHandle.getTipos("TipoDefinition",filter).then(function(tipos){
             _.each(tipos,function(tipo){
               _.each(templates,function(template){
                 var url = tipoHandle[template](tipo.tipo_id);
-                $templateCache.put(url,$http.get(url,config));
+                $templateCache.put(url,$http.get(url));
               })
             })
           });

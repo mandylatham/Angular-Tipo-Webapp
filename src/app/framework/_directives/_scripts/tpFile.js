@@ -212,7 +212,7 @@
           if(!_.isUndefined(finalPath)){
             var parts = finalPath.split('/');
             if(S(_.last(parts)).contains('.')){
-              if(finalPath !== initialPath){
+              if(finalPath !== initialPath || _.isEmpty(scope.field)){
                 // indicates that a file path is there and is not the original one
                 if(_.isUndefined(index)){
                   scope.singlePath.tagType = tagType;

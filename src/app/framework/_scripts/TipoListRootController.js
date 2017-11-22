@@ -385,6 +385,7 @@
       _instance.infiniteItems.serverResultHandler = serverResultHandler;
       _instance.infiniteItems.tipos = [];
       _instance.tipos = [];
+      _instance.infiniteItems.fetchMoreItems_("",1);
     }
 
     _instance.undoEdit = function(){

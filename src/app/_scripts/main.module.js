@@ -45,6 +45,10 @@
   module.config(function($stateProvider) {
     configureModule($stateProvider);
   });
+  // var script = document.createElement('script');
+  // script.src = "g/public/common/scripts/themes.js";
+  // script.async = false;
+  // document.head.appendChild(script);
 
 })();
 

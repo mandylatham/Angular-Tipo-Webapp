@@ -51,7 +51,7 @@
     _instance.context = tipoDialogInputs.context;
     _instance.submit_label = tipoDialogInputs.submit_label;
     _instance.tipo_name =  tipoDialogInputs.tipo_name
-    
+    _instance.createUrl = tipoHandle.createUrl(_instance.tipo_name);
     $scope.Date = Date;
 
     _instance.hooks = {};
@@ -304,6 +304,10 @@
       this.perspective.tipo_id = this.perspective.tipoId;
     }
 
+    function setMenuItem(menu_item){
+      this.menu_item = menu_item;
+    }
+
 
      this.application_meta = metadataService.applicationMetadata;
      this.user_meta = metadataService.userMetadata;
@@ -330,6 +334,7 @@
      this.toTipo = toTipo;
      this.getISODate = getISODate;
      this.setPerspective = setPerspective;
+     this.setMenuItem = setMenuItem;
 
 
 

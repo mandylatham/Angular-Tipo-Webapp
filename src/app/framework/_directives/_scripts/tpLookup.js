@@ -505,6 +505,23 @@
             event.stopPropagation();
           };
 
+           //template setting
+          _.templateSettings.interpolate = /{([\s\S]+?)}/g;
+         if (scope.labelexpression && (scope.labelexpression.indexOf("$tipo") !== -1 || scope.labelexpression.indexOf("$tipo_root") !== -1)) {
+            // var labelexpression = _.replace(scope.labelexpression,/$tipo./, "");
+            var labelexpression = scope.labelexpression.replace(/\$tipo\./g, "").replace("$tipo_root.","");
+            var compiled = _.template(labelexpression);
+          }
+          var label;
+          scope.getLabel = function(option){
+            if (labelexpression && !_.isNull(option)) {
+              label = compiled(option);
+            }else{
+              label = _.get(option,label_field);
+            }
+            return label;
+          }
+
           scope.renderSelection = function(){
             var text = '<div class="placeholder"> </div>';
             if ((_.isArray(scope.fieldlabel) && scope.fieldlabel.length)){
@@ -600,23 +617,6 @@
             })
             return promise;
           };
-
-          //template setting
-          _.templateSettings.interpolate = /{([\s\S]+?)}/g;
-         if (scope.labelexpression.indexOf("$tipo") !== -1 || scope.labelexpression.indexOf("$tipo_root") !== -1) {
-            // var labelexpression = _.replace(scope.labelexpression,/$tipo./, "");
-            var labelexpression = scope.labelexpression.replace(/\$tipo\./g, "").replace("$tipo_root.","");
-            var compiled = _.template(labelexpression);
-          }
-          var label;
-          scope.getLabel = function(option){
-            if (labelexpression && !_.isNull(option)) {
-              label = compiled(option);
-            }else{
-              label = _.get(option,label_field);
-            }
-            return label;
-          }
 
           scope.clearModel = function(){
             scope.selectedTipos = [];
