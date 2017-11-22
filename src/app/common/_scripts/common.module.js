@@ -27,7 +27,8 @@
     'angular-flatpickr',
     'infinite-scroll',
     'cl.paging',
-    'angularSpectrumColorpicker'
+    'angularSpectrumColorpicker',
+    'angular-intro'
   ]);
 
   module.config(function ($mdThemingProvider, $mdToastProvider) {

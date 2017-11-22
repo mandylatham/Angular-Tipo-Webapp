@@ -3,7 +3,7 @@
   'use strict';
 
 
-  function TipoCustomJavascript(tipoHandle, tipoRouter){
+  function TipoCustomJavascript(tipoHandle, tipoRouter,ngIntroService){
 
   	// function TipoS3Browser_OnClick(tipoData,selectedTipo,tipo_name,query_params,event){
   	function TipoS3Browser_OnClick(data_handle){
@@ -63,7 +63,57 @@
 
 	//___TipoDefinition___
 
-
+	//___TipoApp___
+	// function TipoApp_OnView(data_handle){
+	// 	console.log("ngIntroService");
+	// 	console.log(ngIntroService);
+	// 	var introOptions = {
+	// 					        steps:[
+	// 					        {
+	// 					            element: document.querySelectorAll('#manageTipos')[0],
+	// 					            intro: "This is the first tooltip."
+	// 					        },
+	// 					        {
+	// 					            element: document.querySelectorAll('#manageMenus')[0],
+	// 					            intro: "<strong>You</strong> can also <em>include</em> HTML",
+	// 					            position: 'right'
+	// 					        },
+	// 					        {
+	// 					            element: document.querySelectorAll('#cloudFunctions')[0],
+	// 					            intro: 'More features, more fun.',
+	// 					            position: 'right'
+	// 					        },
+	// 					        {
+	// 					            element: '#userRoles',
+	// 					            intro: "Another step.",
+	// 					            position: 'right'
+	// 					        },
+	// 					        {
+	// 					            element: '#settings',
+	// 					            intro: 'Get it, use it.'
+	// 					        }
+	// 					        ],
+	// 					        showStepNumbers: false,
+	// 					        showBullets: false,
+	// 					        exitOnOverlayClick: true,
+	// 					        exitOnEsc:true,
+	// 					        nextLabel: 'next',
+	// 					        prevLabel: '<span style="color:green">Previous</span>',
+	// 					        skipLabel: 'Exit',
+	// 					        doneLabel: 'Thanks'
+	// 					    };
+	// 	ngIntroService.setOptions(introOptions);
+	// 	ngIntroService.start();
+		
+	// 	// while(1){
+	// 	// 	var element = document.querySelectorAll('#manageTipos')[0];
+	// 	// 	if (element) {
+	// 	// 		ngIntroService.start();
+	// 	// 	};
+	// 	// }
+	// }
+	// this.TipoApp_OnView = TipoApp_OnView;
+	//___TipoApp___
 	//___TipoAboutApp___
 
 	function TipoAboutApp_OnView (data_handle) {

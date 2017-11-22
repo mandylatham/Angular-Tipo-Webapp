@@ -35,7 +35,7 @@
     <md-list>
         <!-- <md-divider></md-divider> -->
         <!-- <md-divider></md-divider> -->
-        <md-list-item ng-repeat="item in navigation.menu" ng-class="{'active': item === navigation.activeItem}">
+        <md-list-item ng-repeat="item in navigation.menu" id="{{_.camelCase(item.label)}}" ng-class="{'active': item === navigation.activeItem}">
             <md-button layout="row" layout-align="center center" ng-click="navigation.navigate(item)">
                 <!-- <md-tooltip md-direction="right">{{item.label}}</md-tooltip> -->
                 <div class="md-list-item-inner" layout="column">

@@ -289,7 +289,7 @@
                     if (!_.isUndefined(accessToken) && _.startsWith(config.url, "api/")) {
                         config.headers['Authorization'] = accessToken;
                     }
-                    if (_.startsWith(config.url, "g/") && $rootScope.cdn_host) {
+                    if (_.startsWith(config.url, "g/") && $rootScope.cdn_host && S(config.url).contains("/custom/")) {
                         if (!_.startsWith(relative_path, "/")) {
                             relative_path = "/" + relative_path;
                         }
