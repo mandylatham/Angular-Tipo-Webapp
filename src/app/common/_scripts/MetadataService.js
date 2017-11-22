@@ -104,10 +104,15 @@
     _instance.resolveAppCustomTemplates = function(template_name,alt_path){
       var deferred = $q.defer();
       var template = _instance.resolveAppCustomUrls(template_name,alt_path);
-      if ($templateCache.get(template)) {
-        deferred.resolve($templateCache.get(template));
+      if (template !== alt_path) {
+        var attach_version_stamp = "?version_stamp=" + $rootScope.version_stamp;
       }else{
-        $http.get(template).then(function(tpl){ $templateCache.put(template,tpl.data); deferred.resolve(tpl.data);});
+        var attach_version_stamp = "";
+      }
+      if ($templateCache.get(template + attach_version_stamp)) {
+        deferred.resolve($templateCache.get(template + attach_version_stamp));
+      }else{
+        $http.get(template).then(function(tpl){ $templateCache.put(template + attach_version_stamp,tpl.data); $templateCache.put(template,tpl.data); deferred.resolve(tpl.data);});
       }
       return deferred.promise;
     }

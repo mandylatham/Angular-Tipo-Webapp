@@ -81,7 +81,10 @@
             _.each(tipos,function(tipo){
               _.each(templates,function(template){
                 var url = tipoHandle[template](tipo.tipo_id);
-                $templateCache.put(url,$http.get(url));
+                $http.get(url).then(function(tpl){
+                  $templateCache.put(url,tpl.data);
+                  $templateCache.put(url + "?version_stamp=" + $rootScope.version_stamp,tpl.data);
+                });
               })
             })
           });

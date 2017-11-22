@@ -89,6 +89,8 @@
                             var broken = value.split("/");
                             tipoCache.evict(broken[2], broken[3]);
                         } else {
+                            var attach_version_stamp = "?version_stamp=" + $rootScope.version_stamp;
+                            $templateCache.remove(value + attach_version_stamp);
                             $templateCache.remove(value);
                             var $httpDefaultCache = $cacheFactory.get('$http');
                             $httpDefaultCache.remove(value);
@@ -107,6 +109,7 @@
                                     setTimeout(function() {
                                         $http.get(value).then(function(tpl){
                                             $templateCache.put(value,tpl.data);
+                                            $templateCache.put(value + attach_version_stamp,tpl.data);
                                         });
                                     },2000);
                                 });
@@ -116,9 +119,7 @@
                                                   }
                                               };
                                 setTimeout(function() {
-                                    $http.get(value,config).then(function(tpl){
-                                        $templateCache.put(value,tpl.data);
-                                    });
+                                    $http.get(value,config);
                                     },2000);
                             }
                             // setTimeout(function() {
@@ -270,7 +271,7 @@
 
     // Tipo Resource. This shall be used for all the HTTP XHR calls
 
-    function httpInterceptors(localStorageService, $rootScope) {
+    function httpInterceptors(localStorageService, $rootScope,$templateCache) {
         return {
             request: function(config) {
                 // var accessToken = securityContextService.getCurrentIdToken();
@@ -289,7 +290,7 @@
                     if (!_.isUndefined(accessToken) && _.startsWith(config.url, "api/")) {
                         config.headers['Authorization'] = accessToken;
                     }
-                    if (_.startsWith(config.url, "g/") && $rootScope.cdn_host && S(config.url).contains("/custom/")) {
+                    if (_.startsWith(config.url, "g/") && $rootScope.cdn_host && !$templateCache.get(config.url + "?version_stamp=" + config.params.version_stamp)) {
                         if (!_.startsWith(relative_path, "/")) {
                             relative_path = "/" + relative_path;
                         }
