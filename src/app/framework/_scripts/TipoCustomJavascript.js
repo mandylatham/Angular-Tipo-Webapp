@@ -65,8 +65,6 @@
 
 	//___TipoApp___
 	function TipoApp_OnView(data_handle){
-		console.log("ngIntroService");
-		console.log(ngIntroService);
 		var introOptions = {
 						        steps:[
 						        {
@@ -79,18 +77,14 @@
 						            position: 'right'
 						        },
 						        {
-						            element: '#cloudFunctions',
-						            intro: 'More features, more fun.',
-						            position: 'right'
+						            element: '#home_menu',
+						            intro: 'Access Home Page',
+						            position: 'bottom'
 						        },
 						        {
-						            element: '#userRoles',
-						            intro: "Define Roles",
-						            position: 'right'
-						        },
-						        {
-						            element: '#settings',
-						            intro: 'Application level settings'
+						            element: '#develop_menu',
+						            intro: "In develop Mode",
+						            position: 'bottom'
 						        }
 						        ],
 						        showStepNumbers: false,

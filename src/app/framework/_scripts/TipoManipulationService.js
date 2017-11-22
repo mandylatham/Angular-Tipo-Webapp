@@ -756,6 +756,14 @@
             }
         }
 
+        function addEscElascticReservedKeys(query_string){
+            var keys = ["+", "-", "=", "&&", "||", ">", "<", "!", "(", ")", "{", "}", "[", "]", "^", "~", "*", "?", ":", "/"];
+            _.each(keys,function(key){
+                query_string = query_string.replace(key, "\\\\" + key);
+            });
+            return query_string;
+        }
+
         // Expose the functions that need to be consumed from outside
         this.extractShortDisplayFields = extractShortDisplayFields;
         this.getFieldValue = getFieldValue;
@@ -779,6 +787,7 @@
         this.getVirtualRepeatObject = getVirtualRepeatObject;
         this.getVirtualRepeatWrapObject = getVirtualRepeatWrapObject;
         this.calculatePageViews = calculatePageViews;
+        this.addEscElascticReservedKeys = addEscElascticReservedKeys;
 
     }
 

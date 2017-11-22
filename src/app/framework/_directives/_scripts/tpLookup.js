@@ -438,9 +438,11 @@
             if (isarray && scope.ngModel.length > 0) {
               searchCriteria.must_include_key = key_field;
               searchCriteria.must_include_values = _.join(scope.ngModel,',');
+              searchCriteria.must_include_values = tipoManipulationService.addEscElascticReservedKeys(searchCriteria.must_include_values);
             }else if(!isarray && scope.ngModel && scope.ngModel !== ""){
               searchCriteria.must_include_key = key_field;
               searchCriteria.must_include_values = scope.ngModel;
+              searchCriteria.must_include_values = tipoManipulationService.addEscElascticReservedKeys(searchCriteria.must_include_values);
             }
             var function_name = $stateParams.tipo_name + '_' + scope.fqfieldname.replace(/\./g,"_").replace(/\[\d\]/g, "") + '_BeforeLookup';
             if(typeof tipoCustomJavascript[function_name] === 'function'){
