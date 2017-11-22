@@ -9,6 +9,7 @@
     cognitoService,
     tipoCache,
     tipoInstanceDataService,
+    tipoManipulationService,
     $state,
     $stateParams,
     $mdToast,
@@ -19,7 +20,7 @@
     var _instance = this;
 
     _instance.inProgress = false;
-
+    $scope.creditCard;
     var appMetadata = metadataService.applicationMetadata;
     var appMetadata = _.merge(_.get(appMetadata,"TipoApp"),_.get(appMetadata,"TipoConfiguration"));
     _instance.header_template = metadataService.resolveAppCustomUrls("login_header_template","user/_views/header.tpl.html")
@@ -96,33 +97,12 @@
     }
 
       _instance.initCard = function(){
-        $scope.show_card = true;
-        $scope.stripe = Stripe(appMetadata.app_subscription.publishable_key);
-        var elements = $scope.stripe.elements();
-        var style = {
-          base: {
-            color: '#303238',
-            fontSize: '16px',
-            lineHeight: '48px',
-            fontSmoothing: 'antialiased',
-            '::placeholder': {
-              color: '#ccc',
-            },
-          },
-          invalid: {
-            color: '#e5424d',
-            ':focus': {
-              color: '#303238',
-            },
-          },
-        };
-        $scope.cardElement = elements.create('card', {style: style});
-        $scope.cardElement.mount('#card-element');
+        $scope.creditCard = tipoManipulationService.initialiseCreditCard(appMetadata.app_subscription.publishable_key);
       }
 
       _instance.createToken = function(){
         markProgress();
-        $scope.stripe.createToken($scope.cardElement).then(function(result) {
+        $scope.creditCard.stripe.createToken($scope.creditCard.cardElement).then(function(result) {
           if (result.error) {
             // Inform the user if there was an error
             var errorElement = document.getElementById('card-errors');
@@ -135,7 +115,6 @@
       }
 
       function createToken(result){
-        console.log("token", result);
         tipoHandle.callAction('TipoSubscriptions','attach_card',['2000000001'],'TipoSubscriptions',{token_source: result.token.id}).then(function(response){
             tipoRouter.to('dashboard');
           });
