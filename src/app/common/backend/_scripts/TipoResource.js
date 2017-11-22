@@ -187,6 +187,8 @@
                             $rootScope.readonlyrf = "toTipoView";
                             // tipoRouter.toTipoView("TipoSubscriptions","default");
                             // tipoErrorHandler.handleError(response, deferred);
+                        } if (response.status === 521) {
+                          tipoRouter.to('captureCreditCard');              
                         } else {
                             tipoErrorHandler.handleError(response, deferred);
                         }

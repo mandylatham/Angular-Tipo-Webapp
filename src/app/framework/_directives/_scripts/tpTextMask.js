@@ -15,6 +15,7 @@
           forceValidation: "=",
           patternValidation: "=",
           placeholderChar: "=",
+          isRequired: "=",
           guide: "="
         },
         restrict: 'EA',

@@ -12,6 +12,7 @@
     $state,
     $stateParams,
     $mdToast,
+    tipoHandle,
     $scope,
     $rootScope) {
 
@@ -94,6 +95,52 @@
       _instance.inProgress = false;
     }
 
+      _instance.initCard = function(){
+        $scope.show_card = true;
+        $scope.stripe = Stripe(appMetadata.app_subscription.publishable_key);
+        var elements = $scope.stripe.elements();
+        var style = {
+          base: {
+            color: '#303238',
+            fontSize: '16px',
+            lineHeight: '48px',
+            fontSmoothing: 'antialiased',
+            '::placeholder': {
+              color: '#ccc',
+            },
+          },
+          invalid: {
+            color: '#e5424d',
+            ':focus': {
+              color: '#303238',
+            },
+          },
+        };
+        $scope.cardElement = elements.create('card', {style: style});
+        $scope.cardElement.mount('#card-element');
+      }
+
+      _instance.createToken = function(){
+        markProgress();
+        $scope.stripe.createToken($scope.cardElement).then(function(result) {
+          if (result.error) {
+            // Inform the user if there was an error
+            var errorElement = document.getElementById('card-errors');
+            errorElement.textContent = result.error.message;
+          } else {
+            // Send the token to your server
+            createToken(result);
+          }
+        });
+      }
+
+      function createToken(result){
+        console.log("token", result);
+        tipoHandle.callAction('TipoSubscriptions','attach_card',['2000000001'],'TipoSubscriptions',{token_source: result.token.id}).then(function(response){
+            tipoRouter.to('dashboard');
+          });
+      }
+
     _instance.signUp = function(attemptCnt) {
       markProgress();
       if (appMetadata.capture_account_name_during_signup && !verifyAccountName(user.accountName)) {
@@ -111,20 +158,26 @@
         };
         // Authenticate
         var criteria = {bare_event: 'Y',post_event: 'Y'};
+        var user_attributes = {first_name: user.first_name, phone_number: user.phone_number};
+        var org_attributes = {company_name: user.companyName};
         cognitoService.authenticate(user.fullName(), user.password).then(function() {
           cognitoService.resendCode().then(function() {
             tipoCache.clearMemoryCache();
-            tipoInstanceDataService.upsertAll('TipoAccount',[{account:account ,application:appMetadata.application ,tipo_id:account ,account_name:user.accountName ,application_owner_account:appMetadata.application_owner_account ,company_name:user.companyName }],criteria).then(function(res){
+            tipoInstanceDataService.upsertAll('TipoAccount',[{account:account ,application:appMetadata.application ,tipo_id:account ,account_name:user.accountName ,application_owner_account:appMetadata.application_owner_account ,company_name:user.companyName, org_attributes:org_attributes, user_attributes: user_attributes}],criteria).then(function(res){
             },
             function(err){
               raiseError(err);
             });
-            tipoInstanceDataService.upsertAll('TipoUser',[{account:account ,application:appMetadata.application ,tipo_id:user.email ,application_owner_account:appMetadata.application_owner_account,role: "Admin" }],criteria).then(function(res){
-            },
-            function(err){
-              raiseError(err);
-            });
-            tipoRouter.to('dashboard');
+            // tipoInstanceDataService.upsertAll('TipoUser',[{account:account ,application:appMetadata.application ,tipo_id:user.email ,application_owner_account:appMetadata.application_owner_account,role: "Admin" }],criteria).then(function(res){
+            // },
+            // function(err){
+            //   raiseError(err);
+            // });
+            if(appMetadata.app_subscription.capture_credit_card) {
+              tipoRouter.to('captureCreditCard');
+            } else {
+              tipoRouter.to('dashboard');
+            }
           }, function(err) {
             console.error(err);
             tipoRouter.to('dashboard');
@@ -244,6 +297,7 @@
         $mdToast.show(toast);
       }
     });
+
 
   }
   angular.module('tipo.user')
