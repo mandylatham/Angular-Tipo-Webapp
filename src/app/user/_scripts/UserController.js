@@ -115,7 +115,7 @@
       }
 
       function createToken(result){
-        tipoHandle.callAction('TipoSubscriptions','attach_card',['2000000001'],'TipoSubscriptions',{token_source: result.token.id}).then(function(response){
+        tipoHandle.callAction('TipoSubscriptions','attach_card',['2000000001'],'TipoSubscriptions',{token_source: result.token.id, credit_card: result.token.card.last4}).then(function(response){
             tipoRouter.to('dashboard');
           });
       }
