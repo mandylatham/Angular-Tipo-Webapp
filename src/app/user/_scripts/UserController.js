@@ -101,7 +101,6 @@
       }
 
       _instance.createToken = function(){
-        markProgress();
         $scope.creditCard.stripe.createToken($scope.creditCard.cardElement).then(function(result) {
           if (result.error) {
             // Inform the user if there was an error
@@ -109,6 +108,7 @@
             errorElement.textContent = result.error.message;
           } else {
             // Send the token to your server
+            markProgress();
             createToken(result);
           }
         });
