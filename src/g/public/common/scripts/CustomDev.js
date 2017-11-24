@@ -296,7 +296,9 @@
   // }
 
   function TipoSubscribtionController(
-  tipoHandle,
+    tipoHandle,
+    metadataService,
+    tipoManipulationService,
     $window,
     $scope,
     $mdDialog) {
@@ -304,6 +306,9 @@
     var _instance = this;
     /** In case of detail/edit/create pages, the tipo object that contains the data from server. */
     _instance.tipo = $scope.tipoRootController.tipo;
+    var appMetadata = metadataService.applicationMetadata;
+    var appMetadata = _.merge(_.get(appMetadata,"TipoApp"),_.get(appMetadata,"TipoConfiguration"));
+    $scope.creditCard;
     $scope.tipoRootController.hide_actions = true;
     _instance.plans = [];
     _instance.allowed_values =  _.range(1, 11);
@@ -383,33 +388,12 @@
         controller: function cardController($scope,$mdDialog) {
 
           $scope.initCard = function(){
-            $scope.show_card = true;
-            $scope.stripe = Stripe('pk_test_JD6zYPAyxr6qz1pVtzSphiYQ');
-            var elements = $scope.stripe.elements();
-            var style = {
-              base: {
-                color: '#303238',
-                fontSize: '16px',
-                lineHeight: '48px',
-                fontSmoothing: 'antialiased',
-                '::placeholder': {
-                  color: '#ccc',
-                },
-              },
-              invalid: {
-                color: '#e5424d',
-                ':focus': {
-                  color: '#303238',
-                },
-              },
-            };
-            $scope.cardElement = elements.create('card', {style: style});
-            $scope.cardElement.mount('#card-element');
+            $scope.creditCard = tipoManipulationService.initialiseCreditCard(appMetadata.app_subscription.publishable_key);
             endwatch();
           }
 
           $scope.createToken = function(){
-            $scope.stripe.createToken($scope.cardElement).then(function(result) {
+            $scope.creditCard.stripe.createToken($scope.creditCard.cardElement).then(function(result) {
               if (result.error) {
                 // Inform the user if there was an error
                 var errorElement = document.getElementById('card-errors');

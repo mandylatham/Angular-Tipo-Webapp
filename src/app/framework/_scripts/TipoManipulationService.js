@@ -764,6 +764,31 @@
             return query_string;
         }
 
+        function initialiseCreditCard(publishable_key) {
+            var stripe = Stripe(publishable_key);
+            var elements = stripe.elements();
+            var style = {
+              base: {
+                color: '#303238',
+                fontSize: '16px',
+                lineHeight: '48px',
+                fontSmoothing: 'antialiased',
+                '::placeholder': {
+                  color: '#ccc',
+                },
+              },
+              invalid: {
+                color: '#e5424d',
+                ':focus': {
+                  color: '#303238',
+                },
+              },
+            };
+            var cardElement = elements.create('card', {style: style});
+            cardElement.mount('#card-element');
+            return {stripe: stripe, cardElement: cardElement};
+        }
+
         // Expose the functions that need to be consumed from outside
         this.extractShortDisplayFields = extractShortDisplayFields;
         this.getFieldValue = getFieldValue;
@@ -788,7 +813,7 @@
         this.getVirtualRepeatWrapObject = getVirtualRepeatWrapObject;
         this.calculatePageViews = calculatePageViews;
         this.addEscElascticReservedKeys = addEscElascticReservedKeys;
-
+        this.initialiseCreditCard = initialiseCreditCard;
     }
 
     angular.module('tipo.framework')
