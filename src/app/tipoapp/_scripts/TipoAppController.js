@@ -59,7 +59,11 @@
     };
 
     _instance.launch = function(tipo){
-      $window.open(tipo.app_url, '_blank');
+      if (tipoHandle.menu_item.quickFilters !== "sampleapp") {
+        $window.open(tipo.app_url, '_blank');
+      }else{
+        $window.open(tipo.app_url.substring(0, tipo.app_url.lastIndexOf('#') + 2) + "dashboard?perspective=Home" + "", '_blank');
+      }
     };
 
     var virtualReapeatDone = $scope.$watch(function(){ return $scope.tipoRootController.tipos;}, function(){
