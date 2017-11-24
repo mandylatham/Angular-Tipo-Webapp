@@ -13,7 +13,7 @@
           fieldvalue: '=',
           istiporequired: '=',
           allowedvalues: '=',
-          defaultValue: '=',
+          defaultValue: '@',
           allowcreate: '=',
           description: '=',
           fieldname: '=',
@@ -25,7 +25,7 @@
         link: function(scope, element, attrs, ctrl){         
           scope.searchTerm = {};
           scope.model = {};
-          scope.model.field = attrs.defaultValue;
+          scope.model.field = scope.fieldvalue || scope.defaultValue;
           scope.addValue = function(){
             scope.allowedvalues.push(scope.searchTerm.text);
             scope.searchTerm.text = "";
