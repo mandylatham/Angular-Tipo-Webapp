@@ -757,9 +757,9 @@
         }
 
         function addEscElascticReservedKeys(query_string){
-            var keys = ["+", "-", "=", "&&", "||", ">", "<", "!", "(", ")", "{", "}", "[", "]", "^", "~", "*", "?", ":", "/"];
+            var keys = ["+", "-", "=", "&&", "||", ">", "<", "!", "(", ")", "{", "}", "[", "]", "~", "*", "?", ":", "/"];
             _.each(keys,function(key){
-                query_string = query_string.replace(key, "\\\\" + key);
+                query_string = query_string.replace(new RegExp("([" + key + "])",'g'), "\\\\" + key);
             });
             return query_string;
         }
