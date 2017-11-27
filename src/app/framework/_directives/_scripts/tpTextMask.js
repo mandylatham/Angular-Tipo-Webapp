@@ -60,8 +60,10 @@
           scope.convertToRaw = function(conformedValue,config){
             scope.fieldValue = "";
             for (var i = 0; i < config.currentCaretPosition; i++) {
-              if (config.placeholder[i] === "_") {
-                scope.fieldValue = scope.fieldValue + conformedValue[i];
+              if (config.placeholder[i] === "_" || config.placeholderChar) {
+                if(conformedValue[i]) {
+                  scope.fieldValue = scope.fieldValue + conformedValue[i];
+                }
               };
             }
             return conformedValue;
