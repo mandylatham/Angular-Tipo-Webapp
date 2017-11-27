@@ -147,7 +147,7 @@
       });
       promise.then(function(tipos){
         if (_.isArray(tipos)) {
-          _instance.infiniteItems.tipos = tipos;
+          _instance.infiniteItems.fetchMoreItems_("",1);
         };
         tipoRouter.endStateChange();
       })
