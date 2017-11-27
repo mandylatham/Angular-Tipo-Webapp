@@ -70,6 +70,21 @@
                         httpConfig: httpConfig
                     };
                 }
+                // version_stamp: function(element, operation, route, url, headers, params, httpConfig){
+                //     if ($rootScope.only_cdn_host) {
+                //         url = url.replace(/(\/\/.+\/)/,"//" + $rootScope.only_cdn_host + "/")
+                //         url = url.replace("http","https");
+                //         // url = "https://" + $rootScope.only_cdn_host + url;
+                //     };
+
+                //     return {
+                //         element: element,
+                //         headers: headers,
+                //         params: params,
+                //         url: url,
+                //         httpConfig: httpConfig
+                //     };
+                // }
             },
             response: {
                 // Extracts the payload from the wrapped API response
@@ -122,19 +137,6 @@
                                     $http.get(value,config);
                                     },2000);
                             }
-                            // setTimeout(function() {
-                                 
-                            //     // var config = {};
-
-                            //     // $templateCache.put(value, $.ajax({
-                            //     //     type: "GET",
-                            //     //     headers: {
-                            //     //         'Pragma': 'no-cache',
-                            //     //     },
-                            //     //     url: value,
-                            //     //     crossDomain: true
-                            //     // }));
-                            // }, 2000);
 
                             if (value.indexOf("CustomScript.js") !== -1) {
                                 var head = document.getElementsByTagName('head')[0];
@@ -241,6 +243,7 @@
         RestangularConfigurer.setPlainByDefault(true);
         RestangularConfigurer.addFullRequestInterceptor(interceptors.request.cache);
         RestangularConfigurer.addFullRequestInterceptor(interceptors.request.security);
+        // RestangularConfigurer.addFullRequestInterceptor(interceptors.request.version_stamp);
         RestangularConfigurer.addResponseInterceptor(interceptors.response.extractData);
         RestangularConfigurer.setErrorInterceptor(interceptors.errors.handleError);
         RestangularConfigurer.setDefaultHeaders({
@@ -291,12 +294,15 @@
                     if (_.startsWith(config.url, "g/") && $rootScope.cdn_host && !$templateCache.get(config.url + "?version_stamp=" + config.params.version_stamp)) {
                         if (_.endsWith(config.url,"___TipoApp") || _.endsWith(config.url,"___TipoDefinition") || _.startsWith($stateParams.perspective,"TipoApp.")) {
                             config.url = "https://" + $rootScope.only_cdn_host + config.url;
-                            config.params.version_stamp = $rootScope.tipoapp_version || config.params.version_stamp;
+                            config.params.version_stamp = $rootScope.tipoapp_version || $rootScope.version_stamp;
                         }else{
                             config.url = "https://" + $rootScope.cdn_host + config.url;
                         }
                         
+                    }else if (_.startsWith(config.url, "api/") && $rootScope.only_cdn_host) {
+                        config.url = "https://" + $rootScope.only_cdn_host + config.url;
                     };
+                    // config.url = config.url.replace(/(\/\/.+\/api)/,"//" + $rootScope.only_cdn_host + "api").replace("http","https");
                 };
                 return config;
             }
