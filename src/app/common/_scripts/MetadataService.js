@@ -37,18 +37,20 @@
       promise = promise.then(function (metadata) {
         _instance.applicationMetadata = metadata;
         $rootScope.version_stamp = metadata.SystemConfig.build_number + "." + metadata.TipoApp.app_version + "." + metadata.TipoApp.random;
-        console.log("$location.absUrl()");
-        console.log($location.absUrl());
-        console.log($location.protocol());
-        console.log($location.host());
-        console.log($location.port());
-        console.log($location.path());
+        // console.log("$location.absUrl()");
+        // console.log($location.absUrl());
+        // console.log($location.protocol());
+        // console.log($location.host());
+        // console.log($location.port());
+        // console.log($location.path());
+        $rootScope.tipoapp_version = metadata['TipoTapp.TipoApp.Version'];
         console.log($window.location.pathname);
         var pathname = $window.location.pathname;
         // $rootScope.relative_path = pathname;
         // if (_.startsWith(pathname,"/app/d")) {
         //   $rootScope.cdn_host = metadata.SystemConfig.app_cdn_host;
         // }else{
+          $rootScope.only_cdn_host = metadata.SystemConfig.app_cdn_host + "/";
           $rootScope.cdn_host = metadata.SystemConfig.app_cdn_host + "/app/d/" + metadata.TipoApp.application_owner_account_name + "/" + metadata.TipoApp.application_name + "/";
         // }
         return metadata;

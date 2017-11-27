@@ -273,7 +273,7 @@
 
     // Tipo Resource. This shall be used for all the HTTP XHR calls
 
-    function httpInterceptors(localStorageService, $rootScope,$templateCache) {
+    function httpInterceptors(localStorageService, $rootScope,$templateCache,$stateParams) {
         return {
             request: function(config) {
                 // var accessToken = securityContextService.getCurrentIdToken();
@@ -282,10 +282,6 @@
                     if (!config.params) {
                         config.params = {};
                     };
-                    var relative_path = "";
-                    if ($rootScope.relative_path) {
-                        relative_path = $rootScope.relative_path;
-                    };
                     if (_.startsWith(config.url, "g/") || _.startsWith(config.url, "api/")) {
                         config.params.version_stamp = $rootScope.version_stamp
                     };
@@ -293,13 +289,12 @@
                         config.headers['Authorization'] = accessToken;
                     }
                     if (_.startsWith(config.url, "g/") && $rootScope.cdn_host && !$templateCache.get(config.url + "?version_stamp=" + config.params.version_stamp)) {
-                        if (!_.startsWith(relative_path, "/")) {
-                            relative_path = "/" + relative_path;
+                        if (_.endsWith(config.url,"___TipoApp") || _.endsWith(config.url,"___TipoDefinition") || _.startsWith($stateParams.perspective,"TipoApp.")) {
+                            config.url = "https://" + $rootScope.only_cdn_host + config.url;
+                        }else{
+                            config.url = "https://" + $rootScope.cdn_host + config.url;
                         }
-                        if (!_.endsWith(relative_path, "/")) {
-                            relative_path = relative_path + "/";
-                        }
-                        config.url = "https://" + $rootScope.cdn_host + config.url;
+                        
                     };
                 };
                 return config;
