@@ -21,7 +21,7 @@
                         <label class="loginlabel">Email</label>
                         <md-input-container class="md-icon-float md-block">
                             <md-icon>email</md-icon>
-                            <input ng-model="controller.user.email" name="email" ng-pattern="/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/" ng-model-options="{ updateOn: 'blur'}" type="email" required>
+                            <input ng-model="controller.user.email" name="email" autocomplete="username" ng-pattern="/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/" ng-model-options="{ updateOn: 'blur'}" type="email" required>
                             <div ng-messages="registrationForm.email.$error" ng-show="registrationForm.email.$dirty">
                                 <div ng-message="required">This is required!</div>
                                 <div ng-message="pattern">Not a valid email</div>
