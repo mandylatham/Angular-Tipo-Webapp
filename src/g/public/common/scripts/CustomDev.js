@@ -428,7 +428,7 @@
     }
 
     function createToken(result){
-      tipoHandle.callAction($scope.tipoRootController.tipo_name,'attach_card',[_instance.tipo.tipo_id],$scope.tipoRootController.tipo_name,{token_source: result.token.id}).then(function(response){
+      tipoHandle.callAction($scope.tipoRootController.tipo_name,'attach_card',[_instance.tipo.tipo_id],$scope.tipoRootController.tipo_name,{token_source: result.token.id, credit_card: result.token.card.last4}).then(function(response){
         console.log(response);
         _instance.last4 = response.last4;
         _instance.card_token = result.token.id;
@@ -438,7 +438,7 @@
           var subscription = mapCardinfo();
         }
 
-        saveSubscription(subscription);
+        // saveSubscription(subscription);
       });
     }
     function mapSubscrtoPlan(){
