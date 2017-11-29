@@ -606,7 +606,7 @@
                 menuItem.icon = each.icon;
                 menuItem.sequence = each.sequence;
                 menuItem.ignore_singleton = each.ignore_singleton;
-                if (isTipo) {
+                if (isTipo && each.type__labels) {
                     menuItem.tipo_name = parts[1];
                     var types = each.type__labels.split(" - ");
                     if (types[1]) {

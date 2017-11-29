@@ -299,10 +299,15 @@
                             config.url = "https://" + $rootScope.cdn_host + config.url;
                         }
                         
-                    }else if (_.startsWith(config.url, "api/") && $rootScope.only_cdn_host) {
-                        config.url = "https://" + $rootScope.only_cdn_host + config.url;
-                    };
-                    // config.url = config.url.replace(/(\/\/.+\/api)/,"//" + $rootScope.only_cdn_host + "api").replace("http","https");
+                    }else{
+                        // config.url = config.url.replace(/(\/\/.+\/api)/,"//" + $rootScope.only_cdn_host + "api").replace("http","https");
+                        // if (!_.isUndefined(accessToken) && _.startsWith(config.url, "api/")) {
+                        //     config.headers['Authorization'] = accessToken;
+                        // }
+                    }
+                    // else if (_.startsWith(config.url, "api/") && $rootScope.only_cdn_host) {
+                    //     config.url = "https://" + $rootScope.only_cdn_host + config.url;
+                    // };
                 };
                 return config;
             }
