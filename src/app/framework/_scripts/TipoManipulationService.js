@@ -606,9 +606,10 @@
                 menuItem.icon = each.icon;
                 menuItem.sequence = each.sequence;
                 menuItem.ignore_singleton = each.ignore_singleton;
-                if (isTipo && each.type__labels) {
+                if (isTipo) {
                     menuItem.tipo_name = parts[1];
-                    var types = each.type__labels.split(" - ");
+                    var typelabel = each.type__labels || each.type_;
+                    var types = typelabel.split(" - ");
                     if (types[1]) {
                         var tipo_type = types[1].split(",");
                         _.each(tipo_type,function(each_type){
