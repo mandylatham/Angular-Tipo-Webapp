@@ -109,9 +109,11 @@
                             $templateCache.remove(value);
                             var $httpDefaultCache = $cacheFactory.get('$http');
                             $httpDefaultCache.remove(value);
-                            var url = $location.protocol() + "://" + $location.host() + ":" +
-                                $location.port() + "/" + value;
+                            var port_string = $location.port() === "80" || $location.port() === "443"  ? "" : ":" + $location.port();
+                            var url = $location.protocol() + "://" + $location.host() + port_string + "/" + value;
+                            var url_version_stamp = $location.protocol() + "://" + $location.host() + port_string + "/" + value + attach_version_stamp;
                             $httpDefaultCache.remove(url);
+                            $httpDefaultCache.remove(url_version_stamp);
 
                             if (!_.startsWith(value,"api/")) {
                                 $http({
@@ -122,7 +124,15 @@
                                 })
                                 .then(function(){
                                     setTimeout(function() {
-                                        $http.get(value).then(function(tpl){
+                                        var config = {headers:  {
+                                                    'Pragma': 'no-cache',
+                                                  }
+                                              };
+                                              $http({
+                                                method: "GET",
+                                                url: value, 
+                                                crossDomain: true,
+                                                }).then(function(tpl){
                                             $templateCache.put(value,tpl.data);
                                             $templateCache.put(value + attach_version_stamp,tpl.data);
                                         });
