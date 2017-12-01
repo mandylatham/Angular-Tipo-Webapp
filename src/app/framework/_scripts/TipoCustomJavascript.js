@@ -3,7 +3,7 @@
   'use strict';
 
 
-  function TipoCustomJavascript(tipoHandle, tipoRouter,ngIntroService,$rootScope){
+  function TipoCustomJavascript(tipoHandle, tipoRouter,tipoManipulationService,$rootScope){
 
   	// function TipoS3Browser_OnClick(tipoData,selectedTipo,tipo_name,query_params,event){
   	function TipoS3Browser_OnClick(data_handle){
@@ -96,18 +96,21 @@
 						        skipLabel: 'Exit',
 						        doneLabel: 'Thanks'
 						    };
-
-		var unbind = $rootScope.$watch(function() {
-		  return document.querySelectorAll('#manageTipos')[0];
-		}, function watchCallback(newValue, oldValue) {
-		  //react on value change here
-		  if (newValue) {
-		  	setTimeout(function(){
-		  		ngIntroService.setOptions(introOptions);
-		  		ngIntroService.start();
-		  		unbind();
-		  	},3000);
-		  };
+		var tour_item = "tipoapp_tour_1";
+		tipoHandle.getTourItem(tour_item).then(function(tipo){
+			if (!tipo[tour_item]) {
+				var unbind = $rootScope.$watch(function() {
+				  return document.querySelectorAll('#manageTipos')[0];
+				}, function watchCallback(newValue, oldValue) {
+				  //react on value change here
+				  if (newValue) {
+				  	setTimeout(function(){
+				  		tipoHandle.setTourObject(tour_item,introOptions);
+				  		unbind();
+				  	},3000);
+				  };
+				});
+			};
 		});
 	}
 	// this.TipoApp_OnView = TipoApp_OnView;

@@ -89,7 +89,8 @@
             response: {
                 // Extracts the payload from the wrapped API response
                 extractData: function(rawData, operation, what, url, response, deferred) {
-                    var version_stamp = response.headers()["x-tipo-version-stamp"];
+                    var headers = response.headers();
+                    var version_stamp = headers["x-tipo-version-stamp"];
                     if ($rootScope.version_stamp && $rootScope.version_stamp !== version_stamp) {
                         console.log("refresh entire app stored : [" + $rootScope.version_stamp + "], received : [" + version_stamp + "]");
                         tipoCache.clearAll();
@@ -286,7 +287,7 @@
 
     // Tipo Resource. This shall be used for all the HTTP XHR calls
 
-    function httpInterceptors(localStorageService, $rootScope,$templateCache,$stateParams) {
+    function httpInterceptors(localStorageService, $rootScope,$templateCache,$stateParams, $location) {
         return {
             request: function(config) {
                 // var accessToken = securityContextService.getCurrentIdToken();
@@ -310,7 +311,12 @@
                         }
                         
                     }else{
-                        // config.url = config.url.replace(/(\/\/.+\/api)/,"//" + $rootScope.only_cdn_host + "api").replace("http","https");
+                        if (config.method === "GET") {
+                            config.url = config.url.replace(/(\/\/.+\/api)/,"//" + $rootScope.only_cdn_host + "api").replace("http","https");
+                        };
+                        var port_string = $location.port() === "80" || $location.port() === "443"  ? "" : ":" + $location.port();
+                        var url = $location.protocol() + "://" + $location.host() + port_string ;
+                        config.headers['X-Tipo-Origin'] = url;
                         // if (!_.isUndefined(accessToken) && _.startsWith(config.url, "api/")) {
                         //     config.headers['Authorization'] = accessToken;
                         // }

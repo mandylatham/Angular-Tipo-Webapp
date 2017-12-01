@@ -2,7 +2,7 @@
 
     'use strict';
 
-    function TipoManipulationService(tipoRegistry, $rootScope, $q, $mdMedia) {
+    function TipoManipulationService(tipoRegistry, $rootScope, $q, $mdMedia, $filter) {
 
         function setupMustacheOverrides() {
             Mustache.tags = ['[[', ']]'];
@@ -790,6 +790,23 @@
             return {stripe: stripe, cardElement: cardElement};
         }
 
+         function getISODate(){
+          var date = new Date();
+          date.setHours(0, 0, 0, 0);
+          return $filter('date')(date,'yyyy-MM-ddTHH:mm:ss.sss') + 'Z';
+         }
+
+         function deleteItemFromArray(item,index){
+          if (_.isUndefined(item[index]._ARRAY_META)) {
+            // _.remove(item, function(each){
+            //   return each === item[index];
+            // });
+            item[index]._UI_STATUS = 'DELETED';
+          }else{
+            item[index]._ARRAY_META._STATUS = 'DELETED';
+          }
+         }
+
         // Expose the functions that need to be consumed from outside
         this.extractShortDisplayFields = extractShortDisplayFields;
         this.getFieldValue = getFieldValue;
@@ -814,7 +831,9 @@
         this.getVirtualRepeatWrapObject = getVirtualRepeatWrapObject;
         this.calculatePageViews = calculatePageViews;
         this.addEscElascticReservedKeys = addEscElascticReservedKeys;
-        this.initialiseCreditCard = initialiseCreditCard;
+        this.initialiseCreditCard = initialiseCreditCard;   
+        this.getISODate = getISODate;
+        this.deleteItemFromArray = deleteItemFromArray;
     }
 
     angular.module('tipo.framework')

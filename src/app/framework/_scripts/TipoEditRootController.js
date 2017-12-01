@@ -752,7 +752,7 @@
       //   groupItem._ui.deleted = true;
       // }
       var delItem = _.get(_instance.tipo,field_name)
-      tipoHandle.deleteItemFromArray(delItem,index);
+      tipoManipulationService.deleteItemFromArray(delItem,index);
       _.set(_instance.tipo,field_name,delItem);
       var context = setContext(field_name);
       var fun_fname = field_name.replace(".","_").replace(/\[\d\]/g, "");
