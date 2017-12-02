@@ -312,7 +312,10 @@
                         
                     }else{
                         if (config.method === "GET") {
-                            config.url = config.url.replace(/(\/\/.+\/api)/,"//" + $rootScope.only_cdn_host + "api").replace("http","https");
+                            config.url = config.url.replace(/(\/\/.+\/api)/,"//" + $rootScope.only_cdn_host + "api");
+                            if (!S(config.url).contains("https")) {
+                                config.url.replace("http","https");
+                            };
                         };
                         var port_string = $location.port() === "80" || $location.port() === "443"  ? "" : ":" + $location.port();
                         var url = $location.protocol() + "://" + $location.host() + port_string ;
