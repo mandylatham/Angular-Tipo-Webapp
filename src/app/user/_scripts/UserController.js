@@ -21,6 +21,8 @@
 
     _instance.inProgress = false;
     $scope.creditCard;
+    $scope.cardToken;
+    $scope.accountResponse;
     var appMetadata = metadataService.applicationMetadata;
     var appMetadata = _.merge(_.get(appMetadata,"TipoApp"),_.get(appMetadata,"TipoConfiguration"));
     _instance.header_template = metadataService.resolveAppCustomUrls("login_header_template","user/_views/header.tpl.html")
@@ -115,9 +117,23 @@
       }
 
       function createToken(result){
-        tipoHandle.callAction('TipoSubscriptions','attach_card',['2000000001'],'TipoSubscriptions',{token_source: result.token.id, credit_card: result.token.card.last4}).then(function(response){
+        $scope.cardToken = result.token;
+        if($scope.accountResponse) {
+          tipoHandle.callAction('TipoSubscriptions','attach_card',['2000000001'],'TipoSubscriptions',{token_source: $scope.cardToken.id, credit_card: $scope.cardToken.card.last4}).then(function(response){
             tipoRouter.to('dashboard');
           });
+        } else {
+          $scope.$watch(function(scope){
+            return scope.accountResponse;
+          }, function(newValue, oldValue){
+            if(newValue){
+              tipoHandle.callAction('TipoSubscriptions','attach_card',['2000000001'],'TipoSubscriptions',{token_source: $scope.cardToken.id, credit_card: $scope.cardToken.card.last4}).then(function(response){
+                tipoRouter.to('dashboard');
+              });
+            }
+          });
+        }
+        
       }
 
     _instance.signUp = function(attemptCnt) {
@@ -143,6 +159,7 @@
           cognitoService.resendCode().then(function() {
             tipoCache.clearMemoryCache();
             tipoInstanceDataService.upsertAll('TipoAccount',[{account:account ,application:appMetadata.application ,tipo_id:account ,account_name:user.accountName ,application_owner_account:appMetadata.application_owner_account ,company_name:user.companyName, org_attributes:org_attributes, user_attributes: user_attributes}],criteria).then(function(res){
+              $scope.accountResponse = res;
             },
             function(err){
               raiseError(err);

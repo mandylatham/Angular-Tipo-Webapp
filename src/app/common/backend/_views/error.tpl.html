@@ -24,9 +24,11 @@
         <div flex="15"><strong>Message:</strong></div>
         <div flex class="longtext"><span style="white-space: pre-wrap;">{{controller.exception.detailMessage}}</span></div>
       </div>
-      <div layout="row" ng-if="controller.exception.detailStackTrace">
-        <div flex="15"><strong>Stack trace:</strong></div>
-        <div flex>
+      <div layout="column" ng-if="controller.exception.detailStackTrace" ng-init="collapsed=false">
+        <div flex><strong>Stack trace <a href="" ng-click="collapsed = !collapsed" class="plain">
+          <i class="fa fa-caret-down" style="vertical-align: middle" ng-class="{'fa-caret-down': !collapsed , 'fa-caret-right': collapsed}"></i>
+        </a>  </strong></div>
+        <div ng-if="collapsed" flex>
           <code><pre><span style="white-space: pre-wrap;">{{controller.exception.detailStackTrace}}</span></pre></code>
         </div>
       </div>
