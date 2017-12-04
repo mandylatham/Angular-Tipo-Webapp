@@ -14,7 +14,7 @@
                         <md-input-container class="md-icon-float md-block">
                             <md-icon>person</md-icon>
                             <input ng-model="controller.user.first_name" name="first_name" type="text" required>
-                            <div ng-messages="registrationForm.first_name.$error" ng-show="registrationForm.first_name.$dirty">
+                            <div ng-messages="registrationForm.first_name.$error" >
                                 <div ng-message="required">This is required!</div>
                             </div>
                         </md-input-container>
@@ -22,25 +22,37 @@
                         <md-input-container class="md-icon-float md-block">
                             <md-icon>email</md-icon>
                             <input ng-model="controller.user.email" name="email" autocomplete="username" ng-pattern="/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/" ng-model-options="{ updateOn: 'blur'}" type="email" required>
-                            <div ng-messages="registrationForm.email.$error" ng-show="registrationForm.email.$dirty">
+                            <div ng-messages="registrationForm.email.$error">
                                 <div ng-message="required">This is required!</div>
                                 <div ng-message="pattern">Not a valid email</div>
                             </div>
                         </md-input-container>
-                        <label class="loginlabel">Phone Number</label>
-                        <md-input-container class="md-icon-float md-block">
-                            <md-icon>contact_phone</md-icon>
-                            <tp:text-mask style="margin-left: 25px;" isdisable="false" name="phone_number" is-required="true" text-pattern="'### ### ####'" field-type="'integer'" field-value="controller.user.phone_number"  field-label="'Phone Number'" force-validation="true" pattern-validation="true" placeholder-char="' '"  />
-                            <div style="margin-left: 25px;" ng-messages="registrationForm.phone_number.$error" ng-show="registrationForm.phone_number.$dirty">
-                                <div ng-message="required">This is required!</div>
-                                <div ng-message="pattern">Must be a valid 10 digit phone number</div>
-                            </div>
-                        </md-input-container>
+                        <label class="loginlabel">Phone Number {{controller.user.country_code}}</label>
+                        <div layout="row">
+                            <md-input-container flex="30" class="md-icon-float md-block">
+                                <md-icon>contact_phone</md-icon>
+                                <md-select name="country_code" ng-model="controller.user.country_code" required md-no-asterisk="true" md-on-open="open='true'" md-on-close="open='false'">
+                                    <md-option ng-repeat="country in controller.country_code" ng-value="country.callingCode" value="country.callingCode">
+                                        <span ng-show="open==='true'">{{country.name}}</span>
+                                        <span ng-show="open==='false'">{{country.callingCode}}</span>
+                                    </md-option>
+                                </md-select>
+                                <div class="errors" ng-messages="registrationForm.country_code.$error">
+                                        <div ng-message="required">This is required!</div>
+                                    </div>
+                            </md-input-container>
+                            <md-input-container flex="70" class="md-icon-float md-block">
+                                <tp:text-mask isdisable="false" name="phone_number" is-required="true" text-pattern="'### ### ####'" field-type="'integer'" field-value="controller.user.phone_number"  field-label="'Phone Number'" force-validation="true" pattern-validation="false" placeholder-char="' '"  />
+                                <div ng-messages="registrationForm.phone_number.$error">
+                                    <div ng-message="required">This is required!</div>
+                                </div>
+                            </md-input-container>
+                        </div>
                         <label class="loginlabel">Password</label>
                         <md-input-container class="md-icon-float md-block">
                             <md-icon>lock_open</md-icon>
                             <input ng-model="controller.user.password" name="password" type="password" required>
-                            <div ng-messages="registrationForm.password.$error" ng-show="registrationForm.password.$dirty">
+                            <div ng-messages="registrationForm.password.$error">
                                 <div ng-message="required">This is required!</div>
                             </div>
                         </md-input-container>
@@ -48,7 +60,7 @@
                         <md-input-container class="md-icon-float md-block" ng-show="controller.captureAccountNameDuringSignup">
                             <md-icon>nature_people</md-icon>
                             <input ng-model="controller.user.companyName" type="text" ng-change="controller.user.accountName = _.toLower(_.camelCase(controller.user.companyName))" name="company" ng-required="controller.captureAccountNameDuringSignup">
-                            <div ng-messages="registrationForm.company.$error" ng-show="registrationForm.company.$dirty">
+                            <div ng-messages="registrationForm.company.$error">
                                 <div ng-message="required">This is required!</div>
                             </div>
                         </md-input-container>
