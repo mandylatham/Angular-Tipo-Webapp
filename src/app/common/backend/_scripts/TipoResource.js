@@ -311,11 +311,12 @@
                         }
                         
                     }else{
-                        if (config.method === "GET") {
+                        if (config.method === "GET" && S(config.url).contains("/api/")) {
                             config.url = config.url.replace(/(\/\/.+\/api)/,"//" + $rootScope.only_cdn_host + "api");
                             if (!S(config.url).contains("https")) {
                                 config.url.replace("http","https");
                             };
+                            config.params.version_stamp = $rootScope.tipoapp_version || $rootScope.version_stamp;
                         };
                         var port_string = $location.port() === "80" || $location.port() === "443"  ? "" : ":" + $location.port();
                         var url = $location.protocol() + "://" + $location.host() + port_string ;

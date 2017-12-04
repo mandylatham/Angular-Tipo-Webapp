@@ -113,7 +113,7 @@
 			};
 		});
 	}
-	// this.TipoApp_OnView = TipoApp_OnView;
+	this.TipoApp_OnView = TipoApp_OnView;
 	//___TipoApp___
 	//___TipoAboutApp___
 

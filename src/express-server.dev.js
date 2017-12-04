@@ -88,7 +88,7 @@ var proxyConfig = {
 };
 
 var app = express();
-app.use(cors());
+// app.use(cors());
 lodash.each(pathMappings, function(mapping){
   if(mapping.dir){
     app.use(mapping.path, express.static(path.resolve(__dirname, mapping.dir)));
