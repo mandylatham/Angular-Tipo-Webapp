@@ -15,10 +15,13 @@
     $mdToast,
     tipoHandle,
     $scope,
+    $http,
     $rootScope) {
 
     var _instance = this;
-
+    $http.get('framework/_scripts/country-code.json').then(function (data) {
+      _instance.country_code = data.data;
+    });
     _instance.inProgress = false;
     $scope.creditCard;
     $scope.cardToken;
@@ -153,8 +156,8 @@
         };
         // Authenticate
         var criteria = {bare_event: 'Y',post_event: 'Y'};
-        var user_attributes = {first_name: user.first_name, phone_number: user.phone_number};
-        var org_attributes = {company_name: user.companyName};
+        var user_attributes = {first_name: user.first_name, phone: user.country_code +"-"+ user.phone_number};
+        var org_attributes = {organization: user.companyName};
         cognitoService.authenticate(user.fullName(), user.password).then(function() {
           cognitoService.resendCode().then(function() {
             tipoCache.clearMemoryCache();

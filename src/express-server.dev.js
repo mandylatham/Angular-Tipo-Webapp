@@ -93,7 +93,11 @@ lodash.each(pathMappings, function(mapping){
   if(mapping.dir){
     app.use(mapping.path, express.static(path.resolve(__dirname, mapping.dir)));
   }else if(mapping.url){
-    app.use(mapping.path, proxy({target: mapping.url, changeOrigin: true}));
+    if (mapping.path !== "/api") {
+      app.use(mapping.path, proxy({target: mapping.url, changeOrigin: true}));
+    }else{
+      app.use(mapping.path, proxy({target: mapping.url, changeOrigin: true}));
+    }
   }
 });
 

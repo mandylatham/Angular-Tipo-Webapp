@@ -70,11 +70,27 @@
                         httpConfig: httpConfig
                     };
                 }
+                // version_stamp: function(element, operation, route, url, headers, params, httpConfig){
+                //     if ($rootScope.only_cdn_host) {
+                //         url = url.replace(/(\/\/.+\/)/,"//" + $rootScope.only_cdn_host + "/")
+                //         url = url.replace("http","https");
+                //         // url = "https://" + $rootScope.only_cdn_host + url;
+                //     };
+
+                //     return {
+                //         element: element,
+                //         headers: headers,
+                //         params: params,
+                //         url: url,
+                //         httpConfig: httpConfig
+                //     };
+                // }
             },
             response: {
                 // Extracts the payload from the wrapped API response
                 extractData: function(rawData, operation, what, url, response, deferred) {
-                    var version_stamp = response.headers()["x-tipo-version-stamp"];
+                    var headers = response.headers();
+                    var version_stamp = headers["x-tipo-version-stamp"];
                     if ($rootScope.version_stamp && $rootScope.version_stamp !== version_stamp) {
                         console.log("refresh entire app stored : [" + $rootScope.version_stamp + "], received : [" + version_stamp + "]");
                         tipoCache.clearAll();
@@ -94,9 +110,11 @@
                             $templateCache.remove(value);
                             var $httpDefaultCache = $cacheFactory.get('$http');
                             $httpDefaultCache.remove(value);
-                            var url = $location.protocol() + "://" + $location.host() + ":" +
-                                $location.port() + "/" + value;
+                            var port_string = $location.port() === "80" || $location.port() === "443"  ? "" : ":" + $location.port();
+                            var url = $location.protocol() + "://" + $location.host() + port_string + "/" + value;
+                            var url_version_stamp = $location.protocol() + "://" + $location.host() + port_string + "/" + value + attach_version_stamp;
                             $httpDefaultCache.remove(url);
+                            $httpDefaultCache.remove(url_version_stamp);
 
                             if (!_.startsWith(value,"api/")) {
                                 $http({
@@ -107,7 +125,15 @@
                                 })
                                 .then(function(){
                                     setTimeout(function() {
-                                        $http.get(value).then(function(tpl){
+                                        var config = {headers:  {
+                                                    'Pragma': 'no-cache',
+                                                  }
+                                              };
+                                              $http({
+                                                method: "GET",
+                                                url: value, 
+                                                crossDomain: true,
+                                                }).then(function(tpl){
                                             $templateCache.put(value,tpl.data);
                                             $templateCache.put(value + attach_version_stamp,tpl.data);
                                         });
@@ -122,19 +148,6 @@
                                     $http.get(value,config);
                                     },2000);
                             }
-                            // setTimeout(function() {
-                                 
-                            //     // var config = {};
-
-                            //     // $templateCache.put(value, $.ajax({
-                            //     //     type: "GET",
-                            //     //     headers: {
-                            //     //         'Pragma': 'no-cache',
-                            //     //     },
-                            //     //     url: value,
-                            //     //     crossDomain: true
-                            //     // }));
-                            // }, 2000);
 
                             if (value.indexOf("CustomScript.js") !== -1) {
                                 var head = document.getElementsByTagName('head')[0];
@@ -241,6 +254,7 @@
         RestangularConfigurer.setPlainByDefault(true);
         RestangularConfigurer.addFullRequestInterceptor(interceptors.request.cache);
         RestangularConfigurer.addFullRequestInterceptor(interceptors.request.security);
+        // RestangularConfigurer.addFullRequestInterceptor(interceptors.request.version_stamp);
         RestangularConfigurer.addResponseInterceptor(interceptors.response.extractData);
         RestangularConfigurer.setErrorInterceptor(interceptors.errors.handleError);
         RestangularConfigurer.setDefaultHeaders({
@@ -273,7 +287,7 @@
 
     // Tipo Resource. This shall be used for all the HTTP XHR calls
 
-    function httpInterceptors(localStorageService, $rootScope,$templateCache) {
+    function httpInterceptors(localStorageService, $rootScope,$templateCache,$stateParams, $location) {
         return {
             request: function(config) {
                 // var accessToken = securityContextService.getCurrentIdToken();
@@ -282,10 +296,6 @@
                     if (!config.params) {
                         config.params = {};
                     };
-                    var relative_path = "";
-                    if ($rootScope.relative_path) {
-                        relative_path = $rootScope.relative_path;
-                    };
                     if (_.startsWith(config.url, "g/") || _.startsWith(config.url, "api/")) {
                         config.params.version_stamp = $rootScope.version_stamp
                     };
@@ -293,14 +303,30 @@
                         config.headers['Authorization'] = accessToken;
                     }
                     if (_.startsWith(config.url, "g/") && $rootScope.cdn_host && !$templateCache.get(config.url + "?version_stamp=" + config.params.version_stamp)) {
-                        if (!_.startsWith(relative_path, "/")) {
-                            relative_path = "/" + relative_path;
+                        if (_.endsWith(config.url,"___TipoApp") || _.endsWith(config.url,"___TipoDefinition") || _.startsWith($stateParams.perspective,"TipoApp.")) {
+                            config.url = "https://" + $rootScope.only_cdn_host + config.url;
+                            config.params.version_stamp = $rootScope.tipoapp_version || $rootScope.version_stamp;
+                        }else{
+                            config.url = "https://" + $rootScope.cdn_host + config.url;
                         }
-                        if (!_.endsWith(relative_path, "/")) {
-                            relative_path = relative_path + "/";
-                        }
-                        config.url = "https://" + $rootScope.cdn_host + config.url;
-                    };
+                        
+                    }else{
+                        if (config.method === "GET") {
+                            config.url = config.url.replace(/(\/\/.+\/api)/,"//" + $rootScope.only_cdn_host + "api");
+                            if (!S(config.url).contains("https")) {
+                                config.url.replace("http","https");
+                            };
+                        };
+                        var port_string = $location.port() === "80" || $location.port() === "443"  ? "" : ":" + $location.port();
+                        var url = $location.protocol() + "://" + $location.host() + port_string ;
+                        config.headers['X-Tipo-Origin'] = url;
+                        // if (!_.isUndefined(accessToken) && _.startsWith(config.url, "api/")) {
+                        //     config.headers['Authorization'] = accessToken;
+                        // }
+                    }
+                    // else if (_.startsWith(config.url, "api/") && $rootScope.only_cdn_host) {
+                    //     config.url = "https://" + $rootScope.only_cdn_host + config.url;
+                    // };
                 };
                 return config;
             }
