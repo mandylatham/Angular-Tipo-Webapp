@@ -11,6 +11,7 @@
                     <md-content layout-padding layout="column" layout-align="center stretch">
                         <div class="md-subhead text-center" ng-init="controller.initCard()"></div>
                         <div id='card-element'></div>
+                        <div class="hint" style="position: inherit;bottom: 10px;">Please provide your cards billing Zip code</div>
                         <div class="error with-margin" ng-show="controller.lastError"><i class="fa fa-exclamation-circle fa-fw"></i> {{controller.lastError}}</div>
                         <md-button type="submit" md-theme="reverse" class="md-raised md-primary" ng-if="!controller.inProgress">Add Card Details</md-button>
                         <md-button disabled md-theme="reverse" class="md-raised md-primary" ng-show="controller.inProgress">
