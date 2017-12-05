@@ -93,8 +93,8 @@
 						        exitOnEsc:true,
 						        nextLabel: 'next',
 						        prevLabel: '<span style="color:green">Previous</span>',
-						        skipLabel: 'Exit',
-						        doneLabel: 'Thanks'
+						        skipLabel: 'Dont Show the Tour Again',
+						        doneLabel: 'Finish'
 						    };
 		var tour_item = "tipoapp_tour_1";
 		tipoHandle.getTourItem(tour_item).then(function(tipo){

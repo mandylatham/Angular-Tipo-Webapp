@@ -313,12 +313,16 @@
         }
 
         function setTourObject(tour_item, tour_options, tipo) {
-            // ngIntroService.onexit(turnOffTour(tour_item));
             ngIntroService.clear();
             ngIntroService.setOptions(tour_options);
-            ngIntroService.onComplete(function(){
-                turnOffTour(tour_item, tipo);
-            });
+            if (tipo) {
+                ngIntroService.onExit(function(){
+                    turnOffTour(tour_item, tipo);
+                });
+                ngIntroService.onComplete(function(){
+                    turnOffTour(tour_item, tipo);
+                });
+            };
             ngIntroService.start();
         }
 
