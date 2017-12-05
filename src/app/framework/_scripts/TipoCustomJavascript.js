@@ -85,6 +85,11 @@
 						            element: '#develop_menu',
 						            intro: "In develop Mode",
 						            position: 'bottom'
+						        },
+						        {
+						            element: '#start_tour_action',
+						            intro: "You can start the tour from here",
+						            position: 'bottom'
 						        }
 						        ],
 						        showStepNumbers: false,
