@@ -26,8 +26,6 @@
     _instance.inProgress = false;
     $scope.creditCard;
     $scope.cardToken;
-    $scope.accountResponse;
-    $scope.tipoAccountProcessing = false;
     var appMetadata = metadataService.applicationMetadata;
     var appMetadata = _.merge(_.get(appMetadata,"TipoApp"),_.get(appMetadata,"TipoConfiguration"));
     _instance.header_template = metadataService.resolveAppCustomUrls("login_header_template","user/_views/header.tpl.html")
@@ -117,21 +115,18 @@
             // Send the token to your server
             markProgress();
             $scope.cardToken = result.token;
-            sendToken();
+            $scope.tipoAccountPromise.then(function(res) {
+              sendToken();
+            })
           }
         });
       }
 
-      function sendToken(){
-        if($scope.accountResponse) {
-          tipoHandle.callAction('TipoSubscriptions','attach_card',['2000000001'],'TipoSubscriptions',{token_source: $scope.cardToken.id, credit_card: $scope.cardToken.card.last4}).then(function(response){
-            tipoRouter.to('dashboard');
-          });
-        } else {
-          $scope.tipoAccountProcessing = true;
-        }
-        
-      }
+    function sendToken(){
+        tipoHandle.callAction('TipoSubscriptions','attach_card',['2000000001'],'TipoSubscriptions',{token_source: $scope.cardToken.id, credit_card: $scope.cardToken.card.last4}).then(function(response){
+          tipoRouter.to('dashboard');
+        });
+    }
 
     _instance.signUp = function(attemptCnt) {
       markProgress();
@@ -155,11 +150,7 @@
         cognitoService.authenticate(user.fullName(), user.password).then(function() {
           cognitoService.resendCode().then(function() {
             tipoCache.clearMemoryCache();
-            tipoInstanceDataService.upsertAll('TipoAccount',[{account:account ,application:appMetadata.application ,tipo_id:account ,account_name:user.accountName ,application_owner_account:appMetadata.application_owner_account ,company_name:user.companyName, org_attributes:org_attributes, user_attributes: user_attributes}],criteria).then(function(res){
-              $scope.accountResponse = res;
-              if($scope.tipoAccountProcessing) {
-                sendToken();
-              }
+            $scope.tipoAccountPromise = tipoInstanceDataService.upsertAll('TipoAccount',[{account:account ,application:appMetadata.application ,tipo_id:account ,account_name:user.accountName ,application_owner_account:appMetadata.application_owner_account ,company_name:user.companyName, org_attributes:org_attributes, user_attributes: user_attributes}],criteria).then(function(res){
             },
             function(err){
               raiseError(err);
