@@ -10,6 +10,7 @@
     tipoCache,
     tipoInstanceDataService,
     tipoManipulationService,
+    vcRecaptchaService,
     $state,
     $stateParams,
     $mdToast,
@@ -198,7 +199,7 @@
           // Go to New Password Required page when facing PasswordChallenge
           tipoRouter.to('newPasswordRequired', undefined, { deferredPassword: result.value });
         } else {
-          tipoCache.clearMemoryCache();
+          tipoCache.clearAll();
           _instance.gotoPreviousView();
         }
       }, function(err) {
@@ -282,6 +283,10 @@
         $state.go('dashboard');
       }
     };
+
+    _instance.recaptchaExpiration = function(){
+      console.log("Captch Expired!!");
+    }
 
     $scope.$watch(function(){
       return _instance.toast;
