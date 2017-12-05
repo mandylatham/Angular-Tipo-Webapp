@@ -1,6 +1,6 @@
 <div layout="row">
 	<div flex>
-		<md-select ng-model="model.field" aria-label="realtedtipo" md-container-class="tp-field"  md-on-open="triggerDropdown()" md-selected-text="renderSelection()" md-on-close="cleanup()" ng-if="!ispopup" ng-required="istipomandatory" ng-disabled="readOnly">
+		<md-select ng-model="model.field" aria-label="realtedtipo" md-container-class="tp-field tp-lookup-dropdown"  md-on-open="triggerDropdown()" md-selected-text="renderSelection()" md-on-close="cleanup()" ng-if="!ispopup" ng-required="istipomandatory" ng-disabled="readOnly">
 		  <md-select-header class="search">
 		    <md-input-container md-no-float>
 		      <input ng-model="searchTerm.text" type="search" placeholder="Search ..." ng-keydown="stopBubbling($event)" ng-keyup="$event.keyCode == 13 ? triggerDropdown(searchTerm.text) : null" tp:auto-focus>
