@@ -194,6 +194,7 @@
         var container = angular.element(document.getElementById('inf-wrapper'));
         var invalidElement = document.getElementsByClassName("ng-invalid");
         container.scrollToElement(invalidElement[1],150,100);
+        invalidElement[1].focus();
         return false;
       }
       tipoRouter.startStateChange();

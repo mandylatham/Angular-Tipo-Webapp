@@ -306,16 +306,19 @@
             return getTipo(TOUR_TIPO, TOUR_TIPO_ID, filter)
         }
 
-        function turnOffTour(tour_item) {
-            var tipo = {};
-            tipo[tour_item] = false;
+        function turnOffTour(tour_item, tipo) {
+            tipo[tour_item] = true;
             saveTipo(TOUR_TIPO, TOUR_TIPO_ID, tipo);
+            console.log('update onExit.')
         }
 
-        function setTourObject(tour_item, tour_options) {
-            ngIntroService.oncomplete(turnOffTour(tour_item));
+        function setTourObject(tour_item, tour_options, tipo) {
             // ngIntroService.onexit(turnOffTour(tour_item));
+            ngIntroService.clear();
             ngIntroService.setOptions(tour_options);
+            ngIntroService.onComplete(function(){
+                turnOffTour(tour_item, tipo);
+            });
             ngIntroService.start();
         }
 

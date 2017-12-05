@@ -98,14 +98,14 @@
 						    };
 		var tour_item = "tipoapp_tour_1";
 		tipoHandle.getTourItem(tour_item).then(function(tipo){
-			if (!tipo[tour_item]) {
+			if (tipo[tour_item]) {
 				var unbind = $rootScope.$watch(function() {
 				  return document.querySelectorAll('#manageTipos')[0];
 				}, function watchCallback(newValue, oldValue) {
 				  //react on value change here
 				  if (newValue) {
 				  	setTimeout(function(){
-				  		tipoHandle.setTourObject(tour_item,introOptions);
+				  		tipoHandle.setTourObject(tour_item,introOptions,tipo);
 				  		unbind();
 				  	},3000);
 				  };
