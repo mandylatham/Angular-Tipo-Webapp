@@ -98,7 +98,7 @@
 						    };
 		var tour_item = "tipoapp_tour_1";
 		tipoHandle.getTourItem(tour_item).then(function(tipo){
-			if (tipo[tour_item]) {
+			if (!tipo[tour_item]) {
 				var unbind = $rootScope.$watch(function() {
 				  return document.querySelectorAll('#manageTipos')[0];
 				}, function watchCallback(newValue, oldValue) {
