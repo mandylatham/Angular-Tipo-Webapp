@@ -337,18 +337,31 @@
     function getPlanDetails (plan) {
       planDisplayText = " " + plan.quantity + " " + plan.item;
       angular.forEach(_instance.plans, function(value, index) {
-          if(value.tipo_id === _instance.tipo.plan) {
-            angular.forEach(value.stripe_subscription_plans, function(subscriptionPlan, key){
-              if(plan.item === subscriptionPlan.plane_name) {
-                if(plan.quantity <= subscriptionPlan.discounted_quantity) {
-                  planDisplayText = " Used <b>" + plan.quantity + " of " + subscriptionPlan.discounted_quantity  + " </b>included " + plan.item + "(s)" ;
-                } else {
-                  var additionalQuantity = plan.quantity - subscriptionPlan.discounted_quantity;
-                  planDisplayText = " <b>" + subscriptionPlan.discounted_quantity + "</b> " + plan.item + " <b>+ " + additionalQuantity + " </b>additional " + plan.item + "(s)" ;
-                }
+        angular.forEach(value.stripe_subscription_plans, function(subscriptionPlan, key){
+          if(plan.item === subscriptionPlan.plane_name) {
+            if(value.tipo_id === _instance.tipo.plan) {
+              value.disableButton = true;
+              value.buttonText = "Current Plan";
+              if(plan.quantity <= subscriptionPlan.discounted_quantity) {
+                planDisplayText = " Used <b>" + plan.quantity + " of " + subscriptionPlan.discounted_quantity  + " </b>included " + plan.item + "(s)" ;
+              } else {
+                var additionalQuantity = plan.quantity - subscriptionPlan.discounted_quantity;
+                planDisplayText = " <b>" + subscriptionPlan.discounted_quantity + "</b> " + plan.item + " <b>+ " + additionalQuantity + " </b>additional " + plan.item + "(s)" ;
               }
-            })
+            }
+          } 
+          // Code for plan downgrading, will be removed shortly
+          if(plan.item === subscriptionPlan.plane_name && subscriptionPlan.plane_name === "Creator" && value.tipo_id !== _instance.tipo.plan) {
+            if(subscriptionPlan.plan_amount < plan.amount) {
+              value.disableButton = true;
+              value.buttonText = "Cannot downgrade plan";
+            } else {
+              value.disableButton = false;
+              value.buttonText = "Choose Plan";
+            }
           }
+        })
+          
         });
       return planDisplayText;
     }
@@ -373,6 +386,10 @@
     // }
     // getBillingCycles();
     function selectPlan(plan){
+      // Code to block downgrades
+      if (plan.buttonText === "Cannot downgrade plan") {
+        return;
+      }
       _instance.selectedPlan = plan;
       if (!_instance.tipo.credit_card && !_instance.cardElement) {
         showCreditCard();
