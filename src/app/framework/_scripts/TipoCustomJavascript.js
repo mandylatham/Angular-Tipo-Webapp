@@ -40,8 +40,17 @@
 	         };
 	       };
 	}
+
+	function TipoDefinition_tipo_meta_tipo_type_copy_OnChange (data_handle) {
+		if (data_handle.tipo.tipo_meta.tipo_type_copy) {
+			data_handle.tipo.tipo_meta.tipo_type = [data_handle.tipo.tipo_meta.tipo_type_copy];
+			data_handle.tipo.tipo_meta.tipo_type_labels = [data_handle.tipo.tipo_meta.tipo_type_copy_labels];
+		}
+	}
+
 	this.TipoDefinition_tipo_fields_label_style_OnChange  = TipoDefinition_tipo_fields_label_style_OnChange ;
 	this.TipoDefinition_tipo_fields_value_style_OnChange  = TipoDefinition_tipo_fields_label_style_OnChange ;
+	this.TipoDefinition_tipo_meta_tipo_type_copy_OnChange = TipoDefinition_tipo_meta_tipo_type_copy_OnChange
 
 	function TipoDefinition_tipo_fields_default_value_BeforeLookup (data_handle) {
 		if (_.startsWith(data_handle.context.field_type, 'Tipo.')) {
