@@ -61,6 +61,7 @@
     };
 
     _instance.clearAll = function(){
+      CacheFactory.clearAll();
       _instance.getMemory().removeAll();
       _instance.getPersistent().removeAll();
     };

@@ -118,12 +118,7 @@
 
         var TOUR_TIPO = "TipoTourData";
         var TOUR_TIPO_ID = "default";
-
-        if (metadataService.userMetadata && metadataService.userMetadata.role) {
-            var role = metadataService.userMetadata.role;
-        } else {
-            var role = "TipoUser";
-        }
+        var role;
 
         function getConfirmation(title, user_message) {
             var confirmation = $mdDialog.confirm()
@@ -326,9 +321,17 @@
             ngIntroService.start();
         }
 
+        function setUserMeta(){
+            this.user_meta = metadataService.userMetadata;
+            if (metadataService.userMetadata && metadataService.userMetadata.role) {
+                role = metadataService.userMetadata.role;
+            } else {
+                role = "TipoUser";
+            }
+        }
+
 
         this.application_meta = metadataService.applicationMetadata;
-        this.user_meta = metadataService.userMetadata;
         this.getConfirmation = getConfirmation;
         this.hideElement = hideElement;
         this.showElement = showElement;
@@ -354,6 +357,7 @@
         this.updateUrl = updateUrl;
         this.createUrl = createUrl;
         this.detailUrl = detailUrl;
+        this.setUserMeta = setUserMeta;
 
 
 

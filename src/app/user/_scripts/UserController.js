@@ -10,6 +10,7 @@
     tipoCache,
     tipoInstanceDataService,
     tipoManipulationService,
+    securityContextService,
     vcRecaptchaService,
     $state,
     $stateParams,
@@ -199,6 +200,7 @@
           // Go to New Password Required page when facing PasswordChallenge
           tipoRouter.to('newPasswordRequired', undefined, { deferredPassword: result.value });
         } else {
+          securityContextService.clearContext();
           tipoCache.clearAll();
           _instance.gotoPreviousView();
         }
@@ -221,7 +223,8 @@
           // Go to New Password Required page when facing PasswordChallenge
           tipoRouter.to('newPasswordRequired', undefined, { deferredPassword: result.value });
         } else {
-          tipoCache.clearMemoryCache();
+          securityContextService.clearContext();
+          tipoCache.clearAll();
           _instance.gotoPreviousView();
         }
       }, function(err) {

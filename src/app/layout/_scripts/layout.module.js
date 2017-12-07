@@ -69,6 +69,7 @@
         }
       },
       controller: /*@ngInject*/ function($scope, $rootScope,tipoHandle,$templateCache,$http){
+        tipoHandle.setUserMeta();
         function loadAsyncData(){
           var filter = {};
           filter.tipo_filter = "(tipo_meta.pre_load: true)";

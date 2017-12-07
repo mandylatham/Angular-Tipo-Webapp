@@ -414,7 +414,7 @@
             };
             searchCriteria.page = 1;
             // If for the dropdown we require custom page size then we can get from the page_size parameter
-            searchCriteria.per_page = page_size || 10;
+            searchCriteria.per_page = page_size || 12;
             if (!_.isEmpty(scope.queryparams)) {
               _.forOwn(scope.queryparams,function(value,key){
                 value = value.replace("$index", scope.index);
@@ -465,6 +465,7 @@
               searchCriteria.key_field = key_field;
               searchCriteria.label_field = label_field;
             };
+            console.log(element);
             scope.searchCriteria = searchCriteria;
             scope.infiniteItems = tipoManipulationService.getVirtualRepeatObject(searchCriteria.per_page,scope.tipo_name,tipoHandle.getTipos,searchCriteria);
             scope.infiniteItems.serverResultHandler = function(page){
