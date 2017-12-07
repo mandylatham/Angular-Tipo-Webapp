@@ -115,6 +115,7 @@
           scope.mobaction= {isOpen: false};
           scope.deskaction= {isOpen: false};
           scope.data_handle= {};
+          scope.tipo_handle = tipoHandle;
 
           if(!mode){
             mode = 'view';

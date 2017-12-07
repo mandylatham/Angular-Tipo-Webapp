@@ -311,7 +311,7 @@
                         }
                         
                     }else{
-                        if (config.method === "GET" && S(config.url).contains("/api/") && !S(config.url).contains("api/TipoUser/default")) {
+                        if (config.method === "GET" && S(config.url).contains("/api/") && !S(config.url).contains("TipoUser/default")) {
                             config.params.url = angular.copy(config.url);
                             config.url = config.url.replace(/(\/\/.+\/api)/,"//" + $rootScope.only_cdn_host + "api");
                             if (!S(config.url).contains("https")) {
