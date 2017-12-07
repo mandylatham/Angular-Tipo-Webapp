@@ -295,6 +295,10 @@
             this.menu_item = menu_item;
         }
 
+        function getMenuItem() {
+            return this.menu_item;
+        }
+
         function getTourItem(tour_item) {
             var filter = {};
             filter.tipo_fields = tour_item;
@@ -350,6 +354,7 @@
         this.toTipo = toTipo;
         this.setPerspective = setPerspective;
         this.setMenuItem = setMenuItem;
+        this.getMenuItem = getMenuItem;
         this.getTourItem = getTourItem;
         this.setTourObject = setTourObject;
         this.getISODate = getISODate;

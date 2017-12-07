@@ -72,6 +72,21 @@
 
 	//___TipoDefinition___
 
+	function TipoDefinition_OnView (data_handle) {
+		var menu_item = tipoHandle.getMenuItem();
+		if(data_handle.mode === 'create' && menu_item.quickFilters === 'Menu Definitions') {
+				$rootScope.$watch(function() { return data_handle }, function(new_value, old_value) {
+					if (data_handle.tipo.tipo_meta) {
+						data_handle.tipo.tipo_meta.tipo_type_copy = "abstract";
+						data_handle.tipo.tipo_meta.tipo_type_copy_labels = "Abstract Tipo";
+						data_handle.tipo.tipo_meta.tipo_type = ["abstract"];
+						data_handle.tipo.tipo_meta.tipo_type_labels = ["Abstract Tipo"];
+					} 
+			}, true);
+			}
+	}
+	this.TipoDefinition_OnView = TipoDefinition_OnView;
+
 	//___TipoApp___
 	function TipoApp_OnView(data_handle){
 		var introOptions = {
