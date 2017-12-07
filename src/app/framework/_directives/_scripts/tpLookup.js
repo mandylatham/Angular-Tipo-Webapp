@@ -414,7 +414,7 @@
             };
             searchCriteria.page = 1;
             // If for the dropdown we require custom page size then we can get from the page_size parameter
-            searchCriteria.per_page = page_size || 12;
+            searchCriteria.per_page = page_size || 10;
             if (!_.isEmpty(scope.queryparams)) {
               _.forOwn(scope.queryparams,function(value,key){
                 value = value.replace("$index", scope.index);
