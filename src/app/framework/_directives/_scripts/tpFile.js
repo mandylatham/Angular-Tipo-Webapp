@@ -248,7 +248,7 @@
           var src =  "g/" + scope.fileTarget + (scope.isTargetFile ? '' :filePath.value);
           switch(type){
               case 'image': {
-                  template = '<md-dialog><div><img class="fullwidth" src="' + src + '" style="background: lightgrey;"/> <div></md-dialog>';
+                  template = '<md-dialog class="image-area"><div><img class="fullwidth" src="' + src + '" style="background: lightgrey;"/> <div></md-dialog>';
                   break;
               }
               case 'video': {
