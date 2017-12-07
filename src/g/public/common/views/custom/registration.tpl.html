@@ -42,7 +42,7 @@
                                     </div>
                             </md-input-container>
                             <md-input-container flex="70" class="md-icon-float md-block">
-                                <tp:text-mask isdisable="false" name="phone_number" is-required="true" text-pattern="'### ### ####'" field-type="'integer'" field-value="controller.user.phone_number"  field-label="'Phone Number'" force-validation="true" pattern-validation="false" placeholder-char="' '"  />
+                                <tp:text-mask isdisable="false" name="phone_number" is-required="true" text-pattern="'### ### ####'" field-type="'integer'" field-value="controller.user.phone_number"  field-label="'Phone Number'" force-validation="false" pattern-validation="false" placeholder-char="''"  />
                                 <div ng-messages="registrationForm.phone_number.$error">
                                     <div ng-message="required">This is required!</div>
                                 </div>

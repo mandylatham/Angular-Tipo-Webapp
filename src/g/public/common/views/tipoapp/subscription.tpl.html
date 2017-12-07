@@ -111,7 +111,7 @@
 								</div>
 						</div>
 						</form>
-						<md-button class="md-primary md-raised m0" md-theme="reverse" md-colors="{background: 'accent-500'}" ng-click="controller.selectPlan(plan)" ng-disabled="plan.tipo_id === controller.tipo.plan"><span ng-if="plan.tipo_id !== controller.tipo.plan" >Choose Plan</span><span ng-if="plan.tipo_id === controller.tipo.plan">Current Plan</span></md-button>
+						<md-button class="md-primary md-raised m0" md-theme="reverse" md-colors="{background: 'accent-500'}" ng-click="controller.selectPlan(plan)" ng-disabled="plan.disableButton"><span>{{plan.buttonText}}</span></md-button>
 					</md-card>
 				</div>
 				<div ng-hide="!controller.inProgress">

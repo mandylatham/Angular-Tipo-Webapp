@@ -3,10 +3,10 @@
   'use strict';
 
   function TipoColorController(
-    $scope) {
+    $scope, $mdTheming) {
 
     var _instance = this;
-
+      
     function getColorObject(value, name) {
       var c = tinycolor(value);
       return {
@@ -97,6 +97,17 @@
       $scope.tipoRootController.palettecolors[palletename] = palleteColors;
     }
 
+    _instance.initialiseColors = function() {
+      var primaryArray = _.values(_.map($mdTheming.PALETTES.primary, function(value, key) { 
+        return { name: key, hex: "#"+value.hex, darkContrast: value.contrast[0] === 0 } 
+      }));
+      var accentArray = _.values(_.map($mdTheming.PALETTES.accent, function(value, key) { 
+        return { name: key, hex: "#"+value.hex, darkContrast: value.contrast[0] === 0 } 
+      }));
+      $scope.tipoRootController.palettecolors['primary'] = primaryArray;
+      $scope.tipoRootController.palettecolors['accent'] = accentArray;
+    }
+    
     function convertToAngularCode(paletteName){
       var palette = {name: paletteName,colors: $scope.tipoRootController.palettecolors[paletteName]};
       return _instance.createAjsPaletteCode(palette);
@@ -111,6 +122,7 @@
        $scope.tipoRootController.save(tipoForm,mode);
     }
 
+    _instance.initialiseColors();
   }
 
   angular.module('tipo.tipoapp')
