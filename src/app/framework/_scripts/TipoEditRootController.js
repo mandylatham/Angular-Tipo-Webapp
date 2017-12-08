@@ -1023,7 +1023,9 @@
         };
 
         $scope.$watch(function() { return $scope.data_handle }, function(new_value, old_value) {
-            _instance.tipo = $scope.data_handle.tipo;
+            if(new_value) {
+                _instance.tipo = $scope.data_handle.tipo;
+            }
         }, true);
 
     }
