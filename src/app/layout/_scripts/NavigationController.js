@@ -100,6 +100,7 @@
         tipoHandle.getTipoDefinition(tipoName).then(function(definition){
 
           _instance.menu = tipoManipulationService.prepareMenu(perspective, definition);
+          _instance.switchPerspective = definition.tipo_meta.switch_perspectives;
 
           var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
           perspectiveMenu.tipoName = perspectiveMetadata.tipoName;
@@ -120,18 +121,20 @@
             queryparams.per_page = 100;
             queryparams.must_include_key = "tipo_id";
             queryparams.must_include_values = selectedTipoId;
-            tipoInstanceDataService.search(tipoName,queryparams).then(function(tipos){
-              tipos = _.uniqWith(tipos, _.isEqual);
-              _.each(tipos, function(tipo){
-                prepareMenuItems(tipo,definition,_instance.perspectiveMenuItems);
+            // if (_instance.switchPerspective) {
+              tipoInstanceDataService.search(tipoName,queryparams).then(function(tipos){
+                tipos = _.uniqWith(tipos, _.isEqual);
+                _.each(tipos, function(tipo){
+                  prepareMenuItems(tipo,definition,_instance.perspectiveMenuItems);
+                });
+                if ($stateParams.perspectiveTipo) {
+                  prepareMenuItems($stateParams.perspectiveTipo,definition,_instance.perspectiveMenuItems);
+                };
+                perspectiveMenu.menuItems = _instance.perspectiveMenuItems;
+                _instance.perspectiveMenu = perspectiveMenu;
+                markActiveItem(_instance.menu, selectedTipoId);
               });
-              if ($stateParams.perspectiveTipo) {
-                prepareMenuItems($stateParams.perspectiveTipo,definition,_instance.perspectiveMenuItems);
-              };
-              perspectiveMenu.menuItems = _instance.perspectiveMenuItems;
-              _instance.perspectiveMenu = perspectiveMenu;
-              markActiveItem(_instance.menu, selectedTipoId);
-            });
+            // };
           }
         });
       }
