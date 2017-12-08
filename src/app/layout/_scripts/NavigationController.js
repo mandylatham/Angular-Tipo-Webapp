@@ -54,7 +54,7 @@
         tipoHandle.setMenuItem(activeItem);
       }else{
         delete _instance.activeItem;
-        tipoHandle.setMenuItem(activeItem);
+        tipoHandle.setMenuItem(selectedItem);
       }
     }
 
@@ -79,9 +79,10 @@
       var skipMenuLoad = false;
       var parts = perspective.split('.');
       var tipoName = parts[0];
-      var selectedTipoId;
       if(parts.length > 1){
-       selectedTipoId = parts[1];
+       _instance.selectedTipoId = parts[1];
+      }else{
+        _instance.selectedTipoId = null;
       }
       if(currentPerspective){
         var oldTipoName = currentPerspective.split('.')[0];
@@ -93,7 +94,7 @@
       currentPerspective = perspective;
 
       if(skipMenuLoad){
-        markActiveItem(_instance.menu, selectedTipoId);
+        markActiveItem(_instance.menu, _instance.selectedTipoId);
       }else{
         var perspectiveMenu = {};
         _instance.perspectiveMenuItems = [];
@@ -109,18 +110,18 @@
           if(perspectiveMetadata.abstract){
             perspectiveMenu.abstract = true;
             _instance.perspectiveMenu = perspectiveMenu;
-            markActiveItem(_instance.menu, selectedTipoId);
+            markActiveItem(_instance.menu, _instance.selectedTipoId);
           }else if(perspectiveMetadata.singleton){
             perspectiveMenu.singleton = true;
             _instance.perspectiveMenu = perspectiveMenu;
-            markActiveItem(_instance.menu, selectedTipoId);
+            markActiveItem(_instance.menu, _instance.selectedTipoId);
           }else{
             // If the perspective menu items are more than 500
             var queryparams = {};
             queryparams.page = 1;
             queryparams.per_page = 100;
             queryparams.must_include_key = "tipo_id";
-            queryparams.must_include_values = selectedTipoId;
+            queryparams.must_include_values = _instance.selectedTipoId;
             // if (_instance.switchPerspective) {
               tipoInstanceDataService.search(tipoName,queryparams).then(function(tipos){
                 tipos = _.uniqWith(tipos, _.isEqual);
@@ -132,7 +133,7 @@
                 };
                 perspectiveMenu.menuItems = _instance.perspectiveMenuItems;
                 _instance.perspectiveMenu = perspectiveMenu;
-                markActiveItem(_instance.menu, selectedTipoId);
+                markActiveItem(_instance.menu, _instance.selectedTipoId);
               });
             // };
           }
@@ -201,7 +202,7 @@
 
     $scope.$on('$stateChangeSuccess', function() {
       if (!$rootScope.readonly) {
-        markActiveItem(_instance.menu);
+        markActiveItem(_instance.menu,_instance.selectedTipoId);
       }
     });
 
