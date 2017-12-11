@@ -183,7 +183,7 @@
       markProgress();
       username = username || user.fullName();
       password = password || user.password;
-      cognitoService.authenticate(username, password).then(function(result){
+      $scope.tipoAccountPromise = cognitoService.authenticate(username, password).then(function(result){
         if ($stateParams.retry) {
           $stateParams.retry.resolve();
         }

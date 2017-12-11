@@ -287,6 +287,9 @@ html{
       }
       .md-list-item-inner{
         float: left;
+        // Safari specific CSS
+        width: 100%;
+        margin: 0 auto;
       }
     }
     button{
@@ -782,12 +785,14 @@ md-list-item::before, md-list-item .md-list-item-inner::before{
     width: 250px;
     height: 270px;
     cursor: pointer;
+    position: relative;
   }
   .app-top {
     position: absolute;
     margin: auto;
     width: 250px;
     height: 170px;
+    top: 0;
   }
   .action-bar{
     position: absolute;
