@@ -110,11 +110,15 @@
                             $templateCache.remove(value);
                             var $httpDefaultCache = $cacheFactory.get('$http');
                             $httpDefaultCache.remove(value);
+                            $httpDefaultCache.remove(value + attach_version_stamp);
                             var port_string = $location.port() === "80" || $location.port() === "443"  ? "" : ":" + $location.port();
                             var url = $location.protocol() + "://" + $location.host() + port_string + "/" + value;
                             var url_version_stamp = $location.protocol() + "://" + $location.host() + port_string + "/" + value + attach_version_stamp;
                             $httpDefaultCache.remove(url);
                             $httpDefaultCache.remove(url_version_stamp);
+                            tipoCache.evict(value);
+                            // $httpDefaultCache.removeAll();
+                            // $templateCache.removeAll();
 
                             if (!_.startsWith(value,"api/")) {
                                 $http({
