@@ -35,9 +35,9 @@
     filter.page = 1;
     filter.per_page = 100;
     if (filter.tipo_filter && filter.tipo_filter !== "") {
-      filter.tipo_filter = "(!_exists_:tipo_role)";
+      filter.tipo_filter = "(!_exists_:tipo_role AND application:$tipoContext.application)";
     }else{
-      filter.tipo_filter = "(!_exists_:tipo_role)";
+      filter.tipo_filter = "(!_exists_:tipo_role AND application:$tipoContext.application)";
     }
     tipoInstanceDataService.search("TipoDefinition",filter).then(function(tipo_objects){
       _instance.tipo_objects = tipo_objects;
