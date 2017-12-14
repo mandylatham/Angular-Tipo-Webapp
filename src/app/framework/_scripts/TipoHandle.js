@@ -219,7 +219,7 @@
         }
         function purgeTipo(tipo_name, tipo_id) {
             tipoCache.evict(tipo_name, tipo_id);
-            purgeTipos(tipo_name);
+            return purgeTipos(tipo_name);
         }
 
         function purgeTipos(tipo_name){

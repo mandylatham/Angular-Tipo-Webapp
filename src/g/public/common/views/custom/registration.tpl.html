@@ -28,8 +28,8 @@
                             </div>
                         </md-input-container>
                         <label class="loginlabel">Phone Number {{controller.user.country_code}}</label>
-                        <div layout="row">
-                            <md-input-container flex="30" class="md-icon-float md-block">
+                        <div layout="row" class="form-group">
+                            <!-- <md-input-container flex="30" class="md-icon-float md-block">
                                 <md-icon>contact_phone</md-icon>
                                 <md-select name="country_code" ng-model="controller.user.country_code" required md-no-asterisk="true" md-on-open="open='true'" md-on-close="open='false'">
                                     <md-option ng-repeat="country in controller.country_code" ng-value="country.callingCode" value="country.callingCode">
@@ -40,12 +40,21 @@
                                 <div class="errors" ng-messages="registrationForm.country_code.$error">
                                         <div ng-message="required">This is required!</div>
                                     </div>
-                            </md-input-container>
-                            <md-input-container flex="70" class="md-icon-float md-block">
+                            </md-input-container> -->
+                            <!-- <md-input-container flex="70" class="md-icon-float md-block">
                                 <tp:text-mask isdisable="false" name="phone_number" is-required="true" text-pattern="'### ### ####'" field-type="'integer'" field-value="controller.user.phone_number"  field-label="'Phone Number'" force-validation="false" pattern-validation="false" placeholder-char="''"  />
                                 <div ng-messages="registrationForm.phone_number.$error">
                                     <div ng-message="required">This is required!</div>
                                 </div>
+                            </md-input-container> -->
+                            <md-input-container class="md-icon-float md-block">
+                                <md-icon>contact_phone</md-icon>
+                                <input type="text" ng-model="controller.user.phone_number" tp:intl-tel-input id="phone_number" name="phone_number" class="form-control" required>
+                                <div ng-messages="registrationForm.phone_number.$error">
+                                    <div ng-message="required">This is required!</div>
+                                    <div ng-show="registrationForm.phone_number.$invalid && registrationForm.phone_number.$touched">Invalid :(</div>
+                                </div>
+                                <!-- <div ></div> -->
                             </md-input-container>
                         </div>
                         <label class="loginlabel">Password</label>

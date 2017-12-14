@@ -22,7 +22,7 @@
       <div class="app-logo">
           <md-icon style="width: 30px;height: 30px;font-size: 30px;">{{tipo.icon}}</md-icon>
       </div>
-      <div class="md-subhead text-left" flex>{{tipo.label}}</div>
+      <div class="md-subhead text-left" flex>{{tipo.label || tipo.text}}</div>
     </div>
   </div>
   <div class="header" flex-offset="5">
@@ -42,7 +42,7 @@
           <md-icon style="width: 30px;height: 30px;font-size: 30px;" ng-if="tipo.icon">{{tipo.icon}}</md-icon>
           <md-icon style="width: 30px;height: 30px;font-size: 30px;" ng-if="!tipo.icon">add_box</md-icon>
       </div>
-      <div class="md-subhead text-left" flex>{{tipo.label}}</div>
+      <div class="md-subhead text-left" flex>{{tipo.label || tipo.text}}</div>
     </div>
   </div>
   <div class="header" flex-offset="5" ng-if="(controller.tipo_types | filter:{field_group: 'true'}).length > 0">
@@ -60,7 +60,7 @@
       <div class="app-logo">
           <md-icon style="width: 30px;height: 30px;font-size: 30px;">{{tipo.icon}}</md-icon>
       </div>
-      <div class="md-subhead text-left" flex>{{tipo.label}}</div>
+      <div class="md-subhead text-left" flex>{{tipo.label || tipo.text}}</div>
     </div>
   </div>
 </div>

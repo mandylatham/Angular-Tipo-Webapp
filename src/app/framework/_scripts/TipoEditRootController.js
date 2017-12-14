@@ -360,7 +360,7 @@
             var filter = {};
             tipoRouter.startStateChange();
             getPerspective(filter);
-            // tipoCache.evict(tipo_name, $stateParams.tipo_id);
+            tipoCache.evict(tipo_name, $stateParams.tipo_id);
             tipoHandle.purgeTipo(tipo_name).then(function(){
               tipoHandle.getTipo(tipo_name, $stateParams.tipo_id, filter, true).then(function(data) {
                   data.tipo_id = data.tipo_id || $stateParams.tipo_id;
