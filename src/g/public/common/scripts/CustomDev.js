@@ -323,7 +323,7 @@
       // if (!change) {
         // selectCycle();
       // };
-      params.tipo_filter = "(!(inactive:true))"
+      params.tipo_filter = "(!(plan_status:Inactive))"
       // params.tipo_filter = params.tipo_filter + ' AND ' + _instance.cycleSelected.filter_expression;
       if (_instance.edit_current_plan) {
         params.tipo_filter = params.tipo_filter + 'AND (plan_group:' + (_instance.tipo.plan_group ) + ')';

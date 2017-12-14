@@ -360,23 +360,22 @@
             var filter = {};
             tipoRouter.startStateChange();
             getPerspective(filter);
-            tipoCache.evict(tipo_name, $stateParams.tipo_id);
-            $templateCache.remove(_instance.createUrl);
-            $templateCache.remove(_instance.detailUrl);
-            $templateCache.remove(_instance.updateUrl);
-            tipoHandle.getTipo(tipo_name, $stateParams.tipo_id, filter, true).then(function(data) {
-                data.tipo_id = data.tipo_id || $stateParams.tipo_id;
-                _instance.tipo = data;
-                $scope.data_handle.tipo = _instance.tipo;
-                function_name = tipo_name + "_OnView";
-                if (typeof tipoCustomJavascript[function_name] === 'function') {
-                    tipoCustomJavascript[function_name]($scope.data_handle);
-                }
-                if (typeof tipoClientJavascript[function_name] === 'function') {
-                    tipoClientJavascript[function_name]($scope.data_handle);
-                }
-                tipoRouter.endStateChange();
-            });
+            // tipoCache.evict(tipo_name, $stateParams.tipo_id);
+            tipoHandle.purgeTipo(tipo_name).then(function(){
+              tipoHandle.getTipo(tipo_name, $stateParams.tipo_id, filter, true).then(function(data) {
+                  data.tipo_id = data.tipo_id || $stateParams.tipo_id;
+                  _instance.tipo = data;
+                  $scope.data_handle.tipo = _instance.tipo;
+                  var function_name = _instance.tipo_name + "_OnView";
+                  if (typeof tipoCustomJavascript[function_name] === 'function') {
+                      tipoCustomJavascript[function_name]($scope.data_handle);
+                  }
+                  if (typeof tipoClientJavascript[function_name] === 'function') {
+                      tipoClientJavascript[function_name]($scope.data_handle);
+                  }
+                  tipoRouter.endStateChange();
+              });
+            })
         }
 
         _instance.initCollapsed = function(uniq_name, collapsed) {
