@@ -17,7 +17,7 @@
           };
           var initObj = {};
           initObj.formatOnDisplay = true;
-          initObj.utilsScript = "_scripts/non-bower-managed/phonenumber_utils.js";
+          initObj.utilsScript = "g/public/common/views/tipoapp/phonenumber_utils.js";
           element.intlTelInput(initObj);
 
           // Validation.
