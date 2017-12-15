@@ -19,13 +19,15 @@
                 initObj.formatOnDisplay = true;
                 initObj.utilsScript = "g/public/common/views/tipoapp/phonenumber_utils.js";
                 initObj.initialCountry = "auto";
+                initObj.separateDialCode = true;
                 initObj.geoIpLookup = function(callback) {
                     $.get("https://ipinfo.io", function() {}, "jsonp").always(function(resp) {
                         var countryCode = (resp && resp.country) ? resp.country : "";
                         callback(countryCode);
                     });
                 }
-                if (attrs.ngDisabled) {
+                var disabled = (attrs.ngDisabled === "true");
+                if (disabled) {
                   initObj.customPlaceholder = function(){
                     return "--N/A--";
                   }
@@ -43,6 +45,9 @@
                 };
                 // Set model value to valid, formatted version.
                 ctrl.$parsers.push(function(value) {
+                    var test = element.intlTelInput('getNumber', "International");
+                     test = element.intlTelInput('getNumber', "NATIONAL");
+                     test = element.intlTelInput('getNumber', "E164");
                     element.intlTelInput("setNumber", element.intlTelInput('getNumber', "International"));
                     return element.intlTelInput('getNumber');
                 });
