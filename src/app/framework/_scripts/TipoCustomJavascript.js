@@ -55,8 +55,8 @@
 	function TipoDefinition_tipo_fields_default_value_BeforeLookup (data_handle) {
 		if (_.startsWith(data_handle.context.field_type, 'Tipo.')) {
 			data_handle.tipo_name = data_handle.context.field_type.substring(5);
-            data_handle.key_field = data_handle.context.select_key_field || data_handle.key_field;
-            data_handle.label_field = data_handle.context.select_label_field || data_handle.label_field;
+            data_handle.key_field = data_handle.context.select_key_field || "tipo_id";
+            data_handle.label_field = data_handle.context.select_label_field || data_handle.key_field;
             if(!_.isUndefined(data_handle.context.relationship_filter) && data_handle.context.relationship_filter.indexOf("$tipo") === -1){
               var basefilterExpanded = data_handle.context.relationship_filter;
               if(!_.isUndefined(basefilterExpanded) && basefilterExpanded !== "" && !data_handle.searchCriteria.tipo_filter){

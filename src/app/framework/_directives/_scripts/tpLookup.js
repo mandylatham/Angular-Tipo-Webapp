@@ -445,29 +445,26 @@
               searchCriteria.must_include_values = tipoManipulationService.addEscElascticReservedKeys(searchCriteria.must_include_values);
             }
             var function_name = $stateParams.tipo_name + '_' + scope.fqfieldname.replace(/\./g,"_").replace(/\[\d\]/g, "") + '_BeforeLookup';
+            scope.data_handle.root = scope.root;
+            scope.data_handle.context = scope.context;
+            scope.data_handle.searchCriteria = searchCriteria;
+            scope.data_handle.tipo_name = scope.tipo_name;
+            scope.data_handle.key_field = scope.key_field;
+            scope.data_handle.label_field = scope.label_field;
             if(typeof tipoCustomJavascript[function_name] === 'function'){
-              scope.data_handle.root = scope.root;
-              scope.data_handle.context = scope.context;
-              scope.data_handle.searchCriteria = searchCriteria;
-              scope.data_handle.tipo_name = scope.tipo_name;
-              scope.data_handle.key_field = scope.key_field;
-              scope.data_handle.label_field = scope.label_field;
               tipoCustomJavascript[function_name](scope.data_handle);
             }
             if(typeof tipoClientJavascript[function_name] === 'function'){
-              scope.data_handle.root = scope.root;
-              scope.data_handle.context = scope.context;
-              scope.data_handle.searchCriteria = searchCriteria;
               tipoClientJavascript[function_name](scope.data_handle);
             }
             if (!scope.ispopup) {
               searchCriteria.drop_down = 'Y';
-              searchCriteria.key_field = key_field;
-              searchCriteria.label_field = label_field;
+              searchCriteria.key_field = scope.data_handle.key_field;
+              searchCriteria.label_field = scope.data_handle.label_field;
             };
             console.log(element);
-            scope.searchCriteria = searchCriteria;
-            scope.infiniteItems = tipoManipulationService.getVirtualRepeatObject(searchCriteria.per_page,scope.tipo_name,tipoHandle.getTipos,searchCriteria);
+            scope.searchCriteria = scope.data_handle.searchCriteria;
+            scope.infiniteItems = tipoManipulationService.getVirtualRepeatObject(scope.searchCriteria.per_page,scope.data_handle.tipo_name,tipoHandle.getTipos,scope.searchCriteria);
             scope.infiniteItems.serverResultHandler = function(page){
               this.tipos = _.uniqWith(this.tipos, _.isEqual);
               scope.tipos = _.uniqWith(this.tipos, _.isEqual);
