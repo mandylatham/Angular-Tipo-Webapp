@@ -43,7 +43,6 @@
                 };
                 // Set model value to valid, formatted version.
                 ctrl.$parsers.push(function(value) {
-                    var test = element.intlTelInput('getNumber', "International");
                     element.intlTelInput("setNumber", element.intlTelInput('getNumber', "International"));
                     return element.intlTelInput('getNumber');
                 });
@@ -57,7 +56,7 @@
                     }
                     return value;
                 });
-
+                // For Rejecting characters
                 // scope.$watch(attrs.ngModel,function(new_val,old_val){
                 //   if (!element.intlTelInput('isValidNumber')){
 

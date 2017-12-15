@@ -107,7 +107,7 @@ html{
 
   #layout {
     height: 100vh;
-    background-image: url('_assets/images/login_bg.png');
+    background-image: url('@{image-base-path}/login_bg.png');
     background-position: bottom;
     background-size: contain;
     background-repeat: no-repeat;
@@ -753,7 +753,12 @@ md-tabs.md-stretch-tabs md-pagination-wrapper md-tab-item {
     -o-transition: all 0.5s ease-in-out;
     transition: all 0.5s ease-in-out;
 }
+// Overide Path of Flag Image
+.iti-flag {background-image: url("@{image-base-path}/flags.png");}
 
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+  .iti-flag {background-image: url("@{image-base-path}/flags@2x.png");}
+}
 /* Styling for the ngProgress-container */
 #ngProgress-container {
     position: fixed;

@@ -151,6 +151,7 @@
           var deferredPassword = $q.defer();
           deferred.resolve({ type: 'PasswordChallenge', value: deferredPassword });
           deferredPassword.promise.then(function(newPassword) {
+            delete userAttributes.email_verified;
             cognitoUser.completeNewPasswordChallenge(newPassword, userAttributes, {
               onSuccess: function (result) {
                 console.log('Password Challange', result);
