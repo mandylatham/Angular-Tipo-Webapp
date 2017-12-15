@@ -33,7 +33,7 @@
                 </form>
             </div>
         </div>
-        <div layout="column" layout-align="center stretch" layout-padding ng-if="!controller.inProgress">
+        <div layout="column" layout-align="center stretch" layout-padding ng-if="!controller.inProgress && controller.allow_signup">
             <md-button type="button" class="md-raised md-primary" ng-click="controller.toRegistration()" tabindex="4">Create a new Account</md-button>
         </div>
     </div>

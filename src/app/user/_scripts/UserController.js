@@ -48,6 +48,7 @@
     };
     _instance.user = user;
     _instance.captureAccountNameDuringSignup = appMetadata.capture_account_name_during_signup;
+    _instance.allow_signup = appMetadata.allow_signup;
 
     _instance.toRegistration = function(){
       tipoRouter.to('registration');
