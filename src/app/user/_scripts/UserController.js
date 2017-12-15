@@ -18,6 +18,7 @@
     tipoHandle,
     $scope,
     $http,
+    $q,
     $rootScope) {
 
     var _instance = this;
@@ -259,12 +260,22 @@
     _instance.completePasswordChallenge = function(){
       markProgress();
       if ($stateParams.deferredPassword){
-        $stateParams.deferredPassword.resolve(user.newPassword);
-        _instance.toast = {
-          header: 'Password changed',
-          body: 'Your password has been changed successfully. Please login using the new password'
-        };
-        _instance.toLogin();
+        var deferredComplete = $q.defer();
+        var resolvedPassword = {newPassword: user.newPassword,deferredComplete: deferredComplete};
+        $stateParams.deferredPassword.resolve(resolvedPassword);
+        deferredComplete.promise.then(function(result){
+          _instance.toast = {
+            header: 'Password changed',
+            body: 'Your password has been changed successfully. Please login using the new password'
+          };
+          _instance.login(result.userAttributes.email,user.newPassword); 
+        },function(err){
+          _instance.toast = {
+            header: 'Password change was not successful',
+            body: err.message
+          };
+        })
+        
         return;
       }
       raiseError({ errorMessage: 'You must login first with your temporary credentials before attempting to change your password'});

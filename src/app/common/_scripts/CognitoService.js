@@ -150,13 +150,16 @@
         newPasswordRequired: function(userAttributes, requiredAttributes) {
           var deferredPassword = $q.defer();
           deferred.resolve({ type: 'PasswordChallenge', value: deferredPassword });
-          deferredPassword.promise.then(function(newPassword) {
+          deferredPassword.promise.then(function(resolveObj) {
             delete userAttributes.email_verified;
-            cognitoUser.completeNewPasswordChallenge(newPassword, userAttributes, {
+            cognitoUser.completeNewPasswordChallenge(resolveObj.newPassword, userAttributes, {
               onSuccess: function (result) {
+                result.userAttributes = userAttributes;
+                resolveObj.deferredComplete.resolve(result);
                 console.log('Password Challange', result);
               },
               onFailure: function(err) {
+                resolveObj.deferredComplete.reject(result);
                 console.error('Password Challange', err);
               }
             });
