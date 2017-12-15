@@ -150,6 +150,7 @@
         _instance.tipo_handle = tipoHandle;
         _instance.hide_actions = $scope.hide_actions;
         var tipo_name = $scope.tipo_name || $stateParams.tipo_name;
+        _instance.tipo = tipo;
         _instance.initTiposData = function(ui_type, mode) {
             var type = ui_type;
             _instance.mode = mode;
