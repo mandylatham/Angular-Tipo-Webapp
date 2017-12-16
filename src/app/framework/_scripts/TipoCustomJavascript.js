@@ -127,6 +127,7 @@
 						        doneLabel: 'Finish'
 						    };
 		var tour_item = "tipoapp_tour_1";
+		$("#loader").addClass("loading");
 		tipoHandle.getTourItem(tour_item).then(function(tipo){
 			if (!tipo[tour_item]) {
 				var unbind = $rootScope.$watch(function() {
@@ -135,12 +136,15 @@
 				  //react on value change here
 				  if (newValue) {
 				  	setTimeout(function(){
+				  		$("#loader").removeClass("loading");
 				  		tipoHandle.setTourObject(tour_item,introOptions,tipo);
 				  		unbind();
 				  	},3000);
 				  };
 				});
-			};
+			}else{
+				$("#loader").removeClass("loading");
+			}
 		});
 	}
 	this.TipoApp_OnView = TipoApp_OnView;
