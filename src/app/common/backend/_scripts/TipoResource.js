@@ -326,7 +326,7 @@
                         };
                         var port_string = $location.port() === "80" || $location.port() === "443"  ? "" : ":" + $location.port();
                         var url = $location.protocol() + "://" + $location.host() + port_string ;
-                        config.headers['X-Tipo-Origin'] = url;
+                        // config.headers['X-Tipo-Origin'] = url;
                         // if (!_.isUndefined(accessToken) && _.startsWith(config.url, "api/")) {
                         //     config.headers['Authorization'] = accessToken;
                         // }
