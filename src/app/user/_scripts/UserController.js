@@ -26,6 +26,9 @@
       _instance.country_code = data.data;
     });
     _instance.inProgress = false;
+    $scope.date = new Date();
+    $scope.expiryDate = new Date();
+    $scope.expiryDate.setMonth($scope.date.getMonth() + 1);
     $scope.creditCard;
     $scope.cardToken;
     var appMetadata = metadataService.applicationMetadata;
