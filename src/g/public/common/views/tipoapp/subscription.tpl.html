@@ -1,8 +1,13 @@
 <!-- Container -->
 <div layout="column" ng-controller="TipoSubscribtionController as controller" layout-padding>
-	<h3 md-colors="{color: 'primary-700'}" flex="" class="flex">
+	<div layout="row">
+		<h3 md-colors="{color: 'primary-700'}" flex="" class="flex">
 				Current Plan
- 	</h3>
+ 		</h3>
+ 		<div>
+	        <tp:actions tipo-name="'TipoSubscriptions'"  tipo-actions="[{tipo_action: 'cancel_subscription',display_name: 'Cancel Subscription',highlight: false,bulk_select: $action.bulk_select,single_select: $action.single_select,icon: '',visibility_expression: '' , client_dependency:{tipo_name: ''}},]" tipos="tipoRootController.tipo" refresh="tipoRootController.refresh()"/>
+	    </div>
+	</div>
  	<md-divider></md-divider>
 	<!--Plan Details -->
 	<md-card layout-gt-sm="row" layout-sm="column" layout-xs="column" layout-align-gt-sm="center center" layout-padding>
