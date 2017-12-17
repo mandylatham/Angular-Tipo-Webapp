@@ -255,7 +255,6 @@
         var baseUrl = location.origin + relativeUrl;
         console.info('API Url - ' + baseUrl);
         RestangularConfigurer.setBaseUrl(baseUrl);
-        RestangularConfigurer.setPlainByDefault(true);
         RestangularConfigurer.addFullRequestInterceptor(interceptors.request.cache);
         RestangularConfigurer.addFullRequestInterceptor(interceptors.request.security);
         // RestangularConfigurer.addFullRequestInterceptor(interceptors.request.version_stamp);
