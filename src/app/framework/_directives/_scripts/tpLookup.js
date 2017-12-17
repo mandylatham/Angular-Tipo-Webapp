@@ -262,8 +262,8 @@
           function optionsFormat(results){
             return _.map(results, function(each){
               var option = {}
-              option[key_field] = _.get(each,key_field);
-              option[label_field] = _.get(each,label_field);
+              _.set(option,key_field,_.get(each,key_field));
+              _.set(option,label_field,_.get(each,label_field));
               return option;
             });
           }
@@ -314,8 +314,8 @@
                   scope.options = [];
                   var singlefield = {};
                   _.each(scope.ngModel,function(value,key){
-                    singlefield[key_field] = value;
-                    singlefield[label_field] = scope.fieldlabel[key];
+                    _.set(singlefield,key_field,value);
+                    _.set(singlefield,label_field,scope.fieldlabel[key]);
                     scope.model.field.push(singlefield);
                     singlefield = {};
                   });
@@ -327,8 +327,8 @@
                   scope.fieldlabel = "";
                 }else{
                   scope.options = [];
-                  scope.model.field[key_field] = scope.ngModel;
-                  scope.model.field[label_field] = scope.fieldlabel || scope.ngModel;
+                  _.set(scope.model.field,key_field,scope.ngModel);
+                  _.set(scope.model.field,label_field,scope.fieldlabel || scope.ngModel);
                   scope.fieldlabel = scope.fieldlabel || scope.ngModel;
                   scope.options.push(scope.model.field);
                 }
@@ -346,7 +346,7 @@
           initmodel();
 
           scope.afterlookupEvent = function(){
-            var function_name = $stateParams.tipo_name + '_' + scope.fqfieldname.replace(/\./g,"_").replace(/\[\d\]/g, "") + '_AfterLookup';
+            var function_name = $stateParams.tipo_name + '_' + fqfieldname.replace(/\./g,"_").replace(/\[\d\]/g, "") + '_AfterLookup';
             if(typeof tipoCustomJavascript[function_name] === 'function'){
             // _.join(_.dropRight(fqfieldname.split(".")),".") used for initial client side js
               scope.data_handle.root = scope.root;
@@ -444,7 +444,7 @@
               searchCriteria.must_include_values = scope.ngModel;
               searchCriteria.must_include_values = tipoManipulationService.addEscElascticReservedKeys(searchCriteria.must_include_values);
             }
-            var function_name = $stateParams.tipo_name + '_' + scope.fqfieldname.replace(/\./g,"_").replace(/\[\d\]/g, "") + '_BeforeLookup';
+            var function_name = $stateParams.tipo_name + '_' + fqfieldname.replace(/\./g,"_").replace(/\[\d\]/g, "") + '_BeforeLookup';
             scope.data_handle.root = scope.root;
             scope.data_handle.context = scope.context;
             scope.data_handle.searchCriteria = searchCriteria;
@@ -668,11 +668,11 @@
             var function_name;
             if (isarray) {
               if (new_value && new_value.length < old_value.length) {
-                function_name = $stateParams.tipo_name + "_" + scope.fqfieldname.replace(/\./g,"_").replace(/\[\d\]/g, "") + "_OnArrayItemRemove";
+                function_name = $stateParams.tipo_name + "_" + fqfieldname.replace(/\./g,"_").replace(/\[\d\]/g, "") + "_OnArrayItemRemove";
                 scope.data_handle.item = _.difference(old_value,new_value);
               };
               if (new_value && new_value.length > old_value.length) {
-                function_name = $stateParams.tipo_name + "_" + scope.fqfieldname.replace(/\./g,"_").replace(/\[\d\]/g, "") + "_OnArrayItemAdd";
+                function_name = $stateParams.tipo_name + "_" + fqfieldname.replace(/\./g,"_").replace(/\[\d\]/g, "") + "_OnArrayItemAdd";
                 scope.data_handle.item = _.difference(new_value,old_value);
               };
               if(typeof tipoClientJavascript[function_name] === 'function'){
@@ -683,6 +683,28 @@
               }
             }
             if (new_value !== old_value) {
+              if (!isarray) {
+                function_name = $stateParams.tipo_name + "_" + fqfieldname.replace(/\./g,"_").replace(/\[\d\]/g, "") + "_OnChange";
+                if (typeof tipoCustomJavascript[function_name] === 'function') {
+                    scope.data_handle.tipo = scope.root;
+                    scope.data_handle.context = scope.context;
+                    scope.data_handle.old_value = old_value;
+                    scope.data_handle.new_value = new_value;
+                    scope.data_handle.new_object = scope.model.field;
+                    scope.data_handle.label = scope.fieldlabel;
+                    tipoCustomJavascript[function_name](scope.data_handle);
+                    _.set(scope.ngModel, scope.data_handle.new_value);
+                }
+                if (typeof tipoClientJavascript[function_name] === 'function') {
+                    scope.data_handle.tipo = scope.root;
+                    scope.data_handle.context = scope.context;
+                    scope.data_handle.old_value = old_value;
+                    scope.data_handle.new_value = new_value;
+                    scope.data_handle.label = scope.fieldlabel;
+                    tipoClientJavascript[function_name](scope.data_handle);
+                    _.set(scope.ngModel, scope.data_handle.new_value);
+                }
+              }
               initmodel();
             };
             // if (scope.model.field.key !== scope.ngModel) {

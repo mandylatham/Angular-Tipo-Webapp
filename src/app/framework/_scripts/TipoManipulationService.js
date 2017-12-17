@@ -610,8 +610,9 @@
                     menuItem.tipo_name = parts[1];
                     var typelabel = each.type__labels || each.type_;
                     var types = typelabel.split(" - ");
-                    if (types[1]) {
-                        var tipo_type = types[1].split(",");
+                    var type = each.tipo_type || types[1] || each.type_;
+                    if (type || types[1]) {
+                        var tipo_type = type || types[1].split(",");
                         _.each(tipo_type,function(each_type){
                           if (each_type === "abstract") {
                             menuItem.abstract = true;

@@ -41,6 +41,9 @@
 	       };
 	}
 
+	this.TipoDefinition_tipo_fields_label_style_OnChange  = TipoDefinition_tipo_fields_label_style_OnChange ;
+	this.TipoDefinition_tipo_fields_value_style_OnChange  = TipoDefinition_tipo_fields_label_style_OnChange ;
+
 	function TipoDefinition_tipo_meta_tipo_type_copy_OnChange (data_handle) {
 		if (data_handle.tipo.tipo_meta.tipo_type_copy) {
 			data_handle.tipo.tipo_meta.tipo_type = [data_handle.tipo.tipo_meta.tipo_type_copy];
@@ -48,9 +51,15 @@
 		}
 	}
 
-	this.TipoDefinition_tipo_fields_label_style_OnChange  = TipoDefinition_tipo_fields_label_style_OnChange ;
-	this.TipoDefinition_tipo_fields_value_style_OnChange  = TipoDefinition_tipo_fields_label_style_OnChange ;
-	this.TipoDefinition_tipo_meta_tipo_type_copy_OnChange = TipoDefinition_tipo_meta_tipo_type_copy_OnChange
+	this.TipoDefinition_tipo_meta_tipo_type_copy_OnChange = TipoDefinition_tipo_meta_tipo_type_copy_OnChange;
+
+	function TipoDefinition_tipo_menu_type__OnChange(data_handle){
+		if (data_handle.new_object && data_handle.new_object.tipo_meta.tipo_type) {
+			data_handle.context.tipo_type = data_handle.new_object.tipo_meta.tipo_type;
+		};
+	}
+
+	this.TipoDefinition_tipo_menu_type__OnChange = TipoDefinition_tipo_menu_type__OnChange;
 
 	function TipoDefinition_tipo_fields_default_value_BeforeLookup (data_handle) {
 		if (_.startsWith(data_handle.context.field_type, 'Tipo.')) {
