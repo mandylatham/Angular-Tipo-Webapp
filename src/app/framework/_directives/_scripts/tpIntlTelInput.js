@@ -15,6 +15,7 @@
                     $log.warn('ng-intl-tel-input can only be applied to a *text* or *tel* input');
                     return;
                 };
+                element.intlTelInput("destroy");
                 var initObj = {};
                 initObj.formatOnDisplay = true;
                 initObj.utilsScript = "g/public/common/views/tipoapp/phonenumber_utils.js";
@@ -31,9 +32,9 @@
                   initObj.customPlaceholder = function(){
                     return "--N/A--";
                   }
+                  // initObj.separateDialCode = false;
                 };
                 element.intlTelInput(initObj);
-
                 // Validation.
                 ctrl.$validators.ngIntlTelInput = function(value) {
                     // if phone number is deleted / empty do not run phone number validation
@@ -54,8 +55,10 @@
                 // Set input value to model value and trigger evaluation.
                 ctrl.$formatters.push(function(value) {
                     if (value) {
-                        if (value.charAt(0) !== '+') {
-                            value = '+' + value;
+                        element.intlTelInput('setNumber', value);
+                        var countryCode = element.intlTelInput("getSelectedCountryData");
+                        if (value.contains("+" + countryCode.dialCode)) {
+                            value.replace("+" + countryCode.dialCode,"");
                         }
                         element.intlTelInput('setNumber', value);
                     }
