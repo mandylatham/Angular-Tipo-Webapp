@@ -322,7 +322,9 @@
                                 config.url.replace("http","https");
                             };
                             config.params.version_stamp = $rootScope.version_stamp;
-                        };
+                        }else if(S(config.url).contains("TipoUser/default") || S(config.url).contains("tipo_app_info")){
+                            config.headers["Cache-Control"] = "private, no-store";
+                        }
                         var port_string = $location.port() === "80" || $location.port() === "443"  ? "" : ":" + $location.port();
                         var url = $location.protocol() + "://" + $location.host() + port_string ;
                         config.headers['X-Tipo-Origin'] = url;
