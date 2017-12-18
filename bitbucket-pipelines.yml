@@ -17,8 +17,11 @@ pipelines:
                 - python ./import-env.py $DEV_DEPLOYMENT_ID --output=env.properties
                 - mvn --version
                 - mvn -X clean deploy -Dall
-    master:            
+    master:           
       - step:
+          caches:
+                - node
+                - maven
           script:
                 - export AWS_ACCESS_KEY_ID=$PROD_AWS_ACCESS_KEY_ID
                 - export AWS_SECRET_ACCESS_KEY=$PROD_AWS_SECRET_ACCESS_KEY
