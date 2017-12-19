@@ -22,6 +22,7 @@ pipelines:
           caches:
                 - node
                 - maven
+                - gradle
           script:
                 - export AWS_ACCESS_KEY_ID=$PROD_AWS_ACCESS_KEY_ID
                 - export AWS_SECRET_ACCESS_KEY=$PROD_AWS_SECRET_ACCESS_KEY
