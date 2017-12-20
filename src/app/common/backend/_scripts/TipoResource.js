@@ -326,10 +326,16 @@
                             config.params.url = angular.copy(config.url);
                             config.url = config.url.replace(/(\/\/.+\/api)/, "//" + $rootScope.only_cdn_host + "api");
                             if (!S(config.url).contains("https")) {
-                                config.url.replace("http", "https");
+                                config.url = config.url.replace("http", "https");
                             };
                             config.params.version_stamp = $rootScope.version_stamp;
-                        }
+                        }else if ((config.method === "PUT" || config.method === "POST") && S(config.url).contains("/api/")) {
+                            config.params.url = angular.copy(config.url);
+                            config.url = config.url.replace(/(\/\/.+\/api)/, "//" + $rootScope.app_internal_host + "api");
+                            if (!S(config.url).contains("https")) {
+                                config.url = config.url.replace("http", "https");
+                            };
+                        };
                         var port_string = $location.port() === "80" || $location.port() === "443" ? "" : ":" + $location.port();
                         var url = $location.protocol() + "://" + $location.host() + port_string;
                         config.headers['X-Tipo-Origin'] = url;
