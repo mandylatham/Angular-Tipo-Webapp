@@ -46,8 +46,8 @@
       })
     }
     fetchAllTemplatesAsync();
-    user.fullName = function(){
-      return appMetadata.application_owner_account + '.' + appMetadata.application + '.' + _instance.user.email;
+    user.fullName = function(username){
+      return appMetadata.application_owner_account + '.' + appMetadata.application + '.' + username || _instance.user.email;
     };
     _instance.user = user;
     _instance.captureAccountNameDuringSignup = appMetadata.capture_account_name_during_signup;
@@ -188,7 +188,7 @@
 
     _instance.login = function(username, password){
       markProgress();
-      username = username || user.fullName();
+      username = user.fullName(username);
       password = password || user.password;
       $scope.tipoAccountPromise = cognitoService.authenticate(username, password).then(function(result){
         if ($stateParams.retry) {
