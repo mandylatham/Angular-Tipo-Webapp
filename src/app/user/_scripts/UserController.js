@@ -47,7 +47,7 @@
     }
     fetchAllTemplatesAsync();
     user.fullName = function(username){
-      return appMetadata.application_owner_account + '.' + appMetadata.application + '.' + username || _instance.user.email;
+      return appMetadata.application_owner_account + '.' + appMetadata.application + '.' + (username || _instance.user.email);
     };
     _instance.user = user;
     _instance.captureAccountNameDuringSignup = appMetadata.capture_account_name_during_signup;
