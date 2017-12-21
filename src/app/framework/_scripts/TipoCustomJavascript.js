@@ -3,7 +3,7 @@
   'use strict';
 
 
-  function TipoCustomJavascript(tipoHandle, tipoRouter,tipoManipulationService,$rootScope){
+  function TipoCustomJavascript(tipoHandle, tipoRouter,tipoManipulationService,$rootScope, $stateParams){
 
   	// function TipoS3Browser_OnClick(tipoData,selectedTipo,tipo_name,query_params,event){
   	function TipoS3Browser_OnClick(data_handle){
@@ -146,7 +146,9 @@
 				  if (newValue) {
 				  	setTimeout(function(){
 				  		$("#loader").removeClass("loading");
-				  		tipoHandle.setTourObject(tour_item,introOptions,tipo);
+				  		if ($stateParams.tipo_name === "TipoApp" && $stateParams.tipo_id && data_handle.mode === "view") {
+				  			tipoHandle.setTourObject(tour_item,introOptions,tipo);
+				  		};
 				  		unbind();
 				  	},3000);
 				  };
