@@ -104,8 +104,25 @@
               $mdToast.hide();
             };
           },
-          position: 'top right',
+          position: 'bottom right',
           hideDelay: 7000
+        };
+      }
+    });
+    $mdToastProvider.addPreset('tpErrorToast', {
+      options: function() {
+        return {
+          templateUrl: 'common/backend/_views/error-toast.tpl.html',
+          bindToController: true,
+          controllerAs: 'errorToast',
+          controller: /*@ngInject*/ function($scope, $mdToast, header, body){
+            this.close = function(){
+              $mdToast.hide();
+            };
+          },
+          position: 'bottom right',
+          toastClass: 'error-toast',
+          hideDelay: 10000
         };
       }
     });
