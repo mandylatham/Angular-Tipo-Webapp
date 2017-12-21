@@ -8,7 +8,7 @@
 		    </md-input-container>
 		  </md-select-header>
 			  <md-option value="" ng-if="!required && !searchTerm.text">-- Clear --</md-option>
-			  <md-option value="model.field" ng-if="initload">{{getLabel(model.field)}}</md-option>
+			  <md-option ng-value="model.field" ng-if="initload">{{getLabel(model.field)}}</md-option>
 		  <md-virtual-repeat-container id="vertical-container" class="fluid-row-container" style="height:160px;" md-auto-shrink>
 		  	<div md-virtual-repeat="option in infiniteItems" md-on-demand flex>
 		  		<md-option ng-value="option" ng-selected="option===model.field">{{ getLabel(option) }}</md-option>
