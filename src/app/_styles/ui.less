@@ -14,7 +14,10 @@ html {
     padding: 8px;
 }
 
-.hint {
+.padding-vertical-5 {
+  padding: 5px 0px;
+}
+.hint{
     position: absolute;
     left: 4px;
     right: auto;
@@ -899,7 +902,24 @@ md-list-item .md-list-item-inner::before {
 }
 
 .tp-lookup-dropdown {
-    md-content {
-        overflow-y: hidden;
-    }
+  md-content {
+    overflow-y : hidden;
+  }
+}
+
+.error-toast {
+  margin: 5px;
+  .md-toast-content {
+    background: whitesmoke;
+    box-shadow: -5px 5px rgba(255,50,50,0.85);
+    color: rgba(255,50,50,0.85);
+    max-height: 100%;
+    overflow: scroll;
+    float: right;
+    max-width: 90%;
+    display: block;
+  }
+  .md-toast-content::before {
+    content: none;
+  }
 }
