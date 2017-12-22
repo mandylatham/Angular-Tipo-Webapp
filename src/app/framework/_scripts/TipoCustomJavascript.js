@@ -3,7 +3,7 @@
   'use strict';
 
 
-  function TipoCustomJavascript(tipoHandle, tipoRouter,tipoManipulationService,$rootScope){
+  function TipoCustomJavascript(tipoHandle, tipoRouter,tipoManipulationService,$rootScope, $stateParams){
 
   	// function TipoS3Browser_OnClick(tipoData,selectedTipo,tipo_name,query_params,event){
   	function TipoS3Browser_OnClick(data_handle){
@@ -41,6 +41,9 @@
 	       };
 	}
 
+	this.TipoDefinition_tipo_fields_label_style_OnChange  = TipoDefinition_tipo_fields_label_style_OnChange ;
+	this.TipoDefinition_tipo_fields_value_style_OnChange  = TipoDefinition_tipo_fields_label_style_OnChange ;
+
 	function TipoDefinition_tipo_meta_tipo_type_copy_OnChange (data_handle) {
 		if (data_handle.tipo.tipo_meta.tipo_type_copy) {
 			data_handle.tipo.tipo_meta.tipo_type = [data_handle.tipo.tipo_meta.tipo_type_copy];
@@ -48,15 +51,21 @@
 		}
 	}
 
-	this.TipoDefinition_tipo_fields_label_style_OnChange  = TipoDefinition_tipo_fields_label_style_OnChange ;
-	this.TipoDefinition_tipo_fields_value_style_OnChange  = TipoDefinition_tipo_fields_label_style_OnChange ;
-	this.TipoDefinition_tipo_meta_tipo_type_copy_OnChange = TipoDefinition_tipo_meta_tipo_type_copy_OnChange
+	this.TipoDefinition_tipo_meta_tipo_type_copy_OnChange = TipoDefinition_tipo_meta_tipo_type_copy_OnChange;
+
+	function TipoDefinition_tipo_menu_type__OnChange(data_handle){
+		if (data_handle.new_object && data_handle.new_object.tipo_meta.tipo_type) {
+			data_handle.context.tipo_type = data_handle.new_object.tipo_meta.tipo_type;
+		};
+	}
+
+	this.TipoDefinition_tipo_menu_type__OnChange = TipoDefinition_tipo_menu_type__OnChange;
 
 	function TipoDefinition_tipo_fields_default_value_BeforeLookup (data_handle) {
 		if (_.startsWith(data_handle.context.field_type, 'Tipo.')) {
 			data_handle.tipo_name = data_handle.context.field_type.substring(5);
-            data_handle.key_field = data_handle.context.select_key_field || data_handle.key_field;
-            data_handle.label_field = data_handle.context.select_label_field || data_handle.label_field;
+            data_handle.key_field = data_handle.context.select_key_field || "tipo_id";
+            data_handle.label_field = data_handle.context.select_label_field || data_handle.key_field;
             if(!_.isUndefined(data_handle.context.relationship_filter) && data_handle.context.relationship_filter.indexOf("$tipo") === -1){
               var basefilterExpanded = data_handle.context.relationship_filter;
               if(!_.isUndefined(basefilterExpanded) && basefilterExpanded !== "" && !data_handle.searchCriteria.tipo_filter){
@@ -123,10 +132,11 @@
 						        exitOnEsc:true,
 						        nextLabel: 'next',
 						        prevLabel: '<span style="color:green">Previous</span>',
-						        skipLabel: 'Dont Show the Tour Again',
+						        skipLabel: 'Dont show the tour gain',
 						        doneLabel: 'Finish'
 						    };
 		var tour_item = "tipoapp_tour_1";
+		$("#loader").addClass("loading");
 		tipoHandle.getTourItem(tour_item).then(function(tipo){
 			if (!tipo[tour_item]) {
 				var unbind = $rootScope.$watch(function() {
@@ -135,12 +145,17 @@
 				  //react on value change here
 				  if (newValue) {
 				  	setTimeout(function(){
-				  		tipoHandle.setTourObject(tour_item,introOptions,tipo);
+				  		$("#loader").removeClass("loading");
+				  		if ($stateParams.tipo_name === "TipoApp" && $stateParams.tipo_id && data_handle.mode === "view") {
+				  			tipoHandle.setTourObject(tour_item,introOptions,tipo);
+				  		};
 				  		unbind();
 				  	},3000);
 				  };
 				});
-			};
+			}else{
+				$("#loader").removeClass("loading");
+			}
 		});
 	}
 	this.TipoApp_OnView = TipoApp_OnView;

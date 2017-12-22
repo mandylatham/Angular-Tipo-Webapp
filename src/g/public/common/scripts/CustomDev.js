@@ -323,7 +323,7 @@
       // if (!change) {
         // selectCycle();
       // };
-      params.tipo_filter = "(!(inactive:true))"
+      params.tipo_filter = "(!(plan_status:Inactive))"
       // params.tipo_filter = params.tipo_filter + ' AND ' + _instance.cycleSelected.filter_expression;
       if (_instance.edit_current_plan) {
         params.tipo_filter = params.tipo_filter + 'AND (plan_group:' + (_instance.tipo.plan_group ) + ')';
@@ -413,6 +413,7 @@
             $scope.creditCard.stripe.createToken($scope.creditCard.cardElement).then(function(result) {
               if (result.error) {
                 // Inform the user if there was an error
+                $scope.showerror = true;
                 var errorElement = document.getElementById('card-errors');
                 errorElement.textContent = result.error.message;
               } else {
@@ -428,7 +429,7 @@
             };
           })
         },
-        template: "<md-dialog style='width:50%'><md-dialog-content layout='column' layout-padding><div layout='row' layout-align='center center'><label for='card-element' flex='20'>Card</label><div id='card-element' flex='80'></div></div><md-button class='md-primary md-raised' ng-click='createToken()'>Update Card Details</md-button></md-dialog-content></md-dialog>",
+        template: "<md-dialog style='width:50%'><md-dialog-content layout='column' layout-padding><div layout='row' layout-align='center center'><label for='card-element' flex='20'>Card</label><div id='card-element' flex='80'></div></div><md-button class='md-primary md-raised' ng-click='createToken()'>Update Card Details</md-button><div id='card-errors' ng-show='showerror'><i class='fa fa-exclamation-circle fa-fw'></i></div></md-dialog-content></md-dialog>",
         targetEvent: event,
         escapeToClose: true,
         skipHide: true,

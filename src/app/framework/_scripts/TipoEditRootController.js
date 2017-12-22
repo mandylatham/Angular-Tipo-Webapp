@@ -150,6 +150,7 @@
         _instance.tipo_handle = tipoHandle;
         _instance.hide_actions = $scope.hide_actions;
         var tipo_name = $scope.tipo_name || $stateParams.tipo_name;
+        _instance.tipo = tipo;
         _instance.initTiposData = function(ui_type, mode) {
             var type = ui_type;
             _instance.mode = mode;
@@ -361,22 +362,21 @@
             tipoRouter.startStateChange();
             getPerspective(filter);
             tipoCache.evict(tipo_name, $stateParams.tipo_id);
-            $templateCache.remove(_instance.createUrl);
-            $templateCache.remove(_instance.detailUrl);
-            $templateCache.remove(_instance.updateUrl);
-            tipoHandle.getTipo(tipo_name, $stateParams.tipo_id, filter, true).then(function(data) {
-                data.tipo_id = data.tipo_id || $stateParams.tipo_id;
-                _instance.tipo = data;
-                $scope.data_handle.tipo = _instance.tipo;
-                function_name = tipo_name + "_OnView";
-                if (typeof tipoCustomJavascript[function_name] === 'function') {
-                    tipoCustomJavascript[function_name]($scope.data_handle);
-                }
-                if (typeof tipoClientJavascript[function_name] === 'function') {
-                    tipoClientJavascript[function_name]($scope.data_handle);
-                }
-                tipoRouter.endStateChange();
-            });
+            tipoHandle.purgeTipo(tipo_name).then(function(){
+              tipoHandle.getTipo(tipo_name, $stateParams.tipo_id, filter, true).then(function(data) {
+                  data.tipo_id = data.tipo_id || $stateParams.tipo_id;
+                  _instance.tipo = data;
+                  $scope.data_handle.tipo = _instance.tipo;
+                  var function_name = _instance.tipo_name + "_OnView";
+                  if (typeof tipoCustomJavascript[function_name] === 'function') {
+                      tipoCustomJavascript[function_name]($scope.data_handle);
+                  }
+                  if (typeof tipoClientJavascript[function_name] === 'function') {
+                      tipoClientJavascript[function_name]($scope.data_handle);
+                  }
+                  tipoRouter.endStateChange();
+              });
+            })
         }
 
         _instance.initCollapsed = function(uniq_name, collapsed) {

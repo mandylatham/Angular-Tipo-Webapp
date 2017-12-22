@@ -65,28 +65,36 @@
     _instance.cancel = function() {
       $mdDialog.cancel();
     };
+    
   }
 
   function TipoErrorHandler(
     tipoRouter,
-    $mdDialog) {
+    $mdDialog,
+    $mdToast) {
 
     var _instance = this;
 
     this.handleError = function(exception, deferred) {
       tipoRouter.endStateChange();
-      var promise = $mdDialog.show({
-        templateUrl: 'common/backend/_views/error.tpl.html',
-        controller: ErrorController,
-        controllerAs: 'controller',
-        locals:{
-          exception: exception
-        },
-        skipHide: true,
-        clickOutsideToClose: true,
-        fullscreen: true
-      });
+      // var promise = $mdDialog.show({
+      //   templateUrl: 'common/backend/_views/error.tpl.html',
+      //   controller: ErrorController,
+      //   controllerAs: 'controller',
+      //   locals:{
+      //     exception: exception
+      //   },
+      //   skipHide: true,
+      //   clickOutsideToClose: true,
+      //   fullscreen: true
+      // });
       // promise.then(tipoRouter.endStateChange);
+      var toast = $mdToast.tpErrorToast();
+      toast._options.locals = {
+          header: 'ERROR',
+          body: exception
+      };
+      $mdToast.show(toast);
       return false;
     };
 

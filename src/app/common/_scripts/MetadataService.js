@@ -51,6 +51,7 @@
         //   $rootScope.cdn_host = metadata.SystemConfig.app_cdn_host;
         // }else{
           $rootScope.only_cdn_host = metadata.SystemConfig.app_cdn_host + "/";
+          $rootScope.app_internal_host = metadata.SystemConfig.app_internal_host + "/";
           $rootScope.cdn_host = metadata.SystemConfig.app_cdn_host + "/app/d/" + metadata.TipoApp.application_owner_account_name + "/" + metadata.TipoApp.application_name + "/";
         // }
         return metadata;

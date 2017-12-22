@@ -44,7 +44,11 @@
                     if (S(url).contains('TipoDefinition')) {
                         httpConfig.cache = tipoCache.getPersistent();
                     } else {
-                        if (!deviceInformation.isMobile) {
+                        if (S(url).contains("TipoUser/default") || S(url).contains("tipo_app_info")) {
+                            headers = _.extend(headers, {
+                                'Cache-Control': 'private, no-store'
+                            });
+                        } else if (!deviceInformation.isMobile) {
                             httpConfig.cache = tipoCache.getMemory();
                         }
                     }
@@ -111,7 +115,7 @@
                             var $httpDefaultCache = $cacheFactory.get('$http');
                             $httpDefaultCache.remove(value);
                             $httpDefaultCache.remove(value + attach_version_stamp);
-                            var port_string = $location.port() === "80" || $location.port() === "443"  ? "" : ":" + $location.port();
+                            var port_string = $location.port() === "80" || $location.port() === "443" ? "" : ":" + $location.port();
                             var url = $location.protocol() + "://" + $location.host() + port_string + "/" + value;
                             var url_version_stamp = $location.protocol() + "://" + $location.host() + port_string + "/" + value + attach_version_stamp;
                             $httpDefaultCache.remove(url);
@@ -120,37 +124,25 @@
                             // $httpDefaultCache.removeAll();
                             // $templateCache.removeAll();
 
-                            if (!_.startsWith(value,"api/")) {
-                                $http({
-                                method: "PURGE",
-                                url: value, 
-                                crossDomain: true,
-                                headers: { "Content-Type": "text/plain" }
-                                })
-                                .then(function(){
-                                    setTimeout(function() {
-                                        var config = {headers:  {
-                                                    'Pragma': 'no-cache',
-                                                  }
-                                              };
-                                              $http({
-                                                method: "GET",
-                                                url: value, 
-                                                crossDomain: true,
-                                                }).then(function(tpl){
-                                            $templateCache.put(value,tpl.data);
-                                            $templateCache.put(value + attach_version_stamp,tpl.data);
-                                        });
-                                    },2000);
+                            if (!_.startsWith(value, "api/")) {
+                                var config = {
+                                    headers: {
+                                        'X-bypass-cdn': 'true'
+                                    }
+                                };
+                                $http.get(url, config).then(function(tpl) {
+                                    $templateCache.put(value, tpl.data);
+                                    $templateCache.put(value + attach_version_stamp, tpl.data);
                                 });
-                            }else{
-                                var config = {headers:  {
-                                                    'Pragma': 'no-cache',
-                                                  }
-                                              };
+                            } else {
+                                var config = {
+                                    headers: {
+                                        'Pragma': 'no-cache',
+                                    }
+                                };
                                 setTimeout(function() {
-                                    $http.get(value,config);
-                                    },2000);
+                                    $http.get(value, config);
+                                }, 2000);
                             }
 
                             if (value.indexOf("CustomScript.js") !== -1) {
@@ -204,8 +196,9 @@
                             $rootScope.readonlyrf = "toTipoView";
                             // tipoRouter.toTipoView("TipoSubscriptions","default");
                             // tipoErrorHandler.handleError(response, deferred);
-                        } if (response.status === 521) {
-                          tipoRouter.to('captureCreditCard');              
+                        }
+                        if (response.status === 521) {
+                            tipoRouter.to('captureCreditCard');
                         } else {
                             tipoErrorHandler.handleError(response, deferred);
                         }
@@ -255,7 +248,6 @@
         var baseUrl = location.origin + relativeUrl;
         console.info('API Url - ' + baseUrl);
         RestangularConfigurer.setBaseUrl(baseUrl);
-        RestangularConfigurer.setPlainByDefault(true);
         RestangularConfigurer.addFullRequestInterceptor(interceptors.request.cache);
         RestangularConfigurer.addFullRequestInterceptor(interceptors.request.security);
         // RestangularConfigurer.addFullRequestInterceptor(interceptors.request.version_stamp);
@@ -291,7 +283,7 @@
 
     // Tipo Resource. This shall be used for all the HTTP XHR calls
 
-    function httpInterceptors(localStorageService, $rootScope,$templateCache,$stateParams, $location) {
+    function httpInterceptors(localStorageService, $rootScope, $templateCache, $stateParams, $location) {
         return {
             request: function(config) {
                 // var accessToken = securityContextService.getCurrentIdToken();
@@ -307,24 +299,31 @@
                         config.headers['Authorization'] = accessToken;
                     }
                     if (_.startsWith(config.url, "g/") && $rootScope.cdn_host && !$templateCache.get(config.url + "?version_stamp=" + config.params.version_stamp)) {
-                        if (_.endsWith(config.url,"___TipoApp") || _.endsWith(config.url,"___TipoDefinition") || (_.startsWith($stateParams.perspective,"TipoApp.") && !(config.method === "PURGE")) ) {
+                        // if (_.startsWith(config.url, "g/") && !S(config.url).contains("tipoapp") && $rootScope.cdn_host && !$templateCache.get(config.url + "?version_stamp=" + config.params.version_stamp)) {
+                        if (_.endsWith(config.url, "___TipoApp") || _.endsWith(config.url, "___TipoDefinition") || (_.startsWith($stateParams.perspective, "TipoApp.") && !(config.method === "PURGE"))) {
                             config.url = "https://" + $rootScope.only_cdn_host + config.url;
                             config.params.version_stamp = $rootScope.tipoapp_version || $rootScope.version_stamp;
-                        }else{
+                        } else {
                             config.url = "https://" + $rootScope.cdn_host + config.url;
                         }
-                        
-                    }else{
+
+                    } else {
                         if (config.method === "GET" && S(config.url).contains("/api/") && !S(config.url).contains("TipoUser/default")) {
                             config.params.url = angular.copy(config.url);
-                            config.url = config.url.replace(/(\/\/.+\/api)/,"//" + $rootScope.only_cdn_host + "api");
+                            config.url = config.url.replace(/(\/\/.+\/api)/, "//" + $rootScope.only_cdn_host + "api");
                             if (!S(config.url).contains("https")) {
-                                config.url.replace("http","https");
+                                config.url = config.url.replace("http", "https");
                             };
                             config.params.version_stamp = $rootScope.version_stamp;
+                        } else if ((config.method === "PUT" || config.method === "POST") && S(config.url).contains("/api/")) {
+                            config.params.url = angular.copy(config.url);
+                            config.url = config.url.replace(/(\/\/.+\/api)/, "//" + $rootScope.app_internal_host + "api");
+                            if (!S(config.url).contains("https")) {
+                                config.url = config.url.replace("http", "https");
+                            };
                         };
-                        var port_string = $location.port() === "80" || $location.port() === "443"  ? "" : ":" + $location.port();
-                        var url = $location.protocol() + "://" + $location.host() + port_string ;
+                        var port_string = $location.port() === "80" || $location.port() === "443" ? "" : ":" + $location.port();
+                        var url = $location.protocol() + "://" + $location.host() + port_string;
                         config.headers['X-Tipo-Origin'] = url;
                         // if (!_.isUndefined(accessToken) && _.startsWith(config.url, "api/")) {
                         //     config.headers['Authorization'] = accessToken;

@@ -18,6 +18,7 @@
     tipoHandle,
     $scope,
     $http,
+    $q,
     $rootScope) {
 
     var _instance = this;
@@ -25,6 +26,9 @@
       _instance.country_code = data.data;
     });
     _instance.inProgress = false;
+    $scope.date = new Date();
+    $scope.expiryDate = new Date();
+    $scope.expiryDate.setMonth($scope.date.getMonth() + 1);
     $scope.creditCard;
     $scope.cardToken;
     var appMetadata = metadataService.applicationMetadata;
@@ -42,11 +46,12 @@
       })
     }
     fetchAllTemplatesAsync();
-    user.fullName = function(){
-      return appMetadata.application_owner_account + '.' + appMetadata.application + '.' + _instance.user.email;
+    user.fullName = function(username){
+      return appMetadata.application_owner_account + '.' + appMetadata.application + '.' + (username || _instance.user.email);
     };
     _instance.user = user;
     _instance.captureAccountNameDuringSignup = appMetadata.capture_account_name_during_signup;
+    _instance.allow_signup = appMetadata.allow_signup;
 
     _instance.toRegistration = function(){
       tipoRouter.to('registration');
@@ -110,10 +115,10 @@
         $scope.creditCard.stripe.createToken($scope.creditCard.cardElement).then(function(result) {
           if (result.error) {
             // Inform the user if there was an error
-            var errorElement = document.getElementById('card-errors');
-            errorElement.textContent = result.error.message;
+            _instance.lastError = result.error.message;
           } else {
             // Send the token to your server
+            delete _instance.lastError;
             markProgress();
             $scope.cardToken = result.token;
             $scope.tipoAccountPromise.then(function(res) {
@@ -146,8 +151,8 @@
         };
         // Authenticate
         var criteria = {bare_event: 'Y',post_event: 'Y'};
-        var user_attributes = {first_name: user.first_name, phone: user.country_code +"-"+ user.phone_number};
-        var org_attributes = {organization: user.companyName, first_name: user.first_name, phone: user.country_code +"-"+ user.phone_number};
+        var user_attributes = {full_name: user.full_name, phone: user.phone_number};
+        var org_attributes = {organization: user.companyName, first_name: user.full_name, phone: user.phone_number};
         cognitoService.authenticate(user.fullName(), user.password).then(function() {
           cognitoService.resendCode().then(function() {
             tipoCache.clearMemoryCache();
@@ -181,7 +186,7 @@
 
     _instance.login = function(username, password){
       markProgress();
-      username = username || user.fullName();
+      username = user.fullName(username);
       password = password || user.password;
       $scope.tipoAccountPromise = cognitoService.authenticate(username, password).then(function(result){
         if ($stateParams.retry) {
@@ -259,12 +264,22 @@
     _instance.completePasswordChallenge = function(){
       markProgress();
       if ($stateParams.deferredPassword){
-        $stateParams.deferredPassword.resolve(user.newPassword);
-        _instance.toast = {
-          header: 'Password changed',
-          body: 'Your password has been changed successfully. Please login using the new password'
-        };
-        _instance.toLogin();
+        var deferredComplete = $q.defer();
+        var resolvedPassword = {newPassword: user.newPassword,deferredComplete: deferredComplete};
+        $stateParams.deferredPassword.resolve(resolvedPassword);
+        deferredComplete.promise.then(function(result){
+          _instance.toast = {
+            header: 'Password changed',
+            body: 'Your password has been changed successfully. Please login using the new password'
+          };
+          _instance.login(result.userAttributes.email,user.newPassword); 
+        },function(err){
+          _instance.toast = {
+            header: 'Password change was not successful',
+            body: err.message
+          };
+        })
+        
         return;
       }
       raiseError({ errorMessage: 'You must login first with your temporary credentials before attempting to change your password'});

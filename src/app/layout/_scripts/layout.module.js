@@ -79,6 +79,7 @@
           //                 }
           //             };
           tipoHandle.getTipos("TipoDefinition",filter).then(function(tipos){
+            setTimeout(function() {
             _.each(tipos,function(tipo){
               _.each(templates,function(template){
                 var url = tipoHandle[template](tipo.tipo_id);
@@ -87,7 +88,8 @@
                   $templateCache.put(url + "?version_stamp=" + $rootScope.version_stamp,tpl.data);
                 });
               })
-            })
+            });
+          },5000)
           });
           $rootScope.asyncSuccess = true;
         }

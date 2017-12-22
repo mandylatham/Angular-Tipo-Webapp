@@ -22,7 +22,7 @@ var pathMappings = [
   {
     path: '/g/public',
     // url: 'https://dev.tipotapp.com/app/d/tipotapp/constructionmanagement'
-    url: 'https://dev.tipotapp.com',
+    url: 'https://prd.tipotapp.com',
     // url: 'https://dev.billionbases.com',
     // url: 'https://dev.tipotapp.com/app/d/hr/hrbuddy'
     // url: 'https://dev.tipotapp.com/app/d/hr/dialadish'
@@ -34,7 +34,7 @@ var pathMappings = [
   {
     path: '/public',
     // url: 'https://dev.tipotapp.com/app/d/tipotapp/constructionmanagement'
-    url: 'https://dev.tipotapp.com',
+    url: 'https://prd.tipotapp.com',
     // url: 'https://dev.billionbases.com',
     // url: 'https://dev.tipotapp.com/app/d/hr/hrbuddy'
     // url: 'https://dev.tipotapp.com/app/d/hr/dialadish'
@@ -46,7 +46,7 @@ var pathMappings = [
   {
 	    path: '/tipo_upload',
 	    // url: 'https://dev.tipotapp.com/app/d/tipotapp/constructionmanagement'
-	    url: 'https://dev.tipotapp.com',
+	    url: 'https://prd.tipotapp.com',
       // url: 'https://dev.billionbases.com',
 	    // url: 'https://dev.tipotapp.com/app/d/hr/hrbuddy'
 	    // url: 'https://dev.tipotapp.com/app/d/hr/dialadish'
@@ -58,7 +58,7 @@ var pathMappings = [
 	  {
 		    path: '/g/private',
 		    // url: 'https://dev.tipotapp.com/app/d/tipotapp/constructionmanagement'
-		    url: 'https://dev.tipotapp.com',
+		    url: 'https://prd.tipotapp.com',
         // url: 'https://dev.billionbases.com',
 		    // url: 'https://dev.tipotapp.com/app/d/hr/hrbuddy'
 		    // url: 'https://dev.tipotapp.com/app/d/hr/dialadish'
@@ -79,7 +79,7 @@ var pathMappings = [
     //url: 'https://dev.tipotapp.com/2000000001.1000000001.prasad.sid@deltagene.com/2000000002'
     // url: 'https://app.billionbases.com',
     // url: 'https://dev.billionbases.com',
-    url: 'https://dev.tipotapp.com'
+    url: 'https://prd.tipotapp.com'
   }
 ];
 

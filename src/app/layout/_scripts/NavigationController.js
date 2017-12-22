@@ -213,7 +213,8 @@
         metadataService.clearServerCache().then(function(){
           tipoCache.clearAll();
           $templateCache.removeAll();
-          location.href = '#/login';
+          $window.location.href = "#/login";
+          // $location.url("/login");
           $window.location.reload();
           tipoRouter.endStateChange();
         });

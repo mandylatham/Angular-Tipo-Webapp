@@ -217,6 +217,14 @@
             query_params = tipoManipulationService.checkQueryParams(query_params);
             return tipoInstanceDataService.getOne(tipo_name, tipo_id, query_params, reload);
         }
+        function purgeTipo(tipo_name, tipo_id) {
+            tipoCache.evict(tipo_name, tipo_id);
+            return purgeTipos(tipo_name);
+        }
+
+        function purgeTipos(tipo_name){
+            return tipoInstanceDataService.purgeAll(tipo_name);
+        }
 
         function getTipos(tipo_name, query_params) {
             tipoRouter.startStateChange();
@@ -347,6 +355,7 @@
         this.createTipos = createTipos;
         this.deleteTipo = deleteTipo;
         this.getTipo = getTipo;
+        this.purgeTipo = purgeTipo;
         this.getTipos = getTipos;
         this.presentForm = presentForm;
         this.showMessage = showMessage;

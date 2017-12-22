@@ -331,9 +331,11 @@
       getPerspective(filter);
       tipoCache.evict($stateParams.tipo_name);
       $templateCache.remove(_instance.listUrl);
-      _instance.infiniteItems.tipos = [];
-      _instance.infiniteItems.page = 0;
-      _instance.infiniteItems.fetchMoreItems_("",1);
+      tipoHandle.purgeTipo(tipo_name).then(function(){
+        _instance.infiniteItems.tipos = [];
+        _instance.infiniteItems.page = 0;
+        _instance.infiniteItems.fetchMoreItems_("",1);
+      });
       // tipoHandle.getTipos($stateParams.tipo_name, filter).then(function(tiposData){
       //   _instance.tipos = tiposData;
       //   var function_name = $stateParams.tipo_name + "_OnList";

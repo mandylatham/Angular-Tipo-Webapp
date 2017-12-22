@@ -147,6 +147,15 @@
       // }
     };
 
+    _instance.purgeOne = function(tipo_name, id){
+      tipoCache.evict(tipo_name, id);
+      return tipoResource.one('TipoSpecial.Cache.Purge/' + tipo_name + "_" + id).doPUT({});
+    };
+
+    _instance.purgeAll = function(tipo_name){
+      return tipoResource.one('TipoSpecial.Cache.Purge/' + tipo_name).doPUT({});
+    };
+
     _instance.updateOne = function(tipo_name, tipo, id){
       tipoCache.evict(tipo_name, id);
       tipo = {

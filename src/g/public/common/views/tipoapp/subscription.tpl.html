@@ -1,8 +1,13 @@
 <!-- Container -->
 <div layout="column" ng-controller="TipoSubscribtionController as controller" layout-padding>
-	<h3 md-colors="{color: 'primary-700'}" flex="" class="flex">
+	<div layout="row">
+		<h3 md-colors="{color: 'primary-700'}" flex="" class="flex">
 				Current Plan
- 	</h3>
+ 		</h3>
+ 		<div>
+	        <tp:actions tipo-name="'TipoSubscriptions'"  tipo-actions="[{tipo_action: 'cancel_subscription',display_name: 'Cancel Subscription',highlight: false,bulk_select: $action.bulk_select,single_select: $action.single_select,icon: '',visibility_expression: '' , client_dependency:{tipo_name: ''}},]" tipos="tipoRootController.tipo" refresh="tipoRootController.refresh()"/>
+	    </div>
+	</div>
  	<md-divider></md-divider>
 	<!--Plan Details -->
 	<md-card layout-gt-sm="row" layout-sm="column" layout-xs="column" layout-align-gt-sm="center center" layout-padding>
@@ -111,7 +116,8 @@
 								</div>
 						</div>
 						</form>
-						<md-button class="md-primary md-raised m0" md-theme="reverse" md-colors="{background: 'accent-500'}" ng-click="controller.selectPlan(plan)" ng-disabled="plan.disableButton"><span>{{plan.buttonText}}</span></md-button>
+						<md-button ng-if="plan.plan_status === 'Active'" class="md-primary md-raised m0" md-theme="reverse" md-colors="{background: 'accent-500'}" ng-click="controller.selectPlan(plan)" ng-disabled="plan.disableButton"><span>{{plan.buttonText}}</span></md-button>
+						<md-button ng-if="plan.plan_status === 'ComingSoon'" class="m0" md-theme="reverse" ng-disabled="true"><span>Coming Soon</span></md-button>
 					</md-card>
 				</div>
 				<div ng-hide="!controller.inProgress">
