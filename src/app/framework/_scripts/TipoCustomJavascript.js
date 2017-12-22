@@ -132,7 +132,7 @@
 						        exitOnEsc:true,
 						        nextLabel: 'next',
 						        prevLabel: '<span style="color:green">Previous</span>',
-						        skipLabel: 'Dont Show the Tour Again',
+						        skipLabel: 'Dont show the tour gain',
 						        doneLabel: 'Finish'
 						    };
 		var tour_item = "tipoapp_tour_1";
