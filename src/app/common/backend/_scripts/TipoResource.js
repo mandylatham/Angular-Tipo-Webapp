@@ -130,7 +130,7 @@
                                         'X-bypass-cdn': 'true'
                                     }
                                 };
-                                $http.get(url, config).then(function(tpl) {
+                                $http.get(value, config).then(function(tpl) {
                                     $templateCache.put(value, tpl.data);
                                     $templateCache.put(value + attach_version_stamp, tpl.data);
                                 });
