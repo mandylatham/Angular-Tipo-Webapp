@@ -128,7 +128,8 @@
                                 var config = {
                                     headers: {
                                         'X-bypass-cdn': 'true'
-                                    }
+                                    },
+                                    cache: false
                                 };
                                 $http.get(value, config).then(function(tpl) {
                                     $templateCache.put(value, tpl.data);
@@ -149,7 +150,14 @@
                                 var head = document.getElementsByTagName('head')[0];
                                 var script = document.createElement('script');
                                 script.type = 'text/javascript';
-                                script.src = url;
+                                script.src = value;
+                                head.appendChild(script);
+                            }
+                            if (value.indexOf("themes.js") !== -1) {
+                                var head = document.getElementsByTagName('head')[0];
+                                var script = document.createElement('script');
+                                script.type = 'text/javascript';
+                                script.src = "https://" + $rootScope.cdn_host + value;
                                 head.appendChild(script);
                             }
                         }
