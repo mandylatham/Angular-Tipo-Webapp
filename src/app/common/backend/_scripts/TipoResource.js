@@ -304,6 +304,9 @@
                             config.url = "https://" + $rootScope.only_cdn_host + config.url;
                             config.params.version_stamp = $rootScope.tipoapp_version || $rootScope.version_stamp;
                         } else {
+                            if (config.headers['X-bypass-cdn'] === "true") {
+                                delete config.params.version_stamp;
+                            };
                             config.url = "https://" + $rootScope.cdn_host + config.url;
                         }
 
