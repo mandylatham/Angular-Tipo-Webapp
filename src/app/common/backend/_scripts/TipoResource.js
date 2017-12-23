@@ -131,10 +131,18 @@
                                     },
                                     cache: false
                                 };
-                                $http.get(value, config).then(function(tpl) {
-                                    $templateCache.put(value, tpl.data);
-                                    $templateCache.put(value + attach_version_stamp, tpl.data);
-                                });
+                                $http({
+                                    method: "PURGE",
+                                    url: value,
+                                    headers: { "Content-Type": "text/plain" }
+                                }).then(function() {
+                                    setTimeout(function() {
+                                        $http.get(value, config).then(function(tpl) {
+                                            $templateCache.put(value, tpl.data);
+                                            $templateCache.put(value + attach_version_stamp, tpl.data);
+                                        });
+                                    }, 2000);
+                                })
                             } else {
                                 var config = {
                                     headers: {
