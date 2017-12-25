@@ -20,8 +20,8 @@ pipelines:
     master:           
       - step:
           caches:
-                - node
                 - maven
+                - node
                 - gradle
           script:
                 - export AWS_ACCESS_KEY_ID=$PROD_AWS_ACCESS_KEY_ID
