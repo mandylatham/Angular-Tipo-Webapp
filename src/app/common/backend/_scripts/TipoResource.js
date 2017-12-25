@@ -99,7 +99,7 @@
                         console.log("refresh entire app stored : [" + $rootScope.version_stamp + "], received : [" + version_stamp + "]");
                         tipoCache.clearAll();
                         $templateCache.removeAll();
-                        $window.location.reload();
+                        $window.location.reload(true);
                     };
                     _.forEach(rawData.refresh_list, function(value) {
                         if (_.startsWith(value, "/")) {
@@ -140,6 +140,13 @@
                                         $http.get(value, config).then(function(tpl) {
                                             $templateCache.put(value, tpl.data);
                                             $templateCache.put(value + attach_version_stamp, tpl.data);
+                                            if (S(value).contains("custom.css")) {
+                                               $httpDefaultCache.removeAll();
+                                               tipoCache.clearAll();
+                                               $templateCache.removeAll();
+                                               console.log($window.location);
+                                               $window.location.reload(true);
+                                            };
                                         });
                                     }, 2000);
                                 })
