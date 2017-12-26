@@ -141,11 +141,9 @@
                                             $templateCache.put(value, tpl.data);
                                             $templateCache.put(value + attach_version_stamp, tpl.data);
                                             if (S(value).contains("custom.css")) {
-                                               $httpDefaultCache.removeAll();
-                                               tipoCache.clearAll();
-                                               $templateCache.removeAll();
-                                               console.log($window.location);
-                                               $window.location.reload(true);
+                                               setTimeout(function() {
+                                                $window.location.reload(true);
+                                               });
                                             };
                                         });
                                     }, 2000);
@@ -273,6 +271,7 @@
         RestangularConfigurer.setBaseUrl(baseUrl);
         RestangularConfigurer.addFullRequestInterceptor(interceptors.request.cache);
         RestangularConfigurer.addFullRequestInterceptor(interceptors.request.security);
+        RestangularConfigurer.setFullResponse(false);
         // RestangularConfigurer.addFullRequestInterceptor(interceptors.request.version_stamp);
         RestangularConfigurer.addResponseInterceptor(interceptors.response.extractData);
         RestangularConfigurer.setErrorInterceptor(interceptors.errors.handleError);
