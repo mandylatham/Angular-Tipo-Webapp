@@ -86,6 +86,7 @@
     tipoManipulationService,
     tipoInstanceDataService,
     tipoClientJavascript,
+    tipoCustomJavascript,
     tipoHandle,
     tipoRouter,
     $mdDialog,
@@ -298,6 +299,16 @@
 
           function callAction(tipo_name, action_name, selected_tipo_ids,additional_tipo_name,additional_tipo){
             var function_name = tipo_name + "_" + action_name;
+            if (typeof tipoCustomJavascript[function_name] === 'function') {
+              scope.data_handle.tipo_name = tipo_name;
+              scope.data_handle.action_name = action_name;
+              scope.data_handle.selected_tipo_ids = selected_tipo_ids;
+              scope.data_handle.selected_tipos = scope.tipos;
+              scope.data_handle.additional_tipo_name = additional_tipo_name;
+              scope.data_handle.additional_tipo = additional_tipo;
+              tipoCustomJavascript[function_name](scope.data_handle);
+              tipoRouter.endStateChange();
+            };
             if(typeof tipoClientJavascript[function_name] === 'function'){
               scope.data_handle.tipo_name = tipo_name;
               scope.data_handle.action_name = action_name;

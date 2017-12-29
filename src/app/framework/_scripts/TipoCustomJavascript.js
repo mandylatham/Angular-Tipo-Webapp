@@ -159,6 +159,43 @@
 		});
 	}
 	this.TipoApp_OnView = TipoApp_OnView;
+
+	function TipoApp_start_tour (data_handle){
+		var introOptions = {
+						        steps:[
+						        {
+						            element: '#manageTipos',
+						            intro: "Start creating objects here"
+						        },
+						        {
+						            element: '#manageMenus',
+						            intro: "Create Menus and associate with objects here",
+						            position: 'right'
+						        },
+						        {
+						            element: '#home_menu',
+						            intro: 'Access Home Page',
+						            position: 'bottom'
+						        },
+						        {
+						            element: '#develop_menu',
+						            intro: "In develop Mode",
+						            position: 'bottom'
+						        }
+						        ],
+						        showStepNumbers: false,
+						        showBullets: false,
+						        exitOnOverlayClick: true,
+						        exitOnEsc:true,
+						        nextLabel: 'next',
+						        prevLabel: '<span style="color:green">Previous</span>',
+						        skipLabel: 'Dont Show the Tour Again',
+						        doneLabel: 'Finish'
+						    };
+		var tour_item = "tipoapp_tour_1";
+                tipoHandle.setTourObject(tour_item,introOptions);
+	}
+	this.TipoApp_start_tour = TipoApp_start_tour;
 	//___TipoApp___
 	//___TipoAboutApp___
 
