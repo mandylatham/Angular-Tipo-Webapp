@@ -141,6 +141,7 @@
                                             $templateCache.put(value, tpl.data);
                                             $templateCache.put(value + attach_version_stamp, tpl.data);
                                             if (S(value).contains("custom.css")) {
+                                               tipoRouter.toTipoView("TipoCustomization","default");
                                                setTimeout(function() {
                                                 $window.location.reload(true);
                                                },3000);
