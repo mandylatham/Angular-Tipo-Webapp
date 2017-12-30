@@ -103,26 +103,26 @@
 						        steps:[
 						        {
 						            element: '#manageTipos',
-						            intro: "Start creating objects here"
+						            intro: "Start creating tipos to represent business objects along with fields, E.g. Customer, Invoice etc"
 						        },
 						        {
 						            element: '#manageMenus',
-						            intro: "Create Menus and associate with objects here",
+						            intro: "Add menu items to system menus 'Home', 'Profile' and 'Settings'. Or even create whole new menus, also called as perspectives in TipoTapp",
 						            position: 'right'
 						        },
 						        {
-						            element: '#cloudFunctions',
-						            intro: 'More features, more fun.',
+						            element: '#customization',
+						            intro: 'Choose your own colours, font and logo for your application',
 						            position: 'bottom'
 						        },
 						        {
-						            element: '#userRoles',
-						            intro: "Define Roles",
+						            element: '#home_menu',
+						            intro: "Visualise how your user sees the developed application instantly by accessing Home",
 						            position: 'bottom'
 						        },
 						        {
-						            element: '#settings',
-						            intro: "Application level settings",
+						            element: '#develop_menu',
+						            intro: "Switch back to developer mode to continue to build application",
 						            position: 'bottom'
 						        },
 						        {
@@ -170,26 +170,26 @@
 						        steps:[
 						        {
 						            element: '#manageTipos',
-						            intro: "Start creating objects here"
+						            intro: "Start creating tipos to represent business objects along with fields, E.g. Customer, Invoice etc"
 						        },
 						        {
 						            element: '#manageMenus',
-						            intro: "Create Menus and associate with objects here",
+						            intro: "Add menu items to system menus 'Home', 'Profile' and 'Settings'. Or even create whole new menus, also called as perspectives in TipoTapp",
 						            position: 'right'
 						        },
 						        {
-						            element: '#cloudFunctions',
-						            intro: 'More features, more fun.',
+						            element: '#customization',
+						            intro: 'Choose your own colours, font and logo for your application',
 						            position: 'bottom'
 						        },
 						        {
-						            element: '#userRoles',
-						            intro: "Define Roles",
+						            element: '#home_menu',
+						            intro: "Visualise how your user sees the developed application instantly by accessing Home",
 						            position: 'bottom'
 						        },
 						        {
-						            element: '#settings',
-						            intro: "Application level settings",
+						            element: '#develop_menu',
+						            intro: "Switch back to developer mode to continue to build application",
 						            position: 'bottom'
 						        }
 						        ],
