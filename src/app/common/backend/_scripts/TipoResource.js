@@ -143,7 +143,7 @@
                                             if (S(value).contains("custom.css")) {
                                                setTimeout(function() {
                                                 $window.location.reload(true);
-                                               });
+                                               },3000);
                                             };
                                         });
                                     }, 2000);

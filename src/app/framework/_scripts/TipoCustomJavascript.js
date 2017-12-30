@@ -111,13 +111,18 @@
 						            position: 'right'
 						        },
 						        {
-						            element: '#home_menu',
-						            intro: 'Access Home Page',
+						            element: '#cloudFunctions',
+						            intro: 'More features, more fun.',
 						            position: 'bottom'
 						        },
 						        {
-						            element: '#develop_menu',
-						            intro: "In develop Mode",
+						            element: '#userRoles',
+						            intro: "Define Roles",
+						            position: 'bottom'
+						        },
+						        {
+						            element: '#settings',
+						            intro: "Application level settings",
 						            position: 'bottom'
 						        },
 						        {
@@ -173,13 +178,18 @@
 						            position: 'right'
 						        },
 						        {
-						            element: '#home_menu',
-						            intro: 'Access Home Page',
+						            element: '#cloudFunctions',
+						            intro: 'More features, more fun.',
 						            position: 'bottom'
 						        },
 						        {
-						            element: '#develop_menu',
-						            intro: "In develop Mode",
+						            element: '#userRoles',
+						            intro: "Define Roles",
+						            position: 'bottom'
+						        },
+						        {
+						            element: '#settings',
+						            intro: "Application level settings",
 						            position: 'bottom'
 						        }
 						        ],

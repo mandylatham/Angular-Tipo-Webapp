@@ -308,7 +308,7 @@
               scope.data_handle.additional_tipo = additional_tipo;
               tipoCustomJavascript[function_name](scope.data_handle);
               tipoRouter.endStateChange();
-            };
+            }
             if(typeof tipoClientJavascript[function_name] === 'function'){
               scope.data_handle.tipo_name = tipo_name;
               scope.data_handle.action_name = action_name;
@@ -318,7 +318,7 @@
               scope.data_handle.additional_tipo = additional_tipo;
               tipoClientJavascript[function_name](scope.data_handle);
               tipoRouter.endStateChange();
-            }else{
+            }else if (typeof tipoCustomJavascript[function_name] === 'function'){
               tipoRouter.startStateChange();
               tipoHandle.callAction(tipo_name, action_name, selected_tipo_ids,additional_tipo_name,additional_tipo)
                 .then(function(response){
