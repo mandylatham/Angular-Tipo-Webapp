@@ -99,7 +99,7 @@
                         console.log("refresh entire app stored : [" + $rootScope.version_stamp + "], received : [" + version_stamp + "]");
                         tipoCache.clearAll();
                         $templateCache.removeAll();
-                        $window.location.reload();
+                        $window.location.reload(true);
                     };
                     _.forEach(rawData.refresh_list, function(value) {
                         if (_.startsWith(value, "/")) {
@@ -128,12 +128,28 @@
                                 var config = {
                                     headers: {
                                         'X-bypass-cdn': 'true'
-                                    }
+                                    },
+                                    cache: false
                                 };
-                                $http.get(url, config).then(function(tpl) {
-                                    $templateCache.put(value, tpl.data);
-                                    $templateCache.put(value + attach_version_stamp, tpl.data);
-                                });
+                                $http({
+                                    method: "PURGE",
+                                    url: value,
+                                    headers: { "Content-Type": "text/plain" }
+                                }).then(function() {
+                                    setTimeout(function() {
+                                        $http.get(value, config).then(function(tpl) {
+                                            $templateCache.put(value, tpl.data);
+                                            $templateCache.put(value + attach_version_stamp, tpl.data);
+                                            if (S(value).contains("custom.css")) {
+                                               $httpDefaultCache.removeAll();
+                                               tipoCache.clearAll();
+                                               $templateCache.removeAll();
+                                               console.log($window.location);
+                                               $window.location.reload(true);
+                                            };
+                                        });
+                                    }, 2000);
+                                })
                             } else {
                                 var config = {
                                     headers: {
@@ -149,7 +165,14 @@
                                 var head = document.getElementsByTagName('head')[0];
                                 var script = document.createElement('script');
                                 script.type = 'text/javascript';
-                                script.src = url;
+                                script.src = value;
+                                head.appendChild(script);
+                            }
+                            if (value.indexOf("themes.js") !== -1) {
+                                var head = document.getElementsByTagName('head')[0];
+                                var script = document.createElement('script');
+                                script.type = 'text/javascript';
+                                script.src = "https://" + $rootScope.cdn_host + value;
                                 head.appendChild(script);
                             }
                         }
@@ -300,10 +323,13 @@
                     }
                     if (_.startsWith(config.url, "g/") && $rootScope.cdn_host && !$templateCache.get(config.url + "?version_stamp=" + config.params.version_stamp)) {
                         // if (_.startsWith(config.url, "g/") && !S(config.url).contains("tipoapp") && $rootScope.cdn_host && !$templateCache.get(config.url + "?version_stamp=" + config.params.version_stamp)) {
-                        if (_.endsWith(config.url, "___TipoApp") || _.endsWith(config.url, "___TipoDefinition") || (_.startsWith($stateParams.perspective, "TipoApp.") && !(config.method === "PURGE"))) {
+                        if (_.endsWith(config.url, "___TipoApp") || _.endsWith(config.url, "___TipoDefinition") || (_.startsWith($stateParams.perspective, "TipoApp.") && !(config.headers['X-bypass-cdn'] === "true" || config.method === "PURGE") )) {
                             config.url = "https://" + $rootScope.only_cdn_host + config.url;
                             config.params.version_stamp = $rootScope.tipoapp_version || $rootScope.version_stamp;
                         } else {
+                            if (config.headers['X-bypass-cdn'] === "true" || config.method === "PURGE") {
+                                delete config.params.version_stamp;
+                            };
                             config.url = "https://" + $rootScope.cdn_host + config.url;
                         }
 

@@ -3,11 +3,10 @@
         <div class="md-primary tp-page-heading " ng-hide="tipoRootController.hide_actions" md-whiteframe="1">
             <div layout="row" layout-xs="column" layout-sm="column" layout-align="start center" layout-align-sm="start start" layout-align-xs="start start">
                 <div flex>
-                    <div class="md-title subheading heading-standard" md-colors="{color: 'primary-800'}">
-                        <span>{{tipoRootController.tipo_handle.menu_item.label}}</span></div>
-                    <span class="subheading md-headline">
-                            {{tipoRootController.tipo.tipo_id}}
-                        </span>
+                    <div class="subheading md-headline">
+                        <span>{{tipoRootController.tipo_handle.menu_item.label}} :
+                {{'Visual Settings'}}
+                </span></div>
                 </div>
                 <div>
                     <md-button class="md-primary md-fab md-mini" ng-click="tipoRootController.cancel()">
@@ -174,7 +173,7 @@
                         </dl>
                 </div>
                 </section>
-                <dl class="edit" layout="column" layout-align="center stretch" flex="100" flex-gt-sm="100" flex-gt-md="100" style="">
+                <dl class="edit" layout="column" layout-align="center stretch" flex="100" flex-gt-sm="100" flex-gt-md="100" style="" ng-if="tipoRootController.tipo_handle.user_meta.role !== 'goplanrole'">
                     <dt style="min-height: 16px;">
                     </dt>
                     <dd>
@@ -196,7 +195,7 @@
                         </div>
                     </dd>
                 </dl>
-                <dl class="edit" layout="column" layout-align="center stretch" style="margin-bottom: 10px;" flex="100" flex-gt-sm="100" flex-gt-md="100" style="">
+                <dl class="edit" layout="column" layout-align="center stretch" style="margin-bottom: 10px;" flex="100" flex-gt-sm="100" flex-gt-md="100" style="" ng-if="tipoRootController.tipo_handle.user_meta.role !== 'goplanrole'">
                     <dt style="min-height: 16px;">
                         <span>
                                     Application Web Title
@@ -212,7 +211,7 @@
                         </div>
                     </dd>
                 </dl>
-                <dl class="edit" layout="column" layout-align="center stretch" style="margin-bottom: 10px;" flex="100" flex-gt-sm="100" flex-gt-md="100" style="">
+                <dl class="edit" layout="column" layout-align="center stretch" style="margin-bottom: 10px;" flex="100" flex-gt-sm="100" flex-gt-md="100" style="" ng-if="tipoRootController.tipo_handle.user_meta.role !== 'goplanrole'">
                     <dt style="min-height: 16px;">
                         <span>
                                     Google Analytics Tracking ID
@@ -230,7 +229,7 @@
                 </dl>
                 </md-content>
                 </md-tab>
-                <md-tab>
+                <md-tab ng-if="tipoRootController.tipo_handle.user_meta.role !== 'goplanrole'">
                     <md-tab-label>
                         Custom Developer JavaScript
                     </md-tab-label>
@@ -283,7 +282,7 @@
                         </md-content>
                     </md-tab-body>
                 </md-tab>
-                <md-tab>
+                <md-tab ng-if="tipoRootController.tipo_handle.user_meta.role !== 'goplanrole'">
                     <md-tab-label>
                         Templates
                     </md-tab-label>
@@ -438,7 +437,7 @@
                         </md-content>
                     </md-tab-body>
                 </md-tab>
-                <md-tab>
+                <md-tab ng-if="tipoRootController.tipo_handle.user_meta.role !== 'goplanrole'">
                     <md-tab-label>
                         Email Templates
                     </md-tab-label>

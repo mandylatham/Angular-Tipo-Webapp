@@ -18,6 +18,8 @@
 
     var perspectives;
 
+    _instance.logo = "g/public/assets/images/logo.png?version_stamp=" + $rootScope.version_stamp;
+
     _instance.toogleNavigation = function(){
       $mdSidenav('left').toggle();
     };
