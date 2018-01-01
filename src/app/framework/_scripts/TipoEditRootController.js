@@ -627,6 +627,9 @@
             newScope.popupno = _instance.popupno;
             htmltemplate = atob(htmltemplate);
             var fields = fq_field_name.split(".");
+            if (_.isUndefined(_instance.tipo)) {
+                _instance.tipo = {};
+            };
             _.each(fields, function(field) {
                 if (field.indexOf("[") !== -1) {
                     var ind1 = field.indexOf("[");
@@ -695,7 +698,8 @@
                 clickOutsideToClose: true,
                 fullscreen: true
             });
-            promise.then(function() {
+            promise.then(function(tipo) {
+                _.set(_instance.tipo,fq_field_name,_.get(tipo,fq_field_name));
                 _instance.popupno--;
                 // updateDatafromDefinition(definition,index,field_name);
             }, function() {
@@ -1015,11 +1019,11 @@
 
         $scope.hide = function() {
             resetbulkedits();
-            $mdDialog.hide();
+            $mdDialog.hide(_instance.tipo);
         };
         $scope.cancel = function() {
             resetbulkedits();
-            $mdDialog.cancel();
+            $mdDialog.cancel(_instance.tipo);
         };
 
         $scope.$watch(function() { return $scope.data_handle }, function(new_value, old_value) {

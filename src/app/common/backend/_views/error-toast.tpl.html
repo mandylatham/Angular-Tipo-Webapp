@@ -14,12 +14,12 @@
                         </a>
                     </strong>
                 </div>
-                <div ng-if="collapsed">
-                <code><pre><span>{{errorToast.body.data.stack_trace}}</span></pre></code>
+                <div ng-if="collapsed" class="padding-vertical-5">
+                <code><span>{{errorToast.body.data.stack_trace}}</span></code>
                 </div>
             </div>
         </div>
-        <div flex="10">
+        <div flex="5">
             <md-button ng-click="errorToast.close()" class="md-icon-button"><md-icon style="color:rgba(255,50,50,0.85)">close</md-icon></md-button>
         </div>
     </div>

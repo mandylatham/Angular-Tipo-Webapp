@@ -31,9 +31,13 @@
                 if (disabled) {
                   initObj.customPlaceholder = function(){
                     return "--N/A--";
-                  }
+                  };
                   // initObj.separateDialCode = false;
-                };
+                } else {
+                    initObj.customPlaceholder = function(){
+                        return "Enter phone number";
+                      }
+                }
                 element.intlTelInput(initObj);
                 // Validation.
                 ctrl.$validators.ngIntlTelInput = function(value) {
