@@ -217,12 +217,20 @@
             query_params = tipoManipulationService.checkQueryParams(query_params);
             return tipoInstanceDataService.getOne(tipo_name, tipo_id, query_params, reload);
         }
+
+        function purgeAllTemplates(tipo_name){
+            tipoInstanceDataService.purgeTemplate(updateUrl(tipo_name));
+            tipoInstanceDataService.purgeTemplate(createUrl(tipo_name));
+            tipoInstanceDataService.purgeTemplate(detailUrl(tipo_name));
+            tipoInstanceDataService.purgeTemplate(listUrl(tipo_name));
+        }
         function purgeTipo(tipo_name, tipo_id) {
             tipoCache.evict(tipo_name, tipo_id);
             return purgeTipos(tipo_name);
         }
 
         function purgeTipos(tipo_name){
+            purgeAllTemplates(tipo_name);
             return tipoInstanceDataService.purgeAll(tipo_name);
         }
 
