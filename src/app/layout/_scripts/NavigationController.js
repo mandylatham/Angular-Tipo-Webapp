@@ -74,6 +74,7 @@
     }
 
     function prepareMenu(perspective){
+      $scope.showLoader = true;
       delete _instance.activeItem;
       var tipoMenuItems;
       var skipMenuLoad = false;
@@ -137,6 +138,7 @@
               });
             // };
           }
+          $scope.showLoader = false;
         });
       }
       if ($state.params.openSidenav) {
