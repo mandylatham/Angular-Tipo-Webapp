@@ -32,7 +32,10 @@
             </div>
         </md-button>
     </div>
-    <md-list>
+    <div class="text-center loader-area" ng-show="showLoader">
+        <img class="tp-list" ng-src="_assets/images/logos/tipotapp.gif" style="width: 50px;height: 50px;">
+    </div>
+    <md-list ng-hide="showLoader">
         <!-- <md-divider></md-divider> -->
         <!-- <md-divider></md-divider> -->
         <md-list-item ng-repeat="item in navigation.menu" id="{{_.camelCase(item.label)}}" ng-class="{'active': item === navigation.activeItem}">

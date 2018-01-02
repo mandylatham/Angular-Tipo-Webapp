@@ -1,1 +1,6 @@
-<ng-include src="tipoRootController.createUrl">
+<div class="text-center loader-area" ng-show="showLoader">
+    <img class="tp-list" ng-src="_assets/images/logos/tipotapp.gif" style="width: 50px;height: 50px;">
+</div>
+<div ng-hide="showLoader">
+    <ng-include src="tipoRootController.createUrl">
+</div>

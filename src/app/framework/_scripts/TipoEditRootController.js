@@ -152,6 +152,7 @@
         var tipo_name = $scope.tipo_name || $stateParams.tipo_name;
         _instance.tipo = tipo;
         _instance.initTiposData = function(ui_type, mode) {
+            $scope.showLoader = true;
             var type = ui_type;
             _instance.mode = mode;
             if (type === 'perspective') {
@@ -169,6 +170,7 @@
             if (typeof tipoClientJavascript[function_name] === 'function') {
                 tipoClientJavascript[function_name]($scope.data_handle);
             }
+            $scope.showLoader = false;
             // var tipo_name = tipoDefinition.tipo_meta.tipo_name;
         }
         _instance.tipo_name = tipo_name;

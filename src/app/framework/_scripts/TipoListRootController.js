@@ -28,8 +28,8 @@
     var tipo_name = $stateParams.tipo_name;
     _instance.tipo_name = $stateParams.tipo_name;
     $scope.data_handle = {};
+    
     _instance.listUrl = tipoHandle.listUrl(tipo_name);
-
     if ($stateParams.tab_url) {
       var resData = tipoRegistry.get($stateParams.tab_url);
       var confirm = $mdDialog.show({
@@ -63,6 +63,7 @@
       };
     };
     _instance.initTiposData = function(tipoFilters,page_size,allow_search){
+      $scope.showLoader = true;
       var filter = {};
       _instance.hasTipos = true;
       tipoCache.evict($stateParams.tipo_name);
@@ -101,6 +102,7 @@
       _instance.initTipos = angular.copy(this.tipos);
       _instance.tipos = angular.copy(this.tipos);
       if (page === 1) {
+        $scope.showLoader = false;
         _instance.hasTipos = this.tipos.length > 0;
         _instance.updatetipo = {};
         _instance.loading = false;
