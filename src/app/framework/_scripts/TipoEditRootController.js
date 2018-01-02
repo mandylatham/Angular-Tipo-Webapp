@@ -143,7 +143,7 @@
         $rootScope,
         $sce) {
 
-
+        tipoManipulationService.initGA();
         $scope.$mdMedia = $mdMedia;
         var _instance = this;
         tipoHandle.setPerspective();

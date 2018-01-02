@@ -15,7 +15,7 @@
             }) !== -1;
         }
 
-        function extractShortDisplayFields(definition) { 
+        function extractShortDisplayFields(definition) {
             var eligibleFields = [];
             extractShortDisplayFieldsRecursive(definition, eligibleFields);
             return eligibleFields;
@@ -613,15 +613,15 @@
                     var type = each.tipo_type;
                     if (type || types[1]) {
                         var tipo_type = type || types[1].split(",");
-                        _.each(tipo_type,function(each_type){
-                          if (each_type === "abstract") {
-                            menuItem.abstract = true;
-                          };
-                          if (!menuItem.ignore_singleton && _.startsWith(each_type, 'singleton')) {
-                            menuItem.isSingleton = true;
-                          }else{
-                            menuItem.isSingleton = false;
-                          }
+                        _.each(tipo_type, function(each_type) {
+                            if (each_type === "abstract") {
+                                menuItem.abstract = true;
+                            };
+                            if (!menuItem.ignore_singleton && _.startsWith(each_type, 'singleton')) {
+                                menuItem.isSingleton = true;
+                            } else {
+                                menuItem.isSingleton = false;
+                            }
                         });
                     };
                     menuItem.perspective = perspective;
@@ -758,10 +758,10 @@
             }
         }
 
-        function addEscElascticReservedKeys(query_string){
-            var keys = ["+", "-", "=", "&&", "||", ">", "<", "!", "(", ")", "{", "}", "[", "]", "~", "*", "?", ":", "/","#","$","^"];
-            _.each(keys,function(key){
-                query_string = query_string.replace(new RegExp("([" + key + "])",'g'), "\\\\" + key);
+        function addEscElascticReservedKeys(query_string) {
+            var keys = ["+", "-", "=", "&&", "||", ">", "<", "!", "(", ")", "{", "}", "[", "]", "~", "*", "?", ":", "/", "#", "$", "^"];
+            _.each(keys, function(key) {
+                query_string = query_string.replace(new RegExp("([" + key + "])", 'g'), "\\\\" + key);
             });
             return query_string;
         }
@@ -770,43 +770,49 @@
             var stripe = Stripe(publishable_key);
             var elements = stripe.elements();
             var style = {
-              base: {
-                color: '#303238',
-                fontSize: '16px',
-                lineHeight: '48px',
-                fontSmoothing: 'antialiased',
-                '::placeholder': {
-                  color: '#ccc',
+                base: {
+                    color: '#303238',
+                    fontSize: '16px',
+                    lineHeight: '48px',
+                    fontSmoothing: 'antialiased',
+                    '::placeholder': {
+                        color: '#ccc',
+                    },
                 },
-              },
-              invalid: {
-                color: '#e5424d',
-                ':focus': {
-                  color: '#303238',
+                invalid: {
+                    color: '#e5424d',
+                    ':focus': {
+                        color: '#303238',
+                    },
                 },
-              },
             };
-            var cardElement = elements.create('card', {style: style});
+            var cardElement = elements.create('card', { style: style });
             cardElement.mount('#card-element');
-            return {stripe: stripe, cardElement: cardElement};
+            return { stripe: stripe, cardElement: cardElement };
         }
 
-         function getISODate(){
-          var date = new Date();
-          date.setHours(0, 0, 0, 0);
-          return $filter('date')(date,'yyyy-MM-ddTHH:mm:ss.sss') + 'Z';
-         }
+        function getISODate() {
+            var date = new Date();
+            date.setHours(0, 0, 0, 0);
+            return $filter('date')(date, 'yyyy-MM-ddTHH:mm:ss.sss') + 'Z';
+        }
 
-         function deleteItemFromArray(item,index){
-          if (_.isUndefined(item[index]._ARRAY_META)) {
-            // _.remove(item, function(each){
-            //   return each === item[index];
-            // });
-            item[index]._UI_STATUS = 'DELETED';
-          }else{
-            item[index]._ARRAY_META._STATUS = 'DELETED';
-          }
-         }
+        function deleteItemFromArray(item, index) {
+            if (_.isUndefined(item[index]._ARRAY_META)) {
+                // _.remove(item, function(each){
+                //   return each === item[index];
+                // });
+                item[index]._UI_STATUS = 'DELETED';
+            } else {
+                item[index]._ARRAY_META._STATUS = 'DELETED';
+            }
+        }
+
+        function initGA() {
+            ga('send', 'pageview', {
+                'page': location.pathname + location.search + location.hash
+            });
+        }
 
         // Expose the functions that need to be consumed from outside
         this.extractShortDisplayFields = extractShortDisplayFields;
@@ -832,9 +838,10 @@
         this.getVirtualRepeatWrapObject = getVirtualRepeatWrapObject;
         this.calculatePageViews = calculatePageViews;
         this.addEscElascticReservedKeys = addEscElascticReservedKeys;
-        this.initialiseCreditCard = initialiseCreditCard;   
+        this.initialiseCreditCard = initialiseCreditCard;
         this.getISODate = getISODate;
         this.deleteItemFromArray = deleteItemFromArray;
+        this.initGA = initGA;
     }
 
     angular.module('tipo.framework')

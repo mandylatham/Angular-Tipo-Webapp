@@ -22,6 +22,7 @@
     tipoCustomJavascript) {
 
     var _instance = this;
+    tipoManipulationService.initGA();
     tipoHandle.setPerspective();
     _instance.tipo_handle = tipoHandle;
     var tipo_name = $stateParams.tipo_name;

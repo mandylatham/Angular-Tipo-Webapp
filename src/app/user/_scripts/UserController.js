@@ -25,6 +25,7 @@
         $http.get('framework/_scripts/country-code.json').then(function(data) {
             _instance.country_code = data.data;
         });
+        tipoManipulationService.initGA();
         _instance.inProgress = false;
         $scope.date = new Date();
         $scope.expiryDate = new Date();
@@ -69,6 +70,7 @@
 
         $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState) {
             _instance.inProgress = false;
+            tipoManipulationService.initGA();
             delete _instance.lastError;
         });
 
@@ -166,12 +168,8 @@
                             function(err) {
                                 raiseError(err);
                             });
-                        // tipoInstanceDataService.upsertAll('TipoUser',[{account:account ,application:appMetadata.application ,tipo_id:user.email ,application_owner_account:appMetadata.application_owner_account,role: "Admin" }],criteria).then(function(res){
-                        // },
-                        // function(err){
-                        //   raiseError(err);
-                        // });
                         if (appMetadata.app_subscription.capture_credit_card) {
+                            ga('send', 'event', 'CreateAccount', 'created', _instance.user.email);
                             tipoRouter.to('captureCreditCard');
                         } else {
                             tipoRouter.to('dashboard');
