@@ -123,9 +123,13 @@
                     delete _instance.lastError;
                     markProgress();
                     $scope.cardToken = result.token;
-                    $scope.tipoAccountPromise.then(function(res) {
+                    if ($scope.tipoAccountPromise) {
+                        $scope.tipoAccountPromise.then(function(res) {
+                            sendToken();
+                        })
+                    } else {
                         sendToken();
-                    })
+                    }
                 }
             });
         }
