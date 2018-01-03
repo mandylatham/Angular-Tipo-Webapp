@@ -216,7 +216,7 @@
                             $rootScope.readonlytiponame = "TipoSubscriptions";
                             $rootScope.readonlyid = "default";
                             $rootScope.readonlyrf = "toTipoView";
-                            // tipoRouter.toTipoView("TipoSubscriptions","default");
+                            tipoRouter.toTipoView("TipoSubscriptions","default");
                             // tipoErrorHandler.handleError(response, deferred);
                         }
                         if (response.status === 521) {

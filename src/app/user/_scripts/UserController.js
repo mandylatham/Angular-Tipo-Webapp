@@ -273,7 +273,7 @@
                 deferredComplete.promise.then(function(result) {
                     _instance.toast = {
                         header: 'Password changed',
-                        body: 'Your password has been changed successfully. Please login using the new password'
+                        body: 'Your password has been changed successfully'
                     };
                     _instance.login(result.userAttributes.email, user.newPassword);
                 }, function(err) {

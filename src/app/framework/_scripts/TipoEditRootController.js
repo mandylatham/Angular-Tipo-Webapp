@@ -1029,7 +1029,7 @@
         };
 
         $scope.$watch(function() { return $scope.data_handle }, function(new_value, old_value) {
-            if(new_value) {
+            if(new_value && $scope.data_handle.tipo) {
                 _instance.tipo = $scope.data_handle.tipo;
             }
         }, true);
