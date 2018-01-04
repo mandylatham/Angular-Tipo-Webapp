@@ -2,9 +2,9 @@
     <div layout="row" layout-padding>
         <div flex>
             <div class="padding-vertical-5" layout="row">
-                <div flex><strong><md-icon style="color:rgba(255,50,50,0.85)">warning</md-icon> {{errorToast.header}}</strong></div>
+                <div flex><strong><md-icon style="color:rgba(255,50,50,0.85)">warning</md-icon> {{errorToast.body.data.message}}</strong></div>
             </div>
-            <div class="padding-vertical-5">
+            <!-- <div class="padding-vertical-5">
                 <strong>Message : {{errorToast.body.data.message}}</strong>
             </div>
             <div class="padding-vertical-5" ng-if="errorToast.body.data.stack_trace" ng-init="collapsed=false">
@@ -17,7 +17,7 @@
                 <div ng-if="collapsed" class="padding-vertical-5">
                 <code><span>{{errorToast.body.data.stack_trace}}</span></code>
                 </div>
-            </div>
+            </div> -->
         </div>
         <div flex="5">
             <md-button ng-click="errorToast.close()" class="md-icon-button"><md-icon style="color:rgba(255,50,50,0.85)">close</md-icon></md-button>

@@ -54,6 +54,7 @@
         };
         _instance.user = user;
         _instance.captureAccountNameDuringSignup = appMetadata.capture_account_name_during_signup;
+        _instance.skipCreditCard = appMetadata.app_subscription.skip_credit_card_to_demo;
         _instance.allow_signup = appMetadata.allow_signup;
 
         _instance.toRegistration = function() {
@@ -295,6 +296,10 @@
                 $state.go('dashboard');
             }
         };
+
+        _instance.gotoSampleApps = function(){
+            tipoRouter.toTipoList('TipoApp',{filter: "sampleapp"});
+        }
 
         _instance.recaptchaExpiration = function() {
             console.log("Captch Expired!!");

@@ -120,7 +120,7 @@
               $mdToast.hide();
             };
           },
-          position: 'bottom right',
+          position: 'top right',
           toastClass: 'error-toast',
           hideDelay: 10000
         };

@@ -1,7 +1,7 @@
 <div id="layout" layout="column" layout-align="start center" layout-align-xs="start center">
     <ng-include src="controller.header_template" tp-include-replace/>
     <div>
-        <div class="card-heading">Wooah.... You're almost there! Make things happen</div>
+        <div class="card-heading"></div>
         <div id="login-container" layout="column" layout-align="center stretch">
             <div md-whiteframe="2" style="background: #fbfbfb;margin-bottom:20px;">
                 <div layout="row" layout-padding layout-align="center center" flex="none">
@@ -21,6 +21,9 @@
                             </md-button>
                         </md-content>
                     </form>
+                </div>
+                <div flex="100" style="text-align: center;font-weight: bold;margin-top: -25px;">
+                    <md-button class="md-primary" ng-click="controller.gotoSampleApps()" style="text-decoration: underline;">Skip to Browser Sample Apps</md-button>
                 </div>
             </div>
         </div>
