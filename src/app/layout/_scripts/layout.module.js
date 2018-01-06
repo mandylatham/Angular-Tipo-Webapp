@@ -68,7 +68,8 @@
           }
         }
       },
-      controller: /*@ngInject*/ function($scope, $rootScope,tipoHandle,$templateCache,$http){
+      controller: /*@ngInject*/ function($scope, $rootScope,tipoHandle,$templateCache,$http, tipoRouter, $mdDialog, userMetadata){
+        $rootScope.showSubscribeNow = userMetadata.stripe_subscription_id ? false : true;
         tipoHandle.setUserMeta();
         function loadAsyncData(){
           var filter = {};
@@ -96,6 +97,19 @@
         if (!$rootScope.asyncSuccess) {
           loadAsyncData();
         };
+        
+        $scope.openCreditCard = function () {
+          var promise = $mdDialog.show({
+            templateUrl: 'user/_views/capture-creditcard-dialog.tpl.html',
+            skipHide: true,
+            clickOutsideToClose: false,
+            escapeToClose: false,
+            hasBackdrop: false,
+            controller: 'CreditCardController',
+            controllerAs: 'controller',
+            locals: {cardHeading : "Add Card Details"}
+          });
+        }
       },
       templateUrl: 'layout/_views/layout.tpl.html'
     };

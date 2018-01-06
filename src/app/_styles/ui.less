@@ -560,12 +560,18 @@ html {
     }
 
     #error-dialog {
-        @media (min-width: 600px) {
-            min-width: 550px;
-        }
+        border-radius: 0px;
+        position: absolute;
+        top: 65px;
+        right: 5px;
+        min-width: auto;
+        min-height: auto;
+        padding: 10px;
         .longtext {
             white-space: normal;
             word-wrap: break-word;
+            color:rgba(255,50,50,0.85);
+            vertical-align: sub;
         }
         code {
             pre {
@@ -926,11 +932,16 @@ md-list-item .md-list-item-inner::before {
   }
 }
 
-.card-heading {
-    margin: 30px 0px;
-    font-size: 20px;
-    color: #f8731f;
-    font-weight: bold;
+.card-details {
+    margin: 30px auto;
+}
+
+.cert-logo {
+    max-width: 600px;
+    border: 1px solid #ddd;
+    @media only screen and (max-width: 550px) {
+        max-width: 300px;
+    }
 }
 
 .loader-area {
@@ -938,3 +949,74 @@ md-list-item .md-list-item-inner::before {
     width: 100%;
     top: 45%;
 }
+
+.subscribe-now {
+    position: fixed;
+    right: -150px;
+    top: 45%;
+    text-align: center;
+    font-weight:bold;
+    -ms-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+    -ms-transform-origin: left top 0;
+    -moz-transform-origin: left top 0;
+    -webkit-transform-origin: left top 0;
+    transform-origin: left top 0;
+    background: #E23737;
+    color: #fff;
+    padding: 10px;
+    z-index: 2;
+    cursor: pointer;
+}
+
+.capture-card {
+    position: fixed;
+    top: 30%;
+    right: 0;
+    max-width: 35%;
+    @media only screen and (max-width: 800px) {
+        max-width: 100%;
+        max-height: 100%;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .md-dialog-container {
+        background: rgba(0,0,0,0.54);
+    }
+}
+
+.slideInRight {
+    animation-name: slideInRight;
+    animation-duration: 0.5s;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translate3d(100%, 0, 0);
+        visibility: visible;
+    }
+
+    to {
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+.slideOutRight {
+    animation-name: slideOutRight;
+    animation-duration: 1s;
+}
+
+@keyframes slideOutRight {
+    from {
+        transform: translate3d(0, 0, 0);
+    }
+
+    to {
+        visibility: hidden;
+        transform: translate3d(100%, 0, 0);
+    }
+}
+  

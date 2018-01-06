@@ -77,24 +77,24 @@
 
     this.handleError = function(exception, deferred) {
       tipoRouter.endStateChange();
-      // var promise = $mdDialog.show({
-      //   templateUrl: 'common/backend/_views/error.tpl.html',
-      //   controller: ErrorController,
-      //   controllerAs: 'controller',
-      //   locals:{
-      //     exception: exception
-      //   },
-      //   skipHide: true,
-      //   clickOutsideToClose: true,
-      //   fullscreen: true
-      // });
+      var promise = $mdDialog.show({
+        templateUrl: 'common/backend/_views/error.tpl.html',
+        controller: ErrorController,
+        controllerAs: 'controller',
+        locals:{
+          exception: exception
+        },
+        skipHide: true,
+        clickOutsideToClose: true,
+        escapeToClose: true
+      });
       // promise.then(tipoRouter.endStateChange);
-      var toast = $mdToast.tpErrorToast();
-      toast._options.locals = {
-          header: 'ERROR',
-          body: exception
-      };
-      $mdToast.show(toast);
+      // var toast = $mdToast.tpErrorToast();
+      // toast._options.locals = {
+      //     header: 'ERROR',
+      //     body: exception
+      // };
+      // $mdToast.show(toast);
       return false;
     };
 

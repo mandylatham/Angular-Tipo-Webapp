@@ -17,7 +17,8 @@
         $location,
         $http,
         $q,
-        $window) {
+        $window,
+        $mdDialog) {
 
         function refreshAccesstoken() {
             var deferred = $q.defer();
@@ -220,8 +221,18 @@
                             // tipoErrorHandler.handleError(response, deferred);
                         }
                         if (response.status === 521) {
-                            var msg = tipoErrorHandler.handleError(response, deferred);
+                            tipoErrorHandler.handleError(response, deferred);
                             tipoRouter.to('captureCreditCard');
+                            // var promise = $mdDialog.show({
+                            //     templateUrl: 'user/_views/capture-creditcard-dialog.tpl.html',
+                            //     skipHide: true,
+                            //     clickOutsideToClose: false,
+                            //     escapeToClose: false,
+                            //     hasBackdrop: false,
+                            //     controller: 'CreditCardController',
+                            //     controllerAs: 'controller',
+                            //     locals: {cardHeading : response.data.message}
+                            //   });
                         } else {
                             tipoErrorHandler.handleError(response, deferred);
                         }
@@ -248,9 +259,10 @@
         $location,
         $http,
         $q,
-        $window) {
+        $window,
+        $mdDialog) {
 
-        var interceptors = getAllInterceptors(tipoRouter, $rootScope, securityContextService, tipoErrorHandler, tipoCache, cognitoService, $templateCache, $cacheFactory, $location, $http, $q, $window);
+        var interceptors = getAllInterceptors(tipoRouter, $rootScope, securityContextService, tipoErrorHandler, tipoCache, cognitoService, $templateCache, $cacheFactory, $location, $http, $q, $window, $mdDialog);
         var location = $window.location;
         var relativeUrl = location.pathname;
         if (_.startsWith(relativeUrl, '/app')) {
@@ -297,11 +309,12 @@
         $http,
         $templateCache,
         $q,
-        $window) {
+        $window,
+        $mdDialog) {
         deviceInformation = $.ua.device;
         var isSmallScreen = $mdMedia('xs');
         deviceInformation.isMobile = isSmallScreen || deviceInformation.type === 'mobile';
-        var factory = Restangular.withConfig(_.partialRight(configureRestangular, tipoRouter, $rootScope, securityContextService, tipoErrorHandler, tipoCache, cognitoService, $templateCache, $cacheFactory, $location, $http, $q, $window));
+        var factory = Restangular.withConfig(_.partialRight(configureRestangular, tipoRouter, $rootScope, securityContextService, tipoErrorHandler, tipoCache, cognitoService, $templateCache, $cacheFactory, $location, $http, $q, $window, $mdDialog));
         return factory;
     }
 
