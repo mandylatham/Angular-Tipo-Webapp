@@ -9,7 +9,8 @@
         $scope,
         $rootScope,
         $timeout,
-        $mdDialog, 
+        $mdDialog,
+        $mdToast, 
         cardHeading) {
         var _instance = this;
         
@@ -56,13 +57,7 @@
                     delete _instance.lastError;
                     markProgress();
                     $scope.cardToken = result.token;
-                    if ($scope.tipoAccountPromise) {
-                        $scope.tipoAccountPromise.then(function(res) {
-                            sendToken();
-                        })
-                    } else {
-                        sendToken();
-                    }
+                    sendToken();
                 }
             });
         }
@@ -71,6 +66,12 @@
             tipoHandle.callAction('TipoSubscriptions', 'attach_card', ['2000000001'], 'TipoSubscriptions', { token_source: $scope.cardToken.id, credit_card: $scope.cardToken.card.last4 }).then(function(response) {
                     $rootScope.showSubscribeNow = false;
                     _instance.cancel();
+                    var toast = $mdToast.tpToast();
+                    toast._options.locals = {
+                    header: 'Action successfully completed',
+                    body: 'You have successfully subscribed to a plan'
+                    };
+                    $mdToast.show(toast);
             });
         }
 

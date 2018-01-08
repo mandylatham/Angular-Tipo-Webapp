@@ -146,7 +146,7 @@
             promise.then(function(response) {
                 tipoRegistry.pushData(tipo_name, id, response);
             });
-            return getDocumentResource(tipo_name, id).get(criteria, headers);
+            return promise;
             // }
         };
 

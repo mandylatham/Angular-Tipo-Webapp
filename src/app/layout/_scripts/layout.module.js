@@ -69,7 +69,8 @@
         }
       },
       controller: /*@ngInject*/ function($scope, $rootScope,tipoHandle,$templateCache,$http, tipoRouter, $mdDialog, userMetadata){
-        $rootScope.showSubscribeNow = userMetadata.stripe_subscription_id ? false : true;
+        console.log(userMetadata.stripe_subscription_id);
+        $rootScope.showSubscribeNow = (userMetadata.stripe_subscription_id === null ) ? true : false;
         tipoHandle.setUserMeta();
         function loadAsyncData(){
           var filter = {};

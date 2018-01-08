@@ -221,18 +221,18 @@
                             // tipoErrorHandler.handleError(response, deferred);
                         }
                         if (response.status === 521) {
-                            tipoErrorHandler.handleError(response, deferred);
-                            tipoRouter.to('captureCreditCard');
-                            // var promise = $mdDialog.show({
-                            //     templateUrl: 'user/_views/capture-creditcard-dialog.tpl.html',
-                            //     skipHide: true,
-                            //     clickOutsideToClose: false,
-                            //     escapeToClose: false,
-                            //     hasBackdrop: false,
-                            //     controller: 'CreditCardController',
-                            //     controllerAs: 'controller',
-                            //     locals: {cardHeading : response.data.message}
-                            //   });
+                            // tipoErrorHandler.handleError(response, deferred);
+                            // tipoRouter.to('captureCreditCard');
+                            var promise = $mdDialog.show({
+                                templateUrl: 'user/_views/capture-creditcard-dialog.tpl.html',
+                                skipHide: true,
+                                clickOutsideToClose: false,
+                                escapeToClose: false,
+                                hasBackdrop: false,
+                                controller: 'CreditCardController',
+                                controllerAs: 'controller',
+                                locals: {cardHeading : response.data.message}
+                              });
                         } else {
                             tipoErrorHandler.handleError(response, deferred);
                         }
@@ -323,6 +323,8 @@
     function httpInterceptors(localStorageService, $rootScope, $templateCache, $stateParams, $location) {
         return {
             request: function(config) {
+                console.log(config);
+                console.log($rootScope.app_internal_host);
                 // var accessToken = securityContextService.getCurrentIdToken();
                 var accessToken = _.get(localStorageService.get('security_context'), 'tokenDetails.id_token');
                 if ($rootScope.version_stamp) {
@@ -355,6 +357,14 @@
                                 config.url = config.url.replace("http", "https");
                             };
                             config.params.version_stamp = $rootScope.version_stamp;
+                        } else if ((config.method === "PUT" && config.params.tipo_action === "attach_card") && S(config.url).contains("/api/")) {
+                            config.params.url = angular.copy(config.url);
+                            console.log("=============", config.url);
+                            config.url = config.url.replace(/(\/\/.+\/TipoSubscriptions)/, "//" + $rootScope.app_internal_host + "api/TipoSubscriptions");
+                            if (!S(config.url).contains("https")) {
+                                config.url = config.url.replace("http", "https");
+                            };
+                            console.log("-------put", config.url);
                         } else if ((config.method === "PUT" || config.method === "POST") && S(config.url).contains("/api/")) {
                             config.params.url = angular.copy(config.url);
                             config.url = config.url.replace(/(\/\/.+\/api)/, "//" + $rootScope.app_internal_host + "api");
