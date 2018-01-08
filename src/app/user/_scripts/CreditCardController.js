@@ -69,7 +69,7 @@
                     var toast = $mdToast.tpToast();
                     toast._options.locals = {
                     header: 'Action successfully completed',
-                    body: 'You have successfully subscribed to a plan'
+                    body: 'Your 30 days free trial started sucessfully'
                     };
                     $mdToast.show(toast);
             });
