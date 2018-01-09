@@ -387,6 +387,7 @@
 
     // Added Tipo Handle Service in Custom Module
     angular.module('tipo.framework')
-        .service('tipoHandle', TipoHandle);;
+        .service('tipoHandle', TipoHandle)
+        .constant('tipoHandleString', TipoHandle.toString());
 
 })();

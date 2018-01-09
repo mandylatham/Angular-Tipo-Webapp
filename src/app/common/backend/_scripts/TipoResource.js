@@ -189,6 +189,7 @@
                         return rawData.response;
                     } else if (rawData && rawData.data) {
                         rawData.data.tab_url = rawData.tab_url;
+                        rawData.data.perm = rawData.perm;
                         rawData.data.user_message = rawData.user_message;
                         rawData.data.return_url = rawData.return_url;
                         return rawData.data;
@@ -273,7 +274,7 @@
         RestangularConfigurer.setBaseUrl(baseUrl);
         RestangularConfigurer.addFullRequestInterceptor(interceptors.request.cache);
         RestangularConfigurer.addFullRequestInterceptor(interceptors.request.security);
-        RestangularConfigurer.setFullResponse(false);
+        RestangularConfigurer.setPlainByDefault(true);
         // RestangularConfigurer.addFullRequestInterceptor(interceptors.request.version_stamp);
         RestangularConfigurer.addResponseInterceptor(interceptors.response.extractData);
         RestangularConfigurer.setErrorInterceptor(interceptors.errors.handleError);
@@ -322,8 +323,8 @@
                     if (!_.isUndefined(accessToken) && _.startsWith(config.url, "api/")) {
                         config.headers['Authorization'] = accessToken;
                     }
-                    // if (_.startsWith(config.url, "g/") && $rootScope.cdn_host && !$templateCache.get(config.url + "?version_stamp=" + config.params.version_stamp)) {
-                        if (_.startsWith(config.url, "g/") && !S(config.url).contains("custom") && $rootScope.cdn_host && !$templateCache.get(config.url + "?version_stamp=" + config.params.version_stamp)) {
+                    if (_.startsWith(config.url, "g/") && $rootScope.cdn_host && !$templateCache.get(config.url + "?version_stamp=" + config.params.version_stamp)) {
+                        // if (_.startsWith(config.url, "g/") && !S(config.url).contains("tipoapp") && $rootScope.cdn_host && !$templateCache.get(config.url + "?version_stamp=" + config.params.version_stamp)) {
                         if (_.endsWith(config.url, "___TipoApp") || _.endsWith(config.url, "___TipoDefinition") || (_.startsWith($stateParams.perspective, "TipoApp.") && !(config.headers['X-bypass-cdn'] === "true" || config.method === "PURGE") )) {
                             config.url = "https://" + $rootScope.only_cdn_host + config.url;
                             config.params.version_stamp = $rootScope.tipoapp_version || $rootScope.version_stamp;

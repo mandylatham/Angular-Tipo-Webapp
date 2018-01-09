@@ -54,7 +54,9 @@
         };
         _instance.user = user;
         _instance.captureAccountNameDuringSignup = appMetadata.capture_account_name_during_signup;
-        _instance.skipCreditCard = appMetadata.app_subscription.skip_credit_card_to_demo;
+        if (appMetadata && appMetadata.app_subscription) {
+            _instance.skipCreditCard = appMetadata.app_subscription.skip_credit_card_to_demo;
+        };
         _instance.allow_signup = appMetadata.allow_signup;
 
         _instance.toRegistration = function() {
@@ -298,7 +300,7 @@
         };
 
         _instance.gotoSampleApps = function(){
-            tipoRouter.toTipoList('TipoApp',{filter: "sampleapp"});
+            tipoRouter.toTipoList('TipoApp',{filter: "sampleapp",perspective: "Home"});
         }
 
         _instance.recaptchaExpiration = function() {

@@ -5,7 +5,7 @@
     var module = angular.module('tipo.framework');
     module.constant('monacoeditorConfig', {})
 
-    return module.directive('tpJavascript', function(monacoeditorConfig) {
+    return module.directive('tpJavascript', function(monacoeditorConfig, $http, tipoHandleString) {
         return {
             scope: {},
             restrict: 'EA',
@@ -21,10 +21,17 @@
                 if (element[0].offsetHeight > 0) {
                     var test = require.config({ paths: { 'vs': '/_scripts/non-bower-managed/monaco-editor/min/vs' } });
                     require(['vs/editor/editor.main'], function() {
-                        var editor = monaco.editor.create(element[0], {
-                            language: 'javascript'
+                        monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions({
+                            noSemanticValidation: false,
+                            noSyntaxValidation: false
                         });
-                        configNgModelLink(editor, ngModel, scope);
+                        $http.get('/_scripts/non-bower-managed/monaco-editor/min/vs/custom-ts/tipoHandle.d.ts').then(function(data) {
+                            monaco.languages.typescript.javascriptDefaults.addExtraLib(data.data);
+                            var editor = monaco.editor.create(element[0], {
+                                language: 'javascript'
+                            });
+                            configNgModelLink(editor, ngModel, scope);
+                        });
                     });
                     unbind();
                 };

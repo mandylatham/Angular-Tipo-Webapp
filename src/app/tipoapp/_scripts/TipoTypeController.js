@@ -148,6 +148,11 @@
       label: "Javascript",
       icon: "code",
     },
+    {
+      key: "tiposcript",
+      label: "Tiposcript",
+      icon: "code",
+    },
     //{
     //  key: "s3explorer",
     //  label: "S3 Browser",

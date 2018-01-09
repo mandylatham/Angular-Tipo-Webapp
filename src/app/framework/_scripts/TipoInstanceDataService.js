@@ -146,7 +146,7 @@
             promise.then(function(response) {
                 tipoRegistry.pushData(tipo_name, id, response);
             });
-            return getDocumentResource(tipo_name, id).get(criteria, headers);
+            return promise;
             // }
         };
 
@@ -194,9 +194,7 @@
                 tipo.data.tipo_id = id;
             }
             populateGeolocation(tipo);
-            return getDocumentResource(tipo_name, id).doPUT(tipo).then(function() {
-                return _instance.getOne(tipo_name, id, undefined, true);
-            });
+            return getDocumentResource(tipo_name, id).doPUT(tipo);
         };
 
         _instance.updateAll = function(tipo_name, tipos) {

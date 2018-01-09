@@ -1,4 +1,3 @@
-<!-- <div ng-model="mm" id="container" style="width:100%;height:200px;border:1px solid grey" tp-javascript></div> -->
 <div flex layout="column" ng-init="tipoRootController.initTiposData([{display_name: 'sampleapp',filter_expression:'(publish_app_as_sample_app:true AND (account:$tipo_context.account OR sample_app_plans:$tipo_context.user_role))', selected: false, hidden_:true},{display_name: 'myapps',filter_expression:'(((publish_app_as_sample_app:false) OR (!_exists_:publish_app_as_sample_app)) AND account:$tipo_context.account)', selected: false, hidden_:true},])" ng-controller="TipoAppController as controller">
   <div class="md-primary tp-page-heading" ng-if="!tipoRootController.hideActions" >
   <div layout="row" layout-align="space-between center" layout-align-xs="space-between start">

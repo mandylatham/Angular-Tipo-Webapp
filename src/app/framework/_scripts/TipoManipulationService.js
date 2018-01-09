@@ -808,6 +808,29 @@
             }
         }
 
+        function getKeysFromTipodefinition(fields) {
+            var items = [];
+            _.each(fields, function(field) {
+                if (field.field_type !== "divider") {
+                    if (field.tipo_array) {
+                        items.push({
+                            label: field.field_name,
+                            kind: monaco.languages.CompletionItemKind.Field,
+                            insertText: {
+                                value: field.field_name + '[${1:index}]'
+                            }
+                        })
+                    } else {
+                        items.push({
+                            label: field.field_name,
+                            kind: monaco.languages.CompletionItemKind.Field
+                        })
+                    }
+                };
+            });
+            return items;
+        }
+
         function initGA() {
             ga('send', 'pageview', {
                 'page': location.pathname + location.search + location.hash
@@ -841,6 +864,7 @@
         this.initialiseCreditCard = initialiseCreditCard;
         this.getISODate = getISODate;
         this.deleteItemFromArray = deleteItemFromArray;
+        this.getKeysFromTipodefinition = getKeysFromTipodefinition;
         this.initGA = initGA;
     }
 

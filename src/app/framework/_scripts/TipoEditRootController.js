@@ -471,7 +471,7 @@
         }
 
         _instance.edit = function() {
-            tipoRouter.startStateChange();
+            // tipoRouter.startStateChange();
             tipoRouter.toTipoEdit(tipo_name, tipo_id);
         };
 
