@@ -5,7 +5,7 @@
 				Current Plan
  		</h3>
  		<div ng-if="controller.tipo.subscription_status && controller.tipo.subscription_status !== 'canceled'">
-	        <tp:actions tipo-name="'TipoSubscriptions'"  tipo-actions="[{tipo_action: 'cancel_subscription',display_name: 'Cancel Subscription',highlight: true,bulk_select: $action.bulk_select,single_select: $action.single_select,icon: '',visibility_expression: '' , client_dependency:{tipo_name: ''}},]" tipos="tipoRootController.tipo" refresh="tipoRootController.refresh()"/>
+	        <tp:actions tipo-name="'TipoSubscriptions'"  tipo-actions="[{tipo_action: 'cancel_subscription',display_name: 'Cancel Subscription',enable_confirmation: true,confirmation_text: 'Are you sure you want to cancel? On resubscribtion your billing cycle will start.',highlight: true,bulk_select: $action.bulk_select,single_select: $action.single_select,icon: '',visibility_expression: '' , client_dependency:{tipo_name: ''}},]" tipos="tipoRootController.tipo" refresh="tipoRootController.refresh()"/>
 	    </div>
 	</div>
  	<md-divider></md-divider>

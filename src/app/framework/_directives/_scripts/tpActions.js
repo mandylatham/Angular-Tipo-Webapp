@@ -156,6 +156,8 @@
                   name: each.tipo_action,
                   label: each.display_name,
                   highlight: each.highlight,
+                  enable_confirmation: each.enable_confirmation,
+                  confirmation_text: each.confirmation_text,
                   bulk_select: each.bulk_select,
                   single_select: each.single_select,
                   restriced: restriced,
@@ -351,7 +353,21 @@
                 var promise = tipoHandle.presentForm(additionalTipo,scope.tipos,action.label);
                 promise.then(function(response){
                     callAction(tipo_name,action.name,selected_tipo_ids,action.additionalTipo,response);
-              });}else{
+              });
+            } else if (action.enable_confirmation) {
+              var confirm = $mdDialog.confirm()
+                    .title('Confirm')
+                    .textContent(action.confirmation_text)
+                    .ok('OK')
+                    .cancel('CANCEL');
+
+              $mdDialog.show(confirm).then(function() {
+                tipoRouter.startStateChange();
+                callAction(tipo_name,action.name,selected_tipo_ids)
+              }, function() {
+                return;
+              });
+            } else{
                 console.log('Will just perform the action without opening any dialogs');
                 tipoRouter.startStateChange();
                 callAction(tipo_name,action.name,selected_tipo_ids)

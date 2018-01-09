@@ -1,5 +1,5 @@
-<md-dialog ng-cloak ng-class="{'fullscreen': controller.fullscreen}" id="error-dialog">
-  <md-toolbar class="tipo-toolbar md-warn">
+<md-dialog ng-cloak id="error-dialog">
+  <!-- <md-toolbar class="tipo-toolbar md-warn">
     <div class="md-toolbar-tools">
       <h2><md-icon>error_outline</md-icon> {{controller.exception.headerCode}} - {{controller.exception.headerMessage}}</h2>
       <span flex></span>
@@ -13,29 +13,30 @@
         <md-icon aria-label="Close dialog">close</md-icon>
       </md-button>
     </div>
-  </md-toolbar>
+  </md-toolbar> -->
   <md-dialog-content>
     <div class="dialog" layout-padding>
-      <div layout="row">
+      <!-- <div layout="row">
         <div flex="15"><strong>Code:</strong></div>
         <div flex>{{controller.exception.detailCode}}</div>
-      </div>
+      </div> -->
       <div layout="row">
-        <div flex="15"><strong>Message:</strong></div>
+        <div flex="10"><strong><md-icon style="color:rgba(255,50,50,0.85)">warning</md-icon></strong></div>
         <div flex class="longtext"><span style="white-space: pre-wrap;">{{controller.exception.detailMessage}}</span></div>
+        <div flex="10"><strong><md-icon ng-click="controller.finish()" style="color:rgba(255,50,50,0.85)">close</md-icon></strong></div>
       </div>
-      <div layout="column" ng-if="controller.exception.detailStackTrace" ng-init="collapsed=false">
+      <!-- <div layout="column" ng-if="controller.exception.detailStackTrace" ng-init="collapsed=false">
         <div flex><strong>Stack trace <a href="" ng-click="collapsed = !collapsed" class="plain">
           <i class="fa fa-caret-down" style="vertical-align: middle" ng-class="{'fa-caret-down': !collapsed , 'fa-caret-right': collapsed}"></i>
         </a>  </strong></div>
         <div ng-if="collapsed" flex>
           <code><pre><span style="white-space: pre-wrap;">{{controller.exception.detailStackTrace}}</span></pre></code>
         </div>
-      </div>
+      </div> -->
     </div>
   </md-dialog-content>
-  <md-dialog-actions layout="row">
+  <!-- <md-dialog-actions layout="row">
     <span flex></span>
     <md-button md-theme="reverse" class="md-raised md-primary" ng-click="controller.finish()">OK</md-button>
-  </md-dialog-actions>
+  </md-dialog-actions> -->
 </md-dialog>
