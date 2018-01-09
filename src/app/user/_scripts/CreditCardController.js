@@ -6,6 +6,7 @@
         metadataService,
         tipoManipulationService,
         tipoHandle,
+        tipoRouter,
         $scope,
         $rootScope,
         $timeout,
@@ -35,6 +36,7 @@
             element.className = element.className.replace(/\bslideInRight\b/g, "slideOutRight");
             $timeout(function(){
                 $mdDialog.cancel();
+                tipoRouter.endStateChange();
             }, 500);
         };
       
@@ -64,14 +66,14 @@
 
         function sendToken() {
             tipoHandle.callAction('TipoSubscriptions', 'attach_card', ['2000000001'], 'TipoSubscriptions', { token_source: $scope.cardToken.id, credit_card: $scope.cardToken.card.last4 }).then(function(response) {
-                    $rootScope.showSubscribeNow = false;
-                    _instance.cancel();
-                    var toast = $mdToast.tpToast();
-                    toast._options.locals = {
-                    header: 'Action successfully completed',
-                    body: 'Your 30 days free trial started sucessfully'
-                    };
-                    $mdToast.show(toast);
+                $rootScope.showSubscribeNow = false;
+                _instance.cancel();
+                var toast = $mdToast.tpToast();
+                toast._options.locals = {
+                header: 'Action successfully completed',
+                body: 'Your 30 days free trial started sucessfully'
+                };
+                $mdToast.show(toast);
             });
         }
 

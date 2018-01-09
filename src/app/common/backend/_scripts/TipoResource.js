@@ -223,6 +223,7 @@
                         if (response.status === 521) {
                             // tipoErrorHandler.handleError(response, deferred);
                             // tipoRouter.to('captureCreditCard');
+                            tipoRouter.endStateChange();
                             var promise = $mdDialog.show({
                                 templateUrl: 'user/_views/capture-creditcard-dialog.tpl.html',
                                 skipHide: true,
