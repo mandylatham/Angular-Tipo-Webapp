@@ -47,7 +47,7 @@
                             });
                             monaco.languages.registerCompletionItemProvider('tipoScript', {
                                 triggerCharacters: [".", "$"],
-                                provideCompletionItems: (model, position) => {
+                                provideCompletionItems: function(model, position) {
                                     var wordInfo = model.getWordUntilPosition(position);
                                     var fullValue = model.getValueInRange({ startLineNumber: 1, startColumn: 1, endLineNumber: position.lineNumber, endColumn: position.column });
                                     var monacoscope = monaco.scope;
@@ -274,36 +274,36 @@
         }
 
         function getTipoContext() {
-            return {
-                "user": "",
-                "user_role": "",
-                "account": "",
-                "account_name": "",
-                "application": "",
-                "application_name": "",
-                "application_owner_account": "",
-                "application_owner_account_name": "",
-                "gateway_request": {
-                    "tipo_name": "",
-                    "tipo_id": "",
-                    "tipo_action": "",
-                    "http_method": "",
-                    "page": "",
-                    "per_page": "",
-                    "tipo_filter": "",
-                    "params": ""
-                },
-                "current_tipo": {
+            // return {
+            //     "user": "",
+            //     "user_role": "",
+            //     "account": "",
+            //     "account_name": "",
+            //     "application": "",
+            //     "application_name": "",
+            //     "application_owner_account": "",
+            //     "application_owner_account_name": "",
+            //     "gateway_request": {
+            //         "tipo_name": "",
+            //         "tipo_id": "",
+            //         "tipo_action": "",
+            //         "http_method": "",
+            //         "page": "",
+            //         "per_page": "",
+            //         "tipo_filter": "",
+            //         "params": ""
+            //     },
+            //     "current_tipo": {
 
-                },
-                "user_attributes": {
-                    "user_tipo": "",
-                    "user_tipo_id": "",
-                    "org_tipo": "",
-                    "org_tipo_id": ""
-                }
+            //     },
+            //     "user_attributes": {
+            //         "user_tipo": "",
+            //         "user_tipo_id": "",
+            //         "org_tipo": "",
+            //         "org_tipo_id": ""
+            //     }
 
-            }
+            // }
         }
     });
 
