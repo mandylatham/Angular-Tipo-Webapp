@@ -21,9 +21,11 @@
         <div flex>{{controller.exception.detailCode}}</div>
       </div> -->
       <div layout="row">
-        <div flex="10"><strong><md-icon style="color:rgba(255,50,50,0.85)">warning</md-icon></strong></div>
-        <div flex class="longtext"><span style="white-space: pre-wrap;">{{controller.exception.detailMessage}}</span></div>
-        <div flex="10"><strong><md-icon ng-click="controller.finish()" style="color:rgba(255,50,50,0.85)">close</md-icon></strong></div>
+        <div flex="15">
+          <img src="_assets/images/error-message.png" />
+        </div>
+        <div flex class="longtext">{{controller.exception.detailMessage}}</div>
+        <div flex="5" class="longtext"><strong><md-icon ng-click="controller.finish()" style="color:white">close</md-icon></strong></div>
       </div>
       <!-- <div layout="column" ng-if="controller.exception.detailStackTrace" ng-init="collapsed=false">
         <div flex><strong>Stack trace <a href="" ng-click="collapsed = !collapsed" class="plain">
