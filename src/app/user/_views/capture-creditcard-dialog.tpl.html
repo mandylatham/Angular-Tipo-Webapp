@@ -16,7 +16,7 @@
               <md-content layout-padding layout="column" layout-align="center stretch">
                   <div class="md-subhead text-center" ng-init="controller.callInitCard()"></div>
                   <div id='card-element'></div>
-                  <div class="hint" style="position: inherit;bottom: 10px;color: #403f3f;margin: 5px">Your free trial begins on <b>{{date | date:'MMMM dd, yyyy'}} </b> and will end on <b>{{expiryDate | date:'MMMM dd, yyyy'}}.</b> You can cancel anytime before or on {{expiryDate | date:'MMMM dd, yyyy'}} to avoid being charged and we’ll send an email reminder 7 days before the trial ends</div>
+                  <div class="hint" style="position: inherit;bottom: 10px;color: #403f3f;margin: 5px">Your free trial begins on <b>{{date | date:'MMMM dd, yyyy'}} </b> and will end on <b>{{expiryDate | date:'MMMM dd, yyyy'}}.</b> You can cancel anytime before or on {{expiryDate | date:'MMMM dd, yyyy'}} to avoid being charged and we’ll send an email reminder 3 days before the trial ends</div>
                   <div id="card-errors" class="error with-margin" ng-show="controller.lastError"><i class="fa fa-exclamation-circle fa-fw"></i> {{controller.lastError}}</div>
                   <md-button type="submit" md-theme="reverse" class="md-raised md-primary" ng-if="!controller.inProgress" ng-click="controller.createToken('subscribe')"><b>Start 30 Day Free Trial</b></md-button>
                   <md-button disabled md-theme="reverse" class="md-raised md-primary" ng-show="controller.inProgress">
