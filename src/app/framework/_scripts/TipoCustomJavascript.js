@@ -223,7 +223,59 @@
 
 	//___TipoAboutApp___
 
+	//___App level events__
+	function tipoapp_Login (status, email) {
+		if(status === 'success') {
+			window.Intercom("boot", {
+				app_id: "a4gpt05a",
+				email: email
+			  });
+		}
+	}
 
+	function tipoapp_Logout () {
+		if (window.Intercom) {
+			window.Intercom("shutdown");
+		}
+	}
+
+	function tipoapp_URLChange () {
+		if (window.Intercom) {
+			window.Intercom('update');
+		}
+	}
+
+	function tipoapp_PerspectiveChange () {
+		if(currentApp === 'tipoapp') {
+			window.Intercom('update');
+		} else {
+			if( _.startsWith($stateParams.perspective, "TipoApp.")) {
+				window.Intercom("boot", {
+					app_id: "a4gpt05a",
+					email: currentUser.tipo_id
+				  });
+			} else if (window.Intercom) {
+				window.Intercom("shutdown");
+			}
+		}
+	}
+
+	function tipoapp_PasswordChange () {
+	}
+
+	function tipoapp_ExistApp () {
+	}
+
+	var currentApp = tipoHandle.application_meta.TipoApp.application_name;
+	var currentUser = tipoHandle.user_meta;
+	this[currentApp + "_Logout"] = tipoapp_Logout;
+	this[currentApp + "_Login"] = tipoapp_Login;
+	this[currentApp + "_URLChange"] = tipoapp_URLChange;
+	this[currentApp + "_PerspectiveChange"] = tipoapp_PerspectiveChange;
+	this[currentApp + "_PasswordChange"] = tipoapp_PasswordChange;
+	this[currentApp + "_ExistApp"] = tipoapp_ExistApp;
+
+	//___App level events__
   }
 
   // Added Client Side Javascript Service in Custom Module

@@ -11,6 +11,7 @@
         tipoInstanceDataService,
         tipoManipulationService,
         securityContextService,
+        tipoCustomJavascript,
         vcRecaptchaService,
         $state,
         $stateParams,
@@ -20,7 +21,6 @@
         $http,
         $q,
         $rootScope) {
-
         var _instance = this;
         $http.get('framework/_scripts/country-code.json').then(function(data) {
             _instance.country_code = data.data;
@@ -34,6 +34,7 @@
         $scope.cardToken;
         var appMetadata = metadataService.applicationMetadata;
         var appMetadata = _.merge(_.get(appMetadata, "TipoApp"), _.get(appMetadata, "TipoConfiguration"));
+        var function_name;
         _instance.header_template = metadataService.resolveAppCustomUrls("login_header_template", "user/_views/header.tpl.html")
         var user = {};
         var templates = [{ template_name: "registation_template", default_template: "user/_views/registration.tpl.html" },
@@ -77,6 +78,11 @@
             delete _instance.lastError;
         });
 
+        _instance.stateChange = function() {
+            function_name = appMetadata.application_name + "_URLChange";
+            callCustomJS();
+        }
+
         function markProgress() {
             _instance.inProgress = true;
             delete _instance.lastError;
@@ -114,6 +120,12 @@
             _instance.inProgress = false;
         }
 
+        function callCustomJS(status) {
+            if (typeof tipoCustomJavascript[function_name] === 'function') {
+                tipoCustomJavascript[function_name](status, _instance.user.email);
+            }
+        }
+
         _instance.initCard = function() {
             $scope.creditCard = tipoManipulationService.initialiseCreditCard(appMetadata.app_subscription.publishable_key);
         }
@@ -142,6 +154,8 @@
         function sendToken() {
             tipoHandle.callAction('TipoSubscriptions', 'attach_card', ['2000000001'], 'TipoSubscriptions', { token_source: $scope.cardToken.id, credit_card: $scope.cardToken.card.last4 }).then(function(response) {
                 tipoRouter.to('dashboard');
+                function_name = appMetadata.application_name + "_Login";
+                callCustomJS("success");
             });
         }
 
@@ -206,11 +220,15 @@
                     tipoCache.clearAll();
                     _instance.gotoPreviousView();
                 }
+                function_name = appMetadata.application_name + "_Login";
+                callCustomJS("success");
             }, function(err) {
                 if (appMetadata.application !== '1000000001' && err.message && err.message.indexOf('User does not exist') !== -1) {
                     username = '2000000001.1000000001.' + _instance.user.email;
                     return _instance.developerlogin(username, password);
                 }
+                function_name = appMetadata.application_name + "_Login";
+                callCustomJS("failure");
                 raiseError(err);
             });
         };
@@ -229,8 +247,12 @@
                     tipoCache.clearAll();
                     _instance.gotoPreviousView();
                 }
+                function_name = appMetadata.application_name + "_Login";
+                callCustomJS("success");
             }, function(err) {
                 raiseError(err);
+                function_name = appMetadata.application_name + "_Login";
+                callCustomJS("failure");
             });
         };
 
@@ -264,6 +286,8 @@
                     body: 'Your Password has been successfully reset. Sign in to your account.'
                 };
                 _instance.toLogin();
+                function_name = appMetadata.application_name + "_PasswordChange";
+                callCustomJS();
             }, raiseError);
         };
 
@@ -279,6 +303,8 @@
                         body: 'Your password has been changed successfully'
                     };
                     _instance.login(result.userAttributes.email, user.newPassword);
+                    function_name = appMetadata.application_name + "_PasswordChange";
+                    callCustomJS();
                 }, function(err) {
                     _instance.toast = {
                         header: 'Password change was not successful',

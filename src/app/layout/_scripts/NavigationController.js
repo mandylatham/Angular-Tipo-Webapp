@@ -8,6 +8,7 @@
     tipoInstanceDataService,
     tipoManipulationService,
     metadataService,
+    tipoCustomJavascript,
     tipoCache,
     $mdSidenav,
     $templateCache,
@@ -26,7 +27,8 @@
     var currentPerspective;
 
     _instance.template = metadataService.resolveAppCustomUrls("custom_menu_template","g/public/common/views/tipoapp/custom_menu.tpl.html");
-
+    var appMetadata = metadataService.applicationMetadata;
+    var appMetadata = _.merge(_.get(appMetadata, "TipoApp"), _.get(appMetadata, "TipoConfiguration"));
     // TODO: Hacky way to mark the active menu item. Need to improve this
     function markActiveItem(menu, perspectiveTipoId){
       if(!_.isUndefined(perspectiveTipoId)){
@@ -195,6 +197,10 @@
       if (!$rootScope.readonly) {
         prepareMenu(newValue);
       };
+      var function_name = appMetadata.application_name + "_PerspectiveChange";
+      if (typeof tipoCustomJavascript[function_name] === 'function') {
+        tipoCustomJavascript[function_name]();
+      }
     });
     $scope.$watch(function(){return _instance.menu;}, function(newValue, oldValue){
       if (!_.isUndefined(newValue) && $state.current.name === "dashboard") {

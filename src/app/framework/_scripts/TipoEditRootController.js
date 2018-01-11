@@ -146,6 +146,12 @@
         tipoManipulationService.initGA();
         $scope.$mdMedia = $mdMedia;
         var _instance = this;
+        var appMetadata = metadataService.applicationMetadata;
+        var appMetadata = _.merge(_.get(appMetadata, "TipoApp"), _.get(appMetadata, "TipoConfiguration"));
+        var function_name = appMetadata.application_name + "_URLChange";
+        if (typeof tipoCustomJavascript[function_name] === 'function') {
+            tipoCustomJavascript[function_name]();
+        }
         tipoHandle.setPerspective();
         _instance.tipo_handle = tipoHandle;
         _instance.hide_actions = $scope.hide_actions;

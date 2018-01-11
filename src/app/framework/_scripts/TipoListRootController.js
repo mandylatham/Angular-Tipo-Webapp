@@ -28,6 +28,12 @@
     var tipo_name = $stateParams.tipo_name;
     _instance.tipo_name = $stateParams.tipo_name;
     $scope.data_handle = {};
+    var appMetadata = metadataService.applicationMetadata;
+    var appMetadata = _.merge(_.get(appMetadata, "TipoApp"), _.get(appMetadata, "TipoConfiguration"));
+    var function_name = appMetadata.application_name + "_URLChange";
+    if (typeof tipoCustomJavascript[function_name] === 'function') {
+        tipoCustomJavascript[function_name]();
+    }
     
     _instance.listUrl = tipoHandle.listUrl(tipo_name);
     if ($stateParams.tab_url) {

@@ -6,6 +6,7 @@
     applicationMetadata,
     tipoRouter,
     tipoCache,
+    tipoCustomJavascript,
     $state,
     $mdSidenav,
     $rootScope,
@@ -43,6 +44,10 @@
     };
 
     _instance.signOut = function(){
+      var function_name = applicationMetadata.TipoApp.application_name + "_Logout";
+        if (typeof tipoCustomJavascript[function_name] === 'function') {
+            tipoCustomJavascript[function_name]();
+        }
       cognitoService.signOut();
       delete $rootScope.$previousState;
       tipoRouter.to('login');
@@ -75,6 +80,16 @@
       var cache = tipoCache.getDefault();
       console.log('CACHE KEYS', angular.toJson(cache.keySet()));
     };
+
+    document.addEventListener("mouseleave", function(e){
+      if( e.clientY < 0 )
+      {
+        var function_name = applicationMetadata.TipoApp.application_name + "_ExistApp";
+        if (typeof tipoCustomJavascript[function_name] === 'function') {
+            tipoCustomJavascript[function_name]();
+        }
+      }
+    }, false);
   }
 
   angular.module('tipo.main')

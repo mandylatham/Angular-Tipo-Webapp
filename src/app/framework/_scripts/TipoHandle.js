@@ -350,7 +350,7 @@
             }
         }
 
-
+        this.user_meta = metadataService.userMetadata;
         this.application_meta = metadataService.applicationMetadata;
         this.getConfirmation = getConfirmation;
         this.hideElement = hideElement;
