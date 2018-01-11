@@ -69,12 +69,6 @@
             },
             controller: /*@ngInject*/ function($scope, $rootScope, tipoHandle, $templateCache, $http, tipoRouter, $mdDialog, userMetadata) {
                 $rootScope.showSubscribeNow = (userMetadata.stripe_subscription_id === null) ? true : false;
-                if (!$rootScope.showSubscribeNow) {
-                    window.Intercom("boot", {
-                    app_id: "a4gpt05a",
-                    email: userMetadata.tipo_id 
-                });
-                };
                 tipoHandle.setUserMeta();
 
                 function loadAsyncData() {
