@@ -2,7 +2,7 @@
 
     'use strict';
 
-    function TipoManipulationService(tipoRegistry, $rootScope, $q, $mdMedia, $filter) {
+    function TipoManipulationService(tipoRegistry, $rootScope, $q, $mdMedia, $filter, $stateParams) {
 
         function setupMustacheOverrides() {
             Mustache.tags = ['[[', ']]'];
@@ -643,7 +643,7 @@
 
         function resolvePerspectiveMetadata(perspective) {
             if (!$rootScope.readonly) {
-                perspective = perspective || $rootScope.perspective;
+                perspective = perspective || $rootScope.perspective || $stateParams.perspective;
                 var parts = perspective.split('.');
                 var tipoName = parts[0];
                 var tipoDefinition = tipoRegistry.get(tipoName);

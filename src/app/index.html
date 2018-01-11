@@ -1,6 +1,7 @@
-<!DOCTYPE html> 
-<html lang="en-us" class="no-js"  ng-app="tipo.main" ng-cloak>
-  <head>
+<!DOCTYPE html>
+<html lang="en-us" class="no-js" ng-app="tipo.main" ng-cloak>
+
+<head>
     <meta charset="utf-8">
     <meta http-equiv="cache-control" content="private" />
     <meta http-equiv="cache-control" content="max-age=0" />
@@ -8,44 +9,36 @@
     <meta http-equiv="pragma" content="no-cache" />
     <title state-title="Build Apps Made Easy" pattern="%s | TipoTapp"></title>
     <meta name="description" content="Tipo User Interface">
-    
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <!-- build:js(app) /_scripts/bootstrap.js -->
     <script src="/_scripts/bootstrap.js"></script>
     <!-- endbuild -->
-
     <!-- build:js(app) /_scripts/pace.js -->
     <script src="/_scripts/non-bower-managed/pace.js"></script>
     <!-- endbuild -->
-
     <link href="g/public/common/styles/pace.css" rel="stylesheet" />
-    
-
     <!-- build:css(app) /_styles/main.css -->
     <link rel="stylesheet" type="text/css" media="screen" href="/_styles/main.css">
     <!-- endbuild -->
-
     <link rel="shortcut icon" href="g/public/assets/images/favicon.ico" type="image/x-icon">
-
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <meta name='google-signin-client_id' content='${googleClientId}'/>
+    <meta name='google-signin-client_id' content='${googleClientId}' />
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyATW0kUB4r9O_SKDbm5CYkRNuYS0YvdkRo&libraries=places"></script>
-    <script src='https://apis.google.com/js/platform.js' async defer></script>  
+    <script src='https://apis.google.com/js/platform.js' async defer></script>
     <script src="https://www.google.com/recaptcha/api.js?onload=vcRecaptchaApiLoaded&render=explicit" async defer></script>
     <link rel="stylesheet" type="text/css" media="screen" href="g/public/common/styles/font.css?tipo_version_stamp=1.1.1">
     <link rel="stylesheet" type="text/css" media="screen" href="g/public/common/styles/custom.css?tipo_version_stamp=1.1.1">
-  </head>
+    <!--- Replace Widgets Head Tag -->
+</head>
 
-  <body id="body">
-    
+<body id="body">
     <div id="background-container" ui-view></div>
     <div id="loader"></div>
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-
     <!-- build:js(app) /_scripts/non-bower-managed-pre.js -->
     <script src="/_scripts/non-bower-managed/jsbn.js"></script>
     <script src="/_scripts/non-bower-managed/jsbn2.js"></script>
@@ -53,27 +46,19 @@
     <script src="/_scripts/non-bower-managed/separate/aws-cognito-sdk.min.js"></script>
     <script src="/_scripts/non-bower-managed/separate/amazon-cognito-identity.min.js"></script>
     <!-- endbuild -->
-
-
     <!-- build:js(.) /_scripts/bower-managed.js -->
     <!-- bower:js -->
     <!-- endbower -->
     <!-- endbuild -->
-
     <!-- build:js(app) /_scripts/partials.module.js -->
     <script src="/_scripts/partials.placeholder.module.js"></script>
     <!-- endbuild -->
-
     <!-- build:js(app) /_scripts/main.js -->
-
     <script src="common/_scripts/config.js"></script>
-
     <script src="framework/_scripts/framework.module.js"></script>
     <script src="framework/_scripts/TipoCache.js"></script>
-
     <script src="common/_scripts/custom.module.js"></script>
     <script src="common/_scripts/common.module.js"></script>
-
     <script src="common/backend/_scripts/TipoRouter.js"></script>
     <script src="common/backend/_scripts/TipoErrorHandler.js"></script>
     <script src="common/backend/_scripts/TipoResource.js"></script>
@@ -81,7 +66,6 @@
     <script src="common/_scripts/SecurityContextService.js"></script>
     <script src="common/_scripts/CognitoService.js"></script>
     <script src="common/_scripts/S3Service.js"></script>
-
     <script src="common/ui/_scripts/tpInclude.js"></script>
     <script src="common/ui/_scripts/tpIncludeReplace.js"></script>
     <script src="common/ui/_scripts/tpStateChangeIndicator.js"></script>
@@ -91,19 +75,17 @@
     <script src="common/ui/_scripts/tpPasswordMatch.js"></script>
     <script src="common/ui/_scripts/tpIsJs.js"></script>
     <script src="common/ui/_scripts/tpToNumber.js"></script>
-
     <script src="framework/_scripts/TipoHandle.js"></script>
     <script src="framework/_scripts/TipoRegistry.js"></script>
     <script src="framework/_scripts/TipoDefinitionDataService.js"></script>
     <script src="framework/_scripts/TipoInstanceDataService.js"></script>
     <script src="framework/_scripts/TipoManipulationService.js"></script>
     <script src="framework/_scripts/TipoListRootController.js"></script>
-<!--    <script src="framework/_scripts/TipoCreateRootController.js"></script>
+    <!--    <script src="framework/_scripts/TipoCreateRootController.js"></script>
     <script src="framework/_scripts/TipoViewRootController.js"></script> -->
     <script src="framework/_scripts/TipoEditRootController.js"></script>
     <script src="framework/_scripts/SubTipoListRootController.js"></script>
     <script src="framework/_scripts/TipoCustomJavascript.js"></script>
-
     <script src="framework/_directives/_scripts/tpFieldView.js"></script>
     <script src="framework/_directives/_scripts/tpFieldEdit.js"></script>
     <script src="framework/_directives/_scripts/tpFieldContainer.js"></script>
@@ -129,18 +111,14 @@
     <script src="framework/_directives/_scripts/tpIntlTelInput.js"></script>
     <script src="framework/_directives/_scripts/tpJavascript.js"></script>
     <script src="framework/_directives/_scripts/tpTipoScript.js"></script>
-
     <script src="dashboard/_scripts/dashboard.module.js"></script>
     <script src="dashboard/_scripts/DashboardController.js"></script>
-
     <script src="user/_scripts/user.module.js"></script>
     <script src="user/_scripts/UserController.js"></script>
     <script src="user/_scripts/CreditCardController.js"></script>
-
     <script src="layout/_scripts/layout.module.js"></script>
     <script src="layout/_scripts/NavigationController.js"></script>
     <script src="layout/_scripts/HeaderController.js"></script>
-
     <!-- TipoApp customizations -->
     <script src="tipoapp/_scripts/tipoapp.module.js"></script>
     <script src="tipoapp/_scripts/TipoAppController.js"></script>
@@ -148,15 +126,11 @@
     <script src="tipoapp/_scripts/ChangePasswordController.js"></script>
     <script src="tipoapp/_scripts/TipoTypeController.js"></script>
     <script src="tipoapp/_scripts/TipoColorController.js"></script>
-
-
     <script src="_scripts/main.module.js"></script>
     <script src="_scripts/MainController.js"></script>
-
     <!-- endbuild -->
     <script src="g/public/common/scripts/themes.js?tipo_version_stamp=1.1.1"></script>
     <script src="g/public/common/scripts/CustomScript.js?tipo_version_stamp=1.1.1"></script>
-    
     <!-- build:js(app) /_scripts/non-bower-managed-post.js -->
     <script src="/_scripts/non-bower-managed/material-paging.min.js"></script>
     <script src="/_scripts/non-bower-managed/cleave-angular.min.js"></script>
@@ -167,15 +141,11 @@
     <script src="/_scripts/non-bower-managed/monaco-editor/min/vs/loader.js"></script>
     <!-- endbuild -->
     <script src="g/public/common/scripts/CustomDev.js"></script>
-    
     <script src="g/public/common/scripts/GoogleAnalytics.js" async defer></script>
     <script src="https://js.stripe.com/v3/" async defer></script>
-
-	<!-- Testing replacements tipo_replace.googleRecaptchaSitekey ___app_cdn_host___ asdfasdfasdf 2___app_cdn_host___2 -->
-
-  </body>
-  
-
-  <!-- endbuild -->
+    
+    <!--- Replace Widgets Body Tag -->
+</body>
+<!-- endbuild -->
 
 </html>

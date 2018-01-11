@@ -306,6 +306,7 @@
     var _instance = this;
     /** In case of detail/edit/create pages, the tipo object that contains the data from server. */
     _instance.tipo = $scope.tipoRootController.tipo;
+    window.Intercom("trackEvent","subscription");
     var appMetadata = metadataService.applicationMetadata;
     var appMetadata = _.merge(_.get(appMetadata,"TipoApp"),_.get(appMetadata,"TipoConfiguration"));
     $scope.creditCard;
