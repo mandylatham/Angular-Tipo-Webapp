@@ -229,7 +229,7 @@
 
         //___App level events__
         function tipoapp_Login(status, email) {
-            if (window.Intercom && (currentApp === 'tipoapp' || $rootScope.developMode === true)) {
+            if (window.Intercom && (currentApp === 'tipoapp')) {
                 if (status === 'success') {
                     window.Intercom("boot", {
                         app_id: intercom_app_id,
@@ -248,7 +248,7 @@
         }
 
         function tipoapp_URLChange() {
-            if (window.Intercom && (currentApp === 'tipoapp' || $rootScope.developMode === true)) {
+            if (window.Intercom && (currentApp === 'tipoapp')) {
                 window.Intercom('update');
             }
         }
@@ -259,21 +259,22 @@
                     window.Intercom("trackEvent", "subscription");
                 };
                 window.Intercom('update');
+            } else if ($rootScope.developMode){
+                if (_.startsWith($stateParams.perspective, "TipoApp.") && intercom_state !=="boot") {
+                    window.Intercom("boot", {
+                        app_id: intercom_app_id,
+                        email: currentUser.tipo_id
+                    });
+                    intercom_state = "boot";
+                } else if (window.Intercom && !_.startsWith($stateParams.perspective, "TipoApp.")) {
+                    window.Intercom("shutdown");
+                    intercom_state = "shutdown";
+                }
             }
-            //  else {
-            //     if (_.startsWith($stateParams.perspective, "TipoApp.")) {
-            //         window.Intercom("boot", {
-            //             app_id: intercom_app_id,
-            //             email: currentUser.tipo_id
-            //         });
-            //     } else if (window.Intercom) {
-            //         window.Intercom("shutdown");
-            //     }
-            // }
         }
 
         function tipoapp_AppInit() {
-            if (intercom_state !== "boot" && (currentApp === 'tipoapp' || $rootScope.developMode === true)) {
+            if (intercom_state !== "boot" && (currentApp === 'tipoapp')) {
                 window.Intercom("boot", {
                     app_id: intercom_app_id,
                     email: currentUser.tipo_id

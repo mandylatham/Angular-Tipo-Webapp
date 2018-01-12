@@ -194,12 +194,10 @@
             if (!$rootScope.readonly) {
                 prepareMenu(newValue);
             };
-            if (newValue !== oldValue) {
-                var function_name = tipoHandle.application_meta.TipoApp.application_name + "_PerspectiveChange";
-                if (typeof tipoCustomJavascript[function_name] === 'function') {
-                    tipoCustomJavascript[function_name]();
-                }
-            };
+            var function_name = tipoHandle.application_meta.TipoApp.application_name + "_PerspectiveChange";
+            if (typeof tipoCustomJavascript[function_name] === 'function') {
+                tipoCustomJavascript[function_name]();
+            }
         });
         $scope.$watch(function() { return _instance.menu; }, function(newValue, oldValue) {
             if (!_.isUndefined(newValue) && $state.current.name === "dashboard") {
