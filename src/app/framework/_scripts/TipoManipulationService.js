@@ -643,7 +643,7 @@
 
         function resolvePerspectiveMetadata(perspective) {
             if (!$rootScope.readonly) {
-                perspective = perspective || $rootScope.perspective || $stateParams.perspective;
+                perspective = perspective || $rootScope.perspective || $stateParams.perspective || "Home";
                 var parts = perspective.split('.');
                 var tipoName = parts[0];
                 var tipoDefinition = tipoRegistry.get(tipoName);
