@@ -9,7 +9,6 @@
     tipoManipulationService,
     tipoHandle,
     tipoInstanceDataService,
-    metadataService,
     tipoCustomJavascript,
     tipoRouter,
     tipoRegistry,
@@ -25,9 +24,7 @@
     _instance.hideActions = true;
 
     var tipo_name = subTipoDefinition.tipo_meta.tipo_name;
-    var appMetadata = metadataService.applicationMetadata;
-    var appMetadata = _.merge(_.get(appMetadata, "TipoApp"), _.get(appMetadata, "TipoConfiguration"));
-    var function_name = appMetadata.application_name + "_URLChange";
+    var function_name = tipoHandle.application_meta.TipoApp.application_name + "_URLChange";
     if (typeof tipoCustomJavascript[function_name] === 'function') {
         tipoCustomJavascript[function_name]();
     }

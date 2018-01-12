@@ -67,9 +67,13 @@
                     }
                 }
             },
-            controller: /*@ngInject*/ function($scope, $rootScope, tipoHandle, $templateCache, $http, tipoRouter, $mdDialog, userMetadata) {
+            controller: /*@ngInject*/ function($scope, $rootScope, tipoHandle, $templateCache, $http, tipoRouter, $mdDialog, userMetadata, tipoCustomJavascript) {
                 $rootScope.showSubscribeNow = (userMetadata.stripe_subscription_id === null) ? true : false;
                 tipoHandle.setUserMeta();
+                var function_name = tipoHandle.application_meta.TipoApp.application_name + "_AppInit";
+                if (typeof tipoCustomJavascript[function_name] === 'function') {
+                    tipoCustomJavascript[function_name]();
+                }
 
                 function loadAsyncData() {
                     var filter = {};

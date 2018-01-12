@@ -128,7 +128,6 @@
         tipoHandle,
         tipoRouter,
         tipoRegistry,
-        metadataService,
         $scope,
         $mdToast,
         $stateParams,
@@ -146,9 +145,7 @@
         tipoManipulationService.initGA();
         $scope.$mdMedia = $mdMedia;
         var _instance = this;
-        var appMetadata = metadataService.applicationMetadata;
-        var appMetadata = _.merge(_.get(appMetadata, "TipoApp"), _.get(appMetadata, "TipoConfiguration"));
-        var function_name = appMetadata.application_name + "_URLChange";
+        var function_name = tipoHandle.application_meta.TipoApp.application_name + "_URLChange";
         if (typeof tipoCustomJavascript[function_name] === 'function') {
             tipoCustomJavascript[function_name]();
         }

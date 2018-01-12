@@ -8,7 +8,6 @@
     tipoRouter,
     tipoRegistry,
     tipoCache,
-    metadataService,
     $state,
     $stateParams,
     $mdToast,
@@ -28,9 +27,7 @@
     var tipo_name = $stateParams.tipo_name;
     _instance.tipo_name = $stateParams.tipo_name;
     $scope.data_handle = {};
-    var appMetadata = metadataService.applicationMetadata;
-    var appMetadata = _.merge(_.get(appMetadata, "TipoApp"), _.get(appMetadata, "TipoConfiguration"));
-    var function_name = appMetadata.application_name + "_URLChange";
+    var function_name = tipoHandle.application_meta.TipoApp.application_name + "_URLChange";
     if (typeof tipoCustomJavascript[function_name] === 'function') {
         tipoCustomJavascript[function_name]();
     }
