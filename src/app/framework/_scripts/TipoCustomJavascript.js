@@ -266,7 +266,7 @@
                         email: currentUser.tipo_id
                     });
                     intercom_state = "boot";
-                } else if (window.Intercom && !_.startsWith($stateParams.perspective, "TipoApp.")) {
+                } else if (window.Intercom && !_.startsWith($stateParams.perspective, "TipoApp.") && !$rootScope.showSubscribeNow) {
                     window.Intercom("shutdown");
                     intercom_state = "shutdown";
                 }
@@ -286,7 +286,7 @@
         function tipoapp_PasswordChange() {}
 
         function tipoapp_ExistApp() {
-            if ($rootScope.showSubscribeNow && (currentApp === 'tipoapp' || $rootScope.developMode === true)) {
+            if ($rootScope.showSubscribeNow && ($rootScope.developMode === true)) {
                 window.Intercom("trackEvent", "exitIntent");
                 window.Intercom('update');
             };
