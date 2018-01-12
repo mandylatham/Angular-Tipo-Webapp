@@ -286,7 +286,7 @@
         function tipoapp_PasswordChange() {}
 
         function tipoapp_ExistApp() {
-            if ($rootScope.showSubscribeNow && ($rootScope.developMode === true)) {
+            if ($rootScope.showSubscribeNow && currentApp !== 'tipoapp' && $rootScope.developMode === true) {
                 window.Intercom("trackEvent", "exitIntent");
                 window.Intercom('update');
             };
