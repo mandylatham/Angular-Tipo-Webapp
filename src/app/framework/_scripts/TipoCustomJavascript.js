@@ -286,6 +286,9 @@
 
         function tipoapp_AppInit() {
             if (intercom_state !== "boot" && (currentApp === 'tipoapp')) {
+            	if (!currentUser) {
+            		var currentUser = tipoHandle.user_meta;
+            	};
                 window.Intercom("boot", {
                     app_id: intercom_app_id,
                     email: currentUser.tipo_id
