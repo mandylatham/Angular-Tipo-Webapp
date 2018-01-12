@@ -101,7 +101,7 @@
                 window.Intercom("trackEvent", "createTipo");
                 setTimeout(function(){
                 	window.Intercom('update');
-                },1000);
+                },2000);
             };
         }
         this.TipoDefinition_OnView = TipoDefinition_OnView;
@@ -254,9 +254,9 @@
         }
 
         function tipoapp_URLChange() {
-            // if (window.Intercom && (currentApp === 'tipoapp')) {
-            //     window.Intercom('update');
-            // }
+            if (window.Intercom) {
+                window.Intercom('update');
+            }
         }
 
         function tipoapp_PerspectiveChange() {
