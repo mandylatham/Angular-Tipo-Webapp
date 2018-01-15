@@ -5,7 +5,8 @@
 
     function TipoCustomJavascript(tipoHandle, tipoRouter, tipoManipulationService, $rootScope, $stateParams) {
 
-        var intercom_app_id = tipoHandle.application_meta.TipoConfiguration.intercom_app_id || "a4gpt05a";
+        // var intercom_app_id = tipoHandle.application_meta.TipoConfiguration.intercom_app_id || "zitpr920";
+        var intercom_app_id = "zitpr920";
         var intercom_state;
 
         // function TipoS3Browser_OnClick(tipoData,selectedTipo,tipo_name,query_params,event){
@@ -101,7 +102,7 @@
                 window.Intercom("trackEvent", "createTipo");
                 setTimeout(function(){
                 	window.Intercom('update');
-                },2000);
+                },1000);
             };
         }
         this.TipoDefinition_OnView = TipoDefinition_OnView;
