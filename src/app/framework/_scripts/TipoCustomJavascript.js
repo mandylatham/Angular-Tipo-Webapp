@@ -290,7 +290,7 @@
         }
 
         function tipoapp_AppInit() {
-            if (intercom_state !== "boot" && !window.location.href.includes("tipotapp")) {
+            if (intercom_state !== "boot" && (currentApp === 'tipoapp')) {
             	if (!currentUser) {
             		var currentUser = tipoHandle.user_meta;
             	};
@@ -303,7 +303,7 @@
                     }, 5000);
                 intercom_state = "boot";
             };
-            if (currentApp !== 'tipoapp' && !$rootScope.showSubscribeNow && $rootScope.developMode === true && !window.location.href.includes("tipotapp")) {
+            if (currentApp !== 'tipoapp' && !$rootScope.showSubscribeNow && $rootScope.developMode) {
                 window.Intercom("trackEvent", "appCreated");
                 setTimeout(function(){
                 	window.Intercom('update');
