@@ -128,7 +128,8 @@
                             if (!_.startsWith(value, "api/")) {
                                 var config = {
                                     headers: {
-                                        'X-bypass-cdn': 'true'
+                                        'X-bypass-cdn': 'true',
+                                        'Cache-Control': 'no-cache'
                                     },
                                     cache: false
                                 };
