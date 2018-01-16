@@ -109,7 +109,7 @@
                     window.Intercom('update');
                 }, 5000);
             }
-            if (data_handle.mode === 'create') {
+            if (data_handle.mode === 'create' && menu_item.quickFilters !== 'Menu Definitions') {
                 window.Intercom("trackEvent", "createdTipo");
                 setTimeout(function() {
                     window.Intercom('update');
