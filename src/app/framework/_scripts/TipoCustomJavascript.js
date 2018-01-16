@@ -5,8 +5,15 @@
 
     function TipoCustomJavascript(tipoHandle, tipoRouter, tipoManipulationService, $rootScope, $stateParams) {
 
-        // var intercom_app_id = tipoHandle.application_meta.TipoConfiguration.intercom_app_id || "zitpr920";
-        var intercom_app_id = "zitpr920";
+
+    	function getIntercomid(){
+    		if (tipoHandle.application_meta) {
+    			return tipoHandle.application_meta.SystemConfig.tipoapp_intercom_app_id;
+    		}else{
+    			return "zitpr920"
+    		}
+        }
+        var intercom_app_id = getIntercomid();
         var intercom_state;
 
         // function TipoS3Browser_OnClick(tipoData,selectedTipo,tipo_name,query_params,event){
@@ -343,6 +350,7 @@
                 }, 5000);
             };
         }
+
         function getCurrentApp(){
         	if (tipoHandle.application_meta) {
         		return tipoHandle.application_meta.TipoApp.application_name;

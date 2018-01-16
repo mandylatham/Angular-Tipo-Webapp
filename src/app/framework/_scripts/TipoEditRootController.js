@@ -367,20 +367,20 @@
             tipoRouter.startStateChange();
             getPerspective(filter);
             tipoCache.evict(tipo_name, $stateParams.tipo_id);
-            tipoHandle.purgeTipo(tipo_name).then(function(){
-              tipoHandle.getTipo(tipo_name, $stateParams.tipo_id, filter, true).then(function(data) {
-                  data.tipo_id = data.tipo_id || $stateParams.tipo_id;
-                  _instance.tipo = data;
-                  $scope.data_handle.tipo = _instance.tipo;
-                  var function_name = _instance.tipo_name + "_OnView";
-                  if (typeof tipoCustomJavascript[function_name] === 'function') {
-                      tipoCustomJavascript[function_name]($scope.data_handle);
-                  }
-                  if (typeof tipoClientJavascript[function_name] === 'function') {
-                      tipoClientJavascript[function_name]($scope.data_handle);
-                  }
-                  tipoRouter.endStateChange();
-              });
+            tipoHandle.purgeTipo(tipo_name).then(function() {
+                tipoHandle.getTipo(tipo_name, $stateParams.tipo_id, filter, true).then(function(data) {
+                    data.tipo_id = data.tipo_id || $stateParams.tipo_id;
+                    _instance.tipo = data;
+                    $scope.data_handle.tipo = _instance.tipo;
+                    var function_name = _instance.tipo_name + "_OnView";
+                    if (typeof tipoCustomJavascript[function_name] === 'function') {
+                        tipoCustomJavascript[function_name]($scope.data_handle);
+                    }
+                    if (typeof tipoClientJavascript[function_name] === 'function') {
+                        tipoClientJavascript[function_name]($scope.data_handle);
+                    }
+                    tipoRouter.endStateChange();
+                });
             })
         }
 
@@ -704,7 +704,7 @@
                 fullscreen: true
             });
             promise.then(function(tipo) {
-                _.set(_instance.tipo,fq_field_name,_.get(tipo,fq_field_name));
+                _.set(_instance.tipo, fq_field_name, _.get(tipo, fq_field_name));
                 _instance.popupno--;
                 // updateDatafromDefinition(definition,index,field_name);
             }, function() {
@@ -980,6 +980,9 @@
             });
             promise.then(function(selectedTipo) {
                 tipoRouter.toTipoCreate($stateParams.tipo_name, { copyFrom: selectedTipo[0].tipo_id });
+                tipoRouter.endStateChange();
+            }, function() {
+                tipoRouter.endStateChange();
             });
         }
 
@@ -1032,7 +1035,7 @@
         };
 
         $scope.$watch(function() { return $scope.data_handle }, function(new_value, old_value) {
-            if(new_value && $scope.data_handle.tipo) {
+            if (new_value && $scope.data_handle.tipo) {
                 _instance.tipo = $scope.data_handle.tipo;
             }
         }, true);
