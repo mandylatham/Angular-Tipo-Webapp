@@ -162,6 +162,10 @@
          <token>/_styles</token>
          <value>https://${app_cdn_host}/_styles</value>
         </replacement> 
+        <replacement>
+         <token>https://widget.intercom.io/widget/</token>
+         <value>https://widget.intercom.io/widget/${tipoapp_intercom_app_id}</value>
+        </replacement>
       </replacements>
      </configuration>
    </plugin> 
