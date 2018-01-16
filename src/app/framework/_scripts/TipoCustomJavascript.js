@@ -98,15 +98,15 @@
                     }
                 }, true);
                 window.Intercom("trackEvent", "addedToMenu");
-                setTimeout(function(){
-                        window.Intercom('update');
-                },5000);
+                setTimeout(function() {
+                    window.Intercom('update');
+                }, 5000);
             }
             if (data_handle.mode === 'create') {
                 window.Intercom("trackEvent", "createdTipo");
-                setTimeout(function(){
-                        window.Intercom('update');
-                },5000);
+                setTimeout(function() {
+                    window.Intercom('update');
+                }, 5000);
             };
         }
         this.TipoDefinition_OnView = TipoDefinition_OnView;
@@ -155,7 +155,7 @@
             };
             var tour_item = "tipoapp_tour_1";
             $("#loader").addClass("loading");
-            tipoHandle.getTourItem(tour_item).then(function(tipo) {
+            tipoHandle.getTourItem().then(function(tipo) {
                 if (!tipo[tour_item]) {
                     var unbind = $rootScope.$watch(function() {
                         return document.querySelectorAll('#manageTipos')[0];
@@ -235,6 +235,24 @@
 
         //___TipoAboutApp___
 
+        //___AppUser___
+
+        function AppUser_invite_user(data_handle) {
+            tipoHandle.trackEvent("inviteuser");
+            tipoHandle.callAction(data_handle.tipo_name, data_handle.action_name, data_handle.selected_tipo_ids, data_handle.additional_tipo_name, data_handle.additional_tipo)
+                .then(function(response) {
+                    tipoHandle.getTipo(tipo_name, data_handle.selected_tipo_ids[0], {}, true).then(function(tipoData) {
+                        scope.tipos = tipoData;
+                        tipoRouter.toTipoView(tipo_name, tipo_id);
+                        response.message = response.user_message;
+                        tipoRouter.toTipoResponse(response);
+                        tipoRouter.endStateChange();
+                    });
+                });
+        }
+
+        //___AppUser___
+
         //___App level events__
         function tipoapp_Login(status, email) {
             if (window.Intercom && (currentApp === 'tipoapp')) {
@@ -291,23 +309,24 @@
 
         function tipoapp_AppInit() {
             if (intercom_state !== "boot" && (currentApp === 'tipoapp')) {
-            	if (!currentUser) {
-            		var currentUser = tipoHandle.user_meta;
-            	};
+                if (!currentUser) {
+                    var currentUser = tipoHandle.user_meta;
+                };
                 window.Intercom("boot", {
                     app_id: intercom_app_id,
                     email: currentUser.tipo_id
                 });
-                setTimeout(function() {
-                        window.Intercom('update');
-                    }, 5000);
                 intercom_state = "boot";
             };
             if (currentApp !== 'tipoapp' && !$rootScope.showSubscribeNow && $rootScope.developMode) {
-                window.Intercom("trackEvent", "appCreated");
-                setTimeout(function(){
-                	window.Intercom('update');
-                },5000);
+                tipoHandle.trackEvent("appCreated");
+            } else {
+            	if (tipoHandle.application_meta.TipoApp.publish_app_as_sample_app) {
+            		tipoHandle.trackEvent("viewSampleApps");
+                };
+                setTimeout(function() {
+                    window.Intercom('update');
+                }, 5000);
             }
         }
 
@@ -316,9 +335,9 @@
         function tipoapp_ExistApp() {
             if ($rootScope.showSubscribeNow && currentApp !== 'tipoapp' && $rootScope.developMode === true) {
                 window.Intercom("trackEvent", "exitIntent");
-                setTimeout(function(){
-                	window.Intercom('update');
-                },5000);
+                setTimeout(function() {
+                    window.Intercom('update');
+                }, 5000);
             };
         }
 
