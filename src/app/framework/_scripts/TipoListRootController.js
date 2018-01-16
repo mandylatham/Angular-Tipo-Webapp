@@ -341,6 +341,7 @@
         _instance.infiniteItems.tipos = [];
         _instance.infiniteItems.page = 0;
         _instance.infiniteItems.fetchMoreItems_("",1);
+        tipoRouter.endStateChange();
       });
       // tipoHandle.getTipos($stateParams.tipo_name, filter).then(function(tiposData){
       //   _instance.tipos = tiposData;

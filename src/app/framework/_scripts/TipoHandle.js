@@ -218,18 +218,19 @@
             return tipoInstanceDataService.getOne(tipo_name, tipo_id, query_params, reload);
         }
 
-        function purgeAllTemplates(tipo_name){
+        function purgeAllTemplates(tipo_name) {
             tipoInstanceDataService.purgeTemplate(updateUrl(tipo_name));
             tipoInstanceDataService.purgeTemplate(createUrl(tipo_name));
             tipoInstanceDataService.purgeTemplate(detailUrl(tipo_name));
             tipoInstanceDataService.purgeTemplate(listUrl(tipo_name));
         }
+
         function purgeTipo(tipo_name, tipo_id) {
             tipoCache.evict(tipo_name, tipo_id);
             return purgeTipos(tipo_name);
         }
 
-        function purgeTipos(tipo_name){
+        function purgeTipos(tipo_name) {
             purgeAllTemplates(tipo_name);
             return tipoInstanceDataService.purgeAll(tipo_name);
         }
@@ -324,24 +325,35 @@
         function turnOffTour(tour_item, tipo) {
             tipo[tour_item] = true;
             saveTipo(TOUR_TIPO, TOUR_TIPO_ID, tipo);
-            console.log('update onExit.')
+        }
+
+        function trackEvent(event_name) {
+            getTourItem().then(function(tipo) {
+                if (!tipo[event_name]) {
+                    window.Intercom("trackEvent", event_name);
+                    setTimeout(function() {
+                        window.Intercom('update');
+                        turnOffTour(event_name, tipo);
+                    }, 5000);
+                }
+            });
         }
 
         function setTourObject(tour_item, tour_options, tipo) {
             ngIntroService.clear();
             ngIntroService.setOptions(tour_options);
             if (tipo) {
-                ngIntroService.onExit(function(){
+                ngIntroService.onExit(function() {
                     turnOffTour(tour_item, tipo);
                 });
-                ngIntroService.onComplete(function(){
+                ngIntroService.onComplete(function() {
                     turnOffTour(tour_item, tipo);
                 });
             };
             ngIntroService.start();
         }
 
-        function setUserMeta(){
+        function setUserMeta() {
             this.user_meta = metadataService.userMetadata;
             if (metadataService.userMetadata && metadataService.userMetadata.role) {
                 role = metadataService.userMetadata.role;
@@ -380,6 +392,7 @@
         this.createUrl = createUrl;
         this.detailUrl = detailUrl;
         this.setUserMeta = setUserMeta;
+        this.trackEvent = trackEvent;
 
 
 

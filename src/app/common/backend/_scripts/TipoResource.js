@@ -96,7 +96,7 @@
                 extractData: function(rawData, operation, what, url, response, deferred) {
                     var headers = response.headers();
                     var version_stamp = headers["x-tipo-version-stamp"];
-                    if ($rootScope.version_stamp && $rootScope.version_stamp !== version_stamp) {
+                    if ($rootScope.version_stamp && $rootScope.version_stamp !== version_stamp && !S(url).contains("TipoCustomization/default")) {
                         console.log("refresh entire app stored : [" + $rootScope.version_stamp + "], received : [" + version_stamp + "]");
                         tipoCache.clearAll();
                         $templateCache.removeAll();
@@ -128,7 +128,8 @@
                             if (!_.startsWith(value, "api/")) {
                                 var config = {
                                     headers: {
-                                        'X-bypass-cdn': 'true'
+                                        'X-bypass-cdn': 'true',
+                                        'Cache-Control': 'no-cache'
                                     },
                                     cache: false
                                 };
