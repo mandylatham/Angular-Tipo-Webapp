@@ -161,9 +161,9 @@
             $templateCache.remove(template_url);
             var config = {
                 headers: {
-                    'X-bypass-cdn': 'true'
-                },
-                cache: false
+                    'X-bypass-cdn': 'true',
+                    'Cache-Control': 'no-cache'
+                }
             };
             return $http({
                 method: "PURGE",

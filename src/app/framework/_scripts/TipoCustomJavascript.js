@@ -255,7 +255,7 @@
 
         //___App level events__
         function tipoapp_Login(status, email) {
-            if (window.Intercom && (currentApp === 'tipoapp')) {
+            if (window.Intercom && (getCurrentApp() === 'tipoapp')) {
                 if (status === 'success') {
                     window.Intercom("boot", {
                         app_id: intercom_app_id,
@@ -270,7 +270,7 @@
         }
 
         function tipoapp_Logout() {
-            if (window.Intercom && (currentApp === 'tipoapp' || $rootScope.developMode === true)) {
+            if (window.Intercom && (getCurrentApp() === 'tipoapp' || $rootScope.developMode === true)) {
                 window.Intercom("shutdown");
                 intercom_state = "shutdown";
             }
@@ -283,7 +283,7 @@
         }
 
         function tipoapp_PerspectiveChange() {
-            if (currentApp === 'tipoapp') {
+            if (getCurrentApp() === 'tipoapp') {
                 if ($stateParams.perspective === "Settings" && $rootScope.showSubscribeNow) {
                     window.Intercom("trackEvent", "subscription");
                     setTimeout(function() {
@@ -311,7 +311,7 @@
         }
 
         function tipoapp_AppInit() {
-            if (intercom_state !== "boot" && (currentApp === 'tipoapp')) {
+            if (intercom_state !== "boot" && (getCurrentApp() === 'tipoapp')) {
                 if (!currentUser) {
                     var currentUser = tipoHandle.user_meta;
                 };
@@ -321,7 +321,7 @@
                 });
                 intercom_state = "boot";
             };
-            if (currentApp !== 'tipoapp' && !$rootScope.showSubscribeNow && $rootScope.developMode) {
+            if (getCurrentApp() !== 'tipoapp' && !$rootScope.showSubscribeNow && $rootScope.developMode) {
                 
             } else {
             	if (tipoHandle.application_meta.TipoApp.publish_app_as_sample_app) {
@@ -343,8 +343,14 @@
                 }, 5000);
             };
         }
-
-        var currentApp = tipoHandle.application_meta.TipoApp.application_name;
+        function getCurrentApp(){
+        	if (tipoHandle.application_meta) {
+        		return tipoHandle.application_meta.TipoApp.application_name;
+        	}else{
+        		return "tipotapp";
+        	}
+        }
+        var currentApp = getCurrentApp();
         var currentUser = tipoHandle.user_meta;
         this[currentApp + "_Logout"] = tipoapp_Logout;
         this[currentApp + "_Login"] = tipoapp_Login;
