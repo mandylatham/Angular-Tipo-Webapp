@@ -237,19 +237,19 @@
 
         //___AppUser___
 
-        function AppUser_invite_user(data_handle) {
-            tipoHandle.trackEvent("inviteuser");
-            tipoHandle.callAction(data_handle.tipo_name, data_handle.action_name, data_handle.selected_tipo_ids, data_handle.additional_tipo_name, data_handle.additional_tipo)
-                .then(function(response) {
-                    tipoHandle.getTipo(tipo_name, data_handle.selected_tipo_ids[0], {}, true).then(function(tipoData) {
-                        scope.tipos = tipoData;
-                        tipoRouter.toTipoView(tipo_name, tipo_id);
-                        response.message = response.user_message;
-                        tipoRouter.toTipoResponse(response);
-                        tipoRouter.endStateChange();
-                    });
-                });
-        }
+        // function AppUser_invite_user(data_handle) {
+        //     tipoHandle.trackEvent("inviteuser");
+        //     tipoHandle.callAction(data_handle.tipo_name, data_handle.action_name, data_handle.selected_tipo_ids, data_handle.additional_tipo_name, data_handle.additional_tipo)
+        //         .then(function(response) {
+        //             tipoHandle.getTipo(tipo_name, data_handle.selected_tipo_ids[0], {}, true).then(function(tipoData) {
+        //                 scope.tipos = tipoData;
+        //                 tipoRouter.toTipoView(tipo_name, tipo_id);
+        //                 response.message = response.user_message;
+        //                 tipoRouter.toTipoResponse(response);
+        //                 tipoRouter.endStateChange();
+        //             });
+        //         });
+        // }
 
         //___AppUser___
 
@@ -296,6 +296,9 @@
                         app_id: intercom_app_id,
                         email: currentUser.tipo_id
                     });
+                    if (!$rootScope.showSubscribeNow) {
+                    	tipoHandle.trackEvent("appCreated");
+                    };
                     setTimeout(function() {
                         window.Intercom('update');
                     }, 5000);
@@ -319,7 +322,7 @@
                 intercom_state = "boot";
             };
             if (currentApp !== 'tipoapp' && !$rootScope.showSubscribeNow && $rootScope.developMode) {
-                tipoHandle.trackEvent("appCreated");
+                
             } else {
             	if (tipoHandle.application_meta.TipoApp.publish_app_as_sample_app) {
             		tipoHandle.trackEvent("viewSampleApps");
