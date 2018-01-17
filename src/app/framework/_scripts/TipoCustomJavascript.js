@@ -120,72 +120,6 @@
 
         //___TipoApp___
         function TipoApp_OnView(data_handle) {
-            var introOptions = {
-                steps: [{
-                        element: '#manageTipos',
-                        intro: "Start creating tipos to represent business objects along with fields, E.g. Customer, Invoice etc"
-                    },
-                    {
-                        element: '#manageMenus',
-                        intro: "Add menu items to system menus 'Home', 'Profile' and 'Settings'. Or even create whole new menus, also called as perspectives in TipoTapp",
-                        position: 'right'
-                    },
-                    {
-                        element: '#customization',
-                        intro: 'Choose your own colours, font and logo for your application',
-                        position: 'bottom'
-                    },
-                    {
-                        element: '#home_menu',
-                        intro: "Visualise how your user sees the developed application instantly by accessing Home",
-                        position: 'bottom'
-                    },
-                    {
-                        element: '#develop_menu',
-                        intro: "Switch back to developer mode to continue to build application",
-                        position: 'bottom'
-                    },
-                    {
-                        element: '#start_tour_action',
-                        intro: "You can start the tour from here",
-                        position: 'bottom'
-                    }
-                ],
-                showStepNumbers: false,
-                showBullets: false,
-                exitOnOverlayClick: true,
-                exitOnEsc: true,
-                nextLabel: 'next',
-                prevLabel: '<span style="color:green">Previous</span>',
-                skipLabel: 'Dont show the tour gain',
-                doneLabel: 'Finish'
-            };
-            var tour_item = "tipoapp_tour_1";
-            $("#loader").addClass("loading");
-            tipoHandle.getTourItem().then(function(tipo) {
-                if (!tipo[tour_item]) {
-                    var unbind = $rootScope.$watch(function() {
-                        return document.querySelectorAll('#manageTipos')[0];
-                    }, function watchCallback(newValue, oldValue) {
-                        //react on value change here
-                        if (newValue) {
-                            setTimeout(function() {
-                                $("#loader").removeClass("loading");
-                                if ($stateParams.tipo_name === "TipoApp" && $stateParams.tipo_id && data_handle.mode === "view") {
-                                    tipoHandle.setTourObject(tour_item, introOptions, tipo);
-                                };
-                                unbind();
-                            }, 3000);
-                        };
-                    });
-                } else {
-                    $("#loader").removeClass("loading");
-                }
-            });
-        }
-        this.TipoApp_OnView = TipoApp_OnView;
-
-        function TipoApp_start_tour(data_handle) {
             if (!tipoHandle.application_meta.TipoApp.publish_app_as_sample_app) {
                 var introOptions = {
                     steps: [{
@@ -211,6 +145,11 @@
                             element: '#develop_menu',
                             intro: "Switch back to developer mode to continue to build application",
                             position: 'bottom'
+                        },
+                        {
+                            element: '#start_tour_action',
+                            intro: "You can start the tour from here",
+                            position: 'bottom'
                         }
                     ],
                     showStepNumbers: false,
@@ -219,12 +158,73 @@
                     exitOnEsc: true,
                     nextLabel: 'next',
                     prevLabel: '<span style="color:green">Previous</span>',
-                    skipLabel: 'Dont Show the Tour Again',
+                    skipLabel: 'Dont show the tour gain',
                     doneLabel: 'Finish'
                 };
                 var tour_item = "tipoapp_tour_1";
-                tipoHandle.setTourObject(tour_item, introOptions);
+                $("#loader").addClass("loading");
+                tipoHandle.getTourItem().then(function(tipo) {
+                    if (!tipo[tour_item]) {
+                        var unbind = $rootScope.$watch(function() {
+                            return document.querySelectorAll('#manageTipos')[0];
+                        }, function watchCallback(newValue, oldValue) {
+                            //react on value change here
+                            if (newValue) {
+                                setTimeout(function() {
+                                    $("#loader").removeClass("loading");
+                                    if ($stateParams.tipo_name === "TipoApp" && $stateParams.tipo_id && data_handle.mode === "view") {
+                                        tipoHandle.setTourObject(tour_item, introOptions, tipo);
+                                    };
+                                    unbind();
+                                }, 3000);
+                            };
+                        });
+                    } else {
+                        $("#loader").removeClass("loading");
+                    }
+                });
             }
+        }
+        this.TipoApp_OnView = TipoApp_OnView;
+
+        function TipoApp_start_tour(data_handle) {
+            var introOptions = {
+                steps: [{
+                        element: '#manageTipos',
+                        intro: "Start creating tipos to represent business objects along with fields, E.g. Customer, Invoice etc"
+                    },
+                    {
+                        element: '#manageMenus',
+                        intro: "Add menu items to system menus 'Home', 'Profile' and 'Settings'. Or even create whole new menus, also called as perspectives in TipoTapp",
+                        position: 'right'
+                    },
+                    {
+                        element: '#customization',
+                        intro: 'Choose your own colours, font and logo for your application',
+                        position: 'bottom'
+                    },
+                    {
+                        element: '#home_menu',
+                        intro: "Visualise how your user sees the developed application instantly by accessing Home",
+                        position: 'bottom'
+                    },
+                    {
+                        element: '#develop_menu',
+                        intro: "Switch back to developer mode to continue to build application",
+                        position: 'bottom'
+                    }
+                ],
+                showStepNumbers: false,
+                showBullets: false,
+                exitOnOverlayClick: true,
+                exitOnEsc: true,
+                nextLabel: 'next',
+                prevLabel: '<span style="color:green">Previous</span>',
+                skipLabel: 'Dont Show the Tour Again',
+                doneLabel: 'Finish'
+            };
+            var tour_item = "tipoapp_tour_1";
+            tipoHandle.setTourObject(tour_item, introOptions);
         }
         this.TipoApp_start_tour = TipoApp_start_tour;
         //___TipoApp___
