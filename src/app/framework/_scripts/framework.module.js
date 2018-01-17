@@ -211,7 +211,7 @@
     'tipo.common'
   ]);
 
-  module.run(function ($rootScope,$interval) {
+  module.run(function ($rootScope,$interval,$state) {
     $rootScope.Date = Date;
     $rootScope._ = window._;
     $interval(function(){

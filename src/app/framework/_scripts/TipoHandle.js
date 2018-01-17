@@ -353,8 +353,9 @@
             ngIntroService.start();
         }
 
-        function setUserMeta() {
+        function setMeta() {
             this.user_meta = metadataService.userMetadata;
+            this.applicationMetadata = metadataService.applicationMetadata;
             if (metadataService.userMetadata && metadataService.userMetadata.role) {
                 role = metadataService.userMetadata.role;
             } else {
@@ -391,7 +392,7 @@
         this.updateUrl = updateUrl;
         this.createUrl = createUrl;
         this.detailUrl = detailUrl;
-        this.setUserMeta = setUserMeta;
+        this.setMeta = setMeta;
         this.trackEvent = trackEvent;
 
 
