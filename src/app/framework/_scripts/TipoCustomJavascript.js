@@ -305,7 +305,7 @@
                         app_id: intercom_app_id,
                         email: currentUser.tipo_id
                     });
-                    if (!$rootScope.showSubscribeNow && if (!tipoHandle.application_meta.TipoApp.publish_app_as_sample_app) {) {
+                    if (!$rootScope.showSubscribeNow && !tipoHandle.application_meta.TipoApp.publish_app_as_sample_app) {
                         tipoHandle.trackEvent("appCreated");
                     };
                     setTimeout(function() {
