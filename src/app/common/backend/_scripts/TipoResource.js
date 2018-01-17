@@ -47,7 +47,7 @@
                     } else {
                         if (S(url).contains("TipoUser/default") || S(url).contains("tipo_app_info")) {
                             headers = _.extend(headers, {
-                                'Cache-Control': 'private, no-store'
+                                'Cache-Control': 'no-store'
                             });
                         } else if (!deviceInformation.isMobile) {
                             httpConfig.cache = tipoCache.getMemory();
@@ -149,7 +149,7 @@
                                                },3000);
                                             };
                                         });
-                                    }, 2000);
+                                    }, 5000);
                                 })
                             } else {
                                 var config = {

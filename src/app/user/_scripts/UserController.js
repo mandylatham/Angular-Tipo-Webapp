@@ -156,6 +156,8 @@
                 tipoRouter.to('dashboard');
                 function_name = appMetadata.application_name + "_Login";
                 callCustomJS("success");
+            }, function(err) {
+                raiseError(err);
             });
         }
 

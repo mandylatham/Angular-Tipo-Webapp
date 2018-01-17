@@ -57,9 +57,13 @@
                     var perspective = $stateParams.perspective || 'Home';
                     var tipo = perspective.split('.')[0];
                     if (!$rootScope.readonly) {
-                        return tipoDefinitionDataService.getOne(tipo, true).then(function() {
+                        return tipoDefinitionDataService.getOne(tipo, true).then(function(defintion) {
                             $rootScope.perspective = perspective;
-                            return tipoManipulationService.resolvePerspectiveMetadata(perspective);
+                            if (perspective !== "Home") {
+                                return tipoDefinitionDataService.getOne("Home", true)
+                            }else{
+                                return defintion;
+                            }
                         });
                     } else {
                         var promise = tipoManipulationService.resolvePerspectiveMetadata(perspective);
@@ -69,7 +73,7 @@
             },
             controller: /*@ngInject*/ function($scope, $rootScope, tipoHandle, $templateCache, $http, tipoRouter, $mdDialog, userMetadata, tipoCustomJavascript) {
                 $rootScope.showSubscribeNow = (userMetadata.stripe_subscription_id === null) ? true : false;
-                tipoHandle.setUserMeta();
+                tipoHandle.setMeta();
                 var function_name = tipoHandle.application_meta.TipoApp.application_name + "_AppInit";
                 if (typeof tipoCustomJavascript[function_name] === 'function') {
                     tipoCustomJavascript[function_name]();

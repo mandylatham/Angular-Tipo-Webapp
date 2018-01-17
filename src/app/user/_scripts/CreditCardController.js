@@ -74,6 +74,8 @@
                 body: 'Your 30 days free trial started sucessfully'
                 };
                 $mdToast.show(toast);
+            }, function (err) {
+                _instance.inProgress = false;
             });
         }
 

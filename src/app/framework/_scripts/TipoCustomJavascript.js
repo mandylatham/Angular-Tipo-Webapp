@@ -6,12 +6,12 @@
     function TipoCustomJavascript(tipoHandle, tipoRouter, tipoManipulationService, $rootScope, $stateParams) {
 
 
-    	function getIntercomid(){
-    		if (tipoHandle.application_meta) {
-    			return tipoHandle.application_meta.SystemConfig.tipoapp_intercom_app_id;
-    		}else{
-    			return "zitpr920"
-    		}
+        function getIntercomid() {
+            if (tipoHandle.application_meta) {
+                return tipoHandle.application_meta.SystemConfig.tipoapp_intercom_app_id;
+            } else {
+                return "zitpr920"
+            }
         }
         var intercom_app_id = getIntercomid();
         var intercom_state;
@@ -186,43 +186,45 @@
         this.TipoApp_OnView = TipoApp_OnView;
 
         function TipoApp_start_tour(data_handle) {
-            var introOptions = {
-                steps: [{
-                        element: '#manageTipos',
-                        intro: "Start creating tipos to represent business objects along with fields, E.g. Customer, Invoice etc"
-                    },
-                    {
-                        element: '#manageMenus',
-                        intro: "Add menu items to system menus 'Home', 'Profile' and 'Settings'. Or even create whole new menus, also called as perspectives in TipoTapp",
-                        position: 'right'
-                    },
-                    {
-                        element: '#customization',
-                        intro: 'Choose your own colours, font and logo for your application',
-                        position: 'bottom'
-                    },
-                    {
-                        element: '#home_menu',
-                        intro: "Visualise how your user sees the developed application instantly by accessing Home",
-                        position: 'bottom'
-                    },
-                    {
-                        element: '#develop_menu',
-                        intro: "Switch back to developer mode to continue to build application",
-                        position: 'bottom'
-                    }
-                ],
-                showStepNumbers: false,
-                showBullets: false,
-                exitOnOverlayClick: true,
-                exitOnEsc: true,
-                nextLabel: 'next',
-                prevLabel: '<span style="color:green">Previous</span>',
-                skipLabel: 'Dont Show the Tour Again',
-                doneLabel: 'Finish'
-            };
-            var tour_item = "tipoapp_tour_1";
-            tipoHandle.setTourObject(tour_item, introOptions);
+            if (!tipoHandle.application_meta.TipoApp.publish_app_as_sample_app) {
+                var introOptions = {
+                    steps: [{
+                            element: '#manageTipos',
+                            intro: "Start creating tipos to represent business objects along with fields, E.g. Customer, Invoice etc"
+                        },
+                        {
+                            element: '#manageMenus',
+                            intro: "Add menu items to system menus 'Home', 'Profile' and 'Settings'. Or even create whole new menus, also called as perspectives in TipoTapp",
+                            position: 'right'
+                        },
+                        {
+                            element: '#customization',
+                            intro: 'Choose your own colours, font and logo for your application',
+                            position: 'bottom'
+                        },
+                        {
+                            element: '#home_menu',
+                            intro: "Visualise how your user sees the developed application instantly by accessing Home",
+                            position: 'bottom'
+                        },
+                        {
+                            element: '#develop_menu',
+                            intro: "Switch back to developer mode to continue to build application",
+                            position: 'bottom'
+                        }
+                    ],
+                    showStepNumbers: false,
+                    showBullets: false,
+                    exitOnOverlayClick: true,
+                    exitOnEsc: true,
+                    nextLabel: 'next',
+                    prevLabel: '<span style="color:green">Previous</span>',
+                    skipLabel: 'Dont Show the Tour Again',
+                    doneLabel: 'Finish'
+                };
+                var tour_item = "tipoapp_tour_1";
+                tipoHandle.setTourObject(tour_item, introOptions);
+            }
         }
         this.TipoApp_start_tour = TipoApp_start_tour;
         //___TipoApp___
@@ -304,7 +306,7 @@
                         email: currentUser.tipo_id
                     });
                     if (!$rootScope.showSubscribeNow) {
-                    	tipoHandle.trackEvent("appCreated");
+                        tipoHandle.trackEvent("appCreated");
                     };
                     setTimeout(function() {
                         window.Intercom('update');
@@ -329,10 +331,10 @@
                 intercom_state = "boot";
             };
             if (getCurrentApp() !== 'tipoapp' && !$rootScope.showSubscribeNow && $rootScope.developMode) {
-                
+
             } else {
-            	if (tipoHandle.application_meta.TipoApp.publish_app_as_sample_app) {
-            		tipoHandle.trackEvent("viewSampleApps");
+                if (tipoHandle.application_meta.TipoApp.publish_app_as_sample_app) {
+                    tipoHandle.trackEvent("viewSampleApps");
                 };
                 setTimeout(function() {
                     window.Intercom('update');
@@ -351,12 +353,12 @@
             };
         }
 
-        function getCurrentApp(){
-        	if (tipoHandle.application_meta) {
-        		return tipoHandle.application_meta.TipoApp.application_name;
-        	}else{
-        		return "tipotapp";
-        	}
+        function getCurrentApp() {
+            if (tipoHandle.application_meta) {
+                return tipoHandle.application_meta.TipoApp.application_name;
+            } else {
+                return "tipotapp";
+            }
         }
         var currentApp = getCurrentApp();
         var currentUser = tipoHandle.user_meta;
