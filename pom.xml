@@ -311,7 +311,7 @@
                 <argument>--exclude</argument>
                 <argument>*</argument>
                 <argument>--include</argument>
-                <argument>*/gen_temp_do_not_delete/*</argument>
+                <argument>*/gen_temp/*</argument>
               </arguments>
             </configuration>
           </execution>
