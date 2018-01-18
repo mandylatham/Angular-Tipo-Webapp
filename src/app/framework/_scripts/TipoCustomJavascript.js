@@ -286,9 +286,13 @@
         }
 
         function tipoapp_URLChange() {
-            // if (window.Intercom) {
-            //     window.Intercom('update');
-            // }
+            var dataLayer = window.dataLayer = window.dataLayer || [];
+            dataLayer.push({
+                event: 'routeChange',
+                attributes: {
+                    route: location.pathname + location.search + location.hash
+                }
+            });
         }
 
         function tipoapp_PerspectiveChange() {
