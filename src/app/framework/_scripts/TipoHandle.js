@@ -355,7 +355,7 @@
 
         function setMeta() {
             this.user_meta = metadataService.userMetadata;
-            this.applicationMetadata = metadataService.applicationMetadata;
+            this.application_meta = metadataService.applicationMetadata;
             if (metadataService.userMetadata && metadataService.userMetadata.role) {
                 role = metadataService.userMetadata.role;
             } else {
