@@ -832,9 +832,9 @@
         }
 
         function initGA() {
-            ga('send', 'pageview', {
-                'page': location.pathname + location.search + location.hash
-            });
+            // ga('send', 'pageview', {
+            //     'page': location.pathname + location.search + location.hash
+            // });
         }
 
         // Expose the functions that need to be consumed from outside
