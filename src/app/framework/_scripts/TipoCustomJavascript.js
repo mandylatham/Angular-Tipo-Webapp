@@ -9,8 +9,6 @@
         function getIntercomid() {
             if (tipoHandle.application_meta) {
                 return tipoHandle.application_meta.SystemConfig.tipoapp_intercom_app_id;
-            } else {
-                return "zitpr920"
             }
         }
         var intercom_app_id = getIntercomid();
