@@ -1,4 +1,4 @@
-<md-sidenav layout="column" md-component-id="left" class="md-sidenav-left" md-is-locked-open="$mdMedia('gt-md')" role="navigation" md-whiteframe="6" md-is-open="header.opensidenav" md-swipe-right="$mdSidenav( 'left' ).open()" md-swipe-left="$mdSidenav( 'left' ).close()" ng-hide="header.hidesidemenu" style="width: 150px;">
+<md-sidenav layout="column" md-component-id="left" class="md-sidenav-left" md-is-locked-open="$mdMedia('gt-md')" role="navigation" md-whiteframe="6" md-is-open="header.opensidenav" md-swipe-right="$mdSidenav( 'left' ).open()" md-swipe-left="$mdSidenav( 'left' ).close()" ng-hide="header.hidesidemenu" style="width: 150px;min-width: 150px;max-width:150px">
   <div class="tp-navigation" ng-controller="NavigationController as navigation">
     <ng-include src="navigation.template" tp-include-replace/>
   </div>
