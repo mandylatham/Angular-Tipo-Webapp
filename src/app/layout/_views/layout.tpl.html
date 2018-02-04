@@ -6,6 +6,9 @@
       <tp:state-change-indicator show="main.routing.isStateChanging()"/>
       <div ng-if="!main.routing.isStateChanging()" id="content" flex="noshrink" layout="column" ui-view="content"></div>
       <div ng-if="showSubscribeNow" class="subscribe-now" ng-click="openCreditCard()">START TRIAL NOW!</div>
+      <md-button id="intercom-widget" ng-if="!$mdMedia('xs') && showIntercom" class="md-fab intercom-messenger">
+					<md-icon>chat</md-icon>
+			</md-button>
       <!--<div tp-include="layout/_views/footer.tpl.html"></div>-->
     </md-content>
   </div>
