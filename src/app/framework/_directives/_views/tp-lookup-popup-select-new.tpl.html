@@ -1,31 +1,29 @@
 <md-dialog ng-cloak ng-class="{'fullscreen': fullscreen}">
-  <md-toolbar class="tipo-toolbar">
-    <div class="md-toolbar-tools">
-      <h2>{{tipoRootController.tiposWithDefinition.tipo_meta.display_name}}</h2>
-      <span flex></span>
-      <md-button class="md-icon-button" ng-click="maximize()" ng-if="!fullscreen">
-        <md-icon aria-label="Maximize">crop_square</md-icon>
-      </md-button>
-      <md-button class="md-icon-button" ng-click="restore()" ng-if="fullscreen">
-        <md-icon aria-label="Restore size">filter_none</md-icon>
-      </md-button>
-      <md-button class="md-icon-button" md-autofocus ng-click="cancel('dialog')">
-        <md-icon aria-label="Close dialog">close</md-icon>
-      </md-button>
-    </div>
-  </md-toolbar>
   <form ng-cloak novalidate name="tipoForm" ng-submit="tipoForm.$valid && tipoRootController.save('dialog','create')">
+    <md-toolbar class="tipo-toolbar">
+      <div class="md-toolbar-tools">
+        <h2>{{tipoRootController.tiposWithDefinition.tipo_meta.display_name}}</h2>
+        <span flex></span>
+        <md-button class="dialog-buttons" ng-click="maximize()" ng-if="!fullscreen">
+          <md-icon aria-label="Maximize">flip_to_back</md-icon>
+          <div>Resize</div>
+        </md-button>
+        <md-button class="dialog-buttons" ng-click="restore()" ng-if="fullscreen">
+          <md-icon aria-label="Restore size">flip_to_front</md-icon>
+          <div>Resize</div>
+        </md-button>
+        <md-button class="dialog-buttons" type="submit">
+          <md-icon aria-label="Save">done</md-icon>
+          <div>Done</div>
+        </md-button>
+        <md-button class="dialog-buttons" md-autofocus ng-click="cancel('dialog')">
+          <md-icon aria-label="Close dialog">close</md-icon>
+          <div>Cancel</div>
+        </md-button>
+      </div>
+    </md-toolbar>
     <md-dialog-content>
       <ng-include src="tipoRootController.createUrl" tp-include-replace/>
     </md-dialog-content>
-    <md-dialog-actions layout="row">
-      <span flex></span>
-      <md-button ng-click="cancel('dialog')">
-       Cancel
-      </md-button>
-      <md-button md-theme="reverse" class="md-raised md-primary" type="submit">
-       Save
-      </md-button>
-    </md-dialog-actions>
   </form>
 </md-dialog>
