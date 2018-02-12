@@ -309,6 +309,7 @@
                     });
                     if (!$rootScope.showSubscribeNow && !tipoHandle.application_meta.TipoApp.publish_app_as_sample_app) {
                         tipoHandle.trackEvent("appCreated");
+                        ga('send', 'event', 'appCreated', 'created', tipoHandle.application_meta.TipoApp.application_name);
                     };
                     setTimeout(function() {
                         window.Intercom('update');
@@ -336,7 +337,7 @@
 
             } else {
                 if (tipoHandle.application_meta.TipoApp.publish_app_as_sample_app) {
-                    tipoHandle.trackEvent("viewSampleApps");
+                    window.Intercom("trackEvent", "viewSampleApps");
                 };
                 setTimeout(function() {
                     window.Intercom('update');

@@ -820,7 +820,7 @@
                                 value: field.field_name + '[${1:index}]'
                             }
                         })
-                    } else {
+                    } else if (field.field_name) {
                         items.push({
                             label: field.field_name,
                             kind: monaco.languages.CompletionItemKind.Field
@@ -829,6 +829,84 @@
                 };
             });
             return items;
+        }
+
+        function getItemsFromObject(field_names, fq_field_name, object, scope, keyword) {
+            var items = [];
+            if (field_names[0] === "current_tipo") {
+                fq_field_name = fq_field_name.replace("current_tipo.", "").replace("current_tipo", "");
+                return getItemsfromTipodefintion(field_names.slice(1), fq_field_name, scope)
+            } else {
+                if (fq_field_name !== "") {
+                    var obj = _.get(object, fq_field_name);
+                } else {
+                    var obj = object;
+                }
+                if (_.isObject(obj)) {
+                    var keys = _.keys(obj);
+                    _.each(obj, function(value, key) {
+                        if (_.isArray(value)) {
+                            items.push({
+                                label: key,
+                                kind: monaco.languages.CompletionItemKind.Field,
+                                insertText: {
+                                    value: key + '[${1:index}]'
+                                }
+                            })
+                        } else if (typeof value === "function") {
+                            console.log(value);
+                            items.push({
+                                label: key,
+                                kind: monaco.languages.CompletionItemKind.Function,
+                                insertText: {
+                                    value: key + '(${1})'
+                                }
+                            })
+                        } else {
+                            items.push({
+                                label: key,
+                                kind: monaco.languages.CompletionItemKind.Field
+                            })
+                        }
+                    })
+                } else {
+                    items = [];
+                }
+                return items;
+            }
+        }
+
+        function getItemsfromTipodefintion(field_names, fq_field_name, scope, keyword) {
+            var service = angular.copy(scope.root);
+            scope.context = service.tipo_fields;
+            if (fq_field_name !== "") {
+                _.each(field_names, function(field) {
+                    var field_name = field.replace(/\[index\]/g, "").replace(/\[\d\]/g, "");
+                    var field_def = _.filter(scope.context, function(fld) { return fld.field_name === field_name })[0];
+                    if (field_def.tipo_fields) {
+                        scope.context = field_def.tipo_fields;
+                    } else if (S(field_def.field_type).contains("FieldGroup")) {
+                        var field_group = field_def.field_type.split(".")[1];
+                        scope.context = _.filter(service.tipo_field_groups, function(fld_group) { return fld_group.tipo_group_name === field_group })[0].tipo_fields;
+                    } else if (S(field_def.field_type).contains("Tipo") && field_def.relationship_type == "embed") {
+                        var field_tipo = field_def.field_type.split(".")[1];
+                        if (scope.tipoDefinitions[field_tipo]) {
+                            service = scope.tipoDefinitions[field_tipo];
+                            scope.context = scope.tipoDefinitions[field_tipo].tipo_fields;
+                        } else {
+                            scope.context = [];
+                            tipoHandle.getTipoDefinition(field_tipo).then(function(definition) {
+                                scope.tipoDefinitions[field_tipo] = definition;
+                                service = scope.tipoDefinitions[field_tipo];
+                                scope.context = scope.tipoDefinitions[field_tipo].tipo_fields;
+                            });
+                        }
+                    } else {
+                        scope.context = [];
+                    }
+                });
+            }
+            return getKeysFromTipodefinition(scope.context);
         }
 
         function initGA() {
@@ -866,6 +944,8 @@
         this.deleteItemFromArray = deleteItemFromArray;
         this.getKeysFromTipodefinition = getKeysFromTipodefinition;
         this.initGA = initGA;
+        this.getItemsfromTipodefintion = getItemsfromTipodefintion;
+        this.getItemsFromObject = getItemsFromObject;
     }
 
     angular.module('tipo.framework')
