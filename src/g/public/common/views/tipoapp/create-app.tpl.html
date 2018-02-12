@@ -1,12 +1,12 @@
 <div flex layout="column">
     <form ng-cloak novalidate name="tipoForm" ng-submit="tipoRootController.save(tipoForm,'create')">
         <div class="md-primary tp-page-heading" ng-hide="tipoRootController.hide_actions" md-whiteframe="1">
-            <div layout="row" layout-xs="column" layout-sm="column" layout-align="start center" layout-align-sm="start start" layout-align-xs="start start">
+            <div layout="row" layout-xs="column" layout-sm="row" layout-align="start center" layout-align-sm="start center" layout-align-xs="start start">
                 <div flex>
                     <div class="md-title subheading heading-standard" md-colors="{color: 'primary-800'}">
                         <span>{{tipoRootController.tipo_handle.menu_item.label}}</span></div>
                 </div>
-                <div>
+                <div hide-xs>
                     <md-button class="md-primary md-fab md-mini" ng-click="tipoRootController.cancel()">
                         <md-icon>close</md-icon>
                         <md-tooltip md-direction="top">Cancel</md-tooltip>
@@ -14,6 +14,20 @@
                     <md-button md-theme="reverse" class="md-primary md-fab md-mini" type="submit">
                         <md-icon>done</md-icon>
                         <md-tooltip md-direction="top">Save</md-tooltip>
+                    </md-button>
+                </div>
+                <div hide-gt-xs layout="row" layout-align="center center" class="action-bar-xs">
+                    <md-button flex class="md-primary action-item-xs" ng-click="tipoRootController.cancel()">
+                        <md-icon>cancel</md-icon>
+                        <div>Cancel</div>
+                    </md-button>
+                    <md-button flex md-theme="reverse" class="md-primary action-item-xs" type="submit">
+                        <md-icon>save</md-icon>
+                        <div>Save</div>
+                    </md-button>
+                    <md-button flex id="intercom-widget" ng-if="showIntercom" class="md-primary action-item-xs">
+                            <md-icon>chat</md-icon>
+                            <div>Chat</div>
                     </md-button>
                 </div>
             </div>

@@ -71,7 +71,8 @@
                     }
                 }
             },
-            controller: /*@ngInject*/ function($scope, $rootScope, tipoHandle, $templateCache, $http, tipoRouter, $mdDialog, userMetadata, tipoCustomJavascript) {
+            controller: /*@ngInject*/ function($scope, $rootScope, tipoHandle, $templateCache, $http, tipoRouter, $mdDialog, userMetadata, tipoCustomJavascript, $mdMedia) {
+                $rootScope.$mdMedia = $mdMedia;
                 $rootScope.showSubscribeNow = (userMetadata.stripe_subscription_id === null) ? true : false;
                 tipoHandle.setMeta();
                 var function_name = tipoHandle.application_meta.TipoApp.application_name + "_AppInit";

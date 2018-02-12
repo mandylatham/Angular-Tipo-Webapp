@@ -1,7 +1,7 @@
 <div flex layout="column" ng-init="tipoRootController.initTiposData([{display_name: 'sampleapp',filter_expression:'(publish_app_as_sample_app:true AND (account:$tipo_context.account OR sample_app_plans:$tipo_context.user_role))', selected: false, hidden_:true},{display_name: 'myapps',filter_expression:'(((publish_app_as_sample_app:false) OR (!_exists_:publish_app_as_sample_app)) AND account:$tipo_context.account)', selected: false, hidden_:true},])" ng-controller="TipoAppController as controller">
   <div class="md-primary tp-page-heading" ng-if="!tipoRootController.hideActions" >
-  <div layout="row" layout-align="space-between center" layout-align-xs="space-between start">
-    <div layout="row" layout-xs="column" layout-sm="column" layout-align="center center" layout-align-xs="start start" layout-align-sm="start start" >
+  <div ng-if="!$mdMedia('xs')" hide-xs layout="row" layout-align="space-between center" layout-align-xs="space-between start">
+    <div layout="row" layout-xs="column" layout-sm="row" layout-align="center center" layout-align-xs="start start" layout-align-sm="start center" >
       <div class="subheading md-headline">
         <span>{{tipoRootController.tipo_handle.menu_item.label}}</span></div>
       <tp:filters tipo-name="'TipoApp'" multi-select="" filter-label="''" tipo-filters="[{display_name: 'sampleapp',filter_expression:'(publish_app_as_sample_app:true AND (account:$tipo_context OR sample_app_plans:$tipo_context.user_role))', selected: false, hidden_:true},{display_name: 'myapps',filter_expression:'(((publish_app_as_sample_app:false) OR (!_exists_:publish_app_as_sample_app)))', selected: false, hidden_:true}]" ng-if="tipoRootController.hasTipos || tipoRootController.tipoFilters.currentExpression"/>
@@ -16,6 +16,30 @@
         <md-tooltip md-direction="top">Refresh</md-tooltip>
       </md-button>
       <tp:actions mode="list" restricted-actions="tipoRootController.restricted_actions" tipo-name="'TipoApp'"  tipo-actions="[]" tipos="tipoRootController.tipos" bulkedit="tipoRootController.bulkedit" singleedit="tipoRootController.singleedit"/>
+    </div>
+  </div>
+  <div ng-if="$mdMedia('xs')" hide-gt-xs layout="row" layout-align="space-between center" layout-align-xs="space-between center">
+    <div layout="row" layout-xs="column" layout-sm="row" layout-align="center center" layout-align-xs="start center" layout-align-sm="start center" >
+      <div class="subheading md-headline">
+        <span>{{tipoRootController.tipo_handle.menu_item.label}}</span></div>
+    </div>
+    <div layout="row">
+        <tp:filters tipo-name="'TipoApp'" multi-select="" filter-label="''" tipo-filters="[{display_name: 'sampleapp',filter_expression:'(publish_app_as_sample_app:true AND (account:$tipo_context OR sample_app_plans:$tipo_context.user_role))', selected: false, hidden_:true},{display_name: 'myapps',filter_expression:'(((publish_app_as_sample_app:false) OR (!_exists_:publish_app_as_sample_app)))', selected: false, hidden_:true}]" ng-if="tipoRootController.hasTipos || tipoRootController.tipoFilters.currentExpression"/>
+        <md-button class="md-primary md-fab md-mini" ng-click="tipoRootController.toogleSearch()">
+        <md-icon>search</md-icon>
+        <md-tooltip md-direction="top">Search</md-tooltip>
+        </md-button>
+    </div>
+    <div layout="row" layout-align="center center" class="action-bar-xs">
+      <tp:actions mode="list" restricted-actions="tipoRootController.restricted_actions" tipo-name="'TipoApp'"  tipo-actions="[]" tipos="tipoRootController.tipos" bulkedit="tipoRootController.bulkedit" singleedit="tipoRootController.singleedit"/>
+      <md-button flex class="md-primary action-item-xs" ng-click="tipoRootController.refresh()"  >
+        <md-icon>refresh</md-icon>
+        <div>Refresh</div>
+        </md-button>
+        <md-button flex id="intercom-widget" ng-if="showIntercom" class="md-primary action-item-xs">
+            <md-icon>chat</md-icon>
+            <div>Chat</div>
+      </md-button>
     </div>
   </div>
   </div>

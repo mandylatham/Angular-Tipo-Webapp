@@ -266,12 +266,15 @@
                 if (status === 'success') {
                     window.Intercom("boot", {
                         app_id: intercom_app_id,
-                        email: email
+                        email: email,
+                        custom_launcher_selector: '#intercom-widget',
+                        hide_default_launcher: true
                     });
                     intercom_state = "boot";
                     setTimeout(function() {
                         window.Intercom('update');
                     }, 5000);
+                    $rootScope.showIntercom = true;
                 }
             }
         }
@@ -280,6 +283,7 @@
             if (window.Intercom && (getCurrentApp() === 'tipoapp' || $rootScope.developMode === true)) {
                 window.Intercom("shutdown");
                 intercom_state = "shutdown";
+                $rootScope.showIntercom = false;
             }
         }
 
@@ -305,7 +309,9 @@
                 if (_.startsWith($stateParams.perspective, "TipoApp.") && intercom_state !== "boot") {
                     window.Intercom("boot", {
                         app_id: intercom_app_id,
-                        email: currentUser.tipo_id
+                        email: currentUser.tipo_id,
+                        custom_launcher_selector: '#intercom-widget',
+                        hide_default_launcher: true
                     });
                     if (!$rootScope.showSubscribeNow && !tipoHandle.application_meta.TipoApp.publish_app_as_sample_app) {
                         tipoHandle.trackEvent("appCreated");
@@ -315,9 +321,11 @@
                         window.Intercom('update');
                     }, 5000);
                     intercom_state = "boot";
+                    $rootScope.showIntercom = true;
                 } else if (window.Intercom && !_.startsWith($stateParams.perspective, "TipoApp.") && !$rootScope.showSubscribeNow) {
                     window.Intercom("shutdown");
                     intercom_state = "shutdown";
+                    $rootScope.showIntercom = false;
                 }
             }
         }
@@ -329,9 +337,12 @@
                 };
                 window.Intercom("boot", {
                     app_id: intercom_app_id,
-                    email: currentUser.tipo_id
+                    email: currentUser.tipo_id,
+                    custom_launcher_selector: '#intercom-widget',
+                    hide_default_launcher: true
                 });
                 intercom_state = "boot";
+                $rootScope.showIntercom = true;
             };
             if (getCurrentApp() !== 'tipoapp' && !$rootScope.showSubscribeNow && $rootScope.developMode) {
 

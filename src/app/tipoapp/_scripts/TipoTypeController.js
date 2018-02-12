@@ -76,10 +76,9 @@
       $window.open(tipo.app_url, '_blank');
     };
 
-    var listener = $scope.$watch(function(){return $scope.tipoRootController.tipos},function(new_value,old_value) {
+    $scope.$watch(function(){return $scope.tipoRootController.tipos},function(new_value,old_value) {
       if(new_value) {
-        tipo_types = _.union(tipo_types, new_value);
-        listener();
+        _instance.tipo_types = _.union(_instance.tipo_types, new_value);
       }
     },true);
 

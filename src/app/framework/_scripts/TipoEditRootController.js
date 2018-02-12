@@ -685,9 +685,9 @@
             newScope.mode = "edit";
             newScope.fullscreen = true;
             var promise = $mdDialog.show({
-                template: '<md-dialog id="dialog' + _instance.popupno + '" ng-cloak ng-class="{\'fullscreen\': fullscreen}"><md-toolbar class="tipo-toolbar"><div class="md-toolbar-tools"><h2>{{definition.display_name}}</h2><span flex></span><md-button class="md-icon-button" ng-click="maximize()" ng-if="!fullscreen"><md-icon aria-label="Maximize">crop_square</md-icon></md-button><md-button class="md-icon-button" ng-click="restore()" ng-if="fullscreen"><md-icon aria-label="Restore size">filter_none</md-icon></md-button><md-button class="md-icon-button" ng-click="cancel()"><md-icon aria-label="Close dialog">close</md-icon></md-button></div></md-toolbar><md-dialog-content><div class="tp-detail dialog">' +
+                template: '<md-dialog id="dialog' + _instance.popupno + '" ng-cloak ng-class="{\'fullscreen\': fullscreen}"><md-toolbar class="tipo-toolbar"><div class="md-toolbar-tools"><h2>{{definition.display_name}}</h2><span flex></span><md-button class="dialog-buttons" ng-click="maximize()" ng-if="!fullscreen"> <md-icon aria-label="Maximize">flip_to_back</md-icon><div>Resize</div></md-button><md-button class="dialog-buttons" ng-click="restore()" ng-if="fullscreen"><md-icon aria-label="Restore size">flip_to_front</md-icon><div>Resize</div></md-button><md-button class="dialog-buttons" ng-click="cancel()"><md-icon aria-label="Close dialog">done</md-icon><div>Done</div></md-button></div></md-toolbar><md-dialog-content><div class="tp-detail dialog">' +
                     htmltemplate +
-                    '</div>  </md-dialog-content><md-dialog-actions layout="row"><span flex></span><md-button ng-click="hide()" ng-if="!(mode === \'edit\')">Close</md-button><md-button md-theme="reverse" class="md-raised md-primary" ng-click="hide()" ng-if="mode === \'edit\'">Done</md-button></md-dialog-actions></md-dialog>',
+                    '</div>  </md-dialog-content></md-dialog>',
                 controller: 'TipoEditRootController',
                 controllerAs: 'tipoRootController',
                 resolve: /*@ngInject*/ {

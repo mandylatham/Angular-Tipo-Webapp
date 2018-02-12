@@ -3,14 +3,21 @@
     <div class="md-toolbar-tools">
       <h2>{{tipoRootController.tipoDefinition.tipo_meta.display_name}}</h2>
       <span flex></span>
-      <md-button class="md-icon-button" ng-click="tipoRootController.maximize()" ng-if="!tipoRootController.fullscreen">
-        <md-icon aria-label="Maximize">crop_square</md-icon>
+      <md-button class="dialog-buttons" ng-click="tipoRootController.maximize()" ng-if="!tipoRootController.fullscreen">
+        <md-icon aria-label="Maximize">flip_to_back</md-icon>
+        <div>Resize</div>
       </md-button>
-      <md-button class="md-icon-button" ng-click="tipoRootController.restore()" ng-if="tipoRootController.fullscreen">
-        <md-icon aria-label="Restore size">filter_none</md-icon>
+      <md-button class="dialog-buttons" ng-click="tipoRootController.restore()" ng-if="tipoRootController.fullscreen">
+        <md-icon aria-label="Restore size">flip_to_front</md-icon>
+        <div>Resize</div>
       </md-button>
-      <md-button class="md-icon-button" ng-click="tipoRootController.cancel()">
+      <md-button class="dialog-buttons" ng-click="tipoRootController.finish()">
+          <md-icon>done</md-icon>
+          <div>{{tipoRootController.submit_label}}</div>
+      </md-button>
+      <md-button class="dialog-buttons" ng-click="tipoRootController.cancel()">
         <md-icon aria-label="Close dialog">close</md-icon>
+        <div>Cancel</div>
       </md-button>
     </div>
   </md-toolbar>
@@ -19,13 +26,4 @@
       <ng-include src="tipoRootController.createUrl"/>
     </div>
   </md-dialog-content>
-  <md-dialog-actions layout="row">
-    <span flex></span>
-    <md-button ng-click="tipoRootController.cancel()">
-     Cancel
-    </md-button>
-    <md-button md-theme="reverse" class="md-raised md-primary" ng-click="tipoRootController.finish()">
-     {{tipoRootController.submit_label}}
-    </md-button>
-  </md-dialog-actions>
 </md-dialog>

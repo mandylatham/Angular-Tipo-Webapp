@@ -3,8 +3,13 @@
     <div class="md-toolbar-tools">
       <h2>Lookup - {{tipoDisplayName}}</h2>
       <span flex></span>
-      <md-button class="md-icon-button" ng-click="cancel()">
+      <md-button class="dialog-buttons" ng-click="populateData()">
+        <md-icon aria-label="Save">done</md-icon>
+        <div>Done</div>
+      </md-button>
+      <md-button class="dialog-buttons" ng-click="cancel()">
         <md-icon aria-label="Close dialog">close</md-icon>
+        <div>Cancel</div>
       </md-button>
     </div>
   </md-toolbar>
@@ -13,10 +18,4 @@
       <tp:lookup realtedtipo="relatedTipo" labelfield="labelfield" ng-model="tipoId" fieldlabel="fieldlabel" fieldvalue="tipoId" basefilter="baseFilter" queryparams="queryparams" selectlabelfield="label_field" root="root" fqfieldname="fq_field_name"/>
     </div>
   </md-dialog-content>
-  <md-dialog-actions layout="row">
-    <span flex></span>
-    <md-button md-theme="reverse" class="md-raised md-primary" ng-click="populateData()">
-     Done
-    </md-button>
-  </md-dialog-actions>
 </md-dialog>
