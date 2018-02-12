@@ -34,7 +34,7 @@
             }
             Quill.register('formats/video', AddHeight, true);
           }
-          customizeQuillVideo();
+          // customizeQuillVideo();
           if (!scope.fieldValue && scope.initValue) {
             scope.fieldValue = atob(scope.initValue);
           };
@@ -83,6 +83,8 @@
               };
             }
           var editor = new Quill(element[0], options);
+          editor.root.quill = editor;
+
           if (scope.fieldValue) {
             editor.setContents(JSON.parse(scope.fieldValue));
           };

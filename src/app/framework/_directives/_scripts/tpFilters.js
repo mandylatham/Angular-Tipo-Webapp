@@ -27,7 +27,7 @@
             if(!_.isEmpty(scope.currentFilters)){
               tipoRouter.toTipoList(tipo_name, {filter: scope.currentFilters});
             }else{
-              tipoRouter.toTipoList(tipo_name);
+              tipoRouter.toTipoList(tipo_name,{},undefined,true);
             }
           };
           scope.filters = _.filter(scope.tipoFilters,function(filter){ return !filter.hidden_ });
