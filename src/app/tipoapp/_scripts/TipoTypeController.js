@@ -76,12 +76,20 @@
       $window.open(tipo.app_url, '_blank');
     };
 
-    $scope.$watch(function(){return $scope.tipoRootController.tipos},function(new_value,old_value) {
+    var listener = $scope.$watch(function(){return $scope.tipoRootController.tipos},function(new_value,old_value) {
       if(new_value) {
-        _instance.tipo_types = _.union(_instance.tipo_types, new_value);
+        if(_instance.tipo_types) {
+          _instance.tipo_types = _.union(_instance.tipo_types, new_value);
+        } else {
+          $scope.$watch(function(){return _instance.tipo_types},function(new_val,old_val) {
+            if(new_val) {
+                _instance.tipo_types = _.union(_instance.tipo_types, new_value);
+            }
+          },true);
+        }
+        listener();
       }
     },true);
-
   }
 
   function TipoTypeService(){
