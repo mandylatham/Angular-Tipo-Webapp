@@ -28,9 +28,6 @@
 .ql-editor .td-video .td-quill-video-overlay.readonly {
   position: inherit;
   height: 0px;
-  background-color: rgba(0,0,0,0.4);
-  box-sizing: border-box;
-  border: 1px dashed #444;
 }
 .ql-editor .td-video .td-quill-video-wrapper {
   position: relative;
