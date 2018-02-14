@@ -350,19 +350,8 @@
               }
             }
           } 
-          // Code for plan downgrading, will be removed shortly
-          if(plan.item === subscriptionPlan.plane_name && subscriptionPlan.plane_name === "Creator" && value.tipo_id !== _instance.tipo.plan) {
-            if(subscriptionPlan.plan_amount < plan.amount) {
-              value.disableButton = false;
-              value.buttonText = "Choose Plan";
-            } else {
-              value.disableButton = false;
-              value.buttonText = "Choose Plan";
-            }
-          }
         })
-          
-        });
+      });
       return planDisplayText;
     }
     function getPlanCost(plan) {
