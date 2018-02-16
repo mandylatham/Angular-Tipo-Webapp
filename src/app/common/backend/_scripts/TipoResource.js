@@ -188,6 +188,7 @@
                         resp.user_message = rawData.user_message;
                         resp.return_url = rawData.return_url;
                         resp.restricted_actions = rawData.restricted_actions;
+                        resp.last_evaluated_key = rawData.last_evaluated_key;
                         return rawData.response;
                     } else if (rawData && rawData.data) {
                         rawData.data.tab_url = rawData.tab_url;

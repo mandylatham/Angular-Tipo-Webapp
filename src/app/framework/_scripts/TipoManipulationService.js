@@ -196,7 +196,7 @@
                 getLength: function() {
                     return this.numLoaded_;
                 },
-                fetchMoreItems_: function(index, page) {
+                fetchMoreItems_: function(index, page, last_evaluated_key) {
                     // For demo purposes, we simulate loading more items with a timed
                     // promise. In real code, this function would likely contain an
                     // $http request.
@@ -207,17 +207,27 @@
                         };
                         this.filter.page = this.page;
                         this.filter.per_page = per_page;
+                        if(last_evaluated_key) {
+                            this.filter.last_evaluated_key = last_evaluated_key;
+                        } else if(this.filter.last_evaluated_key) {
+                            delete this.filter.last_evaluated_key;
+                        }
                         this.busy = true;
                         getTipos(tipo_name, this.filter).then(angular.bind(this, function(tipos) {
                             var function_name = tipo_name + "_OnList";
                             if (page) {
-                                this.tipos = tipos;
+                                if(last_evaluated_key) {
+                                    this.tipos = this.tipos.concat(tipos);
+                                } else {
+                                    this.tipos = tipos;
+                                }
                             } else {
                                 this.tipos = this.tipos.concat(tipos);
                             }
                             this.busy = false;
                             if (this.page === 1 && !count) {
                                 var responseData = tipoRegistry.get(tipo_name + '_resdata');
+                                this.last_evaluated_key = responseData.last_evaluated_key;
                                 this.numLoaded_ = responseData.count;
                                 this.maxpages = Math.ceil(responseData.count / per_page);
                             };

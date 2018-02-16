@@ -96,14 +96,16 @@
 							<div class="margin10">
 								<div class="md-subhead" ng-repeat="sub_plan in plan.stripe_subscription_plans | orderBy: 'item_sort_number' " >
 									<div layout="column" class="text-center margin10" layout-align="center center">
-											<div class="font20" md-colors="{color: 'accent-500'}"><b>{{sub_plan.discounted_quantity}}</b></div>
+											<div ng-if="sub_plan.plane_name === 'Creator'" class="font20" md-colors="{color: 'accent-500'}"><b>{{sub_plan.discounted_quantity}}</b></div>
+											<div ng-if="sub_plan.plane_name === 'AppUser'" class="font20" md-colors="{color: 'accent-500'}"><b>Unlimited</b></div>
 											<div style="color:gray">Included {{sub_plan.plane_name}}(s)</div>	
 									</div>	
 								</div>
 								<div layout="column" class="text-center margin10" layout-align="center center" >
-									<div class="font20" md-colors="{color: 'accent-500'}"><b>{{plan.plan_restrictions[0].max_allowed}}</b></div>
+									<div class="font20" md-colors="{color: 'accent-500'}"><b>{{plan.tipo_id === 'RisePlan' ? 3 : 2}}</b></div>
 									<div style="color:gray">Included Applications</div>
 								</div>
+								<md-divider></md-divider>
 								<div layout="column" class="text-center margin10" layout-align="center center" >
 									<div class="font20" md-colors="{color: 'accent-500'}"><b>Unlimited</b></div>
 									<div class="planText" style="color:gray" ng-bind-html="plan.additional_text"></div>
