@@ -345,7 +345,7 @@
             if (intercom_state !== "boot" && (getCurrentApp() === 'tipoapp')) {
                 var currentUser = tipoHandle.user_meta;
                 if(currentUser && currentUser.user_attributes) {
-                    tipoHandle.getTipo(currentUser.user_attributes.user_tipo, currentUser.user_attributes.user_tipo_id).then((response)=>{
+                    tipoHandle.getTipo(currentUser.user_attributes.user_tipo, currentUser.user_attributes.user_tipo_id).then(function(response){
                         window.Intercom("boot", {
                             app_id: intercom_app_id,
                             email: response.email,
