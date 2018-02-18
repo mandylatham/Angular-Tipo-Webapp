@@ -262,12 +262,23 @@
         //___AppUser___
 
         //___App level events__
-        function tipoapp_Login(status, email) {
+        function tipoapp_Signup(status, user) {
+            if(status === 'success') {
+                window.intercomSettings = {
+                    app_id: intercom_app_id,
+                    email: user.email,
+                    name: user.full_name,
+                    phone: user.phone_number,
+                }
+            }
+        }
+
+        function tipoapp_Login(status, user) {
             if (window.Intercom && (getCurrentApp() === 'tipoapp')) {
                 if (status === 'success') {
                     window.Intercom("boot", {
                         app_id: intercom_app_id,
-                        email: email,
+                        email: user.email,
                         custom_launcher_selector: '#intercom-widget',
                         hide_default_launcher: true
                     });
@@ -333,15 +344,22 @@
 
         function tipoapp_AppInit() {
             if (intercom_state !== "boot" && (getCurrentApp() === 'tipoapp')) {
-                if (!currentUser) {
-                    var currentUser = tipoHandle.user_meta;
-                };
-                window.Intercom("boot", {
-                    app_id: intercom_app_id,
-                    email: currentUser.tipo_id,
-                    custom_launcher_selector: '#intercom-widget',
-                    hide_default_launcher: true
-                });
+                var currentUser = tipoHandle.user_meta;
+                if(currentUser && currentUser.user_attributes) {
+                    tipoHandle.getTipo(currentUser.user_attributes.user_tipo, currentUser.user_attributes.user_tipo_id).then(function(response){
+                        window.Intercom("boot", {
+                            app_id: intercom_app_id,
+                            email: response.email,
+                            name: response.full_name,
+                            phone: response.phone,
+                            custom_launcher_selector: '#intercom-widget',
+                            hide_default_launcher: true
+                        })
+                        setTimeout(function() {
+                            window.Intercom('update');
+                        }, 5000);
+                    })
+                }
                 intercom_state = "boot";
                 $rootScope.showIntercom = true;
             };
@@ -372,7 +390,7 @@
             if (tipoHandle.application_meta) {
                 return tipoHandle.application_meta.TipoApp.application_name;
             } else {
-                return "tipotapp";
+                return "tipoapp";
             }
         }
         var currentApp = getCurrentApp();
@@ -384,6 +402,7 @@
         this[currentApp + "_PasswordChange"] = tipoapp_PasswordChange;
         this[currentApp + "_ExistApp"] = tipoapp_ExistApp;
         this[currentApp + "_AppInit"] = tipoapp_AppInit;
+        this[currentApp + "_Signup"] = tipoapp_Signup;
 
         //___App level events__
     }

@@ -122,7 +122,7 @@
 
         function callCustomJS(status) {
             if (typeof tipoCustomJavascript[function_name] === 'function') {
-                tipoCustomJavascript[function_name](status, _instance.user.email);
+                tipoCustomJavascript[function_name](status, _instance.user);
             }
         }
 
@@ -193,6 +193,8 @@
                         } else {
                             tipoRouter.to('dashboard');
                         }
+                        function_name = appMetadata.application_name + "_Signup";
+                        callCustomJS("success");
                     }, function(err) {
                         console.error(err);
                         tipoRouter.to('dashboard');
