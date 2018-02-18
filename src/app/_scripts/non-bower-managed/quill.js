@@ -7563,19 +7563,19 @@ var Tooltip = function () {
       var left = reference.left + reference.width / 2 - this.root.offsetWidth / 2;
       // root.scrollTop should be 0 if scrollContainer !== root
       var top = reference.bottom + this.quill.root.scrollTop;
-      this.root.style.left = left + 'px';
-      this.root.style.top = top + 'px';
+      this.root.style.left = 0 + 'px';
+      this.root.style.top = 0 + 'px';
       this.root.classList.remove('ql-flip');
       var containerBounds = this.boundsContainer.getBoundingClientRect();
       var rootBounds = this.root.getBoundingClientRect();
       var shift = 0;
       if (rootBounds.right > containerBounds.right) {
         shift = containerBounds.right - rootBounds.right;
-        this.root.style.left = left + shift + 'px';
+        // this.root.style.left = left + shift + 'px';
       }
       if (rootBounds.left < containerBounds.left) {
         shift = containerBounds.left - rootBounds.left;
-        this.root.style.left = left + shift + 'px';
+        // this.root.style.left = left + shift + 'px';
       }
       if (rootBounds.bottom > containerBounds.bottom) {
         var height = rootBounds.bottom - rootBounds.top;
