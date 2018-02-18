@@ -31,9 +31,10 @@
     'angular-intro'
   ]);
 
-  module.config(function ($mdThemingProvider, $mdToastProvider) {
+  module.config(function ($mdThemingProvider, $mdToastProvider, $compileProvider) {
     prepareThemes($mdThemingProvider);
     prepareToastPresets($mdToastProvider);
+    $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|tipotapp):/);
   });
 
   function prepareThemes($mdThemingProvider) {
