@@ -39,6 +39,20 @@
       }
     };
 
+    var surveyResponseState = {
+      name: 'surveyResponse',
+      url: '/survey-response',
+      parent: baseState,
+      views: /*@ngInject*/ {
+        'content@userBase': {
+          templateProvider: function(metadataService){
+            return metadataService.resolveAppCustomTemplates('surveyresponse_template','user/_views/survey-response.tpl.html');
+          }
+          // templateUrl: 'user/_views/survey-response.tpl.html'
+        }
+      }
+    };
+
     var loginState = {
       name: 'login',
       url: '/login?plan',
@@ -107,6 +121,7 @@
       .state(loginState)
       .state(registrationState)
       .state(captureCreditCardState)
+      .state(surveyResponseState)
       .state(forgotPasswordState)
       .state(resetPasswordState)
       .state(newPasswordRequiredState);
@@ -119,7 +134,7 @@
   var module = angular.module('tipo.user', []);
   module.run(function ($rootScope) {
     $rootScope.$on('$stateChangeStart', function(event, to, toParams, from, fromParams) {
-      if (['registration', 'login', 'forgotPassword', 'resetPassword', 'newPasswordRequired', 'captureCreditCard'].indexOf(to.name) != -1) {
+      if (['registration', 'login', 'forgotPassword', 'resetPassword', 'newPasswordRequired', 'captureCreditCard', 'surveyResponse'].indexOf(to.name) != -1) {
         return; // no need to save auxiliary states
       }
 

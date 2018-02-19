@@ -238,8 +238,10 @@ html {
     .subheading {
         padding: 0 8px 0;
         color: #808080;
-        overflow-x: scroll;
-        white-space: nowrap;
+        @media only screen and (max-width: 700px) {
+            overflow-x: scroll;
+            white-space: nowrap;
+        }
     }
     .tp-page-heading {
         background: white;
@@ -1135,4 +1137,16 @@ md-list-item .md-list-item-inner::before {
     font-size: 16px;
     line-height: 28px;
     padding: 0;
+}
+.category-select {
+    height: 200px;
+    p {
+        white-space: pre-line;
+        text-align: justify;
+        line-height: 1.4;
+    }
+}
+.category-select:hover, .category-selected {
+    border: 2px solid #25a6b4;
+    cursor: pointer;
 }

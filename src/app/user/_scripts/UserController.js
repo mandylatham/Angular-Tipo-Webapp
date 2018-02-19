@@ -333,6 +333,26 @@
             tipoRouter.toTipoList('TipoApp',{filter: "sampleapp",perspective: "Home"});
         }
 
+        _instance.gotoSurveyResponse = function(){
+            tipoRouter.to("surveyResponse");
+        }
+
+        _instance.setCategory = function(cat) {
+            _instance.selectedIndex = 1;
+            _instance.category = cat;
+        }
+
+        _instance.setPrice = function(price) {
+            _instance.priceRange = price;
+        }
+
+        _instance.submitSurvey = function() {
+            var data = {category: _instance.category, price_range: _instance.priceRange};
+            tipoHandle.saveTipo("TipoSurveyResponse", "TipoDefinition",  data).then(function(){
+                _instance.gotoSampleApps();
+            })
+        }
+
         _instance.recaptchaExpiration = function() {
             console.log("Captch Expired!!");
         }
