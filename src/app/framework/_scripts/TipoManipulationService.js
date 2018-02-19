@@ -207,16 +207,16 @@
                         };
                         this.filter.page = this.page;
                         this.filter.per_page = per_page;
-                        if(last_evaluated_key) {
+                        if (last_evaluated_key) {
                             this.filter.last_evaluated_key = last_evaluated_key;
-                        } else if(this.filter.last_evaluated_key) {
+                        } else if (this.filter.last_evaluated_key) {
                             delete this.filter.last_evaluated_key;
                         }
                         this.busy = true;
                         getTipos(tipo_name, this.filter).then(angular.bind(this, function(tipos) {
                             var function_name = tipo_name + "_OnList";
                             if (page) {
-                                if(last_evaluated_key) {
+                                if (last_evaluated_key) {
                                     this.tipos = this.tipos.concat(tipos);
                                 } else {
                                     this.tipos = tipos;
@@ -598,44 +598,46 @@
             var menuItems = _.map(definition.tipo_menu, function(each) {
                 var menuItem = {};
                 var type = each.type_ || each.navigate_to;
-                if (!_.startsWith(type, 'http') && !_.startsWith(type, 'Client') && !_.startsWith(type, 'Tipo.')) {
+                if (!_.startsWith(type, 'http') && !_.startsWith(type, 'Client') && !_.startsWith(type, 'Tipo.') && !S(type).contains(".")) {
                     type = 'Tipo.' + type;
-                }
-                var parts = type.split('.');
-                var isTipo = parts[0] === 'Tipo';
-                // var isSingleton = parts.length > 2 && parts[2] === 'default';
-                if (_.startsWith(type, 'http')) {
-                    menuItem.navigate_to = each.navigate_to;
-                } else if (_.startsWith(type, '/tipo')) {
-                    menuItem.location_to = each.navigate_to;
-                } else {
-                    menuItem.type = parts[0];
-                    menuItem.id = parts[1];
                 }
                 menuItem.label = each.label;
                 menuItem.icon = each.icon;
                 menuItem.sequence = each.sequence;
                 menuItem.ignore_singleton = each.ignore_singleton;
-                if (isTipo) {
-                    menuItem.tipo_name = parts[1];
-                    var typelabel = each.type__labels || each.type_;
-                    var types = typelabel.split(" - ");
-                    var type = each.tipo_type;
-                    if (type || types[1]) {
-                        var tipo_type = type || types[1].split(",");
-                        _.each(tipo_type, function(each_type) {
-                            if (each_type === "abstract") {
-                                menuItem.abstract = true;
-                            };
-                            if (!menuItem.ignore_singleton && _.startsWith(each_type, 'singleton')) {
-                                menuItem.isSingleton = true;
-                            } else {
-                                menuItem.isSingleton = false;
-                            }
-                        });
-                    };
-                    menuItem.perspective = perspective;
+                if (each.navigate_to && !_.startsWith(type, 'Client')) {
+                    if (_.startsWith(type, '/tipo')) {
+                        menuItem.location_to = each.navigate_to;
+                    } else {
+                        menuItem.navigate_to = each.navigate_to;
+                    }
+                } else {
+                    var parts = type.split('.');
+                    var isTipo = parts[0] === 'Tipo';
+                    menuItem.type = parts[0];
+                    menuItem.id = parts[1];
+                    if (isTipo) {
+                        menuItem.tipo_name = parts[1];
+                        var typelabel = each.type__labels || each.type_;
+                        var types = typelabel.split(" - ");
+                        var type = each.tipo_type;
+                        if (type || types[1]) {
+                            var tipo_type = type || types[1].split(",");
+                            _.each(tipo_type, function(each_type) {
+                                if (each_type === "abstract") {
+                                    menuItem.abstract = true;
+                                };
+                                if (!menuItem.ignore_singleton && _.startsWith(each_type, 'singleton')) {
+                                    menuItem.isSingleton = true;
+                                } else {
+                                    menuItem.isSingleton = false;
+                                }
+                            });
+                        };
+                        menuItem.perspective = perspective;
+                    }
                 }
+
                 menuItem.quickFilters = each.quick_filters;
                 return menuItem;
             });

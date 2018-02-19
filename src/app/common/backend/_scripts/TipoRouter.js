@@ -46,6 +46,10 @@
       return $state.current;
     }
 
+    function reloadPerspective(perspective){
+      return $state.go('.', {perspective: perspective});
+    }
+
     function reloadCurrent(){
       var currentStateParameters = $stateParams;
       var reloadFlagParameters = _.keys(_.pick(currentStateParameters, function(value, key){
@@ -134,6 +138,9 @@
     }
 
     function openTabPopup (url, tipo_name , message) {
+      if (!_.startsWith(url,"http")) {
+        url = "http://" + url;
+      };
       var confirm = $mdDialog.show({
           clickOutsideToClose: true,
           template: '<md-dialog class="md-padding">' +
@@ -275,7 +282,8 @@
       toStickyAndReset: toStickyAndReset,
       stickyExists: stickyExists,
       toRegisterUser: toRegisterUser,
-      toMenuItem: toMenuItem
+      toMenuItem: toMenuItem,
+      reloadPerspective: reloadPerspective
     };
 
   }

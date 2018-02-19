@@ -45,6 +45,12 @@
 
                 scope.initMode = attrs.froalaInit ? MANUAL : AUTOMATIC;
 
+                if (!ngModel.$viewValue && scope.initValue) {
+                    var initValue = atob(scope.initValue)
+                    ngModel.$setViewValue(initValue);
+                    ngModel.$render();
+                };
+
                 ctrl.init = function() {
                     if (!attrs.id) {
                         // generate an ID if not present
@@ -216,9 +222,6 @@
                         imageInsertButtons: ['imageBack', '|', 'imageUpload', 'imageByURL'],
                         imageUploadToS3: imageUploadToS3
                     }
-                    if (!ngModel.$viewValue && scope.initValue) {
-                      ngModel.$setViewValue(scope.initValue);
-                    };
                     ctrl.init();
                 });
             }
@@ -234,15 +237,24 @@
     return module.directive('froalaView', ['$sce', function($sce) {
         return {
             restrict: 'ACM',
-            scope: false,
+            scope: {
+                initValue: "=",
+                froalaView: "="
+            },
             link: function(scope, element, attrs) {
                 element.addClass('fr-view');
-                scope.$watch(attrs.froalaView, function(nv) {
-                    if (nv || nv === '') {
-                        var explicitlyTrustedValue = $sce.trustAsHtml(nv);
-                        element.html(explicitlyTrustedValue.toString());
-                    }
-                });
+                if (scope.initValue) {
+                    var explicitlyTrustedValue = $sce.trustAsHtml(atob(scope.initValue));
+                    scope.froalaView = explicitlyTrustedValue;
+                    element.html(explicitlyTrustedValue.toString());
+                } else {
+                    scope.$watch(attrs.froalaView, function(nv) {
+                        if (nv || nv === '') {
+                            var explicitlyTrustedValue = $sce.trustAsHtml(nv);
+                            element.html(explicitlyTrustedValue.toString());
+                        }
+                    });
+                }
             }
         };
     }]);

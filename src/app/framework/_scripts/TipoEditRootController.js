@@ -140,6 +140,7 @@
         $mdMedia,
         tipoCache,
         $rootScope,
+        $state,
         $sce) {
 
         tipoManipulationService.initGA();
@@ -159,8 +160,9 @@
             var type = ui_type;
             _instance.mode = mode;
             if (type === 'perspective') {
+                tipoRouter.reloadPerspective(tipo_name + '.' + tipo.tipo_id);
                 $rootScope.perspective = tipo_name + '.' + tipo.tipo_id;
-                $stateParams.perspective = tipo_name + '.' + tipo.tipo_id;
+                // $stateParams.perspective = tipo_name + '.' + tipo.tipo_id;
             }
             var function_name = tipo_name + "_OnView";
             _instance.tipo = tipo;
