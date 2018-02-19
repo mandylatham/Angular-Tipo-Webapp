@@ -867,7 +867,7 @@
   white-space: nowrap;
 }
 .ql-snow .ql-tooltip::before {
-  content: "Visit URL:";
+  content: "Enter URL:";
   line-height: 26px;
   margin-right: 8px;
 }

@@ -234,6 +234,7 @@
                 data_handle.tipo.app_name = tipo_res.app_name;
                 data_handle.tipo.app_version = tipo_res.app_version;
                 data_handle.tipo.app_link = tipo_res.app_url;
+                data_handle.tipo.mobile_link = "tipotapp://+appname=" + encodeURIComponent(tipo_res.app_name) + "&app_url=" + encodeURIComponent(tipo_res.app_url);
                 data_handle.tipo.app_description = tipo_res.app_description;
                 data_handle.tipo.mobile_app_qr_code = tipo_res.mobile_app_qr_cd;
             })
