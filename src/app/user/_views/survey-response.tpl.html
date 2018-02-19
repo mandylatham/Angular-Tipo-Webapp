@@ -1,0 +1,86 @@
+<div id="layout" layout="column" layout-align="start center" layout-align-xs="start center" ng-init="controller.stateChange()">
+        <ng-include src="controller.header_template" tp-include-replace/>
+            <div class="card-details" style="width:80%">
+                <div md-whiteframe="5" style="background: #fbfbfb;margin-bottom:20px">
+                    <div ng-cloak>
+                        <md-content>
+                          <md-tabs md-dynamic-height md-border-bottom md-stretch-tabs="always" md-selected="controller.selectedIndex">
+                            <md-tab label="Category">
+                              <md-content class="md-padding">
+                                <div class="md-display-1">What type of app do you want to build?</div>
+                                <div class="md-subhead">TipoTapp is geared for building apps to streamline business. So we can guide you to a correct sample app, please tell us a bit more about the app you'd like to build on TipoTapp.</div>
+                                <div layout="row" layout-align="start center" layout-wrap>
+                                    <md-card class="category-select" ng-class="{'category-selected': controller.category === 'Content'}" flex flex-xs="100" flex-sm="45"  flex-md="45" ng-click="controller.setCategory('Content')">
+                                        <div class="md-title text-center p-8"><b>Content</b></div>
+                                        <md-card-content><p>Sharing your company information with customers or employees. Be it static content or dynamic data for better decision making.</p></md-card-content>
+                                    </md-card>
+                                    <md-card class="category-select" ng-class="{'category-selected': controller.category === 'Education'}" flex flex-sm="45"  flex-md="45" flex-xs="100" ng-click="controller.setCategory('Education')" >
+                                        <div class="md-title text-center p-8"><b>Education</b></div>
+                                        <md-card-content><p>Build an app to manage your institute registration processes or conduct exams online.</p></md-card-content>
+                                    </md-card>
+                                    <md-card class="category-select" ng-class="{'category-selected': controller.category === 'Utility'}" flex flex-sm="45"  flex-md="45" flex-xs="100" ng-click="controller.setCategory('Utility')" >
+                                        <div class="md-title text-center p-8"><b>Utility</b></div>
+                                        <md-card-content><p>‌Apps that enable the user to solve a problem or complete a specific task without needing to access your corporate systems.</p></md-card-content>
+                                    </md-card>
+                                    <md-card class="category-select" ng-class="{'category-selected': controller.category === 'Manage Lending'}" flex flex-sm="45"  flex-md="45" flex-xs="100" ng-click="controller.setCategory('Manage Lending')" >
+                                        <div class="md-title text-center p-8"><b>Manage Lending</b></div>
+                                        <md-card-content><p>App to manage library, equipment hire or vehicle leasing or venue rental management to your customers.</p></md-card-content>
+                                    </md-card>
+                                </div>
+                                <div layout="row" layout-align="start center" layout-wrap>
+                                    <md-card class="category-select" ng-class="{'category-selected': controller.category === 'Case Management'}" flex flex-sm="45"  flex-md="45" flex-xs="100" ng-click="controller.setCategory('Case Management')" >
+                                        <div class="md-title text-center p-8"><b>Case Management</b></div>
+                                        <md-card-content><p>Build software to manage cases including investigations, incident management, service requests, and process to decision.</p></md-card-content>
+                                    </md-card>
+                                    <md-card class="category-select" ng-class="{'category-selected': controller.category === 'Customer On-boarding'}" flex flex-sm="45"  flex-md="45" flex-xs="100" ng-click="controller.setCategory('Customer On-boarding')" >
+                                        <div class="md-title text-center p-8"><b>Customer On-boarding</b></div>
+                                        <md-card-content><p>Application to manage customer on-boarding that spans information capture, identification, verification and fulfilment for multiple products and transactions.</p></md-card-content>
+                                    </md-card>
+                                    <md-card class="category-select" ng-class="{'category-selected': controller.category === 'Manage Appointments'}" flex flex-sm="45"  flex-md="45" flex-xs="100" ng-click="controller.setCategory('Manage Appointments')" >
+                                        <div class="md-title text-center p-8"><b>Manage Appointments</b></div>
+                                        <md-card-content><p>You want your customers to book time with your business and track customer interactions.</p></md-card-content>
+                                    </md-card>
+                                    <md-card class="category-select" ng-class="{'category-selected': controller.category === 'Custom'}" flex flex-sm="45"  flex-md="45" flex-xs="100" ng-click="controller.setCategory('Custom')" >
+                                        <div class="md-title text-center p-8"><b>Custom</b></div>
+                                        <md-card-content><p>Have a unique idea? Awesome! Let's bring your idea to the world.
+                                        </p></md-card-content>
+                                    </md-card>
+                                </div>
+                              </md-content>
+                            </md-tab>
+                            <md-tab label="Price Range" ng-disabled="!controller.category">
+                              <md-content class="md-padding">
+                                <div class="md-display-1">How much do you want to spend?</div>
+                                <div class="md-subhead">With TipoTapp, you can start with free app and then slowly grow to paid plans to get advanced functionality for your app. Do you have time to build the app yourself or do you want us build it for you?</div>
+                                <div layout="row" layout-align="start center" layout-wrap>
+                                    <md-card class="category-select" style="height:320px" ng-class="{'category-selected': controller.priceRange === '< $5k'}" flex flex-sm="45"  flex-md="45" flex-xs="100" ng-click="controller.setPrice('< $5k')">
+                                        <div class="md-title text-center p-8"><b>< $5k</b></div>
+                                        <md-card-content><p>Based on your budget, you would probably get the best results if you used our industry leading DIY business app building platform. It’s easy to use, intuitive, and will let you assemble a business app faster and with less expense than any other platform around.</p></md-card-content>
+                                    </md-card>
+                                    <md-card class="category-select" style="height:320px" ng-class="{'category-selected': controller.priceRange === '$10 - $20k'}" flex flex-sm="45"  flex-md="45" flex-xs="100" ng-click="controller.setPrice('$10 - $20k')" >
+                                        <div class="md-title text-center p-8"><b>$10 - $20k</b></div>
+                                        <md-card-content><p>A budget in this range provides requirements analysis and field mapping and develop a rapid prototype in the first iteration and a second iteration with your business rules and a single integration with your backend systems.</p></md-card-content>
+                                    </md-card>
+                                    <md-card class="category-select" style="height:320px" ng-class="{'category-selected': controller.priceRange === '$20k - $50k'}" flex flex-sm="45"  flex-md="45" flex-xs="100" ng-click="controller.setPrice('$20k - $50k')" >
+                                        <div class="md-title text-center p-8"><b>$20k - $50k</b></div>
+                                        <md-card-content><p>Budget in this rage provides complex business logic with UI customisations to change the default templates and provide targeted user experience and an app in both AppStore and PlayStore with your brand.</p></md-card-content>
+                                    </md-card>
+                                    <md-card class="category-select" style="height:320px" ng-class="{'category-selected': controller.priceRange === '$50k - $200k'}" flex flex-sm="45"  flex-md="45" flex-xs="100" ng-click="controller.setPrice('$50k - $200k')" >
+                                        <div class="md-title text-center p-8"><b>$50k - $200k</b></div>
+                                        <md-card-content><p>Complex business applications with complex workflow requirements with many backend integrations.
+                                        </p></md-card-content>
+                                    </md-card>
+                                </div>
+                                <div class="p-8">Thank you, lets proceed to sample apps. If you don't find a sample app that suits your need, let us know, we will be able to quickly build a demo app according to your needs.</div>
+                                <div class="text-center p-8">
+                                    <md-button md-theme="reverse" class="md-raised md-primary" ng-click="controller.submitSurvey()" ng-disabled="!controller.priceRange"><b>Continue</b></md-button>
+                                </div>
+                              </md-content>
+                            </md-tab>
+                          </md-tabs>
+                        </md-content>
+                      </div>
+                </div>
+            </div>
+    </div>
+    
