@@ -33,6 +33,10 @@
                         scope.tipoDefinitions = {};
                         var defcontext = scope.defcontext.replace("tipoRootController.tipo.", "").replace("tipoRootController.tipo", "");
                         scope.defcontextObj = _.get(scope.root, defcontext);
+                        if (scope.datahandle && !_.isArray(scope.datahandle)) {
+                            scope.datahandle = scope.datahandle.replace(/\'/g,"\"");
+                            scope.datahandle = JSON.parse(scope.datahandle);
+                        };
                         monaco.scope = scope;
                         if (_.isEmpty(monaco.languages.typescript.javascriptDefaults._extraLibs)) {
                             monaco.languages.typescript.javascriptDefaults.addExtraLib(tipoHandleString());
