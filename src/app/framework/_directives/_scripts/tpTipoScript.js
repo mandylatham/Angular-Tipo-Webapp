@@ -129,7 +129,7 @@
                                     return tipoManipulationService.getItemsfromTipodefintion(field_names, fq_field_name, scope, keyword);
                                     break;
                                 }
-                            case "tipo_handle":
+                            case "tipoHandle":
                                 {
                                     items = [];
                                     return tipoManipulationService.getItemsFromObject(field_names, fq_field_name, tipoHandle, scope, keyword);
@@ -163,7 +163,7 @@
                         kind: monaco.languages.CompletionItemKind.Keyword
                     },
                     {
-                        label: 'tipo_handle',
+                        label: 'tipoHandle',
                         kind: monaco.languages.CompletionItemKind.Keyword
                     },
                     {
