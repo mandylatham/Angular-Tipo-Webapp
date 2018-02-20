@@ -65,8 +65,11 @@
                             language: 'javascript'
                         });
                         editor.onDidFocusEditor(function() {
-                            // monaco.languages.typescript.javascriptDefaults.addExtraLib(scope.datahandle);
+                            monaco.scope = scope;
                         });
+                        // editor.onDidFocusEditor(function() {
+                        //     // monaco.languages.typescript.javascriptDefaults.addExtraLib(scope.datahandle);
+                        // });
                         configNgModelLink(editor, ngModel, scope);
                     });
                     unbind();
@@ -155,7 +158,7 @@
                         });
                         return items;
                     };
-                } else if (scope.type = "filterScript") {
+                } else if (scope.type === "filterScript") {
                     return getItemsFromDefObject(beforestring, scope);
                 }
             } else {
@@ -170,7 +173,7 @@
         }
 
         function tipoHandleString() {
-            return ("declare class tipo_handle\nstatic getConfirmation(title: string, user_message: string): boolean\nstatic application_meta(title: string, user_message: string): boolean\nstatic hideElement(element_class: string): boolean\nstatic showElement(element_class: string): boolean\nstatic getTipoDefinition(tipo_name: string, disableExpansion: boolean): boolean\nstatic routeTo(title: string, user_message: string): boolean\nstatic saveTipo(title: string, user_message: string): boolean\nstatic saveTipos(title: string, user_message: string): boolean\nstatic createTipo(title: string, user_message: string): boolean\nstatic createTipos(title: string, user_message: string): boolean\nstatic deleteTipo(title: string, user_message: string): boolean\nstatic getTipo(title: string, user_message: string): boolean\nstatic purgeTipo(title: string, user_message: string): boolean\nstatic getTipos(title: string, user_message: string): boolean\nstatic presentForm(title: string, user_message: string): boolean\nstatic showMessage(title: string, user_message: string): boolean\nstatic callAction(title: string, user_message: string): boolean\nstatic toTipo(title: string, user_message: string): boolean\nstatic setPerspective(title: string, user_message: string): boolean\nstatic setMenuItem(title: string, user_message: string): boolean\nstatic getMenuItem(title: string, user_message: string): boolean\nstatic getTourItem(title: string, user_message: string): boolean\nstatic setTourObject(title: string, user_message: string): boolean\nstatic getISODate(title: string, user_message: string): boolean\nstatic listUrl(title: string, user_message: string): boolean\nstatic updateUrl(title: string, user_message: string): boolean\nstatic createUrl(title: string, user_message: string): boolean\nstatic detailUrl(title: string, user_message: string): boolean\nstatic setUserMeta(title: string, user_message: string): boolean\n}");
+            return ("declare class tipo_handle {\n static getConfirmation(title: string, user_message: string): boolean \n static application_meta(title: string, user_message: string): boolean \n static hideElement(element_class: string): boolean \n static showElement(element_class: string): boolean \n static getTipoDefinition(tipo_name: string, disableExpansion: boolean): boolean \n static routeTo(title: string, user_message: string): boolean \n static saveTipo(title: string, user_message: string): boolean \nstatic saveTipos(title: string, user_message: string): boolean\nstatic createTipo(title: string, user_message: string): boolean\nstatic createTipos(title: string, user_message: string): boolean\nstatic deleteTipo(title: string, user_message: string): boolean\nstatic getTipo(title: string, user_message: string): boolean\nstatic purgeTipo(title: string, user_message: string): boolean\nstatic getTipos(title: string, user_message: string): boolean\nstatic presentForm(title: string, user_message: string): boolean\nstatic showMessage(title: string, user_message: string): boolean\nstatic callAction(title: string, user_message: string): boolean\nstatic toTipo(title: string, user_message: string): boolean\nstatic setPerspective(title: string, user_message: string): boolean\nstatic setMenuItem(title: string, user_message: string): boolean\nstatic getMenuItem(title: string, user_message: string): boolean\nstatic getTourItem(title: string, user_message: string): boolean\nstatic setTourObject(title: string, user_message: string): boolean\nstatic getISODate(title: string, user_message: string): boolean\nstatic listUrl(title: string, user_message: string): boolean\nstatic updateUrl(title: string, user_message: string): boolean\nstatic createUrl(title: string, user_message: string): boolean\nstatic detailUrl(title: string, user_message: string): boolean\nstatic setUserMeta(title: string, user_message: string): boolean\n}");
         }
 
         function getItemsFromDefObject(beforestring, scope) {

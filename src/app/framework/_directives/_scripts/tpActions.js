@@ -105,13 +105,18 @@
           singleedit: '=',
           restrictedActions: '=',
           visibilityExpression: '=',
+          field: "=",
           refresh: '&'
         },
         restrict: 'EA',
         replace: true,
-        templateUrl: 'framework/_directives/_views/tp-actions.tpl.html',
+        template: '<ng-include src="fieldTemplate" tp-include-replace/>',
         link: function(scope, element, attrs){
-
+          if (scope.field) {
+            scope.fieldTemplate = 'framework/_directives/_views/tp-field-actions.tpl.html'
+          }else{
+            scope.fieldTemplate = 'framework/_directives/_views/tp-actions.tpl.html'
+          }
           var mode = scope.mode;
           scope.mobaction= {isOpen: false};
           scope.deskaction= {isOpen: false};

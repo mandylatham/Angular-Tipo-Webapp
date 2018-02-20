@@ -32,7 +32,11 @@
                         if (scope.type === "filterScript") {
                             var defcontext = scope.defcontext.replace("tipoRootController.tipo.", "").replace("tipoRootController.tipo", "");
                             defcontext = _.get(scope.root, defcontext);
-                            scope.defaultObj = _.startsWith(defcontext.field_type, "Tipo.") ? defcontext.field_type.split(".")[1] : undefined;
+                            if (defcontext) {
+                                scope.defaultObj = _.startsWith(defcontext.field_type, "Tipo.") ? defcontext.field_type.split(".")[1] : undefined;
+                            }else{
+                                scope.defaultObj = undefined;
+                            }
                             var triggerCharacters = [".", "$", " "];
                             tipoHandle.getTipoDefinition(scope.defaultObj).then(function(definition) {
                                 scope.tipoDefinitions[scope.defaultObj] = definition;
