@@ -75,6 +75,21 @@
                 $rootScope.$mdMedia = $mdMedia;
                 $rootScope.showSubscribeNow = (userMetadata.stripe_subscription_id === null) ? true : false;
                 tipoHandle.setMeta();
+
+                  //iOS Bottombar fix
+                  if (navigator.platform == 'iPad' || navigator.platform == 'iPhone') {
+                    document.getElementById("inf-wrapper").ontouchstart = function () {
+                        $(".action-bar-xs").css("display", "none");
+                    }
+                  
+                    document.getElementById("inf-wrapper").onscroll = function() { 
+                        var iPadPosition = window.innerHeight + window.pageYOffset-55; // 55 is the height of the Footer
+                        $(".action-bar-xs").css("position", "absolute");
+                        $(".action-bar-xs").css("top", iPadPosition);
+                        $(".action-bar-xs").css("display", "flex");
+                    }
+                  }
+
                 var function_name = tipoHandle.application_meta.TipoApp.application_name + "_AppInit";
                 if (typeof tipoCustomJavascript[function_name] === 'function') {
                     tipoCustomJavascript[function_name]();
