@@ -66,6 +66,7 @@
                             });
                         };
                         var editor = monaco.editor.create(element[0], {
+                            theme: 'vs',
                             language: 'javascript'
                         });
                         editor.onDidFocusEditor(function() {
@@ -251,7 +252,7 @@
                 console.log("ngModel.$render");
                 // Monaco Editor expects a string so make sure it gets one
                 // Although the formatter has already done this, it can be possible that another formatter returns undefined (for example the required directive)
-                var safeViewValue = ngModel.$viewValue || '';
+                var safeViewValue = ngModel.$viewValue || '/*\n\n\nBasic Lodash Loop\n\n\n_.each({ "a": 1, "b": 2 }, function(value, key) {\n  console.log(key);\n});\n_.each([1, 2], function(value) {\n  console.log(value);\n});\n\nHandling Promises with TipoHandle\n\ntipoHandle.getTipos("Application").then(function(tipos){\n\n\n  data_handle.tipo.new_applications = _.filter(tipos,function(tipo){ return tipo.application_status === "New"});\n})\n\n\nInitalization\nvar c = 1;\nvar b = 2;\n*/';
                 monacoeditor.setValue(safeViewValue)
             };
 

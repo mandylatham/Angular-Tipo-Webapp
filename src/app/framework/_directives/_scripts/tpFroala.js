@@ -248,7 +248,7 @@
                     scope.froalaView = explicitlyTrustedValue;
                     element.html(explicitlyTrustedValue.toString());
                 } else {
-                    scope.$watch(attrs.froalaView, function(nv) {
+                    scope.$watch(scope.froalaView, function(nv) {
                         if (nv || nv === '') {
                             var explicitlyTrustedValue = $sce.trustAsHtml(nv);
                             element.html(explicitlyTrustedValue.toString());

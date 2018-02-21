@@ -184,7 +184,7 @@
             } else if (mode === 'create') {
                 tipoRouter.toTipoCreate(tipo_name);
             } else if (mode === 'list') {
-                tipoRouter.toTipoView(tipo_name);
+                tipoRouter.toTipoList(tipo_name);
             };
         }
 
