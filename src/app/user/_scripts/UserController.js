@@ -189,7 +189,7 @@
                             });
                         if (appMetadata.app_subscription.capture_credit_card) {
                             ga('send', 'event', 'CreateAccount', 'created', _instance.user.email);
-                            tipoRouter.to('captureCreditCard');
+                            tipoRouter.to('surveyResponse');
                         } else {
                             tipoRouter.to('dashboard');
                         }
