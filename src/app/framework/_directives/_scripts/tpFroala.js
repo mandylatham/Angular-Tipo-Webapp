@@ -220,7 +220,8 @@
                     scope.froalaOptions = {
                         toolbarButtons: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'embedly', 'insertFile', 'insertTable', '|', 'emoticons', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'print', 'spellChecker', 'help', 'html', '|', 'undo', 'redo'],
                         imageInsertButtons: ['imageBack', '|', 'imageUpload', 'imageByURL'],
-                        imageUploadToS3: imageUploadToS3
+                        imageUploadToS3: imageUploadToS3,
+                        key: "kKC1KXDF1INBh1KPe2TK=="
                     }
                     ctrl.init();
                 });
