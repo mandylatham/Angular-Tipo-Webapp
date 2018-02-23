@@ -182,7 +182,9 @@
         function getItemsFromDefObject(beforestring, scope) {
             if (scope.defaultObj) {
                 var contextScope = { root: scope.tipoDefinitions[scope.defaultObj], tipoDefinitions: scope.tipoDefinitions };
-            };
+            }else{
+                var contextScope = scope;
+            }
             var lastspace = beforestring.lastIndexOf(" ");
             if (lastspace > -1) {
                 var fq_field_name = beforestring.substring(lastspace).replace(/.$/, "").replace(" ", "");

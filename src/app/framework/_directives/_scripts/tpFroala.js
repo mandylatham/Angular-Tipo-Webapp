@@ -235,7 +235,7 @@
     'use strict';
 
     var module = angular.module('tipo.framework');
-    return module.directive('froalaView', ['$sce', function($sce) {
+    return module.directive('froalaView',function($sce) {
         return {
             restrict: 'ACM',
             scope: {
@@ -249,14 +249,16 @@
                     scope.froalaView = explicitlyTrustedValue;
                     element.html(explicitlyTrustedValue.toString());
                 } else {
-                    scope.$watch(scope.froalaView, function(nv) {
-                        if (nv || nv === '') {
-                            var explicitlyTrustedValue = $sce.trustAsHtml(nv);
+
+                    scope.$watch(function(){ return btoa(scope.froalaView);}, function(nv) {
+                        var ndv = atob(nv);
+                        if (ndv || ndv === '') {
+                            var explicitlyTrustedValue = $sce.trustAsHtml(ndv);
                             element.html(explicitlyTrustedValue.toString());
                         }
                     });
                 }
             }
         };
-    }]);
+    });
 })();
