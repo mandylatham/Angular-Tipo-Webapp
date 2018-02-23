@@ -216,21 +216,24 @@
                         getTipos(tipo_name, this.filter).then(angular.bind(this, function(tipos) {
                             var function_name = tipo_name + "_OnList";
                             if (page) {
-                                    this.tipos = tipos;
+                                this.tipos = tipos;
                             } else {
                                 this.tipos = this.tipos.concat(tipos);
                             }
                             this.busy = false;
                             var responseData = tipoRegistry.get(tipo_name + '_resdata');
                             this.last_evaluated_key = responseData.last_evaluated_key;
-                            if(this.last_evaluated_key)  {
-                                this.numLoaded_ += responseData.count;
-                                this.maxpages++ ;
-                            } else if(responseData.count === 0) {
-                                this.numLoaded_ = this.tipos.length;
-                                this.maxpages = Math.ceil(this.numLoaded_ / per_page);
+                            if (this.last_evaluated_key || this.eval_key) {
+                                if (this.last_evaluated_key) {
+                                    this.eval_key = true;
+                                    this.numLoaded_ += responseData.count;
+                                    this.maxpages++;
+                                } else {
+                                    this.numLoaded_ = this.tipos.length;
+                                    this.maxpages = Math.ceil(this.numLoaded_ / per_page);
+                                }
                             }
-                            if (this.page === 1 && !count && !this.last_evaluated_key) {
+                            if (this.page === 1 && !count && !this.last_evaluated_key && !this.eval_key) {
                                 this.numLoaded_ = responseData.count;
                                 this.maxpages = Math.ceil(responseData.count / per_page);
                             };
