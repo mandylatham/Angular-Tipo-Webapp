@@ -29,14 +29,14 @@
                 }
                 var disabled = (attrs.ngDisabled === "true");
                 if (disabled) {
-                  initObj.customPlaceholder = function(){
-                    return "--N/A--";
-                  };
-                  // initObj.separateDialCode = false;
+                    initObj.customPlaceholder = function() {
+                        return "--N/A--";
+                    };
+                    // initObj.separateDialCode = false;
                 } else {
-                    initObj.customPlaceholder = function(){
+                    initObj.customPlaceholder = function() {
                         return "Enter phone number";
-                      }
+                    }
                 }
                 element.intlTelInput(initObj);
                 // Validation.
@@ -51,8 +51,8 @@
                 // Set model value to valid, formatted version.
                 ctrl.$parsers.push(function(value) {
                     var test = element.intlTelInput('getNumber', "International");
-                     test = element.intlTelInput('getNumber', "NATIONAL");
-                     test = element.intlTelInput('getNumber', "E164");
+                    test = element.intlTelInput('getNumber', "NATIONAL");
+                    test = element.intlTelInput('getNumber', "E164");
                     element.intlTelInput("setNumber", element.intlTelInput('getNumber', "International"));
                     return element.intlTelInput('getNumber');
                 });
@@ -62,7 +62,7 @@
                         element.intlTelInput('setNumber', value);
                         var countryCode = element.intlTelInput("getSelectedCountryData");
                         if (value.contains("+" + countryCode.dialCode)) {
-                            value.replace("+" + countryCode.dialCode,"");
+                            value.replace("+" + countryCode.dialCode, "");
                         }
                         element.intlTelInput('setNumber', value);
                     }
