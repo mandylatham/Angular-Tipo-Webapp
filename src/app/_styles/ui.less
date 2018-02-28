@@ -259,8 +259,14 @@ html {
         word-wrap: break-word;
     }
     .bottompage {
-        position: fixed;
-        bottom: 55px;
+        @media (min-width: 600px) {
+            position: fixed;
+            bottom: 0px;
+        }
+        @media (max-width: 599px) {
+            position: fixed;
+            bottom: 55px;
+        }
     }
     .md-subheader {
         .md-subheader-inner {
@@ -881,6 +887,7 @@ only screen and (min-resolution: 2dppx) {
 
 
 
+
 /* Styling for the ngProgress-container */
 
 #ngProgress-container {
@@ -1080,10 +1087,11 @@ md-list-item .md-list-item-inner::before {
 
 .action-bar-xs {
     position: sticky;
+    position: -webkit-sticky;
     top: 0px;
     bottom: 0px;
-    left:0;
-    right:0;
+    left: 0;
+    right: 0;
     width: 100%;
     transform: none;
     z-index: 20;
@@ -1128,11 +1136,13 @@ md-list-item .md-list-item-inner::before {
         bottom: -12px;
     }
 }
+
 .icon-tabs.md-stretch-tabs md-tab-item {
     font-size: 16px;
     line-height: 28px;
     padding: 0;
 }
+
 .category-select {
     height: 200px;
     p {
@@ -1141,7 +1151,9 @@ md-list-item .md-list-item-inner::before {
         line-height: 1.4;
     }
 }
-.category-select:hover, .category-selected {
+
+.category-select:hover,
+.category-selected {
     border: 2px solid #25a6b4;
     cursor: pointer;
 }
