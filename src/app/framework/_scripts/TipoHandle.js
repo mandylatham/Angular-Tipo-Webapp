@@ -83,7 +83,10 @@
             });
         }
 
-        _instance.finish = function() {
+        _instance.save = function(form) {
+            if (!form.$valid) {
+                return false;
+            }
             var tipoData = _instance.tipo;
             if (_instance.hooks.preFinish) {
                 var result = _instance.hooks.preFinish();
