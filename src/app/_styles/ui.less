@@ -18,6 +18,12 @@ html {
     padding: 5px 0px;
 }
 
+#inf-wrapper {
+    @media (max-width: 599px) {
+        padding-bottom: 55px;
+    }
+}
+
 .hint {
     position: absolute;
     left: 4px;
@@ -259,14 +265,8 @@ html {
         word-wrap: break-word;
     }
     .bottompage {
-        @media (min-width: 600px) {
-            position: fixed;
-            bottom: 0px;
-        }
-        @media (max-width: 599px) {
-            position: fixed;
-            bottom: 55px;
-        }
+        position: fixed;
+        bottom: 0px;
     }
     .md-subheader {
         .md-subheader-inner {
@@ -884,6 +884,7 @@ only screen and (min-resolution: 2dppx) {
         background-image: url("@{image-base-path}/flags@2x.png");
     }
 }
+
 
 
 
