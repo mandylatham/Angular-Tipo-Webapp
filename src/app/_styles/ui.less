@@ -259,8 +259,14 @@ html {
         word-wrap: break-word;
     }
     .bottompage {
-        position: fixed;
-        bottom: 0px;
+        @media (min-width: 600px) {
+            position: fixed;
+            bottom: 0px;
+        }
+        @media (max-width: 599px) {
+            position: fixed;
+            bottom: 55px;
+        }
     }
     .md-subheader {
         .md-subheader-inner {
@@ -878,7 +884,6 @@ only screen and (min-resolution: 2dppx) {
         background-image: url("@{image-base-path}/flags@2x.png");
     }
 }
-
 
 
 
