@@ -259,14 +259,8 @@ html {
         word-wrap: break-word;
     }
     .bottompage {
-        @media (min-width: 600px) {
-            position: fixed;
-            bottom: 0px;
-        }
-        @media (max-width: 599px) {
-            position: fixed;
-            bottom: 55px;
-        }
+        position: fixed;
+        bottom: 0px;
     }
     .md-subheader {
         .md-subheader-inner {
@@ -888,6 +882,7 @@ only screen and (min-resolution: 2dppx) {
 
 
 
+
 /* Styling for the ngProgress-container */
 
 #ngProgress-container {
@@ -1086,9 +1081,7 @@ md-list-item .md-list-item-inner::before {
 }
 
 .action-bar-xs {
-    position: sticky;
-    position: -webkit-sticky;
-    top: 0px;
+    position: fixed;
     bottom: 0px;
     left: 0;
     right: 0;
