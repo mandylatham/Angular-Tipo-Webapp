@@ -665,6 +665,25 @@ html {
     }
 }
 
+#inf-wrapper {
+    @media (max-width: 599px) {
+        padding-bottom: 110px;
+    }
+}
+
+.readmode {
+    .intl-tel-input {
+        .selected-flag {
+            .iti-arrow {
+                display: none;
+            }
+        }
+        input {
+            background-image: none;
+        }
+    }
+}
+
 .intl-tel-input {
     .md-input {
         color: black !important;
@@ -885,6 +904,9 @@ only screen and (min-resolution: 2dppx) {
         background-image: url("@{image-base-path}/flags@2x.png");
     }
 }
+
+
+
 
 
 

@@ -83,7 +83,12 @@
             });
         }
 
-        _instance.finish = function() {
+        _instance.finish = function(tipoForm) {
+            if (!_instance.tipoForm.$valid) {
+                _instance.tipoForm.submit();
+                return false;
+            }
+            console.log("sadadasda    " + tipoForm);
             var tipoData = _instance.tipo;
             if (_instance.hooks.preFinish) {
                 var result = _instance.hooks.preFinish();

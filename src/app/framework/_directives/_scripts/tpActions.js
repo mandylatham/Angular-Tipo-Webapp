@@ -304,13 +304,13 @@
             tipoRouter.endStateChange(); 
           }
 
-          function callAction(tipo_name, action_name, selected_tipo_ids,additional_tipo_name,additional_tipo){
+          function callAction(tipo_name, action_name, selected_tipo_ids,selected_tipos,additional_tipo_name,additional_tipo){
             var function_name = tipo_name + "_" + action_name;
             if (typeof tipoCustomJavascript[function_name] === 'function') {
               scope.data_handle.tipo_name = tipo_name;
               scope.data_handle.action_name = action_name;
               scope.data_handle.selected_tipo_ids = selected_tipo_ids;
-              scope.data_handle.selected_tipos = scope.tipos;
+              scope.data_handle.selected_tipos = selected_tipos;
               scope.data_handle.additional_tipo_name = additional_tipo_name;
               scope.data_handle.additional_tipo = additional_tipo;
               tipoCustomJavascript[function_name](scope.data_handle);
@@ -320,7 +320,7 @@
               scope.data_handle.tipo_name = tipo_name;
               scope.data_handle.action_name = action_name;
               scope.data_handle.selected_tipo_ids = selected_tipo_ids;
-              scope.data_handle.selected_tipos = scope.tipos;
+              scope.data_handle.selected_tipos = selected_tipos;
               scope.data_handle.additional_tipo_name = additional_tipo_name;
               scope.data_handle.additional_tipo = additional_tipo;
               tipoClientJavascript[function_name](scope.data_handle);
@@ -347,8 +347,8 @@
             if (tipo_id) {
               var selected_tipo_ids = [tipo_id];
             }else{
-              var selected_tipo_ids = _.filter(scope.tipos, 'selected');
-              selected_tipo_ids = _.map(selected_tipo_ids, function(each){
+              var selected_tipos = _.filter(scope.tipos, 'selected');
+              selected_tipo_ids = _.map(selected_tipos, function(each){
                 return each.tipo_id;
               });
             }
@@ -357,7 +357,7 @@
                 var additionalTipo = action.additionalTipo;
                 var promise = tipoHandle.presentForm(additionalTipo,scope.tipos,action.label);
                 promise.then(function(response){
-                    callAction(tipo_name,action.name,selected_tipo_ids,action.additionalTipo,response);
+                    callAction(tipo_name,action.name,selected_tipo_ids,selected_tipos,action.additionalTipo,response);
               });
             } else if (action.enable_confirmation) {
               var confirm = $mdDialog.confirm()
@@ -368,14 +368,14 @@
 
               $mdDialog.show(confirm).then(function() {
                 tipoRouter.startStateChange();
-                callAction(tipo_name,action.name,selected_tipo_ids)
+                callAction(tipo_name,action.name,selected_tipo_ids,selected_tipos)
               }, function() {
                 return;
               });
             } else{
                 console.log('Will just perform the action without opening any dialogs');
                 tipoRouter.startStateChange();
-                callAction(tipo_name,action.name,selected_tipo_ids)
+                callAction(tipo_name,action.name,selected_tipo_ids,selected_tipos)
               }
             // }
           }
