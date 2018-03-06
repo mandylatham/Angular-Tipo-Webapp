@@ -116,6 +116,48 @@
         }
         this.TipoDefinition_OnView = TipoDefinition_OnView;
 
+        // function TipoDefinition_tipo_fields_sort_by_field_BeforeLookup(data_handle) {
+        //     var fields;
+        //     if (_.startsWith(data_handle.context.field_type, "FieldGroup.") || _.startsWith(data_handle.context.field_type, "Tipo.")) {
+        //         var group_name = data_handle.context.field_type.split(".")[1];
+        //     }
+        //     if (group_name) {
+        //         if (_.startsWith(data_handle.context.field_type, "FieldGroup.")) {
+        //             _.each(data_handle.root.tipo_field_groups, function(group) {
+        //                 if (group.tipo_group_name === group_name) {
+        //                     fields = group.tipo_fields;
+        //                 };
+        //             })
+        //             var tipos = _.map(fields, function(each) {
+        //                 if (each.field_name) {
+        //                     return {
+        //                         tipo_id: each.field_name,
+        //                         text: each.field_name
+        //                     }
+        //                 };
+        //             });
+        //             data_handle.infiniteItems = tipoManipulationService.getVirtualRepeatObject(tipos.length, data_handle.tipo_name, tipoHandle.getTipos, data_handle.searchCriteria, tipos, tipos.length);
+        //         } else {
+        //             data_handle.infiniteItems = tipoManipulationService.getVirtualRepeatObject(1, group_name, tipoHandle.getTipoDefinition, data_handle.searchCriteria);
+        //             data_handle.infiniteItems.serverResultHandler = function(page) {
+        //                 this.tipos = _.map(this.tipos[0].tipo_fields, function(each) {
+        //                     if (each.field_name) {
+        //                         return {
+        //                             tipo_id: each.field_name,
+        //                             text: each.field_name
+        //                         }
+        //                     };
+        //                 });
+        //                 this.numLoaded_ = this.tipos.length;
+        //                 this.maxpages = 1;
+        //             }
+        //         }
+
+        //         return "set_infiniteItems";
+        //     };
+        // }
+        // this.TipoDefinition_tipo_fields_sort_by_field_BeforeLookup = TipoDefinition_tipo_fields_sort_by_field_BeforeLookup;
+
         //___TipoApp___
         function TipoApp_OnView(data_handle) {
             if (!tipoHandle.application_meta.TipoApp.publish_app_as_sample_app) {
@@ -263,7 +305,7 @@
 
         //___App level events__
         function tipoapp_Signup(status, user) {
-            if(status === 'success') {
+            if (status === 'success') {
                 window.intercomSettings = {
                     app_id: intercom_app_id,
                     email: user.email,
@@ -345,8 +387,8 @@
         function tipoapp_AppInit() {
             if (intercom_state !== "boot" && (getCurrentApp() === 'tipoapp')) {
                 var currentUser = tipoHandle.user_meta;
-                if(currentUser && currentUser.user_attributes) {
-                    tipoHandle.getTipo(currentUser.user_attributes.user_tipo, currentUser.user_attributes.user_tipo_id).then(function(response){
+                if (currentUser && currentUser.user_attributes) {
+                    tipoHandle.getTipo(currentUser.user_attributes.user_tipo, currentUser.user_attributes.user_tipo_id).then(function(response) {
                         window.Intercom("boot", {
                             app_id: intercom_app_id,
                             email: response.email,

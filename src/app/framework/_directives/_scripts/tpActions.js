@@ -346,6 +346,7 @@
           function performAction(action){
             if (tipo_id) {
               var selected_tipo_ids = [tipo_id];
+              var selected_tipos = [scope.tipos];
             }else{
               var selected_tipos = _.filter(scope.tipos, 'selected');
               selected_tipo_ids = _.map(selected_tipos, function(each){

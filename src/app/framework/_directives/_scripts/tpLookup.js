@@ -415,12 +415,12 @@
                     // If for the dropdown we require custom page size then we can get from the page_size parameter
                     searchCriteria.per_page = page_size || 10;
                     if (!_.isEmpty(scope.queryparams)) {
-                        var contextTipo = _.join(_.dropRight(scope.fqfieldname.split("."),2),".");
+                        var contextTipo = _.join(_.dropRight(scope.fqfieldname.split("."), 2), ".");
                         _.forOwn(scope.queryparams, function(value, key) {
                             value = value.replace("$index", scope.index);
                             if (value.indexOf("$tipo") !== -1 || value.indexOf("$tipo_root") !== -1) {
-                                if (value.indexOf("$tipo") !== -1 && contextTipo !="") {
-                                    value = value.replace("$tipo.","$tipo." + contextTipo + ".");
+                                if (value.indexOf("$tipo") !== -1 && contextTipo != "") {
+                                    value = value.replace("$tipo.", "$tipo." + contextTipo + ".");
                                 };
                                 value = value.replace("$tipo.", "").replace("$tipo_root.", "");
                                 var baseParamExpanded = _.get(scope.root, value) || '___NA___';
@@ -455,31 +455,36 @@
                     scope.data_handle.key_field = scope.key_field;
                     scope.data_handle.label_field = scope.label_field;
                     if (typeof tipoCustomJavascript[function_name] === 'function') {
-                        tipoCustomJavascript[function_name](scope.data_handle);
+                        var return_value = tipoCustomJavascript[function_name](scope.data_handle);
+                        if (return_value === "set_infiniteItems") {
+                            scope.infiniteItems = angular.copy(scope.data_handle.infiniteItems);
+                        };
                     }
                     if (typeof tipoClientJavascript[function_name] === 'function') {
                         tipoClientJavascript[function_name](scope.data_handle);
                     }
-                    if (!scope.ispopup) {
-                        searchCriteria.drop_down = 'Y';
-                        searchCriteria.key_field = scope.data_handle.key_field;
-                        searchCriteria.label_field = scope.data_handle.label_field;
-                    };
-                    console.log(element);
-                    scope.searchCriteria = scope.data_handle.searchCriteria;
-                    scope.infiniteItems = tipoManipulationService.getVirtualRepeatObject(scope.searchCriteria.per_page, scope.data_handle.tipo_name, tipoHandle.getTipos, scope.searchCriteria);
-                    scope.infiniteItems.serverResultHandler = function(page) {
-                        this.tipos = _.uniqWith(this.tipos, _.isEqual);
-                        scope.tipos = _.uniqWith(this.tipos, _.isEqual);
-                        scope.options = optionsFormat(scope.tipos);
-                        initmodel();
-                        scope.afterlookupEvent();
-                        if (page === 1) {
-                            var tipo_perm = tipoRegistry.get(scope.tipo_name + '_resdata');
-                            scope.perm = tipo_perm.perm;
-                            if (tipo_perm.perm.substr(2, 1) === 0) {
-                                scope.disablecreate = true;
-                            }
+                    if (!return_value) {
+                        if (!scope.ispopup) {
+                            searchCriteria.drop_down = 'Y';
+                            searchCriteria.key_field = scope.data_handle.key_field;
+                            searchCriteria.label_field = scope.data_handle.label_field;
+                        };
+                        console.log(element);
+                        scope.searchCriteria = scope.data_handle.searchCriteria;
+                        scope.infiniteItems = tipoManipulationService.getVirtualRepeatObject(scope.searchCriteria.per_page, scope.data_handle.tipo_name, tipoHandle.getTipos, scope.searchCriteria);
+                        scope.infiniteItems.serverResultHandler = function(page) {
+                            this.tipos = _.uniqWith(this.tipos, _.isEqual);
+                            scope.tipos = _.uniqWith(this.tipos, _.isEqual);
+                            scope.options = optionsFormat(scope.tipos);
+                            initmodel();
+                            scope.afterlookupEvent();
+                            if (page === 1) {
+                                var tipo_perm = tipoRegistry.get(scope.tipo_name + '_resdata');
+                                scope.perm = tipo_perm.perm;
+                                if (tipo_perm.perm.substr(2, 1) === 0) {
+                                    scope.disablecreate = true;
+                                }
+                            };
                         };
                     };
                 };

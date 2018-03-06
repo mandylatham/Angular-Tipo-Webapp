@@ -222,7 +222,11 @@
                             }
                             this.busy = false;
                             var responseData = tipoRegistry.get(tipo_name + '_resdata');
-                            this.last_evaluated_key = responseData.last_evaluated_key;
+                            if (responseData) {
+                                this.last_evaluated_key = responseData.last_evaluated_key;
+                            }else{
+                                responseData = {};
+                            }
                             if (this.last_evaluated_key || this.eval_key) {
                                 if (this.last_evaluated_key) {
                                     this.eval_key = true;
