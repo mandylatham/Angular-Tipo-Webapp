@@ -116,7 +116,8 @@
         $q,
         $filter,
         $stateParams,
-        ngIntroService) {
+        ngIntroService,
+        $http) {
 
 
         var TOUR_TIPO = "TipoTourData";
@@ -366,6 +367,20 @@
             }
         }
 
+        function sendHttpRequest(method,url,headers,data,successCallback,errorCallback){
+            $http({
+                method: method,
+                url: url,
+                headers: headers,
+                data: data
+            }).then(function(response){
+                successCallback(response);
+            },function(error){
+                errorCallback(error);
+            })
+        }
+
+
         this.user_meta = metadataService.userMetadata;
         this.application_meta = metadataService.applicationMetadata;
         this.getConfirmation = getConfirmation;
@@ -397,6 +412,7 @@
         this.detailUrl = detailUrl;
         this.setMeta = setMeta;
         this.trackEvent = trackEvent;
+        this.sendHttpRequest = sendHttpRequest;
 
 
 
