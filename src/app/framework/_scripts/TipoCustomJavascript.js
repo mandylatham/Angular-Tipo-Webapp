@@ -13,17 +13,8 @@
         }
         var intercom_app_id = getIntercomid();
         var intercom_state;
-        // var pushcoms = firebase.messaging();
-        // pushcoms.usePublicVapidKey("BJoIEgTh_6MAln0XGiurMzpNp4QebuQ4fOSE0OyiZXvcb3CkzwT8bggdK9IjARRISis7P8z_pIjpVx7kj4COxBM");
-        // pushcoms.requestPermission()
-        //     .then(function() {
-        //         console.log('Notification permission granted.');
-        //         // TODO(developer): Retrieve an Instance ID token for use with FCM.
-        //         // ...
-        //     })
-        //     .catch(function(err) {
-        //         console.log('Unable to get permission to notify.', err);
-        //     });
+        var pushcoms = firebase.messaging();
+
 
         // function TipoS3Browser_OnClick(tipoData,selectedTipo,tipo_name,query_params,event){
         function TipoS3Browser_OnClick(data_handle) {
@@ -426,7 +417,40 @@
                     window.Intercom('update');
                 }, 5000);
             }
+            // if (tipoHandle.application_meta.TipoConfiguration.integration_map.pushcoms) {
+            //     pushcoms.usePublicVapidKey("BJoIEgTh_6MAln0XGiurMzpNp4QebuQ4fOSE0OyiZXvcb3CkzwT8bggdK9IjARRISis7P8z_pIjpVx7kj4COxBM");
+            //     pushcoms.requestPermission()
+            //         .then(function() {
+            //             savePushComRefreshToken();
+            //         })
+            //         .catch(function(err) {
+            //             console.log('Unable to get permission to notify.', err);
+            //         });
+            //     pushcoms.onTokenRefresh(function() {
+            //         savePushComRefreshToken();
+            //     })
+            // };
         }
+
+
+        // function savePushComRefreshToken() {
+        //     pushcoms.getToken()
+        //         .then(function(currentToken) {
+        //             if (currentToken) {
+        //                 if (!tipoHandle.user_meta.web_notifications_token) {
+        //                     tipoHandle.user_meta.web_notifications_token = []
+        //                 }
+        //                 tipoHandle.user_meta.web_notifications_token.push(currentToken);
+        //                 tipoHandle.saveTipo("TipoUser", "default", tipoHandle.user_meta);
+        //             } else {
+        //                 // Show permission request.
+        //                 console.log('No Instance ID token available. Request permission to generate one.');
+        //             }
+        //         })
+        //         .catch(function(err) {
+        //             console.log('An error occurred while retrieving token. ', err);
+        //         });
+        // }
 
         function tipoapp_PasswordChange() {}
 

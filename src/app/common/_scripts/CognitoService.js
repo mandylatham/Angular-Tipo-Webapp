@@ -129,7 +129,7 @@
                                 return;
                             }
                             for (i = 0; i < attributes.length; i++) {
-                                if (attributes[i].getName() === "email_verified" && attributes[i].getValue() === "True") {
+                                if (attributes[i].getName() === "email_verified" && _.toLower(attributes[i].getValue()) === "true") {
                                     email_verified = true;
                                 };
                             }
