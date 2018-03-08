@@ -337,6 +337,9 @@
                   }else{
                     uploadPath = scope.fileTarget;
                   }
+                  if(!_.startsWith(uploadPath, scope.rootFolder)) {
+                    uploadPath = scope.rootFolder + '/' + uploadPath;
+                  }
                   tipoResource
                   .oneUrl('content', 'tipo_upload/' + uploadPath + (scope.isTargetFile ? '' :  fileContent.lfFileName))
                   .customPUT(data, '', undefined)
