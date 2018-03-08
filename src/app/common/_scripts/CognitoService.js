@@ -100,7 +100,7 @@
             return deferred.promise;
         }
 
-        function authenticate(username, password) {
+        function authenticate(username, password, action) {
             // Clear the cached Cognito ID to prevent 'Logins don't match. Please include at least one valid login for this identity or identity pool' error
             AWS.config.credentials.clearCachedId();
 
@@ -120,43 +120,26 @@
             cognitoUser.authenticateUser(authenticationDetails, {
                 onSuccess: function(result) {
                     var email_verified = false;
-                    cognitoUser.getUserAttributes(function(err, attributes) {
-                        if (err) {
-                            alert(err);
-                            return;
-                        }
-                        for (i = 0; i < attributes.length; i++) {
-                            if (attributes[i].getName() === "email_verified" && attributes[i].getValue() === "True") {
-                                email_verified = true;
-                            };
-                        }
-                        if (email_verified) {
-                            var securityContext = {
-                                'tokenDetails.id_token': result.getIdToken().getJwtToken(),
-                                'tokenDetails.access_token': result.getAccessToken().getJwtToken(),
-                                'loggedInUser': username
-                            };
-                            securityContextService.saveContext(securityContext);
-
-                            var logins = {};
-                            var loginsKey = 'cognito-idp.' + TIPO_CONSTANTS.COGNITO.REGION + '.amazonaws.com/' + TIPO_CONSTANTS.COGNITO.USER_POOL_ID;
-                            logins[loginsKey] = result.getIdToken().getJwtToken();
-                            AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-                                IdentityPoolId: TIPO_CONSTANTS.COGNITO.IDENTITY_POOL_ID,
-                                Logins: logins
-                            });
-
-                            awsRefresh().then(function(id) {
-                                deferred.resolve({ type: 'Regular', value: result });
-                            }, function(err) {
-                                // Return resolve even when err occurred
-                                console.error(err);
-                                deferred.resolve({ type: 'Regular', value: result });
-                            });
-                        }else{
-                          deferred.reject({ type: 'Verify Email', value: result });
-                        }
-                    });
+                    if (action === "signup") {
+                      authenticateSuccess(username, password, result, deferred);
+                    } else {
+                        cognitoUser.getUserAttributes(function(err, attributes) {
+                            if (err) {
+                                alert(err);
+                                return;
+                            }
+                            for (i = 0; i < attributes.length; i++) {
+                                if (attributes[i].getName() === "email_verified" && attributes[i].getValue() === "True") {
+                                    email_verified = true;
+                                };
+                            }
+                            if (email_verified) {
+                                authenticateSuccess(username, password, result, deferred);
+                            } else {
+                                deferred.reject({ type: 'Verify Email', value: result });
+                            }
+                        });
+                    }
                 },
 
                 onFailure: function(err) {
@@ -322,6 +305,31 @@
                 }
             });
             return deferred.promise;
+        }
+
+        function authenticateSuccess(username, password, result, deferred) {
+            var securityContext = {
+                'tokenDetails.id_token': result.getIdToken().getJwtToken(),
+                'tokenDetails.access_token': result.getAccessToken().getJwtToken(),
+                'loggedInUser': username
+            };
+            securityContextService.saveContext(securityContext);
+
+            var logins = {};
+            var loginsKey = 'cognito-idp.' + TIPO_CONSTANTS.COGNITO.REGION + '.amazonaws.com/' + TIPO_CONSTANTS.COGNITO.USER_POOL_ID;
+            logins[loginsKey] = result.getIdToken().getJwtToken();
+            AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+                IdentityPoolId: TIPO_CONSTANTS.COGNITO.IDENTITY_POOL_ID,
+                Logins: logins
+            });
+
+            awsRefresh().then(function(id) {
+                deferred.resolve({ type: 'Regular', value: result });
+            }, function(err) {
+                // Return resolve even when err occurred
+                console.error(err);
+                deferred.resolve({ type: 'Regular', value: result });
+            });
         }
 
         return {

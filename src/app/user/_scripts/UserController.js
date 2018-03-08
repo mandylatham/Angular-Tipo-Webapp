@@ -184,7 +184,7 @@
                 var criteria = { bare_event: 'Y', post_event: 'Y' };
                 var user_attributes = { full_name: user.full_name, phone: user.phone_number };
                 var org_attributes = { organization: user.companyName, first_name: user.full_name, phone: user.phone_number };
-                cognitoService.authenticate(user.fullName(), user.password).then(function() {
+                cognitoService.authenticate(user.fullName(), user.password, "signup").then(function() {
                     cognitoService.resendCode().then(function() {
                         tipoCache.clearMemoryCache();
                         $scope.tipoAccountPromise = tipoInstanceDataService.upsertAll('TipoAccount', [{ account: account, application: appMetadata.application, tipo_id: account, account_name: user.accountName, application_owner_account: appMetadata.application_owner_account, company_name: user.companyName, org_attributes: org_attributes, user_attributes: user_attributes }], criteria).then(function(res) {},
@@ -358,7 +358,7 @@
         _instance.submitSurvey = function() {
             var data = {category: _instance.category, price_range: _instance.priceRange};
             tipoHandle.saveTipo("TipoSurveyResponse", "TipoDefinition",  data).then(function(){
-                _instance.gotoSampleApps();
+                tipoRouter.to("verifyEmail");
             })
         }
 
