@@ -13,7 +13,7 @@
         }
         var intercom_app_id = getIntercomid();
         var intercom_state;
-        var pushcoms = firebase.messaging();
+        // var pushcoms = firebase.messaging();
 
 
         // function TipoS3Browser_OnClick(tipoData,selectedTipo,tipo_name,query_params,event){
@@ -427,16 +427,16 @@
             //             console.log('Unable to get permission to notify.', err);
             //         });
             //     pushcoms.onTokenRefresh(function() {
-            //         savePushComRefreshToken();
+            //         savePushComRefreshToken(true);
             //     })
             // };
         }
 
 
-        // function savePushComRefreshToken() {
+        // function savePushComRefreshToken(refresh) {
         //     pushcoms.getToken()
         //         .then(function(currentToken) {
-        //             if (currentToken) {
+        //             if (currentToken && (refresh || !tipoHandle.user_meta.web_notifications_token || (tipoHandle.user_meta.web_notifications_token && !_.includes(tipoHandle.user_meta.web_notifications_token,currentToken)))) {
         //                 if (!tipoHandle.user_meta.web_notifications_token) {
         //                     tipoHandle.user_meta.web_notifications_token = []
         //                 }
@@ -444,7 +444,7 @@
         //                 tipoHandle.saveTipo("TipoUser", "default", tipoHandle.user_meta);
         //             } else {
         //                 // Show permission request.
-        //                 console.log('No Instance ID token available. Request permission to generate one.');
+        //                 // console.log('No Instance ID token available. Request permission to generate one.');
         //             }
         //         })
         //         .catch(function(err) {
