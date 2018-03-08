@@ -13,6 +13,17 @@
         }
         var intercom_app_id = getIntercomid();
         var intercom_state;
+        // var pushcoms = firebase.messaging();
+        // pushcoms.usePublicVapidKey("BJoIEgTh_6MAln0XGiurMzpNp4QebuQ4fOSE0OyiZXvcb3CkzwT8bggdK9IjARRISis7P8z_pIjpVx7kj4COxBM");
+        // pushcoms.requestPermission()
+        //     .then(function() {
+        //         console.log('Notification permission granted.');
+        //         // TODO(developer): Retrieve an Instance ID token for use with FCM.
+        //         // ...
+        //     })
+        //     .catch(function(err) {
+        //         console.log('Unable to get permission to notify.', err);
+        //     });
 
         // function TipoS3Browser_OnClick(tipoData,selectedTipo,tipo_name,query_params,event){
         function TipoS3Browser_OnClick(data_handle) {

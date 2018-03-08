@@ -107,6 +107,10 @@
 
         function raiseError(err) {
             console.error(err);
+            if (err.type === "Verify Email") {
+                tipoRouter.to('verifyEmail');
+                return;
+            };
             if ($stateParams.retry) {
                 $stateParams.retry.reject();
             }
@@ -279,6 +283,11 @@
                 raiseError(err);
             });
         };
+
+        _instance.onVerifyEmail = function(){
+            markProgress();
+            tipoRouter.to('dashboard',undefined,{code: user.verificationcode});
+        }
 
         _instance.resetPassword = function() {
             markProgress();

@@ -153,6 +153,14 @@
                         scope.$evalAsync(ctrl.updateModelView);
                     });
 
+                    element.on('froalaEditor.image.error', function(e, editor, data) {
+                        if (data.message) {
+                            editor.popups.areVisible()
+                                .find('.fr-image-progress-bar-layer.fr-error .fr-message')
+                                .text(data.message);
+                        }
+                    });
+
                     element.bind('$destroy', function() {
                         element.off(ctrl.listeningEvents.join(" "));
                         element.froalaEditor('destroy');
@@ -218,6 +226,7 @@
                 $http.get("/api/tipouploadsignature").then(function(s3Hash) {
                     imageUploadToS3 = s3Hash.data;
                     scope.froalaOptions = {
+                        pluginsEnabled: ['align', 'charCounter', 'codeBeautifier', 'codeView', 'colors', 'draggable', 'embedly', 'emoticons', 'entities', 'file', 'fontFamily', 'fontSize', 'fullscreen', 'image', 'imageManager', 'inlineStyle', 'lineBreaker', 'link', 'lists', 'paragraphFormat', 'paragraphStyle', 'quote', 'save', 'table', 'url', 'video', 'wordPaste'],
                         toolbarButtons: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'embedly', 'insertFile', 'insertTable', '|', 'emoticons', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'print', 'spellChecker', 'help', 'html', '|', 'undo', 'redo'],
                         imageInsertButtons: ['imageBack', '|', 'imageUpload', 'imageByURL'],
                         imageUploadToS3: imageUploadToS3,
@@ -235,7 +244,7 @@
     'use strict';
 
     var module = angular.module('tipo.framework');
-    return module.directive('froalaView',function($sce) {
+    return module.directive('froalaView', function($sce) {
         return {
             restrict: 'ACM',
             scope: {
@@ -250,9 +259,9 @@
                     element.html(explicitlyTrustedValue.toString());
                 } else {
 
-                    scope.$watch(function(){ return btoa(scope.froalaView);}, function(nv) {
+                    scope.$watch(function() { return btoa(scope.froalaView); }, function(nv) {
                         var ndv = atob(nv);
-                        if (ndv || ndv === '') {
+                        if ((ndv || ndv === '') && ndv !== "undefined") {
                             var explicitlyTrustedValue = $sce.trustAsHtml(ndv);
                             element.html(explicitlyTrustedValue.toString());
                         }

@@ -84,6 +84,20 @@
       }
     };
 
+    var forgotPasswordState = {
+      name: 'verifyEmail',
+      url: '/verify-email',
+      parent: baseState,
+      views: /*@ngInject*/ {
+        'content@userBase': {
+          templateProvider: function(metadataService){
+            return metadataService.resolveAppCustomTemplates('verify_email_template','user/_views/verify-email.tpl.html');
+          }
+          // templateUrl: 'user/_views/forgot-password.tpl.html'
+        }
+      }
+    };
+
     var resetPasswordState = {
       name: 'resetPassword',
       url: '/resetpass?code&email',
