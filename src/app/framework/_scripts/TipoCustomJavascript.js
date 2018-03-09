@@ -14,6 +14,12 @@
         var intercom_app_id = getIntercomid();
         var intercom_state;
         // var pushcoms = firebase.messaging();
+        // var pushcoms_endpoint = "https://fcm.googleapis.com/v1/projects/tipotapp-test/messages";
+        // pushcoms.usePublicVapidKey("BJoIEgTh_6MAln0XGiurMzpNp4QebuQ4fOSE0OyiZXvcb3CkzwT8bggdK9IjARRISis7P8z_pIjpVx7kj4COxBM");
+        // pushcoms.onMessage(function(payload) {
+        //     console.log("Message received. ", payload);
+        //     // ...
+        // });
 
 
         // function TipoS3Browser_OnClick(tipoData,selectedTipo,tipo_name,query_params,event){
@@ -418,7 +424,6 @@
                 }, 5000);
             }
             // if (tipoHandle.application_meta.TipoConfiguration.integration_map.pushcoms) {
-            //     pushcoms.usePublicVapidKey("BJoIEgTh_6MAln0XGiurMzpNp4QebuQ4fOSE0OyiZXvcb3CkzwT8bggdK9IjARRISis7P8z_pIjpVx7kj4COxBM");
             //     pushcoms.requestPermission()
             //         .then(function() {
             //             savePushComRefreshToken();
@@ -433,24 +438,24 @@
         }
 
 
-        // function savePushComRefreshToken(refresh) {
-        //     pushcoms.getToken()
-        //         .then(function(currentToken) {
-        //             if (currentToken && (refresh || !tipoHandle.user_meta.web_notifications_token || (tipoHandle.user_meta.web_notifications_token && !_.includes(tipoHandle.user_meta.web_notifications_token,currentToken)))) {
-        //                 if (!tipoHandle.user_meta.web_notifications_token) {
-        //                     tipoHandle.user_meta.web_notifications_token = []
-        //                 }
-        //                 tipoHandle.user_meta.web_notifications_token.push(currentToken);
-        //                 tipoHandle.saveTipo("TipoUser", "default", tipoHandle.user_meta);
-        //             } else {
-        //                 // Show permission request.
-        //                 // console.log('No Instance ID token available. Request permission to generate one.');
-        //             }
-        //         })
-        //         .catch(function(err) {
-        //             console.log('An error occurred while retrieving token. ', err);
-        //         });
-        // }
+        function savePushComRefreshToken(refresh) {
+            pushcoms.getToken()
+                .then(function(currentToken) {
+                    if (currentToken && (refresh || !tipoHandle.user_meta.web_notifications_token || (tipoHandle.user_meta.web_notifications_token && !_.includes(tipoHandle.user_meta.web_notifications_token, currentToken)))) {
+                        if (!tipoHandle.user_meta.web_notifications_token) {
+                            tipoHandle.user_meta.web_notifications_token = []
+                        }
+                        tipoHandle.user_meta.web_notifications_token.push(currentToken);
+                        tipoHandle.saveTipo("TipoUser", "default", tipoHandle.user_meta);
+                    } else {
+                        // Show permission request.
+                        // console.log('No Instance ID token available. Request permission to generate one.');
+                    }
+                })
+                .catch(function(err) {
+                    console.log('An error occurred while retrieving token. ', err);
+                });
+        }
 
         function tipoapp_PasswordChange() {}
 

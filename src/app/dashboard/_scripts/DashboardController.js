@@ -29,6 +29,7 @@
             body: 'Your email address is confirmed successfully.'
           });
         }, function (err) {
+          tipoRouter.to("verifyEmail");
           showToast({
             header: 'Email confirmation',
             body: 'The confirmation code is expired. Please request a new code.'

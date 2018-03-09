@@ -338,6 +338,20 @@
             }
         };
 
+        _instance.resendCode = function(){
+            cognitoService.resendCode().then(function(){
+                _instance.toast = {
+                        header: 'Email Verification Code Sent',
+                        body: ''
+                    };
+            },function(err){
+                _instance.toast = {
+                        header: 'Failed to send the message',
+                        body: err.message
+                    };
+            })
+        }
+
         _instance.gotoSampleApps = function(){
             tipoRouter.toTipoList('TipoApp',{filter: "sampleapp",perspective: "Home"});
         }
