@@ -438,24 +438,24 @@
         }
 
 
-        function savePushComRefreshToken(refresh) {
-            pushcoms.getToken()
-                .then(function(currentToken) {
-                    if (currentToken && (refresh || !tipoHandle.user_meta.web_notifications_token || (tipoHandle.user_meta.web_notifications_token && !_.includes(tipoHandle.user_meta.web_notifications_token, currentToken)))) {
-                        if (!tipoHandle.user_meta.web_notifications_token) {
-                            tipoHandle.user_meta.web_notifications_token = []
-                        }
-                        tipoHandle.user_meta.web_notifications_token.push(currentToken);
-                        tipoHandle.saveTipo("TipoUser", "default", tipoHandle.user_meta);
-                    } else {
-                        // Show permission request.
-                        // console.log('No Instance ID token available. Request permission to generate one.');
-                    }
-                })
-                .catch(function(err) {
-                    console.log('An error occurred while retrieving token. ', err);
-                });
-        }
+        // function savePushComRefreshToken(refresh) {
+        //     pushcoms.getToken()
+        //         .then(function(currentToken) {
+        //             if (currentToken && (refresh || !tipoHandle.user_meta.web_notifications_token || (tipoHandle.user_meta.web_notifications_token && !_.includes(tipoHandle.user_meta.web_notifications_token, currentToken)))) {
+        //                 if (!tipoHandle.user_meta.web_notifications_token) {
+        //                     tipoHandle.user_meta.web_notifications_token = []
+        //                 }
+        //                 tipoHandle.user_meta.web_notifications_token.push(currentToken);
+        //                 tipoHandle.saveTipo("TipoUser", "default", tipoHandle.user_meta);
+        //             } else {
+        //                 // Show permission request.
+        //                 // console.log('No Instance ID token available. Request permission to generate one.');
+        //             }
+        //         })
+        //         .catch(function(err) {
+        //             console.log('An error occurred while retrieving token. ', err);
+        //         });
+        // }
 
         function tipoapp_PasswordChange() {}
 
