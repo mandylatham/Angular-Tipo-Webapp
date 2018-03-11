@@ -116,6 +116,7 @@
         $q,
         $filter,
         $stateParams,
+        $window,
         ngIntroService,
         $http) {
 
