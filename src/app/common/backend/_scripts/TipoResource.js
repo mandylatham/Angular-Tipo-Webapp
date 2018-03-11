@@ -270,18 +270,18 @@
         var location = $window.location;
         var relativeUrl = location.pathname;
         if (_.startsWith(relativeUrl, '/app')) {
-            relativeUrl = '/api/d/tipotapp/studentmanagementapp' + relativeUrl.substring(4);
+            // relativeUrl = '/api/d/tipotapp/studentmanagementapp' + relativeUrl.substring(4);
             // relativeUrl = '/api/d/tipotapp/abcde' + relativeUrl.substring(4);
             // relativeUrl = '/api/d/deltagene/billionbases' + relativeUrl.substring(4);
-            // relativeUrl = '/api' + relativeUrl.substring(4);
+            relativeUrl = '/api' + relativeUrl.substring(4);
             // relativeUrl = '/api/d/hr/hrbuddy' + relativeUrl.substring(4);
             // relativeUrl = '/api/d/hr/dialadish' + relativeUrl.substring(4);
         } else {
             // relativeUrl = '/api/d/tipotapp/abcde';
-            relativeUrl = '/api/d/tipotapp/studentmanagementapp';
+            // relativeUrl = '/api/d/tipotapp/studentmanagementapp';
             // relativeUrl = '/api/d/deltagene/billionbases';
             // relativeUrl = '/api/d/hr/dialadish';
-            // relativeUrl = '/api';
+            relativeUrl = '/api';
             // relativeUrl = '/api/d/hr/hrbuddy';
         }
         var baseUrl = location.origin + relativeUrl;
