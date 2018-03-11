@@ -89,8 +89,12 @@
                         var editor = monaco.editor.create(element[0], {
                             theme: 'tipoTheme',
                             language: 'tipoScript',
-                            minimap: { enabled: false }
+                            minimap: { enabled: false },
+                            wordWrap: "on"
                         });
+                        editor.addCommand(monaco.KeyCode.Enter, function(accessor) {
+                            editor.trigger('bla', 'type', { text: '\nMyGreatDynamicTextHere' });
+                        }, '!suggestWidgetVisible && !renameInputVisible && !inSnippetMode && !quickFixWidgetVisible')
                         editor.onDidFocusEditor(function() {
                             monaco.scope = scope;
                         });
@@ -228,7 +232,7 @@
                 var newValue = monacoeditor.getValue();
                 console.log("onDidChangeModelContent " + newValue)
                 if (S(newValue).contains("/n")) {
-                    newValue = newValue.replace("/n","");
+                    newValue = newValue.replace("/n", "");
                 };
                 if (newValue !== ngModel.$viewValue) {
                     scope.$evalAsync(function() {
