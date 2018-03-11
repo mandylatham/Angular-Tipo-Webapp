@@ -259,8 +259,15 @@ html {
         word-wrap: break-word;
     }
     .bottompage {
-        position: fixed;
-        bottom: 0px;
+        @media (min-width: 600px) {
+            bottom: 0px;
+        }
+        @media (max-width: 599px) {
+            position: fixed !important;
+            bottom: 55px;
+            width: 100%;
+            top: inherit !important;
+        }
     }
     .md-subheader {
         .md-subheader-inner {
@@ -406,7 +413,7 @@ html {
             }
         }
         .actions {
-            width: 50px;
+            width: 200px;
             &.horizontal {
                 width: auto;
             }
@@ -658,8 +665,26 @@ html {
     }
 }
 
+#inf-wrapper {
+    @media (max-width: 599px) {
+        padding-bottom: 110px;
+    }
+}
+
+.readmode {
+    .intl-tel-input {
+        .selected-flag {
+            .iti-arrow {
+                display: none;
+            }
+        }
+        input {
+            background-image: none;
+        }
+    }
+}
+
 .intl-tel-input {
-    height: 32px;
     .md-input {
         color: black !important;
     }
@@ -882,6 +907,11 @@ only screen and (min-resolution: 2dppx) {
 
 
 
+
+
+
+
+
 /* Styling for the ngProgress-container */
 
 #ngProgress-container {
@@ -1081,9 +1111,9 @@ md-list-item .md-list-item-inner::before {
 
 .action-bar-xs {
     position: fixed;
-    bottom: 0;
-    left:0;
-    right:0;
+    bottom: 0px;
+    left: 0;
+    right: 0;
     width: 100%;
     transform: none;
     z-index: 20;
@@ -1128,11 +1158,13 @@ md-list-item .md-list-item-inner::before {
         bottom: -12px;
     }
 }
+
 .icon-tabs.md-stretch-tabs md-tab-item {
     font-size: 16px;
     line-height: 28px;
     padding: 0;
 }
+
 .category-select {
     height: 200px;
     p {
@@ -1141,7 +1173,9 @@ md-list-item .md-list-item-inner::before {
         line-height: 1.4;
     }
 }
-.category-select:hover, .category-selected {
+
+.category-select:hover,
+.category-selected {
     border: 2px solid #25a6b4;
     cursor: pointer;
 }

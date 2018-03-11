@@ -382,7 +382,6 @@
       _instance.selectedPlan = plan;
       if (!_instance.tipo.credit_card && !_instance.cardElement) {
         showCreditCard();
-        return;
       }else{
         var subscription = mapSubscrtoPlan();
         saveSubscription(subscription);
@@ -436,17 +435,18 @@
 
     function createToken(result){
       tipoHandle.callAction($scope.tipoRootController.tipo_name,'attach_card',[_instance.tipo.tipo_id],$scope.tipoRootController.tipo_name,{token_source: result.token.id, credit_card: result.token.card.last4}).then(function(response){
-        console.log(response);
         _instance.tipo.credit_card = result.token.card.last4;
         _instance.last4 = result.token.card.last4;
         _instance.card_token = result.token.id;
         if (_instance.selectedPlan) {
           var subscription = mapSubscrtoPlan();
+          subscription.updated_by = response.updated_by;
+          subscription.updated_date = response.updated_date;
+          subscription.updated_dt = response.updated_dt;
         }else{
           var subscription = mapCardinfo();
         }
-
-        // saveSubscription(subscription);
+        saveSubscription(subscription);
       });
     }
     function mapSubscrtoPlan(){
@@ -458,7 +458,7 @@
       subscription.card_token = _instance.card_token || _instance.tipo.card_token;
       subscription.plan_interval = _instance.selectedPlan.plan_period.plan_interval;
       subscription.plan_period_ = _instance.selectedPlan.plan_period.plan_period;
-      subscription.total_cost = _instance.total_cost
+      subscription.total_cost = _instance.total_cost;
       delete subscription.plan_period;
       _instance.selectedPlan.stripe_subscription_plans = _.sortBy(_instance.selectedPlan.stripe_subscription_plans, [function(o) { return o.plan_id; }]);
       subscription.plan_items = _.sortBy(subscription.plan_items, [function(o) { return o.item_id; }]);

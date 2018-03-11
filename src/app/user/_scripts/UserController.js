@@ -107,6 +107,10 @@
 
         function raiseError(err) {
             console.error(err);
+            if (err.type === "Verify Email") {
+                tipoRouter.to('verifyEmail');
+                return;
+            };
             if ($stateParams.retry) {
                 $stateParams.retry.reject();
             }
@@ -180,7 +184,7 @@
                 var criteria = { bare_event: 'Y', post_event: 'Y' };
                 var user_attributes = { full_name: user.full_name, phone: user.phone_number };
                 var org_attributes = { organization: user.companyName, first_name: user.full_name, phone: user.phone_number };
-                cognitoService.authenticate(user.fullName(), user.password).then(function() {
+                cognitoService.authenticate(user.fullName(), user.password, "signup").then(function() {
                     cognitoService.resendCode().then(function() {
                         tipoCache.clearMemoryCache();
                         $scope.tipoAccountPromise = tipoInstanceDataService.upsertAll('TipoAccount', [{ account: account, application: appMetadata.application, tipo_id: account, account_name: user.accountName, application_owner_account: appMetadata.application_owner_account, company_name: user.companyName, org_attributes: org_attributes, user_attributes: user_attributes }], criteria).then(function(res) {},
@@ -280,6 +284,11 @@
             });
         };
 
+        _instance.onVerifyEmail = function(){
+            markProgress();
+            tipoRouter.to('dashboard',undefined,{code: user.verificationcode});
+        }
+
         _instance.resetPassword = function() {
             markProgress();
             user.email = $stateParams.email;
@@ -329,6 +338,20 @@
             }
         };
 
+        _instance.resendCode = function(){
+            cognitoService.resendCode().then(function(){
+                _instance.toast = {
+                        header: 'Email Verification Code Sent',
+                        body: ''
+                    };
+            },function(err){
+                _instance.toast = {
+                        header: 'Failed to send the message',
+                        body: err.message
+                    };
+            })
+        }
+
         _instance.gotoSampleApps = function(){
             tipoRouter.toTipoList('TipoApp',{filter: "sampleapp",perspective: "Home"});
         }
@@ -349,7 +372,7 @@
         _instance.submitSurvey = function() {
             var data = {category: _instance.category, price_range: _instance.priceRange};
             tipoHandle.saveTipo("TipoSurveyResponse", "TipoDefinition",  data).then(function(){
-                _instance.gotoSampleApps();
+                tipoRouter.to("verifyEmail");
             })
         }
 

@@ -10,6 +10,7 @@
     <title state-title="Build Apps Made Easy" pattern="%s | TipoTapp"></title>
     <meta name="description" content="Tipo User Interface">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="manifest" href="/manifest.json">
     <!-- build:js(app) /_scripts/bootstrap.js -->
     <script src="/_scripts/bootstrap.js"></script>
     <!-- endbuild -->
@@ -19,10 +20,11 @@
     <link href="g/public/common/styles/pace.css" rel="stylesheet" />
     <!-- build:css(app) /_styles/main.css -->
     <link rel="stylesheet" type="text/css" media="screen" href="/_styles/main.css">
-    <link rel="stylesheet" type="text/css" media="screen" href="/_scripts/non-bower-managed/video-resize.css"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="/_scripts/non-bower-managed/video-resize.css">
+    </script>
     <!-- endbuild -->
     <link rel="shortcut icon" href="g/public/assets/images/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/_assets/fonts/font-awesome-4.7.0/css/font-awesome.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <meta name='google-signin-client_id' content='${googleClientId}' />
@@ -32,12 +34,35 @@
     <link rel="stylesheet" type="text/css" media="screen" href="g/public/common/styles/font.css?tipo_version_stamp=1.1.1">
     <link rel="stylesheet" type="text/css" media="screen" href="g/public/common/styles/custom.css?tipo_version_stamp=1.1.1">
     <!-- testid = zitpr920 prodid= a4gpt05a -->
-    <script>(function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',intercomSettings);}else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Intercom=i;function l(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})()</script>
-    
+    <script>
+    (function() { var w = window; var ic = w.Intercom; if (typeof ic === "function") { ic('reattach_activator');
+            ic('update', intercomSettings); } else { var d = document; var i = function() { i.c(arguments) };
+            i.q = [];
+            i.c = function(args) { i.q.push(args) };
+            w.Intercom = i;
 
+            function l() { var s = d.createElement('script');
+                s.type = 'text/javascript';
+                s.async = true;
+                s.src = 'https://widget.intercom.io/widget/'; var x = d.getElementsByTagName('script')[0];
+                x.parentNode.insertBefore(s, x); } if (w.attachEvent) { w.attachEvent('onload', l); } else { w.addEventListener('load', l, false); } } })()
+    </script>
+    <!--
+    <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
+    <script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyCaVndsfSlJuaYPZIjkqJtSbHQViljvWMI",
+        authDomain: "tipotapp-test.firebaseapp.com",
+        databaseURL: "https://tipotapp-test.firebaseio.com",
+        projectId: "tipotapp-test",
+        storageBucket: "tipotapp-test.appspot.com",
+        messagingSenderId: "302267705319"
+    };
+    firebase.initializeApp(config);
+    </script> -->
     <!--- Replace Widgets Head Tag -->
-  </head>
-
+</head>
 
 <body id="body">
     <div id="background-container" ui-view></div>
@@ -151,7 +176,6 @@
     <script src="g/public/common/scripts/CustomDev.js"></script>
     <script src="g/public/common/scripts/GoogleAnalytics.js" async defer></script>
     <script src="https://js.stripe.com/v3/" async defer></script>
-    
     <!--- Replace Widgets Body Tag -->
 </body>
 <!-- endbuild -->

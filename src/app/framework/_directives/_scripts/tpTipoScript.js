@@ -34,7 +34,7 @@
                             defcontext = _.get(scope.root, defcontext);
                             if (defcontext) {
                                 scope.defaultObj = _.startsWith(defcontext.field_type, "Tipo.") ? defcontext.field_type.split(".")[1] : undefined;
-                            }else{
+                            } else {
                                 scope.defaultObj = undefined;
                             }
                             var triggerCharacters = [".", "$", " "];
@@ -88,8 +88,13 @@
                         };
                         var editor = monaco.editor.create(element[0], {
                             theme: 'tipoTheme',
-                            language: 'tipoScript'
+                            language: 'tipoScript',
+                            minimap: { enabled: false },
+                            wordWrap: "on"
                         });
+                        editor.addCommand(monaco.KeyCode.Enter, function(accessor) {
+                            editor.trigger('bla', 'type', { text: '' });
+                        }, '!suggestWidgetVisible && !renameInputVisible && !inSnippetMode && !quickFixWidgetVisible')
                         editor.onDidFocusEditor(function() {
                             monaco.scope = scope;
                         });
@@ -129,7 +134,7 @@
                                     return tipoManipulationService.getItemsfromTipodefintion(field_names, fq_field_name, scope, keyword);
                                     break;
                                 }
-                            case "tipoHandle":
+                            case "tipo_handle":
                                 {
                                     items = [];
                                     return tipoManipulationService.getItemsFromObject(field_names, fq_field_name, tipoHandle, scope, keyword);
@@ -163,7 +168,7 @@
                         kind: monaco.languages.CompletionItemKind.Keyword
                     },
                     {
-                        label: 'tipoHandle',
+                        label: 'tipo_handle',
                         kind: monaco.languages.CompletionItemKind.Keyword
                     },
                     {
@@ -182,7 +187,7 @@
         function getItemsFromDefObject(beforestring, scope) {
             if (scope.defaultObj) {
                 var contextScope = { root: scope.tipoDefinitions[scope.defaultObj], tipoDefinitions: scope.tipoDefinitions };
-            }else{
+            } else {
                 var contextScope = scope;
             }
             var lastspace = beforestring.lastIndexOf(" ");
@@ -226,6 +231,9 @@
             monacoeditor.onDidChangeModelContent(function(e) {
                 var newValue = monacoeditor.getValue();
                 console.log("onDidChangeModelContent " + newValue)
+                if (S(newValue).contains("/n")) {
+                    newValue = newValue.replace("/n", "");
+                };
                 if (newValue !== ngModel.$viewValue) {
                     scope.$evalAsync(function() {
                         ngModel.$setViewValue(newValue)

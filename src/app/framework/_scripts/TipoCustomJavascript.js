@@ -13,6 +13,14 @@
         }
         var intercom_app_id = getIntercomid();
         var intercom_state;
+        // var pushcoms = firebase.messaging();
+        // var pushcoms_endpoint = "https://fcm.googleapis.com/v1/projects/tipotapp-test/messages";
+        // pushcoms.usePublicVapidKey("BJoIEgTh_6MAln0XGiurMzpNp4QebuQ4fOSE0OyiZXvcb3CkzwT8bggdK9IjARRISis7P8z_pIjpVx7kj4COxBM");
+        // pushcoms.onMessage(function(payload) {
+        //     console.log("Message received. ", payload);
+        //     // ...
+        // });
+
 
         // function TipoS3Browser_OnClick(tipoData,selectedTipo,tipo_name,query_params,event){
         function TipoS3Browser_OnClick(data_handle) {
@@ -115,6 +123,48 @@
             };
         }
         this.TipoDefinition_OnView = TipoDefinition_OnView;
+
+        // function TipoDefinition_tipo_fields_sort_by_field_BeforeLookup(data_handle) {
+        //     var fields;
+        //     if (_.startsWith(data_handle.context.field_type, "FieldGroup.") || _.startsWith(data_handle.context.field_type, "Tipo.")) {
+        //         var group_name = data_handle.context.field_type.split(".")[1];
+        //     }
+        //     if (group_name) {
+        //         if (_.startsWith(data_handle.context.field_type, "FieldGroup.")) {
+        //             _.each(data_handle.root.tipo_field_groups, function(group) {
+        //                 if (group.tipo_group_name === group_name) {
+        //                     fields = group.tipo_fields;
+        //                 };
+        //             })
+        //             var tipos = _.map(fields, function(each) {
+        //                 if (each.field_name) {
+        //                     return {
+        //                         tipo_id: each.field_name,
+        //                         text: each.field_name
+        //                     }
+        //                 };
+        //             });
+        //             data_handle.infiniteItems = tipoManipulationService.getVirtualRepeatObject(tipos.length, data_handle.tipo_name, tipoHandle.getTipos, data_handle.searchCriteria, tipos, tipos.length);
+        //         } else {
+        //             data_handle.infiniteItems = tipoManipulationService.getVirtualRepeatObject(1, group_name, tipoHandle.getTipoDefinition, data_handle.searchCriteria);
+        //             data_handle.infiniteItems.serverResultHandler = function(page) {
+        //                 this.tipos = _.map(this.tipos[0].tipo_fields, function(each) {
+        //                     if (each.field_name) {
+        //                         return {
+        //                             tipo_id: each.field_name,
+        //                             text: each.field_name
+        //                         }
+        //                     };
+        //                 });
+        //                 this.numLoaded_ = this.tipos.length;
+        //                 this.maxpages = 1;
+        //             }
+        //         }
+
+        //         return "set_infiniteItems";
+        //     };
+        // }
+        // this.TipoDefinition_tipo_fields_sort_by_field_BeforeLookup = TipoDefinition_tipo_fields_sort_by_field_BeforeLookup;
 
         //___TipoApp___
         function TipoApp_OnView(data_handle) {
@@ -263,7 +313,7 @@
 
         //___App level events__
         function tipoapp_Signup(status, user) {
-            if(status === 'success') {
+            if (status === 'success') {
                 window.intercomSettings = {
                     app_id: intercom_app_id,
                     email: user.email,
@@ -345,8 +395,8 @@
         function tipoapp_AppInit() {
             if (intercom_state !== "boot" && (getCurrentApp() === 'tipoapp')) {
                 var currentUser = tipoHandle.user_meta;
-                if(currentUser && currentUser.user_attributes) {
-                    tipoHandle.getTipo(currentUser.user_attributes.user_tipo, currentUser.user_attributes.user_tipo_id).then(function(response){
+                if (currentUser && currentUser.user_attributes) {
+                    tipoHandle.getTipo(currentUser.user_attributes.user_tipo, currentUser.user_attributes.user_tipo_id).then(function(response) {
                         window.Intercom("boot", {
                             app_id: intercom_app_id,
                             email: response.email,
@@ -373,7 +423,39 @@
                     window.Intercom('update');
                 }, 5000);
             }
+            // if (tipoHandle.application_meta.TipoConfiguration.integration_map.pushcoms) {
+            //     pushcoms.requestPermission()
+            //         .then(function() {
+            //             savePushComRefreshToken();
+            //         })
+            //         .catch(function(err) {
+            //             console.log('Unable to get permission to notify.', err);
+            //         });
+            //     pushcoms.onTokenRefresh(function() {
+            //         savePushComRefreshToken(true);
+            //     })
+            // };
         }
+
+
+        // function savePushComRefreshToken(refresh) {
+        //     pushcoms.getToken()
+        //         .then(function(currentToken) {
+        //             if (currentToken && (refresh || !tipoHandle.user_meta.web_notifications_token || (tipoHandle.user_meta.web_notifications_token && !_.includes(tipoHandle.user_meta.web_notifications_token, currentToken)))) {
+        //                 if (!tipoHandle.user_meta.web_notifications_token) {
+        //                     tipoHandle.user_meta.web_notifications_token = []
+        //                 }
+        //                 tipoHandle.user_meta.web_notifications_token.push(currentToken);
+        //                 tipoHandle.saveTipo("TipoUser", "default", tipoHandle.user_meta);
+        //             } else {
+        //                 // Show permission request.
+        //                 // console.log('No Instance ID token available. Request permission to generate one.');
+        //             }
+        //         })
+        //         .catch(function(err) {
+        //             console.log('An error occurred while retrieving token. ', err);
+        //         });
+        // }
 
         function tipoapp_PasswordChange() {}
 
