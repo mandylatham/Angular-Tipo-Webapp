@@ -93,7 +93,7 @@
                             wordWrap: "on"
                         });
                         editor.addCommand(monaco.KeyCode.Enter, function(accessor) {
-                            editor.trigger('bla', 'type', { text: '\nMyGreatDynamicTextHere' });
+                            editor.trigger('bla', 'type', { text: '' });
                         }, '!suggestWidgetVisible && !renameInputVisible && !inSnippetMode && !quickFixWidgetVisible')
                         editor.onDidFocusEditor(function() {
                             monaco.scope = scope;

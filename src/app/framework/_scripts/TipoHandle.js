@@ -398,7 +398,7 @@
         function sendPushNotification(title, text, to, is_important, tipo_name, tipo_id, perspective, mode) {
             var headers = {
                 "Content-Type": "application/json",
-                "Authorization": "key=$tipo_context.integration_map.integration_pushcoms.serverApiKey"
+                "Authorization": "key=$tipo_context.integration_map.pushcoms.serverApiKey"
             }
             var body = {
                 notification: {
