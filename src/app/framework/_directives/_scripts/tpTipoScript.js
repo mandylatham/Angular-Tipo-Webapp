@@ -34,7 +34,7 @@
                             defcontext = _.get(scope.root, defcontext);
                             if (defcontext) {
                                 scope.defaultObj = _.startsWith(defcontext.field_type, "Tipo.") ? defcontext.field_type.split(".")[1] : undefined;
-                            }else{
+                            } else {
                                 scope.defaultObj = undefined;
                             }
                             var triggerCharacters = [".", "$", " "];
@@ -88,7 +88,8 @@
                         };
                         var editor = monaco.editor.create(element[0], {
                             theme: 'tipoTheme',
-                            language: 'tipoScript'
+                            language: 'tipoScript',
+                            minimap: { enabled: false }
                         });
                         editor.onDidFocusEditor(function() {
                             monaco.scope = scope;
@@ -182,7 +183,7 @@
         function getItemsFromDefObject(beforestring, scope) {
             if (scope.defaultObj) {
                 var contextScope = { root: scope.tipoDefinitions[scope.defaultObj], tipoDefinitions: scope.tipoDefinitions };
-            }else{
+            } else {
                 var contextScope = scope;
             }
             var lastspace = beforestring.lastIndexOf(" ");
@@ -226,6 +227,9 @@
             monacoeditor.onDidChangeModelContent(function(e) {
                 var newValue = monacoeditor.getValue();
                 console.log("onDidChangeModelContent " + newValue)
+                if (S(newValue).contains("/n")) {
+                    newValue = newValue.replace("/n","");
+                };
                 if (newValue !== ngModel.$viewValue) {
                     scope.$evalAsync(function() {
                         ngModel.$setViewValue(newValue)
