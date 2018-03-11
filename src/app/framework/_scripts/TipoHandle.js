@@ -422,7 +422,7 @@
                 console.log("Error: ", error);
             }
             if (S(to).contains("@")) {
-                getTipo("TipoUser", email_id).then(function(userData) {
+                getTipo("TipoUser", to).then(function(userData) {
                     var device_tokens = []
                     if (userData.ios_notification_tokens) {
                         device_tokens = userData.ios_notification_tokens;
