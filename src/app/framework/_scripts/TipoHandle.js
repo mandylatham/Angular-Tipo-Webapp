@@ -367,17 +367,77 @@
             }
         }
 
-        function sendHttpRequest(method,url,headers,data,successCallback,errorCallback){
+        function sendHttpRequest(method, url, headers, data, successCallback, errorCallback) {
             $http({
                 method: method,
                 url: url,
                 headers: headers,
                 data: data
-            }).then(function(response){
+            }).then(function(response) {
                 successCallback(response);
-            },function(error){
+            }, function(error) {
                 errorCallback(error);
             })
+        }
+
+        function sendProxyHttp(method, url, headers, data, successCallback, errorCallback) {
+            var tipo_data = {
+                url: url,
+                headers: headers,
+                method: method,
+                body: btoa(JSON.stringify(data))
+            }
+            saveTipo("TipoSpecial.TipoHttp", "default", tipo_data).then(function(response) {
+                successCallback(response)
+            }, function(error) {
+                errorCallback(error);
+            });
+        }
+
+        function sendPushNotification(title, text, to, is_important, tipo_name, tipo_id, perspective, mode) {
+            var headers = {
+                "Content-Type": "application/json",
+                "Authorization": "key: $tipo_context.integration_map.pushcoms.serverApiKey"
+            }
+            var body = {
+                notification: {
+                    title: title,
+                    text: text
+                },
+                data: {
+                    tipo_name: tipo_name,
+                    tipo_id: tipo_id,
+                    perspective: perspective,
+                    mode: mode
+                }
+            };
+            body.data.url = $window.location.origin;
+
+            function successCallback(response) {
+                console.log("Success: ", response);
+            }
+
+            function errorCallback(error) {
+                console.log("Error: ", error);
+            }
+            if (S(to).contains("@")) {
+                getTipo("TipoUser", email_id).then(function(userData) {
+                    var device_tokens = []
+                    if (userData.ios_notification_tokens) {
+                        device_tokens = userData.ios_notification_tokens;
+                    };
+                    if (userData.android_notification_tokens) {
+                        device_tokens = _.union(device_tokens, userData.android_notification_tokens);
+                    };
+                    _.each(device_tokens, function(device_token) {
+                        body.to = device_token;
+                        sendProxyHttp("POST", "https://fcm.googleapis.com/fcm/send", headers, body, successCallback, errorCallback);
+                    })
+                });
+            } else {
+                body.topic = to;
+                sendProxyHttp("POST", "https://fcm.googleapis.com/fcm/send", headers, body, successCallback, errorCallback);
+            }
         }
 
 
@@ -413,8 +473,8 @@
         this.setMeta = setMeta;
         this.trackEvent = trackEvent;
         this.sendHttpRequest = sendHttpRequest;
-
-
+        this.sendPushNotification = sendPushNotification;
+        this.sendProxyHttp = sendProxyHttp;
 
     }
 

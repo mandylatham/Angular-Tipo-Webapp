@@ -24,7 +24,7 @@
           // scope.bindvalue = eval(scope.jsFunction);
           function initValue(){
             if (scope.fieldtype === "date") {
-              scope.bindvalue = $filter('date')(scope.expression,'yyyy-MM-ddTHH:mm:ss') + 'Z';
+              scope.bindvalue = $filter('date')(scope.expression,'yyyy-MM-ddTHH:mm:ss.sss') + 'Z';
             }else{
               scope.bindvalue = scope.expression;
             }
