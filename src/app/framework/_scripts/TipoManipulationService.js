@@ -224,7 +224,7 @@
                             var responseData = tipoRegistry.get(tipo_name + '_resdata');
                             if (responseData) {
                                 this.last_evaluated_key = responseData.last_evaluated_key;
-                            }else{
+                            } else {
                                 responseData = {};
                             }
                             if (this.last_evaluated_key || this.eval_key) {
@@ -608,7 +608,7 @@
             var menuItems = _.map(definition.tipo_menu, function(each) {
                 var menuItem = {};
                 var type = each.type_ || each.navigate_to;
-                if (!_.startsWith(type, 'http') && !_.startsWith(type, 'Client') && !_.startsWith(type, 'Tipo.') && !S(type).contains(".")) {
+                if (type && !_.startsWith(type, 'http') && !_.startsWith(type, 'Client') && !_.startsWith(type, 'Tipo.') && !S(type).contains(".")) {
                     type = 'Tipo.' + type;
                 }
                 menuItem.label = each.label;
@@ -621,7 +621,7 @@
                     } else {
                         menuItem.navigate_to = each.navigate_to;
                     }
-                } else {
+                } else if (type){
                     var parts = type.split('.');
                     var isTipo = parts[0] === 'Tipo';
                     menuItem.type = parts[0];
