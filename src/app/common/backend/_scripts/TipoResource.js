@@ -347,8 +347,6 @@
                         } else {
                             if (config.headers['X-bypass-cdn'] === "true" || config.method === "PURGE") {
                                 delete config.params.version_stamp;
-                            }else{
-                                config.headers['Cache-Control'] = "must-revalidate";
                             }
                             config.url = "https://" + $rootScope.cdn_host + config.url;
                         }
