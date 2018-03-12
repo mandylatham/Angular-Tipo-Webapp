@@ -443,7 +443,7 @@
             if (_.isArray(to)) {
                 var condition = "";
                 _.each(to,function(each_topic,index){
-                    condition = condition + "'" + this.application_meta.TipoApp.application_owner_account + "." + this.application_meta.TipoApp.application + "." + this.user_meta.account + "." + each_topic + "' in topics"
+                    condition = condition + "'" + this.application_meta.TipoApp.application_owner_account + "." + this.application_meta.TipoApp.application + "." + encodeURIComponent(this.user_meta.account) + "." + each_topic + "' in topics"
                     if (index < to.length - 1 ) {
                         condition = condition + " || ";
                     };
@@ -452,7 +452,7 @@
             }else if (S(to).contains(" ")) {
                 body.condition = to;
             }else if (S(to).contains("@")) {
-                body.to = this.application_meta.TipoApp.application_owner_account + "." + this.application_meta.TipoApp.application + "." + this.user_meta.account + "." + to;
+                body.to = this.application_meta.TipoApp.application_owner_account + "." + this.application_meta.TipoApp.application + "." + this.user_meta.account + "." + encodeURIComponent(to);
             }else{
                 body.to = this.application_meta.TipoApp.application_owner_account + "." + this.application_meta.TipoApp.application + "." + to;
             }

@@ -139,7 +139,7 @@
                                     headers: { "Content-Type": "text/plain" }
                                 }).then(function() {
                                     setTimeout(function() {
-                                        $http.get(value, config).then(function(tpl) {
+                                        $http.get(value + attach_version_stamp, config).then(function(tpl) {
                                             $templateCache.put(value, tpl.data);
                                             $templateCache.put(value + attach_version_stamp, tpl.data);
                                             if (S(value).contains("custom.css")) {
@@ -347,7 +347,9 @@
                         } else {
                             if (config.headers['X-bypass-cdn'] === "true" || config.method === "PURGE") {
                                 delete config.params.version_stamp;
-                            };
+                            }else{
+                                config.headers['Cache-Control'] = "must-revalidate";
+                            }
                             config.url = "https://" + $rootScope.cdn_host + config.url;
                         }
 
