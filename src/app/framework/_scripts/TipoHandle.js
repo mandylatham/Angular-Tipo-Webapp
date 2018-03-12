@@ -413,7 +413,10 @@
                     is_important: is_important
                 }
             };
-            body.data.url = $window.location.origin;
+            body.data.url = $window.location.origin + $window.location.pathname;
+            if (_.endsWith(body.data.url,"/")) {
+                body.data.url = body.data.url.slice(0, -1);
+            };
 
             function successCallback(response) {
                 console.log("Success: ", response);
