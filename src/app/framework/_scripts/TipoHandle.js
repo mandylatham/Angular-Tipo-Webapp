@@ -409,7 +409,8 @@
                     tipo_name: tipo_name,
                     tipo_id: tipo_id,
                     perspective: perspective,
-                    mode: mode
+                    mode: mode,
+                    is_important: is_important
                 }
             };
             body.data.url = $window.location.origin;
