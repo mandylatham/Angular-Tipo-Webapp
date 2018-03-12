@@ -451,7 +451,7 @@
                 body.condition = condition;
             }else if (S(to).contains(" ")) {
                 body.condition = to;
-            }else if (S(to).contains("@")) {};{
+            }else if (S(to).contains("@")) {
                 body.to = this.application_meta.TipoApp.application_owner_account + "." + this.application_meta.TipoApp.application + "." + this.user_meta.account + "." + to;
             }else{
                 body.to = this.application_meta.TipoApp.application_owner_account + "." + this.application_meta.TipoApp.application + "." + to;
