@@ -101,20 +101,28 @@
 											<div style="color:gray">Included {{sub_plan.plane_name}}(s)</div>	
 									</div>	
 								</div>
-								<div layout="column" class="text-center margin10" layout-align="center center" >
-									<div class="font20" md-colors="{color: 'accent-500'}"><b>{{plan.tipo_id === 'RisePlan' ? 3 : 2}}</b></div>
+								<div layout="column" class="text-center margin10" layout-align="center center" ng-repeat="sub_plan in plan.tipo_restrictions" ng-if="sub_plan.tipo === 'TipoApp'">
+									<div class="font20" md-colors="{color: 'accent-500'}"><b>{{sub_plan.max_allowed}}</b></div>
 									<div style="color:gray">Included Applications</div>
+								</div>
+								<div layout="column" class="text-center margin10" layout-align="center center" >
+									<div class="font20" md-colors="{color: 'accent-500'}"><b>{{plan.plan_restrictions.total_records_allowed}}</b></div>
+									<div style="color:gray">Included Records</div>
 								</div>
 								<md-divider></md-divider>
 								<div layout="column" class="text-center margin10" layout-align="center center" >
 									<div class="planText" style="color:gray" ng-bind-html="plan.additional_text"></div>
 								</div>
-								<md-divider></md-divider>
-								<div class="md-subhead">
+								<md-divider ng-if="plan.tipo_id !== 'Free'"></md-divider>
+								<div ng-if="plan.tipo_id !== 'Free'" class="md-subhead">
 									<div layout="column" class="text-center margin10" layout-align="center center" ng-repeat="sub_plan in plan.stripe_subscription_plans | orderBy:'item_sort_number' " > 
 											<div class="font20" md-colors="{color: 'accent-500'}"><b>${{sub_plan.plan_amount}}</b></div>
 											<div style="color:gray">Additional {{sub_plan.plane_name}}</div>
 									</div>
+									<div layout="column" class="text-center margin10" layout-align="center center" >
+									<div class="font20" md-colors="{color: 'accent-500'}"><b>${{plan.plan_restrictions.charge_amount_pass_threshold}}/{{plan.plan_restrictions.per_records}}</b></div>
+									<div style="color:gray">Additional Records</div>
+								</div>
 								</div>
 						</div>
 						</form>
