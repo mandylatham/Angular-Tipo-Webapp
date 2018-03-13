@@ -43,7 +43,7 @@
             request: {
                 cache: function(element, operation, route, url, headers, params, httpConfig) {
                     if (S(url).contains('TipoDefinition')) {
-                        httpConfig.cache = tipoCache.getPersistent();
+                        httpConfig.cache = tipoCache.getMemory();
                     } else {
                         if (S(url).contains("TipoUser/default") || S(url).contains("tipo_app_info")) {
                             headers = _.extend(headers, {
@@ -154,7 +154,8 @@
                             } else {
                                 var config = {
                                     headers: {
-                                        'Pragma': 'no-cache',
+                                        'X-bypass-cdn': 'true',
+                                        'Cache-Control': 'no-cache'
                                     }
                                 };
                                 setTimeout(function() {
@@ -167,7 +168,9 @@
                                 var script = document.createElement('script');
                                 script.type = 'text/javascript';
                                 script.src = value;
-                                head.appendChild(script);
+                                setTimeout(function() {
+                                    head.appendChild(script);
+                                },2000);
                             }
                             if (value.indexOf("themes.js") !== -1) {
                                 var head = document.getElementsByTagName('head')[0];

@@ -165,6 +165,7 @@
                     'Cache-Control': 'no-cache'
                 }
             };
+            tipoCache.evict(template_url);
             return $http({
                 method: "PURGE",
                 url: template_url,

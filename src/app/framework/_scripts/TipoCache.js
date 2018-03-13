@@ -15,6 +15,7 @@
             deleteOnExpire: 'aggressive',
             storageMode: 'localStorage'
         });
+        $http.defaults.cache = memoryCache;
     }
 
     function TipoCache(CacheFactory) {
@@ -28,12 +29,12 @@
         _instance.getPersistent = function() {
             return CacheFactory.get('persistentCache');
         };
-        
+
         _instance.evict = function(tipo, id) {
             id = id || 'not_set';
             var cache;
             if (tipo === 'TipoDefinition') {
-                cache = _instance.getPersistent();
+                cache = _instance.getMemory();
             } else {
                 cache = _instance.getMemory();
             }

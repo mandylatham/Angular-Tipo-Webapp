@@ -452,9 +452,9 @@
             }else if (S(to).contains(" ")) {
                 body.condition = to;
             }else if (S(to).contains("@")) {
-                body.to = this.application_meta.TipoApp.application_owner_account + "." + this.application_meta.TipoApp.application + "." + this.user_meta.account + "." + encodeURIComponent(to);
+                body.to = "/topics/" + this.application_meta.TipoApp.application_owner_account + "." + this.application_meta.TipoApp.application + "." + this.user_meta.account + "." + encodeURIComponent(to);
             }else{
-                body.to = this.application_meta.TipoApp.application_owner_account + "." + this.application_meta.TipoApp.application + "." + to;
+                body.to = "/topics/" + this.application_meta.TipoApp.application_owner_account + "." + this.application_meta.TipoApp.application + "." + to;
             }
             sendProxyHttp("POST", "https://fcm.googleapis.com/fcm/send", headers, body, successCallback, errorCallback);
         }
