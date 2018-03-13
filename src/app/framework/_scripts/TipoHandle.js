@@ -84,7 +84,7 @@
         }
 
         _instance.save = function(form) {
-            if (!form.$valid) {
+            if (form && !form.$valid) {
                 return false;
             }
             var tipoData = _instance.tipo;
