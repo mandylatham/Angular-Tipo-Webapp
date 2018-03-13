@@ -286,7 +286,7 @@
 
         _instance.onVerifyEmail = function(){
             markProgress();
-            tipoRouter.to('dashboard',undefined,{code: user.verificationcode});
+            tipoRouter.to('dashboard',undefined,{code: user.verificationcode,perspective: "Home", filter: "sampleapp"});
         }
 
         _instance.resetPassword = function() {
