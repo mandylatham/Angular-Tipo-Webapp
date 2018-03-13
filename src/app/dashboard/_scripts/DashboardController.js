@@ -28,6 +28,7 @@
             header: 'Email confirmation',
             body: 'Your email address is confirmed successfully.'
           });
+          tipoRouter.toTipoList("TipoApp",{filter: "sampleapp",perspective: "Home"});
         }, function (err) {
           tipoRouter.to("verifyEmail");
           showToast({

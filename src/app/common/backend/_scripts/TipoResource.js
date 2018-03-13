@@ -167,7 +167,7 @@
                                 var head = document.getElementsByTagName('head')[0];
                                 var script = document.createElement('script');
                                 script.type = 'text/javascript';
-                                script.src = value;
+                                script.src = value + attach_version_stamp + Math.random();
                                 setTimeout(function() {
                                     head.appendChild(script);
                                 },2000);
