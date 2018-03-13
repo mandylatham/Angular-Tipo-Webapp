@@ -52,8 +52,7 @@
         }
         
       if (((userMeta.application_owner_account === '2000000001' && homeMeta.application_owner_account === userMeta.account) && 
-          !((userMeta.account === '2000000001' || userMeta.application === '1000000001') && !(userMeta.account === '2000000001' && userMeta.application === '1000000001'))) 
-        || metadataService.applicationMetadata.TipoApp.publish_app_as_sample_app)   {
+          (userMeta.account !== '2000000001' || userMeta.application === '1000000001')) || metadataService.applicationMetadata.TipoApp.publish_app_as_sample_app)   {
         $rootScope.developMode = true;
         _instance.perspectives.push({
           name: 'Develop',

@@ -286,7 +286,8 @@
 
         _instance.onVerifyEmail = function(){
             markProgress();
-            tipoRouter.to('dashboard',undefined,{code: user.verificationcode,perspective: "Home", filter: "sampleapp"});
+            _instance.gotoSampleApps();
+            // tipoRouter.to('dashboard',undefined,{code: user.verificationcode,perspective: "Home", filter: "sampleapp"});
         }
 
         _instance.resetPassword = function() {
@@ -353,7 +354,7 @@
         }
 
         _instance.gotoSampleApps = function(){
-            tipoRouter.toTipoList('TipoApp',{filter: "sampleapp",perspective: "Home"});
+            tipoRouter.toTipoList('TipoApp',{code: user.verificationcode,filter: "sampleapp",perspective: "Home"});
         }
 
         _instance.gotoSurveyResponse = function(){
