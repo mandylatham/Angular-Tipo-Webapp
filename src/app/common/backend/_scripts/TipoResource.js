@@ -164,7 +164,7 @@
                             }
 
                             if (value.indexOf("CustomScript.js") !== -1) {
-                                var head = document.getElementsByTagName('head')[0];
+                                var head = document.getElementsByTagName('body')[0];
                                 var script = document.createElement('script');
                                 script.type = 'text/javascript';
                                 script.src = value + attach_version_stamp + Math.random();
