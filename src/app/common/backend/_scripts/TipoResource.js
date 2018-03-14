@@ -154,24 +154,27 @@
                             } else {
                                 var config = {
                                     headers: {
-                                        'X-bypass-cdn': 'true',
-                                        'Cache-Control': 'no-cache'
+                                        'X-bypass-cdn': 'true'
                                     }
                                 };
                                 setTimeout(function() {
-                                    $http.get(value, config);
+                                    if (value.indexOf("CustomScript.js") !== -1) {
+                                        $http.get(value + "?tipo_version_stamp=" + $rootScope.version_stamp, config);
+                                    }else{
+                                        $http.get(value , config);
+                                    }
                                 }, 2000);
                             }
 
-                            if (value.indexOf("CustomScript.js") !== -1) {
-                                var head = document.getElementsByTagName('body')[0];
-                                var script = document.createElement('script');
-                                script.type = 'text/javascript';
-                                script.src = value + attach_version_stamp + Math.random();
-                                setTimeout(function() {
-                                    head.appendChild(script);
-                                },2000);
-                            }
+                            // if (value.indexOf("CustomScript.js") !== -1) {
+                            //     var head = document.getElementsByTagName('body')[0];
+                            //     var script = document.createElement('script');
+                            //     script.type = 'text/javascript';
+                            //     script.src = value + attach_version_stamp;
+                            //     setTimeout(function() {
+                            //         head.appendChild(script);
+                            //     },2000);
+                            // }
                             if (value.indexOf("themes.js") !== -1) {
                                 var head = document.getElementsByTagName('head')[0];
                                 var script = document.createElement('script');

@@ -141,6 +141,7 @@
         tipoCache,
         $rootScope,
         $state,
+        $window,
         $sce) {
 
         tipoManipulationService.initGA();
@@ -155,6 +156,7 @@
         _instance.hide_actions = $scope.hide_actions;
         var tipo_name = $scope.tipo_name || $stateParams.tipo_name;
         _instance.tipo = tipo;
+        _instance.old_tipo = angular.copy(tipo);
         _instance.initTiposData = function(ui_type, mode) {
             $scope.showLoader = true;
             var type = ui_type;
@@ -234,6 +236,13 @@
                         //   $templateCache.remove(_instance.tipoDefinition._ui.listTemplateUrl.replace(/___TipoDefinition/g,"___" + tipo_id));
                         //   $templateCache.remove(_instance.tipoDefinition._ui.createTemplateUrl.replace(/___TipoDefinition/g,"___" + tipo_id));
                         // }
+                        if (tipo_name === "TipoDefinition") {
+                            if (handleJSChanges(clone_tipo, _instance.old_tipo)) {
+                                setTimeout(function() {
+                                    $window.location.reload(true);
+                                }, 5000)
+                            };
+                        };
                         var registryName = tipo_name + '_resdata';
                         var resData = tipoRegistry.get(registryName);
                         tipoRegistry.pushData(tipo_name, result.tipo_id, result);
@@ -986,6 +995,53 @@
             }, function() {
                 tipoRouter.endStateChange();
             });
+        }
+
+        function handleJSChanges(new_tipo, old_tipo) {
+            if (!_.isEqual(new_tipo.tipo_event_js, old_tipo.tipo_event_js)) {
+                return true;
+            };
+            var list_changes = handleActionJSChanges(new_tipo.tipo_list, old_tipo.tipo_list);
+            var detail_changes = handleActionJSChanges(new_tipo.tipo_detail, old_tipo.tipo_detail);
+            if (!list_changes && !detail_changes) {
+                return false;
+            }
+            return true;
+        }
+
+        function handleActionJSChanges(new_tipo, old_tipo) {
+            var change = false;
+            if ((new_tipo || old_tipo) && !(new_tipo && old_tipo)) {
+                if (new_tipo && new_tipo.actions) {
+                    change = checkJsExists(new_tipo);
+                };
+                if (old_tipo && old_tipo.actions) {
+                    change = checkJsExists(old_tipo);
+                };
+                if (change) {
+                    return change;
+                };
+            };
+            if (new_tipo && new_tipo.actions) {
+                _.each(new_tipo.actions, function(value, index) {
+                    if (!_.isEqual(value.javascript_code, _.get(old_tipo, "actions[" + index + "].javascript_code"))) {
+                        change = true;
+                    };
+                });
+            }else if (old_tipo && old_tipo.actions){
+                change = checkJsExists(old_tipo);
+            }
+            return change;
+        }
+
+        function checkJsExists(tipo) {
+            var exists = false;
+            _.each(tipo.actions, function(value) {
+                if (value.javascript_code) {
+                    exists = true;
+                };
+            });
+            return exists;
         }
 
         function resetbulkedits() {
