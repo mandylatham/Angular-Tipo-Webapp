@@ -187,7 +187,7 @@
                 cognitoService.authenticate(user.fullName(), user.password, "signup").then(function() {
                     cognitoService.resendCode().then(function() {
                         tipoCache.clearMemoryCache();
-                        $scope.tipoAccountPromise = tipoInstanceDataService.upsertAll('TipoAccount', [{ account: account, application: appMetadata.application, tipo_id: account, account_name: user.accountName, application_owner_account: appMetadata.application_owner_account, company_name: user.companyName, org_attributes: org_attributes, user_attributes: user_attributes }], criteria).then(function(res) {},
+                        $scope.tipoAccountPromise = tipoInstanceDataService.upsertAll('TipoAccount', [{ account: account, application: appMetadata.application, tipo_id: account, account_name: user.accountName, application_owner_account: appMetadata.application_owner_account, company_name: user.companyName, org_attributes: org_attributes, user_attributes: user_attributes }], criteria).then(function(res) { _instance.userAccount = res[0]},
                             function(err) {
                                 raiseError(err);
                             });
@@ -374,7 +374,7 @@
         }
 
         _instance.submitSurvey = function() {
-            var data = {category: _instance.category, company_size: _instance.company_size};
+            var data = {category: _instance.category, company_size: _instance.company_size, user: _instance.userAccount.tipo_id, user_labels: _instance.userAccount.account_name };
             tipoHandle.createTipo("TipoSurveyResponse", data).then(function(){
                 tipoRouter.to("verifyEmail");
             })
