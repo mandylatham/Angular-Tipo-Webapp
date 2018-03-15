@@ -183,6 +183,7 @@
                         } else {
                             filter.tipo_filter = tipoManipulationService.expandFilterExpression(sub_filter, tipo);
                         }
+                        filter.tipo_filter = tipoManipulationService.addEscElascticReservedKeys(filter.tipo_filter);
                     }
                     return tipoInstanceDataService.search($stateParams.related_tipo, filter);
                 },
