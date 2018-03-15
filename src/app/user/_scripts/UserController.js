@@ -374,7 +374,7 @@
         }
 
         _instance.submitSurvey = function() {
-            var data = {category: _instance.category, company_size: _instance.company_size, user: _instance.userAccount.tipo_id, user_labels: _instance.userAccount.account_name };
+            var data = {category: _instance.category, company_size: _instance.company_size, user: _instance.userAccount.email };
             tipoHandle.createTipo("TipoSurveyResponse", data).then(function(){
                 tipoRouter.to("verifyEmail");
             })
