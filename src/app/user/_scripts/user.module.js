@@ -84,7 +84,7 @@
       }
     };
 
-    var forgotPasswordState = {
+    var verifyEmailState = {
       name: 'verifyEmail',
       url: '/verify-email',
       parent: baseState,
@@ -135,6 +135,7 @@
       .state(loginState)
       .state(registrationState)
       .state(surveyResponseState)
+      .state(verifyEmailState)
       .state(forgotPasswordState)
       .state(resetPasswordState)
       .state(newPasswordRequiredState);
