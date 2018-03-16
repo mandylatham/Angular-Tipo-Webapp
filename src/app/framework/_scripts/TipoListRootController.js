@@ -24,6 +24,7 @@
     tipoManipulationService.initGA();
     tipoHandle.setPerspective();
     _instance.tipo_handle = tipoHandle;
+    $scope.showLoader = true;
     var tipo_name = $stateParams.tipo_name;
     _instance.tipo_name = $stateParams.tipo_name;
     $scope.data_handle = {};
@@ -66,7 +67,6 @@
       };
     };
     _instance.initTiposData = function(tipoFilters,page_size,allow_search){
-      $scope.showLoader = true;
       var filter = {};
       _instance.hasTipos = true;
       tipoCache.evict($stateParams.tipo_name);

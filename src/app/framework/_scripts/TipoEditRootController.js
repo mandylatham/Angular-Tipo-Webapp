@@ -157,8 +157,8 @@
         var tipo_name = $scope.tipo_name || $stateParams.tipo_name;
         _instance.tipo = tipo;
         _instance.old_tipo = angular.copy(tipo);
+        $scope.showLoader = true;
         _instance.initTiposData = function(ui_type, mode) {
-            $scope.showLoader = true;
             var type = ui_type;
             _instance.mode = mode;
             if (type === 'perspective') {

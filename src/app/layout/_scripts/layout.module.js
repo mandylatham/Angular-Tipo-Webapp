@@ -83,7 +83,7 @@
 
                 function loadAsyncData() {
                     var filter = {};
-                    filter.tipo_filter = "(tipo_meta.pre_load: true)";
+                    filter.tipo_filter = "(tipo_meta.pre_load: true) AND ((_exists_:role AND role: " + tipoHandle.user_meta.role + ") OR (!_exists_:role)) ";
                     var templates = ["updateUrl", "createUrl", "detailUrl", "listUrl"];
                     // var config = {headers:  {
                     //                   'Pragma': 'no-cache',
