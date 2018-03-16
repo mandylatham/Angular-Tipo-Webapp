@@ -146,6 +146,7 @@
 
         tipoManipulationService.initGA();
         $scope.$mdMedia = $mdMedia;
+        $scope.showLoader = true;
         var _instance = this;
         var function_name = tipoHandle.application_meta.TipoApp.application_name + "_URLChange";
         if (typeof tipoCustomJavascript[function_name] === 'function') {
@@ -158,7 +159,6 @@
         _instance.tipo = tipo;
         _instance.old_tipo = angular.copy(tipo);
         _instance.initTiposData = function(ui_type, mode) {
-            $scope.showLoader = true;
             var type = ui_type;
             _instance.mode = mode;
             if (type === 'perspective') {
