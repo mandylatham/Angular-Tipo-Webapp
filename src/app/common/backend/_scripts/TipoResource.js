@@ -43,7 +43,7 @@
             request: {
                 cache: function(element, operation, route, url, headers, params, httpConfig) {
                     if (S(url).contains('TipoDefinition')) {
-                        httpConfig.cache = tipoCache.getPersistent();
+                        httpConfig.cache = tipoCache.getMemory();
                     } else {
                         if (S(url).contains("TipoUser/default") || S(url).contains("tipo_app_info")) {
                             headers = _.extend(headers, {
@@ -139,7 +139,7 @@
                                     headers: { "Content-Type": "text/plain" }
                                 }).then(function() {
                                     setTimeout(function() {
-                                        $http.get(value, config).then(function(tpl) {
+                                        $http.get(value + attach_version_stamp, config).then(function(tpl) {
                                             $templateCache.put(value, tpl.data);
                                             $templateCache.put(value + attach_version_stamp, tpl.data);
                                             if (S(value).contains("custom.css")) {
@@ -154,21 +154,27 @@
                             } else {
                                 var config = {
                                     headers: {
-                                        'Pragma': 'no-cache',
+                                        'X-bypass-cdn': 'true'
                                     }
                                 };
                                 setTimeout(function() {
-                                    $http.get(value, config);
+                                    if (value.indexOf("CustomScript.js") !== -1) {
+                                        $http.get(value + "?tipo_version_stamp=" + $rootScope.version_stamp, config);
+                                    }else{
+                                        $http.get(value , config);
+                                    }
                                 }, 2000);
                             }
 
-                            if (value.indexOf("CustomScript.js") !== -1) {
-                                var head = document.getElementsByTagName('head')[0];
-                                var script = document.createElement('script');
-                                script.type = 'text/javascript';
-                                script.src = value;
-                                head.appendChild(script);
-                            }
+                            // if (value.indexOf("CustomScript.js") !== -1) {
+                            //     var head = document.getElementsByTagName('body')[0];
+                            //     var script = document.createElement('script');
+                            //     script.type = 'text/javascript';
+                            //     script.src = value + attach_version_stamp;
+                            //     setTimeout(function() {
+                            //         head.appendChild(script);
+                            //     },2000);
+                            // }
                             if (value.indexOf("themes.js") !== -1) {
                                 var head = document.getElementsByTagName('head')[0];
                                 var script = document.createElement('script');
@@ -347,7 +353,9 @@
                         } else {
                             if (config.headers['X-bypass-cdn'] === "true" || config.method === "PURGE") {
                                 delete config.params.version_stamp;
-                            };
+                            }else{
+                                // config.headers['Cache-Control'] = "no-cache";
+                            }
                             config.url = "https://" + $rootScope.cdn_host + config.url;
                         }
 

@@ -37,7 +37,7 @@
         <md-card class="tp-detail page">
             <md-tabs ng-class="{'md-stretch-tabs': $mdMedia('md'), 'md-stretch-tabs': $mdMedia('lg')}" md-dynamic-height md-border-bottom md-swipe-content>
                 <div class="p-8">
-                    <md-tab label="Basic">
+                    <md-tab label="Basic"> 
                         <md-content class="md-padding">
                             <section class="fieldset no-header fluid-row-container">
                                 <div class="data" layout-padding layout="row" layout-wrap layout-align="start start">
@@ -47,7 +47,7 @@
                                                 <h3 flex ng-init="tipoRootController.initCollapsed('appearance_settings', '')">
                 <a href="" ng-click="appearance_settings.collapsed = !appearance_settings.collapsed" class="plain" md-colors="{color: 'primary-700'}">
                   <i class="fa" ng-class="{'fa-caret-down': !appearance_settings.collapsed , 'fa-caret-right': appearance_settings.collapsed}"></i>
-                   Appearance Settings
+                   Appearance Settings 
                 </a>
               </h3>
                                                 <div class="actions horizontal" layout="row" layout-align="center center">
@@ -243,7 +243,7 @@
                 </dl>
                 </md-content>
                 </md-tab>
-                <md-tab ng-if="tipoRootController.tipo_handle.user_meta.role !== 'goplanrole'">
+                <md-tab ng-if="tipoRootController.tipo_handle.user_meta.role === 'TipoUser'">
                     <md-tab-label>
                         Custom Developer JavaScript
                     </md-tab-label>
@@ -296,7 +296,7 @@
                         </md-content>
                     </md-tab-body>
                 </md-tab>
-                <md-tab ng-if="tipoRootController.tipo_handle.user_meta.role !== 'goplanrole'">
+                <md-tab ng-if="tipoRootController.tipo_handle.user_meta.role === 'TipoUser'">
                     <md-tab-label>
                         Templates
                     </md-tab-label>
@@ -451,7 +451,7 @@
                         </md-content>
                     </md-tab-body>
                 </md-tab>
-                <md-tab ng-if="tipoRootController.tipo_handle.user_meta.role !== 'goplanrole'">
+                <md-tab ng-if="tipoRootController.tipo_handle.user_meta.role === 'TipoUser'">
                     <md-tab-label>
                         Email Templates
                     </md-tab-label>

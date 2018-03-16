@@ -84,7 +84,7 @@
         }
 
         _instance.save = function(form) {
-            if (!form.$valid) {
+            if (form && !form.$valid) {
                 return false;
             }
             var tipoData = _instance.tipo;
@@ -409,10 +409,14 @@
                     tipo_name: tipo_name,
                     tipo_id: tipo_id,
                     perspective: perspective,
-                    mode: mode
+                    mode: mode,
+                    is_important: is_important
                 }
             };
-            body.data.url = $window.location.origin;
+            body.data.url = $window.location.origin + $window.location.pathname;
+            if (_.endsWith(body.data.url, "/")) {
+                body.data.url = body.data.url.slice(0, -1);
+            };
 
             function successCallback(response) {
                 console.log("Success: ", response);
@@ -421,24 +425,38 @@
             function errorCallback(error) {
                 console.log("Error: ", error);
             }
-            if (S(to).contains("@")) {
-                getTipo("TipoUser", to).then(function(userData) {
-                    var device_tokens = []
-                    if (userData.ios_notification_tokens) {
-                        device_tokens = userData.ios_notification_tokens;
+            // if (S(to).contains("@")) {
+            //     getTipo("TipoUser", to).then(function(userData) {
+            //         var device_tokens = []
+            //         if (userData.ios_notification_tokens) {
+            //             device_tokens = userData.ios_notification_tokens;
+            //         };
+            //         if (userData.android_notification_tokens) {
+            //             device_tokens = _.union(device_tokens, userData.android_notification_tokens);
+            //         };
+            //         _.each(device_tokens, function(device_token) {
+            //             body.to = device_token;
+            //             sendProxyHttp("POST", "https://fcm.googleapis.com/fcm/send", headers, body, successCallback, errorCallback);
+            //         })
+            //     });
+            // }
+            if (_.isArray(to)) {
+                var condition = "";
+                _.each(to,function(each_topic,index){
+                    condition = condition + "'" + this.application_meta.TipoApp.application_owner_account + "." + this.application_meta.TipoApp.application + "." + encodeURIComponent(this.user_meta.account) + "." + each_topic + "' in topics"
+                    if (index < to.length - 1 ) {
+                        condition = condition + " || ";
                     };
-                    if (userData.android_notification_tokens) {
-                        device_tokens = _.union(device_tokens, userData.android_notification_tokens);
-                    };
-                    _.each(device_tokens, function(device_token) {
-                        body.to = device_token;
-                        sendProxyHttp("POST", "https://fcm.googleapis.com/fcm/send", headers, body, successCallback, errorCallback);
-                    })
                 });
-            } else {
-                body.topic = to;
-                sendProxyHttp("POST", "https://fcm.googleapis.com/fcm/send", headers, body, successCallback, errorCallback);
+                body.condition = condition;
+            }else if (S(to).contains(" ")) {
+                body.condition = to;
+            }else if (S(to).contains("@")) {
+                body.to = "/topics/" + this.application_meta.TipoApp.application_owner_account + "." + this.application_meta.TipoApp.application + "." + this.user_meta.account + "." + encodeURIComponent(to);
+            }else{
+                body.to = "/topics/" + this.application_meta.TipoApp.application_owner_account + "." + this.application_meta.TipoApp.application + "." + to;
             }
+            sendProxyHttp("POST", "https://fcm.googleapis.com/fcm/send", headers, body, successCallback, errorCallback);
         }
 
 

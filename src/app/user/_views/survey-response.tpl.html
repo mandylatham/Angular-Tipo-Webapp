@@ -48,32 +48,43 @@
                                 </div>
                               </md-content>
                             </md-tab>
-                            <md-tab label="Price Range" ng-disabled="!controller.category">
+                            <md-tab label="Company Size" ng-disabled="!controller.category">
                               <md-content class="md-padding">
-                                <div class="md-display-1">How much do you want to spend?</div>
-                                <div class="md-subhead">With TipoTapp, you can start with free app and then slowly grow to paid plans to get advanced functionality for your app. Do you have time to build the app yourself or do you want us build it for you?</div>
+                                <div class="md-display-1">What is the size of your company?</div>
+                                <div class="md-subhead">With TipoTapp, you can start with free app and then slowly grow to paid plans to get advanced functionality for your app.</div>
                                 <div layout="row" layout-align="start center" layout-wrap>
-                                    <md-card class="category-select" style="height:320px" ng-class="{'category-selected': controller.priceRange === '< $5k'}" flex flex-sm="45"  flex-md="45" flex-xs="100" ng-click="controller.setPrice('< $5k')">
-                                        <div class="md-title text-center p-8"><b>< $5k</b></div>
-                                        <md-card-content><p>Based on your budget, you would probably get the best results if you used our industry leading DIY business app building platform. It’s easy to use, intuitive, and will let you assemble a business app faster and with less expense than any other platform around.</p></md-card-content>
+                                    <md-card class="category-select" ng-class="{'category-selected': controller.company_size === 'Small'}" flex flex-sm="45"  flex-md="45" flex-xs="100" ng-click="controller.setCompSize('Small')" style="height:auto" >
+                                        <div class="md-title text-center p-8"><b>Small</b></div>
+                                        <md-card-content class="text-center">
+                                            <h2>2 - 50</h2>
+                                            <div>Employees</div>
+                                        </md-card-content>
                                     </md-card>
-                                    <md-card class="category-select" style="height:320px" ng-class="{'category-selected': controller.priceRange === '$10 - $20k'}" flex flex-sm="45"  flex-md="45" flex-xs="100" ng-click="controller.setPrice('$10 - $20k')" >
-                                        <div class="md-title text-center p-8"><b>$10 - $20k</b></div>
-                                        <md-card-content><p>A budget in this range provides requirements analysis and field mapping and develop a rapid prototype in the first iteration and a second iteration with your business rules and a single integration with your backend systems.</p></md-card-content>
+                                    <md-card class="category-select" ng-class="{'category-selected': controller.company_size === 'Medium'}" flex flex-sm="45"  flex-md="45" flex-xs="100" ng-click="controller.setCompSize('Medium')" style="height:auto" >
+                                        <div class="md-title text-center p-8"><b>Medium</b></div>
+                                        <md-card-content class="text-center">
+                                            <h2>51 - 500</h2>
+                                            <div>Employees</div>
+                                        </md-card-content>
                                     </md-card>
-                                    <md-card class="category-select" style="height:320px" ng-class="{'category-selected': controller.priceRange === '$20k - $50k'}" flex flex-sm="45"  flex-md="45" flex-xs="100" ng-click="controller.setPrice('$20k - $50k')" >
-                                        <div class="md-title text-center p-8"><b>$20k - $50k</b></div>
-                                        <md-card-content><p>Budget in this rage provides complex business logic with UI customisations to change the default templates and provide targeted user experience and an app in both AppStore and PlayStore with your brand.</p></md-card-content>
+                                    <md-card class="category-select" ng-class="{'category-selected': controller.company_size === 'Large'}" flex flex-sm="45"  flex-md="45" flex-xs="100" ng-click="controller.setCompSize('Large')" style="height:auto" >
+                                        <div class="md-title text-center p-8"><b>Large</b></div>
+                                        <md-card-content class="text-center">
+                                            <h2>501 - 1000</h2>
+                                            <div>Employees</div>
+                                        </md-card-content>
                                     </md-card>
-                                    <md-card class="category-select" style="height:320px" ng-class="{'category-selected': controller.priceRange === '$50k - $200k'}" flex flex-sm="45"  flex-md="45" flex-xs="100" ng-click="controller.setPrice('$50k - $200k')" >
-                                        <div class="md-title text-center p-8"><b>$50k - $200k</b></div>
-                                        <md-card-content><p>Complex business applications with complex workflow requirements with many backend integrations.
-                                        </p></md-card-content>
+                                    <md-card class="category-select" ng-class="{'category-selected': controller.company_size === 'Enterprice'}" flex flex-sm="45"  flex-md="45" flex-xs="100" ng-click="controller.setCompSize('Enterprice')" style="height:auto" >
+                                        <div class="md-title text-center p-8"><b>Enterprice</b></div>
+                                        <md-card-content class="text-center">
+                                            <h2>1000+</h2>
+                                            <div>Employees</div>
+                                        </md-card-content>
                                     </md-card>
                                 </div>
                                 <div class="p-8">Thank you, lets proceed to sample apps. If you don't find a sample app that suits your need, let us know, we will be able to quickly build a demo app according to your needs.</div>
                                 <div class="text-center p-8">
-                                    <md-button md-theme="reverse" class="md-raised md-primary" ng-click="controller.submitSurvey()" ng-disabled="!controller.priceRange"><b>Continue</b></md-button>
+                                    <md-button md-theme="reverse" class="md-raised md-primary" ng-click="controller.submitSurvey()" ng-disabled="!controller.company_size"><b>Continue</b></md-button>
                                 </div>
                               </md-content>
                             </md-tab>

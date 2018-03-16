@@ -88,6 +88,7 @@
                 var oldTipoName = currentPerspective.split('.')[0];
                 if (tipoName === oldTipoName) {
                     skipMenuLoad = true;
+                    $scope.showLoader = false;
                 }
             }
 

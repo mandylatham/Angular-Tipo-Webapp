@@ -165,13 +165,14 @@
                     'Cache-Control': 'no-cache'
                 }
             };
+            tipoCache.evict(template_url);
             return $http({
                 method: "PURGE",
                 url: template_url,
                 headers: { "Content-Type": "text/plain" }
             }).then(function() {
                 setTimeout(function() {
-                    $http.get(template_url, config).then(function(tpl) {
+                    $http.get(template_url + attach_version_stamp, config).then(function(tpl) {
                         $templateCache.put(template_url, tpl.data);
                         $templateCache.put(template_url + attach_version_stamp, tpl.data);
                     });
