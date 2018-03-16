@@ -146,6 +146,7 @@
 
         tipoManipulationService.initGA();
         $scope.$mdMedia = $mdMedia;
+        $scope.showLoader = true;
         var _instance = this;
         var function_name = tipoHandle.application_meta.TipoApp.application_name + "_URLChange";
         if (typeof tipoCustomJavascript[function_name] === 'function') {

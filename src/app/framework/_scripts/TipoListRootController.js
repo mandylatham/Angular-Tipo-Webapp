@@ -28,6 +28,7 @@
     var tipo_name = $stateParams.tipo_name;
     _instance.tipo_name = $stateParams.tipo_name;
     $scope.data_handle = {};
+    $scope.showLoader = true;
     var function_name = tipoHandle.application_meta.TipoApp.application_name + "_URLChange";
     if (typeof tipoCustomJavascript[function_name] === 'function') {
         tipoCustomJavascript[function_name]();
