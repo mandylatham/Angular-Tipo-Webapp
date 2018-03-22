@@ -499,8 +499,6 @@
             if (!array) {
                 array = [];
             };
-            array.push(newObject);
-            _.set(_instance.tipo, field_name, array);
             var context = setContext(field_name);
             var fun_fname = field_name.replace(".", "_").replace(/\[\d\]/g, "");
             var function_name = $stateParams.tipo_name + '_' + fun_fname + '_OnArrayItemAdd'
@@ -508,16 +506,19 @@
                 $scope.data_handle.tipo = _instance.tipo;
                 $scope.data_handle.context = _instance.context;
                 $scope.data_handle.array = _instance.array;
-                $scope.data_handle.item = _instance.newObject;
-                tipoCustomJavascript[function_name](_$scope.data_handle);
+                $scope.data_handle.item = newObject;
+                tipoCustomJavascript[function_name]($scope.data_handle);
+                newObject = $scope.data_handle.item;
             }
             if (typeof tipoClientJavascript[function_name] === 'function') {
                 $scope.data_handle.tipo = _instance.tipo;
                 $scope.data_handle.context = _instance.context;
                 $scope.data_handle.array = _instance.array;
-                $scope.data_handle.item = _instance.newObject;
-                tipoClientJavascript[function_name](_$scope.data_handle);
+                tipoClientJavascript[function_name]($scope.data_handle);
+                newObject = $scope.data_handle.item;
             }
+            array.push(newObject);
+            _.set(_instance.tipo, field_name, array);
         }
 
         function scrollToNewItem(array, field_name) {
@@ -724,27 +725,60 @@
             });
         }
         _instance.lookupTipo = function(relatedTipo, labelfield, prefix, baseFilter, queryparams, key_field, label_field) {
+            // var newScope = $scope.$new();
+            // newScope.root = _instance.tipo;
+            // newScope.relatedTipo = relatedTipo;
+            // newScope.labelfield = labelfield;
+            // newScope.baseFilter = baseFilter;
+            // newScope.queryparams = queryparams;
+            // //Not passing key_field because tipo_id is key_field for Embed relation
+            // // newScope.key_field = key_field;
+            // newScope.label_field = label_field;
+            // newScope.tipo = _instance.tipo[prefix];
+            // newScope.fq_field_name = prefix;
+            // var promise = $mdDialog.show({
+            //     templateUrl: 'framework/_directives/_views/tp-lookup-dialog.tpl.html',
+            //     controller: 'TipoLookupDialogController',
+            //     scope: newScope,
+            //     skipHide: true,
+            //     clickOutsideToClose: true,
+            //     fullscreen: true
+            // });
+            // promise.then(function(tipo) {
+            //     _.set(_instance.tipo, prefix, tipo);
+            // });
+            var searchCriteria = {};
             var newScope = $scope.$new();
-            newScope.root = _instance.tipo;
-            newScope.relatedTipo = relatedTipo;
-            newScope.labelfield = labelfield;
-            newScope.baseFilter = baseFilter;
-            newScope.queryparams = queryparams;
-            //Not passing key_field because tipo_id is key_field for Embed relation
-            // newScope.key_field = key_field;
-            newScope.label_field = label_field;
-            newScope.tipo = _instance.tipo[prefix];
-            newScope.fq_field_name = prefix;
+            if (baseFilter) {
+                // filter = atob(baseFilter);
+                searchCriteria.tipo_filter = baseFilter;
+            };
+            searchCriteria.page = 1;
+            searchCriteria.per_page = 10;
+            newScope.isarray = false;
+            newScope.disablecreate = true;
+            newScope.tipo_name = relatedTipo;
+            newScope.perm = _instance.perm;
+            newScope.queryparams = searchCriteria;
+            newScope.label_field = label_field || 'tipo_id';
+            newScope.key_field = key_field || 'tipo_id';
+            newScope.infiniteItems = tipoManipulationService.getVirtualRepeatObject(searchCriteria.per_page, relatedTipo, tipoHandle.getTipos, searchCriteria);
             var promise = $mdDialog.show({
-                templateUrl: 'framework/_directives/_views/tp-lookup-dialog.tpl.html',
-                controller: 'TipoLookupDialogController',
+                templateUrl: 'framework/_directives/_views/tp-lookup-popup-select.tpl.html',
+                controller: 'TipoObjectDialogController',
+                controllerAs: 'tipoRootController',
                 scope: newScope,
+                resolve: /*@ngInject*/ {
+                    tipoDefinition: function(tipoDefinitionDataService) {
+                        return tipoDefinitionDataService.getOne(relatedTipo);
+                    }
+                },
                 skipHide: true,
                 clickOutsideToClose: true,
                 fullscreen: true
             });
             promise.then(function(tipo) {
-                _.set(_instance.tipo, prefix, tipo);
+                _.set(_instance.tipo, prefix, tipo[0]);
             });
         }
 
@@ -891,14 +925,14 @@
                 $scope.data_handle.context = _instance.context;
                 $scope.data_handle.array = _instance.array;
                 $scope.data_handle.item = _instance.item;
-                tipoCustomJavascript[function_name](_$scope.data_handle);
+                tipoCustomJavascript[function_name]($scope.data_handle);
             }
             if (typeof tipoClientJavascript[function_name] === 'function') {
                 $scope.data_handle.tipo = _instance.tipo;
                 $scope.data_handle.context = _instance.context;
                 $scope.data_handle.array = _instance.array;
                 $scope.data_handle.item = _instance.item;
-                tipoClientJavascript[function_name](_$scope.data_handle);
+                tipoClientJavascript[function_name]($scope.data_handle);
             }
         }
 
@@ -910,14 +944,14 @@
                 $scope.data_handle.context = _instance.context;
                 $scope.data_handle.array = _instance.array;
                 $scope.data_handle.item = _instance.item;
-                tipoCustomJavascript[function_name](_$scope.data_handle);
+                tipoCustomJavascript[function_name]($scope.data_handle);
             }
             if (typeof tipoClientJavascript[function_name] === 'function') {
                 $scope.data_handle.tipo = _instance.tipo;
                 $scope.data_handle.context = _instance.context;
                 $scope.data_handle.array = _instance.array;
                 $scope.data_handle.item = _instance.item;
-                tipoClientJavascript[function_name](_$scope.data_handle);
+                tipoClientJavascript[function_name]($scope.data_handle);
             }
         }
 
@@ -1029,7 +1063,7 @@
                         change = true;
                     };
                 });
-            }else if (old_tipo && old_tipo.actions){
+            } else if (old_tipo && old_tipo.actions) {
                 change = checkJsExists(old_tipo);
             }
             return change;
