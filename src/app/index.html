@@ -66,10 +66,12 @@
 
 <body id="body">
     <div id="background-container" ui-view></div>
-    <div id="loader"></div>
+    <div id="loader">
+        <md-progress-circular hide-gt-xs class="md-primary action-loading" md-diameter="30" style="margin: 0 auto"></md-progress-circular>
+    </div>
     <div ng-if="!appLoaded" class="text-center loader-area">
-        <img ng-src="_assets/images/default.gif">
-        <h1>We are building your App!</h1>
+        <md-progress-circular class="md-primary" md-diameter="90" style="margin: 0 auto"></md-progress-circular>
+        <h1>Loading App...!</h1>
     </div>
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
