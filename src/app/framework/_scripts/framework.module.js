@@ -13,7 +13,7 @@
     function registerStates(stateProvider) {
         var listState = {
             name: 'tipoList',
-            url: '/tipo/{tipo_name}?filter&message&tab_url',
+            url: '/tipo/{tipo_name}?filter&message&tab_url&action_name',
             parent: 'layout',
             data: {
                 pageTitle: "{{$stateParams.tipo_name}} - List",
@@ -86,7 +86,7 @@
 
         var viewState = {
             name: 'tipoView',
-            url: '/tipo/{tipo_name}/{tipo_id}?message&filter',
+            url: '/tipo/{tipo_name}/{tipo_id}?message&filter&action_name',
             parent: 'layout',
             params: {
                 perspective: {

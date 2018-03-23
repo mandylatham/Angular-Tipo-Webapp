@@ -180,6 +180,11 @@
             }
             $scope.showLoader = false;
             // var tipo_name = tipoDefinition.tipo_meta.tipo_name;
+            if ($stateParams.action_name) {
+                setTimeout(function() {
+                    angular.element("#" + $stateParams.action_name + "_action").triggerHandler('click');
+                },1000);
+            };
         }
         _instance.tipo_name = tipo_name;
         _instance.updateUrl = tipoHandle.updateUrl(tipo_name);
