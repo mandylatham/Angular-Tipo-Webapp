@@ -75,7 +75,7 @@
                 $rootScope.$mdMedia = $mdMedia;
                 $rootScope.showSubscribeNow = (userMetadata.stripe_subscription_id === null) ? true : false;
                 tipoHandle.setMeta();
-
+                $rootScope.appLoaded = true;
                 var function_name = tipoHandle.application_meta.TipoApp.application_name + "_AppInit";
                 if (typeof tipoCustomJavascript[function_name] === 'function') {
                     tipoCustomJavascript[function_name]();
@@ -83,7 +83,7 @@
 
                 function loadAsyncData() {
                     var filter = {};
-                    filter.tipo_filter = "(tipo_meta.pre_load: true)";
+                    filter.tipo_filter = "(tipo_meta.pre_load: true) AND ((_exists_:role AND role: " + tipoHandle.user_meta.role + ") OR (!_exists_:role)) ";
                     var templates = ["updateUrl", "createUrl", "detailUrl", "listUrl"];
                     // var config = {headers:  {
                     //                   'Pragma': 'no-cache',

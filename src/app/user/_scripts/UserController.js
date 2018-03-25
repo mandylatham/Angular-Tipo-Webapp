@@ -32,6 +32,7 @@
         $scope.expiryDate.setMonth($scope.date.getMonth() + 1);
         $scope.creditCard;
         $scope.cardToken;
+        $rootScope.appLoaded = true;
         var appMetadata = metadataService.applicationMetadata;
         var appMetadata = _.merge(_.get(appMetadata, "TipoApp"), _.get(appMetadata, "TipoConfiguration"));
         var function_name;

@@ -305,7 +305,11 @@
                 }
 
                 function callAction(tipo_name, action_name, selected_tipo_ids, selected_tipos, additional_tipo_name, additional_tipo) {
-                    var function_name = tipo_name + "_" + action_name;
+                    var fun_mode = "list";
+                    if (mode === 'view') {
+                        fun_mode = "detail";
+                    };
+                    var function_name = tipo_name + "_" + fun_mode + "_" + action_name;
                     if (typeof tipoCustomJavascript[function_name] === 'function') {
                         scope.data_handle.tipo_name = tipo_name;
                         scope.data_handle.action_name = action_name;

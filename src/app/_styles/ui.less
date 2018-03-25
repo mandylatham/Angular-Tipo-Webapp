@@ -42,6 +42,18 @@ html {
     left: 0;
     background-color: rgba(0, 0, 0, .005);
     z-index: 111;
+    @media (max-width: 599px) {
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+    .action-loading {
+        top: 50%;
+        display: block;
+    }
+    
+}
+
+.action-loading {
+    display: none;
 }
 
 .height30 {
@@ -453,7 +465,8 @@ html {
         }
 
         .fieldset {
-            padding: 8px;
+            padding-top: 8px;
+            padding-bottom: 8px;
             &.no-header {
                 padding: 0;
             }
@@ -700,8 +713,8 @@ html {
 }
 
 md-fab-speed-dial.md-fab-top-right {
-    top: 45px;
-    right: 0px;
+    top: 65px;
+    right: 5px;
 }
 
 .addtipo {
@@ -912,6 +925,7 @@ only screen and (min-resolution: 2dppx) {
 
 
 
+
 /* Styling for the ngProgress-container */
 
 #ngProgress-container {
@@ -1035,7 +1049,7 @@ md-list-item .md-list-item-inner::before {
 .loader-area {
     position: absolute;
     width: 100%;
-    top: 45%;
+    top: 40%;
 }
 
 .subscribe-now {
