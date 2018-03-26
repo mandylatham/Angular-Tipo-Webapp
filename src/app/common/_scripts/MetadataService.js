@@ -99,7 +99,9 @@
                     console.log(error);
                     return {};
                 });
-            };
+            }else{
+              return  _instance.userMetadata;
+            }
         };
 
         _instance.clearServerCache = function() {
