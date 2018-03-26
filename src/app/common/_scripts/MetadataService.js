@@ -88,7 +88,7 @@
         };
 
         _instance.loadUserMetadata = function() {
-            if (_instance.userMetadata) {
+            if (!_instance.userMetadata) {
                 var promise = tipoResource.one(PROFILE_RESOURCE).get(undefined, { 'Cache-Control': 'max-age:0' });
                 return promise.then(function(profile) {
                     _instance.userMetadata = profile;
