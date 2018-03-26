@@ -398,13 +398,14 @@
         function sendPushNotification(title, text, to, is_important, tipo_name, tipo_id, perspective, mode) {
             var headers = {
                 "Content-Type": "application/json",
-                "Authorization": "key=$tipo_context.integration_map.pushcoms.serverApiKey"
+                "Authorization": "Basic $tipo_context.integration_map.pushcoms.serverApiKey"
             }
             var body = {
-                notification: {
-                    title: title,
-                    text: text
-                },
+                app_id: "$tipo_context.integration_map.pushcoms.appId",
+                headings: { en: title },
+                contents: { en: text },
+                filters: [],
+                buttons: [],
                 data: {
                     tipo_name: tipo_name,
                     tipo_id: tipo_id,
@@ -425,36 +426,37 @@
             function errorCallback(error) {
                 console.log("Error: ", error);
             }
-            // if (S(to).contains("@")) {
-            //     getTipo("TipoUser", to).then(function(userData) {
-            //         var device_tokens = []
-            //         if (userData.ios_notification_tokens) {
-            //             device_tokens = userData.ios_notification_tokens;
-            //         };
-            //         if (userData.android_notification_tokens) {
-            //             device_tokens = _.union(device_tokens, userData.android_notification_tokens);
-            //         };
-            //         _.each(device_tokens, function(device_token) {
-            //             body.to = device_token;
-            //             sendProxyHttp("POST", "https://fcm.googleapis.com/fcm/send", headers, body, successCallback, errorCallback);
-            //         })
-            //     });
-            // }
             if (_.isArray(to)) {
-                var condition = "";
-                _.each(to,function(each_topic,index){
-                    condition = condition + "'" + this.application_meta.TipoApp.application_owner_account + "." + this.application_meta.TipoApp.application + "." + encodeURIComponent(this.user_meta.account) + "." + each_topic + "' in topics"
-                    if (index < to.length - 1 ) {
-                        condition = condition + " || ";
+                _.each(to, function(each_topic, index) {
+                    body.filters.push({
+                        field: "tag",
+                        key: this.application_meta.TipoApp.application_owner_account + "." + this.application_meta.TipoApp.application + "." + this.user_meta.account + ".tipo_id",
+                        relation: "=",
+                        value: encodeURIComponent(each_topic)
+                    })
+                    if (index < to.length - 1) {
+                        body.filters.push({
+                            operator: "OR"
+                        })
                     };
                 });
                 body.condition = condition;
-            }else if (S(to).contains(" ")) {
+            } else if (S(to).contains(" ")) {
                 body.condition = to;
-            }else if (S(to).contains("@")) {
-                body.to = "/topics/" + this.application_meta.TipoApp.application_owner_account + "." + this.application_meta.TipoApp.application + "." + this.user_meta.account + "." + encodeURIComponent(to);
-            }else{
-                body.to = "/topics/" + this.application_meta.TipoApp.application_owner_account + "." + this.application_meta.TipoApp.application + "." + to;
+            } else if (S(to).contains("@")) {
+                body.filters.push({
+                    field: "tag",
+                    key: this.application_meta.TipoApp.application_owner_account + "." + this.application_meta.TipoApp.application + "." + this.user_meta.account + ".tipo_id",
+                    relation: "=",
+                    value: encodeURIComponent(to)
+                });
+            } else {
+                body.filters.push({
+                    field: "tag",
+                    key: this.application_meta.TipoApp.application_owner_account + "." + this.application_meta.TipoApp.application + ".role",
+                    relation: "=",
+                    value: to
+                });
             }
             sendProxyHttp("POST", "https://fcm.googleapis.com/fcm/send", headers, body, successCallback, errorCallback);
         }
