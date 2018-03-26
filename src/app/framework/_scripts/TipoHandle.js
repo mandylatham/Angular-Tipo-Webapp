@@ -472,7 +472,7 @@
                     url: body.data.url,
                     mode: action.mode
                 }
-                _.set(body.data.actions,action.action_name,action_item);
+                _.set(body.data, "actions." + action.action_name,action_item);
             });
             sendProxyHttp("POST", "https://onesignal.com/api/v1/notifications", headers, body, successCallback, errorCallback);
         }
