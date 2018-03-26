@@ -395,7 +395,7 @@
             });
         }
 
-        function sendPushNotification(title, text, to, is_important, tipo_name, tipo_id, perspective, mode) {
+        function sendPushNotification(title, text, to, is_important, tipo_name, tipo_id, perspective, mode, actions) {
             var headers = {
                 "Content-Type": "application/json",
                 "Authorization": "Basic $tipo_context.integration_map.pushcoms.serverApiKey"
@@ -458,7 +458,23 @@
                     value: to
                 });
             }
-            sendProxyHttp("POST", "https://fcm.googleapis.com/fcm/send", headers, body, successCallback, errorCallback);
+            _.each(actions,function(action){
+                body.buttons.push({
+                    id: action.action_name,
+                    text: action.label,
+                    icon: action.icon
+                });
+                var action_item = {
+                    action_type: action.type,
+                    tipo_name: action.tipo_name,
+                    tipo_id: action.tipo_id,
+                    perspective: action.perspective,
+                    url: body.data.url,
+                    mode: action.mode
+                }
+                _.set(body.data.actions,action.action_name,action_item);
+            });
+            sendProxyHttp("POST", "https://onesignal.com/api/v1/notifications", headers, body, successCallback, errorCallback);
         }
 
 
