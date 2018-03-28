@@ -226,6 +226,7 @@
                     tipoRouter.to('newPasswordRequired', undefined, { deferredPassword: result.value });
                 } else {
                     securityContextService.clearContext();
+                    delete metadataService.userMetadata;
                     tipoCache.clearAll();
                     _instance.gotoPreviousView();
                 }
@@ -253,6 +254,7 @@
                     tipoRouter.to('newPasswordRequired', undefined, { deferredPassword: result.value });
                 } else {
                     securityContextService.clearContext();
+                    delete metadataService.userMetadata;
                     tipoCache.clearAll();
                     _instance.gotoPreviousView();
                 }

@@ -157,8 +157,6 @@
 
         _instance.purgeTemplate = function(template_url) {
             var attach_version_stamp = "?version_stamp=" + $rootScope.version_stamp;
-            $templateCache.remove(template_url + attach_version_stamp);
-            $templateCache.remove(template_url);
             var config = {
                 headers: {
                     'X-bypass-cdn': 'true',
@@ -173,6 +171,8 @@
             }).then(function() {
                 setTimeout(function() {
                     $http.get(template_url + attach_version_stamp, config).then(function(tpl) {
+                        $templateCache.remove(template_url + attach_version_stamp);
+                        $templateCache.remove(template_url);
                         $templateCache.put(template_url, tpl.data);
                         $templateCache.put(template_url + attach_version_stamp, tpl.data);
                     });
