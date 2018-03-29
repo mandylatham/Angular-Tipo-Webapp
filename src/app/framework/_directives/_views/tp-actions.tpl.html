@@ -45,7 +45,7 @@
           </md-button>
         </md-fab-trigger>
         <md-fab-actions>
-          <md-button md-theme="reverse" class="md-fab md-primary md-raised md-mini" ng-repeat="action in actions | filter:{highlight: '!true'}" ng-click="performAction(action)">
+          <md-button md-theme="reverse" class="md-fab md-primary md-raised md-mini" id="{{action.name}}_action" ng-repeat="action in actions | filter:{highlight: '!true'}" ng-click="performAction(action)">
             <md-icon ng-if="action.icon">{{action.icon}}</md-icon>
             <md-icon ng-if="!action.icon">arrow_back</md-icon>
             <md-tooltip md-direction="left" md-visible="tooltipDesk">{{action.label}}</md-tooltip>
@@ -69,7 +69,7 @@
           </md-button>
         </md-fab-trigger>
         <md-fab-actions>
-          <md-button md-theme="reverse" class="md-fab md-primary md-raised md-mini" ng-repeat="action in actions" ng-click="performAction(action)">
+          <md-button md-theme="reverse" class="md-fab md-primary md-raised md-mini" id="{{action.name}}_action" ng-repeat="action in actions" ng-click="performAction(action)">
             <md-icon ng-if="action.icon">{{action.icon}}</md-icon>
             <md-icon ng-if="!action.icon">more_vert</md-icon>
             <md-tooltip md-direction="right" md-visible="tooltip">{{action.label}}</md-tooltip>
