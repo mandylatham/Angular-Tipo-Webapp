@@ -28,7 +28,8 @@
     'infinite-scroll',
     'cl.paging',
     'angularSpectrumColorpicker',
-    'angular-intro'
+    'angular-intro',
+    'angular-echarts'
   ]);
 
   module.config(function ($mdThemingProvider, $mdToastProvider, $compileProvider) {
