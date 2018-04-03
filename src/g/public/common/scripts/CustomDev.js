@@ -397,7 +397,7 @@
       }
     }
 
-    function showCreditCard(){
+    function showCreditCard(state){
       var promise = $mdDialog.show({
         controller: function cardController($scope,$mdDialog) {
 
@@ -434,7 +434,7 @@
         fullscreen: true
       });
       promise.then(function(result){
-        createToken(result);
+        createToken(result, state);
       })
       // _instance.cardElement.mount('#card-element');
       // var container = angular.element(document.getElementById('inf-wrapper'));
@@ -442,7 +442,7 @@
       // container.scrollToElement(scrollTo,150,100);
     }
 
-    function createToken(result){
+    function createToken(result, state){
       tipoHandle.callAction($scope.tipoRootController.tipo_name,'attach_card',[_instance.tipo.tipo_id],$scope.tipoRootController.tipo_name,{token_source: result.token.id, credit_card: result.token.card.last4}).then(function(response){
         _instance.tipo.credit_card = result.token.card.last4;
         _instance.last4 = result.token.card.last4;
@@ -455,7 +455,9 @@
         }else{
           var subscription = mapCardinfo();
         }
-        saveSubscription(subscription);
+        if(state !== 'updateCard') {
+          saveSubscription(subscription);
+        }
       });
     }
     function mapSubscrtoPlan(){
