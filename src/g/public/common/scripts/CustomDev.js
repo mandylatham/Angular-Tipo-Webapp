@@ -383,8 +383,17 @@
       if (!_instance.tipo.credit_card && !_instance.cardElement) {
         showCreditCard();
       }else{
-        var subscription = mapSubscrtoPlan();
-        saveSubscription(subscription);
+        var confirm = $mdDialog.confirm()
+          .title('Confirmation')
+          .textContent('Are you sure you want to change plan?')
+          .ok('Yes')
+          .cancel('Cancel');
+
+        $mdDialog.show(confirm).then(function() {
+          var subscription = mapSubscrtoPlan();
+          saveSubscription(subscription);
+        }, function() {
+        });
       }
     }
 
