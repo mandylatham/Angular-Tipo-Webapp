@@ -274,17 +274,27 @@
             var criteria = {};
             criteria.list_display = 'N';
             criteria.per_page = '1000';
-            criteria.aggs = {
+            criteria.tipo_aggs = {
                 "count_category": {
                     "terms": {
-                        "field": "category"
+                        "field": "tipo_meta.tipo_type_copy_labels.keyword"
                     }
                 }
             };
+            var aggegrationData = [];
             return report_config.reduce(function(promise, config) {
-                return promise.then(function() {
+                return promise.then(function(prevValue) {
+                    aggegrationData.push(prevValue);
                     criteria.tipo_name = config.tipo_name;
-                    return getCollectionResource(config.tipo_name).post(criteria).then(unwrapAndSort);
+                    var field_name = config.field_name.replace(/\./g,"_");
+                    criteria.tipo_aggs = {};
+                    if (config.field_type === "date_time") {
+                        _.set(criteria.tipo_aggs , field_name + ".date_histogram.field" , config.field_name );
+                        _.set(criteria.tipo_aggs , field_name + ".date_histogram.interval" , "1M" );
+                    }else{
+                        _.set(criteria.tipo_aggs , field_name + ".terms.field" , config.field_name );
+                    }
+                    return _instance.search(config.tipo_name, criteria);
                 })
             }, $q.when())
         }
