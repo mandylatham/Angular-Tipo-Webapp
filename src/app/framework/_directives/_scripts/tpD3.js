@@ -5,7 +5,7 @@
     var module = angular.module('tipo.framework');
 
 
-    return module.directive('tpD3', function(tipoInstanceDataService) {
+    return module.directive('tpD3', function(tipoInstanceDataService, $mdColors, $mdColorUtil) {
         return {
             scope: {
                 chart_type: "=",
@@ -27,7 +27,16 @@
                     console.log("results");
                     console.log(results);
                     var option = {
-                        color: ['#003366', '#006699', '#4cabce', '#e5323e'],
+                        color: [
+                            $mdColorUtil.rgbaToHex($mdColors.getThemeColor('primary-900')),
+                            $mdColorUtil.rgbaToHex($mdColors.getThemeColor('accent-900')),
+                            $mdColorUtil.rgbaToHex($mdColors.getThemeColor('primary-A200')),
+                            $mdColorUtil.rgbaToHex($mdColors.getThemeColor('accent-A200')),
+                            $mdColorUtil.rgbaToHex($mdColors.getThemeColor('primary-400')),
+                            $mdColorUtil.rgbaToHex($mdColors.getThemeColor('accent-400')),
+                            $mdColorUtil.rgbaToHex($mdColors.getThemeColor('primary-200')),
+                            $mdColorUtil.rgbaToHex($mdColors.getThemeColor('accent-200'))
+                            ],
                         tooltip: {
                             trigger: 'axis',
                             axisPointer: {
