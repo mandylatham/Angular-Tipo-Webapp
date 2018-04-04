@@ -383,9 +383,13 @@
       if (!_instance.tipo.credit_card && !_instance.cardElement) {
         showCreditCard();
       }else{
+        var confirmText = "Are you sure you want to change plan?";
+        if(plan.tipo_id === 'Free') {
+          confirmText = "Are you sure you'd like to down-grade to Free plan and loose all the features developed in higher plans? This action can't be reverted.";
+        }
         var confirm = $mdDialog.confirm()
           .title('Confirmation')
-          .textContent('Are you sure you want to change plan?')
+          .textContent(confirmText)
           .ok('Yes')
           .cancel('Cancel');
 
