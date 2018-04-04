@@ -134,6 +134,7 @@
                 if (mode === 'view') {
                     // only a single tipo
                     tipo_id = scope.tipos.tipo_id;
+                    scope.edit = false;
                     if (!_.isUndefined(scope.tipos.restricted_actions)) {
                         var restrictedActions = scope.tipos.restricted_actions.split(',');
                     };
@@ -186,9 +187,11 @@
                 scope.updateBulkEdit = function(action) {
                     if (action.bulk_select) {
                         scope.bulkedit = !scope.bulkedit;
+                        scope.edit = !scope.edit;
                     };
                     if (action.single_select) {
                         scope.singleedit = !scope.singleedit;
+                        scope.edit = !scope.edit;
                     };
                 }
 
@@ -212,6 +215,7 @@
                             } else {
                                 scope.selectedAction = action;
                                 scope.bulkedit = !scope.bulkedit;
+                                scope.edit = !scope.edit;
                             }
                         } else if (action.single_select) {
                             if (scope.singleedit) {
@@ -219,6 +223,7 @@
                             } else {
                                 scope.selectedAction = action;
                                 scope.singleedit = !scope.singleedit;
+                                scope.edit = !scope.edit;
                             }
                         } else {
                             performAction(action);
