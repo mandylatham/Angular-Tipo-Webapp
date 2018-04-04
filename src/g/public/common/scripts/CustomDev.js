@@ -383,12 +383,25 @@
       if (!_instance.tipo.credit_card && !_instance.cardElement) {
         showCreditCard();
       }else{
-        var subscription = mapSubscrtoPlan();
-        saveSubscription(subscription);
+        var confirmText = "Are you sure you want to change plan?";
+        if(plan.tipo_id === 'Free') {
+          confirmText = "Are you sure you'd like to down-grade to Free plan and loose all the features developed in higher plans? This action can't be reverted.";
+        }
+        var confirm = $mdDialog.confirm()
+          .title('Confirmation')
+          .textContent(confirmText)
+          .ok('Yes')
+          .cancel('Cancel');
+
+        $mdDialog.show(confirm).then(function() {
+          var subscription = mapSubscrtoPlan();
+          saveSubscription(subscription);
+        }, function() {
+        });
       }
     }
 
-    function showCreditCard(){
+    function showCreditCard(state){
       var promise = $mdDialog.show({
         controller: function cardController($scope,$mdDialog) {
 
@@ -425,7 +438,7 @@
         fullscreen: true
       });
       promise.then(function(result){
-        createToken(result);
+        createToken(result, state);
       })
       // _instance.cardElement.mount('#card-element');
       // var container = angular.element(document.getElementById('inf-wrapper'));
@@ -433,7 +446,7 @@
       // container.scrollToElement(scrollTo,150,100);
     }
 
-    function createToken(result){
+    function createToken(result, state){
       tipoHandle.callAction($scope.tipoRootController.tipo_name,'attach_card',[_instance.tipo.tipo_id],$scope.tipoRootController.tipo_name,{token_source: result.token.id, credit_card: result.token.card.last4}).then(function(response){
         _instance.tipo.credit_card = result.token.card.last4;
         _instance.last4 = result.token.card.last4;
@@ -446,7 +459,9 @@
         }else{
           var subscription = mapCardinfo();
         }
-        saveSubscription(subscription);
+        if(state !== 'updateCard') {
+          saveSubscription(subscription);
+        }
       });
     }
     function mapSubscrtoPlan(){

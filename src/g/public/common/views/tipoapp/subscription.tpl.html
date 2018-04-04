@@ -72,7 +72,7 @@
 			<!-- <span>************4242</span> -->
 			<span ng-show="controller.tipo.credit_card">************{{controller.tipo.credit_card}}</span>
 			<span ng-hide="controller.tipo.credit_card"> N/A </span>
-			<md-button class="md-primary md-raised padding0" ng-click="controller.showCreditCard()" >Update Card Details</md-button>
+			<md-button class="md-primary md-raised padding0" ng-click="controller.showCreditCard('updateCard')" >Update Card Details</md-button>
 		</div>
 	</md-card>
 	<!--Plan Details -->
@@ -126,7 +126,7 @@
 								</div>
 						</div>
 						</form>
-						<md-button ng-if="plan.plan_status === 'Active'" class="md-primary md-raised m0" md-theme="reverse" md-colors="{background: 'accent-500'}" ng-click="controller.selectPlan(plan)" ng-disabled="plan.tipo_id === tipo.plan"><span ng-if="plan.tipo_id === controller.tipo.plan">Current Plan</span><span ng-if="plan.tipo_id !== controller.tipo.plan">Choose Plan</span></md-button>
+						<md-button ng-if="plan.plan_status === 'Active'" class="md-primary md-raised m0" md-theme="reverse" md-colors="{background: 'accent-500'}" ng-click="controller.selectPlan(plan)" ng-disabled="plan.tipo_id === controller.tipo.plan"><span ng-if="plan.tipo_id === controller.tipo.plan">Current Plan</span><span ng-if="plan.tipo_id !== controller.tipo.plan">Choose Plan</span></md-button>
 						<md-button ng-if="plan.plan_status === 'ComingSoon'" class="m0" md-theme="reverse" ng-disabled="true"><span>Coming Soon</span></md-button>
 					</md-card>
 				</div>
