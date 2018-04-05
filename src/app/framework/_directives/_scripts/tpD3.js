@@ -35,16 +35,6 @@
                     console.log("results");
                     console.log(results);
                     var option = {
-                        color: [
-                            $mdColorUtil.rgbaToHex($mdColors.getThemeColor('accent-900')),
-                            $mdColorUtil.rgbaToHex($mdColors.getThemeColor('primary-900')),
-                            $mdColorUtil.rgbaToHex($mdColors.getThemeColor('accent-A200')),
-                            $mdColorUtil.rgbaToHex($mdColors.getThemeColor('primary-A200')),
-                            $mdColorUtil.rgbaToHex($mdColors.getThemeColor('accent-400')),
-                            $mdColorUtil.rgbaToHex($mdColors.getThemeColor('primary-400')),
-                            $mdColorUtil.rgbaToHex($mdColors.getThemeColor('accent-200')),
-                            $mdColorUtil.rgbaToHex($mdColors.getThemeColor('primary-200')),
-                        ],
                         tooltip: {
                             trigger: 'axis',
                             axisPointer: {
@@ -94,7 +84,7 @@
                 getSizes({});
 
                 // use configuration item and data specified to show chart
-                var myChart = echarts.init(ndWrapper);
+                var myChart = echarts.init(ndWrapper, 'essos');
 
 
                 function getElasticQuery(bucket, aggs, type) {
