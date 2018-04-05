@@ -235,11 +235,12 @@
 
         _instance.selectTipo = function(tipo, event) {
             if (_instance.singleedit) {
-                _.each(_instance.tipos, function(tp) {
+                _.each(_instance.infiniteItems.tipos, function(tp) {
                     if (tp !== tipo) {
                         tp.selected = false;
                     }
                 });
+                _instance.tipos = angular.copy(_instance.infiniteItems.tipos);
             };
             tipo.selected = !tipo.selected;
             var function_name = $stateParams.tipo_name + "_OnClick";
