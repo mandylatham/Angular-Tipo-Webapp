@@ -119,13 +119,15 @@
                     _.set(option, graph.metric_name + "[" + index + "].type", "value");
                     _.set(option, "series[" + index + "].type", chart_type);
                     _.set(option, "series[" + index + "].data", []);
-                    _.each(dataValues, function(each) {
+                    _.each(dataValues, function(each, index_) {
                         if (!_.isEmpty(scope.splitChart.field_name)) {
                             option.legend.data.push(each.key);
-                            _.set(option, "series[" + index + "].name", each.key);
-                            var splitChartValues = _.get(each, _.get(scope.field_label, "splitChart") + ".buckets", index);
+                            _.set(option, "series[" + index_ + "].data", []);
+                            _.set(option, "series[" + index_ + "].type", chart_type);
+                            _.set(option, "series[" + index_ + "].name", each.key);
+                            var splitChartValues = _.get(each, _.get(scope.field_label, "splitChart") + ".buckets");
                             _.each(splitChartValues, function(each_value) {
-                                option = getSeriesData(option, each, index);
+                                option = getSeriesData(option, each, index_);
                             })
                         } else {
                             option = getSeriesData(option, each, index);
@@ -152,16 +154,16 @@
                     _.set(option, graph.metric_name + "[" + index + "].type", "value");
                     _.set(option, "series[" + index + "].type", chart_type);
                     _.set(option, "series[" + index + "].data", []);
-                    _.each(dataValues, function(each) {
+                    _.each(dataValues, function(each, index_) {
                         var date_value = new Date(each.key_as_string);
                         if (!_.isEmpty(scope.splitChart.field_name)) {
                             option.legend.data.push(each.key);
-                            var splitChartValues = _.get(each, _.get(scope.field_label, "splitChart") + ".buckets", index);
-                            _.each(splitChartValues, function(each_value,index) {
-                                _.set(option, "series[" + index + "].data", []);
-                                _.set(option, "series[" + index + "].type", chart_type);
-                                _.set(option, "series[" + index + "].name", each.key);
-                                option = getTimeSeriesData(option, each_value, index);
+                            _.set(option, "series[" + index_ + "].data", []);
+                            _.set(option, "series[" + index_ + "].type", chart_type);
+                            _.set(option, "series[" + index_ + "].name", each.key);
+                            var splitChartValues = _.get(each, _.get(scope.field_label, "splitChart") + ".buckets");
+                            _.each(splitChartValues, function(each_value) {
+                                option = getTimeSeriesData(option, each_value, index_);
                             })
                         } else {
                             option = getTimeSeriesData(option, each, index);
