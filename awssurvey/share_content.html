@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Thank You</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="//platform.linkedin.com/in.js">
+    api_key:   81nya3b0ikd2sz
+	onLoad:    onLinkedInLoad
+    authorize: true
+</script>
+<script type="text/javascript">
+    
+  // Setup an event listener to make an API call once auth is complete
+    function onLinkedInLoad() {
+      IN.Event.on(IN, "auth", shareContent);
+    }
+
+  // Handle the successful return from the API call
+  function onSuccess(data) {
+        //console.log('coming to success');
+        var dataPost = {
+            tipo_name: "Survey",
+            data: {
+                email_id: localStorage.emailAddress
+            }
+        };
+        $.ajax({
+            type: 'POST',
+            url: 'https://app.tipotapp.com/basic/api/d/vreddycompany/awssurvey/Survey',
+            processData: false,
+            dataType: "json",
+            headers: {
+                "Authorization": "Basic di5yZWRkeTE0QGdtYWlsLmNvbTpXZWxjb21lMQ==",
+                "Content-Type": "application/json"
+            },
+            data: JSON.stringify(dataPost),
+            success: function(data) {
+                console.log(data);
+            }
+        });
+    }
+
+  // Handle an error response from the API call
+  function onError(error) {
+    console.log(error);
+  }
+
+  // Use the API call wrapper to share content on LinkedIn
+  function shareContent() {
+        
+    // Build the JSON payload containing the content to be shared
+    var payload = { 
+      "comment": "https://youtu.be/kUFYZhRJD14", 
+      "visibility": { 
+        "code": "anyone"
+      } 
+    };
+
+    IN.API.Raw("/people/~/shares?format=json")
+      .method("POST")
+      .body(JSON.stringify(payload))
+      .result(onSuccess)
+      .error(onError);
+  }
+  
+	function logout(){
+		IN.User.logout(removeProfileData);
+	}
+	function removeProfileData(){
+		document.location.href='index.html';
+	}	
+</script>
+<style type="text/css">
+	.first_content{
+		color: #3D3D3D;
+		font-family: "Karla","Helvetica Neue",sans serif;
+		font-size: 24px;
+		line-height: 36px;
+	}
+	.second_content{
+		margin: 20px 0 10px 0;
+		color: #3D3D3D;
+		font-family: "Karla","Helvetica Neue",sans serif;
+		font-size: 30px;
+		line-height: 145%;
+		opacity: .8;
+		-webkit-font-smoothing: antialiased;
+	}
+</style>
+</head>
+<body>
+	<div class="container">
+		<div class="row" style="padding-top:230px;">
+			<div class="col-md-12 text-center second_content">
+				Thanks for sharing the video
+			</div>
+		</div>
+	</div>	
+	
+   <div align="center" style="margin-top:5px;">
+		<a href="javascript:void(0);" onclick="logout()">Logout</a>
+   </div>
+</body>
+</html>
