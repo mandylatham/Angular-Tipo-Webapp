@@ -38,6 +38,10 @@ header{
     background: #00a6b4;
     z-index: 9999;
 }
+.logo-area {
+    margin: 0 auto;
+    width: 300px;
+}
 .logo{
 	float:left;
     text-align: left;
@@ -63,9 +67,6 @@ a {
 
 
 @media (max-width: 550px) {
-    .logo {
-        width: 175px;
-    }
     .watch img {
         width: 350px;
     }
@@ -77,3 +78,129 @@ a {
         width: 500px;
     }
 }
+
+.video-row {
+    width: 45%;
+    margin: 1em auto;
+}
+
+#videoContainer { 
+	height: 19em;
+	background: none;
+	margin: 0 auto;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-o-border-radius: 5px;
+	-ms-border-radius: 5px;
+	border-radius: 5px;
+	/*
+	-webkit-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
+	-moz-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
+	-o-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
+	-ms-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
+	box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);*/
+	margin-bottom: 20px;
+	margin-top: 20px;
+	position: relative;
+	overflow: hidden;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	user-select: none;
+}
+/*-- //video-main --*/
+
+
+/*-- responsive-design --*/
+@media(max-width:1440px){
+.video-row {
+    width: 50%; 
+}
+}
+@media(max-width:1366px){
+#videoContainer {
+    height: 19em;
+}
+
+}
+@media(max-width:1280px){
+#videoContainer {
+    height: 17em;
+} 
+}
+@media(max-width:1080px){
+.video-row {
+    width: 50%;
+}
+}
+@media(max-width:1024px){
+#videoContainer {
+    height: 17em;
+}
+}
+@media(max-width:991px){
+#videoContainer {
+    height: 13em;
+}
+}
+
+@media(max-width:800px){
+#videoContainer {
+    height: 15em;
+}
+.video-row {
+    width: 50%;
+}
+}
+@media(max-width:736px){
+#videoContainer {
+    height: 13em;
+}
+}
+@media(max-width:667px){
+#videoContainer {
+    height: 13em;
+}
+}
+@media(max-width:600px){
+#videoContainer {
+    height: 13em;
+}
+}
+@media(max-width:568px){
+.video-row {
+    width: 80%;
+} 
+
+}
+@media(max-width:480px){
+.video-row {
+    width: 85%;
+}
+#videoContainer {
+    height: 10em;
+} 
+}
+@media(max-width:414px){
+#videoContainer {
+    height: 10em;
+}
+}
+@media(max-width:384px){
+#videoContainer {
+    height: 10em;
+}
+}
+@media(max-width:375px){
+.video-row {
+    width: 90%;
+}
+}
+@media(max-width:320px){
+.video-row {
+    width: 100%;
+}
+#videoContainer {
+    height: 10em;
+} 
+}
+/*-- //responsive-design --*/

@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Thank You</title>
+<title>TipoTapp Survey | Thank You</title>
+<link href="style.css" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -72,35 +73,32 @@
 		document.location.href='index.html';
 	}	
 </script>
-<style type="text/css">
-	.first_content{
-		color: #3D3D3D;
-		font-family: "Karla","Helvetica Neue",sans serif;
-		font-size: 24px;
-		line-height: 36px;
-	}
-	.second_content{
-		margin: 20px 0 10px 0;
-		color: #3D3D3D;
-		font-family: "Karla","Helvetica Neue",sans serif;
-		font-size: 30px;
-		line-height: 145%;
-		opacity: .8;
-		-webkit-font-smoothing: antialiased;
-	}
-</style>
 </head>
 <body>
-	<div class="container">
-		<div class="row" style="padding-top:230px;">
-			<div class="col-md-12 text-center second_content">
-				Thanks for sharing the video
-			</div>
-		</div>
-	</div>	
-	
-   <div align="center" style="margin-top:5px;">
-		<a href="javascript:void(0);" onclick="logout()">Logout</a>
-   </div>
+    <div class="first-main">
+        <!-- HEADER-->
+        <header>
+            <div class="container appbar">
+                <!-- LOGO -->
+            <div class="logo-area">
+                <a href="index.html" class="col-2 logo"><img src="logo-white.png" /></a>
+            </div>
+            </div>
+        </header>
+        <!-- MAIN -->
+        <div id="main" class="video-main">
+            <div class="container">
+                <div class="row" style="padding-top:150px;">
+                    <div class="col-md-12 text-center">
+                       <h1> Thanks for sharing the video</h1>
+                    </div>
+                </div>
+            </div>	
+            
+            <div align="center" style="margin-top:5px;">
+                    <a href="javascript:void(0);" onclick="logout()"><h3>Logout</h3></a>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

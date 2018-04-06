@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Share Video</title>
+<title>TipoTapp | Share Video</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="style.css" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -19,147 +20,51 @@
 		$('#share_a_event').attr('href',sahre_url);
 	});		
 </script>
-<style type="text/css">
-
-.container-fluid {
-    padding-right: 0px !important;
-    padding-left: 0px !important;
-    margin-right: auto;
-    margin-left: auto;
-}
-.inner-foot-box:before {
-		top: 0px;
-	}
-	.inner-foot-box:before, .inner-foot-box:after {
-		content: "";
-		position: absolute;
-		left: -4px;
-		right: -4px;
-		height: 4px;
-		background-image: -webkit-linear-gradient(0deg, orange 30px, lightblue 30px, lightblue 60px, lightgreen 40px, lightgreen 60px);
-		background-image: -ms-linear-gradient(0deg, orange 30px, lightblue 30px, lightblue 60px, lightgreen 40px, lightgreen 60px);
-		background-size: 80px;
-	}	
-	.inner-foot-box{
-		width: 100%;
-		background-color: #fff;
-		position: relative;
-		margin: 0 auto;
-		border-left: 4px solid #41dfd0;
-		border-right: 4px solid #41dfd0;
-		margin-top: 5px;
-	}
-	
-.top_txt {
-margin:5px 0px;
-font-weight: 600;
-font-size: 18px;
-padding:5px;
-}
-.img_width {
-max-width: 300px;max-height:300px;width:100%;height:auto;
-}
-.linkedin_btn {
-max-width:300px;
-width:100%;
-height:auto;
-}
-.watch_img {
-
-margin-bottom:50px;
- }
- .link_row {
- margin-bottom:50px
- }
- .vedio {
-  max-width:560px;
-  width: 100%;
-  height: 310px;
- }
-@media (max-width: 767px) {
-.top_txt {
-margin:5px 0px;
-font-weight: 600;
-font-size: 12px;
-padding:5px;
-}
-.img_width {
-max-width: 150px;
-max-height:150px;
-width:100%;height:auto;
-}
-.linkedin_btn {
-max-width:150px;
-width:100%;
-height:auto;
-}
-.watch_img {
-margin-bottom:5px;
-height:140px;
- }
- .link_row {
- height:70px;
- margin-bottom:0px
- }
-.vedio {
-  max-width:560px;
-  width: 100%;
- height: auto;
- 
- }
-}
-</style>
 </head>
 <body>
-	<div class="container-fluid">
-		<div class="inner-foot-box">
-			<div class="row">
-				<div class="col-md-12 text-center">
-					<p class="top_txt" style="margin-top:5px;">Thanks for taking the survey.</p>
-				</div>			
-			</div>
-			
-			<div class="row">
-				<div class="col-md-12 text-center">
-					<p class="top_txt">Results will be published in Tipo Tapp's LinkedIn page every day of AWS submit</p>
-				</div>			
-			</div>
-			
-			<div class="row" style="padding-top:5px;">
-				<div class="col-md-12 text-center">
-					<script src="//platform.linkedin.com/in.js" type="text/javascript"> lang: en_US</script>
-					<script type="IN/FollowCompany" data-id="18030733" data-counter="top"></script>
+	<div class="first-main">
+		<!-- HEADER-->
+		<header>
+			<div class="container appbar">
+				<!-- LOGO -->
+				<div class="logo-area">
+					<a href="index.html" class="col-2 logo"><img src="logo-white.png" /></a>
 				</div>
 			</div>
+		</header>
+		<!-- MAIN -->
+		<div id="main" class="video-main">
+			<div class="container">
+				<h3 class="top_txt" style="margin-top:30px;">Thanks for taking the survey.</h3>
 			
-			<div class="row">
-				<div class="col-md-12 text-center">
-					<p class="top_txt">Increase your winning probability multifold by sharing this video</p>
-				</div>			
-			</div>
-			
-			<div class="row">
-				<div class="col-md-12 text-center">
-					<iframe id="iframe_div" class ="vedio" src=""  frameborder="0" allowfullscreen></iframe>
-				</div>
-			</div>
-			
-			<div class="row" style="padding-top:20px;">
-				<div class="col-md-12 text-center">
-					<a href="" id="share_a_event"><button type="button" class="btn btn-primary">Share</button></a>
-				</div>
-			</div>
-			
-			<div class="row" style="margin-top:20px">
-				<div class="col-md-12 col-sm-12 col-xs-12">
-					<div style="float:left;background:#00a6b4;">
-						<img src="logo-white.png" class="img_width">
-					</div>
+				<h3 class="top_txt">Results will be published in Tipo Tapp's LinkedIn page every day of AWS submit</h3>
 					
+				<div class="row" style="padding-top:5px;">
+					<div class="col-md-12 text-center">
+						<script src="//platform.linkedin.com/in.js" type="text/javascript"> lang: en_US</script>
+						<script type="IN/FollowCompany" data-id="18030733"></script>
+					</div>
 				</div>
-			</div>
-			
-		</div>		
-	</div>		
+					
+				<div class="row">
+					<div class="col-md-12 text-center">
+						<h3 class="top_txt">Increase your winning probability multifold by sharing this video</h3>
+					</div>			
+				</div>
+					
+				<div class="video-row">
+					<div id="videoContainer">
+						<iframe  width="100%" height="100%"  id="iframe_div" src=""  frameborder="0" allowfullscreen></iframe>
+					</div>
+				</div>
+				
+				<div class="row" style="padding-top:20px;">
+					<div class="col-md-12 text-center">
+						<a href="" id="share_a_event"><button type="button" class="btn btn-primary">Share</button></a>
+					</div>
+				</div>
+			</div>	
+		</div>
+	</div>	
 </body>
 </html>
