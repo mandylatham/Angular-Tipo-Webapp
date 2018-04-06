@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Login with linkedin</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TipoTapp Survey</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="style.css" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -43,117 +44,32 @@
         document.location.href='survery_main_page.html';
     }
 </script>
-<style type="text/css">
-	.inner-foot-box:before {
-		top: 0px;
-	}
-	.inner-foot-box:before, .inner-foot-box:after {
-		content: "";
-		position: absolute;
-		left: -4px;
-		right: -4px;
-		height: 4px;
-		background-image: -webkit-linear-gradient(0deg, orange 30px, lightblue 30px, lightblue 60px, lightgreen 40px, lightgreen 60px);
-		background-image: -ms-linear-gradient(0deg, orange 30px, lightblue 30px, lightblue 60px, lightgreen 40px, lightgreen 60px);
-		background-size: 80px;
-	}	
-	.inner-foot-box{
-		width: 100%;
-		background-color: #fff;
-		position: relative;
-		margin: 0 auto;
-		border-left: 4px solid #41dfd0;
-		border-right: 4px solid #41dfd0;
-		margin-top: 5px;
-	}
-	html {
-    position: relative;
-    min-height: 100%;
-}
-.top_txt {
-margin:20px 0px;
-font-weight: 600;
-font-size: 18px;
-padding:5px;
-}
-.img_width {
-max-width: 300px;max-height:300px;width:100%;height:auto;
-}
-.linkedin_btn {
-max-width:300px;
-width:100%;
-height:auto;
-}
-.watch_img {
-
-margin-bottom:50px;
- }
- .link_row {
- margin-bottom:50px
- }
-@media (max-width: 767px) {
-.top_txt {
-margin:20px 0px;
-font-weight: 600;
-font-size: 12px;
-padding:5px;
-}
-.img_width {
-max-width: 150px;
-max-height:150px;
-width:100%;height:auto;
-}
-.linkedin_btn {
-max-width:150px;
-width:100%;
-height:auto;
-}
-.watch_img {
-margin-bottom:5px;
-height:140px;
- }
- .link_row {
- height:70px;
- margin-bottom:0px
- }
-}
-</style>
 </head>
 <body>
-	<div class="container-fluid">
-		<div class="inner-foot-box">
-			<div class="row">
-				<div class="col-md-12 text-center hidden-sm hidden-xs">
-					<p class="top_txt">Share your opinion about how you use AWS platform in your business <br>and help us create a better product for you.</p>
-				</div>
-				<div class="col-md-12 text-center hidden-lg hidden-md">
-					<p class="top_txt">Share your opinion about how you use AWS platform in your business and help us create a better product for you.</p>
-				</div>
+	<div class="first-main">
+        <!-- HEADER-->
+        <header>
+            <div class="container appbar">
+                <!-- LOGO -->
+				<a href="index.html" class="col-2 logo"><img src="logo-white.png" /></a>
+            </div>
+        </header>
+        <!-- MAIN -->
+        <div id="main" class="video-main home">
+            <div class="container">
+				<h1>WIN an exciting SMART WATCH </h1>
+				<h3>Share your opinion about how you use AWS platform in your business and help us create a better product for you.</h3>
 			</div>
-			
-			<div class="row watch_img"  >
-				<div class="col-md-12 text-center">
-					<img src="watch.png" style="width: 100%;max-width:500px;height:auto;display: inline;">
-				</div>
+			<div class="watch">
+				<img src="watch.png" />
 			</div>
-			
-			<div class="row link_row"   >
-				<div class="col-md-12 text-center">
-					<script type="in/Login"></script>
-				</div>
+		</div>
+		<div class="row link_row">
+			<div class="col-md-12 text-center">
+				<script type="in/Login"></script>
 			</div>
-			
-			<div class="row" style="margin-top:25px;">
-				<div class="col-md-12 col-sm-12 col-xs-12">
-					<div style="float:left;background:#00a6b4;">
-						<img src="logo-white.png" class="img_width">
-					</div>
-					
-				</div>
-				
-			</div>
-			
-		</div>		
-	</div>
+		</div>
+		<!-- END MAIN -->
+    </div>
 </body>
 </html>

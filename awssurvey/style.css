@@ -1,0 +1,79 @@
+html, body {
+    height: 100%;
+    overflow: scroll;
+}
+
+body {
+    font-family: "Open Sans", Helvetica, Arial, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6, .text-heading {
+    font-family: "Open Sans", Helvetica, Arial, sans-serif;
+    color:white;
+}
+
+h1 {
+    font-size: 42px;
+    font-weight: 400;
+}
+h3 {
+    font-size: 24px;
+}
+
+.first-main{
+	background: #00a6b4;
+	padding-bottom: 150px;
+    text-align:center;
+    height: 100%;
+}
+.appbar {
+    margin: 0px;
+    width: 100% !important;
+}
+header{
+	float: left;
+    width: 100%;
+	padding: 8px 0 2px;
+	position: fixed;
+    background: #00a6b4;
+    z-index: 9999;
+}
+.logo{
+	float:left;
+    text-align: left;
+    padding: 10px;
+    width: 300px;
+}
+.logo img{
+	width:100%;
+}
+
+a {
+	text-decoration:none;
+}
+
+.video-main{
+	padding:100px 0 0 0;
+}
+.video-main h1, .video-main h3{
+	color:#fff;
+}
+
+
+
+
+@media (max-width: 550px) {
+    .logo {
+        width: 175px;
+    }
+    .watch img {
+        width: 350px;
+    }
+}
+
+
+@media (min-width: 551px) and (max-width: 900px) {
+    .watch img {
+        width: 500px;
+    }
+}
