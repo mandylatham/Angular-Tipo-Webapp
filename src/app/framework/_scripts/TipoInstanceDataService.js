@@ -270,33 +270,35 @@
             }, $q.when())
         };
 
-        _instance.aggegrationData = function(report_config) {
-            var criteria = {};
+        _instance.aggegrationData = function(tipo_name,criteria) {
             criteria.list_display = 'N';
-            criteria.per_page = '1000';
-            criteria.tipo_aggs = {
-                "count_category": {
-                    "terms": {
-                        "field": "tipo_meta.tipo_type_copy_labels.keyword"
-                    }
-                }
-            };
-            var aggegrationData = [];
-            return report_config.reduce(function(promise, config) {
-                return promise.then(function(prevValue) {
-                    aggegrationData.push(prevValue);
-                    criteria.tipo_name = config.tipo_name;
-                    var field_name = config.field_name.replace(/\./g,"_");
-                    criteria.tipo_aggs = {};
-                    if (config.field_type === "date_time") {
-                        _.set(criteria.tipo_aggs , field_name + ".date_histogram.field" , config.field_name );
-                        _.set(criteria.tipo_aggs , field_name + ".date_histogram.interval" , "1M" );
-                    }else{
-                        _.set(criteria.tipo_aggs , field_name + ".terms.field" , config.field_name );
-                    }
-                    return _instance.search(config.tipo_name, criteria);
-                })
-            }, $q.when())
+            return _instance.search(tipo_name, criteria);
+            // var criteria = {};
+            // criteria.list_display = 'N';
+            // criteria.per_page = '1000';
+            // criteria.tipo_aggs = {
+            //     "count_category": {
+            //         "terms": {
+            //             "field": "tipo_meta.tipo_type_copy_labels.keyword"
+            //         }
+            //     }
+            // };
+            // var aggegrationData = [];
+            // return report_config.reduce(function(promise, config) {
+            //     return promise.then(function(prevValue) {
+            //         aggegrationData.push(prevValue);
+            //         criteria.tipo_name = config.tipo_name;
+            //         var field_name = config.field_name.replace(/\./g,"_");
+            //         criteria.tipo_aggs = {};
+            //         if (config.field_type === "date_time") {
+            //             _.set(criteria.tipo_aggs , field_name + ".date_histogram.field" , config.field_name );
+            //             _.set(criteria.tipo_aggs , field_name + ".date_histogram.interval" , "1M" );
+            //         }else{
+            //             _.set(criteria.tipo_aggs , field_name + ".terms.field" , config.field_name );
+            //         }
+            //         return _instance.search(config.tipo_name, criteria);
+            //     })
+            // }, $q.when())
         }
 
         _instance.gettpObjectOptions = function(baseFilter, tipo_name, label_field, context, searchText, page_size, index, tipo_data) {

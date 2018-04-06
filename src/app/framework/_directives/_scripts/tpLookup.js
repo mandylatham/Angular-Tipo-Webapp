@@ -679,11 +679,11 @@
                 scope.$watch(function() { return scope.ngModel }, function(new_value, old_value) {
                     var function_name;
                     if (isarray) {
-                        if (new_value && new_value.length < old_value.length) {
+                        if (new_value && old_value && new_value.length < old_value.length) {
                             function_name = $stateParams.tipo_name + "_" + fqfieldname.replace(/\./g, "_").replace(/\[\d\]/g, "") + "_OnArrayItemRemove";
                             scope.data_handle.item = _.difference(old_value, new_value);
                         };
-                        if (new_value && new_value.length > old_value.length) {
+                        if ((old_value && new_value && new_value.length > old_value.length) || (!old_value && new_value)) {
                             function_name = $stateParams.tipo_name + "_" + fqfieldname.replace(/\./g, "_").replace(/\[\d\]/g, "") + "_OnArrayItemAdd";
                             scope.data_handle.item = _.difference(new_value, old_value);
                         };

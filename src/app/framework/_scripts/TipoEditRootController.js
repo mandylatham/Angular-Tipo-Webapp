@@ -183,7 +183,7 @@
             if ($stateParams.action_name) {
                 setTimeout(function() {
                     angular.element("#" + $stateParams.action_name + "_action").triggerHandler('click');
-                },1000);
+                }, 1000);
             };
         }
         _instance.tipo_name = tipo_name;
