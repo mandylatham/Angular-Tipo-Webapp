@@ -19,6 +19,7 @@
                 y_label: "=",
                 agrregation: "=",
                 data: "=",
+                stack: "@"
             },
             restrict: 'EA',
             template: '<div style="width: 100%" config="config" data="data"></div>',
@@ -27,6 +28,7 @@
                 var fieldName = graph.bucket.field_name;
                 scope.field_label = {};
                 var filter = {};
+                var myChart;
                 _.set(filter, "tipo_aggs", getElasticQuery(graph.bucket, {}, "bucket"));
                 if (!_.isEmpty(scope.splitChart.field_name)) {
                     _.set(filter, "tipo_aggs." + _.get(scope.field_label, "bucket") + ".aggs", getElasticQuery(scope.splitChart, {}, "splitChart"));
@@ -48,7 +50,7 @@
                     };
                     _.each(results, function(result, index) {
                         var dataValues = _.get(result, _.get(scope.field_label, "bucket") + ".buckets");
-                        if (scope.chartType === "PieChart") {
+                        if (scope.chartType === "PieChart" || scope.chartType === "Doughnut") {
                             option = getPieChartOption(dataValues, index, option)
                         } else {
                             if (scope.chartType === "BarChart") {
@@ -64,7 +66,11 @@
                             }
                         }
                     })
-                    myChart.setOption(option);
+                    if (myChart) {
+                        myChart.setOption(option);
+                    } else {
+                        scope.option = option
+                    }
                 });
                 // }
                 // specify chart configuration item and data
@@ -75,16 +81,26 @@
                     width, height, chart;
                 var chartEvent = {};
 
-                function getSizes(config) {
-                    width = config.width || parseInt(attrs.width) || parentWidth || 320;
-                    height = config.height || parseInt(attrs.height) || parentHeight || 240;
-                    ndWrapper.style.width = width + 'px';
-                    ndWrapper.style.height = height + 'px';
-                }
-                getSizes({});
-
+                var unbind = scope.$watch(function() { return element.parent()[0].clientWidth; }, function(n, o) {
+                    if (element.parent()[0].clientWidth > 0) {
+                        var ndWrapper = element.find('div')[0],
+                            ndParent = element.parent()[0],
+                            parentWidth = ndParent.clientWidth,
+                            parentHeight = ndParent.clientHeight,
+                            width, height, chart;
+                        width = parentWidth || 320;
+                        height = (parentHeight > 240 && parentHeight) || 240;
+                        ndWrapper.style.width = width + 'px';
+                        ndWrapper.style.height = height + 'px';
+                        myChart = echarts.init(ndWrapper, 'essos');
+                        if (scope.option) {
+                            myChart.setOption(scope.option);
+                        };
+                        unbind();
+                    }
+                })
                 // use configuration item and data specified to show chart
-                var myChart = echarts.init(ndWrapper, 'essos');
+                // var myChart = echarts.init(ndWrapper, 'essos');
 
 
                 function getElasticQuery(bucket, aggs, type) {
@@ -108,6 +124,9 @@
                 function getPieChartOption(dataValues, index, option) {
                     _.set(option, "series[" + index + "].type", "pie");
                     _.set(option, "series[" + index + "].data", []);
+                    if (scope.chartType === "Doughnut") {
+                      _.set(option, "series[" + index + "].radius", ['50%', '70%']);
+                    };
                     _.each(dataValues, function(each) {
                         option.series[index].data.push({ name: each.key, value: each.doc_count });
                     });
@@ -160,6 +179,9 @@
                             option.legend.data.push(each.key);
                             _.set(option, "series[" + index_ + "].data", []);
                             _.set(option, "series[" + index_ + "].type", chart_type);
+                            if (scope.stack === "true") {
+                              _.set(option, "series[" + index_ + "].stack", "stack");
+                            };
                             _.set(option, "series[" + index_ + "].name", each.key);
                             var splitChartValues = _.get(each, _.get(scope.field_label, "splitChart") + ".buckets");
                             _.each(splitChartValues, function(each_value) {
