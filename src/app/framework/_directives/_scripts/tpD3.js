@@ -133,7 +133,9 @@
                 }
 
                 function getPieChartOption(dataValues, index, option) {
+                  option.tooltip.trigger = 'item';
                     _.set(option, "series[" + index + "].type", "pie");
+                    _.set(option, "series[" + index + "].selectedMode", "single");
                     _.set(option, "series[" + index + "].data", []);
                     if (scope.chartType === "Doughnut") {
                         _.set(option, "series[" + index + "].radius", ['50%', '70%']);
