@@ -395,7 +395,7 @@
             });
         }
 
-        function sendPushNotification(title, text, to, is_important, tipo_name, tipo_id, perspective, mode, actions) {
+        function sendPushNotification(title, text, to, is_important, tipo_name, tipo_id, perspective, mode, actions, image_url) {
             var headers = {
                 "Content-Type": "application/json",
                 "Authorization": "Basic $tipo_context.integration_map.pushcoms.serverApiKey"
@@ -412,7 +412,9 @@
                     perspective: perspective,
                     mode: mode,
                     is_important: is_important
-                }
+                },
+                ios_attachments: {id1: image_url},
+                big_picture: image_url
             };
             body.data.url = $window.location.origin + $window.location.pathname;
             if (_.endsWith(body.data.url, "/")) {
