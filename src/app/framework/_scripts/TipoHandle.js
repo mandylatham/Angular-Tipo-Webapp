@@ -429,10 +429,11 @@
                 console.log("Error: ", error);
             }
             if (_.isArray(to)) {
+                var context = this;
                 _.each(to, function(each_topic, index) {
                     body.filters.push({
                         field: "tag",
-                        key: this.application_meta.TipoApp.application_owner_account + "." + this.application_meta.TipoApp.application + "." + this.user_meta.account + ".tipo_id",
+                        key: context.application_meta.TipoApp.application_owner_account + "." + context.application_meta.TipoApp.application + "." + context.user_meta.account + ".tipo_id",
                         relation: "=",
                         value: encodeURIComponent(each_topic)
                     })
