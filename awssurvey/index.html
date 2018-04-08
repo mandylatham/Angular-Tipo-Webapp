@@ -22,6 +22,7 @@
 		$('a[id*=li_ui_li_gen_]').css({marginBottom:'20px'}).html('<img src="custom_button.png" class="linkedin_btn"  border="0" style="padding:20px;width:60%" />');
 	   
         IN.Event.on(IN, "auth", getProfileData);
+		//IN.User.authorize();
     }
 	
 	function getProfileData(){
@@ -45,11 +46,17 @@
     }
 	
 	function getSurveyPage(){
-        document.location.href='survery_main_page.html';
+        window.location.href='survery_main_page.html';
     }
+	
+	function callSamePage(){
+		setInterval(function(){
+			window.location.href='index.html';
+		}, 3000);		    
+	}
 </script>
 </head>
-<body>
+<body onload="callSamePage()">
 	<div class="background-area">
 		<div class="first-main" style="background:white">
 			<img src="banner.png" style="width:100%"/>
