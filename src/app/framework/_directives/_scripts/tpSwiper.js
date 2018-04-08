@@ -89,17 +89,13 @@
                         paginationClickable: true,
                         // Navigation arrows
                         nextButton: '.swiper-button-next',
-                        prevButton: '.swiper-button-prev',
-                        touchEventsTarget: 'wrapper'
+                        prevButton: '.swiper-button-prev'
                     });
-                    mySwipe.on('click',function(event){
-                      event.stopPropagation();
-                    })
                 }
 
-                // element.addEventListener("click",function(e){
-                //   e.stopPropagation();
-                // })
+                element[0].addEventListener("click",function(e){
+                  e.stopPropagation();
+                })
 
                 scope.resize = function() {
                     return $timeout(function() {
