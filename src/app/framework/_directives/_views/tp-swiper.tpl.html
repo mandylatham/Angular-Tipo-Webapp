@@ -4,17 +4,17 @@
     <!-- Additional required wrapper -->
     <div class="swiper-wrapper">
         <!-- Slides -->
-        <div class="swiper-slide fullwidth" ng-repeat="img in imageArray" style="height: auto;">
+        <div class="swiper-slide fullwidth" ng-repeat="img in images" style="height: auto;">
             <img ng-src="{{'data:image/*;base64, ' + img.base64}}" ng-if="img.base64">
-            <img ng-src="{{img}}" ng-if="!img.base64">
+            <img ng-src="{{img}}" ng-if="!img.base64" style="width:100%">
         </div>
     </div>
     <!-- If we need pagination -->
-    <div class="swiper-pagination" ng-show="imageArray.length>0"></div>
+    <div class="swiper-pagination" ng-show="images.length>0"></div>
     
     <!-- If we need navigation buttons -->
-	<img class="swiper-button-prev"  ng-src="{{prevButton}}" ng-show="imageArray.length>0">
-    <img class="swiper-button-next" ng-src="{{nextButton}}" ng-show="imageArray.length>0">
+	<img class="swiper-button-prev"  ng-src="{{prevButton}}" ng-show="images.length>0">
+    <img class="swiper-button-next" ng-src="{{nextButton}}" ng-show="images.length>0">
     
     <!-- If we need scrollbar -->
     <!-- <div class="swiper-scrollbar"></div> -->
