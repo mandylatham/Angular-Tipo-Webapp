@@ -25,6 +25,7 @@
         tipoHandle.setPerspective();
         _instance.tipo_handle = tipoHandle;
         $scope.showLoader = true;
+        _instance.activeTab = 'main';
         var tipo_name = $stateParams.tipo_name;
         _instance.tipo_name = $stateParams.tipo_name;
         $scope.data_handle = {};
