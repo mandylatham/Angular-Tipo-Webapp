@@ -19,12 +19,13 @@
         templateUrl: 'framework/_directives/_views/tp-google-maps.tpl.html',
         link: function(scope, element, attrs, ctrl){
           var dynMarkers = [];
-          tipoInstanceDataService.xAndYAxisData(scope.mapjson).then(function(results){
+          var mapjson = [scope.mapjson];
+          tipoInstanceDataService.xAndYAxisData(mapjson).then(function(results){
             NgMap.getMap().then(function(map) {
                MarkerClusterer.prototype.MARKER_CLUSTER_IMAGE_PATH_ = 'https://raw.githubusercontent.com/googlemaps/js-marker-clusterer/gh-pages/images/m';
               for (var i=0; i<results.length; i++) {
-                if (results[i][scope.mapjson[0].field_name]) {
-                  var latLng = new google.maps.LatLng(results[i][scope.mapjson[0].field_name]['lat'], results[i][scope.mapjson[0].field_name]['lon']);
+                if (results[i][mapjson[0].field_name]) {
+                  var latLng = new google.maps.LatLng(results[i][mapjson[0].field_name]['lat'], results[i][mapjson[0].field_name]['lon']);
                   var marker = new google.maps.Marker({position:latLng,data:results[i]});
                   google.maps.event.addListener(marker, 'click', function (event) {
                         // Reference to the DIV which receives the contents of the infowindow using jQuery
