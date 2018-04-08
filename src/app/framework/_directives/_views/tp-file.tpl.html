@@ -38,7 +38,7 @@
             </md-button>
           </div>
         </div>
-        <div layout="row" class="multi-file-row" layout-align="start center" ng-if="!readOnly" ng-repeat="path in multiplePaths" ng-if="!path.deleted">
+        <div layout="row" class="multi-file-row" layout-align="start center" ng-if="!readOnly && !path.deleted" ng-repeat="path in multiplePaths">
           <span flex-order="1" flex>{{prependTarget}}{{path.value}}</span>
           <div flex="none" flex-order="3">
             <md-button class="md-icon-button" aria-label="Delete" ng-click="removeMultiPathEntry($index)">

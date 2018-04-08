@@ -25,26 +25,6 @@
             replace: true,
             templateUrl: 'framework/_directives/_views/tp-swiper.tpl.html',
             link: function(scope, element, attrs) {
-                if (scope.fromType === 'file') {
-                    scope.images = [];
-                    if (_.isArray(scope.imageArray)) {
-                        _.each(scope.imageArray, function(each) {
-                            if (_.startsWith(each.key, "public/")) {
-                                scope.images.push("g/" + each.key);
-                            } else {
-                                scope.images.push("g/" + each.rootFolder + "/" + each.key);
-                            }
-                        })
-                    } else {
-                        if (_.startsWith(scope.imageArray.key, "public/")) {
-                            scope.images.push("g/" + scope.imageArray.key);
-                        } else {
-                            scope.images.push("g/" + scope.imageArray.rootFolder + "/" + scope.imageArray.key);
-                        }
-                    }
-                } else {
-                    scope.images = scope.imageArray;
-                }
                 var direction = scope.direction || "horizontal";
                 var effect = scope.effect || "slide";
                 var paginationType = scope.paginationType || "bullets";
@@ -75,6 +55,27 @@
                 scope.nextButton = "data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M27%2C22L27%2C22L5%2C44l-2.1-2.1L22.8%2C22L2.9%2C2.1L5%2C0L27%2C22L27%2C22z'%20fill%3D'%23" + scope.swiperColor + "'%2F%3E%3C%2Fsvg%3E";
 
                 function init() {
+                    if (scope.fromType === 'file') {
+                        scope.images = [];
+                        if (_.isArray(scope.imageArray)) {
+                            _.each(scope.imageArray, function(each) {
+                                if (_.startsWith(each.key, "public/")) {
+                                    scope.images.push("g/" + each.key);
+                                } else {
+                                    scope.images.push("g/" + each.rootFolder + "/" + each.key);
+                                }
+                            })
+                        } else {
+                            if (scope.imageArray && _.startsWith(scope.imageArray.key, "public/")) {
+                                scope.images.push("g/" + scope.imageArray.key);
+                            } else if (scope.imageArray){
+                                scope.images.push("g/" + scope.imageArray.rootFolder + "/" + scope.imageArray.key);
+                            }
+                        }
+                    } else {
+                        scope.images = scope.imageArray;
+                    }
+
                     var mySwipe = new Swiper(element[0], {
                         direction: direction,
                         effect: effect,
@@ -89,8 +90,16 @@
                         // Navigation arrows
                         nextButton: '.swiper-button-next',
                         prevButton: '.swiper-button-prev',
+                        touchEventsTarget: 'wrapper'
                     });
+                    mySwipe.on('click',function(event){
+                      event.stopPropagation();
+                    })
                 }
+
+                // element.addEventListener("click",function(e){
+                //   e.stopPropagation();
+                // })
 
                 scope.resize = function() {
                     return $timeout(function() {
