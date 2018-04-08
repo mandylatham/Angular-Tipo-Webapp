@@ -1,0 +1,96 @@
+html, body {
+    height: 100%;
+    overflow: scroll;
+}
+
+body {
+    font-family: "Open Sans" !important;
+}
+
+h1, h2, h3, h4, h5, h6, .text-heading {
+    font-family: "Open Sans" !important;
+    color:white;
+}
+
+h1 {
+    font-size: 42px;
+    font-weight: 400;
+}
+h3 {
+    font-size: 24px;
+}
+
+.first-main{
+    max-width: 750px;
+    margin: 0 auto;
+    background: #00a6b4;
+    overflow:auto;
+    height:100%;
+}
+.background-area {
+    background:beige;
+    height: 100%;
+}
+.appbar {
+    margin: 0px;
+    width: 100% !important;
+}
+header{
+	float: left;
+    width: 100%;
+	padding: 8px 0 2px;
+    background: #00a6b4;
+}
+.logo-area {
+    margin: 0 auto;
+    width: 300px;
+}
+.logo{
+	float:left;
+    text-align: left;
+    padding: 10px;
+    width: 300px;
+}
+.logo img{
+	width:100%;
+}
+
+.video-main{
+    padding:100px 0 0 0;
+    height: 100%;
+    background: #25a6b4;
+}
+.video-main h1, .video-main h3, .video-main h4, .video-main h2{
+	color:#fff;
+}
+
+.nav-link {
+    margin: 50px 0px;
+    background-color: #f8931f;
+    width: 100%;
+    height: 3px;
+    border: none;
+}
+
+.videoContainer {
+    margin: 10px;
+    height: 270px;
+}
+
+
+
+@media (max-width: 550px) {
+    .watch img {
+        width: 350px;
+    }
+    .videoContainer {
+        height: 200px;
+    }
+}
+
+
+@media (min-width: 551px) and (max-width: 900px) {
+    .watch img {
+        width: 500px;
+    }
+}

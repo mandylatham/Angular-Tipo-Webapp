@@ -57,7 +57,7 @@
                                 var chart_type = "bar";
                             } else if (scope.chartType === "LineChart") {
                                 var chart_type = "line";
-                            };
+                            }
                             var aggegration_type = scope.aggegration_type["splitChart"] || scope.aggegration_type["bucket"]
                             if (aggegration_type === "date_histogram") {
                                 option = getTimeOption(dataValues, index, option, chart_type)
@@ -117,6 +117,17 @@
                     } else if (bucket.aggregration_type === "Range") {
                         _.set(scope, "aggegration_type." + type, "range");
                         _.set(aggs, field_label + "." + scope.aggegration_type[type] + ".field", bucket.field_name);
+                        if (bucket.range && bucket.range.length > 0) {
+                            var ranges = [];
+                            _.each(bucket.range, function(each_range) {
+                                var range = {};
+                                range.to = each_range.to || null;
+                                range.from = each_range.from || null;
+                                range.key = each_range.label || null;
+                                ranges.push(range);
+                            });
+                            _.set(aggs, field_label + "." + scope.aggegration_type[type] + ".ranges", ranges);
+                        };
                     };
                     return aggs;
                 }
@@ -125,7 +136,7 @@
                     _.set(option, "series[" + index + "].type", "pie");
                     _.set(option, "series[" + index + "].data", []);
                     if (scope.chartType === "Doughnut") {
-                      _.set(option, "series[" + index + "].radius", ['50%', '70%']);
+                        _.set(option, "series[" + index + "].radius", ['50%', '70%']);
                     };
                     _.each(dataValues, function(each) {
                         option.series[index].data.push({ name: each.key, value: each.doc_count });
@@ -180,7 +191,7 @@
                             _.set(option, "series[" + index_ + "].data", []);
                             _.set(option, "series[" + index_ + "].type", chart_type);
                             if (scope.stack === "true") {
-                              _.set(option, "series[" + index_ + "].stack", "stack");
+                                _.set(option, "series[" + index_ + "].stack", "stack");
                             };
                             _.set(option, "series[" + index_ + "].name", each.key);
                             var splitChartValues = _.get(each, _.get(scope.field_label, "splitChart") + ".buckets");

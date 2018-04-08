@@ -1,0 +1,23 @@
+<html>
+<head>
+<title>TipoTapp Survey</title>
+<link href="style.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+    function displayProfileData(){
+		if(typeof(localStorage.userName)==='undefined' || localStorage.userName==''){
+			document.location.href='index.html';
+		}
+    }
+</script>
+<script type="text/javascript">
+	$(function(){
+		var url="https://tipotapp.typeform.com/to/Fl2zDb?name="+(localStorage.userName)+"&designation="+(localStorage.headLine)+"&email="+(localStorage.emailAddress)+"&location="+(localStorage.locationAddress)+"&profile_link="+(localStorage.profileLink)+"";
+		$('.typeform-widget').attr('data-url',url);
+	});
+</script>
+</head>
+<body onload="displayProfileData();">
+	<div class="typeform-widget" data-url="https://tipotapp.typeform.com/to/Fl2zDb" style="margin: 0 auto"></div> <script> (function() { var qs,js,q,s,d=document, gi=d.getElementById, ce=d.createElement, gt=d.getElementsByTagName, id="typef_orm", b="https://embed.typeform.com/"; if(!gi.call(d,id)) { js=ce.call(d,"script"); js.id=id; js.src=b+"embed.js"; q=gt.call(d,"script")[0]; q.parentNode.insertBefore(js,q) } })() </script>
+</body>
+</html>

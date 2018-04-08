@@ -20,6 +20,7 @@
         metaData: "=",
         fieldpath: '=',
         fileTargetVel: '=',
+        imageonly: "=",
         privateFile: '=',
         readOnly: '='
       },
@@ -297,6 +298,7 @@
               $scope.minDuration = 0;
               $scope.message = 'Please Wait...';
               $scope.backdrop = true;
+              $scope.format = scope.imageonly && "image/*";
 
               $scope.uploadStatus = 'not_started';
 
