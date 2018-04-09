@@ -1,3 +1,9 @@
 <div>
-	<input type="text" g-places-autocomplete ng-model="fieldvalue" ng-change="loadPlaceData()" />
+    <input type="text" g-places-autocomplete ng-model="fieldvalue" style="margin-bottom: 20px;" ng-change="loadPlaceData()" />
+    <md-button class="md-fab md-mini md-primary" style="position: absolute;right: 0;top: 0;line-height: 24px;width: 24px;height: 24px;min-height: 24px;" ng-click="locateme()" ng-if="myGeolocation && isMap">
+        <md-icon style="font-size: 12px;width: 12px;height: 12px;min-width: 12px;min-height: 12px;">my_location</md-icon>
+    </md-button>
+    <ng-map on-click="selectLocation()" style="margin-bottom: 40px;" ng-if="isMap">
+        <marker position="{{locationAddress.lat}}, {{locationAddress.lon}}"></marker>
+    </ng-map>
 </div>
