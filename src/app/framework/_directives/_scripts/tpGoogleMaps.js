@@ -28,8 +28,10 @@
                         map.styles = scope.mapStyle;
                         MarkerClusterer.prototype.MARKER_CLUSTER_IMAGE_PATH_ = 'https://raw.githubusercontent.com/googlemaps/js-marker-clusterer/gh-pages/images/m';
                         for (var i = 0; i < results.length; i++) {
-                            if (results[i][mapjson[0].field_name]) {
-                                var latLng = new google.maps.LatLng(results[i][mapjson[0].field_name]['lat'], results[i][mapjson[0].field_name]['lon']);
+                            var result = results[i];
+                            var geoloc = _.get(result ,mapjson[0].field_name);
+                            if (geoloc) {
+                                var latLng = new google.maps.LatLng(geoloc['lat'], geoloc['lon']);
                                 var marker = new google.maps.Marker({ position: latLng, data: results[i] });
                                 google.maps.event.addListener(marker, 'click', function(event) {
                                     // Reference to the DIV which receives the contents of the infowindow using jQuery
