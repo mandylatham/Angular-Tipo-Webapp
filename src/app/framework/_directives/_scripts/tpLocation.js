@@ -12,20 +12,23 @@
                 locationAddress: "=",
                 context: "=",
                 fieldvalue: "=",
-                showInMap: "="
+                showInMap: "=",
+                fieldname: "@"
             },
             restrict: 'EA',
             replace: true,
             templateUrl: 'framework/_directives/_views/tp-location.tpl.html',
             link: function(scope, element, attrs, ctrl) {
+                scope.fieldid = scope.fieldname.replace(/[^a-zA-Z0-9]/g, "") + Math.random();
                 if (scope.showInMap === "true") {
                   scope.isMap = true;
                 };
                 scope.myGeolocation = metadataService.geoLocation;
                 scope.locationAddress = scope.locationAddress || {};
                 scope.fieldvalue = scope.fieldvalue || {};
-                NgMap.getMap().then(function(map) {
+                NgMap.getMap(scope.fieldid).then(function(map) {
                     scope.map = map;
+                    scope.loadPlaceData();
                 });
                 var componentForm = {
                     street_number: 'short_name',
@@ -83,8 +86,13 @@
                         scope.context.state_ = scope.address.administrative_area_level_1;
                         scope.context.country = scope.address.country;
                         scope.context._postalcode = _.toNumber(scope.address.postal_code);
-                    };
+                    }else if(scope.fieldvalue && scope.isMap && scope.map){
+                      scope.map.setCenter(new google.maps.LatLng(scope.locationAddress.lat, scope.locationAddress.lon));
+                      google.maps.event.trigger(scope.map, 'resize');
+                    }
                 }
+
+                scope.loadPlaceData();
 
                 var unbind = scope.$watch(function(){return metadataService.geoLocation},function(newvalue){
                   if (newvalue) {
