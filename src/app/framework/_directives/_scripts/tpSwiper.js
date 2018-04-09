@@ -83,7 +83,9 @@
                         paginationHide: scope.hidePagination,
                         mousewheelControl: mousewheelControl,
                         loop: loop,
-                        loopedSlides: scope.images.length,
+                        // loopedSlides: scope.images.length,
+                        slidesPerView: 1,
+                        spaceBetween: 30,
                         // If we need pagination
                         pagination: '.swiper-pagination',
                         paginationClickable: true,
