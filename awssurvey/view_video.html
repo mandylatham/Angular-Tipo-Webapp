@@ -13,6 +13,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 	$(function(){
+	    $("body").on('click',function(){ return false; });
 		var currentUrl=window.location.href;
 		var currentUrlArr=currentUrl.split('?');
 		var url='https://www.youtube.com/embed/kUFYZhRJD14';
@@ -21,9 +22,14 @@
 			var url='https://www.youtube.com/embed/R5i3c6ifKqQ';
 		
 		$('#iframe_div').attr('src',url);
+		$('#js_share_video').attr('data-url',url);
 		var sahre_url='share_content.html?'+currentUrlArr[1];
 		$('#share_a_event').attr('href',sahre_url);
-	});		
+	});
+	
+	function tracklinkedin(data){
+		console.log(data);
+	}
 </script>
 </head>
 <body>
@@ -47,11 +53,18 @@
 					
 				<div class="row" style="padding-top:5px;">
 					<div class="col-md-12 text-center">
-						<script src="//platform.linkedin.com/in.js" type="text/javascript"> lang: en_US</script>
+						<script src="in.js" type="text/javascript"> lang: en_US</script>
 						<script type="IN/FollowCompany" data-id="18030733"></script>
 					</div>
 				</div>
-				<hr class="nav-link">		
+				<hr class="nav-link">
+				<div class="row">
+					<div class="col-md-12 text-center">
+							<h3 class="top_txt">Share this video and increase your chances of winning smart watch by <b style="font-size:30px; font-style:italic">5x</b></h3>
+
+					</div>			
+				</div>
+		
 				<div>
 					<div class="videoContainer">
 						<iframe  width="100%" height="100%"  id="iframe_div" src=""  frameborder="0" allowfullscreen></iframe>
@@ -60,17 +73,17 @@
 				
 				<div class="row" style="padding-top:20px;">
 					<div class="col-md-12 text-center">
-						<a href="" id="share_a_event"><button type="button" class="btn btn-primary">Share</button></a>
+						<!--<a href="" id="share_a_event"><button type="button" class="btn btn-primary">Share</button></a>-->
+						<script src="//platform.linkedin.com/in.js" type="text/javascript"> lang: en_US</script>
+						<script type="IN/Share"id="js_share_video" data-url="" data-onsuccess="tracklinkedin"></script>
 					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12 text-center">
-						<h3 class="top_txt">Share this video and increase your chances of winning smart watch by <b style="font-size:30px; font-style:italic">5x</b></h3>
-					</div>			
 				</div>
 			</div>	
 		</div>
 	</div>	
 	</div>
+	<script type="text/javascript">
+	
+	</script>
 </body>
 </html>
