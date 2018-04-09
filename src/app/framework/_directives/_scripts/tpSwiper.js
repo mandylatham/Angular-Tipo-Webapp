@@ -109,6 +109,7 @@
 
                 scope.$watch(function() { return scope.imageArray }, function() {
                     init();
+                    scope.resize();
                 })
             }
         };
