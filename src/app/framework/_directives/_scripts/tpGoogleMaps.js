@@ -13,141 +13,19 @@
                 mapjson: "=",
                 root: "=",
                 context: "=",
-                fieldname: "="
+                fieldname: "@"
             },
             restrict: 'EA',
             replace: true,
             templateUrl: 'framework/_directives/_views/tp-google-maps.tpl.html',
             link: function(scope, element, attrs, ctrl) {
                 scope.fieldid = scope.fieldname.replace(/[^a-zA-Z0-9]/g, "") + Math.random();
-                scope.mapStyle = [{
-                        "elementType": "geometry",
-                        "stylers": [{
-                            "color": "#f5f5f5"
-                        }]
-                    },
-                    {
-                        "elementType": "labels.icon",
-                        "stylers": [{
-                            "visibility": "off"
-                        }]
-                    },
-                    {
-                        "elementType": "labels.text.fill",
-                        "stylers": [{
-                            "color": "#616161"
-                        }]
-                    },
-                    {
-                        "elementType": "labels.text.stroke",
-                        "stylers": [{
-                            "color": "#f5f5f5"
-                        }]
-                    },
-                    {
-                        "featureType": "administrative.land_parcel",
-                        "elementType": "labels.text.fill",
-                        "stylers": [{
-                            "color": "#bdbdbd"
-                        }]
-                    },
-                    {
-                        "featureType": "poi",
-                        "elementType": "geometry",
-                        "stylers": [{
-                            "color": "#eeeeee"
-                        }]
-                    },
-                    {
-                        "featureType": "poi",
-                        "elementType": "labels.text.fill",
-                        "stylers": [{
-                            "color": "#757575"
-                        }]
-                    },
-                    {
-                        "featureType": "poi.park",
-                        "elementType": "geometry",
-                        "stylers": [{
-                            "color": "#e5e5e5"
-                        }]
-                    },
-                    {
-                        "featureType": "poi.park",
-                        "elementType": "labels.text.fill",
-                        "stylers": [{
-                            "color": "#9e9e9e"
-                        }]
-                    },
-                    {
-                        "featureType": "road",
-                        "elementType": "geometry",
-                        "stylers": [{
-                            "color": "#ffffff"
-                        }]
-                    },
-                    {
-                        "featureType": "road.arterial",
-                        "elementType": "labels.text.fill",
-                        "stylers": [{
-                            "color": "#757575"
-                        }]
-                    },
-                    {
-                        "featureType": "road.highway",
-                        "elementType": "geometry",
-                        "stylers": [{
-                            "color": "#dadada"
-                        }]
-                    },
-                    {
-                        "featureType": "road.highway",
-                        "elementType": "labels.text.fill",
-                        "stylers": [{
-                            "color": "#616161"
-                        }]
-                    },
-                    {
-                        "featureType": "road.local",
-                        "elementType": "labels.text.fill",
-                        "stylers": [{
-                            "color": "#9e9e9e"
-                        }]
-                    },
-                    {
-                        "featureType": "transit.line",
-                        "elementType": "geometry",
-                        "stylers": [{
-                            "color": "#e5e5e5"
-                        }]
-                    },
-                    {
-                        "featureType": "transit.station",
-                        "elementType": "geometry",
-                        "stylers": [{
-                            "color": "#eeeeee"
-                        }]
-                    },
-                    {
-                        "featureType": "water",
-                        "elementType": "geometry",
-                        "stylers": [{
-                            "color": "#c9c9c9"
-                        }]
-                    },
-                    {
-                        "featureType": "water",
-                        "elementType": "labels.text.fill",
-                        "stylers": [{
-                            "color": "#9e9e9e"
-                        }]
-                    }
-                ]
                 var dynMarkers = [];
                 var mapjson = [scope.mapjson];
                 tipoInstanceDataService.xAndYAxisData(mapjson).then(function(results) {
-                    NgMap.getMap(scope.fieldid).then(function(map) {
-                      map.styles = scope.mapStyle;
+                    scope.results = results;
+                    NgMap.getMap(scope.fieldname).then(function(map) {
+                        map.styles = scope.mapStyle;
                         MarkerClusterer.prototype.MARKER_CLUSTER_IMAGE_PATH_ = 'https://raw.githubusercontent.com/googlemaps/js-marker-clusterer/gh-pages/images/m';
                         for (var i = 0; i < results.length; i++) {
                             if (results[i][mapjson[0].field_name]) {

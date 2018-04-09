@@ -61,7 +61,7 @@
                             $rootScope.perspective = perspective;
                             if (perspective !== "Home") {
                                 return tipoDefinitionDataService.getOne("Home", true)
-                            }else{
+                            } else {
                                 return defintion;
                             }
                         });
@@ -93,11 +93,13 @@
                         setTimeout(function() {
                             _.each(tipos, function(tipo) {
                                 _.each(templates, function(template) {
-                                    var url = tipoHandle[template](tipo.tipo_id);
-                                    $http.get(url).then(function(tpl) {
-                                        $templateCache.put(url, tpl.data);
-                                        $templateCache.put(url + "?version_stamp=" + $rootScope.version_stamp, tpl.data);
-                                    });
+                                    if (S(tipo.tipo_id).contains(tipoHandle.user_meta.role) || !S(tipo.tipo_id).contains("role")) {
+                                        var url = tipoHandle[template](tipo.tipo_id);
+                                        $http.get(url).then(function(tpl) {
+                                            $templateCache.put(url, tpl.data);
+                                            $templateCache.put(url + "?version_stamp=" + $rootScope.version_stamp, tpl.data);
+                                        });
+                                    };
                                 })
                             });
                         }, 5000)
