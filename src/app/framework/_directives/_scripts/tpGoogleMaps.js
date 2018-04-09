@@ -24,42 +24,48 @@
                 var mapjson = [scope.mapjson];
                 tipoInstanceDataService.xAndYAxisData(mapjson).then(function(results) {
                     scope.results = results;
-                    NgMap.getMap(scope.fieldname).then(function(map) {
-                        map.styles = scope.mapStyle;
-                        MarkerClusterer.prototype.MARKER_CLUSTER_IMAGE_PATH_ = 'https://raw.githubusercontent.com/googlemaps/js-marker-clusterer/gh-pages/images/m';
-                        for (var i = 0; i < results.length; i++) {
-                            var result = results[i];
-                            var geoloc = _.get(result ,mapjson[0].field_name);
-                            if (geoloc) {
-                                var latLng = new google.maps.LatLng(geoloc['lat'], geoloc['lon']);
-                                var marker = new google.maps.Marker({ position: latLng, data: results[i] });
-                                google.maps.event.addListener(marker, 'click', function(event) {
-                                    // Reference to the DIV which receives the contents of the infowindow using jQuery
-                                    var iwOuter = $('.gm-style-iw');
 
-                                    /* The DIV we want to change is above the .gm-style-iw DIV.
-                                     * So, we use jQuery and create a iwBackground variable,
-                                     * and took advantage of the existing reference to .gm-style-iw for the previous DIV with .prev().
-                                     */
-                                    var iwBackground = iwOuter.prev();
+                    scope.init =function() {
+                        NgMap.getMap(scope.fieldname, { timeout: 20000 }).then(function(map) {
+                            map.styles = scope.mapStyle;
+                            MarkerClusterer.prototype.MARKER_CLUSTER_IMAGE_PATH_ = 'https://raw.githubusercontent.com/googlemaps/js-marker-clusterer/gh-pages/images/m';
+                            for (var i = 0; i < results.length; i++) {
+                                var result = results[i];
+                                var geoloc = _.get(result, mapjson[0].field_name);
+                                if (geoloc) {
+                                    var latLng = new google.maps.LatLng(geoloc['lat'], geoloc['lon']);
+                                    var marker = new google.maps.Marker({ position: latLng, data: results[i] });
+                                    google.maps.event.addListener(marker, 'click', function(event) {
+                                        // Reference to the DIV which receives the contents of the infowindow using jQuery
+                                        var iwOuter = $('.gm-style-iw');
 
-                                    // Remove the background shadow DIV
-                                    iwBackground.children(':nth-child(2)').css({ 'display': 'none' });
+                                        /* The DIV we want to change is above the .gm-style-iw DIV.
+                                         * So, we use jQuery and create a iwBackground variable,
+                                         * and took advantage of the existing reference to .gm-style-iw for the previous DIV with .prev().
+                                         */
+                                        var iwBackground = iwOuter.prev();
 
-                                    // Remove the white background DIV
-                                    iwBackground.children(':nth-child(4)').css({ 'display': 'none' });
-                                    scope.tipoRootController = {};
-                                    scope.tipoRootController.hasTipos = true;
-                                    scope.tipoRootController.hideActions = true;
-                                    scope.tipoRootController.infiniteItems = {};
-                                    scope.tipoRootController.infiniteItems.tipos = [marker.data];
-                                    scope.map.showInfoWindow('myInfoWindow', this);
-                                });
-                                dynMarkers.push(marker);
-                            };
-                        }
-                        var markerClusterer = new MarkerClusterer(map, dynMarkers, {});
-                    });
+                                        // Remove the background shadow DIV
+                                        iwBackground.children(':nth-child(2)').css({ 'display': 'none' });
+
+                                        // Remove the white background DIV
+                                        iwBackground.children(':nth-child(4)').css({ 'display': 'none' });
+                                        scope.tipoRootController = {};
+                                        scope.tipoRootController.hasTipos = true;
+                                        scope.tipoRootController.hideActions = true;
+                                        scope.tipoRootController.infiniteItems = {};
+                                        scope.tipoRootController.infiniteItems.tipos = [marker.data];
+                                        scope.map.showInfoWindow('myInfoWindow', this);
+                                    });
+                                    dynMarkers.push(marker);
+                                };
+                            }
+                            var markerClusterer = new MarkerClusterer(map, dynMarkers, {});
+                        }, function(map) {
+                            scope.init();
+                        });
+                    }
+                    scope.init();
                 });
             }
         };
