@@ -55,7 +55,7 @@
                                         scope.tipoRootController.hideActions = true;
                                         scope.tipoRootController.infiniteItems = {};
                                         scope.tipoRootController.infiniteItems.tipos = [marker.data];
-                                        scope.map.showInfoWindow('myInfoWindow', this);
+                                        // scope.map.showInfoWindow('myInfoWindow', this);
                                     });
                                     dynMarkers.push(marker);
                                 };
