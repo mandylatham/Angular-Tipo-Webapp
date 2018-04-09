@@ -62,7 +62,9 @@
                     if (scope.fieldvalue.geometry) {
                         scope.address = {};
                         scope.locationAddress = { lat: scope.fieldvalue.geometry.location.lat(), lon: scope.fieldvalue.geometry.location.lng() };
-                        scope.map.setCenter(scope.fieldvalue.geometry.location);
+                        if (scope.isMap) {
+                          scope.map.setCenter(scope.fieldvalue.geometry.location);
+                        }
                         var latLng = new google.maps.LatLng(scope.locationAddress['lat'], scope.locationAddress['lon']);
                         scope.position = [scope.locationAddress['lat'], scope.locationAddress['lon']];
                         var marker = new google.maps.Marker({ position: latLng });
