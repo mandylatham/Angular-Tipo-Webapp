@@ -13,7 +13,7 @@
                 mapjson: "=",
                 root: "=",
                 context: "=",
-                fieldname: "="
+                fieldname: "@"
             },
             restrict: 'EA',
             replace: true,
