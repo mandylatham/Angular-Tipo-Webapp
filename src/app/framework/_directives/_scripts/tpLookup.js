@@ -21,6 +21,7 @@
 
         var _instance = this;
         _instance.tipoDefinition = tipoDefinition;
+        _instance.activeTab = 'main';
         _instance.popup = true;
         _instance.selectedTipos = $scope.selectedTipos;
         _instance.ngModel = $scope.ngModel;
