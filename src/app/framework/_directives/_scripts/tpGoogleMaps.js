@@ -12,12 +12,14 @@
             scope: {
                 mapjson: "=",
                 root: "=",
-                context: "="
+                context: "=",
+                fieldname: "="
             },
             restrict: 'EA',
             replace: true,
             templateUrl: 'framework/_directives/_views/tp-google-maps.tpl.html',
             link: function(scope, element, attrs, ctrl) {
+                scope.fieldid = scope.fieldname.replace(/[^a-zA-Z0-9]/g, "") + Math.random();
                 scope.mapStyle = [{
                         "elementType": "geometry",
                         "stylers": [{
@@ -144,7 +146,7 @@
                 var dynMarkers = [];
                 var mapjson = [scope.mapjson];
                 tipoInstanceDataService.xAndYAxisData(mapjson).then(function(results) {
-                    NgMap.getMap().then(function(map) {
+                    NgMap.getMap(scope.fieldid).then(function(map) {
                       map.styles = scope.mapStyle;
                         MarkerClusterer.prototype.MARKER_CLUSTER_IMAGE_PATH_ = 'https://raw.githubusercontent.com/googlemaps/js-marker-clusterer/gh-pages/images/m';
                         for (var i = 0; i < results.length; i++) {
