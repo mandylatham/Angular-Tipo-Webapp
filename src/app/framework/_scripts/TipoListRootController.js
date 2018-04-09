@@ -329,7 +329,12 @@
                         res = tipoClientJavascript[function_name](tipo);
                     }
                     if (res) {
-                        tipoHandle.deleteTipo(tipo_name, tipo.tipo_id, filter).then(function() {
+                        if (_.isNumber(tipo.tipo_id)) {
+                            var tipotipoid = _.toString(tipo.tipo_id)
+                        }else{
+                            var tipotipoid = tipo.tipo_id;
+                        }
+                        tipoHandle.deleteTipo(tipo_name, tipotipoid, filter).then(function() {
                             tipoRouter.toTipoList(tipo_name);
                         });
                     } else {
