@@ -515,6 +515,24 @@
       });
     }
 
+    function addPromoCode() {
+      var confirm = $mdDialog.prompt()
+        .title('Add Promo Code')
+        .placeholder('Promo Code')
+        .ariaLabel('Promo Code')
+        .ok('Submit')
+        .cancel('Cancel');
+  
+      $mdDialog.show(confirm).then(function(result) {
+        if(result) {
+          tipoHandle.callAction($scope.tipoRootController.tipo_name,'attach_promo_code',[_instance.tipo.tipo_id],$scope.tipoRootController.tipo_name,{promo_code: result}).then(function(response){
+          });
+        }
+      }, function() {
+      });
+    }
+
+
     // Your business logic.
 
     this.createToken = createToken;
@@ -525,6 +543,7 @@
     this.collapseAll = collapseAll;
     this.getPlanDetails = getPlanDetails;
     this.getPlanCost = getPlanCost;
+    this.addPromoCode = addPromoCode;
 
   }
 
