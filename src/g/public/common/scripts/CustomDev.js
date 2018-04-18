@@ -301,7 +301,8 @@
     tipoManipulationService,
     $window,
     $scope,
-    $mdDialog) {
+    $mdDialog,
+    $mdToast) {
 
     var _instance = this;
     /** In case of detail/edit/create pages, the tipo object that contains the data from server. */
@@ -526,6 +527,12 @@
       $mdDialog.show(confirm).then(function(result) {
         if(result) {
           tipoHandle.callAction($scope.tipoRootController.tipo_name,'attach_promo_code',[_instance.tipo.tipo_id],$scope.tipoRootController.tipo_name,{promo_code: result}).then(function(response){
+            var toast = $mdToast.tpToast();
+            toast._options.locals = {
+                header: 'Promo Code Added Successfully!',
+                body: ""
+            };
+            $mdToast.show(toast);
           });
         }
       }, function() {
