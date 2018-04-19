@@ -345,8 +345,8 @@
                     if (!_.isUndefined(accessToken) && _.startsWith(config.url, "api/")) {
                         config.headers['Authorization'] = accessToken;
                     }
-                    // if (_.startsWith(config.url, "g/") && $rootScope.cdn_host && !$templateCache.get(config.url + "?version_stamp=" + config.params.version_stamp)) {
-                        if (_.startsWith(config.url, "g/") && !S(config.url).contains("tipoapp") && $rootScope.cdn_host && !$templateCache.get(config.url + "?version_stamp=" + config.params.version_stamp)) {
+                    if (_.startsWith(config.url, "g/") && $rootScope.cdn_host && !$templateCache.get(config.url + "?version_stamp=" + config.params.version_stamp)) {
+                        // if (_.startsWith(config.url, "g/") && !S(config.url).contains("tipoapp") && $rootScope.cdn_host && !$templateCache.get(config.url + "?version_stamp=" + config.params.version_stamp)) {
                         if (_.endsWith(config.url, "___TipoApp") || _.endsWith(config.url, "___TipoDefinition") || (_.startsWith($stateParams.perspective, "TipoApp.") && !(config.headers['X-bypass-cdn'] === "true" || config.method === "PURGE") )) {
                             config.url = "https://" + $rootScope.only_cdn_host + config.url;
                             config.params.version_stamp = $rootScope.tipoapp_version || $rootScope.version_stamp;
