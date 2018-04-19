@@ -527,6 +527,7 @@
       $mdDialog.show(confirm).then(function(result) {
         if(result) {
           tipoHandle.callAction($scope.tipoRootController.tipo_name,'attach_promo_code',[_instance.tipo.tipo_id],$scope.tipoRootController.tipo_name,{promo_code: result}).then(function(response){
+            _instance.tipo.coupon = response.coupon;
             var toast = $mdToast.tpToast();
             toast._options.locals = {
                 header: 'Promo Code Added Successfully!',
@@ -539,6 +540,23 @@
       });
     }
 
+    function checkPromoCodeExpiry () {
+      if(_instance.tipo.coupon) {
+        var dt = new Date(_instance.tipo.coupon.created_date);
+        var expiryDate;
+        if( _instance.tipo.coupon.duration === 'once') {
+         expiryDate = new Date(dt.setMonth(dt.getMonth() + 1));
+        } else if (_instance.tipo.coupon.duration === 'repeating') {
+          expiryDate = new Date(dt.setMonth(dt.getMonth() + _instance.tipo.coupon.duration_in_months));
+        }
+        if(new Date() > expiryDate) {
+           $scope.couponInvalid = true;
+        } else {
+          $scope.couponInvalid = false;
+        }
+      }
+    }
+    checkPromoCodeExpiry();
 
     // Your business logic.
 
@@ -551,7 +569,7 @@
     this.getPlanDetails = getPlanDetails;
     this.getPlanCost = getPlanCost;
     this.addPromoCode = addPromoCode;
-
+    this.checkPromoCodeExpiry = checkPromoCodeExpiry;
   }
 
   angular.module('tipo.tipoapp')
