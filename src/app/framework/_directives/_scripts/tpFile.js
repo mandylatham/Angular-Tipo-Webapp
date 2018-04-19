@@ -134,12 +134,21 @@
             return;
           }
           if (scope.isTargetSet) {
-            scope.field = {
-              key: scope.fileTarget + (scope.isTargetFile ? '' :scope.singlePath.value),
-              type: scope.singlePath.tagType,
-              fileType: scope.singlePath.fileType,
-              rootFolder: scope.rootFolder
-            };
+            if(scope.imageonly) {
+              scope.field = {
+                key: scope.fileTargetVel + (scope.isTargetFile ? '' : scope.singlePath.value),
+                type: scope.singlePath.tagType,
+                fileType: scope.singlePath.fileType,
+                rootFolder: scope.rootFolder
+              };
+            } else {
+                scope.field = {
+                  key: scope.fileTarget + (scope.isTargetFile ? '' : scope.singlePath.value),
+                  type: scope.singlePath.tagType,
+                  fileType: scope.singlePath.fileType,
+                  rootFolder: scope.rootFolder
+                };
+            }
           } else {
             scope.field = {
               key: scope.singlePath.value,
@@ -333,7 +342,10 @@
                     'File-Content': base64Encoded,
                     'Content-Type': type
                   };
-                  fileContent.lfFileName = _.replace(fileContent.lfFileName, ' ', '');
+                  fileContent.lfFileName = _.replace(fileContent.lfFileName, /\s/g, '');
+                  if(scope.imageonly && !scope.isArray) {
+                    fileContent.lfFileName = uuid4() + '-' + fileContent.lfFileName;
+                  }
                   if (isSimple && scope.field) {
                     var uploadPath = scope.field.key || scope.fileTarget;
                   }else{
@@ -383,7 +395,10 @@
                       if(_.isUndefined(fileContent.lfFileName)){
                         delete $scope.finalPath;
                       }else{
-                        fileContent.lfFileName = _.replace(fileContent.lfFileName, ' ', '');
+                        fileContent.lfFileName = _.replace(fileContent.lfFileName, /\s/g, '');
+                        if(scope.imageonly) {
+                          fileContent.lfFileName = uuid4() + '-' + fileContent.lfFileName;
+                        }
                         if($scope.fixedPrefix){
                           $scope.finalPath.path = $scope.fixedPrefix + fileContent.lfFileName  + "," + $scope.finalPath.path;
                         }else{
@@ -401,7 +416,7 @@
                       if(_.isUndefined(newName)){
                         delete $scope.finalPath;
                       }else{
-                        newName = _.replace(newName, ' ', '');
+                        newName = _.replace(newName, /\s/g, '');
                         if($scope.fixedPrefix){
                           $scope.finalPath.path = $scope.fixedPrefix + (scope.isTargetFile ? '' : newName);
                         }else{
