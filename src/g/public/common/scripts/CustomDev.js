@@ -554,6 +554,8 @@
         } else {
           $scope.couponInvalid = false;
         }
+      } else {
+        $scope.couponInvalid = true;
       }
     }
     checkPromoCodeExpiry();
