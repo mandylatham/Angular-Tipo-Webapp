@@ -560,6 +560,10 @@
     }
     checkPromoCodeExpiry();
 
+    function getDiscountAmount (amount) {
+      return amount/100;
+    }
+
     // Your business logic.
 
     this.createToken = createToken;
@@ -572,6 +576,7 @@
     this.getPlanCost = getPlanCost;
     this.addPromoCode = addPromoCode;
     this.checkPromoCodeExpiry = checkPromoCodeExpiry;
+    this.getDiscountAmount = getDiscountAmount;
   }
 
   angular.module('tipo.tipoapp')
