@@ -166,7 +166,10 @@
             });
         }
 
-        _instance.signUp = function(attemptCnt) {
+        _instance.signUp = function(form, attemptCnt) {
+            if (form && !form.$valid) {
+                return false;
+            }
             markProgress();
             if (appMetadata.capture_account_name_during_signup && !verifyAccountName(user.accountName)) {
                 raiseError({ message: 'Account name has invalid format' });

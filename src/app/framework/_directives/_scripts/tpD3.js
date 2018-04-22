@@ -92,7 +92,7 @@
                         height = (parentHeight > 240 && parentHeight) || 240;
                         ndWrapper.style.width = width + 'px';
                         ndWrapper.style.height = height + 'px';
-                        myChart = echarts.init(ndWrapper, 'essos');
+                        myChart = echarts.init(ndWrapper, 'custom');
                         if (scope.option) {
                             myChart.setOption(scope.option);
                         };

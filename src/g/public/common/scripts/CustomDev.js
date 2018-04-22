@@ -301,7 +301,8 @@
     tipoManipulationService,
     $window,
     $scope,
-    $mdDialog) {
+    $mdDialog,
+    $mdToast) {
 
     var _instance = this;
     /** In case of detail/edit/create pages, the tipo object that contains the data from server. */
@@ -515,6 +516,54 @@
       });
     }
 
+    function addPromoCode() {
+      var confirm = $mdDialog.prompt()
+        .title('Add Promo Code')
+        .placeholder('Promo Code')
+        .ariaLabel('Promo Code')
+        .ok('Submit')
+        .cancel('Cancel');
+  
+      $mdDialog.show(confirm).then(function(result) {
+        if(result) {
+          tipoHandle.callAction($scope.tipoRootController.tipo_name,'attach_promo_code',[_instance.tipo.tipo_id],$scope.tipoRootController.tipo_name,{promo_code: result}).then(function(response){
+            _instance.tipo.coupon = response.coupon;
+            var toast = $mdToast.tpToast();
+            toast._options.locals = {
+                header: 'Promo Code Added Successfully!',
+                body: ""
+            };
+            $mdToast.show(toast);
+          });
+        }
+      }, function() {
+      });
+    }
+
+    function checkPromoCodeExpiry () {
+      if(_instance.tipo.coupon) {
+        var dt = new Date(_instance.tipo.coupon.created_date);
+        var expiryDate;
+        if( _instance.tipo.coupon.duration === 'once') {
+         expiryDate = new Date(dt.setMonth(dt.getMonth() + 1));
+        } else if (_instance.tipo.coupon.duration === 'repeating') {
+          expiryDate = new Date(dt.setMonth(dt.getMonth() + _instance.tipo.coupon.duration_in_months));
+        }
+        if(new Date() > expiryDate) {
+           $scope.couponInvalid = true;
+        } else {
+          $scope.couponInvalid = false;
+        }
+      } else {
+        $scope.couponInvalid = true;
+      }
+    }
+    checkPromoCodeExpiry();
+
+    function getDiscountAmount (amount) {
+      return amount/100;
+    }
+
     // Your business logic.
 
     this.createToken = createToken;
@@ -525,7 +574,9 @@
     this.collapseAll = collapseAll;
     this.getPlanDetails = getPlanDetails;
     this.getPlanCost = getPlanCost;
-
+    this.addPromoCode = addPromoCode;
+    this.checkPromoCodeExpiry = checkPromoCodeExpiry;
+    this.getDiscountAmount = getDiscountAmount;
   }
 
   angular.module('tipo.tipoapp')
