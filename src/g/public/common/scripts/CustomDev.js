@@ -527,7 +527,7 @@
       $mdDialog.show(confirm).then(function(result) {
         if(result) {
           tipoHandle.callAction($scope.tipoRootController.tipo_name,'attach_promo_code',[_instance.tipo.tipo_id],$scope.tipoRootController.tipo_name,{promo_code: result}).then(function(response){
-            _instance.tipo.coupon = response.coupon;
+            _instance.tipo = response;
             var toast = $mdToast.tpToast();
             toast._options.locals = {
                 header: 'Promo Code Added Successfully!',
