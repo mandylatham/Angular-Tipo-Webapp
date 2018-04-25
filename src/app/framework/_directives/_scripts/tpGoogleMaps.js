@@ -27,7 +27,7 @@
                     NgMap.getMap(scope.fieldname, { timeout: 20000 }).then(function(map) {
                         map.styles = scope.mapStyle;
                         scope.map = map;
-                        // MarkerClusterer.prototype.MARKER_CLUSTER_IMAGE_PATH_ = 'https://raw.githubusercontent.com/googlemaps/js-marker-clusterer/gh-pages/images/m';
+                        MarkerClusterer.prototype.MARKER_CLUSTER_IMAGE_PATH_ = 'https://raw.githubusercontent.com/googlemaps/js-marker-clusterer/gh-pages/images/m';
                         var styles = [{
                             url: '_assets/images/m2.png',
                             height: 48,
@@ -98,71 +98,71 @@
                             }
                         }
                         var markerClusterer = new MarkerClusterer(scope.map, dynMarkers, { zoomOnClick: false, styles: styles });
-                        markerClusterer.setCalculator(customCalculator);
-                        var drawingManager = new google.maps.drawing.DrawingManager({
-                            drawingControl: true,
-                            drawingControlOptions: {
-                                position: google.maps.ControlPosition.TOP_CENTER,
-                                drawingModes: ['rectangle', 'polygon']
-                            },
-                            rectangleOptions: {
-                                fillOpacity: 0.15,
-                                strokeWeight: 0.9,
-                                clickable: false,
-                                // visible: false,
-                                zIndex: 1
-                            },
-                            polygonOptions: {
-                                fillOpacity: 0.15,
-                                strokeWeight: 0.9,
-                                clickable: false,
-                                // visible: false,
-                                zIndex: 1
-                            },
-                        });
-                        drawingManager.setMap(scope.map);
-                        google.maps.event.addListener(drawingManager, 'rectanglecomplete', function(rectangle) {
-                            var bounds = rectangle.getBounds();
-                            var markers = markerClusterer.getMarkers();
-                            var clusters = markerClusterer.clusters_;
-                            _.each(clusters, function(each_marker) {
-                                var contain = bounds.contains(each_marker.getCenter());
-                                if (contain) {
-                                    each_marker.clusterIcon_.url_ = "https://raw.githubusercontent.com/googlemaps/js-marker-clusterer/gh-pages/images/m5.png";
-                                    each_marker.clusterIcon_.createCss(each_marker.getCenter());
-                                };
-                            });
-                            _.each(markers, function(each_marker) {
-                                var contain = bounds.contains(each_marker.getPosition());
-                                if (contain) {
-                                    each_marker.data.selected = true;
-                                };
-                            });
-                            rectangle.setMap(null);
-                            markerClusterer.resetViewport();
-                            markerClusterer.redraw();
-                        });
-                        google.maps.event.addListener(drawingManager, 'polygoncomplete', function(rectangle) {
-                            // var bounds = rectangle.getBounds();
-                            var markers = markerClusterer.getMarkers();
-                            var clusters = markerClusterer.clusters_;
-                            // _.each(clusters, function(each_marker) {
-                            //     var contain = bounds.contains(each_marker.getCenter());
-                            //     if (contain) {
-                            //         each_marker.clusterIcon_.url_ = "https://raw.githubusercontent.com/googlemaps/js-marker-clusterer/gh-pages/images/m5.png";
-                            //         each_marker.clusterIcon_.createCss(each_marker.getCenter());
-                            //     };
-                            // });
-                            _.each(markers, function(each_marker) {
-                                var latlong = each_marker.getPosition();
-                                if(google.maps.geometry.poly.containsLocation(latlong, rectangle)) {
-                                    each_marker.data.selected = true;
-                                };
-                            });
-                            rectangle.setMap(null);
-                            markerClusterer.resetViewport();
-                            markerClusterer.redraw();
-                        });
+                        // markerClusterer.setCalculator(customCalculator);
+                        // var drawingManager = new google.maps.drawing.DrawingManager({
+                        //     drawingControl: true,
+                        //     drawingControlOptions: {
+                        //         position: google.maps.ControlPosition.TOP_CENTER,
+                        //         drawingModes: ['rectangle', 'polygon']
+                        //     },
+                        //     rectangleOptions: {
+                        //         fillOpacity: 0.15,
+                        //         strokeWeight: 0.9,
+                        //         clickable: false,
+                        //         // visible: false,
+                        //         zIndex: 1
+                        //     },
+                        //     polygonOptions: {
+                        //         fillOpacity: 0.15,
+                        //         strokeWeight: 0.9,
+                        //         clickable: false,
+                        //         // visible: false,
+                        //         zIndex: 1
+                        //     },
+                        // });
+                        // drawingManager.setMap(scope.map);
+                        // google.maps.event.addListener(drawingManager, 'rectanglecomplete', function(rectangle) {
+                        //     var bounds = rectangle.getBounds();
+                        //     var markers = markerClusterer.getMarkers();
+                        //     var clusters = markerClusterer.clusters_;
+                        //     _.each(clusters, function(each_marker) {
+                        //         var contain = bounds.contains(each_marker.getCenter());
+                        //         if (contain) {
+                        //             each_marker.clusterIcon_.url_ = "https://raw.githubusercontent.com/googlemaps/js-marker-clusterer/gh-pages/images/m5.png";
+                        //             each_marker.clusterIcon_.createCss(each_marker.getCenter());
+                        //         };
+                        //     });
+                        //     _.each(markers, function(each_marker) {
+                        //         var contain = bounds.contains(each_marker.getPosition());
+                        //         if (contain) {
+                        //             each_marker.data.selected = true;
+                        //         };
+                        //     });
+                        //     rectangle.setMap(null);
+                        //     markerClusterer.resetViewport();
+                        //     markerClusterer.redraw();
+                        // });
+                        // google.maps.event.addListener(drawingManager, 'polygoncomplete', function(rectangle) {
+                        //     // var bounds = rectangle.getBounds();
+                        //     var markers = markerClusterer.getMarkers();
+                        //     var clusters = markerClusterer.clusters_;
+                        //     // _.each(clusters, function(each_marker) {
+                        //     //     var contain = bounds.contains(each_marker.getCenter());
+                        //     //     if (contain) {
+                        //     //         each_marker.clusterIcon_.url_ = "https://raw.githubusercontent.com/googlemaps/js-marker-clusterer/gh-pages/images/m5.png";
+                        //     //         each_marker.clusterIcon_.createCss(each_marker.getCenter());
+                        //     //     };
+                        //     // });
+                        //     _.each(markers, function(each_marker) {
+                        //         var latlong = each_marker.getPosition();
+                        //         if(google.maps.geometry.poly.containsLocation(latlong, rectangle)) {
+                        //             each_marker.data.selected = true;
+                        //         };
+                        //     });
+                        //     rectangle.setMap(null);
+                        //     markerClusterer.resetViewport();
+                        //     markerClusterer.redraw();
+                        // });
                         google.maps.event.addListener(markerClusterer, 'clusterclick', function(cluster) {
                             // your code here
                             var center = cluster.getCenter();
