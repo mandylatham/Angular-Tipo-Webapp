@@ -21,6 +21,7 @@
             templateUrl: 'framework/_directives/_views/tp-google-maps.tpl.html',
             link: function(scope, element, attrs, ctrl) {
                 scope.fieldid = scope.fieldname.replace(/[^a-zA-Z0-9]/g, "") + Math.random();
+                scope.template = "g/public/gen_temp/common/views/list.tpl.html.TipoUser___" + scope.mapjson.tipo_name;
                 var dynMarkers = [];
                 var mapjson = [scope.mapjson];
                 scope.init = function() {
