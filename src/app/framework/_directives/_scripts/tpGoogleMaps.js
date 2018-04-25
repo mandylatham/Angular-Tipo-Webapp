@@ -28,17 +28,17 @@
                         map.styles = scope.mapStyle;
                         scope.map = map;
                         MarkerClusterer.prototype.MARKER_CLUSTER_IMAGE_PATH_ = 'https://raw.githubusercontent.com/googlemaps/js-marker-clusterer/gh-pages/images/m';
-                        var styles = [{
-                            url: '_assets/images/m2.png',
-                            height: 48,
-                            width: 30,
-                            anchor: [-18, 0],
-                            iconAnchor: [15, 48]
-                        }, {
-                            url: '_assets/images/m1.png',
-                            height: 53,
-                            width: 53,
-                        }];
+                        // var styles = [{
+                        //     url: '_assets/images/m2.png',
+                        //     height: 48,
+                        //     width: 30,
+                        //     anchor: [-18, 0],
+                        //     iconAnchor: [15, 48]
+                        // }, {
+                        //     url: '_assets/images/m1.png',
+                        //     height: 53,
+                        //     width: 53,
+                        // }];
                         for (var i = 0; i < scope.results.length; i++) {
                             var result = scope.results[i];
                             var geoloc = _.get(result, mapjson[0].field_name);
@@ -97,7 +97,8 @@
                                 };
                             }
                         }
-                        var markerClusterer = new MarkerClusterer(scope.map, dynMarkers, { zoomOnClick: false, styles: styles });
+                        var markerClusterer = new MarkerClusterer(scope.map, dynMarkers, { zoomOnClick: false});
+                        // var markerClusterer = new MarkerClusterer(scope.map, dynMarkers, { zoomOnClick: false, styles: styles });
                         // markerClusterer.setCalculator(customCalculator);
                         // var drawingManager = new google.maps.drawing.DrawingManager({
                         //     drawingControl: true,
