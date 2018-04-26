@@ -381,24 +381,28 @@
         return;
       }
       _instance.selectedPlan = plan;
-      if (!_instance.tipo.credit_card && !_instance.cardElement) {
+      if (!_instance.tipo.credit_card && !_instance.cardElement && !_instance.tipo.coupon) {
         showCreditCard();
       }else{
-        var confirmText = "Are you sure you want to change plan?";
-        if(plan.tipo_id === 'Free') {
-          confirmText = "Are you sure you'd like to down-grade to Free plan and loose all the features developed in higher plans? This action can't be reverted.";
-        }
-        var confirm = $mdDialog.confirm()
-          .title('Confirmation')
-          .textContent(confirmText)
-          .ok('Yes')
-          .cancel('Cancel');
+        if(_instance.tipo.coupon && _instance.tipo.coupon.percent_off !== 100) {
+          showCreditCard();
+        } else {
+          var confirmText = "Are you sure you want to change plan?";
+          if(plan.tipo_id === 'Free') {
+            confirmText = "Are you sure you'd like to down-grade to Free plan and loose all the features developed in higher plans? This action can't be reverted.";
+          }
+          var confirm = $mdDialog.confirm()
+            .title('Confirmation')
+            .textContent(confirmText)
+            .ok('Yes')
+            .cancel('Cancel');
 
-        $mdDialog.show(confirm).then(function() {
-          var subscription = mapSubscrtoPlan();
-          saveSubscription(subscription);
-        }, function() {
-        });
+          $mdDialog.show(confirm).then(function() {
+            var subscription = mapSubscrtoPlan();
+            saveSubscription(subscription);
+          }, function() {
+          });
+        }
       }
     }
 
@@ -528,10 +532,11 @@
         if(result) {
           tipoHandle.callAction($scope.tipoRootController.tipo_name,'attach_promo_code',[_instance.tipo.tipo_id],$scope.tipoRootController.tipo_name,{promo_code: result}).then(function(response){
             _instance.tipo = response;
+            $scope.couponInvalid = false;
             var toast = $mdToast.tpToast();
             toast._options.locals = {
                 header: 'Promo Code Added Successfully!',
-                body: ""
+                body: "Discount will be applied in your next Invoice"
             };
             $mdToast.show(toast);
           });
