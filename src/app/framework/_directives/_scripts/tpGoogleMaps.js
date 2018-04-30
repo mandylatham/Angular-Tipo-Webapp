@@ -7,7 +7,9 @@
 
     return module.directive('tpGoogleMaps', function(
         NgMap,
-        tipoInstanceDataService) {
+        tipoInstanceDataService,
+        metadataService,
+        $http) {
         return {
             scope: {
                 mapjson: "=",
@@ -21,7 +23,11 @@
             templateUrl: 'framework/_directives/_views/tp-google-maps.tpl.html',
             link: function(scope, element, attrs, ctrl) {
                 scope.fieldid = scope.fieldname.replace(/[^a-zA-Z0-9]/g, "") + Math.random();
-                scope.template = "g/public/gen_temp/common/views/list.tpl.html.TipoUser___" + scope.mapjson.tipo_name;
+                var tipo_name = scope.mapjson.tipo_name || 'TipoDefinition'
+                scope.templatepath = "g/public/gen_temp/common/views/list.tpl.html." + metadataService.userMetadata.role + "___" + tipo_name;
+                $http.get(scope.templatepath, {}).then(function(tpl) {
+                    var scope.html = tpl.data;
+                });
                 var dynMarkers = [];
                 var mapjson = [scope.mapjson];
                 scope.init = function() {
@@ -98,7 +104,7 @@
                                 };
                             }
                         }
-                        var markerClusterer = new MarkerClusterer(scope.map, dynMarkers, { zoomOnClick: false});
+                        var markerClusterer = new MarkerClusterer(scope.map, dynMarkers, { zoomOnClick: false });
                         // var markerClusterer = new MarkerClusterer(scope.map, dynMarkers, { zoomOnClick: false, styles: styles });
                         // markerClusterer.setCalculator(customCalculator);
                         // var drawingManager = new google.maps.drawing.DrawingManager({
