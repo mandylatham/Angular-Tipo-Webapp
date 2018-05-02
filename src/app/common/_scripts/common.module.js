@@ -24,7 +24,6 @@
     'ngMap',
     'google.places',
     'text-mask',
-    'angular-flatpickr',
     'infinite-scroll',
     'cl.paging',
     'angularSpectrumColorpicker',

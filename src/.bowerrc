@@ -1,4 +1,7 @@
 {
   "directory": "bower_components",
-  "registry": "https://registry.bower.io"
+  "registry": "https://registry.bower.io",
+  "resolvers": [
+    "bower-npm-resolver"
+  ]
 }

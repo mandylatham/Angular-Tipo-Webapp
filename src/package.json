@@ -44,7 +44,8 @@
     "body-parser": "1.15.2 ",
     "uuid": "2.0.2",
     "jsonfile": "2.3.1",
-    "aws-sdk": "2.7.7"
+    "aws-sdk": "2.7.7",
+    "bower-npm-resolver": "0.9.1"
   },
   "engines": {
     "node": ">=0.10.0"
