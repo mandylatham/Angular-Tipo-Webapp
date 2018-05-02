@@ -32,6 +32,9 @@
             <gruntOptions>
               <gruntOption>--verbose</gruntOption>
             </gruntOptions>
+            <npmOptions>
+              <npmOption>-g</npmOption>
+            </npmOptions>
             <filteredResources>
               <filteredResource>maven-properties.json</filteredResource>
               <filteredResource>package.json</filteredResource>
