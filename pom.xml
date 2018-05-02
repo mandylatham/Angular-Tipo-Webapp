@@ -32,9 +32,6 @@
             <gruntOptions>
               <gruntOption>--verbose</gruntOption>
             </gruntOptions>
-            <npmOptions>
-              <npmOption>-g</npmOption>
-            </npmOptions>
             <filteredResources>
               <filteredResource>maven-properties.json</filteredResource>
               <filteredResource>package.json</filteredResource>
@@ -339,10 +336,36 @@
             <executions>
               <execution>
                 <id>default</id>
-                <phase>compile</phase>
+                <phase>process-resources</phase>
                 <goals>
                   <goal>create-resources</goal>
                   <goal>grunt</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>npm</id>
+      <activation>
+         <property>
+            <name>all</name>
+         </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>pl.allegro</groupId>
+            <artifactId>grunt-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>default</id>
+                <phase>process-resources</phase>
+                <goals>
+                  <goal>create-resources</goal>
+                  <goal>npm</goal>
                 </goals>
               </execution>
             </executions>
@@ -368,7 +391,6 @@
                 <phase>compile</phase>
                 <goals>
                   <goal>create-resources</goal>
-                  <goal>npm</goal>
                   <goal>bower</goal>
                   <goal>grunt</goal>
                 </goals>
