@@ -40,22 +40,27 @@
             scope.fieldid = scope.fieldname.replace(/[^a-zA-Z0-9]/g, "") + Math.random();
             var dynMarkers = [];
             var mapjson = [scope.mapjson];
+            scope.tipoRootController = {};
             scope.init = function() {
                 NgMap.getMap(scope.fieldname, { timeout: 20000 }).then(function(map) {
                     map.styles = scope.mapStyle;
                     scope.map = map;
                     MarkerClusterer.prototype.MARKER_CLUSTER_IMAGE_PATH_ = 'https://raw.githubusercontent.com/googlemaps/js-marker-clusterer/gh-pages/images/m';
-                    // var styles = [{
-                    //     url: '_assets/images/m2.png',
-                    //     height: 48,
-                    //     width: 30,
-                    //     anchor: [-18, 0],
-                    //     iconAnchor: [15, 48]
-                    // }, {
-                    //     url: '_assets/images/m1.png',
-                    //     height: 53,
-                    //     width: 53,
-                    // }];
+                    var styles = [{
+                        url: 'place',
+                        height: 53,
+                        width: 53,
+                        backgroundPosition: "10 -10",
+                        customStyle: "md-primary",
+                        anchorText: [-6, 18]
+                    }, {
+                        url: 'place',
+                        height: 53,
+                        width: 53,
+                        backgroundPosition: "10 -10",
+                        anchorText: [-6, 18],
+                        customStyle: "md-primary md-reverse-theme"
+                    }];
                     for (var i = 0; i < scope.results.length; i++) {
                         var result = scope.results[i];
                         var geoloc = _.get(result, mapjson[0].field_name);
@@ -79,7 +84,6 @@
 
                                     // Remove the white background DIV
                                     iwBackground.children(':nth-child(4)').css({ 'display': 'none' });
-                                    scope.tipoRootController = {};
                                     scope.tipoRootController.hasTipos = true;
                                     scope.tipoRootController.hideActions = true;
                                     scope.tipoRootController.infiniteItems = {};
@@ -96,7 +100,7 @@
                         var index = 0;
                         var count = markers.length;
                         var dv = count;
-                        if (markers[0].data.selected) {
+                        if (_.find(markers, function(o) { return o.data.selected; })) {
                             return {
                                 text: count,
                                 index: numStyles
@@ -114,9 +118,25 @@
                             };
                         }
                     }
-                    var markerClusterer = new MarkerClusterer(scope.map, dynMarkers, { zoomOnClick: false });
-                    // var markerClusterer = new MarkerClusterer(scope.map, dynMarkers, { zoomOnClick: false, styles: styles });
+                    // var markerClusterer = new MarkerClusterer(scope.map, dynMarkers, { zoomOnClick: false });
+                    var markerClusterer = new MarkerClusterer(scope.map, dynMarkers, { zoomOnClick: false, styles: styles, minimumClusterSize: 1 });
                     markerClusterer.setCalculator(customCalculator);
+                    scope.tipoRootController.selectTipo = function(tipo, event, tipos) {
+                        if (!scope.tipoRootController.bulkedit) {
+                            scope.tipoRootController.infiniteItems.tipos = [tipo];
+                            scope.map.setZoom(16);
+                            scope.map.panTo(tipo.position_google_maps);
+                            scope.map.showInfoWindow('myInfoWindow', tipo.position_google_maps);
+                            event.stopPropagation();
+                        } else {
+                            tipo.selected = !tipo.selected;
+                            markerClusterer.repaint();
+                            event.stopPropagation();
+                        }
+                    }
+                    scope.fitMarkers = function() {
+                        markerClusterer.fitMapToMarkers();
+                    }
                     scope.drawingManager = new google.maps.drawing.DrawingManager({
                         drawingControlOptions: {
                             position: google.maps.ControlPosition.TOP_CENTER,
@@ -151,13 +171,6 @@
                         var bounds = rectangle.getBounds();
                         var markers = markerClusterer.getMarkers();
                         var clusters = markerClusterer.clusters_;
-                        _.each(clusters, function(each_marker) {
-                            var contain = bounds.contains(each_marker.getCenter());
-                            if (contain) {
-                                each_marker.clusterIcon_.url_ = "https://raw.githubusercontent.com/googlemaps/js-marker-clusterer/gh-pages/images/m5.png";
-                                each_marker.clusterIcon_.createCss(each_marker.getCenter());
-                            };
-                        });
                         _.each(markers, function(each_marker) {
                             var contain = bounds.contains(each_marker.getPosition());
                             if (contain) {
@@ -165,20 +178,12 @@
                             };
                         });
                         rectangle.setMap(null);
-                        markerClusterer.resetViewport();
-                        markerClusterer.redraw();
+                        markerClusterer.repaint();
                     });
                     google.maps.event.addListener(scope.drawingManager, 'polygoncomplete', function(rectangle) {
                         // var bounds = rectangle.getBounds();
                         var markers = markerClusterer.getMarkers();
                         var clusters = markerClusterer.clusters_;
-                        // _.each(clusters, function(each_marker) {
-                        //     var contain = bounds.contains(each_marker.getCenter());
-                        //     if (contain) {
-                        //         each_marker.clusterIcon_.url_ = "https://raw.githubusercontent.com/googlemaps/js-marker-clusterer/gh-pages/images/m5.png";
-                        //         each_marker.clusterIcon_.createCss(each_marker.getCenter());
-                        //     };
-                        // });
                         _.each(markers, function(each_marker) {
                             var latlong = each_marker.getPosition();
                             if (google.maps.geometry.poly.containsLocation(latlong, rectangle)) {
@@ -186,8 +191,7 @@
                             };
                         });
                         rectangle.setMap(null);
-                        markerClusterer.resetViewport();
-                        markerClusterer.redraw();
+                        markerClusterer.repaint();
                     });
                     google.maps.event.addListener(markerClusterer, 'clusterclick', function(cluster) {
                         // your code here
@@ -221,21 +225,6 @@
                 }, function(map) {
                     scope.init();
                 });
-            }
-            scope.tipoRootController = {};
-            scope.tipoRootController.selectTipo = function(tipo, event, tipos) {
-                if (!scope.tipoRootController.bulkedit) {
-                    scope.tipoRootController.infiniteItems.tipos = [tipo];
-                    scope.map.setZoom(16);
-                    scope.map.panTo(tipo.position_google_maps);
-                    scope.map.showInfoWindow('myInfoWindow', tipo.position_google_maps);
-                    event.stopPropagation();
-                } else {
-                    tipo.selected = !tipo.selected;
-                    markerClusterer.resetViewport();
-                    markerClusterer.redraw();
-                    event.stopPropagation();
-                }
             }
             if (scope.mode !== 'list') {
                 tipoInstanceDataService.xAndYAxisData(mapjson).then(function(results) {
