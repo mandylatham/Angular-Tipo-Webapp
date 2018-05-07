@@ -226,6 +226,7 @@
                 }
             };
             scope.tipoRootController.activeTab = 'main';
+            scope.tipoRootController.popup = true;
             scope.init = function() {
                 NgMap.getMap(scope.fieldname, { timeout: 20000 }).then(function(map) {
                     scope.map = map;
