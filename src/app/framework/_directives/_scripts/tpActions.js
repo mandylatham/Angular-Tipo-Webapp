@@ -106,7 +106,8 @@
                 restrictedActions: '=',
                 visibilityExpression: '=',
                 field: "=",
-                refresh: '&'
+                refresh: '&',
+                selectedall: "="
             },
             restrict: 'EA',
             replace: true,

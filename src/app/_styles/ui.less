@@ -49,7 +49,6 @@ html {
         top: 50%;
         display: block;
     }
-    
 }
 
 .action-loading {
@@ -926,6 +925,7 @@ only screen and (min-resolution: 2dppx) {
 
 
 
+
 /* Styling for the ngProgress-container */
 
 #ngProgress-container {
@@ -1187,10 +1187,39 @@ md-list-item .md-list-item-inner::before {
         line-height: 1.4;
     }
 }
-.gm-style-iw {
-    max-height: 200px !important;
-    overflow: auto !important;
+
+.ng-map-info-window {
+    & > div:first-child {
+        & > div:nth-child(2),
+        > div:nth-child(4) {
+            width: 550px !important;
+            max-height: 208px!important;
+            left: 7px !important;
+        }
+        & > div:nth-child(3), > div:first-child{
+            margin-top: -13px;
+        }
+    }
+    & > div:last-child {
+        right: 47px !important;
+        top: 0px !important;
+    }
 }
+
+.gm-style-iw {
+    max-height: 208px !important;
+    overflow: auto !important;
+    width: 551px !important;
+    top: 0px !important;
+    left: 7px !important;
+    .tp-list {
+        margin: 0px !important;
+    }
+    & > div:first-child{
+        width: 100%;
+    }
+}
+
 .category-select:hover,
 .category-selected {
     border: 2px solid #25a6b4;
@@ -1198,7 +1227,7 @@ md-list-item .md-list-item-inner::before {
 }
 
 .dollar::before {
-    content: "$"; 
+    content: "$";
 }
 
 .introjs-tooltip {

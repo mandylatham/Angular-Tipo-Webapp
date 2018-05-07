@@ -1,70 +1,69 @@
 <div flex layout="column" ng-init="tipoRootController.initTiposData([{display_name: 'sampleapp',filter_expression:'(publish_app_as_sample_app:true AND (account:$tipo_context.account OR sample_app_plans:$tipo_context.user_role))', selected: false, hidden_:true},{display_name: 'myapps',filter_expression:'(((publish_app_as_sample_app:false) OR (!_exists_:publish_app_as_sample_app)) AND account:$tipo_context.account)', selected: false, hidden_:true},])" ng-controller="TipoAppController as controller">
-  <div class="md-primary tp-page-heading" ng-if="!tipoRootController.hideActions" >
-  <div ng-if="!$mdMedia('xs')" hide-xs layout="row" layout-align="space-between center" layout-align-xs="space-between start">
-    <div layout="row" layout-xs="column" layout-sm="row" layout-align="center center" layout-align-xs="start start" layout-align-sm="start center" >
-      <div class="subheading md-headline">
-        <span>{{tipoRootController.tipo_handle.menu_item.label}}</span></div>
-      <tp:filters tipo-name="'TipoApp'" multi-select="" filter-label="''" tipo-filters="[{display_name: 'sampleapp',filter_expression:'(publish_app_as_sample_app:true AND (account:$tipo_context OR sample_app_plans:$tipo_context.user_role))', selected: false, hidden_:true},{display_name: 'myapps',filter_expression:'(((publish_app_as_sample_app:false) OR (!_exists_:publish_app_as_sample_app)))', selected: false, hidden_:true}]" ng-if="tipoRootController.hasTipos || tipoRootController.tipoFilters.currentExpression"/>
-    </div>
-    <div layout="row">
-                <md-button class="md-primary md-fab md-mini" ng-click="tipoRootController.toogleSearch()">
-        <md-icon>search</md-icon>
-        <md-tooltip md-direction="top">Search</md-tooltip>
-      </md-button>
-              <md-button class="md-primary md-fab md-mini" ng-click="tipoRootController.refresh()"  >
-        <md-icon>autorenew</md-icon>
-        <md-tooltip md-direction="top">Refresh</md-tooltip>
-      </md-button>
-      <tp:actions mode="list" restricted-actions="tipoRootController.restricted_actions" tipo-name="'TipoApp'"  tipo-actions="[]" tipos="tipoRootController.tipos" bulkedit="tipoRootController.bulkedit" singleedit="tipoRootController.singleedit"/>
-    </div>
-  </div>
-  <div ng-if="$mdMedia('xs')" hide-gt-xs layout="row" layout-align="space-between center" layout-align-xs="space-between center">
-    <div layout="row" layout-xs="column" layout-sm="row" layout-align="center center" layout-align-xs="start center" layout-align-sm="start center" >
-      <div class="subheading md-headline">
-        <span>{{tipoRootController.tipo_handle.menu_item.label}}</span></div>
-    </div>
-    <div layout="row">
-        <tp:filters tipo-name="'TipoApp'" multi-select="" filter-label="''" tipo-filters="[{display_name: 'sampleapp',filter_expression:'(publish_app_as_sample_app:true AND (account:$tipo_context OR sample_app_plans:$tipo_context.user_role))', selected: false, hidden_:true},{display_name: 'myapps',filter_expression:'(((publish_app_as_sample_app:false) OR (!_exists_:publish_app_as_sample_app)))', selected: false, hidden_:true}]" ng-if="tipoRootController.hasTipos || tipoRootController.tipoFilters.currentExpression"/>
-        <md-button class="md-primary md-fab md-mini" ng-click="tipoRootController.toogleSearch()">
-        <md-icon>search</md-icon>
-        <md-tooltip md-direction="top">Search</md-tooltip>
-        </md-button>
-    </div>
-    <div layout="row" layout-align="center center" class="action-bar-xs">
-      <tp:actions mode="list" restricted-actions="tipoRootController.restricted_actions" tipo-name="'TipoApp'"  tipo-actions="[]" tipos="tipoRootController.tipos" bulkedit="tipoRootController.bulkedit" singleedit="tipoRootController.singleedit"/>
-      <md-button flex class="md-primary action-item-xs" ng-click="tipoRootController.refresh()"  >
-        <md-icon>refresh</md-icon>
-        <div>Refresh</div>
-        </md-button>
-        <md-button flex id="intercom-widget" ng-if="showIntercom" class="md-primary action-item-xs">
-            <md-icon>chat</md-icon>
-            <div>Chat</div>
-      </md-button>
-    </div>
-  </div>
-  </div>
-    <md-button tp:perm md-theme="reverse" class="md-fab md-primary main" aria-label="Create new"  ng-if="!tipoRootController.disablecreate" ng-click="tipoRootController.createNew()">
-    <md-tooltip md-direction="left">Create new</md-tooltip>
-    <md-icon>add</md-icon>
-  </md-button>
-
-  <md-input-container flex class="tp-list" ng-if="tipoRootController.showsearch">
-      <label>&nbsp;</label>
-      <input ng-model="tipoRootController.searchText" class="searchbar" placeholder="enter search" ng-keyup="$event.keyCode == 13 ? tipoRootController.search() : null">
-    </md-input-container>
-      <div ng-if="!tipoRootController.hasTipos" flex layout="row" layout-align="center center">
-    <!-- <tp-no-content message="No records found" /> -->
-      <div style="width:600px;height: 500px;border: 1px solid #23bdc1;margin: 40px;">
-        <div layout="row" class="fullwidth fullheight" ng-if="tipoRootController.tipo_handle.menu_item.quickFilters !== 'sampleapp'">
-          <div layout="column"  class="fullwidth fullheight" layout-align="center center" layout-padding style="margin: auto;">
-            <span class="md-headline" style="font-style: italic;">Create Your New App</span>
-            <tp:swiper image-array="controller.imageArray" pagination-type="'bullets'"/>
-            <!-- <span><img ng-src="g/public/assets/images/plant1.png" class="fullwidth"> </span> -->
-            <div class="fullwidth">
-              <md-button class="md-warn md-raised fullwidth" flex="100" ng-click="tipoRootController.createNew()">Create</md-button>
+    <div class="md-primary tp-page-heading" ng-if="!tipoRootController.hideActions">
+        <div ng-if="!$mdMedia('xs')" hide-xs layout="row" layout-align="space-between center" layout-align-xs="space-between start">
+            <div layout="row" layout-xs="column" layout-sm="row" layout-align="center center" layout-align-xs="start start" layout-align-sm="start center">
+                <div class="subheading md-headline">
+                    <span>{{tipoRootController.tipo_handle.menu_item.label}}</span></div>
+                <tp:filters tipo-name="'TipoApp'" multi-select="" filter-label="''" tipo-filters="[{display_name: 'sampleapp',filter_expression:'(publish_app_as_sample_app:true AND (account:$tipo_context OR sample_app_plans:$tipo_context.user_role))', selected: false, hidden_:true},{display_name: 'myapps',filter_expression:'(((publish_app_as_sample_app:false) OR (!_exists_:publish_app_as_sample_app)))', selected: false, hidden_:true}]" ng-if="tipoRootController.hasTipos || tipoRootController.tipoFilters.currentExpression" />
             </div>
-          </div>
-          <!-- <div layout="column" layout-padding layout-align="center stretch" flex="50">
+            <div layout="row">
+                <md-button class="md-primary md-fab md-mini" ng-click="tipoRootController.toogleSearch()">
+                    <md-icon>search</md-icon>
+                    <md-tooltip md-direction="top">Search</md-tooltip>
+                </md-button>
+                <md-button class="md-primary md-fab md-mini" ng-click="tipoRootController.refresh()">
+                    <md-icon>autorenew</md-icon>
+                    <md-tooltip md-direction="top">Refresh</md-tooltip>
+                </md-button>
+                <tp:actions mode="list" restricted-actions="tipoRootController.restricted_actions" tipo-name="'TipoApp'" tipo-actions="[]" tipos="tipoRootController.tipos" bulkedit="tipoRootController.bulkedit" singleedit="tipoRootController.singleedit" />
+            </div>
+        </div>
+        <div ng-if="$mdMedia('xs')" hide-gt-xs layout="row" layout-align="space-between center" layout-align-xs="space-between center">
+            <div layout="row" layout-xs="column" layout-sm="row" layout-align="center center" layout-align-xs="start center" layout-align-sm="start center">
+                <div class="subheading md-headline">
+                    <span>{{tipoRootController.tipo_handle.menu_item.label}}</span></div>
+            </div>
+            <div layout="row">
+                <tp:filters tipo-name="'TipoApp'" multi-select="" filter-label="''" tipo-filters="[{display_name: 'sampleapp',filter_expression:'(publish_app_as_sample_app:true AND (account:$tipo_context OR sample_app_plans:$tipo_context.user_role))', selected: false, hidden_:true},{display_name: 'myapps',filter_expression:'(((publish_app_as_sample_app:false) OR (!_exists_:publish_app_as_sample_app)))', selected: false, hidden_:true}]" ng-if="tipoRootController.hasTipos || tipoRootController.tipoFilters.currentExpression" />
+                <md-button class="md-primary md-fab md-mini" ng-click="tipoRootController.toogleSearch()">
+                    <md-icon>search</md-icon>
+                    <md-tooltip md-direction="top">Search</md-tooltip>
+                </md-button>
+            </div>
+            <div layout="row" layout-align="center center" class="action-bar-xs">
+                <tp:actions mode="list" restricted-actions="tipoRootController.restricted_actions" tipo-name="'TipoApp'" tipo-actions="[]" tipos="tipoRootController.tipos" bulkedit="tipoRootController.bulkedit" singleedit="tipoRootController.singleedit" />
+                <md-button flex class="md-primary action-item-xs" ng-click="tipoRootController.refresh()">
+                    <md-icon>refresh</md-icon>
+                    <div>Refresh</div>
+                </md-button>
+                <md-button flex id="intercom-widget" ng-if="showIntercom" class="md-primary action-item-xs">
+                    <md-icon>chat</md-icon>
+                    <div>Chat</div>
+                </md-button>
+            </div>
+        </div>
+    </div>
+    <md-button tp:perm md-theme="reverse" class="md-fab md-primary main" aria-label="Create new" ng-if="!tipoRootController.disablecreate" ng-click="tipoRootController.createNew()">
+        <md-tooltip md-direction="left">Create new</md-tooltip>
+        <md-icon>add</md-icon>
+    </md-button>
+    <md-input-container flex class="tp-list" ng-if="tipoRootController.showsearch">
+        <label>&nbsp;</label>
+        <input ng-model="tipoRootController.searchText" class="searchbar" placeholder="enter search" ng-keyup="$event.keyCode == 13 ? tipoRootController.search() : null">
+    </md-input-container>
+    <div ng-if="!tipoRootController.hasTipos" flex layout="row" layout-align="center center">
+        <!-- <tp-no-content message="No records found" /> -->
+        <div style="width:600px;height: 500px;border: 1px solid #23bdc1;margin: 40px;">
+            <div layout="row" class="fullwidth fullheight" ng-if="tipoRootController.tipo_handle.menu_item.quickFilters !== 'sampleapp'">
+                <div layout="column" class="fullwidth fullheight" layout-align="center center" layout-padding style="margin: auto;">
+                    <span class="md-headline" style="font-style: italic;">Create Your New App</span>
+                    <tp:swiper image-array="controller.imageArray" pagination-type="'bullets'" />
+                    <!-- <span><img ng-src="g/public/assets/images/plant1.png" class="fullwidth"> </span> -->
+                    <div class="fullwidth">
+                        <md-button class="md-warn md-raised fullwidth" flex="100" ng-click="tipoRootController.createNew()">Create</md-button>
+                    </div>
+                </div>
+                <!-- <div layout="column" layout-padding layout-align="center stretch" flex="50">
             <dl class="edit" layout="column" layout-align="center stretch">
               <dt style="min-height: 16px;">
                 <span> App Name </span><span>*</span> 
@@ -103,79 +102,74 @@
               <md-button class="md-warn md-raised fullwidth" flex="100" ng-click="controller.createApp()">Create</md-button>
             </div>
           </div> -->
+            </div>
         </div>
-      </div>
-
-  </div>
-      <div ng-if="tipoRootController.hasTipos"  id="search" layout="column">
-                  <div  show-gt-md show-md show-sm show-xs>
-        
- 
- 
-<div class="tp-list">
-  <div >
-    <div layout="row" layout-align="center stretch" layout-margin layout-wrap id="tipoapp-app-list" >
-      <!-- <md-card layout="column" layout-align="center center" layout-padding ng-click="tipoRootController.createNew(); $event.stopPropagation();" style="background-image: url('_assets/images/white-pattern-png.png');" md-colors="{backgroundColor: 'primary-500-0.32',color: 'grey-900'}">
+    </div>
+    <div ng-if="tipoRootController.hasTipos" id="search" layout="column">
+        <div show-gt-md show-md show-sm show-xs>
+            <div class="tp-list">
+                <div>
+                    <div layout="row" layout-align="center stretch" layout-margin layout-wrap id="tipoapp-app-list">
+                        <!-- <md-card layout="column" layout-align="center center" layout-padding ng-click="tipoRootController.createNew(); $event.stopPropagation();" style="background-image: url('_assets/images/white-pattern-png.png');" md-colors="{backgroundColor: 'primary-500-0.32',color: 'grey-900'}">
         <div layout="column" layout-align="start center">
           <md-icon class="material-icons" style="border-radius: 50%;background: white;width: 100px;height: 100px;line-height: 100px;text-align: center;opacity: 0.7;font-size: 50px;">add</md-icon>
           <span class="md-headline" layout-padding>New Application</span>
         </div>
       </md-card> -->
-      <md-card layout="column" layout-align="start stretch" ng-if="tipoRootController.tipo_handle.menu_item.quickFilters !== 'sampleapp'" ng-click="tipoRootController.createNew(); $event.stopPropagation();" >      
-        <div layout="row" layout-align="space-between center" style="-webkit-mask-image: url('_assets/images/white_pattern.svg');height:168px;background-color:#309fdb;color:white;" layout-padding >
-        </div>
-        <div layout="row" layout-align="start center" class="app-top" flex="80">
-          <img  ng-src="g/public/assets/images/custom_icons/create.png" class="app-icon" style="margin: auto;">
-        </div>
-        <div layout="column" layout-padding style="margin: auto;">
-           <div class="md-title" style="font-size: 22px">New App</div>
-        </div>
-      </md-card>
-      <md-card tp:perm ng-repeat="tipo in controller.infiniteItems.tipos"  layout="column" layout-align="start stretch" ng-click="!tipo.disableclick && controller.launch(tipo); $event.stopPropagation();" ng-mouseover="tipo.showactionbar = true;" ng-mouseleave="tipo.showactionbar = false;" >      
-        <div layout="row" layout-align="space-between center" style="-webkit-mask-image: url('_assets/images/white_pattern.svg');height:168px" layout-padding ng-style=" tipo.theme_colour_primary && {backgroundColor: tipo.theme_colour_primary,color: '#FFFFFF'}" md-colors="{backgroundColor: 'primary-500-0.32',color: 'grey-900'}">
-          <!-- <img ng-src="_assets/images/logo_trans.png" style="width: 60px;" flex="20"/> -->
-          <!-- <div class="app-logo">
+                        <md-card layout="column" layout-align="start stretch" ng-if="tipoRootController.tipo_handle.menu_item.quickFilters !== 'sampleapp'" ng-click="tipoRootController.createNew(); $event.stopPropagation();">
+                            <div layout="row" layout-align="space-between center" style="-webkit-mask-image: url('_assets/images/white_pattern.svg');height:168px;background-color:#309fdb;color:white;" layout-padding>
+                            </div>
+                            <div layout="row" layout-align="start center" class="app-top" flex="80">
+                                <img ng-src="g/public/assets/images/custom_icons/create.png" class="app-icon" style="margin: auto;">
+                            </div>
+                            <div layout="column" layout-padding style="margin: auto;">
+                                <div class="md-title" style="font-size: 22px">New App</div>
+                            </div>
+                        </md-card>
+                        <md-card tp:perm ng-repeat="tipo in controller.infiniteItems.tipos" layout="column" layout-align="start stretch" ng-click="!tipo.disableclick && controller.launch(tipo); $event.stopPropagation();" ng-mouseover="tipo.showactionbar = true;" ng-mouseleave="tipo.showactionbar = false;">
+                            <div layout="row" layout-align="space-between center" style="-webkit-mask-image: url('_assets/images/white_pattern.svg');height:168px" layout-padding ng-style=" tipo.theme_colour_primary && {backgroundColor: tipo.theme_colour_primary,color: '#FFFFFF'}" md-colors="{backgroundColor: 'primary-500-0.32',color: 'grey-900'}">
+                                <!-- <img ng-src="_assets/images/logo_trans.png" style="width: 60px;" flex="20"/> -->
+                                <!-- <div class="app-logo">
             <img ng-src="_assets/images/logos/{{tipo.logo}}" />
           </div> -->
+                            </div>
+                            <div layout="row" layout-align="start center" class="app-top" flex="80">
+                                <md-icon ng-if="tipo.icon && tipo.icon.indexOf('.') === -1" class="app-icon">{{tipo.icon}}</md-icon>
+                                <img ng-if="tipo.icon && tipo.icon.indexOf('.') !== -1" ng-src="{{'g/' + tipo.icon}}" class="app-icon" style="margin: auto;">
+                                <md-icon ng-if="!tipo.icon" class="app-icon">apps</md-icon>
+                                <!-- <md-icon md-svg-src="_assets/images/white_pattern.svg"></md-icon> -->
+                                <action-bar class="action-bar" flex="none" layout="column" layout-align="center end">
+                                    <md-button ng-click="tipoRootController.clone(tipo); $event.stopPropagation();" aria-label="Copy" class="icon-button">
+                                        <md-tooltip md-direction="right">Copy Application</md-tooltip>
+                                        <!-- <md-icon>content_copy</md-icon> -->
+                                        <md-icon md-svg-src="_assets/images/copy.svg"></md-icon>
+                                    </md-button>
+                                    <md-button ng-click="controller.launch(tipo); $event.stopPropagation();" aria-label="Launch" class="icon-button">
+                                        <md-tooltip md-direction="right">Launch Application</md-tooltip>
+                                        <!-- <md-icon>launch</md-icon> -->
+                                        <md-icon md-svg-src="_assets/images/launch.svg"></md-icon>
+                                    </md-button>
+                                    <md-button ng-click="controller.delete(tipo); $event.stopPropagation();" ng-if="tipoRootController.tipo_handle.menu_item.quickFilters !== 'sampleapp'" aria-label="Launch" class="icon-button">
+                                        <md-tooltip md-direction="right">Delete Application</md-tooltip>
+                                        <!-- <md-icon>delete</md-icon> -->
+                                        <md-icon md-svg-src="_assets/images/delete.svg"></md-icon>
+                                    </md-button>
+                                </action-bar>
+                            </div>
+                            <div layout="column" layout-padding>
+                                <div class="md-title" style="font-size: 15px;font-weight: bold;">{{tipo.app_name}}</div>
+                                <div class="md-subhead" flex style="font-size:12px;padding: 0 8px;line-height: 17px;">
+                                    {{tipo.app_description.substring(0,50)}}{{tipo.app_description && tipo.app_description.substring(50) !== ""? "...": ""}}</div>
+                            </div>
+                        </md-card>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div layout="row" layout-align="start center" class="app-top" flex="80">
-          <md-icon ng-if="tipo.icon && tipo.icon.indexOf('.') === -1" class="app-icon">{{tipo.icon}}</md-icon>
-          <img ng-if="tipo.icon && tipo.icon.indexOf('.') !== -1" ng-src="{{'g/' + tipo.icon}}" class="app-icon" style="margin: auto;">
-          <md-icon ng-if="!tipo.icon"  class="app-icon">apps</md-icon>
-          <!-- <md-icon md-svg-src="_assets/images/white_pattern.svg"></md-icon> -->
-          <action-bar class="action-bar" flex="none" layout="column" layout-align="center end">
-            <md-button ng-click="tipoRootController.clone(tipo); $event.stopPropagation();" aria-label="Copy" class="icon-button">
-              <md-tooltip md-direction="right">Copy Application</md-tooltip>
-              <!-- <md-icon>content_copy</md-icon> -->
-              <md-icon md-svg-src="_assets/images/copy.svg" ></md-icon>
-            </md-button>
-            <md-button ng-click="controller.launch(tipo); $event.stopPropagation();" aria-label="Launch" class="icon-button">
-              <md-tooltip md-direction="right">Launch Application</md-tooltip>
-              <!-- <md-icon>launch</md-icon> -->
-              <md-icon md-svg-src="_assets/images/launch.svg" ></md-icon>
-            </md-button>
-            <md-button ng-click="controller.delete(tipo); $event.stopPropagation();" ng-if="tipoRootController.tipo_handle.menu_item.quickFilters !== 'sampleapp'" aria-label="Launch" class="icon-button">
-              <md-tooltip md-direction="right">Delete Application</md-tooltip>
-              <!-- <md-icon>delete</md-icon> -->
-              <md-icon md-svg-src="_assets/images/delete.svg" ></md-icon>
-            </md-button>
-          </action-bar>
-        </div>
-        <div layout="column" layout-padding>
-           <div class="md-title" style="font-size: 15px;font-weight: bold;">{{tipo.app_name}}</div>
-          <div class="md-subhead" flex style="font-size:12px;padding: 0 8px;line-height: 17px;">
-            {{tipo.app_description.substring(0,50)}}{{tipo.app_description && tipo.app_description.substring(50) !== ""? "...": ""}}</div>
-        </div>
-      </md-card>
     </div>
-  </div>
-</div>
-
-      </div>
-      </div>
-  <md-subheader class="md-primary md-no-sticky" ng-if="controller.infiniteItems.maxpages > 1">
-    <div>
-      <cl-paging flex cl-pages="controller.infiniteItems.maxpages" cl-steps="controller.steps" cl-page-changed="controller.infiniteItems.fetchMoreItems_('',controller.infiniteItems.page)" cl-align="end start" cl-current-page="controller.infiniteItems.page"></cl-paging>
-    </div>
-  </md-subheader>
+    <md-subheader class="md-primary md-no-sticky" ng-if="controller.infiniteItems.maxpages > 1">
+        <div>
+            <cl-paging flex cl-pages="controller.infiniteItems.maxpages" cl-steps="controller.steps" cl-page-changed="controller.infiniteItems.fetchMoreItems_('',controller.infiniteItems.page)" cl-align="end start" cl-current-page="controller.infiniteItems.page"></cl-paging>
+        </div>
+    </md-subheader>
 </div>

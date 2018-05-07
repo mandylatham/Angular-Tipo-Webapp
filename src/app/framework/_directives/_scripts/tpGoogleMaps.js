@@ -9,15 +9,23 @@
         NgMap,
         tipoInstanceDataService,
         metadataService,
-        $http,
-        $templateCache) {
+        tipoRouter) {
         return {
             scope: {
                 mapjson: "=",
                 root: "=",
                 context: "=",
                 fieldname: "@",
-                mode: "@"
+                mode: "@",
+                detailTemplate: "@",
+                markerIcon: "@",
+                markerIconSize: "@",
+                markerPosition: "@",
+                labelStyle: "@",
+                labelCss: "@",
+                customCss: "@",
+                mapStyle: "@"
+
             },
             restrict: 'EA',
             replace: true,
@@ -27,8 +35,176 @@
 
                     pre: function(scope, element, attrs, ctrl) {
                         // pre-link code here...
-                        var tipo_name = scope.mapjson.tipo_name || 'TipoDefinition'
+                        var tipo_name = scope.mapjson.tipo_name || 'TipoDefinition';
                         scope.templatepath = "g/public/gen_temp/common/views/list.tpl.html." + metadataService.userMetadata.role + "___" + tipo_name;
+                        scope.detailtemplatepath = scope.detailTemplate || scope.templatepath;
+                        var styles = [{
+                                "elementType": "geometry",
+                                "stylers": [{
+                                    "color": "#ebe3cd"
+                                }]
+                            },
+                            {
+                                "elementType": "labels.text.fill",
+                                "stylers": [{
+                                    "color": "#523735"
+                                }]
+                            },
+                            {
+                                "elementType": "labels.text.stroke",
+                                "stylers": [{
+                                    "color": "#f5f1e6"
+                                }]
+                            },
+                            {
+                                "featureType": "administrative",
+                                "elementType": "geometry.stroke",
+                                "stylers": [{
+                                    "color": "#c9b2a6"
+                                }]
+                            },
+                            {
+                                "featureType": "administrative.land_parcel",
+                                "elementType": "geometry.stroke",
+                                "stylers": [{
+                                    "color": "#dcd2be"
+                                }]
+                            },
+                            {
+                                "featureType": "administrative.land_parcel",
+                                "elementType": "labels.text.fill",
+                                "stylers": [{
+                                    "color": "#ae9e90"
+                                }]
+                            },
+                            {
+                                "featureType": "landscape.natural",
+                                "elementType": "geometry",
+                                "stylers": [{
+                                    "color": "#dfd2ae"
+                                }]
+                            },
+                            {
+                                "featureType": "poi",
+                                "elementType": "geometry",
+                                "stylers": [{
+                                    "color": "#dfd2ae"
+                                }]
+                            },
+                            {
+                                "featureType": "poi",
+                                "elementType": "labels.text.fill",
+                                "stylers": [{
+                                    "color": "#93817c"
+                                }]
+                            },
+                            {
+                                "featureType": "poi.park",
+                                "elementType": "geometry.fill",
+                                "stylers": [{
+                                    "color": "#a5b076"
+                                }]
+                            },
+                            {
+                                "featureType": "poi.park",
+                                "elementType": "labels.text.fill",
+                                "stylers": [{
+                                    "color": "#447530"
+                                }]
+                            },
+                            {
+                                "featureType": "road",
+                                "elementType": "geometry",
+                                "stylers": [{
+                                    "color": "#f5f1e6"
+                                }]
+                            },
+                            {
+                                "featureType": "road.arterial",
+                                "elementType": "geometry",
+                                "stylers": [{
+                                    "color": "#fdfcf8"
+                                }]
+                            },
+                            {
+                                "featureType": "road.highway",
+                                "elementType": "geometry",
+                                "stylers": [{
+                                    "color": "#f8c967"
+                                }]
+                            },
+                            {
+                                "featureType": "road.highway",
+                                "elementType": "geometry.stroke",
+                                "stylers": [{
+                                    "color": "#e9bc62"
+                                }]
+                            },
+                            {
+                                "featureType": "road.highway.controlled_access",
+                                "elementType": "geometry",
+                                "stylers": [{
+                                    "color": "#e98d58"
+                                }]
+                            },
+                            {
+                                "featureType": "road.highway.controlled_access",
+                                "elementType": "geometry.stroke",
+                                "stylers": [{
+                                    "color": "#db8555"
+                                }]
+                            },
+                            {
+                                "featureType": "road.local",
+                                "elementType": "labels.text.fill",
+                                "stylers": [{
+                                    "color": "#806b63"
+                                }]
+                            },
+                            {
+                                "featureType": "transit.line",
+                                "elementType": "geometry",
+                                "stylers": [{
+                                    "color": "#dfd2ae"
+                                }]
+                            },
+                            {
+                                "featureType": "transit.line",
+                                "elementType": "labels.text.fill",
+                                "stylers": [{
+                                    "color": "#8f7d77"
+                                }]
+                            },
+                            {
+                                "featureType": "transit.line",
+                                "elementType": "labels.text.stroke",
+                                "stylers": [{
+                                    "color": "#ebe3cd"
+                                }]
+                            },
+                            {
+                                "featureType": "transit.station",
+                                "elementType": "geometry",
+                                "stylers": [{
+                                    "color": "#dfd2ae"
+                                }]
+                            },
+                            {
+                                "featureType": "water",
+                                "elementType": "geometry.fill",
+                                "stylers": [{
+                                    "color": "#b9d3c2"
+                                }]
+                            },
+                            {
+                                "featureType": "water",
+                                "elementType": "labels.text.fill",
+                                "stylers": [{
+                                    "color": "#92998d"
+                                }]
+                            }
+                        ];
+                        scope.styles = (scope.mapStyle && JSON.parse(atob(scope.mapStyle))) || styles;
                     },
 
                     post: postLink
@@ -41,25 +217,38 @@
             var dynMarkers = [];
             var mapjson = [scope.mapjson];
             scope.tipoRootController = {};
+            scope.tipoRootController.infiniteItems = {
+                getItemAtIndex: function(index) {
+                    return this.tipos[index]
+                },
+                getLength: function() {
+                    return this.tipos.length;
+                }
+            };
             scope.init = function() {
                 NgMap.getMap(scope.fieldname, { timeout: 20000 }).then(function(map) {
-                    map.styles = scope.mapStyle;
                     scope.map = map;
                     MarkerClusterer.prototype.MARKER_CLUSTER_IMAGE_PATH_ = 'https://raw.githubusercontent.com/googlemaps/js-marker-clusterer/gh-pages/images/m';
                     var styles = [{
-                        url: 'place',
+                        url: scope.markerIcon || 'place',
                         height: 53,
                         width: 53,
-                        backgroundPosition: "10 -10",
-                        customStyle: "md-primary",
+                        iconSize: scope.markerIconSize || 48,
+                        backgroundPosition: scope.markerPosition || "3 -24",
+                        customStyle: "md-primary " + scope.customCss || "",
+                        labelStyle: scope.labelStyle || "background:white;border-radius:50%;top:-14px;left: 19px;width:16px;line-height:16px;text-align: center;",
+                        labelCss: scope.labelCss,
                         anchorText: [-6, 18]
                     }, {
-                        url: 'place',
+                        url: scope.markerIcon || 'place',
                         height: 53,
                         width: 53,
-                        backgroundPosition: "10 -10",
-                        anchorText: [-6, 18],
-                        customStyle: "md-primary md-reverse-theme"
+                        iconSize: scope.markerIconSize || 48,
+                        backgroundPosition: scope.markerPosition || "3 -24",
+                        customStyle: "md-primary md-reverse-theme " + scope.customCss || "",
+                        labelStyle: scope.labelStyle || "background:white;border-radius:50%;top:-14px;left: 19px;width:16px;line-height:16px;text-align: center;",
+                        labelCss: scope.labelCss,
+                        anchorText: [-6, 18]
                     }];
                     for (var i = 0; i < scope.results.length; i++) {
                         var result = scope.results[i];
@@ -86,7 +275,6 @@
                                     iwBackground.children(':nth-child(4)').css({ 'display': 'none' });
                                     scope.tipoRootController.hasTipos = true;
                                     scope.tipoRootController.hideActions = true;
-                                    scope.tipoRootController.infiniteItems = {};
                                     // var data = this.getData();
                                     scope.tipoRootController.infiniteItems.tipos = [this.data];
                                     scope.map.showInfoWindow('myInfoWindow', this);
@@ -122,7 +310,9 @@
                     var markerClusterer = new MarkerClusterer(scope.map, dynMarkers, { zoomOnClick: false, styles: styles, minimumClusterSize: 1 });
                     markerClusterer.setCalculator(customCalculator);
                     scope.tipoRootController.selectTipo = function(tipo, event, tipos) {
-                        if (!scope.tipoRootController.bulkedit) {
+                        if (scope.tipoRootController.infiniteItems.tipos.length === 1 && !scope.tipoRootController.bulkedit) {
+                            tipoRouter.toTipoView(scope.mapjson.tipo_name || 'TipoDefinition', tipo.tipo_id);
+                        } else if (!scope.tipoRootController.bulkedit) {
                             scope.tipoRootController.infiniteItems.tipos = [tipo];
                             scope.map.setZoom(16);
                             scope.map.panTo(tipo.position_google_maps);
@@ -137,6 +327,7 @@
                     scope.fitMarkers = function() {
                         markerClusterer.fitMapToMarkers();
                     }
+                    scope.fitMarkers();
                     scope.drawingManager = new google.maps.drawing.DrawingManager({
                         drawingControlOptions: {
                             position: google.maps.ControlPosition.TOP_CENTER,
@@ -166,6 +357,9 @@
                             scope.drawingManager.setOptions({ drawingControl: false });
                             scope.tipoRootController.bulkedit = false;
                         }
+                    });
+                    scope.$watch(function() { return scope.root.selectedall }, function() {
+                        markerClusterer.repaint();
                     });
                     google.maps.event.addListener(scope.drawingManager, 'rectanglecomplete', function(rectangle) {
                         var bounds = rectangle.getBounds();
@@ -215,7 +409,6 @@
                         // iwBackground.children(':nth-child(4)').css({ 'display': 'none' });
                         scope.tipoRootController.hasTipos = true;
                         scope.tipoRootController.hideActions = true;
-                        scope.tipoRootController.infiniteItems = {};
                         // var data = this.getData();
                         var makerdata = _.map(markers, 'data');
                         scope.tipoRootController.infiniteItems.tipos = makerdata;
