@@ -225,6 +225,7 @@
                     return this.tipos.length;
                 }
             };
+            scope.tipoRootController.activeTab = 'main';
             scope.init = function() {
                 NgMap.getMap(scope.fieldname, { timeout: 20000 }).then(function(map) {
                     scope.map = map;
@@ -426,6 +427,7 @@
                 });
             } else {
                 scope.results = scope.root.infiniteItems.tipos;
+
                 scope.init();
             }
         }

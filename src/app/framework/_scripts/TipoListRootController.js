@@ -28,6 +28,7 @@
         _instance.activeTab = 'main';
         var tipo_name = $stateParams.tipo_name;
         _instance.tipo_name = $stateParams.tipo_name;
+        _instance.selectedall = false;
         $scope.data_handle = {};
         $scope.showLoader = true;
         var function_name = tipoHandle.application_meta.TipoApp.application_name + "_URLChange";
