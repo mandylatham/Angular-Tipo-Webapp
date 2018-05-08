@@ -24,7 +24,9 @@
                 labelStyle: "@",
                 labelCss: "@",
                 customCss: "@",
-                mapStyle: "@"
+                mapStyle: "@",
+                inputZoom: "=",
+                inputToSelect: "=",
 
             },
             restrict: 'EA',
@@ -46,9 +48,10 @@
                                 unbind();
                             }
                         });
+                        scope.centerCoord = scope.centerCoord || {};
                         scope.fieldid = scope.fieldname.replace(/[^a-zA-Z0-9]/g, "") + Math.random();
                         var tipo_name = scope.mapjson.tipo_name || 'TipoDefinition';
-                        scope.templatepath = "g/public/gen_temp/common/views/list.tpl.html." + metadataService.userMetadata.role + "___" + scope.mapjson.template_name || tipo_name;
+                        scope.templatepath = "g/public/gen_temp/common/views/list.tpl.html." + metadataService.userMetadata.role + "___" + ((scope.mapjson.template_name !== '' && scope.mapjson.template_name) || tipo_name);
                         scope.detailtemplatepath = scope.detailTemplate || scope.templatepath;
                         var styles = [{
                                 "elementType": "geometry",
@@ -374,6 +377,24 @@
                     scope.$watch(function() { return scope.root.selectedall }, function() {
                         markerClusterer.repaint();
                     });
+                    scope.changeMapcenter = function(centerCoord) {
+                        if (centerCoord.geometry) {
+                            if (scope.inputZoom) {
+                                scope.map.setCenter(centerCoord.geometry.location);
+                                scope.map.fitBounds(centerCoord.geometry.viewport);
+                            };
+                            if (scope.inputToSelect && scope.root.bulkedit) {
+                                var markers = markerClusterer.getMarkers();
+                                _.each(markers, function(each_marker) {
+                                    var contain = centerCoord.geometry.viewport.contains(each_marker.getPosition());
+                                    if (contain) {
+                                        each_marker.data.selected = true;
+                                    };
+                                });
+                                markerClusterer.repaint();
+                            };
+                        };
+                    }
                     google.maps.event.addListener(scope.drawingManager, 'rectanglecomplete', function(rectangle) {
                         var bounds = rectangle.getBounds();
                         var markers = markerClusterer.getMarkers();

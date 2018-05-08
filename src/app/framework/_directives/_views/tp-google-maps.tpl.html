@@ -1,5 +1,8 @@
 <div>
-    <ng-map default-style="false" id="{{fieldid}}" styles="{{styles}}" zoom-to-include-markers="true" zoom="2">
+	<md-input-container md-no-float style="width: 95%;margin-left: 1%;margin-bottom: 0px;" ng-if="inputZoom || (inputToSelect && root.bulkedit)">
+        <input type="text" g-places-autocomplete ng-model="centerCoord" ng-change="changeMapcenter(centerCoord)" />
+    </md-input-container>
+    <ng-map default-style="false" id="{{fieldid}}" styles="{{styles}}">
         <custom-control id="go-home" position="TOP_RIGHT" index="1" on-click="fitMarkers()">
             <md-button class="md-primary md-raised">Show All Markers</md-button>
         </custom-control>

@@ -926,6 +926,7 @@ only screen and (min-resolution: 2dppx) {
 
 
 
+
 /* Styling for the ngProgress-container */
 
 #ngProgress-container {
@@ -1188,38 +1189,78 @@ md-list-item .md-list-item-inner::before {
     }
 }
 
-.ng-map-info-window {
-    & > div:first-child {
-        & > div:nth-child(2),
-        > div:nth-child(4) {
-            width: 550px !important;
-            max-height: 208px!important;
-            left: 7px !important;
+@media (max-width: 600px) {
+    .ng-map-info-window {
+        &>div:first-child {
+            &>div:nth-child(2),
+            >div:nth-child(4) {
+                width: 300px !important;
+                max-height: 208px!important;
+                left: 7px !important;
+            }
+            &>div:nth-child(3),
+            >div:first-child {
+                margin-top: -13px;
+            }
         }
-        & > div:nth-child(3), > div:first-child{
-            margin-top: -13px;
+        &>div:nth-child(3) {
+            right: 47px !important;
+            top: 0px !important;
         }
     }
-    & > div:last-child {
-        right: 47px !important;
+
+    .gm-style-iw {
+        max-height: 208px !important;
+        overflow: auto !important;
+        width: 301px !important;
         top: 0px !important;
+        left: 7px !important;
+        z-index: 10000;
+        .tp-list {
+            margin: 0px !important;
+        }
+        &>div:first-child {
+            width: 100%;
+        }
+    }
+}
+@media (min-width: 600px) {
+    .ng-map-info-window {
+        &>div:first-child {
+            &>div:nth-child(2),
+            >div:nth-child(4) {
+                width: 550px !important;
+                max-height: 208px!important;
+                left: 7px !important;
+            }
+            &>div:nth-child(3),
+            >div:first-child {
+                margin-top: -13px;
+            }
+        }
+        &>div:last-child {
+            right: 47px !important;
+            top: 0px !important;
+        }
+    }
+
+    .gm-style-iw {
+        max-height: 208px !important;
+        overflow: auto !important;
+        width: 551px !important;
+        top: 0px !important;
+        left: 7px !important;
+        z-index: 10000;
+        .tp-list {
+            margin: 0px !important;
+        }
+        &>div:first-child {
+            width: 100%;
+        }
     }
 }
 
-.gm-style-iw {
-    max-height: 208px !important;
-    overflow: auto !important;
-    width: 551px !important;
-    top: 0px !important;
-    left: 7px !important;
-    z-index: 10000;
-    .tp-list {
-        margin: 0px !important;
-    }
-    & > div:first-child{
-        width: 100%;
-    }
-}
+
 
 .category-select:hover,
 .category-selected {
