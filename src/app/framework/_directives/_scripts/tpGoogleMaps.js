@@ -453,16 +453,13 @@
                     scope.init();
                 });
             }
-            if (scope.mode !== 'list') {
-                tipoInstanceDataService.xAndYAxisData(mapjson).then(function(results) {
-                    scope.results = results;
-                    scope.init();
-                });
-            } else {
-                scope.results = scope.root.infiniteItems.tipos;
-
+            tipoInstanceDataService.xAndYAxisData(mapjson).then(function(results) {
+                scope.results = results;
+                if (scope.mode === 'list') {
+                    scope.root.infiniteItems.tipos = scope.results;
+                }
                 scope.init();
-            }
+            });
         }
     });
 
