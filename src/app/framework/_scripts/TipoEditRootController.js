@@ -221,17 +221,19 @@
             var clone_tipo = angular.copy(_instance.tipo);
             tipoManipulationService.modifyTipoData(clone_tipo);
             var function_name = tipo_name + "_OnSave";
+            var saveCustomResponse = true;
+            var saveResponse = true;
             if (typeof tipoCustomJavascript[function_name] === 'function') {
                 $scope.data_handle.tipo = clone_tipo;
                 $scope.data_handle.action = action;
-                tipoCustomJavascript[function_name]($scope.data_handle);
+                saveCustomResponse = tipoCustomJavascript[function_name]($scope.data_handle);
             }
             if (typeof tipoClientJavascript[function_name] === 'function') {
                 $scope.data_handle.tipo = clone_tipo;
                 $scope.data_handle.action = action;
-                tipoClientJavascript[function_name]($scope.data_handle);
+                saveResponse = tipoClientJavascript[function_name]($scope.data_handle);
             }
-            if (action === 'edit') {
+            if (action === 'edit' && saveCustomResponse && saveResponse) {
                 data.copy_from_tipo_id = tipo.copy_from_tipo_id;
                 tipoHandle.saveTipo(tipo_name, tipo_id, clone_tipo).then(function(result) {
                     if (tipoRouter.stickyExists()) {
@@ -255,7 +257,7 @@
                         tipoRouter.toTipoView(tipo_name, tipo_id);
                     }
                 });
-            } else if (action === 'create') {
+            } else if (action === 'create'  && saveCustomResponse && saveResponse) {
                 var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
                 if (perspectiveMetadata.fieldName && !clone_tipo[perspectiveMetadata.fieldName]) {
                     clone_tipo[perspectiveMetadata.fieldName] = perspectiveMetadata.tipoId;

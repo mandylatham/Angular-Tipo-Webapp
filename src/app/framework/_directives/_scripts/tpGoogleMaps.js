@@ -35,8 +35,20 @@
 
                     pre: function(scope, element, attrs, ctrl) {
                         // pre-link code here...
+                        var unbind = scope.$watch(function() { return element.parent()[0].clientWidth; }, function(n, o) {
+                            if (element.parent()[0].clientWidth > 0) {
+                                var ndWrapper = element.find('ng-map')[0],
+                                    ndParent = element.parent()[0],
+                                    parentHeight = ndParent.clientHeight,
+                                    height;
+                                height = (parentHeight > 300 && parentHeight) || 300;
+                                ndWrapper.style.height = height + 'px';
+                                unbind();
+                            }
+                        });
+                        scope.fieldid = scope.fieldname.replace(/[^a-zA-Z0-9]/g, "") + Math.random();
                         var tipo_name = scope.mapjson.tipo_name || 'TipoDefinition';
-                        scope.templatepath = "g/public/gen_temp/common/views/list.tpl.html." + metadataService.userMetadata.role + "___" + tipo_name;
+                        scope.templatepath = "g/public/gen_temp/common/views/list.tpl.html." + metadataService.userMetadata.role + "___" + scope.mapjson.template_name || tipo_name;
                         scope.detailtemplatepath = scope.detailTemplate || scope.templatepath;
                         var styles = [{
                                 "elementType": "geometry",
@@ -213,7 +225,6 @@
         };
 
         function postLink(scope, element, attrs, ctrl) {
-            scope.fieldid = scope.fieldname.replace(/[^a-zA-Z0-9]/g, "") + Math.random();
             var dynMarkers = [];
             var mapjson = [scope.mapjson];
             scope.tipoRootController = {};
@@ -228,7 +239,7 @@
             scope.tipoRootController.activeTab = 'main';
             scope.tipoRootController.popup = true;
             scope.init = function() {
-                NgMap.getMap(scope.fieldname, { timeout: 20000 }).then(function(map) {
+                NgMap.getMap(scope.fieldid, { timeout: 20000 }).then(function(map) {
                     scope.map = map;
                     MarkerClusterer.prototype.MARKER_CLUSTER_IMAGE_PATH_ = 'https://raw.githubusercontent.com/googlemaps/js-marker-clusterer/gh-pages/images/m';
                     var styles = [{
