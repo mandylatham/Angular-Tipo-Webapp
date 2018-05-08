@@ -421,6 +421,9 @@
                         rectangle.setMap(null);
                         markerClusterer.repaint();
                     });
+                    google.maps.event.addListener(scope.map, "click", function(event) {
+                        scope.map.hideInfoWindow('myInfoWindow');
+                    });
                     google.maps.event.addListener(markerClusterer, 'clusterclick', function(cluster) {
                         // your code here
                         var center = cluster.getCenter();
