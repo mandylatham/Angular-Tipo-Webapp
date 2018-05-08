@@ -100,14 +100,13 @@
   function prepareGraphThemes($mdColors, $mdColorUtil) {
     var color = [
       $mdColorUtil.rgbaToHex($mdColors.getThemeColor('primary-500')),
-      $mdColorUtil.rgbaToHex($mdColors.getThemeColor('accent-900')),
-      $mdColorUtil.rgbaToHex($mdColors.getThemeColor('primary-900')),
-      $mdColorUtil.rgbaToHex($mdColors.getThemeColor('accent-200')),
+      $mdColorUtil.rgbaToHex($mdColors.getThemeColor('accent-500')),
       $mdColorUtil.rgbaToHex($mdColors.getThemeColor('primary-200')),
-      $mdColorUtil.rgbaToHex($mdColors.getThemeColor('accent-400')),
+      $mdColorUtil.rgbaToHex($mdColors.getThemeColor('accent-200')),
       $mdColorUtil.rgbaToHex($mdColors.getThemeColor('primary-400')),
-      $mdColorUtil.rgbaToHex($mdColors.getThemeColor('accent-A200')),
+      $mdColorUtil.rgbaToHex($mdColors.getThemeColor('accent-400')),
       $mdColorUtil.rgbaToHex($mdColors.getThemeColor('primary-A200')),
+      $mdColorUtil.rgbaToHex($mdColors.getThemeColor('accent-A200')),
  
     ]
     echarts.registerTheme('custom', {
@@ -122,7 +121,7 @@
               "color": $mdColorUtil.rgbaToHex($mdColors.getThemeColor('primary-500'))
           },
           "subtextStyle": {
-              "color": $mdColorUtil.rgbaToHex($mdColors.getThemeColor('accent-900'))
+              "color": $mdColorUtil.rgbaToHex($mdColors.getThemeColor('accent-500'))
           }
       },
       "line": {
@@ -254,9 +253,9 @@
       "candlestick": {
           "itemStyle": {
               "normal": {
-                  "color": $mdColorUtil.rgbaToHex($mdColors.getThemeColor('primary-900')),
+                  "color": $mdColorUtil.rgbaToHex($mdColors.getThemeColor('primary-200')),
                   "color0": "transparent",
-                  "borderColor": $mdColorUtil.rgbaToHex($mdColors.getThemeColor('accent-900')),
+                  "borderColor": $mdColorUtil.rgbaToHex($mdColors.getThemeColor('accent-500')),
                   "borderColor0": "#58c470",
                   "borderWidth": "2"
               }
@@ -296,7 +295,7 @@
               },
               "emphasis": {
                   "areaColor": "rgba(255,178,72,1)",
-                  "borderColor": $mdColorUtil.rgbaToHex($mdColors.getThemeColor('primary-900')),
+                  "borderColor": $mdColorUtil.rgbaToHex($mdColors.getThemeColor('primary-200')),
                   "borderWidth": 1
               }
           },
@@ -322,7 +321,7 @@
               },
               "emphasis": {
                   "areaColor": "rgba(255,178,72,1)",
-                  "borderColor": $mdColorUtil.rgbaToHex($mdColors.getThemeColor('primary-900')),
+                  "borderColor": $mdColorUtil.rgbaToHex($mdColors.getThemeColor('primary-200')),
                   "borderWidth": 1
               }
           },
@@ -541,7 +540,7 @@
               }
           },
           "checkpointStyle": {
-              "color": $mdColorUtil.rgbaToHex($mdColors.getThemeColor('primary-900')),
+              "color": $mdColorUtil.rgbaToHex($mdColors.getThemeColor('primary-200')),
               "borderColor": "rgba(255,178,72,0.41)"
           },
           "label": {
