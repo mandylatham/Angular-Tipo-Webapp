@@ -21,7 +21,7 @@ var pathMappings = [
   },
   {
     path: '/g/public',
-    // url: 'https://dev.tipotapp.com/app/d/tipotapp/studentmanagementapp'
+    // url: 'https://dev.tipotapp.com/app/d/tipotapp/carworld'
     url: 'https://dev.tipotapp.com',
     // url: 'https://dev.billionbases.com',
     // url: 'https://dev.tipotapp.com/app/d/hr/hrbuddy'
@@ -33,7 +33,7 @@ var pathMappings = [
   },
   {
     path: '/public',
-    // url: 'https://dev.tipotapp.com/app/d/tipotapp/studentmanagementapp'
+    // url: 'https://dev.tipotapp.com/app/d/tipotapp/carworld'
     url: 'https://dev.tipotapp.com',
     // url: 'https://dev.billionbases.com',
     // url: 'https://dev.tipotapp.com/app/d/hr/hrbuddy'
@@ -45,7 +45,7 @@ var pathMappings = [
   },
   {
 	    path: '/tipo_upload',
-	    // url: 'https://dev.tipotapp.com/app/d/tipotapp/studentmanagementapp'
+	    // url: 'https://dev.tipotapp.com/app/d/tipotapp/carworld'
 	    url: 'https://dev.tipotapp.com',
       // url: 'https://dev.billionbases.com',
 	    // url: 'https://dev.tipotapp.com/app/d/hr/hrbuddy'
@@ -57,7 +57,7 @@ var pathMappings = [
 	  },
 	  {
 		    path: '/g/private',
-		    // url: 'https://dev.tipotapp.com/app/d/tipotapp/studentmanagementapp'
+		    // url: 'https://dev.tipotapp.com/app/d/tipotapp/carworld'
 		    url: 'https://dev.tipotapp.com',
         // url: 'https://dev.billionbases.com',
 		    // url: 'https://dev.tipotapp.com/app/d/hr/hrbuddy'

@@ -395,7 +395,7 @@
             });
         }
 
-        function sendPushNotification(title, text, to, is_important, tipo_name, tipo_id, perspective, mode, actions, image_url) {
+        function sendPushNotification(title, text, to, is_important, tipo_name, tipo_id, perspective, mode, actions, image_url,successCallback ,errorCallback) {
             var headers = {
                 "Content-Type": "application/json",
                 "Authorization": "Basic $tipo_context.integration_map.pushcoms.serverApiKey"
@@ -420,14 +420,6 @@
             if (_.endsWith(body.data.url, "/")) {
                 body.data.url = body.data.url.slice(0, -1);
             };
-
-            function successCallback(response) {
-                console.log("Success: ", response);
-            }
-
-            function errorCallback(error) {
-                console.log("Error: ", error);
-            }
             if (_.isArray(to)) {
                 var context = this;
                 _.each(to, function(each_topic, index) {

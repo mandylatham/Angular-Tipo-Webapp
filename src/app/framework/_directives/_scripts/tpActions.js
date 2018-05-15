@@ -106,7 +106,8 @@
                 restrictedActions: '=',
                 visibilityExpression: '=',
                 field: "=",
-                refresh: '&'
+                refresh: '&',
+                selectedall: '='
             },
             restrict: 'EA',
             replace: true,
@@ -231,7 +232,6 @@
 
                     }
                 };
-                scope.selectedall = false;
                 scope.icon = "check_box";
                 scope.tooltip = "Select All";
                 scope.selectall = function() {

@@ -16,6 +16,9 @@ pipelines:
                 - export AWS_DEFAULT_REGION=$DEV_AWS_DEFAULT_REGION                
                 - python ./import-env.py $DEV_DEPLOYMENT_ID --output=env.properties
                 - mvn --version
+                - node --version
+                - npm --version
+                - bower --version
                 - mvn -X clean deploy -Dall
     master:           
       - step:

@@ -324,7 +324,7 @@
         }
 
         function tipoapp_Login(status, user) {
-            if (window.Intercom && (getCurrentApp() === 'tipoapp')) {
+            if (window.Intercom && (getCurrentApp() === 'tipoapp') && intercom_app_id) {
                 if (status === 'success') {
                     window.Intercom("boot", {
                         app_id: intercom_app_id,
@@ -368,7 +368,7 @@
                     }, 5000);
                 };
             } else if ($rootScope.developMode) {
-                if (_.startsWith($stateParams.perspective, "TipoApp.") && intercom_state !== "boot") {
+                if (_.startsWith($stateParams.perspective, "TipoApp.") && intercom_state !== "boot" && intercom_app_id) {
                     window.Intercom("boot", {
                         app_id: intercom_app_id,
                         email: currentUser.tipo_id,
@@ -393,7 +393,7 @@
         }
 
         function tipoapp_AppInit() {
-            if (intercom_state !== "boot" && (getCurrentApp() === 'tipoapp')) {
+            if (intercom_state !== "boot" && (getCurrentApp() === 'tipoapp') && intercom_app_id) {
                 var currentUser = tipoHandle.user_meta;
                 if (currentUser && currentUser.user_attributes) {
                     tipoHandle.getTipo(currentUser.user_attributes.user_tipo, currentUser.user_attributes.user_tipo_id).then(function(response) {

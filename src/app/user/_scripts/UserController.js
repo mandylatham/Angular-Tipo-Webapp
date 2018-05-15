@@ -52,6 +52,7 @@
         }
         fetchAllTemplatesAsync();
         user.fullName = function(username) {
+            _instance.user.email = _.toLower(_instance.user.email);
             return appMetadata.application_owner_account + '.' + appMetadata.application + '.' + (username || _instance.user.email);
         };
         _instance.user = user;
@@ -178,6 +179,7 @@
 
             attemptCnt = attemptCnt || 0;
             var account = '' + generateAccountId();
+            _instance.user.email = _.toLower(_instance.user.email);
             cognitoService.signUp(user.fullName(), user.password, user.email, account, user.accountName, user.recaptcha).then(function(result) {
                 // Subscribe Trial plan
                 var trial = {
@@ -218,6 +220,7 @@
 
         _instance.login = function(username, password) {
             markProgress();
+            _instance.user.email = _.toLower(_instance.user.email);
             username = user.fullName(username);
             password = password || user.password;
             $scope.tipoAccountPromise = cognitoService.authenticate(username, password).then(function(result) {
@@ -272,6 +275,7 @@
 
         _instance.onForgotPassword = function() {
             markProgress();
+            _instance.user.email = _.toLower(_instance.user.email);
             cognitoService.forgotPassword(user.fullName()).then(function(result) {
                 _instance.toast = {
                     header: 'Check email',
@@ -298,6 +302,7 @@
         _instance.resetPassword = function() {
             markProgress();
             user.email = $stateParams.email;
+            user.email = _.toLower(user.email);
             var code = $stateParams.code;
             cognitoService.resetPassword(user.fullName(), user.newPassword, code).then(function(result) {
                 _instance.toast = {
