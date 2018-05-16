@@ -219,6 +219,7 @@
                 if (!_instance.partialSave) {
                     tipoRouter.startStateChange();
                 };
+                _instance.tipo.percentage_complete = Math.round((_instance.selectedTabIndex + 1) * 100/_instance.tab_names.length);
                 resetbulkedits();
                 //Clientside Javascript for OnSave
                 var data = {};
@@ -242,6 +243,7 @@
                     if (tipo) {
                         data.copy_from_tipo_id = tipo.copy_from_tipo_id;
                     };
+                    _instance.saveinprogress = true;
                     tipoHandle.saveTipo(tipo_name, tipo_id, clone_tipo, _instance.partialSave).then(function(result) {
                         if (tipoRouter.stickyExists()) {
                             tipoRouter.toStickyAndReset();
@@ -268,6 +270,7 @@
                             tipoRouter.endStateChange();
                             _instance.partialSave = false;
                         }
+                        _instance.saveinprogress = false;
                     });
                 } else if (action === 'create' && saveCustomResponse && saveResponse) {
                     var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
@@ -277,6 +280,7 @@
                     if (!_.isUndefined(clonedTipoId)) {
                         clone_tipo.copy_from_tipo_id = clonedTipoId;
                     }
+                    _instance.saveinprogress = true;
                     tipoHandle.createTipo(tipo_name, clone_tipo).then(function(result) {
                         if (tipoRouter.stickyExists()) {
                             tipoRouter.toStickyAndReset();
@@ -297,6 +301,7 @@
                             _instance.tipo = result[0];
                             _instance.prev_partial_tipo = angular.copy(result[0]);
                         }
+                        _instance.saveinprogress = false;
                     });
                 };
             }
@@ -1001,10 +1006,9 @@
                 _instance.tipo.tipo_id = new Date().getTime().toString();
                 tipo_id = _instance.tipo.tipo_id;
             }
-            if (!_.isEqual(_instance.prev_partial_tipo, _instance.tipo)) {
-                _instance.tipo.percentage_complete = Math.round((_instance.selectedTabIndex + 1) * 100/_instance.tab_names.length);
-                _instance.save(_instance.tipo_form, action);
-            } else {
+            if (!_.isEqual(_instance.prev_partial_tipo, _instance.tipo) && !_instance.saveinprogress) {
+                return _instance.save(_instance.tipo_form, action);
+            } else if (!_instance.saveinprogress) {
                 _instance.partialSave = false;
             }
             return true;
@@ -1028,19 +1032,28 @@
             if (_instance.wizard) {
                 _instance.tabclick = true;
                 var resp = _instance.partSave();
-                if (resp !== 'notipo') {
+                if (resp !== 'notipo' && resp !== false) {
                     _instance[_instance.tab_names[_instance.selectedTabIndex + 1]] = false;
                 };
+                if (resp === false) {
+                    return ;
+                };
                 // _instance[_instance.tab_names[_instance.selectedTabIndex]] = true;
+                _instance.selectedTabIndex++;
+                var i =0;
                 var unbindindex = $scope.$watch(function() { return _instance.selectedTabIndex }, function(n) {
                     if (n === previousindex) {
                         _instance.selectedTabIndex++;
                     } else if (n === previousindex + 1) {
-                        unbindindex();
+                        i++;
+                        if (i>2) {
+                            unbindindex();
+                        };
                     }
                 })
-            };
-            _instance.selectedTabIndex++;
+            }else{
+                _instance.selectedTabIndex++;
+            }
         }
 
         _instance.toogleBulkEdit = function(field_name) {
