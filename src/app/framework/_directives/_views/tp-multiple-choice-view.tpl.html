@@ -1,0 +1,6 @@
+<div layout="row" layout-wrap class="multiple-choice">
+    <div ng-if="model.length >= 0" flex-xs="100" flex-sm="100" flex class="view-area" ng-repeat="option in model" ng-style="{'background' : colourCheck(option)}" style="min-width:280px">
+        {{option}}
+    </div>
+    <div ng-if="model.length < 0">-N/A-</div>
+</div>

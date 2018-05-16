@@ -1299,15 +1299,18 @@ md-list-item .md-list-item-inner::before {
         width: 100%;
     }
     .view-area {
-        padding: 10px;
+        padding: 7px;
         border-radius: 3px;
-        text-align: center;
         margin: 3px;
         color: white;
         font-weight: bold;
     }
+    .md-checked {
+        md-checkbox[disabled] .md-label {
+            color: white;
+        }
+    }
     md-checkbox[disabled], md-radio-button[disabled] {
-        color: rgba(0,0,0,0.38) !important;
         &:hover {
             box-shadow: 0px 1px 1px grey;
         }
@@ -1315,7 +1318,18 @@ md-list-item .md-list-item-inner::before {
 }
 
 .questionLabel {
-    font-size: 25px;
+    font-size: 16px;
     color: black;
     font-weight: bold;
+}
+
+md-progress-linear {
+    height: 8px;
+ .md-container {
+     height: 8px;
+     border-radius: 5px;
+    .md-bar {
+        height: 8px;
+    }
+ }
 }
