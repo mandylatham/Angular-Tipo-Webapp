@@ -1002,6 +1002,7 @@
                 tipo_id = _instance.tipo.tipo_id;
             }
             if (!_.isEqual(_instance.prev_partial_tipo, _instance.tipo)) {
+                _instance.tipo.percentage_complete = Math.round((_instance.selectedTabIndex + 1)/_instance.tab_names.length);
                 _instance.save(_instance.tipo_form, action);
             } else {
                 _instance.partialSave = false;
