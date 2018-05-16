@@ -193,8 +193,10 @@
             };
         }
 
-        function saveTipo(tipo_name, tipo_id, tipo_data) {
-            tipoRouter.startStateChange();
+        function saveTipo(tipo_name, tipo_id, tipo_data, skipLoad) {
+            if (!skipLoad) {
+                tipoRouter.startStateChange();
+            };
             return tipoInstanceDataService.updateOne(tipo_name, tipo_data, tipo_id).then(function(response) {
                 tipoRouter.endStateChange();
                 return response;
@@ -395,7 +397,7 @@
             });
         }
 
-        function sendPushNotification(title, text, to, is_important, tipo_name, tipo_id, perspective, mode, actions, image_url,successCallback ,errorCallback) {
+        function sendPushNotification(title, text, to, tipo_name, tipo_id, perspective, mode, actions, image_url,successCallback ,errorCallback) {
             var headers = {
                 "Content-Type": "application/json",
                 "Authorization": "Basic $tipo_context.integration_map.pushcoms.serverApiKey"
@@ -410,8 +412,7 @@
                     tipo_name: tipo_name,
                     tipo_id: tipo_id,
                     perspective: perspective,
-                    mode: mode,
-                    is_important: is_important
+                    mode: mode
                 },
                 ios_attachments: {id1: image_url},
                 big_picture: image_url

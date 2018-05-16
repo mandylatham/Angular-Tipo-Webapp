@@ -40,7 +40,7 @@
     </md-button>
     <md-fab-speed-dial md-open="deskaction.isOpen" md-direction="down" ng-if="(actions | filter:{highlight: '!true'}).length > 0 && !bulkedit" class="md-scale md-fab-top-right">
         <md-fab-trigger>
-          <md-button id="actiondesk" aria-label="menu" class="md-fab md-warn" style="display:none;">
+          <md-button id="{{'actiondesk' + randomnumber}}" aria-label="menu" class="md-fab md-warn" style="display:none;">
             <md-icon>dns</md-icon>
           </md-button>
         </md-fab-trigger>
