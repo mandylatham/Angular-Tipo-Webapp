@@ -107,7 +107,8 @@
                 visibilityExpression: '=',
                 field: "=",
                 refresh: '&',
-                selectedall: '='
+                selectedall: '=',
+                context: '='
             },
             restrict: 'EA',
             replace: true,
@@ -118,6 +119,7 @@
                 } else {
                     scope.fieldTemplate = 'framework/_directives/_views/tp-actions.tpl.html'
                 }
+                scope.randomnumber = new Date().getUTCMilliseconds();
                 var mode = scope.mode;
                 scope.mobaction = { isOpen: false };
                 scope.deskaction = { isOpen: false };
@@ -132,7 +134,7 @@
 
                 var tipo_name = scope.tipoName;
                 var tipo_id;
-                if (mode === 'view') {
+                if (mode === 'view' && scope.tipos) {
                     // only a single tipo
                     tipo_id = scope.tipos.tipo_id;
                     scope.edit = false;
@@ -201,7 +203,11 @@
                 }
 
                 scope.triggerdeskActions = function() {
-                    angular.element('#actiondesk').trigger('click');
+                    if (scope.field) {
+                        angular.element('#actiondesk' + scope.randomnumber).trigger('click');
+                    }else{
+                        angular.element('#actiondesk').trigger('click');
+                    }
                 }
 
                 scope.performAction = function(action) {
@@ -310,11 +316,13 @@
                 }
 
                 function callAction(tipo_name, action_name, selected_tipo_ids, selected_tipos, additional_tipo_name, additional_tipo) {
-                    var fun_mode = "list";
-                    if (mode === 'view') {
-                        fun_mode = "detail";
-                    };
-                    var function_name = tipo_name + "_" + fun_mode + "_" + action_name;
+                    if (scope.field) {
+                        var function_name = tipo_name + "_" + action_name;
+                    } else if (mode === 'view') {
+                        var function_name = tipo_name + "_" + "detail" + "_" + action_name;
+                    } else {
+                        var function_name = tipo_name + "_" + "list" + "_" + action_name;
+                    }
                     if (typeof tipoCustomJavascript[function_name] === 'function') {
                         scope.data_handle.tipo_name = tipo_name;
                         scope.data_handle.action_name = action_name;
@@ -322,6 +330,7 @@
                             scope.data_handle.selected_tipo_id = selected_tipo_ids[0];
                             scope.data_handle.selected_tipo = selected_tipos[0];
                         }
+                        scope.data_handle.context = scope.context;
                         scope.data_handle.selected_tipo_ids = selected_tipo_ids;
                         scope.data_handle.selected_tipos = selected_tipos;
                         scope.data_handle.additional_tipo_name = additional_tipo_name;
@@ -336,6 +345,7 @@
                             scope.data_handle.selected_tipo_id = selected_tipo_ids[0];
                             scope.data_handle.selected_tipo = selected_tipos[0];
                         }
+                        scope.data_handle.context = scope.context;
                         scope.data_handle.selected_tipo_ids = selected_tipo_ids;
                         scope.data_handle.selected_tipos = selected_tipos;
                         scope.data_handle.additional_tipo_name = additional_tipo_name;

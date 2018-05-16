@@ -155,9 +155,11 @@
         tipoHandle.setPerspective();
         _instance.tipo_handle = tipoHandle;
         _instance.hide_actions = $scope.hide_actions;
+        _instance.selectedTabIndex = 0;
         var tipo_name = $scope.tipo_name || $stateParams.tipo_name;
         _instance.tipo = tipo;
         _instance.old_tipo = angular.copy(tipo);
+        _instance.prev_partial_tipo = angular.copy(tipo);
         $scope.showLoader = true;
         _instance.initTiposData = function(ui_type, mode) {
             var type = ui_type;
@@ -206,82 +208,98 @@
         };
 
         _instance.save = function(form, action) {
-            if (!form.$valid && form !== 'dialog') {
+            if ((!form.$valid && form !== 'dialog') && !(_instance.partialSave && !_instance.wizard)) {
+                form.$setSubmitted(true);
                 var container = angular.element(document.getElementById('inf-wrapper'));
                 var invalidElement = document.getElementsByClassName("ng-invalid");
                 container.scrollToElement(invalidElement[1], 150, 100);
                 invalidElement[1].focus();
                 return false;
-            }
-            tipoRouter.startStateChange();
-            resetbulkedits();
-            //Clientside Javascript for OnSave
-            var data = {};
-            var parameters = {};
-            var clone_tipo = angular.copy(_instance.tipo);
-            tipoManipulationService.modifyTipoData(clone_tipo);
-            var function_name = tipo_name + "_OnSave";
-            var saveCustomResponse = true;
-            var saveResponse = true;
-            if (typeof tipoCustomJavascript[function_name] === 'function') {
-                $scope.data_handle.tipo = clone_tipo;
-                $scope.data_handle.action = action;
-                saveCustomResponse = tipoCustomJavascript[function_name]($scope.data_handle);
-            }
-            if (typeof tipoClientJavascript[function_name] === 'function') {
-                $scope.data_handle.tipo = clone_tipo;
-                $scope.data_handle.action = action;
-                saveResponse = tipoClientJavascript[function_name]($scope.data_handle);
-            }
-            if (action === 'edit' && saveCustomResponse && saveResponse) {
-                data.copy_from_tipo_id = tipo.copy_from_tipo_id;
-                tipoHandle.saveTipo(tipo_name, tipo_id, clone_tipo).then(function(result) {
-                    if (tipoRouter.stickyExists()) {
-                        tipoRouter.toStickyAndReset();
-                    } else {
-                        // if (tipo_name === "TipoDefinition") {
-                        //   $templateCache.remove(_instance.tipoDefinition._ui.editTemplateUrl.replace(/___TipoDefinition/g,"___" + tipo_id));
-                        //   $templateCache.remove(_instance.tipoDefinition._ui.listTemplateUrl.replace(/___TipoDefinition/g,"___" + tipo_id));
-                        //   $templateCache.remove(_instance.tipoDefinition._ui.createTemplateUrl.replace(/___TipoDefinition/g,"___" + tipo_id));
-                        // }
-                        if (tipo_name === "TipoDefinition") {
-                            if (handleJSChanges(clone_tipo, _instance.old_tipo)) {
-                                setTimeout(function() {
-                                    $window.location.reload(true);
-                                }, 5000)
+            } else {
+                if (!_instance.partialSave) {
+                    tipoRouter.startStateChange();
+                };
+                resetbulkedits();
+                //Clientside Javascript for OnSave
+                var data = {};
+                var parameters = {};
+                var clone_tipo = angular.copy(_instance.tipo);
+                tipoManipulationService.modifyTipoData(clone_tipo);
+                var function_name = tipo_name + "_OnSave";
+                var saveCustomResponse = true;
+                var saveResponse = true;
+                if (typeof tipoCustomJavascript[function_name] === 'function' && !_instance.partialSave) {
+                    $scope.data_handle.tipo = clone_tipo;
+                    $scope.data_handle.action = action;
+                    saveCustomResponse = tipoCustomJavascript[function_name]($scope.data_handle);
+                }
+                if (typeof tipoClientJavascript[function_name] === 'function' && !_instance.partialSave) {
+                    $scope.data_handle.tipo = clone_tipo;
+                    $scope.data_handle.action = action;
+                    saveResponse = tipoClientJavascript[function_name]($scope.data_handle);
+                }
+                if ((action === 'edit' || tipo_id) && saveCustomResponse && saveResponse) {
+                    if (tipo) {
+                        data.copy_from_tipo_id = tipo.copy_from_tipo_id;
+                    };
+                    tipoHandle.saveTipo(tipo_name, tipo_id, clone_tipo, _instance.partialSave).then(function(result) {
+                        if (tipoRouter.stickyExists()) {
+                            tipoRouter.toStickyAndReset();
+                        } else if (!_instance.partialSave) {
+                            // if (tipo_name === "TipoDefinition") {
+                            //   $templateCache.remove(_instance.tipoDefinition._ui.editTemplateUrl.replace(/___TipoDefinition/g,"___" + tipo_id));
+                            //   $templateCache.remove(_instance.tipoDefinition._ui.listTemplateUrl.replace(/___TipoDefinition/g,"___" + tipo_id));
+                            //   $templateCache.remove(_instance.tipoDefinition._ui.createTemplateUrl.replace(/___TipoDefinition/g,"___" + tipo_id));
+                            // }
+                            if (tipo_name === "TipoDefinition") {
+                                if (handleJSChanges(clone_tipo, _instance.old_tipo)) {
+                                    setTimeout(function() {
+                                        $window.location.reload(true);
+                                    }, 5000)
+                                };
                             };
-                        };
-                        var registryName = tipo_name + '_resdata';
-                        var resData = tipoRegistry.get(registryName);
-                        tipoRegistry.pushData(tipo_name, result.tipo_id, result);
-                        tipoRouter.toTipoView(tipo_name, tipo_id);
-                    }
-                });
-            } else if (action === 'create'  && saveCustomResponse && saveResponse) {
-                var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
-                if (perspectiveMetadata.fieldName && !clone_tipo[perspectiveMetadata.fieldName]) {
-                    clone_tipo[perspectiveMetadata.fieldName] = perspectiveMetadata.tipoId;
-                }
-                if (!_.isUndefined(clonedTipoId)) {
-                    clone_tipo.copy_from_tipo_id = clonedTipoId;
-                }
-                tipoHandle.createTipo(tipo_name, clone_tipo).then(function(result) {
-                    if (tipoRouter.stickyExists()) {
-                        tipoRouter.toStickyAndReset();
-                    } else {
-                        if (form === 'dialog') {
-                            tipoHandle.getTipos(tipo_name, $scope.queryparams).then(function(tipos) {
-                                $mdDialog.hide(tipos);
-                            });
-                        } else {
                             var registryName = tipo_name + '_resdata';
                             var resData = tipoRegistry.get(registryName);
-                            tipoRegistry.pushData(tipo_name, result[0].tipo_id, result[0]);
-                            tipoRouter.toTipoResponse(resData, tipo_name, result[0].tipo_id, parameters);
+                            tipoRegistry.pushData(tipo_name, result.tipo_id, result);
+                            tipoRouter.toTipoView(tipo_name, tipo_id);
+                        } else {
+                            _instance.tipo = result;
+                            _instance.prev_partial_tipo = angular.copy(result);
+                            tipoRouter.endStateChange();
+                            _instance.partialSave = false;
                         }
+                    });
+                } else if (action === 'create' && saveCustomResponse && saveResponse) {
+                    var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
+                    if (perspectiveMetadata.fieldName && !clone_tipo[perspectiveMetadata.fieldName]) {
+                        clone_tipo[perspectiveMetadata.fieldName] = perspectiveMetadata.tipoId;
                     }
-                });
-            };
+                    if (!_.isUndefined(clonedTipoId)) {
+                        clone_tipo.copy_from_tipo_id = clonedTipoId;
+                    }
+                    tipoHandle.createTipo(tipo_name, clone_tipo).then(function(result) {
+                        if (tipoRouter.stickyExists()) {
+                            tipoRouter.toStickyAndReset();
+                        } else if (!_instance.partialSave) {
+                            if (form === 'dialog') {
+                                tipoHandle.getTipos(tipo_name, $scope.queryparams).then(function(tipos) {
+                                    $mdDialog.hide(tipos);
+                                });
+                            } else {
+                                var registryName = tipo_name + '_resdata';
+                                var resData = tipoRegistry.get(registryName);
+                                tipoRegistry.pushData(tipo_name, result[0].tipo_id, result[0]);
+                                tipoRouter.toTipoResponse(resData, tipo_name, result[0].tipo_id, parameters);
+                            }
+                        } else {
+                            _instance.partialSave = false;
+                            tipoRouter.endStateChange();
+                            _instance.tipo = result[0];
+                            _instance.prev_partial_tipo = angular.copy(result[0]);
+                        }
+                    });
+                };
+            }
         };
 
         _instance.addTipo = function(baseFilter, tipo_name, label_field, uniq_name, prefix, label, index) {
@@ -971,6 +989,55 @@
 
         }
 
+        _instance.partSave = function() {
+            _instance.partialSave = true;
+            var action = 'edit';
+            if (!_instance.tipo) {
+                _instance.partialSave = false;
+                return 'notipo';
+            };
+            if (!_instance.tipo.tipo_id) {
+                action = 'create';
+                _instance.tipo.tipo_id = new Date().getTime().toString();
+                tipo_id = _instance.tipo.tipo_id;
+            }
+            if (!_.isEqual(_instance.prev_partial_tipo, _instance.tipo)) {
+                _instance.save(_instance.tipo_form, action);
+            } else {
+                _instance.partialSave = false;
+            }
+            return true;
+        }
+
+        _instance.selectedTab = function(tab_name) {
+            _instance.partSave();
+        }
+
+
+        _instance.settipoForm = function(form) {
+            console.log("--------form-------");
+            _instance.tipo_form = form;
+        }
+
+        _instance.nextTab = function() {
+            var previousindex = _instance.selectedTabIndex;
+            if (_instance.wizard) {
+                var resp = _instance.partSave();
+                if (resp !== 'notipo') {
+                    _instance[_instance.tab_names[_instance.selectedTabIndex + 1]] = false;
+                };
+                // _instance[_instance.tab_names[_instance.selectedTabIndex]] = true;
+                var unbindindex = $scope.$watch(function() { return _instance.selectedTabIndex }, function(n) {
+                    if (n === previousindex) {
+                        _instance.selectedTabIndex++;
+                    } else if (n === previousindex + 1) {
+                        unbindindex();
+                    }
+                })
+            };
+            _instance.selectedTabIndex++;
+        }
+
         _instance.toogleBulkEdit = function(field_name) {
             _.set(_instance, field_name + ".bulkedit", !_.get(_instance, field_name + ".bulkedit"));
             var bulkedit = _.get(_instance, field_name + ".bulkedit");
@@ -1139,6 +1206,20 @@
                 _instance.tipo = $scope.data_handle.tipo;
             }
         }, true);
+
+        var unbindtabname = $scope.$watch(function() { return _instance.tabnames }, function(new_value, old_value) {
+            if (new_value) {
+                _instance.tab_names = new_value.split(",");
+                if (_instance.wizard) {
+                    _.each(_instance.tab_names, function(each, index) {
+                        if (index !== 0) {
+                            _instance[each] = true;
+                        };
+                    })
+                };
+                unbindtabname();
+            };
+        });
 
     }
 
