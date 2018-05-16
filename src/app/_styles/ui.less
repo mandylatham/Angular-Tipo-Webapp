@@ -504,6 +504,7 @@ html {
         md-input-container {
             margin: 0;
             width: 100%;
+            padding: 0;
             &.auto-width {
                 width: auto;
             }
@@ -1274,4 +1275,47 @@ md-list-item .md-list-item-inner::before {
 
 .introjs-tooltip {
     line-height: 1.5;
+}
+
+.multiple-choice {
+    .select-box {
+        background: white;
+        padding: 10px;
+        border-radius: 3px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        width: 99%;
+        margin: 5px 0px;
+        box-shadow: 0px 1px 1px grey;
+        &:hover {
+            box-shadow: 0px 3px 1px grey;
+        }
+    }
+    .md-container {
+        display: none;
+    }
+    .md-label {
+        margin: 0;
+        width: 100%;
+    }
+    .view-area {
+        padding: 10px;
+        border-radius: 3px;
+        text-align: center;
+        margin: 3px;
+        color: white;
+        font-weight: bold;
+    }
+    md-checkbox[disabled], md-radio-button[disabled] {
+        color: rgba(0,0,0,0.38) !important;
+        &:hover {
+            box-shadow: 0px 1px 1px grey;
+        }
+    }
+}
+
+.questionLabel {
+    font-size: 25px;
+    color: black;
+    font-weight: bold;
 }
