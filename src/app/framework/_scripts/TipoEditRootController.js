@@ -219,7 +219,9 @@
                 if (!_instance.partialSave) {
                     tipoRouter.startStateChange();
                 };
-                _instance.tipo.percentage_complete = Math.round((_instance.selectedTabIndex + 1) * 100/_instance.tab_names.length);
+                if(_instance.partialSave) {
+                    _instance.tipo.percentage_complete = Math.round((_instance.selectedTabIndex + 1) * 100/_instance.tab_names.length);
+                }
                 resetbulkedits();
                 //Clientside Javascript for OnSave
                 var data = {};
