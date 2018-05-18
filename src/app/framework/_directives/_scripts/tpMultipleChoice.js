@@ -28,16 +28,25 @@
                 scope.model.field = scope.fieldvalue;
 
                 scope.toggle = function(item, list) {
-                    var idx = list.indexOf(item);
-                    if (idx > -1) {
-                        list.splice(idx, 1);
+                    if(list && list.length >= 0) {
+                        var idx = list.indexOf(item);
+                        if (idx > -1) {
+                            list.splice(idx, 1);
+                        } else {
+                            list.push(item);
+                        }
                     } else {
-                        list.push(item);
+                        scope.fieldvalue = [];
+                        scope.fieldvalue.push(item);
                     }
                 };
 
                 scope.exists = function(item, list) {
-                    return list.indexOf(item) > -1;
+                    if(list && list.length >= 0) {
+                        return list.indexOf(item) > -1;
+                    } else {
+                        return false;
+                    }
                 };
 
                 scope.updateValue = function() {
@@ -48,7 +57,6 @@
                     if (scope.fieldvalue && (scope.model.field !== scope.fieldvalue)) {
                         scope.model.field = scope.fieldvalue;
                     }
-                    // ctrl.$setViewValue(scope.fieldvalue);
                 }, true);
             }
         };
