@@ -96,12 +96,22 @@
                 extractData: function(rawData, operation, what, url, response, deferred) {
                     var headers = response.headers();
                     var version_stamp = headers["x-tipo-version-stamp"];
-                    if (($rootScope.version_stamp && $rootScope.version_stamp !== version_stamp && !S(url).contains("TipoCustomization/default"))|| _.includes(rawData.refresh_list,'UIRELOAD')) {
+                    if ($rootScope.version_stamp && $rootScope.version_stamp !== version_stamp && !S(url).contains("TipoCustomization/default")) {
                         console.log("refresh entire app stored : [" + $rootScope.version_stamp + "], received : [" + version_stamp + "]");
                         tipoCache.clearAll();
                         $templateCache.removeAll();
                         $window.location.reload(true);
                     };
+                    
+                    if (_.includes(rawData.refresh_list,'UIRELOAD')) {
+                        tipoRouter.toTipoView("TipoDefinition");
+                        setTimeout(function() {
+	                        tipoCache.clearAll();
+	                        $templateCache.removeAll();
+	                        $window.location.reload(true);
+                        },3000);
+                     };
+                    
                     _.forEach(rawData.refresh_list, function(value) {
                         if (_.startsWith(value, "/")) {
                             value = value.substring(1);
