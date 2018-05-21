@@ -219,7 +219,7 @@
                 if (!_instance.partialSave) {
                     tipoRouter.startStateChange();
                 };
-                if(_instance.partialSave) {
+                if(_instance.selectedTabIndex && _instance.tab_names && _instance.tab_names.length) {
                     _instance.tipo.percentage_complete = Math.round((_instance.selectedTabIndex + 1) * 100/_instance.tab_names.length);
                 }
                 resetbulkedits();
@@ -1040,19 +1040,16 @@
                 if (resp === false) {
                     return ;
                 };
-                // _instance[_instance.tab_names[_instance.selectedTabIndex]] = true;
-                _instance.selectedTabIndex++;
-                var i =0;
-                var unbindindex = $scope.$watch(function() { return _instance.selectedTabIndex }, function(n) {
-                    if (n === previousindex) {
-                        _instance.selectedTabIndex++;
-                    } else if (n === previousindex + 1) {
-                        i++;
-                        if (i>2) {
-                            unbindindex();
-                        };
-                    }
-                })
+                // _instance.selectedTabIndex++;
+                _instance.active_tab = _instance.tab_names[_instance.selectedTabIndex + 1]
+                // var i =0;
+                // var unbindindex = $scope.$watch(function() { return _instance.selectedTabIndex }, function(n,o) {
+                //     if (n === previousindex && n !== o) {
+                //         _instance.selectedTabIndex++;
+                //     } else if (n === previousindex + 1) {
+                //         unbindindex();
+                //     }
+                // })
             }else{
                 _instance.selectedTabIndex++;
             }
