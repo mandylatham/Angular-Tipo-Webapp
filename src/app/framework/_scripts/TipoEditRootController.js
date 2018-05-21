@@ -270,6 +270,10 @@
                             tipoRegistry.pushData(tipo_name, result.tipo_id, result);
                             tipoRouter.toTipoView(tipo_name, tipo_id);
                         } else {
+                            _instance.tipo.created_by = result.updated_by;
+                            _instance.tipo.created_by_labels = result.updated_by_labels;
+                            _instance.tipo.created_date = result.updated_date;
+                            _instance.tipo.created_dt = result.updated_dt;
                             _instance.tipo.updated_by = result.updated_by;
                             _instance.tipo.updated_by_labels = result.updated_by_labels;
                             _instance.tipo.updated_date = result.updated_date;

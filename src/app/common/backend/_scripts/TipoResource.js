@@ -110,8 +110,7 @@
 	                        $templateCache.removeAll();
 	                        $window.location.reload(true);
                         },3000);
-                     };
-                    
+                     } else {                   
                     _.forEach(rawData.refresh_list, function(value) {
                         if (_.startsWith(value, "/")) {
                             value = value.substring(1);
@@ -194,7 +193,9 @@
                             }
                         }
                     });
-
+                    
+                    }
+                    
                     if (rawData && rawData.response) {
                         var resp = rawData.response;
                         resp.tipo_name = rawData.tipo_name;
