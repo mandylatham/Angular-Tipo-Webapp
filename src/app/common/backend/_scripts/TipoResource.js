@@ -109,7 +109,7 @@
 	                        tipoCache.clearAll();
 	                        $templateCache.removeAll();
 	                        $window.location.reload(true);
-                        },3000);
+                        },6000);
                      } else {                   
                     _.forEach(rawData.refresh_list, function(value) {
                         if (_.startsWith(value, "/")) {
