@@ -3,28 +3,28 @@
 	<div layout="row" layout-wrap ng-if="isarray">
 		  <div flex-xs="100" flex-sm="100" flex ng-repeat="option in allowedvalues" style="min-width:280px">
 			<md-checkbox ng-checked="exists(option.value, model.field)" ng-click="toggle(option.value, model.field)" class="md-primary select-box" name="fieldname" ng-disabled="readOnly" ng-style="(exists(option.value, model.field) && (option.colour === 'NA') && {'background': primaryColor, 'color': 'white'}) || (exists(option.value, model.field) && (option.colour !== 'NA') && {'background': option.colour, 'color': 'white'})">
-					<div class="text-center" ng-if="option.icon !== 'null'">	
+					<span class="text-center" ng-if="option.icon !== 'null'">	
 						<img class="img" ng-if="option.icon.includes('.')" src="{{'g/' + option.icon}}" /> 
 						<md-icon class="img" ng-if="!option.icon.includes('.')" ng-style="model.field === option.value && {'color' : 'white'}" style="font-size: 40px">{{option.icon}}</md-icon>
-					</div>
-					<div class="text-center">
+					</span>
+					<span class="text-center">
 						<span>{{ option.value }}</span> 
-						<md-icon ng-if="exists(option.value, model.field)" style="color:white; position: absolute; right:0; font-size: 18px;height: 15px;min-height: 15px;" >check_circle</md-icon>
-					</div>
+						<md-icon ng-if="exists(option.value, model.field)" style="color:white;  float:right; font-size: 18px;height: 15px;min-height: 15px;" >check_circle</md-icon>
+					</span>
 			</md-checkbox>
 			</div>
 		</div> 
 		<md-radio-group ng-model="model.field" ng-if="!isarray" ng-change="updateValue(model.field)" layout="row" layout-wrap>
 			<div flex-xs="100" flex-sm="100" flex ng-repeat="option in allowedvalues" style="min-width:280px">
 				<md-radio-button ng-value="option.value" class="md-primary select-box" name="fieldname" ng-disabled="readOnly" ng-style="(model.field === option.value && (option.colour === 'NA') && {'background': primaryColor, 'color': 'white'}) || (model.field === option.value && (option.colour !== 'NA') && {'background': option.colour, 'color': 'white'})">
-				 <div class="text-center" ng-if="option.icon !== 'null'">	
+				 <span ng-if="option.icon !== 'null'">	
 					<img class="img" ng-if="option.icon.includes('.')" src="{{'g/' + option.icon}}" /> 
-					<md-icon class="img" ng-if="!option.icon.includes('.')" ng-style="model.field === option.value && {'color' : 'white'}" style="font-size: 40px">{{option.icon}}</md-icon>
-				 </div>
-				 <div class="text-center">
+					<md-icon class="img" ng-if="!option.icon.includes('.')" ng-style="model.field === option.value && {'color' : 'white'}" style="font-size: 50px">{{option.icon}}</md-icon>
+				 </span>
+				 <span >
 					<span>{{ option.value }}</span> 
-					<md-icon ng-if="model.field === option.value" style="color:white; right:0; font-size: 18px;height: 15px;min-height: 15px;position: absolute;" > check_circle</md-icon>
-				 </div>
+					<md-icon ng-if="model.field === option.value" style="color:white; float:right; font-size: 18px;height: 15px;min-height: 15px;" > check_circle</md-icon>
+				 </span>
 				</md-radio-button>
 			</div>
 		</md-radio-group>
