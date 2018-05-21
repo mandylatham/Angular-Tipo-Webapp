@@ -104,7 +104,7 @@
                     };
                     
                     if (_.includes(rawData.refresh_list,'UIRELOAD')) {
-                        tipoRouter.toTipoView("TipoDefinition");
+                        tipoRouter.toTipoView(rawData.tipo_name);
                         setTimeout(function() {
 	                        tipoCache.clearAll();
 	                        $templateCache.removeAll();
