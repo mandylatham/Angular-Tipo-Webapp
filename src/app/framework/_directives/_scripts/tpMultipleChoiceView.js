@@ -36,6 +36,23 @@
                     return '#ddd';
                 }
             }
+            scope.iconCheck = function (option) {
+                var index = _.findIndex(scope.allowedvalues, ['value', option]);
+                if(index >= 0) {
+                    if(scope.allowedvalues[index].icon !== 'null') {
+                        if(scope.allowedvalues[index].icon.includes('.')) {
+                            scope.imgUrl = true;
+                        } else {
+                            scope.imgUrl = false;
+                        }
+                        return scope.allowedvalues[index].icon;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            }
             scope.$watch(function(){return scope.fieldvalue},function(newValue, oldValue){
                 if (newValue) {
                     scope.model = [];

@@ -212,6 +212,9 @@
                 form.$setSubmitted(true);
                 var container = angular.element(document.getElementById('inf-wrapper'));
                 var invalidElement = document.getElementsByClassName("ng-invalid");
+                
+                invalidElement[1].parentElement.lastElementChild.children[0].style.opacity = "1";
+                invalidElement[1].parentElement.lastElementChild.children[0].style.marginTop = "0px"; 
                 container.scrollToElement(invalidElement[1], 150, 100);
                 invalidElement[1].focus();
                 return false;

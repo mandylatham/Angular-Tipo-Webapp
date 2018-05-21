@@ -12,7 +12,6 @@
                 istiporequired: '=',
                 allowedvalues: '=',
                 defaultValue: '@',
-                allowcreate: '=',
                 description: '=',
                 fieldname: '=',
                 readOnly: '=',
@@ -25,7 +24,7 @@
             link: function(scope, element, attrs, ctrl) {
                 scope.primaryColor = $mdColorUtil.rgbaToHex($mdColors.getThemeColor('accent-500'));
                 scope.model = {};
-                // scope.model.field = scope.fieldvalue;
+                scope.model.field = scope.fieldvalue;
                 if (scope.isarray && !scope.model.field) {
                   scope.model.field = [];
                 };
@@ -52,14 +51,8 @@
 
                 scope.updateValue = function(selectedObj) {
                     scope.ngModel = angular.copy(selectedObj);
-                    // scope.fieldvalue = scope.model.field;
                 }
 
-                // scope.$watch(function() { return scope.fieldvalue }, function(newValue, oldValue) {
-                //     if (scope.fieldvalue && (scope.model.field !== scope.fieldvalue)) {
-                //         ctrl.$setViewValue(scope.model.field);
-                //     }
-                // }, true);
             }
         };
     });
