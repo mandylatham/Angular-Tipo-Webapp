@@ -1020,6 +1020,7 @@
             if (!_instance.tabclick) {
                 _instance.partSave();
             };
+            _instance.active_tab = tab_name;
             _instance.tabclick = false;
         }
 
