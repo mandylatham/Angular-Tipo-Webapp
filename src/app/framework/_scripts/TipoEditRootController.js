@@ -267,8 +267,11 @@
                             tipoRegistry.pushData(tipo_name, result.tipo_id, result);
                             tipoRouter.toTipoView(tipo_name, tipo_id);
                         } else {
-                            _instance.tipo = result;
-                            _instance.prev_partial_tipo = angular.copy(result);
+                            _instance.tipo.updated_by = result.updated_by;
+                            _instance.tipo.updated_by_labels = result.updated_by_labels;
+                            _instance.tipo.updated_date = result.updated_date;
+                            _instance.tipo.updated_dt = result.updated_dt;
+                            _instance.prev_partial_tipo = angular.copy(_instance.tipo );
                             tipoRouter.endStateChange();
                             _instance.partialSave = false;
                         }
@@ -300,8 +303,11 @@
                         } else {
                             _instance.partialSave = false;
                             tipoRouter.endStateChange();
-                            _instance.tipo = result[0];
-                            _instance.prev_partial_tipo = angular.copy(result[0]);
+                            _instance.tipo.updated_by = result[0].updated_by;
+                            _instance.tipo.updated_by_labels = result[0].updated_by_labels;
+                            _instance.tipo.updated_date = result[0].updated_date;
+                            _instance.tipo.updated_dt = result[0].updated_dt;
+                            _instance.prev_partial_tipo = angular.copy(_instance.tipo );
                         }
                         _instance.saveinprogress = false;
                     });

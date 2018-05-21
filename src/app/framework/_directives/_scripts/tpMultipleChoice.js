@@ -7,17 +7,17 @@
 
     return module.directive('tpMultipleChoice', function($mdColorUtil, $mdColors) {
         return {
-            require: 'ngModel',
             scope: {
                 isarray: '=',
-                fieldvalue: '=',
                 istiporequired: '=',
                 allowedvalues: '=',
                 defaultValue: '@',
                 allowcreate: '=',
                 description: '=',
                 fieldname: '=',
-                readOnly: '='
+                readOnly: '=',
+                ngModel: '=',
+                fieldvalue: '=',
             },
             restrict: 'EA',
             replace: true,
@@ -25,7 +25,10 @@
             link: function(scope, element, attrs, ctrl) {
                 scope.primaryColor = $mdColorUtil.rgbaToHex($mdColors.getThemeColor('accent-500'));
                 scope.model = {};
-                scope.model.field = scope.fieldvalue;
+                // scope.model.field = scope.fieldvalue;
+                if (scope.isarray && !scope.model.field) {
+                  scope.model.field = [];
+                };
 
                 scope.toggle = function(item, list) {
                     if(list && list.length >= 0) {
@@ -35,9 +38,7 @@
                         } else {
                             list.push(item);
                         }
-                    } else {
-                        scope.fieldvalue = [];
-                        scope.fieldvalue.push(item);
+                        scope.ngModel = angular.copy(list);
                     }
                 };
 
@@ -49,15 +50,16 @@
                     }
                 };
 
-                scope.updateValue = function() {
-                    scope.fieldvalue = scope.model.field;
+                scope.updateValue = function(selectedObj) {
+                    scope.ngModel = angular.copy(selectedObj);
+                    // scope.fieldvalue = scope.model.field;
                 }
 
-                scope.$watch(function() { return scope.fieldvalue }, function(newValue, oldValue) {
-                    if (scope.fieldvalue && (scope.model.field !== scope.fieldvalue)) {
-                        scope.model.field = scope.fieldvalue;
-                    }
-                }, true);
+                // scope.$watch(function() { return scope.fieldvalue }, function(newValue, oldValue) {
+                //     if (scope.fieldvalue && (scope.model.field !== scope.fieldvalue)) {
+                //         ctrl.$setViewValue(scope.model.field);
+                //     }
+                // }, true);
             }
         };
     });
