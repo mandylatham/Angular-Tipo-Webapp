@@ -1,0 +1,26 @@
+<div layout="row" class="multiple-choice">
+    <md-radio-group ng-model="model.field" layout="row" layout-wrap ng-change="updateValue(model.field)">
+        <div flex-xs="100" flex-sm="100" flex style="min-width:280px">
+            <md-radio-button ng-value="true" class="md-primary select-box" name="fieldname" ng-disabled="readOnly" ng-style="(model.field && (truevalues.colour === 'NA') && {'background': primaryColor, 'color': 'white'}) || (model.field && (truevalues.colour !== 'NA') && {'background': truevalues.colour, 'color': 'white'})">
+            <span ng-if="truevalues.icon !== 'null'">	
+                <img class="img" ng-if="truevalues.icon.includes('.')" src="{{'g/' + truevalues.icon}}" /> 
+                <md-icon class="img" ng-if="!truevalues.icon.includes('.')" ng-style="model.field && {'color' : 'white'}" style="font-size: 50px">{{truevalues.icon}}</md-icon>
+            </span>
+            <span >
+                <span>{{ truevalues.value }}</span> 
+            </span>
+            </md-radio-button>
+        </div>
+        <div flex-xs="100" flex-sm="100" flex style="min-width:280px">
+            <md-radio-button ng-value="false" class="md-primary select-box" name="fieldname" ng-disabled="readOnly" ng-style="(model.field === false && (falsevalues.colour === 'NA') && {'background': primaryColor, 'color': 'white'}) || (model.field === false && (falsevalues.colour !== 'NA') && {'background': falsevalues.colour, 'color': 'white'})">
+            <span ng-if="falsevalues.icon !== 'null'">	
+                <img class="img" ng-if="falsevalues.icon.includes('.')" src="{{'g/' + falsevalues.icon}}" /> 
+                <md-icon class="img" ng-if="!falsevalues.icon.includes('.')" ng-style="model.field === false  && {'color' : 'white'}" style="font-size: 50px">{{falsevalues.icon}}</md-icon>
+            </span>
+            <span >
+                <span>{{ falsevalues.value }}</span> 
+            </span>
+            </md-radio-button>
+        </div>
+    </md-radio-group>
+</div>
