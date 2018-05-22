@@ -207,23 +207,36 @@
             $mdToast.show(toast);
         };
 
+        function checkFormValidity(form) {
+            form.$setSubmitted(true);
+            var container = angular.element(document.getElementById('inf-wrapper'));
+            var invalidElement = document.getElementsByClassName("ng-invalid");
+            _.each(invalidElement, function(element) {
+                if (element.localName !== 'form') {
+                    element.parentElement.lastElementChild.children[0].style.opacity = "1";
+                    element.parentElement.lastElementChild.children[0].style.marginTop = "0px";
+                };
+            })
+            if (_instance.tab_names && _instance.tab_names.length) {
+                var element = document.querySelectorAll("md-tab-content.md-active")[0].getElementsByClassName("ng-invalid");
+                if (element.length === 0) {
+                    return true;
+                };
+            }
+            container.scrollToElement(invalidElement[1], 150, 100);
+            invalidElement[1].focus();
+            return false;
+        }
+
         _instance.save = function(form, action) {
             if ((!form.$valid && form !== 'dialog') && !(_instance.partialSave && !_instance.wizard)) {
-                form.$setSubmitted(true);
-                var container = angular.element(document.getElementById('inf-wrapper'));
-                var invalidElement = document.getElementsByClassName("ng-invalid");
-                
-                invalidElement[1].parentElement.lastElementChild.children[0].style.opacity = "1";
-                invalidElement[1].parentElement.lastElementChild.children[0].style.marginTop = "0px"; 
-                container.scrollToElement(invalidElement[1], 150, 100);
-                invalidElement[1].focus();
-                return false;
+                return checkFormValidity(form);
             } else {
                 if (!_instance.partialSave) {
                     tipoRouter.startStateChange();
                 };
-                if(_instance.selectedTabIndex && _instance.tab_names && _instance.tab_names.length) {
-                    _instance.tipo.percentage_complete = Math.round((_instance.selectedTabIndex + 1) * 100/_instance.tab_names.length);
+                if (!_.isUndefined(_instance.selectedTabIndex) && _instance.tab_names && _instance.tab_names.length) {
+                    _instance.tipo.percentage_complete = Math.round((_instance.selectedTabIndex + 1) * 100 / _instance.tab_names.length);
                 }
                 resetbulkedits();
                 //Clientside Javascript for OnSave
@@ -278,7 +291,7 @@
                             _instance.tipo.updated_by_labels = result.updated_by_labels;
                             _instance.tipo.updated_date = result.updated_date;
                             _instance.tipo.updated_dt = result.updated_dt;
-                            _instance.prev_partial_tipo = angular.copy(_instance.tipo );
+                            _instance.prev_partial_tipo = angular.copy(_instance.tipo);
                             tipoRouter.endStateChange();
                             _instance.partialSave = false;
                         }
@@ -314,7 +327,7 @@
                             _instance.tipo.updated_by_labels = result[0].updated_by_labels;
                             _instance.tipo.updated_date = result[0].updated_date;
                             _instance.tipo.updated_dt = result[0].updated_dt;
-                            _instance.prev_partial_tipo = angular.copy(_instance.tipo );
+                            _instance.prev_partial_tipo = angular.copy(_instance.tipo);
                         }
                         _instance.saveinprogress = false;
                     });
@@ -1025,14 +1038,18 @@
                 return _instance.save(_instance.tipo_form, action);
             } else if (!_instance.saveinprogress) {
                 _instance.partialSave = false;
+                return checkFormValidity(_instance.tipo_form);
+            } else {
+                return false;
             }
             return true;
         }
 
         _instance.selectedTab = function(tab_name) {
-            if (!_instance.tabclick) {
+            if (!_instance.tabclick && $scope.selectedTabCall) {
                 _instance.partSave();
             };
+            $scope.selectedTabCall = true;
             _instance.active_tab = tab_name;
             _instance.tabclick = false;
         }
@@ -1052,19 +1069,15 @@
                     _instance[_instance.tab_names[_instance.selectedTabIndex + 1]] = false;
                 };
                 if (resp === false) {
-                    return ;
+                    return;
                 };
                 // _instance.selectedTabIndex++;
-                _instance.active_tab = _instance.tab_names[_instance.selectedTabIndex + 1]
-                // var i =0;
-                // var unbindindex = $scope.$watch(function() { return _instance.selectedTabIndex }, function(n,o) {
-                //     if (n === previousindex && n !== o) {
-                //         _instance.selectedTabIndex++;
-                //     } else if (n === previousindex + 1) {
-                //         unbindindex();
-                //     }
-                // })
-            }else{
+                _instance.active_tab = _instance.tab_names[_instance.selectedTabIndex + 1];
+                _instance.tipo_form.$setPristine();
+                _instance.tipo_form.$setUntouched();
+            } else {
+                _instance.tipo_form.$setPristine();
+                _instance.tipo_form.$setUntouched();
                 _instance.selectedTabIndex++;
             }
         }

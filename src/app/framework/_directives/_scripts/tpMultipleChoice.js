@@ -7,6 +7,7 @@
 
     return module.directive('tpMultipleChoice', function($mdColorUtil, $mdColors) {
         return {
+            require: '?ngModel',
             scope: {
                 isarray: '=',
                 istiporequired: '=',
@@ -15,7 +16,6 @@
                 description: '=',
                 fieldname: '=',
                 readOnly: '=',
-                ngModel: '=',
                 fieldvalue: '=',
             },
             restrict: 'EA',
@@ -26,23 +26,24 @@
                 scope.model = {};
                 scope.model.field = scope.fieldvalue;
                 if (scope.isarray && !scope.model.field) {
-                  scope.model.field = [];
+                    scope.model.field = [];
                 };
 
                 scope.toggle = function(item, list) {
-                    if(list && list.length >= 0) {
+                    if (list && list.length >= 0) {
                         var idx = list.indexOf(item);
                         if (idx > -1) {
                             list.splice(idx, 1);
                         } else {
                             list.push(item);
                         }
-                        scope.ngModel = angular.copy(list);
+                        ctrl.$setViewValue(list);
+                        // scope.ngModel = angular.copy(list);
                     }
                 };
 
                 scope.exists = function(item, list) {
-                    if(list && list.length >= 0) {
+                    if (list && list.length >= 0) {
                         return list.indexOf(item) > -1;
                     } else {
                         return false;
@@ -50,7 +51,8 @@
                 };
 
                 scope.updateValue = function(selectedObj) {
-                    scope.ngModel = angular.copy(selectedObj);
+                    ctrl.$setViewValue(selectedObj);
+                    // scope.ngModel = angular.copy(selectedObj);
                 }
 
             }

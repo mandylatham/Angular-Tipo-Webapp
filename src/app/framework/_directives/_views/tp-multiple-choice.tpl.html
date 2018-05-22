@@ -2,7 +2,7 @@
 	<div flex>
 	<div layout="row" layout-wrap ng-if="isarray">
 		  <div flex-xs="100" flex-sm="100" flex ng-repeat="option in allowedvalues" style="min-width:280px">
-			<md-checkbox ng-checked="exists(option.value, model.field)" ng-click="toggle(option.value, model.field)" class="md-primary select-box" name="fieldname" ng-disabled="readOnly" ng-style="(exists(option.value, model.field) && (option.colour === 'NA') && {'background': primaryColor, 'color': 'white'}) || (exists(option.value, model.field) && (option.colour !== 'NA') && {'background': option.colour, 'color': 'white'})">
+			<md-checkbox ng-checked="exists(option.value, model.field)" ng-click="toggle(option.value, model.field)" class="md-primary select-box"  ng-disabled="readOnly" ng-style="(exists(option.value, model.field) && (option.colour === 'NA') && {'background': primaryColor, 'color': 'white'}) || (exists(option.value, model.field) && (option.colour !== 'NA') && {'background': option.colour, 'color': 'white'})">
 					<span class="text-center" ng-if="option.icon !== 'null'">	
 						<img class="img" ng-if="option.icon.includes('.')" src="{{'g/' + option.icon}}" /> 
 						<md-icon class="img" ng-if="!option.icon.includes('.')" ng-style="model.field === option.value && {'color' : 'white'}" style="font-size: 40px">{{option.icon}}</md-icon>
@@ -16,7 +16,7 @@
 		</div> 
 		<md-radio-group ng-model="model.field" ng-if="!isarray" ng-change="updateValue(model.field)" layout="row" layout-wrap>
 			<div flex-xs="100" flex-sm="100" flex ng-repeat="option in allowedvalues" style="min-width:280px">
-				<md-radio-button ng-value="option.value" class="md-primary select-box" name="fieldname" ng-disabled="readOnly" ng-style="(model.field === option.value && (option.colour === 'NA') && {'background': primaryColor, 'color': 'white'}) || (model.field === option.value && (option.colour !== 'NA') && {'background': option.colour, 'color': 'white'})">
+				<md-radio-button ng-value="option.value" class="md-primary select-box"  ng-disabled="readOnly" ng-style="(model.field === option.value && (option.colour === 'NA') && {'background': primaryColor, 'color': 'white'}) || (model.field === option.value && (option.colour !== 'NA') && {'background': option.colour, 'color': 'white'})">
 				 <span ng-if="option.icon !== 'null'">	
 					<img class="img" ng-if="option.icon.includes('.')" src="{{'g/' + option.icon}}" /> 
 					<md-icon class="img" ng-if="!option.icon.includes('.')" ng-style="model.field === option.value && {'color' : 'white'}" style="font-size: 50px">{{option.icon}}</md-icon>

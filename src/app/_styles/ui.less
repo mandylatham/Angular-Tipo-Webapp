@@ -928,6 +928,8 @@ only screen and (min-resolution: 2dppx) {
 
 
 
+
+
 /* Styling for the ngProgress-container */
 
 #ngProgress-container {
@@ -1210,6 +1212,7 @@ md-list-item .md-list-item-inner::before {
         }
     }
 }
+
 @media (min-width: 600px) {
     .ng-map-info-window {
         &>div:first-child {
@@ -1245,12 +1248,14 @@ md-list-item .md-list-item-inner::before {
         }
     }
 }
+
 @media (max-width: 600px) {
     .partialsave {
         marign-right: 27px;
     }
 }
-.partialsave{
+
+.partialsave {
     marign-right: 80px;
 }
 
@@ -1301,7 +1306,8 @@ md-list-item .md-list-item-inner::before {
             color: white;
         }
     }
-    md-checkbox[disabled], md-radio-button[disabled] {
+    md-checkbox[disabled],
+    md-radio-button[disabled] {
         box-shadow: 0px 0px 0px grey;
         &:hover {
             box-shadow: 0px 0px 0px grey;
@@ -1315,6 +1321,13 @@ md-list-item .md-list-item-inner::before {
     }
 }
 
+.ng-submitted {
+    .multiple-choice.ng-invalid {
+        background: rgb(213, 0, 0, 0.5);
+        padding-left: 5px;
+    }
+}
+
 .questionLabel {
     font-size: 16px;
     color: black;
@@ -1323,11 +1336,11 @@ md-list-item .md-list-item-inner::before {
 
 md-progress-linear {
     height: 8px;
- .md-container {
-     height: 8px;
-     border-radius: 5px;
-    .md-bar {
+    .md-container {
         height: 8px;
+        border-radius: 5px;
+        .md-bar {
+            height: 8px;
+        }
     }
- }
 }
