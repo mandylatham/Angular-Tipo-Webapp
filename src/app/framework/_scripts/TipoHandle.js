@@ -425,8 +425,8 @@
                 _.each(to, function(each_topic, index) {
                     body.filters.push({
                         field: "tag",
-                        // key: context.application_meta.TipoApp.application_owner_account + "." + context.application_meta.TipoApp.application + "." + context.user_meta.account + ".tipo_id",
-                        key: context.user_meta.application_owner_account + "." + context.user_meta.application + "." + context.user_meta.account + ".tipo_id",
+                        key: context.application_meta.TipoApp.application_owner_account + "." + context.application_meta.TipoApp.application + "." + context.user_meta.account + ".tipo_id",
+                        // key: context.user_meta.application_owner_account + "." + context.user_meta.application + "." + context.user_meta.account + ".tipo_id",
                         relation: "=",
                         value: encodeURIComponent(each_topic)
                     })
@@ -442,16 +442,16 @@
             } else if (S(to).contains("@")) {
                 body.filters.push({
                     field: "tag",
-                    // key: this.application_meta.TipoApp.application_owner_account + "." + this.application_meta.TipoApp.application + "." + this.user_meta.account + ".tipo_id",
-                    key: this.user_meta.application_owner_account + "." + this.user_meta.application + "." + this.user_meta.account + ".tipo_id",
+                    key: this.application_meta.TipoApp.application_owner_account + "." + this.application_meta.TipoApp.application + "." + this.user_meta.account + ".tipo_id",
+                    // key: this.user_meta.application_owner_account + "." + this.user_meta.application + "." + this.user_meta.account + ".tipo_id",
                     relation: "=",
                     value: encodeURIComponent(to)
                 });
             } else {
                 body.filters.push({
                     field: "tag",
-                    // key: this.application_meta.TipoApp.application_owner_account + "." + this.application_meta.TipoApp.application + ".role",
-                    key: this.user_meta.application_owner_account + "." + this.user_meta.application + ".role",
+                    key: this.application_meta.TipoApp.application_owner_account + "." + this.application_meta.TipoApp.application + ".role",
+                    // key: this.user_meta.application_owner_account + "." + this.user_meta.application + ".role",
                     relation: "=",
                     value: to
                 });
