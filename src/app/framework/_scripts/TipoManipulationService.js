@@ -754,6 +754,11 @@
                 };
                 return filter;
             });
+            _.each(filterArray,function(each){
+                if (S(each).contains(":")) {
+                    expressionArray.push(each);
+                };
+            })
             return { filters: filters, currentExpression: expressionArray.join(" AND ") };
         }
 

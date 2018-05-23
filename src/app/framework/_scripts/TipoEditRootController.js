@@ -211,18 +211,18 @@
             form.$setSubmitted(true);
             var container = angular.element(document.getElementById('inf-wrapper'));
             var invalidElement = document.getElementsByClassName("ng-invalid");
-            _.each(invalidElement, function(element) {
-                if (element.localName !== 'form') {
-                    element.parentElement.lastElementChild.children[0].style.opacity = "1";
-                    element.parentElement.lastElementChild.children[0].style.marginTop = "0px";
-                };
-            })
             if (_instance.tab_names && _instance.tab_names.length) {
                 var element = document.querySelectorAll("md-tab-content.md-active")[0].getElementsByClassName("ng-invalid");
                 if (element.length === 0) {
                     return true;
                 };
             }
+            _.each(invalidElement, function(element) {
+                if (element.localName !== 'form') {
+                    element.parentElement.lastElementChild.children[0].style.opacity = "1";
+                    element.parentElement.lastElementChild.children[0].style.marginTop = "0px";
+                };
+            });
             container.scrollToElement(invalidElement[1], 150, 100);
             invalidElement[1].focus();
             return false;
