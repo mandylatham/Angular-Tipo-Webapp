@@ -442,7 +442,7 @@
                         }
                     };
                     searchCriteria.list_display = 'N';
-                    if (isarray && scope.ngModel.length > 0) {
+                    if (isarray && scope.ngModel && scope.ngModel.length > 0) {
                         searchCriteria.must_include_key = key_field;
                         searchCriteria.must_include_values = _.join(scope.ngModel, ',');
                         searchCriteria.must_include_values = tipoManipulationService.addEscElascticReservedKeys(searchCriteria.must_include_values);
