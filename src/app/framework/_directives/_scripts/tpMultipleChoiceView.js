@@ -18,9 +18,9 @@
           link: function(scope, element, attrs, ctrl){
             scope.primaryColor = $mdColorUtil.rgbaToHex($mdColors.getThemeColor('accent-500')); 
             scope.model = [];
-            if(scope.isarray) {
+            if(scope.isarray && scope.fieldvalue) {
                 scope.model = scope.fieldvalue;
-            } else {
+            } else if(scope.fieldvalue) {
                 scope.model.push(scope.fieldvalue);
             }
 
@@ -56,9 +56,9 @@
             scope.$watch(function(){return scope.fieldvalue},function(newValue, oldValue){
                 if (newValue) {
                     scope.model = [];
-                    if(scope.isarray) {
+                    if(scope.isarray && scope.fieldvalue) {
                         scope.model = scope.fieldvalue;
-                    } else {
+                    } else if(scope.fieldvalue){
                         scope.model.push(scope.fieldvalue);
                     }
                 } 
