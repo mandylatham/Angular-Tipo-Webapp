@@ -157,6 +157,7 @@
         _instance.hide_actions = $scope.hide_actions;
         _instance.selectedTabIndex = 0;
         var tipo_name = $scope.tipo_name || $stateParams.tipo_name;
+        _instance.tipo_name = tipo_name;
         _instance.tipo = tipo;
         _instance.old_tipo = angular.copy(tipo);
         _instance.prev_partial_tipo = angular.copy(tipo);
