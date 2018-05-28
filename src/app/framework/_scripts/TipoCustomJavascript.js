@@ -47,7 +47,7 @@
                 data_handle.context.show_preview = true;
             } else {
                 data_handle.context.show_preview = false;
-                setTimeout(function(){
+                setTimeout(function() {
                     data_handle.context.show_preview = true;
                 }, 100)
             }
@@ -72,7 +72,7 @@
                 data_handle.context.show_preview = true;
             } else {
                 data_handle.context.show_preview = false;
-                setTimeout(function(){
+                setTimeout(function() {
                     data_handle.context.show_preview = true;
                 }, 1000)
             }
@@ -145,6 +145,12 @@
         }
         this.TipoDefinition_OnView = TipoDefinition_OnView;
 
+        function TipoCustomization_appearance_settings_app_level_styling_BeforeLookup(data_handle) {
+            console.log(data_handle);
+            delete data_handle.searchCriteria.must_include_key;
+            delete data_handle.searchCriteria.must_include_values;
+        }
+        this.TipoCustomization_appearance_settings_app_level_styling_BeforeLookup = TipoCustomization_appearance_settings_app_level_styling_BeforeLookup;
         // function TipoDefinition_tipo_fields_sort_by_field_BeforeLookup(data_handle) {
         //     var fields;
         //     if (_.startsWith(data_handle.context.field_type, "FieldGroup.") || _.startsWith(data_handle.context.field_type, "Tipo.")) {
