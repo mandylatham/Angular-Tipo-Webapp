@@ -4,7 +4,7 @@
 
     var module = angular.module('tipo.framework');
 
-    return module.directive('tpTipoScript', function(tipoHandle, tipoManipulationService,tipoClientJavascript, tipoCustomJavascript, ) {
+    return module.directive('tpTipoScript', function(tipoHandle, tipoManipulationService,tipoClientJavascript, tipoCustomJavascript ) {
         return {
             scope: {
                 fqfieldname: '@',
