@@ -553,6 +553,9 @@
             // _.each(definition.tipo_fields,function(field){
             //   newObject[field.field_name] = null;
             // });
+            if (!_instance.tipo) {
+                _instance.tipo = {};
+            };
             var array = _.get(_instance.tipo, field_name);
             if (!array) {
                 array = [];

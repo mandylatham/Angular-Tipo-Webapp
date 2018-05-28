@@ -236,7 +236,7 @@
                 };
                 if (newValue !== ngModel.$viewValue) {
                     scope.$evalAsync(function() {
-                        ngModel.$setViewValue(newValue)
+                        ngModel.$setViewValue(newValue);
                     })
                 }
             })

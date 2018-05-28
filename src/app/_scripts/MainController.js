@@ -11,12 +11,13 @@
     $mdSidenav,
     $rootScope,
     $mdDialog,
+    $scope,
     cognitoService) {
 
     var _instance = this;
 
     // $rootScope.applicationMetadata = applicationMetadata;
-
+    $scope.htmlStyle = "width: 500px;";
     var perspectives;
 
     _instance.logo = "g/public/assets/images/logo.png?version_stamp=" + $rootScope.version_stamp;
