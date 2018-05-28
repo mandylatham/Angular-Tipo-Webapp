@@ -43,6 +43,17 @@
         //___TipoDefinition___
 
         function TipoDefinition_tipo_fields_label_style_OnChange(data_handle) {
+            if (!data_handle.context.show_preview) {
+                data_handle.context.show_preview = true;
+            } else {
+                data_handle.context.show_preview = false;
+                setTimeout(function(){
+                    data_handle.context.show_preview = true;
+                }, 100)
+            }
+        }
+
+        function TipoDefinition_tipo_fields_value_style_OnChange(data_handle) {
             if (data_handle.label === "Value Based Style") {
                 if (data_handle.context.allowed_values) {
                     var expression = "";
@@ -54,12 +65,22 @@
                         }
                     });
                     data_handle.new_value = expression;
+                    data_handle.context.value_style = expression;
                 };
-            };
+            }
+            if (!data_handle.context.show_preview) {
+                data_handle.context.show_preview = true;
+            } else {
+                data_handle.context.show_preview = false;
+                setTimeout(function(){
+                    data_handle.context.show_preview = true;
+                }, 1000)
+            }
         }
 
+        this.TipoDefinition_tipo_fields_element_style_OnChange = TipoDefinition_tipo_fields_label_style_OnChange;
         this.TipoDefinition_tipo_fields_label_style_OnChange = TipoDefinition_tipo_fields_label_style_OnChange;
-        this.TipoDefinition_tipo_fields_value_style_OnChange = TipoDefinition_tipo_fields_label_style_OnChange;
+        this.TipoDefinition_tipo_fields_value_style_OnChange = TipoDefinition_tipo_fields_value_style_OnChange;
 
         function TipoDefinition_tipo_meta_tipo_type_copy_OnChange(data_handle) {
             if (data_handle.tipo.tipo_meta.tipo_type_copy) {
