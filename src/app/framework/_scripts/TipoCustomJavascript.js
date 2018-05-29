@@ -99,6 +99,16 @@
 
         this.TipoDefinition_tipo_menu_type__OnChange = TipoDefinition_tipo_menu_type__OnChange;
 
+        function TipoDefinition_tipo_fields_OnArrayItemAdd(data_handle) {
+            data_handle.item = {};
+            data_handle.item.relationship_type = 'reference';
+            data_handle.item.field_type = 'string';
+            data_handle.item.field_type_labels = 'Text';
+            data_handle.item.disable_expansion = true;
+        }
+        this.TipoDefinition_tipo_fields_OnArrayItemAdd = TipoDefinition_tipo_fields_OnArrayItemAdd;
+        this.TipoDefinition_tipo_field_groups_tipo_fields_OnArrayItemAdd = TipoDefinition_tipo_fields_OnArrayItemAdd;
+
         function TipoDefinition_tipo_fields_default_value_BeforeLookup(data_handle) {
             if (_.startsWith(data_handle.context.field_type, 'Tipo.')) {
                 data_handle.tipo_name = data_handle.context.field_type.substring(5);
@@ -118,6 +128,8 @@
         this.TipoDefinition_tipo_field_groups_tipo_fields_default_value_BeforeLookup = TipoDefinition_tipo_fields_default_value_BeforeLookup;
 
         //___TipoDefinition___
+
+
 
         function TipoDefinition_OnView(data_handle) {
             var menu_item = tipoHandle.getMenuItem();
