@@ -157,7 +157,9 @@
         _instance.search = function() {
             var filter = {};
             filter = _instance.queryparams;
-            if (!_.isEmpty(_instance.searchText) && !filter.tipo_filter) {
+            if(_.isEmpty(_instance.searchText)) {
+                delete filter.tipo_filter;
+            } else if (!_.isEmpty(_instance.searchText) && !filter.tipo_filter) {
                 filter.tipo_filter = "(_all:(" + _instance.searchText + "*))";
             } else if (!_.isEmpty(_instance.searchText) && filter.tipo_filter && !_.isEmpty(filter.tipo_filter)) {
                 filter.tipo_filter = filter.tipo_filter + " AND (_all:(" + _instance.searchText + "*))";
