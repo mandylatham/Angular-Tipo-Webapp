@@ -109,6 +109,16 @@
         this.TipoDefinition_tipo_fields_OnArrayItemAdd = TipoDefinition_tipo_fields_OnArrayItemAdd;
         this.TipoDefinition_tipo_field_groups_tipo_fields_OnArrayItemAdd = TipoDefinition_tipo_fields_OnArrayItemAdd;
 
+        //___TipoOrchestrator___
+
+        function TipoOrchestrator_detail_test_orchestration(data_handle) {
+            tipoHandle.callAction('TipoOrchestrator', 'test_orchestration', [data_handle.selected_tipo_id]).then(function(result) {
+                console.log('result', result);
+            });
+
+        }
+        this.TipoOrchestrator_detail_test_orchestration = TipoOrchestrator_detail_test_orchestration;
+        //___TipoOrchestrator___
         function TipoDefinition_tipo_fields_default_value_BeforeLookup(data_handle) {
             if (_.startsWith(data_handle.context.field_type, 'Tipo.')) {
                 data_handle.tipo_name = data_handle.context.field_type.substring(5);
