@@ -118,7 +118,7 @@
                     input: result[0].data,
                     output: result[1].data
                 }
-                tipoHandle.presentForm('TipoOrchestratorResponse', tipo);
+                tipoHandle.presentForm('TipoOrchestratorResponse', tipo,undefined, 'Done');
             });
 
         }

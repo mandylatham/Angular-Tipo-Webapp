@@ -109,14 +109,14 @@
                             });
                         };
                         var editor = monaco.editor.create(element[0], {
-                            // theme: 'tipoTheme',
-                            language: 'json',
-                            // minimap: { enabled: false },
-                            // wordWrap: "on"
+                            theme: 'tipoTheme',
+                            language: 'tipoScript',
+                            minimap: { enabled: false },
+                            wordWrap: "on"
                         });
-                        // editor.addCommand(monaco.KeyCode.Enter, function(accessor) {
-                        //     editor.trigger('bla', 'type', { text: '' });
-                        // }, '!suggestWidgetVisible && !renameInputVisible && !inSnippetMode && !quickFixWidgetVisible')
+                        editor.addCommand(monaco.KeyCode.Enter, function(accessor) {
+                            editor.trigger('bla', 'type', { text: '' });
+                        }, '!suggestWidgetVisible && !renameInputVisible && !inSnippetMode && !quickFixWidgetVisible')
                         editor.onDidFocusEditor(function() {
                             monaco.scope = scope;
                         });
@@ -247,7 +247,7 @@
                 // Monaco Editor expects a string so make sure it gets one
                 // Although the formatter has already done this, it can be possible that another formatter returns undefined (for example the required directive)
                 var safeViewValue = ngModel.$viewValue || '';
-                monacoeditor.setValue(JSON.stringify(safeViewValue))
+                monacoeditor.setValue(safeViewValue)
             };
 
             ngModel.$render();
