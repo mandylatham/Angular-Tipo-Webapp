@@ -114,6 +114,11 @@
         function TipoOrchestrator_detail_test_orchestration(data_handle) {
             tipoHandle.callAction('TipoOrchestrator', 'test_orchestration', [data_handle.selected_tipo_id]).then(function(result) {
                 console.log('result', result);
+                var tipo = {
+                    input: result[0].data,
+                    output: result[1].data
+                }
+                tipoHandle.presentForm('TipoOrchestratorResponse', tipo);
             });
 
         }

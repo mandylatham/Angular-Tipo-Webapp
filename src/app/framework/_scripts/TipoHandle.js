@@ -47,7 +47,7 @@
         tipoHandle.setPerspective();
         _instance.tipo_handle = tipoHandle;
         _instance.hide_actions = true;
-        _instance.tipo = {};
+        _instance.tipo = tipoDialogInputs.tipo || {};
         _instance.context = tipoDialogInputs.context;
         _instance.submit_label = tipoDialogInputs.submit_label;
         _instance.tipo_name = tipoDialogInputs.tipo_name
@@ -251,7 +251,7 @@
             });
         }
 
-        function presentForm(tipo_name, tipo, submit_label, show_cancel) {
+        function presentForm(tipo_name, tipo, context, submit_label, show_cancel) {
             var newScope = {};
             newScope.context = tipo;
             newScope.tipo_name = tipo_name;
@@ -265,7 +265,7 @@
                         return getTipoDefinition(tipo_name);
                     },
                     tipoDialogInputs: function() {
-                        return { context: tipo, tipo_name: tipo_name, submit_label: submit_label }
+                        return { tipo: tipo, context: context, tipo_name: tipo_name, submit_label: submit_label }
                     }
                 },
                 skipHide: true,
