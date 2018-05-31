@@ -14,9 +14,9 @@
             },
             link: function(scope, element, attrs) {
                 var options = scope.fpOpts();
-                if(navigator.platform === 'iPhone' || navigator.platform === 'iPad') {
-                    options.disableMobile = true;
-                }
+                // if(navigator.platform === 'iPhone' || navigator.platform === 'iPad') {
+                //     options.disableMobile = true;
+                // }
                 var vp = new flatpickr(element[0], options);;
                 
                 if (scope.fpOnSetup) {

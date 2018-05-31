@@ -57,7 +57,7 @@
     "intl-tel-input": "12.1.0",
     "angular-echarts": "1.0.2",
     "echarts": "3.4.0",
-    "flatpickr": "npm:flatpickr#4.4.4",
+    "flatpickr": "npm:flatpickr#4.5.0",
     "angular-truncate": "git://github.com/sparkalow/angular-truncate.git#master",
     "JSONPath": "git://github.com/clementlamoureux/JSONPath.git#master"
   },
