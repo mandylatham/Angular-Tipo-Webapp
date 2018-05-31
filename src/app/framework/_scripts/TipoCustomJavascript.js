@@ -43,6 +43,17 @@
         //___TipoDefinition___
 
         function TipoDefinition_tipo_fields_label_style_OnChange(data_handle) {
+            if (!data_handle.context.show_preview) {
+                data_handle.context.show_preview = true;
+            } else {
+                data_handle.context.show_preview = false;
+                setTimeout(function() {
+                    data_handle.context.show_preview = true;
+                }, 100)
+            }
+        }
+
+        function TipoDefinition_tipo_fields_value_style_OnChange(data_handle) {
             if (data_handle.label === "Value Based Style") {
                 if (data_handle.context.allowed_values) {
                     var expression = "";
@@ -54,12 +65,22 @@
                         }
                     });
                     data_handle.new_value = expression;
+                    data_handle.context.value_style = expression;
                 };
-            };
+            }
+            if (!data_handle.context.show_preview) {
+                data_handle.context.show_preview = true;
+            } else {
+                data_handle.context.show_preview = false;
+                setTimeout(function() {
+                    data_handle.context.show_preview = true;
+                }, 1000)
+            }
         }
 
+        this.TipoDefinition_tipo_fields_element_style_OnChange = TipoDefinition_tipo_fields_label_style_OnChange;
         this.TipoDefinition_tipo_fields_label_style_OnChange = TipoDefinition_tipo_fields_label_style_OnChange;
-        this.TipoDefinition_tipo_fields_value_style_OnChange = TipoDefinition_tipo_fields_label_style_OnChange;
+        this.TipoDefinition_tipo_fields_value_style_OnChange = TipoDefinition_tipo_fields_value_style_OnChange;
 
         function TipoDefinition_tipo_meta_tipo_type_copy_OnChange(data_handle) {
             if (data_handle.tipo.tipo_meta.tipo_type_copy) {
@@ -78,6 +99,31 @@
 
         this.TipoDefinition_tipo_menu_type__OnChange = TipoDefinition_tipo_menu_type__OnChange;
 
+        function TipoDefinition_tipo_fields_OnArrayItemAdd(data_handle) {
+            data_handle.item = {};
+            data_handle.item.relationship_type = 'reference';
+            data_handle.item.field_type = 'string';
+            data_handle.item.field_type_labels = 'Text';
+            data_handle.item.disable_expansion = true;
+        }
+        this.TipoDefinition_tipo_fields_OnArrayItemAdd = TipoDefinition_tipo_fields_OnArrayItemAdd;
+        this.TipoDefinition_tipo_field_groups_tipo_fields_OnArrayItemAdd = TipoDefinition_tipo_fields_OnArrayItemAdd;
+
+        //___TipoOrchestrator___
+
+        function TipoOrchestrator_detail_test_orchestration(data_handle) {
+            tipoHandle.callAction('TipoOrchestrator', 'test_orchestration', [data_handle.selected_tipo_id]).then(function(result) {
+                console.log('result', result);
+                var tipo = {
+                    input: result[0].data,
+                    output: result[1].data
+                }
+                tipoHandle.presentForm('TipoOrchestratorResponse', tipo,undefined, 'Done');
+            });
+
+        }
+        this.TipoOrchestrator_detail_test_orchestration = TipoOrchestrator_detail_test_orchestration;
+        //___TipoOrchestrator___
         function TipoDefinition_tipo_fields_default_value_BeforeLookup(data_handle) {
             if (_.startsWith(data_handle.context.field_type, 'Tipo.')) {
                 data_handle.tipo_name = data_handle.context.field_type.substring(5);
@@ -97,6 +143,8 @@
         this.TipoDefinition_tipo_field_groups_tipo_fields_default_value_BeforeLookup = TipoDefinition_tipo_fields_default_value_BeforeLookup;
 
         //___TipoDefinition___
+
+
 
         function TipoDefinition_OnView(data_handle) {
             var menu_item = tipoHandle.getMenuItem();
@@ -124,6 +172,12 @@
         }
         this.TipoDefinition_OnView = TipoDefinition_OnView;
 
+        function TipoCustomization_appearance_settings_app_level_styling_BeforeLookup(data_handle) {
+            console.log(data_handle);
+            delete data_handle.searchCriteria.must_include_key;
+            delete data_handle.searchCriteria.must_include_values;
+        }
+        this.TipoCustomization_appearance_settings_app_level_styling_BeforeLookup = TipoCustomization_appearance_settings_app_level_styling_BeforeLookup;
         // function TipoDefinition_tipo_fields_sort_by_field_BeforeLookup(data_handle) {
         //     var fields;
         //     if (_.startsWith(data_handle.context.field_type, "FieldGroup.") || _.startsWith(data_handle.context.field_type, "Tipo.")) {

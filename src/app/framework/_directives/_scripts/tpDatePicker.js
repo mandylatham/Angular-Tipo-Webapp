@@ -13,8 +13,12 @@
                 fpOnSetup: '&'
             },
             link: function(scope, element, attrs) {
-                var vp = new flatpickr(element[0], scope.fpOpts());;
-
+                var options = scope.fpOpts();
+                if(navigator.platform === 'iPhone' || navigator.platform === 'iPad') {
+                    options.disableMobile = true;
+                }
+                var vp = new flatpickr(element[0], options);;
+                
                 if (scope.fpOnSetup) {
                     scope.fpOnSetup({
                         fpItem: vp

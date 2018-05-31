@@ -23,6 +23,7 @@ var pathMappings = [
     path: '/g/public',
     // url: 'https://dev.tipotapp.com/app/d/tipotapp/carworld'
     url: 'https://dev.tipotapp.com',
+    // url: 'https://dev.tipotapp.com/app/d/tipotapp/inviteuserdev'
     // url: 'https://dev.billionbases.com',
     // url: 'https://dev.tipotapp.com/app/d/hr/hrbuddy'
     // url: 'https://dev.tipotapp.com/app/d/hr/dialadish'
@@ -35,7 +36,7 @@ var pathMappings = [
     path: '/public',
     // url: 'https://dev.tipotapp.com/app/d/tipotapp/carworld'
     url: 'https://dev.tipotapp.com',
-    // url: 'https://dev.billionbases.com',
+    // url: 'https://dev.tipotapp.com/app/d/tipotapp/inviteuserdev'
     // url: 'https://dev.tipotapp.com/app/d/hr/hrbuddy'
     // url: 'https://dev.tipotapp.com/app/d/hr/dialadish'
     // url: 'https://dev.tipotapp.com/app/d/tipotapp/tourmanagmentapp'
@@ -47,7 +48,7 @@ var pathMappings = [
 	    path: '/tipo_upload',
 	    // url: 'https://dev.tipotapp.com/app/d/tipotapp/carworld'
 	    url: 'https://dev.tipotapp.com',
-      // url: 'https://dev.billionbases.com',
+      // url: 'https://dev.tipotapp.com/app/d/tipotapp/inviteuserdev'
 	    // url: 'https://dev.tipotapp.com/app/d/hr/hrbuddy'
 	    // url: 'https://dev.tipotapp.com/app/d/hr/dialadish'
       // url: 'https://dev.tipotapp.com/app/d/tipotapp/tourmanagmentapp'
@@ -59,7 +60,7 @@ var pathMappings = [
 		    path: '/g/private',
 		    // url: 'https://dev.tipotapp.com/app/d/tipotapp/carworld'
 		    url: 'https://dev.tipotapp.com',
-        // url: 'https://dev.billionbases.com',
+        // url: 'https://dev.tipotapp.com/app/d/tipotapp/inviteuserdev'
 		    // url: 'https://dev.tipotapp.com/app/d/hr/hrbuddy'
 		    // url: 'https://dev.tipotapp.com/app/d/hr/dialadish'
         // url: 'https://dev.tipotapp.com/app/d/tipotapp/tourmanagmentapp'

@@ -4,7 +4,7 @@
 
     var module = angular.module('tipo.framework');
 
-    return module.directive('tpTipoScript', function(tipoHandle, tipoManipulationService) {
+    return module.directive('tpTipoScript', function(tipoHandle, tipoManipulationService,tipoClientJavascript, tipoCustomJavascript ) {
         return {
             scope: {
                 fqfieldname: '@',
@@ -21,6 +21,28 @@
         };
 
         function postLink(scope, element, iAttrs, ngModel) {
+            var function_name = (scope.root.tipo_name + "_" + scope.fqfieldname + "_OnChange").replace(".", "_").replace(/\[\w+\]/g, "");
+            if (typeof tipoCustomJavascript[function_name] === 'function' || typeof tipoClientJavascript[function_name] === 'function') {
+                ngModel.$viewChangeListeners.push(function() {
+                    if (scope.changeModel) {
+                        scope.data_handle.tipo = scope.root.tipo;
+                        scope.data_handle.context = scope.defcontext;
+                        scope.data_handle.new_value = ngModel.$viewValue;
+                        if (typeof tipoCustomJavascript[function_name] === 'function') {
+                            tipoCustomJavascript[function_name](scope.data_handle);
+                            scope.changeModel = true;
+                            ngModel.$setViewValue(scope.data_handle.new_value);
+                        };
+                        if (typeof tipoClientJavascript[function_name] === 'function') {
+                            tipoClientJavascript[function_name](scope.data_handle);
+                            scope.changeModel = true;
+                            ngModel.$setViewValue(scope.data_handle.new_value);
+                        };
+                    }else{
+                        scope.changeModel = false;
+                    }
+                });
+            }
             var unbind = scope.$watch(function() { return element[0].offsetHeight; }, function(n, o) {
                 if (element[0].offsetHeight > 0) {
                     unbind();
@@ -101,6 +123,9 @@
                         configNgModelLink(editor, ngModel, scope);
                     });
                 };
+            });
+            ngModel.$viewChangeListeners.push(function() {
+                scope.$eval(iAttrs.ngChange);
             });
         }
 
@@ -236,7 +261,7 @@
                 };
                 if (newValue !== ngModel.$viewValue) {
                     scope.$evalAsync(function() {
-                        ngModel.$setViewValue(newValue)
+                        ngModel.$setViewValue(newValue);
                     })
                 }
             })

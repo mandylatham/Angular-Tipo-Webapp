@@ -157,10 +157,10 @@
         _instance.search = function() {
             var filter = {};
             filter = _instance.queryparams;
-            if (!_.isEmpty(_instance.searchText) && !filter.tipo_filter) {
+            if (_.isEmpty(_instance.searchText)) {
+                delete filter.tipo_filter;
+            } else {
                 filter.tipo_filter = "(_all:(" + _instance.searchText + "*))";
-            } else if (!_.isEmpty(_instance.searchText) && filter.tipo_filter && !_.isEmpty(filter.tipo_filter)) {
-                filter.tipo_filter = filter.tipo_filter + " AND (_all:(" + _instance.searchText + "*))";
             }
             var page = 1;
             filter.page = angular.copy(page);
@@ -442,7 +442,7 @@
                         }
                     };
                     searchCriteria.list_display = 'N';
-                    if (isarray && scope.ngModel.length > 0) {
+                    if (isarray && scope.ngModel && scope.ngModel.length > 0) {
                         searchCriteria.must_include_key = key_field;
                         searchCriteria.must_include_values = _.join(scope.ngModel, ',');
                         searchCriteria.must_include_values = tipoManipulationService.addEscElascticReservedKeys(searchCriteria.must_include_values);

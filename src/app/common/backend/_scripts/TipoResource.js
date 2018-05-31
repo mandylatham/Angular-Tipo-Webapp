@@ -102,6 +102,15 @@
                         $templateCache.removeAll();
                         $window.location.reload(true);
                     };
+                    
+                    if (_.includes(rawData.refresh_list,'UIRELOAD')) {
+                        tipoRouter.toTipoView(rawData.tipo_name);
+                        setTimeout(function() {
+	                        tipoCache.clearAll();
+	                        $templateCache.removeAll();
+	                        $window.location.reload(true);
+                        },6000);
+                     } else {                   
                     _.forEach(rawData.refresh_list, function(value) {
                         if (_.startsWith(value, "/")) {
                             value = value.substring(1);
@@ -184,7 +193,9 @@
                             }
                         }
                     });
-
+                    
+                    }
+                    
                     if (rawData && rawData.response) {
                         var resp = rawData.response;
                         resp.tipo_name = rawData.tipo_name;
@@ -277,6 +288,7 @@
         var relativeUrl = location.pathname;
         if (_.startsWith(relativeUrl, '/app')) {
             // relativeUrl = '/api/d/tipotapp/carworld' + relativeUrl.substring(4);
+            // relativeUrl = '/api/d/tipotapp/inviteuserdev' + relativeUrl.substring(4);
             // relativeUrl = '/api/d/tipotapp/abcde' + relativeUrl.substring(4);
             // relativeUrl = '/api/d/deltagene/billionbases' + relativeUrl.substring(4);
             relativeUrl = '/api' + relativeUrl.substring(4);
@@ -285,6 +297,7 @@
         } else {
             // relativeUrl = '/api/d/tipotapp/abcde';
             // relativeUrl = '/api/d/tipotapp/carworld';
+            // relativeUrl = '/api/d/tipotapp/inviteuserdev';
             // relativeUrl = '/api/d/deltagene/billionbases';
             // relativeUrl = '/api/d/hr/dialadish';
             relativeUrl = '/api';

@@ -47,7 +47,7 @@
         tipoHandle.setPerspective();
         _instance.tipo_handle = tipoHandle;
         _instance.hide_actions = true;
-        _instance.tipo = {};
+        _instance.tipo = tipoDialogInputs.tipo || {};
         _instance.context = tipoDialogInputs.context;
         _instance.submit_label = tipoDialogInputs.submit_label;
         _instance.tipo_name = tipoDialogInputs.tipo_name
@@ -193,8 +193,10 @@
             };
         }
 
-        function saveTipo(tipo_name, tipo_id, tipo_data) {
-            tipoRouter.startStateChange();
+        function saveTipo(tipo_name, tipo_id, tipo_data, skipLoad) {
+            if (!skipLoad) {
+                tipoRouter.startStateChange();
+            };
             return tipoInstanceDataService.updateOne(tipo_name, tipo_data, tipo_id).then(function(response) {
                 tipoRouter.endStateChange();
                 return response;
@@ -249,7 +251,7 @@
             });
         }
 
-        function presentForm(tipo_name, tipo, submit_label, show_cancel) {
+        function presentForm(tipo_name, tipo, context, submit_label, show_cancel) {
             var newScope = {};
             newScope.context = tipo;
             newScope.tipo_name = tipo_name;
@@ -263,7 +265,7 @@
                         return getTipoDefinition(tipo_name);
                     },
                     tipoDialogInputs: function() {
-                        return { context: tipo, tipo_name: tipo_name, submit_label: submit_label }
+                        return { tipo: tipo, context: context, tipo_name: tipo_name, submit_label: submit_label }
                     }
                 },
                 skipHide: true,
@@ -395,7 +397,7 @@
             });
         }
 
-        function sendPushNotification(title, text, to, is_important, tipo_name, tipo_id, perspective, mode, actions, image_url,successCallback ,errorCallback) {
+        function sendPushNotification(title, text, to, tipo_name, tipo_id, perspective, mode, actions, image_url,successCallback ,errorCallback) {
             var headers = {
                 "Content-Type": "application/json",
                 "Authorization": "Basic $tipo_context.integration_map.pushcoms.serverApiKey"
@@ -410,8 +412,7 @@
                     tipo_name: tipo_name,
                     tipo_id: tipo_id,
                     perspective: perspective,
-                    mode: mode,
-                    is_important: is_important
+                    mode: mode
                 },
                 ios_attachments: {id1: image_url},
                 big_picture: image_url

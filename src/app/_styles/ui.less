@@ -251,7 +251,6 @@ html {
         padding: 0 8px 0;
         color: #808080;
         @media only screen and (max-width: 700px) {
-            overflow-x: scroll;
             white-space: nowrap;
         }
     }
@@ -504,6 +503,7 @@ html {
         md-input-container {
             margin: 0;
             width: 100%;
+            padding: 0;
             &.auto-width {
                 width: auto;
             }
@@ -927,6 +927,8 @@ only screen and (min-resolution: 2dppx) {
 
 
 
+
+
 /* Styling for the ngProgress-container */
 
 #ngProgress-container {
@@ -1165,21 +1167,6 @@ md-list-item .md-list-item-inner::before {
     font-weight: bold;
 }
 
-.icon-tabs {
-    md-tabs-canvas {
-        height: 60px;
-    }
-    md-ink-bar {
-        bottom: -12px;
-    }
-}
-
-.icon-tabs.md-stretch-tabs md-tab-item {
-    font-size: 16px;
-    line-height: 28px;
-    padding: 0;
-}
-
 .category-select {
     height: 200px;
     p {
@@ -1224,6 +1211,7 @@ md-list-item .md-list-item-inner::before {
         }
     }
 }
+
 @media (min-width: 600px) {
     .ng-map-info-window {
         &>div:first-child {
@@ -1260,7 +1248,15 @@ md-list-item .md-list-item-inner::before {
     }
 }
 
+@media (max-width: 600px) {
+    .partialsave {
+        marign-right: 27px;
+    }
+}
 
+.partialsave {
+    marign-right: 80px;
+}
 
 .category-select:hover,
 .category-selected {
@@ -1274,4 +1270,76 @@ md-list-item .md-list-item-inner::before {
 
 .introjs-tooltip {
     line-height: 1.5;
+}
+
+.multiple-choice {
+    .select-box {
+        background: white;
+        padding: 10px;
+        border-radius: 3px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        width: 99%;
+        margin: 5px 0px;
+        box-shadow: 0px 1px 1px grey;
+        &:hover {
+            box-shadow: 0px 3px 1px grey;
+        }
+    }
+    .md-container {
+        display: none;
+    }
+    .md-label {
+        margin: 0;
+        width: 100%;
+    }
+    .view-area {
+        padding: 7px;
+        border-radius: 3px;
+        margin: 3px;
+        color: white;
+        font-weight: bold;
+    }
+    .md-checked {
+        md-checkbox[disabled] .md-label {
+            color: white;
+        }
+    }
+    md-checkbox[disabled],
+    md-radio-button[disabled] {
+        box-shadow: 0px 0px 0px grey;
+        &:hover {
+            box-shadow: 0px 0px 0px grey;
+        }
+    }
+    .img {
+        width: 50px;
+        height: 50px;
+        margin-right: 5px;
+        vertical-align: -webkit-baseline-middle;
+    }
+}
+
+.ng-submitted {
+    .multiple-choice.ng-invalid {
+        background: rgb(213, 0, 0, 0.5);
+        padding-left: 5px;
+    }
+}
+
+.questionLabel {
+    font-size: 16px;
+    color: black;
+    font-weight: bold;
+}
+
+md-progress-linear {
+    height: 8px;
+    .md-container {
+        height: 8px;
+        border-radius: 5px;
+        .md-bar {
+            height: 8px;
+        }
+    }
 }
