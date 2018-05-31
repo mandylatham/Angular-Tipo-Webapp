@@ -14,9 +14,15 @@
             },
             link: function(scope, element, attrs) {
                 var options = scope.fpOpts();
-                // if(navigator.platform === 'iPhone' || navigator.platform === 'iPad') {
-                //     options.disableMobile = true;
-                // }
+                if(navigator.platform === 'iPhone' || navigator.platform === 'iPad') {
+                    // options.disableMobile = true;
+                    options.onOpen = function(selectedDates, dateStr, instance) {
+                        if(dateStr === '') {
+                            vp.setDate(Date.now(), true);
+                        }
+                    }
+                }
+                
                 var vp = new flatpickr(element[0], options);;
                 
                 if (scope.fpOnSetup) {
