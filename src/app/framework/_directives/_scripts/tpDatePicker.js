@@ -17,7 +17,9 @@
                 if(navigator.platform === 'iPhone' || navigator.platform === 'iPad') {
                     // options.disableMobile = true;
                     options.onOpen = function(selectedDates, dateStr, instance) {
+                        alert("Event trigger", dateStr)
                         if(dateStr === '') {
+                            alert("setting current date");
                             vp.setDate(Date.now(), true);
                         }
                     }
