@@ -34,7 +34,7 @@
                         var defcontext = scope.defcontext.replace("tipoRootController.tipo.", "").replace("tipoRootController.tipo", "");
                         scope.defcontextObj = _.get(scope.root, defcontext);
                         if (scope.datahandle && !_.isArray(scope.datahandle)) {
-                            scope.datahandle = scope.datahandle.replace(/\'/g,"\"");
+                            scope.datahandle = scope.datahandle.replace(/\'/g, "\"");
                             scope.datahandle = JSON.parse(scope.datahandle);
                         };
                         monaco.scope = scope;
@@ -75,7 +75,27 @@
                         // editor.onDidFocusEditor(function() {
                         //     // monaco.languages.typescript.javascriptDefaults.addExtraLib(scope.datahandle);
                         // });
-                        configNgModelLink(editor, ngModel, scope);
+                        configNgModelLink(editor, ngModel, scope, monaco);
+                        ngModel.$viewChangeListeners.push(function() {
+                            var model = editor.getModel();
+                            try{
+                                esprima.parseScript(ngModel.$viewValue)
+                                monaco.editor.setModelMarkers(model,'default',[]);
+                            }catch(err){
+                                console.log("javascript error");
+                                var markers = monaco.editor.getModelMarkers();
+                                var markers = [];
+                                markers.push({
+                                    startColumn: err.column,
+                                    severity: 3,
+                                    resource: model._associatedResource,
+                                    message: err.description,
+                                    startLineNumber: err.lineNumber,
+                                });
+                                monaco.editor.setModelMarkers(model,'default',markers);
+                                // console.error(err);
+                            }
+                        });
                     });
                     unbind();
                 };
@@ -178,13 +198,13 @@
         }
 
         function tipoHandleString() {
-            return ("declare class tipoHandle {\n static getConfirmation(title: string, user_message: string): boolean \n static application_meta(title: string, user_message: string): boolean \n static hideElement(element_class: string): boolean \n static showElement(element_class: string): boolean \n static getTipoDefinition(tipo_name: string, disableExpansion: boolean): boolean \n static routeTo(url: string): void \n static saveTipo(tipo_name: string,tipo_id:string , tipo_data: object): promise \nstatic saveTipos(tipo_name: string,tipo_data: object): promise\nstatic createTipo(tipo_name: string,tipo_data: object,query_params: object): promise\nstatic createTipos(tipo_name: string,tipo_data: object,query_params: object): promise\nstatic deleteTipo(tipo_name: string, tipo_id: string): promise\nstatic getTipo(tipo_name: string, tipo_id: string, query_params: object): promise\nstatic purgeTipo(tipo_name: string, tipo_id: string): boolean\nstatic getTipos(tipo_name: string, query_params: object): promise\nstatic presentForm(tipo_name: string, tipo: object, submit_label: string,show_cancel: boolean): promise\nstatic showMessage(user_heading: string, user_message: string): boolean\nstatic callAction(tipo_name: string, action_name: string, selected_tipo_ids: array, additional_tipo_name: string, additional_tipo: object): boolean\nstatic toTipo(mode: string, tipo_name: string, tipo_id: string): void\nstatic getMenuItem(): object\nstatic listUrl(tipo_name: string): string\nstatic updateUrl(tipo_name: string): string\nstatic createUrl(tipo_name: string): string\nstatic detailUrl(tipo_name: string): string\nstatic sendHttpRequest(method: string, url:string, headers: object, data: object, successCallback: function, errorCallback: function): void\nstatic sendProxyHttp(method: string, url:string, headers: object, data: object, successCallback: function, errorCallback: function): void\nstatic sendPushNotification(title: string, text:string, to: string, tipo_name: string, tipo_id: string, perspective: string, create_or_edit_or_list_detail: string,actions: array, image_url: string, successCallback: function, errorCallback: function ): void\n}");
+            return ("declare class tipoHandle {\n static getConfirmation(title: string, user_message: string): boolean \n static application_meta(title: string, user_message: string): boolean \n static hideElement(element_class: string): boolean \n static showElement(element_class: string): boolean \n static getTipoDefinition(tipo_name: string, disableExpansion: boolean): boolean \n static routeTo(url: string): void \n static saveTipo(tipo_name: string,tipo_id:string , tipo_data: object): promise \nstatic saveTipos(tipo_name: string,tipo_data: object): promise\nstatic createTipo(tipo_name: string,tipo_data: object,query_params: object): promise\nstatic createTipos(tipo_name: string,tipo_data: object,query_params: object): promise\nstatic deleteTipo(tipo_name: string, tipo_id: string): promise\nstatic getTipo(tipo_name: string, tipo_id: string, query_params: object): promise\nstatic purgeTipo(tipo_name: string, tipo_id: string): boolean\nstatic getTipos(tipo_name: string, query_params: object): promise\nstatic presentForm(tipo_name: string, context: object, submit_label: string,show_cancel: boolean, tipo: object): promise\nstatic showMessage(user_heading: string, user_message: string): boolean\nstatic callAction(tipo_name: string, action_name: string, selected_tipo_ids: array, additional_tipo_name: string, additional_tipo: object): boolean\nstatic toTipo(mode: string, tipo_name: string, tipo_id: string): void\nstatic getMenuItem(): object\nstatic listUrl(tipo_name: string): string\nstatic updateUrl(tipo_name: string): string\nstatic createUrl(tipo_name: string): string\nstatic detailUrl(tipo_name: string): string\nstatic sendHttpRequest(method: string, url:string, headers: object, data: object, successCallback: function, errorCallback: function): void\nstatic sendProxyHttp(method: string, url:string, headers: object, data: object, successCallback: function, errorCallback: function): void\nstatic sendPushNotification(title: string, text:string, to: string, tipo_name: string, tipo_id: string, perspective: string, create_or_edit_or_list_detail: string,actions: array, image_url: string, successCallback: function, errorCallback: function ): void\n}");
         }
 
         function getItemsFromDefObject(beforestring, scope) {
             if (scope.defaultObj) {
                 var contextScope = { root: scope.tipoDefinitions[scope.defaultObj], tipoDefinitions: scope.tipoDefinitions };
-            }else{
+            } else {
                 var contextScope = { root: scope.root, tipoDefinitions: scope.tipoDefinitions };
             }
             var lastspace = beforestring.lastIndexOf(" ");

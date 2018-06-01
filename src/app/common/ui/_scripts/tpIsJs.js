@@ -23,7 +23,7 @@
             // values
             var jscode = ngModel.$viewValue;
                 try {
-                    eval(jscode); 
+                    esprima.parseScript(jscode);
                     ngModel.$setValidity('tpIsJs', true);
                 } catch (e) {
                     // set validity
