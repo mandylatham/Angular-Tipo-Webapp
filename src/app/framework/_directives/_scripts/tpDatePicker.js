@@ -13,8 +13,20 @@
                 fpOnSetup: '&'
             },
             link: function(scope, element, attrs) {
-                var vp = new flatpickr(element[0], scope.fpOpts());;
-
+                var options = scope.fpOpts();
+                if(navigator.platform === 'iPhone' || navigator.platform === 'iPad') {
+                    // options.disableMobile = true;
+                    options.onOpen = function(selectedDates, dateStr, instance) {
+                        alert("Event trigger", dateStr)
+                        if(dateStr === '') {
+                            alert("setting current date");
+                            vp.setDate(Date.now(), true);
+                        }
+                    }
+                }
+                
+                var vp = new flatpickr(element[0], options);;
+                
                 if (scope.fpOnSetup) {
                     scope.fpOnSetup({
                         fpItem: vp
