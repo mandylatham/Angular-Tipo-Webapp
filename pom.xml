@@ -3,6 +3,7 @@
   <groupId>com.tipo</groupId>
   <artifactId>tipo-ui</artifactId>
   <version>1.0.0-SNAPSHOT</version>
+  <id>tipoui</id>
   <packaging>pom</packaging>
   <name>Tipo Framework :: User Interface</name>
   <description>This is the web-based user interface for the Tipo framework which consists of static HTML, JavaScript, Less files, etc. and interacts with the backend REST API(s) as required. It is built using npm, bower and grunt, all of which are wrapped through Maven and the artifacts is packaged as a zip and a tar using the assembly plugin</description>
