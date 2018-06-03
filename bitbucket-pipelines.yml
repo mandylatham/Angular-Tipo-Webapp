@@ -4,7 +4,7 @@
 # You can specify a custom docker image from Dockerhub as your build environment.
 # image: maven:3.3.3
 # testing if pipeline build works on commit - testing
-image: tipotapp/tipo-build:latest
+image: tipotapp/tipo-build:2
 
 pipelines:
   branches:

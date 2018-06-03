@@ -1,0 +1,29 @@
+<md-dialog ng-cloak aria-label="Lookup" ng-class="{'fullscreen': fullscreen}" style="width: 80%;">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Filters</h2>
+            <span flex></span>
+            <md-button class="dialog-buttons" ng-click="finish()">
+                <md-icon aria-label="Save">done</md-icon>
+                <div>Done</div>
+            </md-button>
+            <md-button class="dialog-buttons" ng-click="cancel()">
+                <md-icon aria-label="Close dialog">close</md-icon>
+                <div>Cancel</div>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-dialog-content>
+        <div class="md-dialog-content tp-field tp-lookup-dialog" layout="center center" layout-padding>
+            <md-list ng-cloak class="fullwidth">
+                <div ng-repeat="filter in fieldFilters">
+                    <md-subheader class="md-no-sticky">{{filter.label}}</md-subheader>
+                    <md-list-item ng-repeat="value in filter.values">
+                        <p> {{ value.key }}({{value.doc_count}}) </p>
+                        <md-checkbox class="md-secondary" ng-model="value.selected" ng-click="addToExpression(value,filter)"></md-checkbox>
+                    </md-list-item>
+                    <md-divider></md-divider>
+                </div>
+        </div>
+    </md-dialog-content>
+</md-dialog>
