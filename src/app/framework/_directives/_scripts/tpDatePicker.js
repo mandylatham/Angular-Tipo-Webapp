@@ -16,7 +16,7 @@
                 var options = scope.fpOpts();
                 alert("Date picker triggered");
                 if(navigator.platform === 'iPhone' || navigator.platform === 'iPad') {
-                    options.disableMobile = true;
+                    // options.disableMobile = true;
                     options.onOpen = function(selectedDates, dateStr, instance) {
                         alert("Event trigger", dateStr)
                         if(dateStr === '') {
