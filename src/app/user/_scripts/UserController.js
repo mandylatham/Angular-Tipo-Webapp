@@ -173,6 +173,9 @@
 
         _instance.signUp = function(form, attemptCnt) {
             if (form && !form.$valid) {
+                if(!_instance.user.recaptcha) {
+                    raiseError({ message: 'Enter reCaptcha' });
+                }
                 return false;
             }
             markProgress();
