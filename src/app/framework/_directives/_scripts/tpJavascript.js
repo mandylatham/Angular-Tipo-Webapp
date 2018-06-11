@@ -74,36 +74,21 @@
                             monaco.scope = scope;
                         });
                         editor.addAction({
-                            // An unique identifier of the contributed action.
-                            id: 'my-unique-id',
-
-                            // A label of the action that will be presented to the user.
+                            id: 'full-screen',
                             label: 'Full Screen',
-
-                            // An optional array of keybindings for the action.
                             keybindings: [
                                 monaco.KeyMod.CtrlCmd | monaco.KeyCode.F10,
-                                // chord
                                 monaco.KeyMod.chord(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_K, monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_M)
                             ],
-
-                            // A precondition for this action.
                             precondition: null,
-
-                            // A rule to evaluate on top of the precondition in order to dispatch the keybindings.
                             keybindingContext: null,
-
                             contextMenuGroupId: 'navigation',
-
                             contextMenuOrder: 1.5,
-
-                            // Method that will be executed when the action is triggered.
-                            // @param editor The editor instance is passed in as a convinience
                             run: function(ed) {
                                 if (screenfull.enabled) {
                                     element[0].style.height = "100%";
                                     screenfull.request(element[0]);
-                                    screenfull.on('change', () => {
+                                    screenfull.on('change', function() {
                                         if (!screenfull.isFullscreen) {
                                             element[0].style.height = "200px";
                                             screenfull.off('change');
@@ -113,9 +98,6 @@
                                 return null;
                             }
                         });
-                        // editor.onDidFocusEditor(function() {
-                        //     // monaco.languages.typescript.javascriptDefaults.addExtraLib(scope.datahandle);
-                        // });
                         configNgModelLink(editor, ngModel, scope, monaco);
                         ngModel.$viewChangeListeners.push(function() {
                             var model = editor.getModel();
