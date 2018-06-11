@@ -287,7 +287,7 @@
         var location = $window.location;
         // var relativeUrl = '/api/d/tipotapp/santoshtestapp';
         var relativeUrl = '/api';
-        if (_.startsWith(relativeUrl, '/app')) {
+        if (_.startsWith(location.pathname, '/app')) {
             // relativeUrl = '/api/d/tipotapp/carworld' + relativeUrl.substring(4);
             relativeUrl = relativeUrl + location.pathname.substring(4);
             // relativeUrl = '/api/d/tipotapp/abcde' + relativeUrl.substring(4);
