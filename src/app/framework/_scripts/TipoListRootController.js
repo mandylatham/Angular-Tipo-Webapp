@@ -103,11 +103,11 @@
         function serverResultHandler(page) {
             var function_name = $stateParams.tipo_name + "_OnList";
             if (typeof tipoCustomJavascript[function_name] === 'function') {
-                $scope.data_handle.tipo_list = tipos;
+                $scope.data_handle.tipo_list = _instance.tipos;
                 tipoCustomJavascript[function_name]($scope.data_handle);
             }
             if (typeof tipoClientJavascript[function_name] === 'function') {
-                $scope.data_handle.tipo_list = tipos;
+                $scope.data_handle.tipo_list = _instance.tipos;
                 tipoClientJavascript[function_name]($scope.data_handle);
             }
             _instance.initTipos = angular.copy(this.tipos);

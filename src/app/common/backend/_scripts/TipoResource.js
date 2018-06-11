@@ -285,22 +285,23 @@
 
         var interceptors = getAllInterceptors(tipoRouter, $rootScope, securityContextService, tipoErrorHandler, tipoCache, cognitoService, $templateCache, $cacheFactory, $location, $http, $q, $window, $mdDialog);
         var location = $window.location;
-        var relativeUrl = location.pathname;
+        // var relativeUrl = '/api/d/tipotapp/santoshtestapp';
+        var relativeUrl = '/api';
         if (_.startsWith(relativeUrl, '/app')) {
             // relativeUrl = '/api/d/tipotapp/carworld' + relativeUrl.substring(4);
-            // relativeUrl = '/api/d/tipotapp/inviteuserdev' + relativeUrl.substring(4);
+            relativeUrl = relativeUrl + location.pathname.substring(4);
             // relativeUrl = '/api/d/tipotapp/abcde' + relativeUrl.substring(4);
             // relativeUrl = '/api/d/deltagene/billionbases' + relativeUrl.substring(4);
-            relativeUrl = '/api' + relativeUrl.substring(4);
+            // relativeUrl = '/api' + relativeUrl.substring(4);
             // relativeUrl = '/api/d/hr/hrbuddy' + relativeUrl.substring(4);
             // relativeUrl = '/api/d/hr/dialadish' + relativeUrl.substring(4);
         } else {
             // relativeUrl = '/api/d/tipotapp/abcde';
             // relativeUrl = '/api/d/tipotapp/carworld';
-            // relativeUrl = '/api/d/tipotapp/inviteuserdev';
+            relativeUrl = relativeUrl;
             // relativeUrl = '/api/d/deltagene/billionbases';
             // relativeUrl = '/api/d/hr/dialadish';
-            relativeUrl = '/api';
+            // relativeUrl = '/api';
             // relativeUrl = '/api/d/hr/hrbuddy';
         }
         var baseUrl = location.origin + relativeUrl;
