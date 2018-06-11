@@ -78,11 +78,11 @@
                     ndParent = element.parent()[0],
                     parentWidth = ndParent.clientWidth,
                     parentHeight = ndParent.clientHeight,
-                    width, height, chart;
+                    width = '320px', height = '240px', chart;
                 var chartEvent = {};
 
-                var unbind = scope.$watch(function() { return element.parent()[0].clientWidth; }, function(n, o) {
-                    if (element.parent()[0].clientWidth > 0) {
+                scope.$watch(function() { return element.parent()[0].clientWidth; }, function(n, o) {
+                    // if (element.parent()[0].clientWidth > 0) {
                         var ndWrapper = element.find('div')[0],
                             ndParent = element.parent()[0],
                             parentWidth = ndParent.clientWidth,
@@ -96,8 +96,12 @@
                         if (scope.option) {
                             myChart.setOption(scope.option);
                         };
-                        unbind();
-                    }
+                        myChart.resize(scope.option , {
+                            width: 'auto',
+                            height: 'auto',
+                            silent: true
+                        })
+                    // }
                 })
                 // use configuration item and data specified to show chart
                 // var myChart = echarts.init(ndWrapper, 'essos');
