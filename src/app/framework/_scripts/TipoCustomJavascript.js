@@ -118,7 +118,7 @@
                     input: result[0].data,
                     output: result[1].data
                 }
-                tipoHandle.presentForm('TipoOrchestratorResponse', tipo,undefined, 'Done');
+                tipoHandle.presentForm('TipoOrchestratorResponse',undefined, 'Done', true,tipo);
             });
 
         }
@@ -373,6 +373,10 @@
                     email: user.email,
                     name: user.full_name,
                     phone: user.phone_number,
+                    company: {
+                        id: user.accountName,
+                        name: user.companyName
+                    }
                 }
             }
         }
@@ -450,12 +454,22 @@
             if (intercom_state !== "boot" && (getCurrentApp() === 'tipoapp') && intercom_app_id) {
                 var currentUser = tipoHandle.user_meta;
                 if (currentUser && currentUser.user_attributes) {
-                    tipoHandle.getTipo(currentUser.user_attributes.user_tipo, currentUser.user_attributes.user_tipo_id).then(function(response) {
+                    var tiponame = currentUser.user_attributes.org_tipo;
+                    if(currentUser.user_attributes.org_tipo_ids) {
+                        var tipoid = currentUser.user_attributes.org_tipo_ids[0];
+                    } else {
+                        var tipoid = currentUser.user_attributes.org_tipo_id;
+                    }
+                    tipoHandle.getTipo(tiponame, tipoid).then(function(response) {
                         window.Intercom("boot", {
                             app_id: intercom_app_id,
                             email: response.email,
-                            name: response.full_name,
+                            name: response.first_name,
                             phone: response.phone,
+                            company: {
+                                id : response.account_name,
+                                name: response.organization,
+                            },
                             custom_launcher_selector: '#intercom-widget',
                             hide_default_launcher: true
                         })
@@ -466,7 +480,7 @@
                 }
                 intercom_state = "boot";
                 $rootScope.showIntercom = true;
-            };
+            }
             if (getCurrentApp() !== 'tipoapp' && !$rootScope.showSubscribeNow && $rootScope.developMode) {
 
             } else {

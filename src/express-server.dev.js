@@ -22,8 +22,8 @@ var pathMappings = [
   {
     path: '/g/public',
     // url: 'https://dev.tipotapp.com/app/d/tipotapp/carworld'
-    url: 'https://dev.tipotapp.com',
-    // url: 'https://dev.tipotapp.com/app/d/tipotapp/inviteuserdev'
+    // url: 'https://dev.tipotapp.com',
+    url: 'https://dev.tipotapp.com/app/d/tipotapp/santoshtestapp'
     // url: 'https://dev.billionbases.com',
     // url: 'https://dev.tipotapp.com/app/d/hr/hrbuddy'
     // url: 'https://dev.tipotapp.com/app/d/hr/dialadish'
@@ -35,8 +35,8 @@ var pathMappings = [
   {
     path: '/public',
     // url: 'https://dev.tipotapp.com/app/d/tipotapp/carworld'
-    url: 'https://dev.tipotapp.com',
-    // url: 'https://dev.tipotapp.com/app/d/tipotapp/inviteuserdev'
+    // url: 'https://dev.tipotapp.com',
+    url: 'https://dev.tipotapp.com/app/d/tipotapp/santoshtestapp'
     // url: 'https://dev.tipotapp.com/app/d/hr/hrbuddy'
     // url: 'https://dev.tipotapp.com/app/d/hr/dialadish'
     // url: 'https://dev.tipotapp.com/app/d/tipotapp/tourmanagmentapp'
@@ -47,8 +47,8 @@ var pathMappings = [
   {
 	    path: '/tipo_upload',
 	    // url: 'https://dev.tipotapp.com/app/d/tipotapp/carworld'
-	    url: 'https://dev.tipotapp.com',
-      // url: 'https://dev.tipotapp.com/app/d/tipotapp/inviteuserdev'
+	    // url: 'https://dev.tipotapp.com',
+      url: 'https://dev.tipotapp.com/app/d/tipotapp/santoshtestapp'
 	    // url: 'https://dev.tipotapp.com/app/d/hr/hrbuddy'
 	    // url: 'https://dev.tipotapp.com/app/d/hr/dialadish'
       // url: 'https://dev.tipotapp.com/app/d/tipotapp/tourmanagmentapp'
@@ -59,8 +59,8 @@ var pathMappings = [
 	  {
 		    path: '/g/private',
 		    // url: 'https://dev.tipotapp.com/app/d/tipotapp/carworld'
-		    url: 'https://dev.tipotapp.com',
-        // url: 'https://dev.tipotapp.com/app/d/tipotapp/inviteuserdev'
+		    // url: 'https://dev.tipotapp.com',
+        url: 'https://dev.tipotapp.com/app/d/tipotapp/santoshtestapp'
 		    // url: 'https://dev.tipotapp.com/app/d/hr/hrbuddy'
 		    // url: 'https://dev.tipotapp.com/app/d/hr/dialadish'
         // url: 'https://dev.tipotapp.com/app/d/tipotapp/tourmanagmentapp'
@@ -97,6 +97,8 @@ lodash.each(pathMappings, function(mapping){
     app.use(mapping.path, express.static(path.resolve(__dirname, mapping.dir)));
   }else if(mapping.url){
     if (mapping.path !== "/api") {
+      // mapping.url = "https://dev.tipotapp.com/app/d/tipotapp/santoshtestapp";
+      mapping.url = "https://dev.tipotapp.com";
       app.use(mapping.path, proxy({target: mapping.url, changeOrigin: true}));
     }else{
       app.use(mapping.path, proxy({target: mapping.url, changeOrigin: true}));

@@ -251,7 +251,7 @@
             });
         }
 
-        function presentForm(tipo_name, tipo, context, submit_label, show_cancel) {
+        function presentForm(tipo_name, context, submit_label,show_cancel, tipo) {
             var newScope = {};
             newScope.context = tipo;
             newScope.tipo_name = tipo_name;

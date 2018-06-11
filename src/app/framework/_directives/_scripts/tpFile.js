@@ -346,13 +346,14 @@
                   if(scope.imageonly && !scope.isArray) {
                     fileContent.lfFileName = uuid4() + '-' + fileContent.lfFileName;
                   }
-                  if (isSimple && scope.field) {
+                  else if (isSimple && scope.field) {
                     var uploadPath = scope.field.key || scope.fileTarget;
                   }else{
                     uploadPath = scope.fileTarget;
                   }
                   if(!_.startsWith(uploadPath, scope.rootFolder)) {
-                    uploadPath = scope.rootFolder + '/' + uploadPath;
+                    var path = uploadPath ? uploadPath : '';
+                    uploadPath = scope.rootFolder + '/' + path;
                   }
                   tipoResource
                   .oneUrl('content', 'tipo_upload/' + uploadPath + (scope.isTargetFile ? '' :  fileContent.lfFileName))
