@@ -59,6 +59,8 @@
     "echarts": "3.4.0",
     "esprima": "npm:esprima#4.0.0",
     "flatpickr": "npm:flatpickr#4.5.0",
+    "screenfull": "npm:screenfull#3.3.0",
+    "nouislider": "npm:nouislider#11.1.0",
     "angular-truncate": "git://github.com/sparkalow/angular-truncate.git#master",
     "JSONPath": "git://github.com/clementlamoureux/JSONPath.git#master"
   },

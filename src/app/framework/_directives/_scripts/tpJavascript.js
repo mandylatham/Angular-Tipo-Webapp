@@ -67,10 +67,51 @@
                         };
                         var editor = monaco.editor.create(element[0], {
                             theme: 'vs',
-                            language: 'javascript'
+                            language: 'javascript',
+                            automaticLayout: true
                         });
                         editor.onDidFocusEditor(function() {
                             monaco.scope = scope;
+                        });
+                        editor.addAction({
+                            // An unique identifier of the contributed action.
+                            id: 'my-unique-id',
+
+                            // A label of the action that will be presented to the user.
+                            label: 'Full Screen',
+
+                            // An optional array of keybindings for the action.
+                            keybindings: [
+                                monaco.KeyMod.CtrlCmd | monaco.KeyCode.F10,
+                                // chord
+                                monaco.KeyMod.chord(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_K, monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_M)
+                            ],
+
+                            // A precondition for this action.
+                            precondition: null,
+
+                            // A rule to evaluate on top of the precondition in order to dispatch the keybindings.
+                            keybindingContext: null,
+
+                            contextMenuGroupId: 'navigation',
+
+                            contextMenuOrder: 1.5,
+
+                            // Method that will be executed when the action is triggered.
+                            // @param editor The editor instance is passed in as a convinience
+                            run: function(ed) {
+                                if (screenfull.enabled) {
+                                    element[0].style.height = "100%";
+                                    screenfull.request(element[0]);
+                                    screenfull.on('change', () => {
+                                        if (!screenfull.isFullscreen) {
+                                            element[0].style.height = "200px";
+                                            screenfull.off('change');
+                                        }
+                                    });
+                                }
+                                return null;
+                            }
                         });
                         // editor.onDidFocusEditor(function() {
                         //     // monaco.languages.typescript.javascriptDefaults.addExtraLib(scope.datahandle);
@@ -78,10 +119,10 @@
                         configNgModelLink(editor, ngModel, scope, monaco);
                         ngModel.$viewChangeListeners.push(function() {
                             var model = editor.getModel();
-                            try{
+                            try {
                                 esprima.parseScript(ngModel.$viewValue)
-                                monaco.editor.setModelMarkers(model,'default',[]);
-                            }catch(err){
+                                monaco.editor.setModelMarkers(model, 'default', []);
+                            } catch (err) {
                                 console.log("javascript error");
                                 var markers = monaco.editor.getModelMarkers();
                                 var markers = [];
@@ -92,7 +133,7 @@
                                     message: err.description,
                                     startLineNumber: err.lineNumber,
                                 });
-                                monaco.editor.setModelMarkers(model,'default',markers);
+                                monaco.editor.setModelMarkers(model, 'default', markers);
                                 // console.error(err);
                             }
                         });
