@@ -22,6 +22,7 @@
                         <md-input-container class="md-icon-float md-block">
                             <md-icon>email</md-icon>
                             <input ng-model="controller.user.email" name="email" autocomplete="username" ng-pattern="/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/" ng-model-options="{ updateOn: 'blur'}" type="email" required>
+                            <div class="hint">Email will be verified</div>
                             <div ng-messages="registrationForm.email.$error">
                                 <div ng-message="required">This is required!</div>
                                 <div ng-message="pattern">Not a valid email</div>
@@ -52,7 +53,7 @@
                                 <input type="text" ng-model="controller.user.phone_number" tp:intl-tel-input id="phone_number" name="phone_number" class="form-control" required>
                                 <div ng-messages="registrationForm.phone_number.$error">
                                     <div ng-message="required">This is required!</div>
-                                    <div ng-show="registrationForm.phone_number.$invalid && registrationForm.phone_number.$touched">Invalid :(</div>
+                                    <div ng-show="registrationForm.phone_number.$invalid && registrationForm.phone_number.$touched">Enter a valid number!</div>
                                 </div>
                                 <!-- <div ></div> -->
                             </md-input-container>
@@ -69,16 +70,24 @@
                         <md-input-container class="md-icon-float md-block" ng-show="controller.captureAccountNameDuringSignup">
                             <md-icon>nature_people</md-icon>
                             <input ng-model="controller.user.companyName" type="text" ng-change="controller.user.accountName = _.toLower(_.camelCase(controller.user.companyName))" name="company" ng-required="controller.captureAccountNameDuringSignup">
+                            <div class="hint">Please add the name you want to show in the App</div>
                             <div ng-messages="registrationForm.company.$error">
                                 <div ng-message="required">This is required!</div>
                             </div>
-                            <div class="hint">Please add the name you want to show in the App</div>
                         </md-input-container>
-                        <label class="loginlabel" ng-show="controller.captureAccountNameDuringSignup">Account</label>
-                        <md-input-container class="md-icon-float md-block" ng-show="controller.captureAccountNameDuringSignup">
-                            <md-icon>account_circle</md-icon>
-                            <input ng-model="controller.user.accountName" ng-disabled="true" type="text" ng-required="controller.captureAccountNameDuringSignup">
-                        </md-input-container>
+                        <label class="loginlabel" ng-show="controller.captureAccountNameDuringSignup">App URL</label>
+                        <div layout="row" ng-show="controller.captureAccountNameDuringSignup">
+                            <md-input-container flex class="md-icon-float md-block" >
+                                    <md-icon>language</md-icon>
+                                    <input ng-model="host" disabled="true" />
+                            </md-input-container>
+                            <md-input-container flex class="md-block">
+                                    <input ng-model="controller.user.accountName" type="text" ng-required="controller.captureAccountNameDuringSignup" name="account">
+                                    <div style="color:red;font-size:12px;margin-top:5px" ng-if="domainError">
+                                        <div>{{domainError}}</div>
+                                    </div>
+                            </md-input-container>
+                        </div>
                         <div class="recaptcha" vc-recaptcha ng-model="controller.user.recaptcha" key="'6Ldaig8UAAAAABblj3oOjSlTco3HTUhArcn_nJAG'" on-expire="controller.recaptchaExpiration()" layout="row" layout-align="center center"></div>
                         <div class="error with-margin" ng-show="controller.lastError"><i class="fa fa-exclamation-circle fa-fw"></i> {{controller.lastError}}</div>
                         <div style="font-size: 14px;text-align: center;"><i style="vertical-align:middle;color:#169D58" class="material-icons">check</i> By registering you agree to our <a href="https://tipotapp.com/terms-conditions-english.html" target="_blank">terms and conditions</a> </div>

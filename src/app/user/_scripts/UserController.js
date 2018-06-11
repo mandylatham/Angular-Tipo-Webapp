@@ -32,6 +32,7 @@
         $scope.expiryDate.setMonth($scope.date.getMonth() + 1);
         $scope.creditCard;
         $scope.cardToken;
+        $scope.host = "https://" + $rootScope.only_cdn_host + "app/d/tipotapp/";
         $rootScope.appLoaded = true;
         var appMetadata = metadataService.applicationMetadata;
         var appMetadata = _.merge(_.get(appMetadata, "TipoApp"), _.get(appMetadata, "TipoConfiguration"));
@@ -113,6 +114,9 @@
                 tipoRouter.to('verifyEmail');
                 return;
             };
+            if(err.message === " App URL already taken.") {
+                $scope.domainError = "Change the URL";
+            }
             if ($stateParams.retry) {
                 $stateParams.retry.reject();
             }
@@ -169,6 +173,9 @@
 
         _instance.signUp = function(form, attemptCnt) {
             if (form && !form.$valid) {
+                if(!_instance.user.recaptcha) {
+                    raiseError({ message: 'Enter reCaptcha' });
+                }
                 return false;
             }
             markProgress();

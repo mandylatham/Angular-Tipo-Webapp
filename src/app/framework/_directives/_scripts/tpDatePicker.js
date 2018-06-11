@@ -4,29 +4,24 @@
 
     var module = angular.module('tipo.framework');
 
-    return module.directive('tpDatePicker', function() {
+    return module.directive('tpDatePicker', function(tipoManipulationService) {
         return {
-            require: 'ngModel',
             restrict: 'A',
             scope: {
                 fpOpts: '&',
-                fpOnSetup: '&'
+                fpOnSetup: '&',
+                fieldvalue: '=',
+                ngModel: '='
             },
-            link: function(scope, element, attrs) {
-                var options = scope.fpOpts();
+            link: function(scope, element, attrs, ctrl) {
+                var vp = new flatpickr(element[0], scope.fpOpts());
                 if(navigator.platform === 'iPhone' || navigator.platform === 'iPad') {
-                    // options.disableMobile = true;
-                    options.onOpen = function(selectedDates, dateStr, instance) {
-                        alert("Event trigger", dateStr)
-                        if(dateStr === '') {
-                            alert("setting current date");
-                            vp.setDate(Date.now(), true);
-                        }
+                    if(!scope.fieldvalue) {
+                        scope.fieldvalue = tipoManipulationService.getISODate();
+                        scope.ngModel = angular.copy(scope.fieldvalue);
                     }
                 }
-                
-                var vp = new flatpickr(element[0], options);;
-                
+                  
                 if (scope.fpOnSetup) {
                     scope.fpOnSetup({
                         fpItem: vp
