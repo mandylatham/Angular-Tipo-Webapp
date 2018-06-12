@@ -68,7 +68,7 @@
                         } else {
                             if (scope.imageArray && _.startsWith(scope.imageArray.key, "public/")) {
                                 scope.images.push("g/" + scope.imageArray.key);
-                            } else if (scope.imageArray){
+                            } else if (scope.imageArray) {
                                 scope.images.push("g/" + scope.imageArray.rootFolder + "/" + scope.imageArray.key);
                             }
                         }
@@ -83,6 +83,8 @@
                         paginationHide: scope.hidePagination,
                         mousewheelControl: mousewheelControl,
                         loop: loop,
+                        observer: true,
+                        observeParents: true,
                         // loopedSlides: scope.images.length,
                         slidesPerView: 1,
                         spaceBetween: 30,
@@ -95,14 +97,14 @@
                     });
                 }
 
-                element[0].addEventListener("click",function(e){
-                  e.stopPropagation();
+                element[0].addEventListener("click", function(e) {
+                    e.stopPropagation();
                 })
 
                 scope.resize = function() {
-                    return $timeout(function() {
-                        $window.dispatchEvent(new Event("resize"));
-                    }, 1000);
+                    // return $timeout(function() {
+                    //     $window.dispatchEvent(new Event("resize"));
+                    // }, 0);
                 }
                 init();
                 scope.resize();
