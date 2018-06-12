@@ -81,8 +81,8 @@
                     width = '320px', height = '240px', chart;
                 var chartEvent = {};
 
-                scope.$watch(function() { return element.parent()[0].clientWidth; }, function(n, o) {
-                    // if (element.parent()[0].clientWidth > 0) {
+                var unbind = scope.$watch(function() { return element.parent()[0].clientWidth; }, function(n, o) {
+                    if (element.parent()[0].clientWidth > 0) {
                         var ndWrapper = element.find('div')[0],
                             ndParent = element.parent()[0],
                             parentWidth = ndParent.clientWidth,
@@ -101,7 +101,8 @@
                             height: 'auto',
                             silent: true
                         })
-                    // }
+                        unbind();
+                    }
                 })
                 // use configuration item and data specified to show chart
                 // var myChart = echarts.init(ndWrapper, 'essos');
