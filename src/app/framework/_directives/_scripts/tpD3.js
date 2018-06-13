@@ -209,6 +209,30 @@
                             option = getTimeSeriesData(option, each, index);
                         }
                     });
+                    var months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+                    option.tooltip.formatter = function (params) {
+                        var date = new Date(params[0].value[0]);
+                        var texts = date.getDate() + "-"+ months[(date.getMonth())] +"-"+ date.getFullYear();
+                        return texts;
+                    }
+                    if(option.xAxis[0].type === 'time') {
+                        option.xAxis[0].axisLabel = { 
+                            formatter : function (value, index) {
+                            var date = new Date(value);
+                            var texts = [date.getDate(), months[(date.getMonth())], date.getFullYear()];
+                            return texts.join('-');
+                            }
+                        }
+                    }
+                    if(option.yAxis[0].type === 'time') {
+                        option.yAxis[0].axisLabel = {
+                            formatter : function (value, index) {
+                            var date = new Date(value);
+                            var texts = [date.getDate(), months[(date.getMonth())], date.getFullYear()];
+                            return texts.join('-');
+                            }
+                        }
+                    }
                     return option;
                 }
 
