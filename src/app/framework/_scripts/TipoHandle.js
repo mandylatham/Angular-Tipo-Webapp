@@ -388,7 +388,7 @@
                 url: url,
                 headers: headers,
                 method: method,
-                body: btoa(JSON.stringify(data))
+                body: data && btoa(JSON.stringify(data))
             }
             saveTipo("TipoSpecial.TipoHttp", "default", tipo_data).then(function(response) {
                 successCallback(response)
