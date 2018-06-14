@@ -79,7 +79,7 @@
                     var mySwipe = new Swiper(element[0], {
                         direction: direction,
                         effect: effect,
-                        loop: true,
+                        loop: loop,
                         observer: true,
                         observeParents: true,
                         slidesPerView: 1,
@@ -98,11 +98,13 @@
                         },
                         on: {
                             slideChange: function() {
-                                if(this.realIndex === 0) {
-                                    this.slideToLoop(0);
-                                }
-                                if(this.isBeginning && this.realIndex === scope.images.length - 1) {
-                                    this.slideToLoop(scope.images.length - 1)
+                                if(scope.loop === "true") {
+                                    if(this.realIndex === 0) {
+                                        this.slideToLoop(0);
+                                    }
+                                    if(this.isBeginning && this.realIndex === scope.images.length - 1) {
+                                        this.slideToLoop(scope.images.length - 1)
+                                    }
                                 }
                             },
                         }
