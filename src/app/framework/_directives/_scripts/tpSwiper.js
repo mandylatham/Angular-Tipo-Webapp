@@ -79,21 +79,35 @@
                     var mySwipe = new Swiper(element[0], {
                         direction: direction,
                         effect: effect,
-                        paginationType: paginationType,
-                        paginationHide: scope.hidePagination,
-                        mousewheelControl: mousewheelControl,
                         loop: loop,
                         observer: true,
                         observeParents: true,
-                        // loopedSlides: scope.images.length,
                         slidesPerView: 1,
                         spaceBetween: 30,
                         // If we need pagination
-                        pagination: '.swiper-pagination',
-                        paginationClickable: true,
+                        pagination: {
+                            el: '.swiper-pagination',
+                            clickable: true,
+                            type: paginationType,
+                            hideOnClick: scope.hidePagination
+                        },
                         // Navigation arrows
-                        nextButton: '.swiper-button-next',
-                        prevButton: '.swiper-button-prev'
+                        navigation: {
+                            nextEl: '.swiper-button-next',
+                            prevEl: '.swiper-button-prev',
+                        },
+                        on: {
+                            slideChange: function() {
+                                if(scope.loop === "true") {
+                                    if(this.realIndex === 0) {
+                                        this.slideToLoop(0);
+                                    }
+                                    if(this.isBeginning && this.realIndex === scope.images.length - 1) {
+                                        this.slideToLoop(scope.images.length - 1)
+                                    }
+                                }
+                            },
+                        }
                     });
                 }
 

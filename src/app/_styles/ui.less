@@ -1266,10 +1266,6 @@ md-list-item .md-list-item-inner::before {
     cursor: pointer;
 }
 
-.dollar::before {
-    content: "$";
-}
-
 .introjs-tooltip {
     line-height: 1.5;
 }
@@ -1343,6 +1339,14 @@ md-progress-linear {
         .md-bar {
             height: 8px;
         }
+    }
+}
+
+.swiper-container {
+    .swiper-button-prev, .swiper-button-next {
+        width: 15px !important;
+        height: 25px !important;
+        background-size: 15px 25px !important;
     }
 }
 
@@ -1473,4 +1477,26 @@ md-progress-linear {
 .color-dark {
     color: #67757c;
 }
+.dollar::before {
+    content: "$";
+}
+.euro::before {
+    content: "EURO";
+}
+.rupees::before {
+    content: "Rs";
+}
+.age::after {
+    content: "yrs";
+}
+.doc-card {
+    margin: 1% 1.5% !important;
+    background: #fbf3de;
+    box-shadow: 0px 2px 2px gray;
+    max-width: 30% !important;
+    &:hover {
+        box-shadow: 0px 4px 4px gray;
+    }
+}
+
 // End TipoStandingData

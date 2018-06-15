@@ -133,6 +133,7 @@
 		 </executions>
 		 <configuration>
 		 	<file>${basedir}/src/g/public/common/views/custom/registration.tpl.html</file>
+       <regex>false</regex>
 		 	 <replacements>
 		 	  <replacement>
 		 	   <token>tipo_replace.googleRecaptchaSitekey</token>
@@ -153,6 +154,7 @@
      </executions>
      <configuration>
       <file>${basedir}/target-grunt/dist/index.html</file>
+      <regex>false</regex>
        <replacements>
         <replacement>
          <token>/_scripts</token>
