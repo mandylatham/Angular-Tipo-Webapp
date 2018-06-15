@@ -61,10 +61,12 @@
                     };
                 },
                 security: function(element, operation, route, url, headers, params, httpConfig) {
-                    var accessToken = securityContextService.getCurrentIdToken();
+                    var idToken = securityContextService.getCurrentIdToken();
+                    var accessToken = securityContextService.getCurrentAccessToken();
                     if (!_.isUndefined(accessToken)) {
                         headers = _.extend(headers, {
-                            'Authorization': accessToken
+                            'Authorization': idToken,
+                            'SessionId': accessToken
                         });
                     }
 
@@ -227,6 +229,7 @@
                         refreshAccesstoken().then(function() {
                             // Repeat the request and then call the handlers the usual way.
                             response.config.headers.Authorization = securityContextService.getCurrentIdToken();
+                            response.config.headers.SessionId = securityContextService.getCurrentAccessToken();
                             $http(response.config).then(responseHandler, deferred.reject);
                             // Be aware that no request interceptors are called this way.
                         });
@@ -348,7 +351,8 @@
         return {
             request: function(config) {
                 // var accessToken = securityContextService.getCurrentIdToken();
-                var accessToken = _.get(localStorageService.get('security_context'), 'tokenDetails.id_token');
+                var idToken = _.get(localStorageService.get('security_context'), 'tokenDetails.id_token');
+                var accessToken = _.get(localStorageService.get('security_context'), 'tokenDetails.access_token');
                 if ($rootScope.version_stamp) {
                     if (!config.params) {
                         config.params = {};
@@ -357,7 +361,8 @@
                         config.params.version_stamp = $rootScope.version_stamp
                     };
                     if (!_.isUndefined(accessToken) && _.startsWith(config.url, "api/")) {
-                        config.headers['Authorization'] = accessToken;
+                        config.headers['Authorization'] = idToken;
+                        config.headers['SessionId'] = accessToken;
                     }
                     if (_.startsWith(config.url, "g/") && $rootScope.cdn_host && !$templateCache.get(config.url + "?version_stamp=" + config.params.version_stamp)) {
                         // if (_.startsWith(config.url, "g/") && !S(config.url).contains("tipoapp") && $rootScope.cdn_host && !$templateCache.get(config.url + "?version_stamp=" + config.params.version_stamp)) {
