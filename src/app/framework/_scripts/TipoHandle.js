@@ -118,7 +118,8 @@
         $stateParams,
         $window,
         ngIntroService,
-        $http) {
+        $http,
+        tipoErrorHandler) {
 
 
         var TOUR_TIPO = "TipoTourData";
@@ -275,6 +276,10 @@
             return promise;
         }
 
+        function replaceListView(tipos){
+            return tipoManipulationService.getVirtualRepeatObject(tipos.length, $stateParams.tipo_name, getTipos, {}, tipos);
+        }
+
         function showMessage(user_heading, user_message) {
             var toast = $mdToast.tpToast();
             toast._options.locals = {
@@ -397,6 +402,10 @@
             });
         }
 
+        function handleError(response){
+            tipoErrorHandler.handleError(response, deferred);
+        }
+
         function sendPushNotification(title, text, to, tipo_name, tipo_id, perspective, mode, actions, image_url,successCallback ,errorCallback) {
             var headers = {
                 "Content-Type": "application/json",
@@ -511,7 +520,9 @@
         this.sendHttpRequest = sendHttpRequest;
         this.sendPushNotification = sendPushNotification;
         this.sendProxyHttp = sendProxyHttp;
-
+        this.handleError = handleError;
+        this.replaceListView = replaceListView;
+        
     }
 
     // Added Tipo Handle Service in Custom Module

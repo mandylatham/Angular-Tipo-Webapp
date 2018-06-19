@@ -444,7 +444,7 @@
 
         $scope.$watch(function() { return $scope.data_handle }, function(new_value, old_value) {
             _instance.tipos = $scope.data_handle.tipo_list;
-            _instance.infiniteItems = $scope.data_handle.infiniteItems;
+            _instance.infiniteItems = $scope.data_handle.infiniteItems || _instance.infiniteItems;
         }, true);
 
     }

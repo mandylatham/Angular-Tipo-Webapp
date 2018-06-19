@@ -81,8 +81,8 @@
                     width = '320px', height = '240px', chart;
                 var chartEvent = {};
 
-                scope.$watch(function() { return element.parent()[0].clientWidth; }, function(n, o) {
-                    // if (element.parent()[0].clientWidth > 0) {
+                var unbind = scope.$watch(function() { return element.parent()[0].clientWidth; }, function(n, o) {
+                    if (element.parent()[0].clientWidth > 0) {
                         var ndWrapper = element.find('div')[0],
                             ndParent = element.parent()[0],
                             parentWidth = ndParent.clientWidth,
@@ -101,7 +101,8 @@
                             height: 'auto',
                             silent: true
                         })
-                    // }
+                        unbind();
+                    }
                 })
                 // use configuration item and data specified to show chart
                 // var myChart = echarts.init(ndWrapper, 'essos');
@@ -208,6 +209,30 @@
                             option = getTimeSeriesData(option, each, index);
                         }
                     });
+                    var months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+                    option.tooltip.formatter = function (params) {
+                        var date = new Date(params[0].value[0]);
+                        var texts = date.getDate() + "-"+ months[(date.getMonth())] +"-"+ date.getFullYear();
+                        return texts;
+                    }
+                    if(option.xAxis[0].type === 'time') {
+                        option.xAxis[0].axisLabel = { 
+                            formatter : function (value, index) {
+                            var date = new Date(value);
+                            var texts = [date.getDate(), months[(date.getMonth())], date.getFullYear()];
+                            return texts.join('-');
+                            }
+                        }
+                    }
+                    if(option.yAxis[0].type === 'time') {
+                        option.yAxis[0].axisLabel = {
+                            formatter : function (value, index) {
+                            var date = new Date(value);
+                            var texts = [date.getDate(), months[(date.getMonth())], date.getFullYear()];
+                            return texts.join('-');
+                            }
+                        }
+                    }
                     return option;
                 }
 

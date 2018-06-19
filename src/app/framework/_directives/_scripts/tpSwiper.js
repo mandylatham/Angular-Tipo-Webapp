@@ -68,7 +68,7 @@
                         } else {
                             if (scope.imageArray && _.startsWith(scope.imageArray.key, "public/")) {
                                 scope.images.push("g/" + scope.imageArray.key);
-                            } else if (scope.imageArray){
+                            } else if (scope.imageArray) {
                                 scope.images.push("g/" + scope.imageArray.rootFolder + "/" + scope.imageArray.key);
                             }
                         }
@@ -79,30 +79,46 @@
                     var mySwipe = new Swiper(element[0], {
                         direction: direction,
                         effect: effect,
-                        paginationType: paginationType,
-                        paginationHide: scope.hidePagination,
-                        mousewheelControl: mousewheelControl,
                         loop: loop,
-                        // loopedSlides: scope.images.length,
+                        observer: true,
+                        observeParents: true,
                         slidesPerView: 1,
                         spaceBetween: 30,
                         // If we need pagination
-                        pagination: '.swiper-pagination',
-                        paginationClickable: true,
+                        pagination: {
+                            el: '.swiper-pagination',
+                            clickable: true,
+                            type: paginationType,
+                            hideOnClick: scope.hidePagination
+                        },
                         // Navigation arrows
-                        nextButton: '.swiper-button-next',
-                        prevButton: '.swiper-button-prev'
+                        navigation: {
+                            nextEl: '.swiper-button-next',
+                            prevEl: '.swiper-button-prev',
+                        },
+                        on: {
+                            slideChange: function() {
+                                if(scope.loop === "true") {
+                                    if(this.realIndex === 0) {
+                                        this.slideToLoop(0);
+                                    }
+                                    if(this.isBeginning && this.realIndex === scope.images.length - 1) {
+                                        this.slideToLoop(scope.images.length - 1)
+                                    }
+                                }
+                            },
+                        }
                     });
                 }
 
-                element[0].addEventListener("click",function(e){
-                  e.stopPropagation();
+                element[0].addEventListener("click", function(e) {
+                    e.stopPropagation();
                 })
 
                 scope.resize = function() {
-                    return $timeout(function() {
-                        $window.dispatchEvent(new Event("resize"));
-                    }, 1000);
+                    // return $timeout(function() {
+                    //     $window.dispatchEvent(new Event("resize"));
+                    // }, 0);
                 }
                 init();
                 scope.resize();
