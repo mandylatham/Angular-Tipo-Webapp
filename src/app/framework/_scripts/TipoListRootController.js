@@ -354,6 +354,7 @@
             tipoHandle.purgeTipo(tipo_name).then(function() {
                 _instance.infiniteItems.tipos = [];
                 _instance.infiniteItems.page = 0;
+                _instance.infiniteItems.serverResultHandler = serverResultHandler;
                 _instance.infiniteItems.fetchMoreItems_("", 1, "refresh");
                 tipoRouter.endStateChange();
             });
