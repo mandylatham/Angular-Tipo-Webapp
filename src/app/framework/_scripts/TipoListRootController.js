@@ -247,6 +247,9 @@
             tipo.selected = !tipo.selected;
             var function_name = $stateParams.tipo_name + "_OnClick";
             var res = false;
+            $scope.data_handle.bulkedit = _instance.bulkedit;
+            $scope.data_handle.singleedit = _instance.singleedit;
+            $scope.data_handle.bulkupdate = _instance.bulkupdate;
             if (typeof tipoCustomJavascript[function_name] === 'function') {
                 $scope.data_handle.tipo_list = _instance.tipos;
                 $scope.data_handle.selected_tipo = tipo;
