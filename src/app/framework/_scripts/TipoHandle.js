@@ -403,7 +403,7 @@
         }
 
         function handleError(response){
-            tipoErrorHandler.handleError(response, deferred);
+            tipoErrorHandler.handleError(response);
         }
 
         function sendPushNotification(title, text, to, tipo_name, tipo_id, perspective, mode, actions, image_url,successCallback ,errorCallback) {
