@@ -28,6 +28,7 @@
 
     _instance.toPerspective = function(name) {
       var params;
+      $rootScope.currentPerspective = name;
       if (name !== 'logout') {
         if(name !== 'home'){
           params = {perspective: name};

@@ -12,7 +12,7 @@
         <md-tooltip md-direction="bottom">{{each.name}}</md-tooltip>
         <md-icon>{{each.icon}}</md-icon>
       </md-button>
-      <hr ng-if="header.currentPerspective === each.perspective" style="height: 3px; margin: 0; background-color: white">
+      <hr ng-if="currentPerspective === each.perspective" style="height: 3px; margin: 0; background-color: white">
     </span>
   </div>
 </md-toolbar>
