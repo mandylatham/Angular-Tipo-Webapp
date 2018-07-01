@@ -72,7 +72,8 @@
 			<!-- <span>************4242</span> -->
 			<span ng-show="controller.tipo.credit_card">************{{controller.tipo.credit_card}}</span>
 			<span ng-hide="controller.tipo.credit_card"> N/A </span>
-			<md-button class="md-primary md-raised padding0" ng-click="controller.showCreditCard('updateCard')" >Update Card Details</md-button> 
+			<md-button ng-if="controller.tipo.subscription_status !== 'canceled'" class="md-primary md-raised padding0" ng-click="controller.showCreditCard('updateCard')" >Update Card Details</md-button> 
+			<md-button ng-if="controller.tipo.subscription_status === 'canceled'" class="md-primary md-raised padding0" ng-click="controller.showCreditCard('resubscribe')" >Re-Subscribe</md-button>
 			<md-button ng-if="!controller.tipo.coupon && couponInvalid" class="md-primary md-raised padding0" md-theme="reverse" ng-click="controller.addPromoCode()" >Add Promo Code</md-button>
 			<md-button ng-if="controller.tipo.coupon && !couponInvalid" ng-disabled="true" class="md-primary md-raised padding0" md-colors="{background: 'accent-500'}" md-theme="reverse"> <span ng-if="controller.tipo.coupon.percent_off">{{controller.tipo.coupon.percent_off}}% OFF</span> <span ng-if="controller.tipo.coupon.amount_off"> {{controller.tipo.coupon.currency}} {{ controller.getDiscountAmount(controller.tipo.coupon.amount_off) }} OFF </span> Applied</md-button>
 		</div>

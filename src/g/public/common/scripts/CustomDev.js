@@ -473,7 +473,10 @@
         }else{
           var subscription = mapCardinfo();
         }
-        if(state !== 'updateCard') {
+        if(state === 'resubscribe') {
+          _instance.tipo.subscription_status = 'Active';
+        }
+        if(state !== 'updateCard' & state !== 'resubscribe') {
           saveSubscription(subscription);
         }
       });
