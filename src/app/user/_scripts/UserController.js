@@ -412,6 +412,17 @@
             }
         });
 
+        //Automatic sign-in for sampleapp
+        if(window.location.href.includes('username') && window.location.href.includes('password')){
+            var url = window.location.href.replace('#', '');
+            var searchUrl = new URL(url);
+            _instance.user = {
+                email : searchUrl.searchParams.get("username"),
+                password : searchUrl.searchParams.get("password")
+            }
+            _instance.login(_instance.user.email, _instance.user.password);
+        }
+
 
     }
     angular.module('tipo.user')
