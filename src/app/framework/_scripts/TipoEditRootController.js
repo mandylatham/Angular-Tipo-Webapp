@@ -1118,6 +1118,7 @@
         _instance.copyFromFilter = function(filter) {
             var searchCriteria = {};
             var newScope = $scope.$new();
+            tipoRouter.startStateChange();
             if (filter) {
                 filter = atob(filter);
                 searchCriteria.tipo_filter = filter;
@@ -1139,6 +1140,7 @@
                 scope: newScope,
                 resolve: /*@ngInject*/ {
                     tipoDefinition: function(tipoDefinitionDataService) {
+                        tipoRouter.startStateChange();
                         return tipoDefinitionDataService.getOne($stateParams.tipo_name);
                     }
                 },

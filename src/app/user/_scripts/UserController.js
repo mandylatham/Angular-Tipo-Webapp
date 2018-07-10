@@ -15,6 +15,7 @@
         vcRecaptchaService,
         $state,
         $stateParams,
+        $timeout,
         $mdToast,
         tipoHandle,
         $scope,
@@ -34,6 +35,7 @@
         $scope.cardToken;
         $scope.host = "https://" + $rootScope.only_cdn_host + "app/d/tipotapp/";
         $rootScope.appLoaded = true;
+    
         var appMetadata = metadataService.applicationMetadata;
         var appMetadata = _.merge(_.get(appMetadata, "TipoApp"), _.get(appMetadata, "TipoConfiguration"));
         var function_name;
@@ -45,6 +47,18 @@
             { template_name: "reset_password_template", default_template: "user/_views/reset-password.tpl.html" },
             { template_name: "new_password_template", default_template: "user/_views/new-password-required.tpl.html" }
         ];
+
+        var reindexInterval = $timeout(function() {
+            window.location.reload(true);
+        },30000);
+        
+        if(appMetadata.reindex_status === 'required' || appMetadata.reindex_status === 'inprogress') {
+            $rootScope.reindexStatus = true;
+        } else {
+            $rootScope.reindexStatus = false;
+            $timeout.cancel(reindexInterval);
+        }
+        
 
         function fetchAllTemplatesAsync() {
             _.each(templates, function(each) {
@@ -393,6 +407,7 @@
 
         _instance.submitSurvey = function() {
             var data = {category: _instance.category, company_size: _instance.company_size, user: _instance.userAccount.email };
+            tipoRouter.startStateChange();
             tipoHandle.createTipo("TipoSurveyResponse", data).then(function(){
                 tipoRouter.to("verifyEmail");
             })
@@ -411,6 +426,17 @@
                 $mdToast.show(toast);
             }
         });
+
+        //Automatic sign-in for sampleapp
+        if(window.location.href.includes('username') && window.location.href.includes('password')){
+            var url = window.location.href.replace('#', '');
+            var searchUrl = new URL(url);
+            _instance.user = {
+                email : searchUrl.searchParams.get("username"),
+                password : searchUrl.searchParams.get("password")
+            }
+            _instance.login(_instance.user.email, _instance.user.password);
+        }
 
 
     }

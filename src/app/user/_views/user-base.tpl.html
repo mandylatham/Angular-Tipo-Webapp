@@ -1,3 +1,7 @@
 <div ng-controller="UserController as controller">
-	<div ui-view="content"></div>
+	<div ng-if="!reindexStatus" ui-view="content"></div>
+	<div ng-if="reindexStatus" class="text-center loader-area">
+        <md-progress-circular class="md-primary" md-diameter="90" style="margin: 0 auto"></md-progress-circular>
+        <h1>Preparing your App...!</h1>
+    </div>
 </div>

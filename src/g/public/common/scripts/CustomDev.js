@@ -377,6 +377,15 @@
     // getBillingCycles();
     function selectPlan(plan){
       // Code to block downgrades
+      if(_instance.tipo.plan.includes("Enterprise")) {
+        $mdDialog.show(
+          $mdDialog.alert()
+            .clickOutsideToClose(true)
+            .title('You cannot downgrade from an Enterprise Plan')
+            .ok('OK')
+        );
+        return;
+      }
       if (plan.buttonText === "Cannot downgrade plan") {
         return;
       }
@@ -464,7 +473,10 @@
         }else{
           var subscription = mapCardinfo();
         }
-        if(state !== 'updateCard') {
+        if(state === 'resubscribe') {
+          _instance.tipo.subscription_status = 'Active';
+        }
+        if(state !== 'updateCard' & state !== 'resubscribe') {
           saveSubscription(subscription);
         }
       });
