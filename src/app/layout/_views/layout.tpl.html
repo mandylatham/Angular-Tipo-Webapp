@@ -4,7 +4,11 @@
     <div tp-include="layout/_views/navigation.tpl.html"></div>
     <md-content md-scroll-y flex layout="column" id="inf-wrapper" >
       <tp:state-change-indicator show="main.routing.isStateChanging()"/>
-      <div ng-if="!main.routing.isStateChanging()" id="content" flex="noshrink" layout="column" ui-view="content"></div>
+      <div ng-if="!main.routing.isStateChanging() && !reindexStatus" id="content" flex="noshrink" layout="column" ui-view="content"></div>
+      <div ng-if="reindexStatus" class="text-center loader-area">
+        <md-progress-circular class="md-primary" md-diameter="90" style="margin: 0 auto"></md-progress-circular>
+        <h1>Preparing your App...!</h1>
+      </div>
       <!-- <div ng-if="showSubscribeNow" class="subscribe-now" ng-click="openCreditCard()">START TRIAL NOW!</div> -->
       <md-button id="intercom-widget" ng-if="!$mdMedia('xs') && showIntercom" class="md-fab intercom-messenger">
 					<md-icon>chat</md-icon>

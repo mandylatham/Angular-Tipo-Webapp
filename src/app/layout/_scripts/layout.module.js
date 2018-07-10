@@ -71,11 +71,23 @@
                     }
                 }
             },
-            controller: /*@ngInject*/ function($scope, $rootScope, tipoHandle, $templateCache, $http, tipoRouter, $mdDialog, userMetadata, tipoCustomJavascript, $mdMedia) {
+            controller: /*@ngInject*/ function($scope, $rootScope, tipoHandle, $templateCache, $http, tipoRouter, $mdDialog, userMetadata, tipoCustomJavascript, $mdMedia, $timeout, $state) {
                 $rootScope.$mdMedia = $mdMedia;
                 $rootScope.showSubscribeNow = (userMetadata.stripe_subscription_id === null) ? true : false;
                 tipoHandle.setMeta();
                 $rootScope.appLoaded = true;
+
+                var reindexInterval = $timeout(function() {
+                    window.location.reload(true);
+                },30000);
+                
+                if(tipoHandle.application_meta.TipoApp.reindex_status === 'required' || tipoHandle.application_meta.TipoApp.reindex_status === 'inprogress') {
+                    $rootScope.reindexStatus = true;
+                } else {
+                    $rootScope.reindexStatus = false;
+                    $timeout.cancel(reindexInterval);
+                }
+
                 var function_name = tipoHandle.application_meta.TipoApp.application_name + "_AppInit";
                 if (typeof tipoCustomJavascript[function_name] === 'function') {
                     tipoCustomJavascript[function_name]();
