@@ -105,7 +105,7 @@
         _instance.search = function() {
             var filter = {};
             if (!_.isEmpty(_instance.searchText)) {
-                filter.tipo_filter = "(_all:(" + _instance.searchText + "*))";
+                filter.tipo_filter = "(__all:(" + _instance.searchText + "*))";
             };
             var page = 1;
             filter.page = angular.copy(page);

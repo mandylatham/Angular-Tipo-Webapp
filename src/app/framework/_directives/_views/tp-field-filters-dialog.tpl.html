@@ -16,13 +16,34 @@
     <md-dialog-content>
         <div class="md-dialog-content tp-field tp-lookup-dialog" layout="center center" layout-padding>
             <md-list ng-cloak class="fullwidth">
+                <div ng-if="tipoCustomFilters.length > 0">
+                    <div>
+                        <md-subheader class="md-no-sticky">{{filterLabel || 'Custom Filters'}}</md-subheader>
+                        <md-list-item ng-repeat="filter in tipoCustomFilters">
+                            <p> {{ filter.display_name }}</p>
+                            <md-checkbox class="md-secondary" ng-model="filter.selected" ng-click="addCustomToExpression(filter)"></md-checkbox>
+                        </md-list-item>
+                        <md-divider></md-divider>
+                    </div>
+                </div>
                 <div ng-repeat="filter in fieldFilters">
-                    <md-subheader class="md-no-sticky">{{filter.label}}</md-subheader>
-                    <md-list-item ng-repeat="value in filter.values">
-                        <p> {{ value.key }}({{value.doc_count}}) </p>
-                        <md-checkbox class="md-secondary" ng-model="value.selected" ng-click="addToExpression(value,filter)"></md-checkbox>
-                    </md-list-item>
-                    <md-divider></md-divider>
+                    <div>
+                        <md-subheader class="md-no-sticky">{{filter.label}}</md-subheader>
+                        <md-list-item ng-repeat="value in filter.values" ng-if="filter.type === 'text'">
+                            <p> {{ value.key }}({{value.doc_count}}) </p>
+                            <md-checkbox class="md-secondary" ng-model="value.selected" ng-click="addToExpression(value,filter)"></md-checkbox>
+                        </md-list-item>
+                        <md-list-item ng-if="filter.type === 'integer' && filter.min !== filter.max">
+                            <tp:range-slider ng-model="filter.range" min="filter.min" max="filter.max" class="fullwidth tp-range-slider tp-range-tooltip" ng-change="addRangeToExpression(filter)" />
+                        </md-list-item>
+                        <md-list-item ng-if="filter.type === 'date_time' && filter.min !== filter.max">
+                            <input tp:date-picker ng-model="filter.range" fieldvalue="filter.range" fp-on-setup="tipoRootController.datePostSetup(fpItem,filter.range)" fp-opts="{'mode': 'range', 'dateFormat': 'Z','enable':[{'from': filter.min - 86400000, 'to': filter.max + 86400000}]}" ng-change="addRangeToExpression(filter)">
+                        </md-list-item>
+                        <md-list-item ng-if="filter.type === 'integer' && filter.min === filter.max">
+                            All Values are {{filter.min}}
+                        </md-list-item>
+                        <md-divider></md-divider>
+                    </div>
                 </div>
         </div>
     </md-dialog-content>

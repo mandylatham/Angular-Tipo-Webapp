@@ -128,7 +128,7 @@
             var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
             // TODO: Hack - Sushil as this is supposed to work only for applications
             if (!_.isEmpty(_instance.searchText)) {
-                filter.tipo_filter = "(_all:(" + _instance.searchText + "*))";
+                filter.tipo_filter = "(__all:(" + _instance.searchText + "*))";
             };
             if (perspectiveMetadata.tipoName) {
                 if (perspectiveMetadata.tipoName !== $stateParams.tipo_name && perspectiveMetadata.tipoFilter) {
