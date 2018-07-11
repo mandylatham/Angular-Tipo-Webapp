@@ -47,7 +47,7 @@
             if (filter.selected && filterExp.length === 0) {
                 selectedCustomFilters.push(filter.display_name);
             } else if (!filter.selected && filterExp.length > 0) {
-                _.remove(selectedCustomFilters, function(o) { return o.display_name === filter.display_name })
+                _.remove(selectedCustomFilters, function(o) { return o === filter.display_name })
             }
         }
         $scope.finish = function() {
