@@ -96,6 +96,7 @@
                 var customFilters = [];
                 var tipoCustomFilters = angular.copy(scope.tipoCustomFilters);
                 if ($stateParams.filter) {
+                    scope.filterApplied = true;
                     var selectedFilters = $stateParams.filter.split('&&');
                     var fieldFilterExp = "";
                     _.each(selectedFilters, function(filter) {
