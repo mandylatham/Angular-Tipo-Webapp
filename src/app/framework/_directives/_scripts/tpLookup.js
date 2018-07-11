@@ -446,11 +446,12 @@
                     if (isarray && scope.ngModel && scope.ngModel.length > 0) {
                         searchCriteria.must_include_key = key_field;
                         searchCriteria.must_include_values = _.join(scope.ngModel, ',');
-                        searchCriteria.must_include_values = tipoManipulationService.addEscElascticReservedKeys(searchCriteria.must_include_values);
+                        searchCriteria.must_include_values = _.trim(tipoManipulationService.addEscElascticReservedKeys(searchCriteria.must_include_values));
+
                     } else if (!isarray && scope.ngModel && scope.ngModel !== "") {
                         searchCriteria.must_include_key = key_field;
                         searchCriteria.must_include_values = scope.ngModel;
-                        searchCriteria.must_include_values = tipoManipulationService.addEscElascticReservedKeys(searchCriteria.must_include_values);
+                        searchCriteria.must_include_values = _.trim(tipoManipulationService.addEscElascticReservedKeys(searchCriteria.must_include_values))
                     }
                     var function_name = $stateParams.tipo_name + '_' + fqfieldname.replace(/\./g, "_").replace(/\[\d\]/g, "") + '_BeforeLookup';
                     scope.data_handle.root = scope.root;

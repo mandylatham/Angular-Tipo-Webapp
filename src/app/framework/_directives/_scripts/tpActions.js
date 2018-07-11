@@ -181,7 +181,7 @@
                 }
 
                 scope.actions = prepareActions();
-                scope.tooltip = false;
+                scope.tooltipMob = false;
 
                 scope.openMenu = function(menuOpenFunction, event) {
                     menuOpenFunction(event);
@@ -238,7 +238,7 @@
 
                     }
                 };
-                scope.icon = "check_box";
+                scope.icon = "check_box_outline_blank";
                 scope.tooltip = "Select All";
                 scope.selectall = function() {
                     scope.selectedall = !scope.selectedall;
@@ -437,10 +437,10 @@
                 scope.$watch('mobaction.isOpen', function(newVal, oldVal) {
                     if (newVal) {
                         $timeout(function() {
-                            scope.tooltip = scope.mobaction.isOpen;
+                            scope.tooltipMob = scope.mobaction.isOpen;
                         }, 600);
                     } else {
-                        scope.tooltip = scope.mobaction.isOpen;
+                        scope.tooltipMob = scope.mobaction.isOpen;
                     }
                 }, true);
 
