@@ -179,9 +179,9 @@
                                 var selectedRange;
                                 var selectedfieldFilter = _.get(selectedfieldRangeFilters, each.fq_field_label);
                                 if (selectedfieldFilter && each.field_type === 'date_time') {
-                                    selectedRange = _.toLower(selectedfieldFilter)
+                                    selectedRange = selectedfieldFilter.join(" to ");
                                 }else if (selectedfieldFilter && each.field_type === 'integer') {
-                                    selectedRange = selectedfieldFilter.split(" TO ");
+                                    selectedRange = selectedfieldFilter;
                                 };
                                 scope.fieldFilters.push({
                                     label: each.display_name,

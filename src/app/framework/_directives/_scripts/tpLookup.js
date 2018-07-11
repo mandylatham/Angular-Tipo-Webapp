@@ -172,6 +172,7 @@
                 _instance.infiniteItems.filter = filter;
                 _instance.infiniteItems.page = page;
                 _instance.infiniteItems.tipos = tiposData;
+                _instance.tipos = tiposData;
                 var responseData = tipoRegistry.get($scope.tipo_name + '_resdata');
                 _instance.infiniteItems.numLoaded_ = responseData.count;
                 _instance.infiniteItems.maxpages = Math.ceil(responseData.count / filter.per_page);

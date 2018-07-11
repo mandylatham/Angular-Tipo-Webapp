@@ -351,25 +351,31 @@
             require: 'ngModel',
             scope: {
                 max: '=',
-                min: '='
+                min: '=',
+                ngModel: '='
             },
             restrict: 'EA',
-            link: function(scope, element, attrs, ctrl) {
-                var rangeSlider = noUiSlider.create(element[0], {
-                    start: [scope.min, scope.max],
-                    step: 1,
-                    connect: true,
-                    tooltips: [wNumb({ decimals: 0 }), wNumb({ decimals: 0 })],
-                    range: {
-                        'min': scope.min,
-                        'max': scope.max
-                    }
-                });
-                rangeSlider.on('change.one', function(values, handle, unencoded, tap, positions) {
-                    ctrl.$setViewValue(unencoded);
-                    console.log('test');
-                });
+            compile: function compile() {
+                return postLink;
             }
+        };
+
+        function postLink(scope, element, attrs, ctrl) {
+            var start = scope.ngModel || [scope.min, scope.max];
+            var rangeSlider = noUiSlider.create(element[0], {
+                start: start,
+                step: 1,
+                connect: true,
+                tooltips: [wNumb({ decimals: 0 }), wNumb({ decimals: 0 })],
+                range: {
+                    'min': scope.min,
+                    'max': scope.max
+                }
+            });
+            rangeSlider.on('change.one', function(values, handle, unencoded, tap, positions) {
+                ctrl.$setViewValue(unencoded);
+                console.log('test');
+            });
         };
     });
 

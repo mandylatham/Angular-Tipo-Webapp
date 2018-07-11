@@ -37,7 +37,7 @@
                             <tp:range-slider ng-model="filter.range" min="filter.min" max="filter.max" class="fullwidth tp-range-slider tp-range-tooltip" ng-change="addRangeToExpression(filter)" />
                         </md-list-item>
                         <md-list-item ng-if="filter.type === 'date_time' && filter.min !== filter.max">
-                            <input tp:date-picker ng-model="filter.range" fieldvalue="filter.range" fp-on-setup="tipoRootController.datePostSetup(fpItem,filter.range)" fp-opts="{'mode': 'range', 'dateFormat': 'Z','enable':[{'from': filter.min - 86400000, 'to': filter.max + 86400000}]}" ng-change="addRangeToExpression(filter)">
+                            <input tp:date-picker ng-model="filter.range" fieldvalue="filter.range" fp-on-setup="tipoRootController.datePostSetup(fpItem,filter.range)" fp-opts="{'mode': 'range', 'dateFormat': 'Z','enable':[{'from': filter.min - 86400000, 'to': filter.max + 86400000}]}" ng-change="addRangeToExpression(filter)" class="fullwidth">
                         </md-list-item>
                         <md-list-item ng-if="filter.type === 'integer' && filter.min === filter.max">
                             All Values are {{filter.min}}
