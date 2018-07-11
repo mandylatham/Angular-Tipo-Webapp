@@ -28,9 +28,9 @@
                 </div>
                 <div ng-repeat="filter in fieldFilters">
                     <div>
-                        <md-subheader class="md-no-sticky">{{filter.label}}</md-subheader>
+                        <md-subheader md-colors="{color: 'primary-700'}" class="bg-lightgray md-no-sticky">{{filter.label}}</md-subheader>
                         <md-list-item ng-repeat="value in filter.values" ng-if="filter.type === 'text'">
-                            <p> {{ value.key }}({{value.doc_count}}) </p>
+                            <p> {{ value.key }} <span md-colors="{background: 'accent-500'}" style="border-radius:50%" ><span class="filter-count">{{value.doc_count}}</span></span> </p>
                             <md-checkbox class="md-secondary" ng-model="value.selected" ng-click="addToExpression(value,filter)"></md-checkbox>
                         </md-list-item>
                         <md-list-item ng-if="filter.type === 'integer' && filter.min !== filter.max">
