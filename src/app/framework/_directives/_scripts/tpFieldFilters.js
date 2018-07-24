@@ -76,6 +76,7 @@
         tipoManipulationService,
         tipoInstanceDataService,
         tipoRouter,
+        tipoRegistry,
         $mdDialog,
         $stateParams) {
         return {
@@ -181,7 +182,7 @@
                                 var selectedfieldFilter = _.get(selectedfieldRangeFilters, each.fq_field_label);
                                 if (selectedfieldFilter && each.field_type === 'date_time') {
                                     selectedRange = selectedfieldFilter.join(" to ");
-                                }else if (selectedfieldFilter && each.field_type === 'integer') {
+                                } else if (selectedfieldFilter && each.field_type === 'integer') {
                                     selectedRange = selectedfieldFilter;
                                 };
                                 scope.fieldFilters.push({
@@ -196,10 +197,25 @@
                             } else {
                                 var buckets = _.get(results[0], each.fq_field_label + ".buckets");
                                 var selectedfieldFilter = _.get(selectedfieldFilters, each.fq_field_label);
-                                if (selectedfieldFilter) {
+                                if (selectedfieldFilter || each.field_type === 'boolean') {
+                                    var true_doc_count;
+                                    var responseData = tipoRegistry.get(tipo_name + '_resdata');
+                                    var totalRecords = responseData.count;
                                     _.each(buckets, function(bucket) {
-                                        var selected = _.includes(selectedfieldFilter, bucket.key);
-                                        bucket.selected = selected;
+                                        if (each.field_type === 'boolean') {
+                                            if (bucket.key_as_string === 'false') {
+                                                bucket.key = '!true';
+                                                true_doc_count = true_doc_count || buckets[1].doc_count
+                                                bucket.doc_count = totalRecords - true_doc_count;
+                                            } else {
+                                                bucket.key = bucket.key_as_string;
+                                                true_doc_count = bucket.doc_count;
+                                            }
+                                        };
+                                        if (selectedfieldFilter) {
+                                            var selected = _.includes(selectedfieldFilter, bucket.key);
+                                            bucket.selected = selected;
+                                        }
                                     })
                                 };
                                 scope.fieldFilters.push({
@@ -217,6 +233,8 @@
                     var query = {};
                     if (filter.field_type === 'integer' || filter.field_type === 'date_time') {
                         _.set(query, filter.fq_field_label + ".stats.field", filter.fq_field_name);
+                    } else if (filter.field_type === 'boolean') {
+                        _.set(query, filter.fq_field_label + ".terms.field", filter.fq_field_name);
                     } else {
                         _.set(query, filter.fq_field_label + ".terms.field", filter.fq_field_name + ".keyword");
                     }

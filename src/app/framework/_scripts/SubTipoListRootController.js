@@ -22,6 +22,7 @@
     _instance.tipoDefinition = subTipoDefinition;
     _instance.tipos = subTipos;
     _instance.hideActions = true;
+    _instance.activeTab = 'main';
 
     var tipo_name = subTipoDefinition.tipo_meta.tipo_name;
     var function_name = tipoHandle.application_meta.TipoApp.application_name + "_URLChange";
@@ -43,7 +44,7 @@
     // _instance.tiposWithDefinition = tiposWithDefinition;
     var perspectiveMetadata = tipoManipulationService.resolvePerspectiveMetadata();
     var filter = {};
-    var per_page = _instance.tipoDefinition.tipo_meta.default_page_size;
+    var per_page = _instance.tipoDefinition.tipo_meta.default_page_size || 10;
     filter.per_page = per_page;
     if (perspectiveMetadata.tipoFilter) {
       filter.tipo_filter = perspectiveMetadata.tipoFilter;
@@ -65,6 +66,7 @@
     _instance.infiniteItems.serverResultHandler = function(){
 
     };
+    _instance.infiniteItems.fetchMoreItems_("", 1);
 
     _instance.createNew = function(){
       tipoRouter.recordSticky();

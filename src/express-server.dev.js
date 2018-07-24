@@ -97,10 +97,11 @@ lodash.each(pathMappings, function(mapping){
     app.use(mapping.path, express.static(path.resolve(__dirname, mapping.dir)));
   }else if(mapping.url){
     if (mapping.path !== "/api") {
-      // mapping.url = "https://dev.tipotapp.com/app/d/tipotapp/santoshtestapp";
       mapping.url = "https://dev.tipotapp.com";
+      // mapping.url = "https://forwood.tipotapp.com";
       app.use(mapping.path, proxy({target: mapping.url, changeOrigin: true}));
     }else{
+      // mapping.url = "https://forwood.tipotapp.com";
       app.use(mapping.path, proxy({target: mapping.url, changeOrigin: true}));
     }
   }
