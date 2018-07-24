@@ -31,6 +31,7 @@
         _instance.listUrl = tipoHandle.listUrl(_instance.tipo_name);
         _instance.hideActions = true;
         _instance.bulkedit = true;
+        $scope.showLoader = true;
         $scope.fullscreen = true;
         $scope.data_handle = {};
         _instance.hasTipos = true;
@@ -55,6 +56,7 @@
             this.tipos = _.uniqWith(this.tipos, _.isEqual);
             _instance.tipos = this.tipos;
             if (page === 1) {
+                $scope.showLoader = false;
                 var tipo_perm = tipoRegistry.get(_instance.tipo_name + '_resdata');
                 _instance.perm = tipo_perm.perm;
                 if (tipo_perm.perm.substr(2, 1) === 0) {

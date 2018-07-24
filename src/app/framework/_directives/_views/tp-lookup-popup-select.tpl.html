@@ -30,6 +30,11 @@
       <label>&nbsp;</label>
       <input ng-model="tipoRootController.searchText" placeholder="enter search" data-ng-keyup="$event.keyCode == 13 ? tipoRootController.search() : null">
     </md-input-container>
-    <ng-include src="tipoRootController.listUrl" />
+    <div class="text-center loader-area" ng-show="showLoader">
+      <md-progress-circular hide-xs class="md-primary" md-diameter="50" style="margin: 0 auto"></md-progress-circular>
+    </div>
+    <div ng-hide="showLoader">
+      <ng-include src="tipoRootController.listUrl" />
+    </div>
   </md-dialog-content>
 </md-dialog>
