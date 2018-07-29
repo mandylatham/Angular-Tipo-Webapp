@@ -105,7 +105,7 @@
         _instance.search = function() {
             var filter = {};
             if (!_.isEmpty(_instance.searchText)) {
-                filter.tipo_filter = "(_all:(" + _instance.searchText + "*))";
+                filter.tipo_filter = "(__all:(" + _instance.searchText + "*))";
             };
             var page = 1;
             filter.page = angular.copy(page);
@@ -1118,6 +1118,7 @@
         _instance.copyFromFilter = function(filter) {
             var searchCriteria = {};
             var newScope = $scope.$new();
+            tipoRouter.startStateChange();
             if (filter) {
                 filter = atob(filter);
                 searchCriteria.tipo_filter = filter;
@@ -1139,6 +1140,7 @@
                 scope: newScope,
                 resolve: /*@ngInject*/ {
                     tipoDefinition: function(tipoDefinitionDataService) {
+                        tipoRouter.startStateChange();
                         return tipoDefinitionDataService.getOne($stateParams.tipo_name);
                     }
                 },

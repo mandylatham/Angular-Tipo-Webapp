@@ -744,7 +744,9 @@
                 var selected = false;
                 if (filterArray.indexOf(each.display_name) != -1) {
                     selected = true;
-                    expressionArray.push(each.filter_expression);
+                    if (each.filter_expression && !_.isEmpty(each.filter_expression) && !_.startsWith(each.filter_expression,"$")) {
+                        expressionArray.push(each.filter_expression);
+                    };
                 }
                 var filter = {
                     name: each.display_name,

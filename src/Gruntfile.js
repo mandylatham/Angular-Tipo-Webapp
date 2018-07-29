@@ -129,6 +129,11 @@ module.exports = function (grunt) {
         ignorePath:  /\.\.\//,
         options: {
           exclude: ['/requirejs/']
+        },
+        overrides: {
+          "nouislider":{
+            "main": "distribute/nouislider.js"
+          }
         }
       }
     },

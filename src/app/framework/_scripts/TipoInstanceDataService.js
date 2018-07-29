@@ -16,8 +16,8 @@
 
         var _instance = this;
 
-        function unwrapAndSort(collection) {
-            if (!_.isUndefined(collection.perm)) {
+        function unwrapAndSort(collection, skip) {
+            if (!_.isUndefined(collection.perm) && !skip) {
                 tipoRegistry.push({ tipo_name: collection.tipo_name + '_resdata', perm: collection.perm, return_url: collection.return_url, tab_url: collection.tab_url, message: collection.user_message, restricted_actions: collection.restricted_actions, count: collection.count, last_evaluated_key: collection.last_evaluated_key });
             };
             collection = _.filter(collection, function(each) {
@@ -272,7 +272,12 @@
 
         _instance.aggegrationData = function(tipo_name,criteria) {
             criteria.list_display = 'N';
-            return _instance.search(tipo_name, criteria);
+            criteria.cckey = metadataService.cckey;
+            var headers = {};
+            return getCollectionResource(tipo_name).getList(criteria, headers).then(function(collection){
+                return unwrapAndSort(collection, true);
+            });
+            
             // var criteria = {};
             // criteria.list_display = 'N';
             // criteria.per_page = '1000';

@@ -109,6 +109,8 @@
       $mdColorUtil.rgbaToHex($mdColors.getThemeColor('accent-A200')),
  
     ]
+    var rangeSliderStyles = '<style>.tp-range-slider.noUi-connect, .tp-range-slider .noUi-connect, .tp-range-slider .noUi-handle:before,.tp-range-slider .noUi-tooltip,.tp-range-slider.noUi-horizontal .noUi-handle-upper .noUi-tooltip:before ,.tp-range-slider.noUi-horizontal .noUi-handle-lower .noUi-tooltip:before {background:' + color[0] + '} </style>'
+    $('head').append(rangeSliderStyles);
     echarts.registerTheme('custom', {
       "color": color,
       "backgroundColor": "rgba(242,234,191,0.15)",

@@ -31,6 +31,7 @@
         _instance.listUrl = tipoHandle.listUrl(_instance.tipo_name);
         _instance.hideActions = true;
         _instance.bulkedit = true;
+        $scope.showLoader = true;
         $scope.fullscreen = true;
         $scope.data_handle = {};
         _instance.hasTipos = true;
@@ -55,6 +56,7 @@
             this.tipos = _.uniqWith(this.tipos, _.isEqual);
             _instance.tipos = this.tipos;
             if (page === 1) {
+                $scope.showLoader = false;
                 var tipo_perm = tipoRegistry.get(_instance.tipo_name + '_resdata');
                 _instance.perm = tipo_perm.perm;
                 if (tipo_perm.perm.substr(2, 1) === 0) {
@@ -99,8 +101,8 @@
                 if (!$scope.isarray) {
                     _.each(tiposData, function(tipo) {
                         tipo.selected = false;
-                        _instance.selectedTipos = [];
                     });
+                    _instance.selectedTipos = [];
                 }
                 tipoSelected.selected = !tipoSelected.selected;
                 if (tipoSelected.selected) {
@@ -160,7 +162,7 @@
             if (_.isEmpty(_instance.searchText)) {
                 delete filter.tipo_filter;
             } else {
-                filter.tipo_filter = "(_all:(" + _instance.searchText + "*))";
+                filter.tipo_filter = filter.tipo_filter ? filter.tipo_filter + " AND (__all:(" + _instance.searchText + "*))" : "(__all:(" + _instance.searchText + "*))";
             }
             var page = 1;
             filter.page = angular.copy(page);
@@ -172,6 +174,7 @@
                 _instance.infiniteItems.filter = filter;
                 _instance.infiniteItems.page = page;
                 _instance.infiniteItems.tipos = tiposData;
+                _instance.tipos = tiposData;
                 var responseData = tipoRegistry.get($scope.tipo_name + '_resdata');
                 _instance.infiniteItems.numLoaded_ = responseData.count;
                 _instance.infiniteItems.maxpages = Math.ceil(responseData.count / filter.per_page);
@@ -445,11 +448,12 @@
                     if (isarray && scope.ngModel && scope.ngModel.length > 0) {
                         searchCriteria.must_include_key = key_field;
                         searchCriteria.must_include_values = _.join(scope.ngModel, ',');
-                        searchCriteria.must_include_values = tipoManipulationService.addEscElascticReservedKeys(searchCriteria.must_include_values);
+                        searchCriteria.must_include_values = _.trim(tipoManipulationService.addEscElascticReservedKeys(searchCriteria.must_include_values));
+
                     } else if (!isarray && scope.ngModel && scope.ngModel !== "") {
                         searchCriteria.must_include_key = key_field;
                         searchCriteria.must_include_values = scope.ngModel;
-                        searchCriteria.must_include_values = tipoManipulationService.addEscElascticReservedKeys(searchCriteria.must_include_values);
+                        searchCriteria.must_include_values = _.trim(tipoManipulationService.addEscElascticReservedKeys(searchCriteria.must_include_values))
                     }
                     var function_name = $stateParams.tipo_name + '_' + fqfieldname.replace(/\./g, "_").replace(/\[\d\]/g, "") + '_BeforeLookup';
                     scope.data_handle.root = scope.root;
