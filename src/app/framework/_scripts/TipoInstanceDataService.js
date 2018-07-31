@@ -55,6 +55,7 @@
         }
 
         function getDocumentResource(tipo_name, id) {
+            id = _.toString(id);
             var data = getCollectionResource(tipo_name).one(id)
             return getCollectionResource(tipo_name).one(id);
         }
