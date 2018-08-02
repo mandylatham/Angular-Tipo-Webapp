@@ -34,7 +34,7 @@
         var layoutState = {
             name: 'layout',
             abstract: true,
-            url: '?perspective&mobile_auth&hideheader',
+            url: '?perspective&mobile_auth&hideheader&tipo_refresh',
             parent: 'root',
             resolve: /*@ngInject*/ {
                 userMetadata: function(metadataService, $stateParams, securityContextService, $rootScope, $q) {
@@ -71,7 +71,7 @@
                     }
                 }
             },
-            controller: /*@ngInject*/ function($scope, $rootScope, tipoHandle, $templateCache, $http, tipoRouter, $mdDialog, userMetadata, tipoCustomJavascript, $mdMedia, $timeout, $state) {
+            controller: /*@ngInject*/ function($scope, $rootScope, tipoHandle, $templateCache, $http, tipoRouter, $mdDialog, userMetadata, tipoCustomJavascript, $mdMedia, $timeout, $state, $stateParams, $location) {
                 $rootScope.$mdMedia = $mdMedia;
                 $rootScope.showSubscribeNow = (userMetadata.stripe_subscription_id === null) ? true : false;
                 tipoHandle.setMeta();
@@ -80,6 +80,12 @@
                 var reindexInterval = $timeout(function() {
                     window.location.reload(true);
                 },30000);
+
+                if($stateParams.tipo_refresh) {
+                    $stateParams.tipo_refresh = false;
+                    $location.search('tipo_refresh', null);
+                    window.location.reload(true);
+                }
                 
                 if(tipoHandle.application_meta.TipoApp.reindex_status === 'required' || tipoHandle.application_meta.TipoApp.reindex_status === 'inprogress') {
                     $rootScope.reindexStatus = true;
