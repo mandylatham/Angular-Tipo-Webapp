@@ -80,12 +80,15 @@
                 var reindexInterval = $timeout(function() {
                     window.location.reload(true);
                 },30000);
-
+                var config = {};
                 if($stateParams.tipo_refresh) {
-                    $stateParams.tipo_refresh = false;
                     $location.search('tipo_refresh', null);
-                    window.location.reload(true);
-                }
+                    config = {headers:  {
+                        'Pragma': 'no-cache',
+                      }
+                  };
+                    // window.location.reload(true);
+                } 
                 
                 if(tipoHandle.application_meta.TipoApp.reindex_status === 'required' || tipoHandle.application_meta.TipoApp.reindex_status === 'inprogress') {
                     $rootScope.reindexStatus = true;
@@ -103,17 +106,14 @@
                     var filter = {};
                     filter.tipo_filter = "(tipo_meta.pre_load: true) AND ((_exists_:role AND role: " + tipoHandle.user_meta.role + ") OR (!_exists_:role)) ";
                     var templates = ["updateUrl", "createUrl", "detailUrl", "listUrl"];
-                    // var config = {headers:  {
-                    //                   'Pragma': 'no-cache',
-                    //                 }
-                    //             };
+
                     tipoHandle.getTipos("TipoDefinition", filter).then(function(tipos) {
                         setTimeout(function() {
                             _.each(tipos, function(tipo) {
                                 _.each(templates, function(template) {
                                     if (S(tipo.tipo_id).contains(tipoHandle.user_meta.role) || !S(tipo.tipo_id).contains("role")) {
                                         var url = tipoHandle[template](tipo.tipo_id);
-                                        $http.get(url).then(function(tpl) {
+                                        $http.get(url,config).then(function(tpl) {
                                             $templateCache.put(url, tpl.data);
                                             $templateCache.put(url + "?version_stamp=" + $rootScope.version_stamp, tpl.data);
                                         });
