@@ -80,15 +80,6 @@
                 var reindexInterval = $timeout(function() {
                     window.location.reload(true);
                 },30000);
-                var config = {};
-                if($stateParams.tipo_refresh) {
-                    $location.search('tipo_refresh', null);
-                    config = {headers:  {
-                        'Pragma': 'no-cache',
-                      }
-                  };
-                    // window.location.reload(true);
-                } 
                 
                 if(tipoHandle.application_meta.TipoApp.reindex_status === 'required' || tipoHandle.application_meta.TipoApp.reindex_status === 'inprogress') {
                     $rootScope.reindexStatus = true;
@@ -113,7 +104,7 @@
                                 _.each(templates, function(template) {
                                     if (S(tipo.tipo_id).contains(tipoHandle.user_meta.role) || !S(tipo.tipo_id).contains("role")) {
                                         var url = tipoHandle[template](tipo.tipo_id);
-                                        $http.get(url,config).then(function(tpl) {
+                                        $http.get(url).then(function(tpl) {
                                             $templateCache.put(url, tpl.data);
                                             $templateCache.put(url + "?version_stamp=" + $rootScope.version_stamp, tpl.data);
                                         });
