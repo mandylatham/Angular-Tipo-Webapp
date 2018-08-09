@@ -130,6 +130,20 @@
       }
     };
 
+    var userInvitation = {
+      name: 'userInvitation',
+      url: '/user-invitation',
+      parent: baseState,
+      views: /*@ngInject*/ {
+        'content@userBase': {
+          templateProvider: function(metadataService){
+            return metadataService.resolveAppCustomTemplates('user_invitation_template','user/_views/user-invitation.tpl.html');
+          }
+          // templateUrl: 'user/_views/forgot-password.tpl.html'
+        }
+      }
+    };
+
     $stateProvider
       .state(baseState)
       .state(loginState)
@@ -138,6 +152,7 @@
       .state(verifyEmailState)
       .state(forgotPasswordState)
       .state(resetPasswordState)
+      .state(userInvitation)
       .state(newPasswordRequiredState);
   }
 
@@ -148,7 +163,7 @@
   var module = angular.module('tipo.user', []);
   module.run(function ($rootScope) {
     $rootScope.$on('$stateChangeStart', function(event, to, toParams, from, fromParams) {
-      if (['registration', 'login', 'forgotPassword', 'resetPassword', 'newPasswordRequired', 'surveyResponse'].indexOf(to.name) != -1) {
+      if (['registration', 'login', 'forgotPassword', 'resetPassword', 'newPasswordRequired', 'surveyResponse', 'userInvitation'].indexOf(to.name) != -1) {
         return; // no need to save auxiliary states
       }
 
