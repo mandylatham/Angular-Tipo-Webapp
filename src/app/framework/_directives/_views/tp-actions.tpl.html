@@ -54,7 +54,6 @@
             </md-fab-actions>
         </md-fab-speed-dial>
         <md-button hide-gt-xs aria-label="menu" ng-if="actions.length === 1" ng-click="performAction(actions[0])" md-theme="reverse" class="md-primary action-item-xs">
-            <md-tooltip md-direction="top" md-visible="tooltipMob">{{actions[0].label}}</md-tooltip>
             <md-icon ng-if="actions[0].icon">{{actions[0].icon}}</md-icon>
             <md-icon ng-if="!actions[0].icon">drag_indicator</md-icon>
             <div>{{actions[0].label | limitTo: 6}}</div>
@@ -70,26 +69,26 @@
                 </md-button>
             </md-fab-trigger>
             <md-fab-actions ng-if="!edit">
-                <md-button md-theme="reverse" class="md-fab md-primary md-raised md-mini" id="{{action.name}}_action" ng-repeat="action in actions" ng-click="performAction(action)">
+                <md-button md-theme="reverse" class="md-fab md-primary md-raised" id="{{action.name}}_action" ng-repeat="action in actions" ng-click="performAction(action)">
                     <md-icon ng-if="action.icon">{{action.icon}}</md-icon>
                     <md-icon ng-if="!action.icon">more_vert</md-icon>
                     <md-tooltip md-direction="right" md-visible="tooltipMob">{{action.label}}</md-tooltip>
                 </md-button>
             </md-fab-actions>
             <md-fab-actions ng-if="edit">
-                <md-button ng-click="selectall()" class="md-fab md-mini md-primary">
+                <md-button ng-click="selectall()" class="md-fab md-primary">
                     <md-tooltip md-direction="top">{{tooltip}}</md-tooltip>
                     <md-icon>{{icon}}</md-icon>
                 </md-button>
             </md-fab-actions>
             <md-fab-actions ng-if="edit">
-                <md-button md-theme="reverse" ng-click="performAction(selectedAction)" class="md-fab md-mini md-primary">
+                <md-button md-theme="reverse" ng-click="performAction(selectedAction)" class="md-fab md-primary">
                     <md-tooltip md-direction="top">Process</md-tooltip>
                     <md-icon>play_arrow</md-icon>
                 </md-button>
             </md-fab-actions>
             <md-fab-actions ng-if="edit">
-                <md-button ng-click="updateBulkEdit(selectedAction)" class="md-fab md-mini md-primary">
+                <md-button ng-click="updateBulkEdit(selectedAction)" class="md-fab md-primary">
                     <md-tooltip md-direction="top">Cancel</md-tooltip>
                     <md-icon>close</md-icon>
                 </md-button>
