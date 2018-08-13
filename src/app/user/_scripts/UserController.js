@@ -348,18 +348,18 @@
             }, raiseError);
         };
 
-        _instance.completePasswordChallenge = function() {
+        _instance.completePasswordChallenge = function(newPassword) {
             markProgress();
             if ($stateParams.deferredPassword) {
                 var deferredComplete = $q.defer();
-                var resolvedPassword = { newPassword: user.newPassword, deferredComplete: deferredComplete };
+                var resolvedPassword = { newPassword: newPassword, deferredComplete: deferredComplete };
                 $stateParams.deferredPassword.resolve(resolvedPassword);
                 deferredComplete.promise.then(function(result) {
                     _instance.toast = {
                         header: 'Password changed',
                         body: 'Your password has been changed successfully'
                     };
-                    _instance.login(result.userAttributes.email, user.newPassword);
+                    _instance.login(result.userAttributes.email, newPassword);
                     function_name = appMetadata.application_name + "_PasswordChange";
                     callCustomJS();
                 }, function(err) {
