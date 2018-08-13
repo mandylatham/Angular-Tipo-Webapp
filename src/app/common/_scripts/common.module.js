@@ -115,7 +115,8 @@
       "color": color,
       "backgroundColor": "rgba(242,234,191,0.15)",
       "textStyle": {
-          "fontSize" : 10,
+          "fontSize" : 12,
+          "fontWeight": 'bold',
           "lineHeight" : 0.5
       },
       "title": {
