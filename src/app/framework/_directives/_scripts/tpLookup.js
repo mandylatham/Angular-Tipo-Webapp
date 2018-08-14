@@ -346,7 +346,13 @@
                         // };
                     }
                 }
-                initmodel();
+                if(!isarray) {
+                    if(scope.fieldlabel) {
+                        initmodel();
+                    }
+                } else {
+                    initmodel();
+                }
 
                 scope.afterlookupEvent = function() {
                     var function_name = $stateParams.tipo_name + '_' + fqfieldname.replace(/\./g, "_").replace(/\[\d\]/g, "") + '_AfterLookup';
