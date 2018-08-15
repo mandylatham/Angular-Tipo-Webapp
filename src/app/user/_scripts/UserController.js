@@ -61,7 +61,7 @@
             $scope.mobileLink = 'tipotapp://+appname=' + encodeURIComponent(appname) +'&app_url=' + encodeURIComponent(appurl)+'?username='+ encodeURIComponent(queryParams.email) + '&password='+ encodeURIComponent(queryParams.password) ;
             $scope.desktopLink = appurl+'?username='+ queryParams.email + '&password='+ queryParams.password ;
             $scope.playstore = queryParams.playstore ? queryParams.playstore : 'https://play.google.com/store/apps/details?id=com.tipotapp.tipotapp';
-            $scope.appstore = queryParams.appstore ? queryParams.appstore : 'http://itunes.com/apps/tipotapp/tipotapp';
+            $scope.appstore = queryParams.appstore ? queryParams.appstore : 'https://itunes.apple.com/au/app/tipotapp/id1347883313';
         }
 
         if(appMetadata.reindex_status === 'required' || appMetadata.reindex_status === 'inprogress') {
