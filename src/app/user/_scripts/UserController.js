@@ -57,8 +57,9 @@
         var queryParams = $location.search();
         if(queryParams.userInvitation) {
             var appname = appMetadata.app_name;
+            var defaultValue = queryParams.default == 'true' ? true : false ;
             var appurl = $scope.host + '' + appMetadata.application_name +'/#/login';
-            $scope.mobileLink = 'tipotapp://+appname=' + encodeURIComponent(appname) +'&app_url=' + encodeURIComponent(appurl)+'?username='+ encodeURIComponent(queryParams.email) + '&password='+ encodeURIComponent(queryParams.password) ;
+            $scope.mobileLink = 'tipotapp://+appname=' + encodeURIComponent(appname) +'&app_url=' + encodeURIComponent(appurl)+'?&username='+ encodeURIComponent(queryParams.email) + '&password='+ encodeURIComponent(queryParams.password) + '&default=' + defaultValue;
             $scope.desktopLink = appurl+'?username='+ queryParams.email + '&password='+ queryParams.password ;
             $scope.playstore = queryParams.playstore ? queryParams.playstore : 'https://play.google.com/store/apps/details?id=com.tipotapp.tipotapp';
             $scope.appstore = queryParams.appstore ? queryParams.appstore : 'https://itunes.apple.com/au/app/tipotapp/id1347883313';
