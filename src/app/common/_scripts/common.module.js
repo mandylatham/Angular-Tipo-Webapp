@@ -119,6 +119,12 @@
           "fontWeight": 'bold',
           "lineHeight" : 0.5
       },
+      "grid": {
+        "left": "3%",
+        "right": "4%",
+        "bottom": "3%",
+        "containLabel": true
+    },
       "title": {
           "textStyle": {
               "color": $mdColorUtil.rgbaToHex($mdColors.getThemeColor('primary-500'))
