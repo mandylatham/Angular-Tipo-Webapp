@@ -242,7 +242,8 @@
                             var date = new Date(value);
                             var texts = [date.getDate(), months[(date.getMonth())], date.getFullYear()];
                             return texts.join('-');
-                            }
+                            },
+                            rotate: 60
                         }
                     }
                     if(option.yAxis[0].type === 'time') {
@@ -251,7 +252,8 @@
                             var date = new Date(value);
                             var texts = [date.getDate(), months[(date.getMonth())], date.getFullYear()];
                             return texts.join('-');
-                            }
+                            },
+                            rotate: 60
                         }
                     }
                     return option;
@@ -276,8 +278,14 @@
                     _.each(dataValues, function(each, index_) {
                         if(option.xAxis[index].type == 'category') {
                             option.xAxis[index].data.push(each.key_as_string || each.key);
+                            option.xAxis[index].axisLabel = {
+                                rotate: 60
+                            }
                         } else if(option.yAxis[index].type == 'category') {
                             option.yAxis[index].data.push(each.key_as_string || each.key);
+                            option.yAxis[index].axisLabel = {
+                                rotate: 60
+                            }
                         }
                         _.each(option.series, function(each_value) {
                             _.forIn(each, function(value, key){
