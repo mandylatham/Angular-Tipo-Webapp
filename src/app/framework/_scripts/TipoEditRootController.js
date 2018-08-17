@@ -140,6 +140,7 @@
         $mdMedia,
         tipoCache,
         $rootScope,
+        $location,
         $state,
         $window,
         $sce) {
@@ -152,6 +153,7 @@
         if (typeof tipoCustomJavascript[function_name] === 'function') {
             tipoCustomJavascript[function_name]();
         }
+
         tipoHandle.setPerspective();
         _instance.tipo_handle = tipoHandle;
         _instance.hide_actions = $scope.hide_actions;
@@ -1250,6 +1252,11 @@
             resetbulkedits();
             $mdDialog.cancel(_instance.tipo);
         };
+
+        if($stateParams.tipo_refresh) {
+            _instance.refresh();
+            $location.search('tipo_refresh', null);
+        } 
 
         $scope.$watch(function() { return $scope.data_handle }, function(new_value, old_value) {
             if (new_value && $scope.data_handle.tipo) {

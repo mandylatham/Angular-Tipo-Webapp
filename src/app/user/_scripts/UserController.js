@@ -19,6 +19,7 @@
         $mdToast,
         tipoHandle,
         $scope,
+        $location,
         $http,
         $q,
         $rootScope) {
@@ -33,11 +34,11 @@
         $scope.expiryDate.setMonth($scope.date.getMonth() + 1);
         $scope.creditCard;
         $scope.cardToken;
-        $scope.host = "https://" + $rootScope.only_cdn_host + "app/d/tipotapp/";
         $rootScope.appLoaded = true;
-    
+        
         var appMetadata = metadataService.applicationMetadata;
         var appMetadata = _.merge(_.get(appMetadata, "TipoApp"), _.get(appMetadata, "TipoConfiguration"));
+        $scope.host = "https://" + $rootScope.only_cdn_host + "app/d/" + appMetadata.application_owner_account_name +"/";
         var function_name;
         _instance.header_template = metadataService.resolveAppCustomUrls("login_header_template", "user/_views/header.tpl.html")
         var user = {};
@@ -52,6 +53,18 @@
             window.location.reload(true);
         },30000);
         
+        //User Invitation
+        var queryParams = $location.search();
+        if(queryParams.userInvitation) {
+            var appname = appMetadata.app_name;
+            var defaultValue = queryParams.default == 'true' ? true : false ;
+            var appurl = $scope.host + '' + appMetadata.application_name +'/#/login';
+            $scope.mobileLink = 'tipotapp://+appname=' + encodeURIComponent(appname) +'&app_url=' + encodeURIComponent(appurl)+'?&username='+ encodeURIComponent(queryParams.email) + '&password='+ encodeURIComponent(queryParams.password) + '&default=' + defaultValue;
+            $scope.desktopLink = appurl+'?username='+ queryParams.email + '&password='+ queryParams.password ;
+            $scope.playstore = queryParams.playstore ? queryParams.playstore : 'https://play.google.com/store/apps/details?id=com.tipotapp.tipotapp';
+            $scope.appstore = queryParams.appstore ? queryParams.appstore : 'https://itunes.apple.com/au/app/tipotapp/id1347883313';
+        }
+
         if(appMetadata.reindex_status === 'required' || appMetadata.reindex_status === 'inprogress') {
             $rootScope.reindexStatus = true;
         } else {
@@ -336,18 +349,18 @@
             }, raiseError);
         };
 
-        _instance.completePasswordChallenge = function() {
+        _instance.completePasswordChallenge = function(newPassword) {
             markProgress();
             if ($stateParams.deferredPassword) {
                 var deferredComplete = $q.defer();
-                var resolvedPassword = { newPassword: user.newPassword, deferredComplete: deferredComplete };
+                var resolvedPassword = { newPassword: newPassword, deferredComplete: deferredComplete };
                 $stateParams.deferredPassword.resolve(resolvedPassword);
                 deferredComplete.promise.then(function(result) {
                     _instance.toast = {
                         header: 'Password changed',
                         body: 'Your password has been changed successfully'
                     };
-                    _instance.login(result.userAttributes.email, user.newPassword);
+                    _instance.login(result.userAttributes.email, newPassword);
                     function_name = appMetadata.application_name + "_PasswordChange";
                     callCustomJS();
                 }, function(err) {

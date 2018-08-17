@@ -53,7 +53,7 @@
         $scope.finish = function() {
             var exp = "";
             _.each(filterObject, function(each, key) {
-                exp = ((each.length > 0) && (exp + key + ":(" + _.join(each, " OR ") + ") AND ") || exp);
+                exp = ((each.length > 0) && (exp + key + ".keyword:(" + _.join(each, " OR ") + ") AND ") || exp);
             });
             _.each(filterRangeObject, function(each, key) {
                 exp = ((each.length > 0) && (exp + key + ":[" + _.join(each, " TO ") + "] AND ") || exp);
@@ -102,7 +102,9 @@
                     var fieldFilterExp = "";
                     _.each(selectedFilters, function(filter) {
                         if (S(filter).contains(":")) {
-                            fieldFilterExp = filter;
+                            var keyword = filter;
+                            var key = keyword.slice(keyword.indexOf('.'),keyword.indexOf(':'));
+                            fieldFilterExp = filter.replace(new RegExp(key,"g"), '');
                         } else {
                             customFilters.push(filter);
                         }

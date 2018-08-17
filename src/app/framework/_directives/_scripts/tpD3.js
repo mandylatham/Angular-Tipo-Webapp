@@ -18,6 +18,8 @@
                 x_label: "=",
                 y_label: "=",
                 agrregation: "=",
+                advancedAggrequest: "=",
+                aggsfilter: "=",
                 data: "=",
                 stack: "@"
             },
@@ -29,10 +31,19 @@
                 scope.field_label = {};
                 var filter = {};
                 var myChart;
-                _.set(filter, "tipo_aggs", getElasticQuery(graph.bucket, {}, "bucket"));
-                if (!_.isEmpty(scope.splitChart.field_name)) {
-                    _.set(filter, "tipo_aggs." + _.get(scope.field_label, "bucket") + ".aggs", getElasticQuery(scope.splitChart, {}, "splitChart"));
-                };
+                _.set(filter, "tipo_filter", scope.aggsfilter);
+
+                //Temporary solution for count
+                if(scope.advancedAggrequest) {
+                    _.set(filter, "tipo_aggs", scope.advancedAggrequest);
+                    var field_label = graph.bucket.field_name.replace(/\./g, "_");
+                    _.set(scope.field_label, "bucket", field_label);
+                } else {
+                    _.set(filter, "tipo_aggs", getElasticQuery(graph.bucket, {}, "bucket"));
+                    if (!_.isEmpty(scope.splitChart.field_name)) {
+                        _.set(filter, "tipo_aggs." + _.get(scope.field_label, "bucket") + ".aggs", getElasticQuery(scope.splitChart, {}, "splitChart"));
+                    };
+                }
                 tipoInstanceDataService.aggegrationData(scope.tipoName, filter).then(function(results) {
                     console.log("results");
                     console.log(results);
@@ -49,7 +60,11 @@
                         calculable: true,
                     };
                     _.each(results, function(result, index) {
-                        var dataValues = _.get(result, _.get(scope.field_label, "bucket") + ".buckets");
+                        if(scope.advancedAggrequest) { 
+                            var dataValues = result.attributes.key.buckets;
+                        } else {
+                            var dataValues = _.get(result, _.get(scope.field_label, "bucket") + ".buckets");
+                        }
                         if (scope.chartType === "PieChart" || scope.chartType === "Doughnut") {
                             option = getPieChartOption(dataValues, index, option)
                         } else {
@@ -58,12 +73,18 @@
                             } else if (scope.chartType === "LineChart") {
                                 var chart_type = "line";
                             }
-                            var aggegration_type = scope.aggegration_type["splitChart"] || scope.aggegration_type["bucket"]
-                            if (aggegration_type === "date_histogram") {
-                                option = getTimeOption(dataValues, index, option, chart_type)
+                            
+                            if(scope.advancedAggrequest) {
+                                    option = getxyAxisOptionAdvAggs(dataValues, index, option, chart_type)
                             } else {
-                                option = getxyAxisOption(dataValues, index, option, chart_type)
+                                var aggegration_type = scope.aggegration_type["splitChart"] || scope.aggegration_type["bucket"]
+                                if (aggegration_type === "date_histogram") {
+                                    option = getTimeOption(dataValues, index, option, chart_type)
+                                } else {
+                                    option = getxyAxisOption(dataValues, index, option, chart_type)
+                                }
                             }
+                            
                         }
                     })
                     if (myChart) {
@@ -221,7 +242,8 @@
                             var date = new Date(value);
                             var texts = [date.getDate(), months[(date.getMonth())], date.getFullYear()];
                             return texts.join('-');
-                            }
+                            },
+                            rotate: 60
                         }
                     }
                     if(option.yAxis[0].type === 'time') {
@@ -230,11 +252,56 @@
                             var date = new Date(value);
                             var texts = [date.getDate(), months[(date.getMonth())], date.getFullYear()];
                             return texts.join('-');
-                            }
+                            },
+                            rotate: 60
                         }
                     }
                     return option;
                 }
+
+                //Temporary solution for sum
+
+                function getxyAxisOptionAdvAggs(dataValues, index, option, chart_type) {
+                    _.set(option, graph.bucket_name + "[" + index + "].type", "category");
+                    _.set(option, graph.bucket_name + "[" + index + "].data", []);
+                    _.set(option, graph.metric_name + "[" + index + "].type", "value");
+                    option.series = [];
+
+                    _.forIn(dataValues[0], function(value, key){
+                        if(key.startsWith('bucket_')){
+                            var seriesData = key.split('_')[1];
+                            option.legend.data.push(seriesData);
+                            option.series.push({name: seriesData, data: [], type: chart_type, stack: 'total'})
+                        }
+                    })
+                   
+                    _.each(dataValues, function(each, index_) {
+                        if(option.xAxis[index].type == 'category') {
+                            option.xAxis[index].data.push(each.key_as_string || each.key);
+                            option.xAxis[index].axisLabel = {
+                                rotate: 60
+                            }
+                        } else if(option.yAxis[index].type == 'category') {
+                            option.yAxis[index].data.push(each.key_as_string || each.key);
+                            option.yAxis[index].axisLabel = {
+                                rotate: 60
+                            }
+                        }
+                        _.each(option.series, function(each_value) {
+                            _.forIn(each, function(value, key){
+                                if(key.startsWith('bucket_')){
+                                    var seriesDataLabel = key.split('_')[1];
+                                    if(seriesDataLabel === each_value.name) {
+                                        each_value.data[index_] = value.value;
+                                    }
+                                }
+                            })
+                        })
+                    });
+                    return option;
+                }
+
+                //End Temporary solution for sum
 
                 function getTimeSeriesData(option, each, index) {
                     var date_value = new Date(each.key_as_string);

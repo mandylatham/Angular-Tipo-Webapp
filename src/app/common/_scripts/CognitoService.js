@@ -158,7 +158,7 @@
                                 console.log('Password Challange', result);
                             },
                             onFailure: function(err) {
-                                resolveObj.deferredComplete.reject(result);
+                                resolveObj.deferredComplete.reject(err);
                                 console.error('Password Challange', err);
                             }
                         });

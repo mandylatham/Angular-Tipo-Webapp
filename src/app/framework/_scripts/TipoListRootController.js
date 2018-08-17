@@ -17,6 +17,7 @@
         $scope,
         $templateCache,
         $timeout,
+        $location,
         tipoClientJavascript,
         tipoCustomJavascript) {
 
@@ -34,7 +35,7 @@
         var function_name = tipoHandle.application_meta.TipoApp.application_name + "_URLChange";
         if (typeof tipoCustomJavascript[function_name] === 'function') {
             tipoCustomJavascript[function_name]();
-        }
+        } 
 
         _instance.listUrl = tipoHandle.listUrl(tipo_name);
         if ($stateParams.tab_url) {
@@ -444,6 +445,11 @@
             _.map(_instance.tipos, function(tipo) {
                 tipo.selected = _instance.selectedall;
             });
+        }
+
+        if($stateParams.tipo_refresh) {
+            _instance.refresh();
+            $location.search('tipo_refresh', null);
         }
 
         $scope.$watch(function() { return $scope.data_handle }, function(new_value, old_value) {

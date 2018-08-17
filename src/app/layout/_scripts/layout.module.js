@@ -34,7 +34,7 @@
         var layoutState = {
             name: 'layout',
             abstract: true,
-            url: '?perspective&mobile_auth&hideheader',
+            url: '?perspective&mobile_auth&hideheader&tipo_refresh',
             parent: 'root',
             resolve: /*@ngInject*/ {
                 userMetadata: function(metadataService, $stateParams, securityContextService, $rootScope, $q) {
@@ -71,7 +71,7 @@
                     }
                 }
             },
-            controller: /*@ngInject*/ function($scope, $rootScope, tipoHandle, $templateCache, $http, tipoRouter, $mdDialog, userMetadata, tipoCustomJavascript, $mdMedia, $timeout, $state) {
+            controller: /*@ngInject*/ function($scope, $rootScope, tipoHandle, $templateCache, $http, tipoRouter, $mdDialog, userMetadata, tipoCustomJavascript, $mdMedia, $timeout, $state, $stateParams, $location) {
                 $rootScope.$mdMedia = $mdMedia;
                 $rootScope.showSubscribeNow = (userMetadata.stripe_subscription_id === null) ? true : false;
                 tipoHandle.setMeta();
@@ -97,10 +97,7 @@
                     var filter = {};
                     filter.tipo_filter = "(tipo_meta.pre_load: true) AND ((_exists_:role AND role: " + tipoHandle.user_meta.role + ") OR (!_exists_:role)) ";
                     var templates = ["updateUrl", "createUrl", "detailUrl", "listUrl"];
-                    // var config = {headers:  {
-                    //                   'Pragma': 'no-cache',
-                    //                 }
-                    //             };
+
                     tipoHandle.getTipos("TipoDefinition", filter).then(function(tipos) {
                         setTimeout(function() {
                             _.each(tipos, function(tipo) {
