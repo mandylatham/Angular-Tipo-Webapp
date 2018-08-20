@@ -95,8 +95,8 @@
                 var selectedfieldRangeFilters = {};
                 var customFilters = [];
                 var tipoCustomFilters = angular.copy(scope.tipoCustomFilters);
+                var tipo_name = scope.tipoName;
                 function init() {
-                    var tipo_name = scope.tipoName;
                     scope.fieldFilters = [];
                     if ($stateParams.filter) {
                         scope.filterApplied = true;
