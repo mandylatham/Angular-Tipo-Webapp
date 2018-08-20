@@ -288,7 +288,7 @@
 
         var interceptors = getAllInterceptors(tipoRouter, $rootScope, securityContextService, tipoErrorHandler, tipoCache, cognitoService, $templateCache, $cacheFactory, $location, $http, $q, $window, $mdDialog);
         var location = $window.location;
-        // var relativeUrl = '/api/d/tipotapp/carworld';
+        // var relativeUrl = '/api/d/forwood/safetyformsapp';
         var relativeUrl = '/api';
         if (_.startsWith(location.pathname, '/app')) {
             // relativeUrl = '/api/d/tipotapp/carworld' + relativeUrl.substring(4);

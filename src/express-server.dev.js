@@ -98,10 +98,10 @@ lodash.each(pathMappings, function(mapping){
   }else if(mapping.url){
     if (mapping.path !== "/api") {
       mapping.url = "https://dev.tipotapp.com";
-      // mapping.url = "https://forwood.tipotapp.com";
+      // mapping.url = "https://safetyforms.forwoodsafety.com/app/d/forwood/safetyformsapp";
       app.use(mapping.path, proxy({target: mapping.url, changeOrigin: true}));
     }else{
-      // mapping.url = "https://forwood.tipotapp.com";
+      // mapping.url = "https://safetyforms.forwoodsafety.com";
       app.use(mapping.path, proxy({target: mapping.url, changeOrigin: true}));
     }
   }

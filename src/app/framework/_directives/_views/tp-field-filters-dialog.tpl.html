@@ -18,7 +18,7 @@
             <md-list ng-cloak class="fullwidth">
                 <div ng-if="tipoCustomFilters.length > 0">
                     <div>
-                        <md-subheader class="md-no-sticky">{{filterLabel || 'Custom Filters'}}</md-subheader>
+                        <md-subheader md-colors="{color: 'primary-700'}" class="bg-lightgray md-no-sticky">{{filterLabel || 'Custom Filters'}}</md-subheader>
                         <md-list-item ng-repeat="filter in tipoCustomFilters">
                             <p> {{ filter.display_name }}</p>
                             <md-checkbox class="md-secondary" ng-model="filter.selected" ng-click="addCustomToExpression(filter)"></md-checkbox>
@@ -37,7 +37,7 @@
                             <tp:range-slider ng-model="filter.range" min="filter.min" max="filter.max" class="fullwidth tp-range-slider tp-range-tooltip" ng-change="addRangeToExpression(filter)" />
                         </md-list-item>
                         <md-list-item ng-if="filter.type === 'date_time' && filter.min !== filter.max">
-                            <input tp:date-picker ng-model="filter.range" fieldvalue="filter.range" fp-on-setup="tipoRootController.datePostSetup(fpItem,filter.range)" fp-opts="{'mode': 'range', 'dateFormat': 'Z','enable':[{'from': filter.min - 86400000, 'to': filter.max + 86400000}]}" ng-change="addRangeToExpression(filter)" class="fullwidth">
+                            <input tp:date-picker ng-model="filter.range" fieldvalue="filter.range" fp-on-setup="tipoRootController.datePostSetup(fpItem,filter.range)" fp-opts="{'mode': 'range', 'dateFormat': 'Z','enable':[{'from': filter.min - 86400000, 'to': filter.max + 86400000}]}" ng-change="addRangeToExpression(filter)" class="fullwidth" placeholder="Click here">
                         </md-list-item>
                         <md-list-item ng-if="filter.type === 'integer' && filter.min === filter.max">
                             All Values are {{filter.min}}

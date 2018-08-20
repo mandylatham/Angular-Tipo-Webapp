@@ -91,48 +91,54 @@
             replace: true,
             templateUrl: 'framework/_directives/_views/tp-field-filters.tpl.html',
             link: function(scope, element, attrs) {
-
-                var tipo_name = scope.tipoName;
-                scope.fieldFilters = [];
+                var selectedfieldFilters = {};
+                var selectedfieldRangeFilters = {};
                 var customFilters = [];
                 var tipoCustomFilters = angular.copy(scope.tipoCustomFilters);
-                if ($stateParams.filter) {
-                    scope.filterApplied = true;
-                    var selectedFilters = $stateParams.filter.split('&&');
-                    var fieldFilterExp = "";
-                    _.each(selectedFilters, function(filter) {
-                        if (S(filter).contains(":")) {
-                            var keyword = filter;
-                            var key = keyword.slice(keyword.indexOf('.'),keyword.indexOf(':'));
-                            fieldFilterExp = filter.replace(new RegExp(key,"g"), '');
-                        } else {
-                            customFilters.push(filter);
-                        }
-                    });
-                    var fieldFilters = fieldFilterExp.split(" AND ");
-                    var selectedfieldFilters = {};
-                    var selectedfieldRangeFilters = {};
-                    _.each(fieldFilters, function(filter) {
-                        var startsWithBkts = filter.indexOf("(");
-                        if (startsWithBkts !== -1) {
-                            var eachfilters = filter.substring(startsWithBkts + 1, filter.indexOf(")")).split(" OR ");
-                            _.set(selectedfieldFilters, filter.substring(0, filter.indexOf(":")), eachfilters);
-                        } else {
-                            var eachfilters = filter.substring(filter.indexOf("[") + 1, filter.indexOf("]")).split(" TO ");
-                            _.set(selectedfieldRangeFilters, filter.substring(0, filter.indexOf(":")), eachfilters);
-                        }
-                    });
-                    _.each(tipoCustomFilters, function(filter) {
-                        _.each(customFilters, function(selectedfilter) {
-                            if (filter.display_name == selectedfilter) {
-                                filter.selected = true;
-                            };
-                        })
-                    });
-                };
-                getFiltersList();
+                function init() {
+                    var tipo_name = scope.tipoName;
+                    scope.fieldFilters = [];
+                    if ($stateParams.filter) {
+                        scope.filterApplied = true;
+                        var selectedFilters = $stateParams.filter.split('&&');
+                        var fieldFilterExp = "";
+                        _.each(selectedFilters, function(filter) {
+                            if (S(filter).contains(":")) {
+                                var keyword = filter;
+                                var key = keyword.slice(keyword.indexOf('.'), keyword.indexOf(':'));
+                                fieldFilterExp = filter.replace(new RegExp(key, "g"), '');
+                            } else {
+                                customFilters.push(filter);
+                            }
+                        });
+                        var fieldFilters = (fieldFilterExp !== "") && fieldFilterExp.split(" AND ") || undefined;
+                        _.each(fieldFilters, function(filter) {
+                            var startsWithBkts = filter.indexOf("(");
+                            if (startsWithBkts !== -1) {
+                                var eachfilters = filter.substring(startsWithBkts + 1, filter.indexOf(")")).split(" OR ");
+                                _.set(selectedfieldFilters, filter.substring(0, filter.indexOf(":")), eachfilters);
+                            } else {
+                                var eachfilters = filter.substring(filter.indexOf("[") + 1, filter.indexOf("]")).split(" TO ");
+                                _.set(selectedfieldRangeFilters, filter.substring(0, filter.indexOf(":")), eachfilters);
+                            }
+                        });
+                        _.each(tipoCustomFilters, function(filter) {
+                            _.each(customFilters, function(selectedfilter) {
+                                if (filter.display_name == selectedfilter) {
+                                    filter.selected = true;
+                                };
+                            })
+                        });
+                    };
+                    getFiltersList();
+                }
 
                 scope.showFilters = function() {
+                    $("#loader").addClass("loading");
+                    init();
+                }
+                scope.loadDialog = function() {
+                    $("#loader").removeClass("loading");
                     var promise = $mdDialog.show({
                         templateUrl: 'framework/_directives/_views/tp-field-filters-dialog.tpl.html',
                         controller: TipoFilterDialogController,
@@ -165,16 +171,18 @@
                         fullscreen: true
                     });
                     promise.then(function(expression) {
-                        tipoRouter.toTipoList(tipo_name, { filter: expression });
+                        tipoRouter.toTipoList(tipo_name, { filter: expression }, false, true);
                     });
                 }
 
                 function getFiltersList() {
-                    _.each(scope.tipoFilters, function(each) {
+                    _.each(scope.tipoFilters, function(each, inx) {
                         var filter = {};
                         each.fq_field_label = _.replace(each.fq_field_name, '.', '');
                         _.set(filter, "tipo_aggs", getElasticQuery(each));
-
+                        if (inx + 1 === scope.tipoFilters.length) {
+                            each.lastquery = true;
+                        };
                         tipoInstanceDataService.aggegrationData(scope.tipoName, filter).then(function(results) {
                             console.log("results");
                             console.log(results);
@@ -227,6 +235,9 @@
                                     type: 'text'
                                 })
                             }
+                            if (each.lastquery) {
+                                scope.loadDialog();
+                            };
                         })
                     })
                 }
