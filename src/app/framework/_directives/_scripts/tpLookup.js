@@ -412,7 +412,7 @@
                         // var linkedContent = linkFn(scope);
                         //  scope.$apply();
                         //  var result = linkedContent.html();
-                        var basefilterExpanded = scope.basefilter;
+                        var basefilterExpanded = atob(scope.basefilter);
                         filter = basefilterExpanded;
                     }
                     if (!_.isUndefined(filter) && filter !== "") {
