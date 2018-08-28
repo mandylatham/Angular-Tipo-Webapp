@@ -742,9 +742,9 @@
             var expressionArray = [];
             var filters = _.map(tipoFilters, function(each) {
                 var selected = false;
-                if (each.filter_expression && !_.isEmpty(each.filter_expression) && !_.startsWith(each.filter_expression,"$")) {
-                    each.filter_expression = atob(each.filter_expression);
-                }
+                // if (each.filter_expression && !_.isEmpty(each.filter_expression) && !_.startsWith(each.filter_expression,"$")) {
+                //     each.filter_expression = atob(each.filter_expression);
+                // }
                 if (filterArray.indexOf(each.display_name) != -1) {
                     selected = true;
                     if (each.filter_expression && !_.isEmpty(each.filter_expression) && !_.startsWith(each.filter_expression,"$")) {
