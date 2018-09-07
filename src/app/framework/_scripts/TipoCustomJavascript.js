@@ -345,6 +345,43 @@
         }
         this.TipoAboutApp_OnView = TipoAboutApp_OnView;
 
+        function TipoUserTasks_OnClick(data_handle){
+            var tipo = data_handle.selected_tipo;
+            if (tipo.tiponame && tipo.standard_action) {
+                if (tipo.standard_action === 'Create') {
+                    if (!tipo.tipoid) {
+                        const tipoid = angular.copy(moment().unix().toString());
+                        tipo.tipoid = tipoid;
+                        tipoHandle.saveTipo("TipoUserTasks",tipo.tipo_id,tipo  ).then(function(){
+                            tipoRouter.toTipoCreate(tipo.tiponame, {data: encodeURIComponent(JSON.stringify({tipo_id: tipo.tipoid}))});
+                        },function(err){
+                            tipoHandle.showMessage("Error Launching Create!! Try Again");
+                        })
+                    }else{
+                        tipoHandle.getTipo(tipo.tiponame,tipo.tipoid).then(function(response){
+                            if (response) {
+                                tipoRouter.toTipoView(tipo.tiponame, tipo.tipoid);
+                            }else{
+                                tipoRouter.toTipoCreate(tipo.tiponame, {data: {tipo_id: tipo.tipoid}});
+                            }
+                        })
+                    }
+                }else if (tipo.standard_action === 'List') {
+                    tipoRouter.toTipoList(tipo.tiponame);
+                }else if (tipo.standard_action === 'Edit') {
+                    tipoRouter.toTipoEdit(tipo.tiponame, tipo.tipoid);
+                }else {
+                    tipoRouter.toTipoView(tipo.tiponame, tipo.tipoid);
+                };
+            }else if (tipo.tiponame && tipo.tipoid) {
+                tipoRouter.toTipoView(tipo.tiponame, tipo.tipoid);
+            }else if (tipo.tiponame) {
+                tipoRouter.toTipoList(tipo.tiponame);
+            };
+            return true;
+        }
+        this.TipoUserTasks_OnClick = TipoUserTasks_OnClick;
+
         //___TipoAboutApp___
 
         //___AppUser___
