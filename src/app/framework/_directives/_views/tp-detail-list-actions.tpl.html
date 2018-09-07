@@ -1,6 +1,6 @@
 <div layout="column" layout-align="start end">
     <div layout="row" layout-align="center center" layout-align-xs="end start" layout-wrap>
-        <md-button id="{{action.name}}_action" ng-repeat="action in actions" aria-label="action.label" ng-click="performAction(action)" class="md-icon-button" ng-if="!edit && (action.visibility_expression || visibilityExpression)">
+        <md-button id="{{action.name}}_action" ng-repeat="action in actions" aria-label="action.label" ng-click="performAction(action, $event)" class="md-icon-button" ng-if="!edit && (action.visibility_expression || visibilityExpression)">
             <md-icon ng-if="action.icon">{{action.icon}}</md-icon>
             <md-tooltip md-direction="top">{{action.label}}</md-tooltip>
             <md-icon ng-if="!action.icon">done</md-icon>

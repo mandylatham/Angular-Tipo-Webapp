@@ -212,9 +212,12 @@
                     }
                 }
 
-                scope.performAction = function(action) {
+                scope.performAction = function(action, e) {
                     scope.deskaction.isOpen = false;
                     scope.mobaction.isOpen = false;
+                    if (e) {
+                        e.stopPropagation();
+                    };
                     if (mode === 'view') {
                         performAction(action);
                     } else {
@@ -373,7 +376,7 @@
                 }
 
                 function performAction(action) {
-                    if (tipo_id) {
+                    if (tipo_id || scope.tipos.tipo_id) {
                         var selected_tipo_ids = [tipo_id];
                         var selected_tipos = [scope.tipos];
                     } else {
