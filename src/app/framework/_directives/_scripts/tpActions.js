@@ -114,9 +114,11 @@
             replace: true,
             template: '<ng-include src="fieldTemplate" tp-include-replace/>',
             link: function(scope, element, attrs) {
-                if (scope.field) {
+                if (scope.field === "detail_in_list") {
+                    scope.fieldTemplate = 'framework/_directives/_views/tp-detail-list-actions.tpl.html'
+                } else if (scope.field) {
                     scope.fieldTemplate = 'framework/_directives/_views/tp-field-actions.tpl.html'
-                } else {
+                }else {
                     scope.fieldTemplate = 'framework/_directives/_views/tp-actions.tpl.html'
                 }
                 scope.randomnumber = new Date().getUTCMilliseconds();
@@ -210,9 +212,12 @@
                     }
                 }
 
-                scope.performAction = function(action) {
+                scope.performAction = function(action, e) {
                     scope.deskaction.isOpen = false;
                     scope.mobaction.isOpen = false;
+                    if (e) {
+                        e.stopPropagation();
+                    };
                     if (mode === 'view') {
                         performAction(action);
                     } else {
@@ -371,7 +376,7 @@
                 }
 
                 function performAction(action) {
-                    if (tipo_id) {
+                    if (tipo_id || scope.tipos.tipo_id) {
                         var selected_tipo_ids = [tipo_id];
                         var selected_tipos = [scope.tipos];
                     } else {

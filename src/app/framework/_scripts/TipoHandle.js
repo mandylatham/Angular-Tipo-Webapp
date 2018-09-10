@@ -388,6 +388,10 @@
             })
         }
 
+        function getDateUtil(){
+            return moment.apply(null, arguments);
+        }
+
         function sendProxyHttp(method, url, headers, data, successCallback, errorCallback) {
             var tipo_data = {
                 url: url,
@@ -522,6 +526,7 @@
         this.sendProxyHttp = sendProxyHttp;
         this.handleError = handleError;
         this.replaceListView = replaceListView;
+        this.getDateUtil = getDateUtil;
         
     }
 
