@@ -205,7 +205,7 @@
                 }
 
                 scope.triggerdeskActions = function() {
-                    if (scope.field) {
+                    if (scope.field && scope.field !== "detail_in_list") {
                         angular.element('#actiondesk' + scope.randomnumber).trigger('click');
                     }else{
                         angular.element('#actiondesk').trigger('click');
@@ -321,7 +321,7 @@
                 }
 
                 function callAction(tipo_name, action_name, selected_tipo_ids, selected_tipos, additional_tipo_name, additional_tipo) {
-                    if (scope.field) {
+                    if (scope.field && scope.field !== "detail_in_list") {
                         var function_name = tipo_name + "_" + action_name;
                     } else if (mode === 'view') {
                         var function_name = tipo_name + "_" + "detail" + "_" + action_name;
