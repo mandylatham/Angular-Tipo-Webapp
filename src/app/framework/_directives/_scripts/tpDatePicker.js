@@ -11,7 +11,7 @@
                 fpOpts: '&',
                 fpOnSetup: '&',
                 fieldvalue: '=',
-                datenumber: '=',
+                dtnumber: '=',
                 ngModel: '='
             },
             link: function(scope, element, attrs, ctrl) {
@@ -21,7 +21,7 @@
                     if (options.enableTime && options.noCalendar) {
                         var time = moment.utc(dateStr).format('HH.mm.sss');
                         var timearray = time.split(".");
-                        scope.datenumber = (timearray[0] * 3600) + (timearray[1] * 60) + (timearray[2]);
+                        scope.dtnumber = parseInt(timearray[0] * 3600) + parseInt(timearray[1] * 60) + parseInt(timearray[2]);
                     };
                 }
                 var vp = new flatpickr(element[0], options);
