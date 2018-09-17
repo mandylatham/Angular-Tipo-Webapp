@@ -13,7 +13,7 @@
                         <label class="loginlabel">Email</label>
                         <md-input-container class="md-icon-float md-block" md-no-float>
                             <md-icon>person</md-icon>
-                            <input ng-model="controller.user.email" type="text" required tabindex="1">
+                            <input ng-model="controller.user.email" name="email" type="email" required tabindex="1">
                             <div class="text-right" id="forgot-password-link" ng-if="!controller.inProgress">
                                 <a href="" ng-click="controller.toForgotPassword()" tabindex="5">Forgot Password?</a>
                             </div>
