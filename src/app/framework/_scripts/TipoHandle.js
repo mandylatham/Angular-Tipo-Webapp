@@ -125,6 +125,7 @@
         var TOUR_TIPO = "TipoTourData";
         var TOUR_TIPO_ID = "default";
         var role;
+        moment.defaultFormat = "YYYY-MM-DDTHH:mm:ss.SSS[Z]";
 
         function getConfirmation(title, user_message) {
             var confirmation = $mdDialog.confirm()

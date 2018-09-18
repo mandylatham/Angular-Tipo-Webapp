@@ -350,7 +350,7 @@
             if (tipo.tiponame && tipo.standard_action) {
                 if (tipo.standard_action === 'Create') {
                     if (!tipo.tipoid) {
-                        const tipoid = angular.copy(moment().unix().toString());
+                        const tipoid = _.clone(moment().unix().toString());
                         tipo.tipoid = tipoid;
                         tipoHandle.saveTipo("TipoUserTasks",tipo.tipo_id,tipo  ).then(function(){
                             tipoRouter.toTipoCreate(tipo.tiponame, {data: encodeURIComponent(JSON.stringify({tipo_id: tipo.tipoid}))});
@@ -359,7 +359,7 @@
                         })
                     }else{
                         tipoHandle.getTipo(tipo.tiponame,tipo.tipoid).then(function(response){
-                            if (response) {
+                            if (response && response.tipo_id) {
                                 tipoRouter.toTipoView(tipo.tiponame, tipo.tipoid);
                             }else{
                                 tipoRouter.toTipoCreate(tipo.tiponame, {data: {tipo_id: tipo.tipoid}});
@@ -381,6 +381,7 @@
             return true;
         }
         this.TipoUserTasks_OnClick = TipoUserTasks_OnClick;
+        this.TipoUserTask_OnClick = TipoUserTasks_OnClick;
 
         //___TipoAboutApp___
 
