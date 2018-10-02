@@ -162,7 +162,7 @@
             if (_.isEmpty(_instance.searchText)) {
                 delete filter.tipo_filter;
             } else {
-                filter.tipo_filter = filter.tipo_filter ? filter.tipo_filter + " AND (__all:(" + _instance.searchText + "*))" : "(__all:(" + _instance.searchText + "*))";
+                filter.tipo_filter = "(__all:(" + _instance.searchText + "*))";
             }
             var page = 1;
             filter.page = angular.copy(page);
