@@ -383,6 +383,15 @@
         this.TipoUserTasks_OnClick = TipoUserTasks_OnClick;
         this.TipoUserTask_OnClick = TipoUserTasks_OnClick;
 
+
+        function TipoUserTask_detail_done (data_handle) {
+            data_handle.selected_tipo.status = 'Completed';
+            tipoHandle.saveTipo('TipoUserTasks',data_handle.selected_tipo.tipo_id, data_handle.selected_tipo).then(function(){
+                tipoHandle.toTipo('list', 'TipoUserTasks');
+            });
+            }
+        this.TipoUserTask_detail_done = TipoUserTask_detail_done;
+
         //___TipoAboutApp___
 
         //___AppUser___
