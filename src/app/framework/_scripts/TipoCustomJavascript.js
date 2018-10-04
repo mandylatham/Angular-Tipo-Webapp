@@ -352,7 +352,7 @@
                     if (!tipo.tipoid) {
                         const tipoid = _.clone(moment().unix().toString());
                         tipo.tipoid = tipoid;
-                        tipoHandle.saveTipo("TipoUserTasks",tipo.tipo_id,tipo  ).then(function(){
+                        tipoHandle.saveTipo("TipoUserTask",tipo.tipo_id,tipo  ).then(function(){
                             tipoRouter.toTipoCreate(tipo.tiponame, {data: encodeURIComponent(JSON.stringify({tipo_id: tipo.tipoid}))});
                         },function(err){
                             tipoHandle.showMessage("Error Launching Create!! Try Again");
