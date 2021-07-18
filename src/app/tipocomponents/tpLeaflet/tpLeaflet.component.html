@@ -1,0 +1,26 @@
+<h2 class="text-center">{{mapHeading}}</h2>
+<div style="height: calc(100vh - 125px);"
+     leaflet
+     leafletDraw
+     [leafletLayers]="mapLayers"
+     [leafletOptions]="options"
+     [leafletDrawOptions]="drawOptions"
+     (leafletMapReady)="onMapReady($event)">
+  <div *ngIf="allowLayerSelect" [leafletLayersControl]="layersControl" [leafletLayersControlOptions]="layersControlOptions"></div>
+  <div class="leaflet-bottom leaflet-left">
+    <div class="leaflet-get-selected leaflet-control">
+      <!--<a class="leaflet-get-selected-item" *ngIf="enableSelectItems" href="javascript:void(0)"
+         title="Get Selected Items" (click)="getSelectedItems()">
+        Get Selected Items
+      </a>-->
+      <a class="leaflet-get-selected-item" href="javascript:void(0)" title="View All" (click)="viewAllMarkers()">
+        View All
+      </a>
+    </div>
+  </div>
+</div>
+<div style="margin-top: 10px;">
+  <button mat-raised-button color="accent" (click)="getSelectedItems()">
+    Get Selected Items
+  </button>
+</div>

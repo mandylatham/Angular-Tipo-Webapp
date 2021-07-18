@@ -1,0 +1,36 @@
+@import "src/theme/theme-variables";
+
+.navbar {
+  position: fixed;
+}
+
+.brand {
+  color: mat-color($app-primary, "default-contrast");
+  text-decoration: none;
+  padding-right: 1rem;
+}
+
+.menu-button {
+  margin-right: 1rem;
+}
+
+.profile-button {
+  height: auto;
+  line-height: 1.5;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 5px;
+  cursor: default;
+}
+
+.profile-icon {
+  font-size:23px;
+  font-weight: 400;
+}
+
+.profile-icon-button {
+  background-color: white; 
+  margin-left: 12px; 
+  width: 35px; 
+  height: 35px; 
+  line-height: 35px;
+}

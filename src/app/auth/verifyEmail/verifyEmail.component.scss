@@ -1,0 +1,38 @@
+:host {
+  display: flex;
+  flex: 1;
+  height: 100%;
+}
+
+.inline-loader {
+  display: inline-block;
+}
+
+.version {
+  margin: 0;
+}
+
+.login-container,
+.mat-form-field {
+  width: 100%;
+}
+
+.login-error {
+  color: #ff3e44;
+  text-align: left;
+  font-size: 15px;
+  mat-icon {
+    vertical-align: middle;
+    margin-right: 3px;
+  }
+}
+
+.login-container {
+  @media (min-width: 600px) {
+      min-width: 450px;
+      width: 450px;
+  }
+  @media (max-width: 599px) {
+      width: 90%
+  }
+}

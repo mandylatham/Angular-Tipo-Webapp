@@ -1,0 +1,10 @@
+<!-- <tp-simple-dropdown [allowedvalues]="['test','test2']"> </tp-simple-dropdown> -->
+<button mat-raised-button color="accent" (click)="goto()">Got To</button>
+<tp-leaflet [map_heading]="'Customers and Bookings'"
+            [allow_layer_select]="true"
+            [geo_data_select]="geo_data_select"
+            [show_maximise_button]="true"
+            [full_width_and_height]="true"
+            [show_current_location_icon]="true"
+            [layers]="layers">
+</tp-leaflet>

@@ -1,0 +1,30 @@
+<mat-toolbar class="mat-elevation-z6" color="primary">
+  <div fxFlex fxLayoutAlign="start center">
+    <button class="menu-button" mat-icon-button (click)="sidenav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+  <div fxFlex fxLayoutAlign="end center">
+    <button mat-icon-button *ngFor="let perspective of perspectives" matTooltip="{{perspective.name}}" (click)="routeTo(perspective)">
+      <mat-icon>{{perspective.icon}}</mat-icon>
+      <hr *ngIf="currentPerspective === perspective.name" style="height: 2px; margin: 0; background-color: white">
+    </button> 
+    <button mat-icon-button [matMenuTriggerFor]="profile" matTooltip="Profile" class="profile-icon-button">
+      <div class="color-primary profile-icon">A</div>
+    </button>
+    <mat-menu #profile="matMenu">
+      <button mat-menu-item class="profile-button">
+        <span><b>Admin</b></span><br/>
+        <span>admin@mailinator.com</span>
+      </button>
+      <button mat-menu-item *ngFor="let profile of profileList" (click)="navigateToItem(profile)">
+        <mat-icon>{{profile.icon}}</mat-icon>
+        <span>{{profile.label}}</span>
+      </button>
+      <button (click)="logout()"  mat-menu-item>
+        <mat-icon>input</mat-icon>
+        <span>Logout</span>
+      </button>
+    </mat-menu>
+  </div>
+</mat-toolbar>

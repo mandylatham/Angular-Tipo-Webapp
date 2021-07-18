@@ -1,0 +1,76 @@
+<div  fxFill fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="1.5rem">
+  <div fxFlex="100%">
+    <tp-header></tp-header>
+  </div>
+  <div class="login-container text-center" fxLayout="column" fxLayoutAlign="center">
+    <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center" fxFlex="none">
+        <span class="mat-title">Create Account</span>
+    </div>
+    <div fxFlex="90%" fxFlex.sm="66%" fxFlex.md="50%" fxFlex.gt-md="33%" class="login-box">
+    <mat-card>
+      <form (ngSubmit)="signup()" [formGroup]="registrationForm" novalidate>
+        <div fxLayout="column">
+          <mat-form-field>
+            <mat-icon matPrefix class="margin-right-10">person</mat-icon>
+            <input type="text" matInput formControlName="name" autocomplete="name" [placeholder]="'Name'" />
+            <mat-error *ngIf="registrationForm.controls['name'].valid || registrationForm.controls['name'].untouched">
+              <span translate>Name is required!</span>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+              <mat-icon matPrefix class="margin-right-10">email</mat-icon>
+              <input type="email" matInput formControlName="email" autocomplete="email" [placeholder]="'Email'" />
+              <mat-error *ngIf="registrationForm.controls['email'].valid || registrationForm.controls['email'].untouched">
+                <span translate>Email is required!</span>
+              </mat-error>
+          </mat-form-field>
+          <mat-form-field matPrefix class="margin-right-10">
+              <mat-icon matPrefix class="margin-right-10">contact_phone</mat-icon>
+              <input matInput tpIntlTelInput formControlName="phone_number" [placeholder]="'Phone Number'">
+              <mat-error *ngIf="registrationForm.controls['phone_number'].valid || registrationForm.controls['phone_number'].untouched">
+                <span translate>Phone Number is required!</span>
+              </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+              <mat-icon matPrefix class="margin-right-10">lock_open</mat-icon>
+            <input type="password" matInput formControlName="password" autocomplete="password" [placeholder]="'Password'"
+             />
+            <mat-error *ngIf="registrationForm.controls['password'].valid || registrationForm.controls['password'].untouched">
+              <span translate>Password is required</span>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+              <mat-icon matPrefix class="margin-right-10">nature_people</mat-icon>
+            <input type="text" matInput formControlName="companyName" autocomplete="companyName" [placeholder]="'Company Name'" />
+            <mat-error *ngIf="registrationForm.controls['companyName'].valid || registrationForm.controls['companyName'].untouched">
+              <span translate>Company Name is required!</span>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+              <mat-icon matPrefix class="margin-right-10">language</mat-icon>
+              <input type="text" matInput formControlName="accountName"  [placeholder]="'App Url'" />
+              <mat-error *ngIf="registrationForm.controls['accountName'].valid || registrationForm.controls['accountName'].untouched">
+                <span translate>App Url is required!</span>
+              </mat-error>
+            </mat-form-field>
+            <ngx-recaptcha2 #captchaElem class="text-center"
+              [siteKey]="'6Ldaig8UAAAAABblj3oOjSlTco3HTUhArcn_nJAG'"
+              formControlName="recaptcha">
+          </ngx-recaptcha2> 
+          <div class="login-error" [hidden]="!error" translate>
+              <mat-icon>warning</mat-icon> <span>{{error}}</span>
+          </div>
+          <br />
+          <button mat-raised-button color="accent" type="submit" [disabled]="isLoading">
+              <tp-loader class="inline-loader" [isLoading]="isLoading" message="Processing"></tp-loader>
+            <span translate *ngIf="!isLoading">Create my Account</span>
+          </button>
+        </div>
+      </form>
+    </mat-card>
+  </div>
+  <button mat-raised-button class="margin-10" color="primary" (click)="routeTo()">
+    <span translate>Sign In</span>
+  </button>
+  </div>
+</div>

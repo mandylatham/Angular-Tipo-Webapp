@@ -1,0 +1,12 @@
+<div fxLayout="row wrap">
+  <div *ngIf="multipleChoiceView.length > 0">
+  <div fxFlex.xs="100" fxFlex.sm="100" fxFlex class="view-area" *ngFor="let option of multipleChoiceView" [ngStyle]="{'background' : colourCheck(option)}" [ngClass]="colourCheckClass(option)" [style.min-width.px]="280">
+      <span class="text-center" *ngIf="iconCheck(option)">	
+          <img class="choice-img" *ngIf="imgUrl" src="{{'g/' + iconCheck(option)}}" /> 
+          <mat-icon class="choice-img" *ngIf="!imgUrl">{{iconCheck(option)}}</mat-icon>
+      </span>
+      <span class="text-center">{{option}}</span>
+  </div>
+</div>
+  <div *ngIf="multipleChoiceView.length === 0">-N/A-</div>
+</div>

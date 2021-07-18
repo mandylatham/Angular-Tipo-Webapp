@@ -1,0 +1,16 @@
+<div  class="swiper-container" [swiper]="config" fxLayout="row" fxFlex="auto" (indexChange)="onIndexChange($event)" (swiperTransitionStart)="onSwiperEvent('transitionStart')" (swiperTransitionEnd)="onSwiperEvent('transitionEnd')">
+  <div class="swiper-wrapper">
+    <div class="swiper-slide" *ngFor="let image of imageArray">
+      <div fxLayout="column" fxLayoutAlign="center center" fxFlexFill>
+        <img src="{{'data:image/*;base64, ' + image.base64}}" *ngIf="image.base64">
+        <img src="{{image}}" *ngIf="!image.base64" class="image-slider">
+      </div>
+    </div>
+  </div>
+
+  <div class="swiper-scrollbar"></div>
+  <div class="swiper-pagination"></div>
+
+  <mat-icon class="swiper-button-prev" color="primary" style="background: none">arrow_back_ios</mat-icon>
+  <mat-icon class="swiper-button-next" color="primary" style="background: none">arrow_forward_ios</mat-icon>
+</div>

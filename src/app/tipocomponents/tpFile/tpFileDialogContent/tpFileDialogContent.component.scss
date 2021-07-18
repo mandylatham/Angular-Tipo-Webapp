@@ -1,0 +1,57 @@
+
+.upload-name-style{
+  display: -webkit-flex; /* Safari */
+  -webkit-flex-flow: wrap; /* Safari 6.1+ */
+  display: flex;
+  flex-flow:  wrap;
+}
+
+.manual-file-select{
+  -webkit-box-shadow: 0px 0px 10px -1px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 10px -1px rgba(0,0,0,0.75);
+  box-shadow: 0px 0px 10px -1px rgba(0,0,0,0.75);
+  margin-top: 10px;
+  border-radius: 5px;
+}
+
+
+.pathDisplay{
+  border-radius: 5px 0 0 5px;
+  display: inline-block !important;
+  z-index: 2;
+  vertical-align: middle;
+  padding: 0 10px;
+  width: 60%;
+  min-height: 20px;
+  margin-right: 0px;
+}
+
+.pathDisplay div{
+  color: grey;
+  width: 100%;
+  word-wrap: break-word;
+  margin: 0px !important;
+}
+.removeButton{
+  border-radius: 0px;
+  display: inline-block !important;
+  z-index: 2;
+  display: block;
+  vertical-align: middle;
+  width: 20%;
+  height: 100%;
+  color: black;
+}
+
+
+.browseButton{
+  border-radius: 0 5px 5px 0;
+  display: block;
+  background-color: darkblue;
+  display: inline-block !important;
+  vertical-align: middle;
+  padding: 0 8px;
+  width: 20%;
+  height: 100%;
+  color: white;
+}

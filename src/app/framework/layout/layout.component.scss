@@ -1,0 +1,94 @@
+.sidenav-size {
+  min-width: 200px;
+  max-width: 28%;
+}
+
+.sidenav-xssize {
+  min-width: 100px;
+  max-width: 10%;
+}
+
+.logo {
+  max-height:48px; 
+  vertical-align: middle;
+}
+
+.mat-drawer-side {
+  border-right: none;
+}
+
+.has-border {
+  border-right: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.mat-list {
+  padding-top: 0;
+}
+
+.tp-navigation {
+  .menu-header {
+      .md-list-item-inner {
+          padding-left: 5px;
+          padding-right: 0;
+      }
+      .md-subhead {
+          font-size: 18px;
+          font-weight: bold;
+      }
+      button.md-icon-button {
+          padding: 0;
+          margin: 0 4px;
+      }
+  }
+  .menuicon {
+    margin: 0;
+    font-size: 60px !important;
+    width: 60px;
+    height: 60px;
+    opacity: .50;
+    cursor: pointer;
+  }
+  .xsmenuicon {
+    margin: 0;
+    font-size: 40px !important;
+    width: 40px;
+    height: 40px;
+    opacity: .50;
+    cursor: pointer;
+  }
+  .mat-list .mat-list-item .mat-list-item-content {
+    flex-direction: column !important;
+  }
+  .mat-list-item {
+    text-decoration: none;
+    height: auto !important;
+    margin: 10px 0px;
+    &:hover {
+      background: rgba(0, 0, 0, 0.05);
+    }
+      &.active {
+        .menuicon, .xsmenuicon {
+          opacity: 1;
+        }
+        .activeElement {
+          border-bottom: 3px solid #e54f5a;
+          letter-spacing: .010em;
+          line-height: 25px;
+        }
+      }
+      ::ng-deep .mat-list-item-content {
+        flex-direction: column !important;
+      }
+  }
+  button {
+      padding-top: 0;
+      padding-bottom: 0;
+      font-size: 1.0em;
+      font-weight: normal;
+      width: 100%;
+      text-transform: none;
+      div {
+          margin: 0 auto;
+      }
+  }
+}

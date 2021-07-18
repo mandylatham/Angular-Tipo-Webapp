@@ -1,0 +1,26 @@
+.range-slider {
+    margin: 20px;
+}
+
+:host ::ng-deep {
+    .noUi-horizontal {
+        height: 10px !important;
+    }
+    .noUi-tooltip {
+        border-radius: 50%;
+        color: white;
+    }
+    .noUi-handle {
+        border: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        box-shadow: none;
+        &::before {
+            content: none;
+        }
+        &::after {
+            content: none;
+        }
+    }
+}

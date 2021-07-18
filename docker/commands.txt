@@ -1,0 +1,8 @@
+# copy package.json from project root and then run docker build, remove after image is built. 
+
+docker build -t tipo-ui-2-build .
+docker run -it -v /:/vm-root tipo-ui-2-build /bin/bash
+docker images
+docker tag {image id} tipotapp/tipo-doco:latest
+docker tag tipo-ui-2-build tipotapp/tipo-ui-2-build:latest
+docker push tipotapp/tipo-ui-2-build:latest

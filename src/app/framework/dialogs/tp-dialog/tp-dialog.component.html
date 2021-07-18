@@ -1,0 +1,13 @@
+<h3 matDialogTitle>My Dialog</h3>
+<mat-dialog-content >
+  <ng-template dynamic-template
+             [httpUrl]="myTemplate"
+             [defaultTemplate]="'<span>on error template</span>'"
+             [remoteTemplateFactory]="remoteTemplateFactory"
+             [context]="context"
+             [extraModules]="extraModules">
+</ng-template>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="closeDialog()">Close Dialog</button>
+</mat-dialog-actions>

@@ -1,0 +1,103 @@
+// Custom palette create to suport company logo and branding
+
+$dark-primary-text: rgba(black, 0.87);
+$light-primary-text: white;
+
+$tipo-primary: (
+  50: #E7F7FC,
+  100: #C2ECF8,
+  200: #9ADFF3,
+  300: #71D2EE,
+  400: #52C9EB,
+  500: #34BFE7,
+  600: #2FB9E4,
+  700: #27B1E0,
+  800: #21A9DD,
+  900: #159BD7,
+  A100: #FFFFFF,
+  A200: #D4F1FF,
+  A400: #A1E0FF,
+  A700: #87D7FF,
+  contrast: (
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $light-primary-text,
+    400: $light-primary-text,
+    500: $light-primary-text,
+    600: $light-primary-text,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+    A100: $dark-primary-text,
+    A200: $dark-primary-text,
+    A400: $light-primary-text,
+    A700: $light-primary-text,
+  )
+);
+
+$tipo-secondary: (
+  50: #FEF1E7,
+  100: #FCDCC3,
+  200: #FAC59C,
+  300: #F8AD74,
+  400: #F79C56,
+  500: #F58A38,
+  600: #F48232,
+  700: #F2772B,
+  800: #F06D24,
+  900: #EE5A17,
+  A100: #FFFFFF,
+  A200: #FFF1EB,
+  A400: #FFCCB8,
+  A700: #FFBA9F,
+  contrast: (
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $dark-primary-text,
+    400: $light-primary-text,
+    500: $light-primary-text,
+    600: $light-primary-text,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+    A100: $dark-primary-text,
+    A200: $dark-primary-text,
+    A400: $light-primary-text,
+    A700: $light-primary-text,
+  )
+);
+
+$tipo-warn: (
+  50: #FCEAEB,
+  100: #F8CBCD,
+  200: #F4A9AC,
+  300: #EF878A,
+  400: #EB6D71,
+  500: #E85358,
+  600: #E54C50,
+  700: #E24247,
+  800: #DE393D,
+  900: #D8292D,
+  A100: #FFFFFF,
+  A200: #FFE4E4,
+  A400: #FFB1B2,
+  A700: #FF9799,
+  contrast: (
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $dark-primary-text,
+    400: $dark-primary-text,
+    500: $light-primary-text,
+    600: $light-primary-text,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+    A100: $dark-primary-text,
+    A200: $light-primary-text,
+    A400: $light-primary-text,
+    A700: $light-primary-text,
+  )
+);

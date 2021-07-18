@@ -1,0 +1,24 @@
+  <mat-radio-group [(ngModel)]="value" fxLayout="row wrap" [style.min-width.%]="100">
+      <div fxFlex.xs="100" fxFlex.sm="100" fxFlex fxFill [style.min-width.%]="100">
+          <mat-radio-button [value]="true" class="mat-primary select-box" [name]="fieldname" [disabled]="readOnly" [ngStyle]="(value && (truevalues.colour !== 'NA') && {'background': truevalues.colour, 'color': 'white'})" [ngClass]="(value && (truevalues.colour === 'NA') && 'bg-primary color-white')">
+          <span *ngIf="truevalues.icon !== 'null'">	
+              <img class="choice-img" *ngIf="truevalues.icon.includes('.')" src="{{'g/' + truevalues.icon}}" /> 
+              <mat-icon class="choice-img" *ngIf="!truevalues.icon.includes('.')" [ngStyle]="value && {'color' : 'white'}">{{truevalues.icon}}</mat-icon>
+          </span>
+          <span >
+              <span>{{ truevalues.value }}</span> 
+          </span>
+          </mat-radio-button>
+      </div>
+      <div fxFlex.xs="100" fxFlex.sm="100" fxFlex fxFill [style.min-width.%]="100">
+          <mat-radio-button [value]="false" class="mat-primary select-box" [name]="fieldname" [disabled]="readOnly" [ngStyle]="(!value && (falsevalues.colour !== 'NA') && {'background': falsevalues.colour, 'color': 'white'})" [ngClass]="(!value && (falsevalues.colour === 'NA') && 'bg-primary color-white')">
+          <span *ngIf="falsevalues.icon !== 'null'">	
+              <img class="choice-img" *ngIf="falsevalues.icon.includes('.')" src="{{'g/' + falsevalues.icon}}" /> 
+              <mat-icon class="choice-img" *ngIf="!falsevalues.icon.includes('.')" [ngStyle]="(!value  && {'color' : 'white'})">{{falsevalues.icon}}</mat-icon>
+          </span>
+          <span >
+              <span>{{ falsevalues.value }}</span> 
+          </span>
+          </mat-radio-button>
+      </div> 
+  </mat-radio-group>

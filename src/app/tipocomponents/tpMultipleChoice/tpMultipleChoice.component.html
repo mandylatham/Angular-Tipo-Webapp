@@ -1,0 +1,28 @@
+<div fxLayout="row wrap">
+    <div fxLayout="row wrap" *ngIf="isArray">
+      <div fxFlex.xs="100" fxFlex.sm="100" fxFlex fxFill *ngFor="let option of allowedvalues" [style.min-width.%]="100">
+        <mat-checkbox id="{{option.value}}" class="select-box" [disabled]="readOnly" [ngClass]="((exists(option.value) &&option.colour === 'NA') ? 'bg-primary color-white' : '')" [ngStyle]="(exists(option.value) && (option.colour !== 'NA') && {'background': option.colour, 'color': 'white'})" (change)="toggle(option.value)">
+            <span class="text-center" *ngIf="option.icon !== 'null'">	
+              <img class="choice-img" *ngIf="option.icon.includes('.')" src="{{'g/' + option.icon}}" /> 
+              <mat-icon class="choice-img" *ngIf="!option.icon.includes('.')">{{option.icon}}</mat-icon>
+            </span>
+            <span class="text-center">
+              <span>{{ option.value }}</span> 
+            </span>
+        </mat-checkbox>
+      </div>
+    </div>
+    <mat-radio-group fxLayout="row wrap" [(ngModel)]="value" *ngIf="!isArray" [style.min-width.%]="100">
+      <div fxFlex.xs="100" fxFlex.sm="100" fxFlex *ngFor="let option of allowedvalues" [style.min-width.%]="100">
+      <mat-radio-button class="select-box" [value]="option.value" [disabled]="readOnly" [ngClass]="((option.colour === 'NA' && value === option.value) ? 'bg-primary color-white' : '')" [ngStyle]="((option.colour !== 'NA') && (value === option.value) && {'background': option.colour, 'color': 'white'})">
+        <span *ngIf="option.icon !== 'null'">	
+					<img class="choice-img" *ngIf="option.icon.includes('.')" src="{{'g/' + option.icon}}" /> 
+					<mat-icon class="choice-img" *ngIf="!option.icon.includes('.')">{{option.icon}}</mat-icon>
+				 </span>
+				 <span >
+					<span>{{ option.value }}</span> 
+				 </span>
+      </mat-radio-button>
+    </div>
+  </mat-radio-group>
+</div>

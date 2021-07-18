@@ -1,0 +1,46 @@
+<div class="bg-image" fxFill fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="1.5rem">
+  <div>
+    <tp-header></tp-header>
+  </div>
+  <div class="login-container text-center" fxLayout="column" fxLayoutAlign="center">
+    <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center" fxFlex="none">
+        <span class="mat-title">Sign In</span>
+    </div>
+    <div fxFlex="90%" fxFlex.sm="66%" fxFlex.md="50%" fxFlex.gt-md="33%" class="login-box">
+    <mat-card>
+      <form (ngSubmit)="login()" [formGroup]="loginForm" novalidate>
+        <div fxLayout="column">
+          <mat-form-field>
+            <mat-icon matPrefix class="margin-right-10">person</mat-icon>
+            <input type="text" matInput formControlName="username" autocomplete="username" [placeholder]="'Username'" />
+            <mat-error *ngIf="loginForm.controls['username'].valid || loginForm.controls['username'].untouched">
+              <span translate>Username is required</span>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+              <mat-icon matPrefix class="margin-right-10">lock_open</mat-icon>
+            <input type="password" matInput formControlName="password" autocomplete="current-password" [placeholder]="'Password'"
+              required />
+            <mat-error *ngIf="loginForm.controls['password'].valid || loginForm.controls['password'].untouched">
+              <span translate>Password is required</span>
+            </mat-error>
+          </mat-form-field>
+          <mat-slide-toggle color="primary" formControlName="remember" translate>Remember me</mat-slide-toggle>
+          <button type="button" mat-flat-button routerLink="/forgot-password" routerLinkActive="active">Forgot Password?</button>
+          <div class="login-error" [hidden]="!error" translate>
+            <mat-icon>warning</mat-icon> <span>{{error}}</span>
+          </div>
+          <br />
+          <button mat-raised-button color="accent" type="submit" [disabled]="loginForm.invalid || isLoading">
+            <tp-loader class="inline-loader" [isLoading]="isLoading" message="Processing"></tp-loader>
+            <span translate *ngIf="!isLoading">Sign In</span>
+          </button>
+        </div>
+      </form>
+    </mat-card>
+  </div>
+  <button mat-raised-button class="margin-10" color="primary" (click)="routeTo()">
+    <span translate>Create My Account</span>
+  </button>
+  </div>
+</div>

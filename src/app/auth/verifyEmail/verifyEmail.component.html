@@ -1,0 +1,37 @@
+<div class="bg-image" fxFill fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="1.5rem">
+  <div>
+    <tp-header></tp-header>
+  </div>
+  <div class="login-container text-center" fxLayout="column" fxLayoutAlign="center">
+    <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center" fxFlex="none">
+        <span class="mat-title">Verify Email</span>
+    </div>
+    <div fxFlex="90%" fxFlex.sm="66%" fxFlex.md="50%" fxFlex.gt-md="33%" class="login-box">
+    <mat-card>
+      <div fxLayout="column">
+        <form [formGroup]="verifyEmailForm" novalidate>
+          <mat-form-field>
+            <mat-icon matPrefix class="margin-right-10">lock_open</mat-icon>
+            <input type="text" matInput formControlName="code" autocomplete="code" [placeholder]="'Enter code'" />
+            <mat-error *ngIf="verifyEmailForm.controls['code'].valid || verifyEmailForm.controls['code'].untouched">
+              <span translate>Code is required</span>
+            </mat-error>
+          </mat-form-field>
+          <div class="login-error" [hidden]="!error" translate>
+            <mat-icon>warning</mat-icon> <span>{{error}}</span>
+          </div>
+          <br />
+        </form>
+        <button mat-flat-button (click)="resend()" disableRipple="true">Resend code?</button>
+        <button mat-raised-button color="accent" (click)="verify()" [disabled]="verifyEmailForm.invalid || isLoading">
+          <tp-loader class="inline-loader" [isLoading]="isLoading" message="Processing"></tp-loader>
+          <span translate *ngIf="!isLoading">Verify Email</span>
+        </button>
+      </div>
+    </mat-card>
+  </div>
+  <button mat-raised-button class="margin-10" color="primary" (click)="routeTo()">
+    <span translate>Back</span>
+  </button>
+  </div>
+</div>

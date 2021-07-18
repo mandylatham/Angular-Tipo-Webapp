@@ -1,0 +1,90 @@
+.leaflet-container .leaflet-get-selected {
+  position: relative;
+  float: right;
+  z-index: 1000;
+}
+
+.leaflet-container .leaflet-get-selected .leaflet-get-selected-item {
+  font-size: 14px;
+  text-decoration: none;
+  color: #333333;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  z-index: 1000;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  background-color: rgba(255, 255, 255, 0.8);
+  background-clip: padding-box;
+  padding: 3px 5px;
+  margin-right: 10px;
+  float: left;
+}
+
+.get-selected-popup .box {
+  width: 40%;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 35px;
+  border: 2px solid #fff;
+  border-radius: 20px/50px;
+  background-clip: padding-box;
+  text-align: center;
+}
+
+.get-selected-popup .overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  opacity: 1;
+  z-index: 9999;
+}
+
+.get-selected-popup .overlay:target {
+  visibility: visible;
+  opacity: 1;
+}
+
+.get-selected-popup .popup {
+  margin: 70px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 40%;
+  position: relative;
+  transition: all 5s ease-in-out;
+}
+
+.get-selected-popup .popup .close {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+
+.get-selected-popup .popup .close:hover {
+  color: #06D85F;
+}
+
+.get-selected-popup .popup .content {
+  margin-top: 20px;
+  max-height: 30%;
+  overflow: auto;
+}
+
+@media screen and (max-width: 700px) {
+  .get-selected-popup .box {
+    width: 70%;
+  }
+
+  .get-selected-popup .popup {
+    width: 70%;
+  }
+}

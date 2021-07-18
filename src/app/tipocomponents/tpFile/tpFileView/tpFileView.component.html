@@ -1,0 +1,23 @@
+<div *ngFor="let file of files; let i = index">
+  <!-- if it is an image -->
+
+  <div style="display: inline-block" *ngIf="isImage(file) == true; else elseBlock">
+    <div (click)="downloadThisFile(file)"><u>{{file}}</u></div> <span (click)="imagePreview(file)" class="icon">
+      <mat-icon>visibility</mat-icon>
+    </span>
+  </div>
+  <!-- it is a regular file -->
+
+  <ng-template #elseBlock>
+    <!-- if it is a pdf -->
+    <div *ngIf="isPdf(file) == true; else elseWithinElse">
+      <div (click)="downloadThisFile(file)"><u>{{file}}</u></div> <span (click)="pdfPreview(file)" class="icon">
+        <mat-icon>visibility</mat-icon>
+      </span>
+    </div>
+    <ng-template #elseWithinElse>
+      <div (click)="downloadThisFile(file)"><u>{{file}}</u></div>
+    </ng-template>
+  </ng-template>
+  <mat-icon *ngIf="mode == 'edit'" style="display: inline-block; cursor: pointer" (click)="onDeleteFile(i)">delete</mat-icon>
+</div>

@@ -1,0 +1,17 @@
+{
+  "/api/*": {
+    "target": "https://dev-aus.tipotapp.com",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/auth/*": {
+    "target": "https://dev-aus.tipotapp.com",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/g/public/*": {
+    "target": "https://dev-aus.tipotapp.com",
+    "secure": false,
+    "changeOrigin": true
+  }
+}

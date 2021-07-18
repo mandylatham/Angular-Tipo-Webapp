@@ -1,0 +1,25 @@
+<h1>File upload console</h1>
+<div class="center">
+
+  <tp-fine-uploader #fineUploader [fineUploaderConfig]="fineUploaderConfig" [basePath]="basePath" [imageonly]="imageonly" [multiple]="multipleFiles" (allFiles)='allFilesRecieved($event)'></tp-fine-uploader>
+
+
+
+  <div class="manual-file-select">
+    <div class='pathDisplay'>
+      <mat-icon>home</mat-icon>
+        <div> {{ pathString }} </div>
+    </div>
+    <button (click)="removeAllFiles()" mat-button class='removeButton'>
+      <mat-icon>home</mat-icon>
+      Remove
+    </button>
+    <button id='manualBBrowseButton' class='browseButton' mat-button (click)='onBrowseFileClicked()'>
+      <mat-icon>home</mat-icon>
+      Browse
+    </button>
+  </div>
+  <br>
+  <button mat-raised-button id="startUpload" (click)="onStartUpload()"> Start Upload  </button>
+  <button mat-raised-button  (click)="closeDialog()"> Close  </button>
+</div>

@@ -1,0 +1,6 @@
+
+<div fxFill fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="1.5rem">
+  <mat-select [(ngModel)]="value" placeholder="placeholder">
+    <mat-option *ngFor="let each of allowedvalues" [value]="each">{{each}}</mat-option>
+  </mat-select>
+</div>

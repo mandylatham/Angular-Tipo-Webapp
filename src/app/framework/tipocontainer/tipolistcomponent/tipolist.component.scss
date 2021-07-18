@@ -1,0 +1,15 @@
+@import "src/theme/theme-variables";
+
+.navbar {
+  
+}
+
+.brand {
+  color: mat-color($app-primary, "default-contrast");
+  text-decoration: none;
+  padding-right: 1rem;
+}
+
+.menu-button {
+  margin-right: 1rem;
+}

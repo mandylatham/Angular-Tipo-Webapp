@@ -1,0 +1,36 @@
+<div>
+  <mat-sidenav-container> 
+    <mat-sidenav class="mat-elevation-z6" #sidenav [mode]="isMobile ? 'over' : 'side'" [ngClass]="((xsSidenav || isTablet) ? 'sidenav-xssize' : 'sidenav-size')" opened="true">
+      <mat-toolbar color="primary" class="mat-elevation-z6">
+        <div fxFlex class="text-center">
+          <a (click)="toggleSidenav()">
+            <img *ngIf="!(xsSidenav || isTablet)" class="logo" src="assets/logo.png" />
+            <img *ngIf="(xsSidenav || isTablet)" class="logo" src="assets/logo_trans.png" />
+          </a>
+        </div>
+        <!-- <div>
+            <button *ngIf="!(xsSidenav || isTablet)" mat-icon-button (click)="toggleSidenav()">
+                <mat-icon>arrow_left</mat-icon>
+            </button>
+            <button *ngIf="(xsSidenav || isTablet)" mat-icon-button (click)="toggleSidenav()">
+                <mat-icon>arrow_right</mat-icon>
+            </button>
+        </div> -->
+      </mat-toolbar>
+      <nav class="tp-navigation">
+        <mat-list>
+          <mat-list-item *ngFor="let menuItem of menuItems" (click)="navigateToItem(menuItem)" [ngClass]="{'active' : menuItem === activeItem}">
+            <mat-icon color="primary" [ngClass]="((xsSidenav || isTablet) ? 'xsmenuicon activeElement' : 'menuicon')" aria-label="menuItem.label">{{menuItem.icon}}</mat-icon>
+            <div *ngIf="!(xsSidenav || isTablet)" translate class="activeElement">{{menuItem.label}}</div>
+          </mat-list-item>
+        </mat-list>
+      </nav>
+    </mat-sidenav>
+    <mat-sidenav-content [ngStyle]="((xsSidenav || isTablet) ? {'margin-left':'100px'} : {'margin-left':'200px'})" id="layout">
+      <tp-header [sidenav]="sidenav"></tp-header>
+      <div>
+        <router-outlet></router-outlet>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

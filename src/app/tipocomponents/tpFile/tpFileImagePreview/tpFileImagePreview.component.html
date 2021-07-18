@@ -1,0 +1,13 @@
+<div *ngIf="type == 'img'; else elseblock">
+
+  <img id="imagePreview" *ngIf="fileData" [src]="fileData" class="previewImage" />
+
+</div>
+
+
+<ng-template #elseblock>
+  <div  *ngIf="fileData">
+      <pdf-viewer [src]="pdfData" [render-text]="true" style="display: block;"></pdf-viewer>
+  </div>
+
+</ng-template>

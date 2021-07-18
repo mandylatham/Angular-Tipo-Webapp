@@ -1,0 +1,4 @@
+<mat-icon (click)="showFileUploadConsole()">add_circle</mat-icon>
+
+    <tp-file-view [bucket]="uploadBucket" [mode]="mode" [userName]="userName" [appName]="appName"  [files]="files" [domainUrl]="domainUrl" (deleteFile)="onDeleteFile($event)"  ></tp-file-view>
+

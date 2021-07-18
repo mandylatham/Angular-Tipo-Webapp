@@ -1,8 +1,0 @@
-<div>
-  <md-nav-bar aria-label="subTipoNavigation" ng-if="tipoRootController.tipoDefinition.tipo_meta.tipo_ui_type !== 'perspective' &&tipoRootController.tipoDefinition._ui.subTipos" md-selected-nav-item="tipoRootController.activeTab">
-    <md-nav-item md-nav-click="tipoRootController.toMainView()" name="main">Basic</md-nav-item>
-    <md-nav-item ng-repeat="subTipo in tipoRootController.tipoDefinition._ui.subTipos" md-nav-click="tipoRootController.toSubTipoList(subTipo)" name="{{subTipo.field_name}}">{{subTipo.display_name}}</md-nav-item>
-  </md-nav-bar>
-  <tp:view mode="view" definition="tipoRootController.tipoDefinition" ng-if="tipoRootController.activeTab === 'main'"/>
-  <div ng-if="tipoRootController.activeTab !== 'main'" ui-view="child"></div>
-</div>

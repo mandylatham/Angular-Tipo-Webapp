@@ -1,46 +1,20 @@
-# This is a sample build configuration for Maven.
-# Only use spaces to indent your .yml configuration..
+# This is a sample build configuration for JavaScript.
+# Check our guides at https://confluence.atlassian.com/x/14UWN for more examples.
+# Only use spaces to indent your .yml configuration.
 # -----
-# You can specify a custom docker image from Dockerhub as your build environment.
-# image: maven:3.3.3
-# testing if pipeline build works on commit - testing
-image: tipotapp/tipo-build:latest
+# You can specify a custom docker image from Docker Hub as your build environment.
+image: tipotapp/tipo-ui-2-build:latest
 
 pipelines:
   branches:
     develop:
       - step:
           script:
-                - export AWS_ACCESS_KEY_ID=$DEV_AWS_ACCESS_KEY_ID
-                - export AWS_SECRET_ACCESS_KEY=$DEV_AWS_SECRET_ACCESS_KEY
-                - export AWS_DEFAULT_REGION=$DEV_AWS_DEFAULT_REGION                
-                - python ./import-env.py $DEV_DEPLOYMENT_ID --output=env.properties
-                - mvn --version
-                - node --version
-                - npm --version
-                - bower --version
-                - mvn -X clean deploy -Dall
-    master:           
-      - step:
-          caches:
-                - maven
-                - node
-                - gradle
-          script:
-                - export AWS_ACCESS_KEY_ID=$PROD_AWS_ACCESS_KEY_ID
-                - export AWS_SECRET_ACCESS_KEY=$PROD_AWS_SECRET_ACCESS_KEY
-                - export AWS_DEFAULT_REGION=$PROD_AWS_DEFAULT_REGION                
-                - python ./import-env.py $PROD_DEPLOYMENT_ID --output=env.properties
-                - mvn --version
-                - mvn -X clean deploy -Dall
-    
-    billionbases:            
-      - step:
-          script:
-                - export AWS_ACCESS_KEY_ID=$BB_DEV_AWS_ACCESS_KEY_ID
-                - export AWS_SECRET_ACCESS_KEY=$BB_DEV_AWS_SECRET_ACCESS_KEY
-                - export AWS_DEFAULT_REGION=$BB_DEV_AWS_DEFAULT_REGION
-                - export DEPLOYMENT_ID=$BB_DEV_DEPLOYMENT_ID                
-                - python ./import-env.py $DEPLOYMENT_ID --output=env.properties
-                - mvn --version
-                - mvn -X clean deploy -Dall
+                - export AWS_ACCESS_KEY_ID=$TTAUS_DEV_AWS_ACCESS_KEY_ID
+                - export AWS_SECRET_ACCESS_KEY=$TTAUS_DEV_AWS_SECRET_ACCESS_KEY
+                - export AWS_DEFAULT_REGION=$TTAUS_DEV_AWS_DEFAULT_REGION
+                - ls
+                - npm install
+                - ng build
+                - cd dist/tipo-ui-2.0/
+                - aws s3 sync . s3://devnew.tipotapp.com.au

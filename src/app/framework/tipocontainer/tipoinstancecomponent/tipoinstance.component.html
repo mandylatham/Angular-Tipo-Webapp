@@ -1,0 +1,220 @@
+<mat-card>
+  <mat-card-title>
+    Demo Create Form
+  </mat-card-title>
+  <mat-divider></mat-divider>
+  <mat-card-content class="padding-10">
+    <form [formGroup]="tipoForm" (ngSubmit)="onSubmit()">
+    <!-- <form #form="ngForm" (ngSubmit)="onSubmit(form)">     -->
+      <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="12px" fxLayoutAlign="flex-start">
+      <mat-form-field fxFlex="0 1 calc(33.3% - 12px)" fxFlex.lt-md="0 1 calc(50% - 12px)"
+      fxFlex.lt-sm="100%">
+        <mat-label>Vendor Name</mat-label>
+        <input matInput required placeholder="Vendor Name" formControlName="vendor_name">
+        <mat-error *ngIf="tipoForm.get('vendor_name').hasError('required')"> This is required </mat-error>
+      </mat-form-field>
+      <mat-form-field fxFlex="0 1 calc(33.3% - 12px)" fxFlex.lt-md="0 1 calc(50% - 12px)"
+      fxFlex.lt-sm="100%">
+        <mat-label>Order Date</mat-label>
+        <tp-date-picker color="primary" formControlName="order_date" placeholder="Order Date"
+          [options]="{enableTime: true,dateFormat: 'Z',altInput: true,minDate: 'today'}">
+        </tp-date-picker>
+      </mat-form-field>
+      <mat-form-field fxFlex="0 1 calc(33.3% - 12px)" fxFlex.lt-md="0 1 calc(50% - 12px)"
+      fxFlex.lt-sm="100%">
+        <mat-label>Phone Number</mat-label>
+        <input matInput tpIntlTelInput formControlName="phone_number">
+      </mat-form-field>
+      <mat-form-field fxFlex="0 1 calc(33.3% - 12px)" fxFlex.lt-md="0 1 calc(50% - 12px)"
+      fxFlex.lt-sm="100%">
+        <mat-label>Ordered By</mat-label>
+        <input matInput formControlName="ordered_by">
+      </mat-form-field>
+      <mat-form-field fxFlex="0 1 calc(33.3% - 12px)" fxFlex.lt-md="0 1 calc(50% - 12px)"
+      fxFlex.lt-sm="100%">
+        <mat-label>Invoice Number</mat-label>
+        <input matInput formControlName="invoice_number">
+      </mat-form-field>
+      </div>
+      <div formGroupName="address" fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="12px" fxLayoutAlign="flex-start">
+        <mat-form-field fxFlex="0 1 calc(33.3% - 12px)" fxFlex.lt-md="0 1 calc(50% - 12px)"
+        fxFlex.lt-sm="100%">
+          <mat-label>Address</mat-label>
+          <textarea matInput formControlName="streetname" matTextareaAutosize
+            matAutosizeMinRows="2" matAutosizeMaxRows="5"></textarea>
+        </mat-form-field>
+        <mat-form-field fxFlex="0 1 calc(33.3% - 12px)" fxFlex.lt-md="0 1 calc(50% - 12px)"
+        fxFlex.lt-sm="100%">
+          <mat-label>City</mat-label>
+          <textarea matInput formControlName="city" matTextareaAutosize matAutosizeMinRows="2"
+            matAutosizeMaxRows="5"></textarea>
+        </mat-form-field>
+      </div>
+      <div formArrayName="order_details">
+        <div fxLayout="row" fxLayoutAlign="space-between end" fxFlexFill>
+          <h3 class="docs-header-link docs-markdown-h3">
+            Order Details
+          </h3>
+          <button mat-icon-button>
+            <mat-icon aria-label="Example icon-button with a heart icon" (click)="addFieldArray('order_details')">add</mat-icon>
+          </button>
+        </div>
+        <mat-divider></mat-divider>
+
+        <ngx-datatable #mydatatable class="material" [headerHeight]="50" [limit]="5" [columnMode]="'force'"
+          [footerHeight]="50" [rowHeight]="'auto'" [rows]="this.tipoForm.get('order_details').value" style="margin: 13px 0;">
+          <ngx-datatable-column name="Quantity">
+            <ng-template ngx-datatable-cell-template let-orderDetails="rowIndex" let-value="value" let-row="row">
+              <!-- <span title="Double click to edit" (dblclick)="editing[rowIndex + '-name'] = true" *ngIf="!editing[rowIndex + '-name']">
+                           {{value}}
+                       </span> -->
+              <div [formGroupName]="orderDetails">
+                <mat-form-field>
+                  <input matInput formControlName="quantity">
+                </mat-form-field>
+              </div>
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Item Description">
+            <ng-template ngx-datatable-cell-template let-orderDetails="rowIndex" let-value="value" let-row="row" style="margin-top: 10px;">
+              <!-- <span title="Double click to edit" (dblclick)="editing[rowIndex + '-name'] = true" *ngIf="!editing[rowIndex + '-name']">
+                           {{value}}
+                       </span> -->
+              <div [formGroupName]="orderDetails">
+                <mat-form-field>
+                  <input matInput formControlName="item_description">
+                </mat-form-field>
+              </div>
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Cost Code">
+            <ng-template ngx-datatable-cell-template let-orderDetails="rowIndex" let-value="value" let-row="row" style="margin-top: 10px;">
+              <!-- <span title="Double click to edit" (dblclick)="editing[rowIndex + '-name'] = true" *ngIf="!editing[rowIndex + '-name']">
+                           {{value}}
+                       </span> *ngIf="editing[rowIndex+ '-name']" -->
+              <div [formGroupName]="orderDetails">
+                <mat-form-field>
+                  <input matInput formControlName="cost_code">
+                </mat-form-field>
+              </div>
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Cost">
+            <ng-template ngx-datatable-cell-template let-orderDetails="rowIndex" let-value="value" let-row="row" style="margin-top: 10px;">
+              <!-- <span title="Double click to edit" (dblclick)="editing[rowIndex + '-name'] = true" *ngIf="!editing[rowIndex + '-name']">
+                           {{value}}
+                       </span> -->
+              <div [formGroupName]="orderDetails">
+                <mat-form-field>
+                  <input matInput formControlName="cost">
+                </mat-form-field>
+              </div>
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Total">
+            <ng-template ngx-datatable-cell-template let-orderDetails="rowIndex" let-value="value" let-row="row" style="margin-top: 10px;">
+              <!-- <span title="Double click to edit" (dblclick)="editing[rowIndex + '-name'] = true" *ngIf="!editing[rowIndex + '-name']">
+                           {{value}}
+                       </span> -->
+              <div [formGroupName]="orderDetails">
+                <mat-form-field>
+                  <input matInput formControlName="total">
+                </mat-form-field>
+              </div>
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column name="Actions">
+            <ng-template ngx-datatable-cell-template let-orderDetails="rowIndex" let-value="value" let-row="row" style="margin-top: 10px;">
+              <!-- <span title="Double click to edit" (dblclick)="editing[rowIndex + '-name'] = true" *ngIf="!editing[rowIndex + '-name']">
+                           {{value}}
+                       </span> -->
+              <div>
+                <button mat-icon-button>
+                  <mat-icon aria-label="Example icon-button with a heart icon" (click)="deleteFieldArrayRow('order_details',rowIndex, mydatatable)">delete</mat-icon>
+                </button>
+              </div>
+            </ng-template>
+          </ngx-datatable-column>
+        </ngx-datatable>
+      </div>
+      <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="12px" fxLayoutAlign="flex-start">
+        <mat-form-field class="no-underline" fxFlex="100%" fxFlex.lt-md="100%"
+        fxFlex.lt-sm="100%">
+          <mat-label>Payment Method</mat-label>
+          <tp-multiple-choice [isArray]="false"
+            [readOnly]="false" fieldValue="Yes"
+            [allowedvalues]="[{value: 'Credit/Debit Card',icon: 'brightness_auto',colour: '#6aa84f'},
+            {value: 'Net Banking',icon: 'home',colour: '#cc0000'},
+            {value: 'Cash on Delivery',icon: 'brightness_auto',colour: '#faa84f'},
+            {value: 'BHIM',icon: 'brightness_auto',colour: '#baa84f'},
+            {value: 'Google Pay',icon: 'brightness_auto',colour: 'NA'},
+            {value: 'PhonePe',icon: 'brightness_auto',colour: '#daa84f'}]" formControlName="payment_method">
+          </tp-multiple-choice>
+        </mat-form-field>
+        <mat-form-field class="no-underline" fxFlex="100%" fxFlex.lt-md="100%"
+        fxFlex.lt-sm="100%">
+          <mat-label> Multiple Payment Method</mat-label>
+          <tp-multiple-choice [isArray]="true"
+            [readOnly]="false"
+            [allowedvalues]="[{value: 'Credit/Debit Card',icon: 'brightness_auto',colour: '#6aa84f'},
+            {value: 'Net Banking',icon: 'home',colour: '#cc0000'},
+            {value: 'Cash on Delivery',icon: 'brightness_auto',colour: '#faa84f'},
+            {value: 'BHIM',icon: 'brightness_auto',colour: '#baa84f'},
+            {value: 'Google Pay',icon: 'brightness_auto',colour: 'NA'},
+            {value: 'PhonePe',icon: 'brightness_auto',colour: '#daa84f'}]" formControlName="multi_payment_method">
+          </tp-multiple-choice>
+        </mat-form-field>
+        <mat-form-field class="no-underline" fxFlex="0 1 calc(33.3% - 12px)" fxFlex.lt-md="0 1 calc(50% - 12px)"
+        fxFlex.lt-sm="100%">
+          <mat-label> Same Day Delivery</mat-label>
+          <tp-boolean-buttons [readOnly]="false"
+          [truevalues]="{value: 'Yes, right',icon:  'home' ,colour:  'red' }"
+          [falsevalues]="{value: 'No, wrong',icon:  'brightness_auto' ,colour:  'NA' }"
+          formControlName="same_day_delivery">
+          </tp-boolean-buttons>
+        </mat-form-field>
+        <mat-form-field fxFlex="0 1 calc(33.3% - 12px)" fxFlex.lt-md="0 1 calc(50% - 12px)"
+        fxFlex.lt-sm="100%">
+          <mat-label> Enter Credit Card Details</mat-label>
+          <tp-text-mask
+            [isRequired]="true"
+            [name]="'phone_number'"
+            [textPattern]="'#### #### #### ####'"
+            [fieldType]="'integer'"
+            [fieldValue]="'1234567890'"
+            [fieldLabel]="'Phone Number'"
+            [forceValidation]="false"
+            [patternValidation]="false"
+            [placeholderChar]="'_'"
+            [guide]="true" formControlName="credit_card"></tp-text-mask>
+        </mat-form-field>
+        <mat-form-field class="no-underline" fxFlex="0 1 calc(33.3% - 12px)" fxFlex.lt-md="0 1 calc(50% - 12px)"
+        fxFlex.lt-sm="100%">
+          <mat-label> Upload Document</mat-label>
+          <tp-file-component
+            [mode]="'view'"
+            [isarray]="multiple"
+            [imageonly]="imageonly"
+            [targetFolder]="targetFolder"
+            [privateFile]="privateFile"
+            formControlName="upload_file"></tp-file-component>
+        </mat-form-field>
+        <mat-form-field class="no-underline" fxFlex="100%">
+          <tp-froala formControlName="rich_text"></tp-froala>
+        </mat-form-field>
+      </div>
+      <button mat-raised-button color="accent">Submit</button>
+      <button mat-raised-button color="accent">Clear</button>
+    </form>
+    <mat-grid-list tpResponsiveGrid [tpResponsiveCols]="{xs: 1, sm: 2, md: 4, lg: 6, xl: 8}" >
+      <mat-grid-tile tpResponsiveTile [tpResponsiveColspan]="{xs: 1, sm: 1, md: 2, lg: 2, xl: 2}">1</mat-grid-tile>
+      <mat-grid-tile>2</mat-grid-tile>
+      <mat-grid-tile>3</mat-grid-tile>
+      <mat-grid-tile>4</mat-grid-tile>
+      <mat-grid-tile>5</mat-grid-tile>
+      <mat-grid-tile>6</mat-grid-tile>
+      <mat-grid-tile>7</mat-grid-tile>
+      <mat-grid-tile>8</mat-grid-tile>
+    </mat-grid-list>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,6 @@
+
+<div fxFill fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="1.5rem" class="mat-typography">
+  <mat-select [(ngModel)]="value" placeholder="placeholder">
+    <mat-option *ngFor="let value of options " [value]="value.key">{{value.value}}</mat-option>
+  </mat-select>
+</div>
